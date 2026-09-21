@@ -51,6 +51,9 @@ static func options(target: Node3D, c: Career) -> Dictionary:
 		"handover":
 			text="交接终端 / 阿乐让出的备用设备"
 			if c.employer=="b" and c.b_event=="helping": choices.append(["发送已有交接包，接替阿乐","handover"])
+		"rest":
+			text="公交站 / 坐一会儿，世界会继续。"
+			choices=[["休息到傍晚","rest_evening"],["休息一天","rest_day"]]
 		"archive":
 			text="原始演示资料 / 小夏编写"
 			choices.append(["拿取资料并阅读原始说明","data"])

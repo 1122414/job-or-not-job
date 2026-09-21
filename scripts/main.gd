@@ -3,6 +3,8 @@ extends Node3D
 var player: OfficePlayer
 var props: Array[OfficeProp] = []
 var npcs: Array[OfficeNPC] = []
+var payroll := Payroll.new()
+var walking := WalkingGrid.new()
 var career := Career.new()
 var stations: Array[WorkStation] = []
 var conversation: Dictionary = {}
@@ -25,8 +27,10 @@ func _ready() -> void:
 	add_station("demo","演示交付台",Vector3(-19,0,-12))
 	add_station("backup","备用投影",Vector3(-5,0,-12))
 	add_station("handover","交接终端",Vector3(23,0,-4))
+	add_station("rest","公交站 · 休息",Vector3(-2,0,14))
 	build_ui()
 	build_audio()
+	build_walk_grid.call_deferred()
 
 func bind_inputs() -> void:
 	var keys := {"forward":KEY_W,"back":KEY_S,"left":KEY_A,"right":KEY_D,"run":KEY_SHIFT,"jump":KEY_SPACE,"interact":KEY_E,"drop":KEY_G,"cancel":KEY_ESCAPE,"bag":KEY_TAB,"store":KEY_Q,"cycle":KEY_R,"save":KEY_F5,"load":KEY_F9,"journal":KEY_J}
@@ -76,6 +80,7 @@ func build_ui() -> void:
 	canvas.add_child(hud)
 
 func _process(delta: float) -> void:
+	payroll.tick(delta,career.employer)
 	player.camera.h_offset = lerpf(player.camera.h_offset,0,delta*15)
 
 func location_name() -> String:
@@ -87,10 +92,10 @@ func alert_level() -> int:
 	return career.conflict.a if player.position.x<0 else career.conflict.b
 
 func clock_text() -> String:
-	return "09:00"
+	return payroll.time_text()
 
 func money_text() -> String:
-	return "¥ 0"
+	return "¥ %.2f · 发薪 第%d天" % [payroll.balance/100.0,payroll.next_payday/1440+1]
 
 func objective_text() -> String:
 	return career.objective()
@@ -137,6 +142,10 @@ func interact() -> void:
 			return
 		speaker=target
 		conversation=OfficeDialogue.options(target,career)
+		if target is OfficeNPC and target.role in ["friend","group"] and payroll.after_work():
+			conversation={"text":target.title+"：下班了，今天的事可以聊，也可以不聊。", "choices":[["聊今天发生的事","social"],["请你帮忙伪造未完成的成果","boundary"]]}
+		if target is OfficeNPC and target.role=="guard":
+			conversation={"text":"保安：需要时可以帮你清理被堵的通路。", "choices":[["请挪开走道上的大件","clear_path"]]}
 		journal_open=false
 
 func choose(index: int) -> void:
@@ -154,6 +163,31 @@ func choose(index: int) -> void:
 		if companion.down>0 or companion.position.distance_to(speaker.position)>4:
 			say("等阿乐走到现场再一起交涉；他倒地时会恢复。")
 			return
+	if action=="rest_evening":
+		payroll.advance(posmod(18*60-payroll.minute%1440,1440),career.employer)
+		close_interaction()
+		say("休息到傍晚。下班不结束世界，也不强制退出。")
+		return
+	if action=="rest_day":
+		payroll.advance(1440,career.employer)
+		close_interaction()
+		say("一天过去了，应得工资照常累计。")
+		return
+	if action=="clear_path":
+		for prop in props:
+			if not prop.portable(): prop.reset_position()
+		close_interaction()
+		say("大件已挪回原处，损坏与公司后果保留。")
+		return
+	if action=="social":
+		var key: String = speaker.stable_id+"_social"
+		if not career.facts.has(key):
+			speaker.affinity=mini(100,speaker.affinity+8)
+			career.record(key,speaker.title+"：下班聊过，关系不依赖是否还在同一公司。")
+		var line: String = speaker.title+"：工作归工作，你不用每天来维护关系。"
+		close_interaction()
+		say(line)
+		return
 	var result := "小夏：我们关系再好，也不能造假。找捷径可以，伪造成果不行。" if action=="boundary" else career.apply(action)
 	if action in ["join_b","handover","settle"]:
 		for npc in npcs:
@@ -253,3 +287,12 @@ func safe_spawn(origin: Vector3) -> Vector3:
 		if get_world_3d().direct_space_state.intersect_shape(query).is_empty(): return point
 	# Elevated recovery is only used if every normal point is obstructed.
 	return Vector3(0,4,8)
+
+func build_walk_grid() -> void:
+	await get_tree().physics_frame
+	walking.build(self)
+
+func _exit_tree() -> void:
+	if is_instance_valid(audio):
+		audio.stop()
+		audio.stream=null

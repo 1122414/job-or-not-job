@@ -13,6 +13,8 @@ var last_hit := -1
 var game: Node3D
 var visual: Node3D
 var label: Label3D
+var route := PackedVector3Array()
+var route_clock := 0.0
 var reaction := 0.0
 var hostile := 0.0
 var attack_cooldown := 0.0
@@ -66,7 +68,9 @@ func _physics_process(delta: float) -> void:
 	else:
 		visual.rotation.z = lerpf(visual.rotation.z, 0, delta * 10)
 		var target := home
-		if stable_id=="b_friend":
+		if game.payroll.after_work() and stable_id in ["a_friend","a_group","b_friend"]:
+			target={"a_friend":Vector3(-8,0,12),"a_group":Vector3(-4,0,12),"b_friend":Vector3(8,0,12)}[stable_id]
+		if stable_id=="b_friend" and (not game.payroll.after_work() or game.career.b_event=="negotiating"):
 			match game.career.b_event:
 				"refused", "helping": target=Vector3(21,0,-4)
 				"negotiating": target=game.player.position+Vector3(1.5,0,0)
@@ -77,9 +81,15 @@ func _physics_process(delta: float) -> void:
 				game.player.hurt(18)
 				attack_cooldown = 1.0
 		if reaction>0: target = global_position + (global_position-game.player.global_position).normalized()*2
-		var direction := target - global_position
+		route_clock-=delta
+		if route_clock<=0:
+			route=game.walking.route(global_position,target)
+			route_clock=0.8
+		while not route.is_empty() and Vector2(route[0].x-position.x,route[0].z-position.z).length()<0.5: route.remove_at(0)
+		var next := target if route.is_empty() else route[0]
+		var direction := next - global_position
 		direction.y = 0
-		if direction.length() > 0.8:
+		if direction.length() > 0.35:
 			direction = direction.normalized()
 			velocity.x = direction.x * 2.3
 			velocity.z = direction.z * 2.3

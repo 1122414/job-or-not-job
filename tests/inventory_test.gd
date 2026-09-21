@@ -35,6 +35,10 @@ func run() -> void:
 	check(point.distance_to(Vector3(0,0,4))>2,"安全点被堵时选择可用点")
 	blocker.queue_free()
 	print("INVENTORY_TEST failures=",failures)
+	game.audio.stop()
+	# The audio mixer uses wall time even when physics is simulated with fixed FPS.
+	OS.delay_msec(150)
+	await process_frame
 	game.queue_free()
 	await process_frame
 	quit(failures)

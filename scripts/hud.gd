@@ -81,3 +81,8 @@ func _draw() -> void:
 		var records: Array = game.career.records
 		for i in range(maxi(0,records.size()-15),records.size()):
 			text_at(Vector2(265,210+(i-maxi(0,records.size()-15))*26),records[i],16)
+
+		text_at(Vector2(265,h-150),"应付：规程 %.2f / 自己人 %.2f" % [game.payroll.pending.a/100.0,game.payroll.pending.b/100.0],16)
+		if not game.payroll.payments.is_empty():
+			var last: Dictionary = game.payroll.payments.back()
+			text_at(Vector2(265,h-120),"最近到账：%s  ¥%.2f（全部明细保存在存档）" % [last.company,last.cents/100.0],16)

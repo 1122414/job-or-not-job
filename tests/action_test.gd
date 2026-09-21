@@ -35,6 +35,10 @@ func run() -> void:
 	await physics_frame
 	check(keyboard.position.y > -8,"出界物品恢复")
 	print("ACTION_TEST failures=",failures)
+	game.audio.stop()
+	# The audio mixer uses wall time even when physics is simulated with fixed FPS.
+	OS.delay_msec(150)
+	await process_frame
 	game.queue_free()
 	await process_frame
 	quit(failures)
