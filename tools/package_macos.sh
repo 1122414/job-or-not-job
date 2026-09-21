@@ -16,6 +16,8 @@ res.mkdir(parents=True, exist_ok=True)
 shutil.copy2(sys.argv[1], mac / 'Godot')
 shutil.copy2('build/game.pck', res / 'game.pck')
 shutil.copy2('build/GODOT-LICENSES.txt', res / 'GODOT-LICENSES.txt')
+for name in ['CREDITS.txt', 'MAKEHUMAN-CC0.txt']:
+    shutil.copy2(Path('assets') / name, res / name)
 launcher = mac / 'TodayOff'
 launcher.write_text('''#!/bin/sh
 APP_CONTENTS="$(CDPATH= cd -- "$(dirname -- "$0")/.." && pwd)"
