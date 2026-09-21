@@ -2,14 +2,14 @@ class_name Neighborhood
 extends RefCounted
 
 static func build(game: Node3D) -> void:
-	Shapes.solid(game,Vector3(80,0.4,60),Vector3(0,-0.2,0),Color("607b70"))
+	Shapes.solid(game,Vector3(80,0.4,60),Vector3(0,-0.2,0),Color("858984"))
 	Shapes.solid(game,Vector3(64,0.08,8),Vector3(0,-0.04,8),Color("343e48"))
 	for x in range(-30,31,5):
 		Shapes.box(game,Vector3(2,0.02,0.12),Vector3(x,0.01,8),Color("e4cb82"))
 	for center in [-14.0,14.0]:
 		var firm := "a" if center < 0 else "b"
-		var color := Color("65969d") if firm == "a" else Color("c89462")
-		Shapes.solid(game,Vector3(24,0.1,18),Vector3(center,-0.05,-7),Color("92978e"))
+		var color := Color("aaada8") if firm == "a" else Color("b3aaa0")
+		Shapes.solid(game,Vector3(24,0.1,18),Vector3(center,-0.05,-7),Color("626769"))
 		Shapes.solid(game,Vector3(24,3.7,0.3),Vector3(center,1.8,-16),color)
 		for side in [-1,1]:
 			Shapes.solid(game,Vector3(0.3,3.7,18),Vector3(center+side*12,1.8,-7),color)
@@ -18,7 +18,7 @@ static func build(game: Node3D) -> void:
 		Shapes.label(game,"规程科技" if firm=="a" else "自己人网络",Vector3(center,3.1,2.3),45)
 		Shapes.label(game,"流程创新 · 流程先行" if firm=="a" else "我们不是公司，是一家人",Vector3(center,2.9,-15.6),30)
 		for dx in [-7,6]:
-			for z in [-6,-11]:
+			for z in [-2,-6,-11]:
 				Shapes.solid(game,Vector3(3.5,0.12,1.5),Vector3(center+dx,0.85,z),Color("ac9579"))
 				Shapes.box(game,Vector3(1.1,0.65,0.08),Vector3(center+dx,1.35,z-0.4),Color("253c4d"))
 				Shapes.box(game,Vector3(0.95,0.5,0.09),Vector3(center+dx,1.35,z-0.34),Color("739dad"))
@@ -52,3 +52,5 @@ static func build(game: Node3D) -> void:
 	game.add_npc("b_friend","阿乐 · 同事",Vector3(10,0,-8),"b","friend")
 	game.add_npc("b_boss","赵总 · 老板",Vector3(14,0,-12),"b","boss")
 	game.add_npc("b_guard","保安 · 自己人",Vector3(20,0,0),"b","guard")
+
+	OfficeDress.build(game)

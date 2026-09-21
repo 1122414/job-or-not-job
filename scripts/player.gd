@@ -6,11 +6,11 @@ extends CharacterBody3D
 @export var sensitivity := 0.0025
 var game: Node3D
 var yaw := 0.0
-var pitch := -0.22
+var pitch := -0.12
 var camera: Camera3D
 var pivot: Node3D
 var spring: SpringArm3D
-var visual: Node3D
+var visual: HumanVisual
 var hand: Node3D
 var held: OfficeProp
 var inventory: Array[OfficeProp] = []
@@ -23,26 +23,23 @@ var dead := 0.0
 
 func _ready() -> void:
 	Shapes.collider(self, Vector3(0.6,1.75,0.6), Vector3(0,0.88,0))
-	visual = Node3D.new()
+	visual = HumanVisual.new()
+	visual.outfit="casual"
 	add_child(visual)
-	Shapes.box(visual,Vector3(0.65,0.85,0.4),Vector3(0,1.1,0),Color("f7c45f"))
-	Shapes.box(visual,Vector3(0.42,0.42,0.42),Vector3(0,1.74,0),Color("ffe0ba"))
-	for x in [-0.2,0.2]: Shapes.box(visual,Vector3(0.22,0.65,0.3),Vector3(x,0.35,0),Color("243549"))
-	hand = Node3D.new()
-	visual.add_child(hand)
-	hand.position = Vector3(0.5,1.1,-0.5)
+	hand=visual.grip
 	pivot = Node3D.new()
 	add_child(pivot)
 	pivot.position.y = 1.6
 	spring = SpringArm3D.new()
 	pivot.add_child(spring)
-	spring.spring_length = 5.0
+	spring.spring_length = 3.1
+	spring.position.x = 0.45
 	spring.margin = 0.2
 	spring.add_excluded_object(get_rid())
 	camera = Camera3D.new()
 	spring.add_child(camera)
 	camera.current = true
-	camera.fov = 72
+	camera.fov = 65
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 
 func forward() -> Vector3:
@@ -74,6 +71,7 @@ func _physics_process(delta: float) -> void:
 	protection = maxf(0,protection-delta)
 	pivot.rotation = Vector3(pitch,yaw,0)
 	visual.rotation.y = yaw + sin(swing * 18) * 0.5
+	visual.pose(Vector2(velocity.x,velocity.z).length(),swing>0,dead>0)
 	if held:
 		held.global_transform = hand.global_transform
 	if dead > 0:

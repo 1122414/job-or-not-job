@@ -56,7 +56,7 @@ func bind_inputs() -> void:
 func build_lighting() -> void:
 	var light := DirectionalLight3D.new()
 	light.rotation_degrees = Vector3(-55,-25,0)
-	light.light_energy = 0.65
+	light.light_energy = 0.7
 	light.shadow_enabled = true
 	add_child(light)
 	var env := WorldEnvironment.new()
@@ -64,8 +64,8 @@ func build_lighting() -> void:
 	env.environment.background_mode = Environment.BG_COLOR
 	env.environment.background_color = Color("8fb4c5")
 	env.environment.ambient_light_source = Environment.AMBIENT_SOURCE_COLOR
-	env.environment.ambient_light_color = Color("c7dbdf")
-	env.environment.ambient_light_energy = 0.45
+	env.environment.ambient_light_color = Color("c6c9cc")
+	env.environment.ambient_light_energy = 0.48
 	add_child(env)
 
 func add_prop(id: String, kind: String, pos: Vector3) -> void:

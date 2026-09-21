@@ -33,7 +33,32 @@ func _ready() -> void:
 	base_material=mesh.material_override
 	Shapes.collider(self, size)
 	if kind == "chair":
-		Shapes.box(self, Vector3(0.65,0.65,0.1), Vector3(0,0.45,0.27), color)
+		mesh.hide()
+		OfficeDress.chair(self,Vector3(0,-0.55,0))
+	if kind == "cup":
+		var cup := CylinderMesh.new()
+		cup.top_radius=0.11
+		cup.bottom_radius=0.085
+		cup.height=0.28
+		mesh.mesh=cup
+		OfficeDress.cylinder(self,0.087,0.006,Vector3(0,0.143,0),Color("44352b"))
+		var handle := MeshInstance3D.new()
+		var ring := TorusMesh.new()
+		ring.inner_radius=0.045
+		ring.outer_radius=0.073
+		handle.mesh=ring
+		handle.material_override=Shapes.material(color)
+		add_child(handle)
+		handle.position.x=0.13
+		handle.rotation.x=PI/2
+	if kind == "keyboard":
+		for row in range(4):
+			for col in range(12): Shapes.box(self,Vector3(0.043,0.024,0.039),Vector3(-0.30+col*0.053,0.068,-0.084+row*0.05),Color("72797b"))
+	if kind == "printer":
+		Shapes.box(self,Vector3(0.75,0.06,0.55),Vector3(0,0.38,0.02),Color("626a6d"))
+		Shapes.box(self,Vector3(0.7,0.08,0.55),Vector3(0,-0.22,0.42),Color("3a4145"))
+		Shapes.box(self,Vector3(0.56,0.025,0.48),Vector3(0,-0.17,0.46),Color("e4e1d7"))
+		Shapes.box(self,Vector3(0.23,0.12,0.03),Vector3(0.2,0.18,0.413),Color("467b86"))
 	if kind == "table":
 		for x in [-1.1,1.1]:
 			Shapes.box(self, Vector3(0.1,0.85,1.0), Vector3(x,-0.5,0), Color("455665"))
@@ -44,6 +69,7 @@ func _ready() -> void:
 	max_contacts_reported = 8
 	body_entered.connect(_contact)
 	label = Shapes.label(self, title, Vector3(0,0.8,0), 25)
+	label.pixel_size=0.0035
 
 func _physics_process(delta: float) -> void:
 	flight_time = maxf(0, flight_time - delta)

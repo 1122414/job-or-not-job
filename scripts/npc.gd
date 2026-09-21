@@ -11,7 +11,7 @@ var affinity := 0
 var down := 0.0
 var last_hit := -1
 var game: Node3D
-var visual: Node3D
+var visual: HumanVisual
 var label: Label3D
 var route := PackedVector3Array()
 var route_clock := 0.0
@@ -30,15 +30,12 @@ func setup(id: String, display: String, pos: Vector3, firm: String, job: String,
 
 func _ready() -> void:
 	Shapes.collider(self, Vector3(0.65,1.8,0.65), Vector3(0,0.9,0))
-	visual = Node3D.new()
+	visual = HumanVisual.new()
+	visual.outfit="office" if role in ["boss","hr","group","guard"] else "casual"
+	if stable_id in ["a_hr","a_group"]: visual.outfit="office_female"
 	add_child(visual)
-	var color := Color("469aab") if company == "a" else Color("d38b53")
-	if role == "guard": color = Color("465263")
-	Shapes.box(visual, Vector3(0.65,0.85,0.4), Vector3(0,1.1,0), color)
-	Shapes.box(visual, Vector3(0.42,0.42,0.42), Vector3(0,1.73,0), Color("f5c7a0"))
-	for x in [-0.2,0.2]:
-		Shapes.box(visual, Vector3(0.22,0.65,0.3), Vector3(x,0.35,0), Color("29374c"))
-	label = Shapes.label(self, title, Vector3(0,2.4,0), 28)
+	label = Shapes.label(self, title, Vector3(0,2.05,0), 28)
+	label.pixel_size=0.0035
 
 func hit(direction: Vector3, strength: float, action: int) -> void:
 	if action == last_hit: return
@@ -96,5 +93,11 @@ func _physics_process(delta: float) -> void:
 		else:
 			velocity.x = 0
 			velocity.z = 0
+	if down<=0 and Vector2(velocity.x,velocity.z).length()>0.3:
+		visual.rotation.y=lerp_angle(visual.rotation.y,atan2(-velocity.x,-velocity.z),delta*8)
+	elif down<=0:
+		var facing: Vector3 = game.player.global_position-global_position if distance<5 else Vector3(0,0,1)
+		visual.rotation.y=lerp_angle(visual.rotation.y,atan2(-facing.x,-facing.z),delta*4)
+	visual.pose(Vector2(velocity.x,velocity.z).length(),attack_cooldown>0.7,down>0)
 	move_and_slide()
 	if position.y < -6: position = home

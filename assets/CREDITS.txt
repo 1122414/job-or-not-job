@@ -1,0 +1,9 @@
+Character assets: MakeHuman Community, CC0 1.0 Universal.
+Original holders: Data Collection AB, Joel Palmius, Jonas Hauquier (2020/2021).
+Source: https://github.com/makehumancommunity/makehuman
+Core asset pack: https://static.makehumancommunity.org/assets/assetpacks/makehuman_system_assets.html
+License: MAKEHUMAN-CC0.txt
+Adaptation: fitted clothing, glTF conversion, four-bone weights and procedural animations by this project.
+Environment geometry, UI, audio synthesis and game code: this project.
+No GTA models, textures, sounds or logos are included. References were used for visual direction only.
+Godot runtime licenses are distributed separately as GODOT-LICENSES.txt.
