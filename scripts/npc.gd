@@ -20,6 +20,8 @@ var hostile := 0.0
 var attack_cooldown := 0.0
 var seated := false
 var visit_wait := 0.0
+var body_shape: CollisionShape3D
+var body_pose := ""
 
 func setup(id: String, display: String, pos: Vector3, firm: String, job: String, owner_game: Node3D) -> void:
 	stable_id = id
@@ -31,7 +33,13 @@ func setup(id: String, display: String, pos: Vector3, firm: String, job: String,
 	game = owner_game
 
 func _ready() -> void:
-	Shapes.collider(self, Vector3(0.65,1.8,0.65), Vector3(0,0.9,0))
+	body_shape=CollisionShape3D.new()
+	var capsule := CapsuleShape3D.new()
+	capsule.radius=0.27
+	capsule.height=1.8
+	body_shape.shape=capsule
+	body_shape.position.y=0.9
+	add_child(body_shape)
 	visual = HumanVisual.new()
 	visual.outfit="office" if role in ["boss","hr","group","guard"] else "casual"
 	if stable_id in ["a_hr","a_group"]: visual.outfit="office_female"
@@ -119,6 +127,19 @@ func _physics_process(delta: float) -> void:
 	elif down<=0:
 		var facing: Vector3 = game.player.global_position-global_position if distance<5 else Vector3(0,0,1)
 		visual.rotation.y=lerp_angle(visual.rotation.y,atan2(-facing.x,-facing.z),delta*4)
+	update_body_pose()
 	visual.pose(Vector2(velocity.x,velocity.z).length(),attack_cooldown>0.7,down>0,seated)
 	move_and_slide()
 	if position.y < -6: position = home
+
+func update_body_pose() -> void:
+	var next := "down" if down>0 else "seated" if seated else "standing"
+	if next==body_pose: return
+	body_pose=next
+	var capsule: CapsuleShape3D=body_shape.shape
+	capsule.height=1.4 if next=="seated" else 1.8
+	body_shape.rotation.z=PI/2 if next=="down" else 0.0
+	body_shape.position=Vector3(-0.75,0.28,0) if next=="down" else Vector3(0,0.7 if next=="seated" else 0.9,0)
+	# A rigid body may be sleeping on the old support surface when posture changes.
+	for prop in game.props:
+		if not prop.freeze and prop.position.distance_to(position)<2.5: prop.sleeping=false
