@@ -10,6 +10,7 @@ var thrown := false
 var flight_time := 0.0
 var attack_id := 0
 var hits: Dictionary = {}
+var base_material: Material
 var mesh: MeshInstance3D
 var label: Label3D
 var game: Node3D
@@ -29,6 +30,7 @@ func _ready() -> void:
 	var size: Vector3 = {"keyboard":Vector3(0.7,0.12,0.25), "cup":Vector3(0.22,0.3,0.22), "chair":Vector3(0.65,0.75,0.65), "table":Vector3(2.8,0.22,1.3), "printer":Vector3(0.9,0.7,0.8)}[kind]
 	var color: Color = {"keyboard":Color("35495b"), "cup":Color("f7bf64"), "chair":Color("3a8d92"), "table":Color("bd8f62"), "printer":Color("dce3e5")}[kind]
 	mesh = Shapes.box(self, size, Vector3.ZERO, color)
+	base_material=mesh.material_override
 	Shapes.collider(self, size)
 	if kind == "chair":
 		Shapes.box(self, Vector3(0.65,0.65,0.1), Vector3(0,0.45,0.27), color)

@@ -3,6 +3,8 @@ extends Node3D
 var player: OfficePlayer
 var props: Array[OfficeProp] = []
 var npcs: Array[OfficeNPC] = []
+var persistence_enabled := false
+var save_delay := -1.0
 var payroll := Payroll.new()
 var walking := WalkingGrid.new()
 var career := Career.new()
@@ -31,6 +33,7 @@ func _ready() -> void:
 	build_ui()
 	build_audio()
 	build_walk_grid.call_deferred()
+	startup.call_deferred()
 
 func bind_inputs() -> void:
 	var keys := {"forward":KEY_W,"back":KEY_S,"left":KEY_A,"right":KEY_D,"run":KEY_SHIFT,"jump":KEY_SPACE,"interact":KEY_E,"drop":KEY_G,"cancel":KEY_ESCAPE,"bag":KEY_TAB,"store":KEY_Q,"cycle":KEY_R,"save":KEY_F5,"load":KEY_F9,"journal":KEY_J}
@@ -80,7 +83,12 @@ func build_ui() -> void:
 	canvas.add_child(hud)
 
 func _process(delta: float) -> void:
+	var payday_before := payroll.next_payday
 	payroll.tick(delta,career.employer)
+	if payroll.next_payday!=payday_before: queue_save()
+	if save_delay>=0:
+		save_delay-=delta
+		if save_delay<0: save_game(false)
 	player.camera.h_offset = lerpf(player.camera.h_offset,0,delta*15)
 
 func location_name() -> String:
@@ -165,11 +173,13 @@ func choose(index: int) -> void:
 			return
 	if action=="rest_evening":
 		payroll.advance(posmod(18*60-payroll.minute%1440,1440),career.employer)
+		queue_save()
 		close_interaction()
 		say("休息到傍晚。下班不结束世界，也不强制退出。")
 		return
 	if action=="rest_day":
 		payroll.advance(1440,career.employer)
+		queue_save()
 		close_interaction()
 		say("一天过去了，应得工资照常累计。")
 		return
@@ -193,6 +203,7 @@ func choose(index: int) -> void:
 		for npc in npcs:
 			if npc.stable_id=="b_friend": npc.affinity=mini(100,npc.affinity+12)
 	close_interaction()
+	queue_save()
 	say(result)
 	if action=="backup" and career.facts.has("output_two"):
 		for station in stations:
@@ -205,6 +216,8 @@ func close_interaction() -> void:
 func _unhandled_key_input(event: InputEvent) -> void:
 	if event is InputEventKey and event.pressed and not event.echo:
 		if event.physical_keycode>=KEY_1 and event.physical_keycode<=KEY_4: choose(event.physical_keycode-KEY_1)
+		if event.is_action_pressed("save"): save_game(true)
+		if event.is_action_pressed("load"): load_game()
 		if event.is_action_pressed("journal"):
 			journal_open=not journal_open
 			close_interaction()
@@ -216,6 +229,7 @@ func next_action() -> int:
 func on_aggression(npc: OfficeNPC, action: int) -> void:
 	close_interaction()
 	var warning := career.aggression(npc.company,action,action_counter)
+	queue_save()
 	say(warning if warning!="" else npc.title+"：别动手！")
 	for witness in npcs:
 		if witness==npc or witness.global_position.distance_to(npc.global_position)>8: continue
@@ -296,3 +310,32 @@ func _exit_tree() -> void:
 	if is_instance_valid(audio):
 		audio.stop()
 		audio.stream=null
+
+func startup() -> void:
+	await get_tree().physics_frame
+	# Unit/integration scenes never load or overwrite the player's save slot.
+	persistence_enabled=get_tree().current_scene==self
+	if persistence_enabled and FileAccess.file_exists(SaveGame.PATH): load_game()
+
+func queue_save() -> void:
+	if persistence_enabled: save_delay=0.4
+
+func save_game(show_message: bool = true) -> void:
+	if not persistence_enabled: return
+	var error := SaveGame.write(self)
+	if error!=OK: say("保存失败："+error_string(error)+"。旧档保留，请检查磁盘空间。")
+	elif show_message: say("已保存。F9 继续此存档，F5 再次保存。")
+
+func load_game() -> void:
+	if not persistence_enabled: return
+	var data := SaveGame.read(SaveGame.PATH,self)
+	var backup := false
+	if data.is_empty():
+		data=SaveGame.read(SaveGame.PATH+".bak",self)
+		backup=true
+	if data.is_empty():
+		say("没有有效存档。损坏文件保留；当前世界未被清空。")
+		return
+	SaveGame.restore(self,data)
+	save_delay=-1
+	say("主档损坏，已恢复有效备份；损坏文件保留。" if backup else "已继续存档：装备、成果、工资和公司后果均已恢复。")

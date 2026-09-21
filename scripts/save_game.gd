@@ -1,0 +1,172 @@
+class_name SaveGame
+extends RefCounted
+
+const VERSION := 1
+const PATH := "user://neighborhood.json"
+const CAREER_FIELDS := ["recruit","employer","grade","stage","facts","records","former","conflict","warning_action","seen_actions","b_event"]
+const PAYROLL_FIELDS := ["minute","fraction","next_payday","balance","pending","payments"]
+
+static func vector(v: Vector3) -> Array:
+	return [v.x,v.y,v.z]
+
+static func unvector(v: Array) -> Vector3:
+	return Vector3(v[0],v[1],v[2])
+
+static func fields(object: RefCounted, names: Array) -> Dictionary:
+	var result := {}
+	for name in names: result[name]=object.get(name)
+	return result.duplicate(true)
+
+static func snapshot(game: Node3D) -> Dictionary:
+	var data := {"version":VERSION,"career":fields(game.career,CAREER_FIELDS),"payroll":fields(game.payroll,PAYROLL_FIELDS),"action_counter":game.action_counter,"props":{},"npcs":{},"player":{"position":vector(game.player.position),"yaw":game.player.yaw,"pitch":game.player.pitch,"hp":game.player.hp,"protection":game.player.protection},"shake":game.shake_enabled}
+	for prop in game.props:
+		var location := "held" if game.player.held==prop else "bag" if game.player.inventory.has(prop) else "world"
+		data.props[prop.stable_id]={"position":vector(prop.position),"rotation":vector(prop.rotation),"location":location,"damaged":prop.damaged}
+	for npc in game.npcs:
+		data.npcs[npc.stable_id]={"position":vector(npc.position),"affinity":npc.affinity,"mood":npc.mood,"down":npc.down,"hostile":npc.hostile}
+	return data
+
+static func valid_vector(value: Variant) -> bool:
+	if not value is Array or value.size()!=3: return false
+	for number in value:
+		if not (number is float or number is int) or not is_finite(float(number)) or absf(number)>1000: return false
+	return true
+
+static func valid(data: Variant, game: Node3D) -> bool:
+	if not data is Dictionary or data.get("version")!=VERSION: return false
+	for field in ["career","payroll","props","npcs","player"]:
+		if not data.get(field) is Dictionary: return false
+	for field in CAREER_FIELDS:
+		if not data.career.has(field): return false
+	for field in PAYROLL_FIELDS:
+		if not data.payroll.has(field): return false
+	var c: Dictionary = data.career
+	var p: Dictionary = data.payroll
+	if not c.employer in ["","a","b"] or not c.stage is float and not c.stage is int: return false
+	if c.stage<0 or c.stage>6 or not c.grade is String or not c.b_event is String: return false
+	for key in ["recruit","facts","conflict","warning_action","seen_actions"]:
+		if not c[key] is Dictionary: return false
+	for key in ["records","former"]:
+		if not c[key] is Array: return false
+		for entry in c[key]:
+			if not entry is String: return false
+	for key in ["minute","fraction","next_payday","balance"]:
+		if not (p[key] is int or p[key] is float) or not is_finite(p[key]) or p[key]<0: return false
+	if p.next_payday<=p.minute or not p.payments is Array or not p.pending is Dictionary: return false
+	for firm in ["a","b"]:
+		for key in ["recruit","conflict","warning_action"]:
+			if not (c[key].get(firm) is float or c[key].get(firm) is int): return false
+		if c.conflict[firm]<0 or c.conflict[firm]>3 or c.recruit[firm]<0 or c.recruit[firm]>3: return false
+		if not c.seen_actions.get(firm) is Array: return false
+		if not (p.pending.get(firm) is float or p.pending.get(firm) is int) or p.pending[firm]<0: return false
+	var payment_ids := {}
+	for payment in p.payments:
+		if not payment is Dictionary or not payment.get("id") is String or not payment.get("company") in ["a","b"]: return false
+		if not payment.has("cents") or not (payment.cents is float or payment.cents is int) or payment.cents<0: return false
+		if payment_ids.has(payment.id): return false
+		payment_ids[payment.id]=true
+	if not valid_vector(data.player.get("position")): return false
+	for key in ["yaw","pitch","hp","protection"]:
+		if not (data.player.get(key) is float or data.player.get(key) is int) or not is_finite(data.player[key]): return false
+	if data.player.hp<0 or data.player.hp>100: return false
+	if not (data.get("action_counter") is float or data.get("action_counter") is int): return false
+	if data.props.size()!=game.props.size() or data.npcs.size()!=game.npcs.size(): return false
+	var held_count := 0
+	for prop in game.props:
+		var entry: Variant = data.props.get(prop.stable_id)
+		if not entry is Dictionary: return false
+		if not valid_vector(entry.get("position")) or not valid_vector(entry.get("rotation")): return false
+		if not entry.get("location") in ["world","held","bag"] or not entry.get("damaged") is bool: return false
+		if entry.location!="world" and not prop.portable(): return false
+		if entry.location=="held": held_count+=1
+	if held_count>1: return false
+	for npc in game.npcs:
+		var entry: Variant = data.npcs.get(npc.stable_id)
+		if not entry is Dictionary or not valid_vector(entry.get("position")) or not entry.get("mood") is String: return false
+		for key in ["affinity","down","hostile"]:
+			if not (entry.get(key) is float or entry.get(key) is int) or not is_finite(entry[key]): return false
+	return true
+
+static func read(path: String, game: Node3D) -> Dictionary:
+	if not FileAccess.file_exists(path): return {}
+	var parser := JSON.new()
+	if parser.parse(FileAccess.get_file_as_string(path))!=OK: return {}
+	var envelope: Variant = parser.data
+	if not envelope is Dictionary or not envelope.get("payload") is String or not envelope.get("checksum") is String: return {}
+	if envelope.payload.sha256_text()!=envelope.checksum: return {}
+	if parser.parse(envelope.payload)!=OK: return {}
+	var data: Variant = parser.data
+	return data if valid(data,game) else {}
+
+static func write(game: Node3D, path: String = PATH) -> Error:
+	var data := snapshot(game)
+	if not valid(data,game): return ERR_INVALID_DATA
+	var payload := JSON.stringify(data)
+	var file := FileAccess.open(path+".tmp",FileAccess.WRITE)
+	if file==null: return FileAccess.get_open_error()
+	file.store_string(JSON.stringify({"payload":payload,"checksum":payload.sha256_text()}))
+	file.flush()
+	file.close()
+	if read(path+".tmp",game).is_empty(): return ERR_FILE_CORRUPT
+	if not read(path,game).is_empty():
+		var error := DirAccess.copy_absolute(path,path+".bak")
+		if error!=OK: return error
+	elif FileAccess.file_exists(path):
+		var error := DirAccess.copy_absolute(path,path+".corrupt-"+str(Time.get_unix_time_from_system()))
+		if error!=OK: return error
+	return DirAccess.rename_absolute(path+".tmp",path)
+
+static func restore(game: Node3D, data: Dictionary) -> bool:
+	if not valid(data,game): return false
+	game.close_interaction()
+	game.player.inventory.clear()
+	game.player.held=null
+	for pair in [[game.career,CAREER_FIELDS,data.career],[game.payroll,PAYROLL_FIELDS,data.payroll]]:
+		for field in pair[1]:
+			if pair[0].get(field) is Array: pair[0].get(field).assign(pair[2][field])
+			else: pair[0].set(field,pair[2][field])
+	game.action_counter=int(data.action_counter)
+	game.shake_enabled=data.get("shake",true)
+	for prop in game.props:
+		var entry: Dictionary = data.props[prop.stable_id]
+		prop.position=unvector(entry.position)
+		prop.rotation=unvector(entry.rotation)
+		prop.linear_velocity=Vector3.ZERO
+		prop.angular_velocity=Vector3.ZERO
+		prop.thrown=false
+		prop.hits.clear()
+		prop.damaged=entry.damaged
+		prop.mesh.material_override=Shapes.material(Color("7b7274")) if prop.damaged else prop.base_material
+		prop.label.text=prop.title+(" · 已损坏" if prop.damaged else "")
+		prop.freeze=entry.location!="world"
+		prop.collision_layer=1 if entry.location=="world" else 0
+		prop.collision_mask=prop.collision_layer
+		prop.visible=entry.location!="bag"
+		if entry.location=="bag": game.player.inventory.append(prop)
+		elif entry.location=="held": game.player.held=prop
+	for npc in game.npcs:
+		var entry: Dictionary = data.npcs[npc.stable_id]
+		npc.position=unvector(entry.position)
+		npc.affinity=int(entry.affinity)
+		npc.mood=entry.mood
+		npc.down=maxf(0,entry.down)
+		npc.hostile=maxf(0,entry.hostile)
+		npc.velocity=Vector3.ZERO
+		npc.last_hit=-1
+		npc.route.clear()
+		npc.route_clock=0
+	game.player.position=unvector(data.player.position)
+	game.player.yaw=data.player.yaw
+	game.player.pitch=data.player.pitch
+	game.player.hp=int(data.player.hp)
+	game.player.protection=maxf(1,data.player.protection)
+	game.player.dead=0
+	game.player.bag_open=false
+	game.player.cooldown=0
+	game.player.swing=0
+	game.player.velocity=Vector3.ZERO
+	game.player.visual.rotation.z=0
+	if game.player.hp==0: game.player.respawn()
+	for station in game.stations:
+		if station.stable_id=="backup": station.label.text="投影已恢复 · 成果已记录" if game.career.facts.has("output_two") else station.title
+	return true
