@@ -66,7 +66,7 @@ func _unhandled_input(event: InputEvent) -> void:
 		game.show_inventory()
 	if event.is_action_pressed("cancel"):
 		game.close_interaction()
-		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE if Input.mouse_mode == Input.MOUSE_MODE_CAPTURED else Input.MOUSE_MODE_CAPTURED
+		game.toggle_menu()
 
 func _physics_process(delta: float) -> void:
 	cooldown = maxf(0,cooldown-delta)

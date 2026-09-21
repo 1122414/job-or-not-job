@@ -3,6 +3,11 @@ extends Node3D
 var player: OfficePlayer
 var props: Array[OfficeProp] = []
 var npcs: Array[OfficeNPC] = []
+var menu: PauseMenu
+var ledger_open := false
+var ledger_page := 0
+var help_open := false
+var debug_open := false
 var persistence_enabled := false
 var save_delay := -1.0
 var payroll := Payroll.new()
@@ -36,7 +41,7 @@ func _ready() -> void:
 	startup.call_deferred()
 
 func bind_inputs() -> void:
-	var keys := {"forward":KEY_W,"back":KEY_S,"left":KEY_A,"right":KEY_D,"run":KEY_SHIFT,"jump":KEY_SPACE,"interact":KEY_E,"drop":KEY_G,"cancel":KEY_ESCAPE,"bag":KEY_TAB,"store":KEY_Q,"cycle":KEY_R,"save":KEY_F5,"load":KEY_F9,"journal":KEY_J}
+	var keys := {"forward":KEY_W,"back":KEY_S,"left":KEY_A,"right":KEY_D,"run":KEY_SHIFT,"jump":KEY_SPACE,"interact":KEY_E,"drop":KEY_G,"cancel":KEY_ESCAPE,"bag":KEY_TAB,"store":KEY_Q,"cycle":KEY_R,"save":KEY_F5,"load":KEY_F9,"journal":KEY_J,"ledger":KEY_L,"help":KEY_H}
 	for action in keys:
 		InputMap.add_action(action)
 		var event := InputEventKey.new()
@@ -81,6 +86,10 @@ func build_ui() -> void:
 	hud = StreetHUD.new()
 	hud.game = self
 	canvas.add_child(hud)
+	menu=PauseMenu.new()
+	menu.game=self
+	menu.process_mode=Node.PROCESS_MODE_ALWAYS
+	canvas.add_child(menu)
 
 func _process(delta: float) -> void:
 	var payday_before := payroll.next_payday
@@ -216,10 +225,18 @@ func close_interaction() -> void:
 func _unhandled_key_input(event: InputEvent) -> void:
 	if event is InputEventKey and event.pressed and not event.echo:
 		if event.physical_keycode>=KEY_1 and event.physical_keycode<=KEY_4: choose(event.physical_keycode-KEY_1)
+		if event.is_action_pressed("ledger"):
+			ledger_open=not ledger_open
+			journal_open=false
+		if event.is_action_pressed("help"): help_open=not help_open
+		if event.physical_keycode==KEY_PAGEUP: ledger_page=maxi(0,ledger_page-1)
+		if event.physical_keycode==KEY_PAGEDOWN: ledger_page+=1
+		if event.physical_keycode==KEY_F3 and OS.is_debug_build(): debug_open=not debug_open
 		if event.is_action_pressed("save"): save_game(true)
 		if event.is_action_pressed("load"): load_game()
 		if event.is_action_pressed("journal"):
 			journal_open=not journal_open
+			ledger_open=false
 			close_interaction()
 
 func next_action() -> int:
@@ -230,7 +247,7 @@ func on_aggression(npc: OfficeNPC, action: int) -> void:
 	close_interaction()
 	var warning := career.aggression(npc.company,action,action_counter)
 	queue_save()
-	say(warning if warning!="" else npc.title+"：别动手！")
+	if warning!="": say(warning)
 	for witness in npcs:
 		if witness==npc or witness.global_position.distance_to(npc.global_position)>8: continue
 		if not can_see(witness,npc): continue
@@ -339,3 +356,9 @@ func load_game() -> void:
 	SaveGame.restore(self,data)
 	save_delay=-1
 	say("主档损坏，已恢复有效备份；损坏文件保留。" if backup else "已继续存档：装备、成果、工资和公司后果均已恢复。")
+
+func toggle_menu() -> void:
+	close_interaction()
+	menu.visible=not menu.visible
+	get_tree().paused=menu.visible
+	Input.mouse_mode=Input.MOUSE_MODE_VISIBLE if menu.visible else Input.MOUSE_MODE_CAPTURED

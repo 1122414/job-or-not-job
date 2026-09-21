@@ -33,6 +33,17 @@ func run() -> void:
 	await physics_frame
 	Input.action_release("forward")
 	check(game.conversation.is_empty(),"走开即时关闭对话")
+	await choose_at(game,"a_hr","resign")
+	for step in [["b_hr","interview_b"],["b_hr","join_b"],["b_friend","refuse"],["b_friend","negotiate"]]:
+		await choose_at(game,step[0],step[1])
+	game.player.position=Vector3(14,0,-10.2)
+	for i in range(700): await physics_frame
+	await choose_at(game,"b_boss","settle")
+	check(game.career.b_event=="negotiated","同伴实际到场后交涉完成")
+	game.toggle_menu()
+	check(paused and game.menu.visible,"菜单暂停世界")
+	game.toggle_menu()
+	check(not paused and not game.menu.visible,"关闭菜单恢复控制")
 	print("INTERACTION_TEST failures=",failures)
 	game.queue_free()
 	await process_frame
