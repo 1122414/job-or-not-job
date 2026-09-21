@@ -66,6 +66,11 @@ func _physics_process(delta: float) -> void:
 	else:
 		visual.rotation.z = lerpf(visual.rotation.z, 0, delta * 10)
 		var target := home
+		if stable_id=="b_friend":
+			match game.career.b_event:
+				"refused", "helping": target=Vector3(21,0,-4)
+				"negotiating": target=game.player.position+Vector3(1.5,0,0)
+				"helped", "negotiated", "conflict": target=Vector3(14,0,4)
 		if hostile > 0 and game.player.protection <= 0 and distance < 9 and game.can_see(self, game.player):
 			target = game.player.global_position
 			if distance < 1.6 and attack_cooldown == 0:

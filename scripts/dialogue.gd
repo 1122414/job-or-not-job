@@ -32,6 +32,25 @@ static func options(target: Node3D, c: Career) -> Dictionary:
 		"a_group":
 			text="许姐：你的上次考核通过了，我认。二组只看现场恢复。"
 			if c.employer=="a" and c.stage==3: choices.append(["转入二组继续实习，保留原成果","transfer"])
+		"b_hr":
+			text="阿诚：流程就一轮，大家都是自己人。你愿不愿意先了解再决定？"
+			if c.recruit.b==0: choices.append(["参加面试：把职责说清楚","interview_b"])
+			elif c.employer=="" and not c.former.has("b"): choices.append(["接受入职","join_b"])
+			if c.employer=="b": choices.append(["主动离职","resign"])
+		"b_friend":
+			text="阿乐：备用终端你先用。今晚这份交接，老板说‘帮家里一把’。"
+			if c.employer=="b" and c.b_event in ["pending","refused"]:
+				choices.append(["我来接手：去交接终端完成","help"])
+				if c.b_event=="pending": choices.append(["今晚拒绝加班","refuse"])
+				choices.append(["一起找赵总问清截止时间","negotiate"])
+			if c.b_event in ["helped","negotiated"]: text="阿乐：谢谢你。欠的人情不是无限加班的借口。"
+			if c.b_event=="conflict": text="阿乐：我懂你憋屈，但打我或同事不行。今天先停下。"
+		"b_boss":
+			text="赵总：都是自己人，多做一点怎么了？"
+			if c.employer=="b" and c.b_event=="negotiating": choices.append(["和阿乐共同交涉：没有今晚截止，改明早交","settle"])
+		"handover":
+			text="交接终端 / 阿乐让出的备用设备"
+			if c.employer=="b" and c.b_event=="helping": choices.append(["发送已有交接包，接替阿乐","handover"])
 		"archive":
 			text="原始演示资料 / 小夏编写"
 			choices.append(["拿取资料并阅读原始说明","data"])
@@ -42,4 +61,8 @@ static func options(target: Node3D, c: Career) -> Dictionary:
 			text="现场投影：主线路无信号，备用开关就在此处。"
 			if c.employer=="a" and c.stage==4: choices.append(["切换备用线路，恢复现场投影","backup"])
 		_: text="今天也可以什么都不证明。"
+	var firm := "a" if id.begins_with("a_") else "b" if id.begins_with("b_") else ""
+	if firm!="" and c.conflict[firm]>=2:
+		text="公司已关闭职业机会，已有成果和个人关系保留。你仍可自由离开。"
+		choices=[]
 	return {"text":text,"choices":choices}

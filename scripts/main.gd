@@ -24,6 +24,7 @@ func _ready() -> void:
 	add_station("archive","原始资料",Vector3(-24,0,-4))
 	add_station("demo","演示交付台",Vector3(-19,0,-12))
 	add_station("backup","备用投影",Vector3(-5,0,-12))
+	add_station("handover","交接终端",Vector3(23,0,-4))
 	build_ui()
 	build_audio()
 
@@ -82,7 +83,8 @@ func location_name() -> String:
 	return "规程科技" if player.position.x<0 else "自己人网络"
 
 func alert_level() -> int:
-	return 0
+	if player.position.z>2: return 0
+	return career.conflict.a if player.position.x<0 else career.conflict.b
 
 func clock_text() -> String:
 	return "09:00"
@@ -145,7 +147,17 @@ func choose(index: int) -> void:
 	var choices: Array = conversation.choices
 	if index>=choices.size(): return
 	var action: String = choices[index][1]
+	if action=="settle":
+		var companion: OfficeNPC
+		for npc in npcs:
+			if npc.stable_id=="b_friend": companion=npc
+		if companion.down>0 or companion.position.distance_to(speaker.position)>4:
+			say("等阿乐走到现场再一起交涉；他倒地时会恢复。")
+			return
 	var result := "小夏：我们关系再好，也不能造假。找捷径可以，伪造成果不行。" if action=="boundary" else career.apply(action)
+	if action in ["join_b","handover","settle"]:
+		for npc in npcs:
+			if npc.stable_id=="b_friend": npc.affinity=mini(100,npc.affinity+12)
 	close_interaction()
 	say(result)
 	if action=="backup" and career.facts.has("output_two"):
@@ -167,8 +179,10 @@ func next_action() -> int:
 	action_counter += 1
 	return action_counter
 
-func on_aggression(npc: OfficeNPC, _action: int) -> void:
-	say(npc.title + "：别动手！")
+func on_aggression(npc: OfficeNPC, action: int) -> void:
+	close_interaction()
+	var warning := career.aggression(npc.company,action,action_counter)
+	say(warning if warning!="" else npc.title+"：别动手！")
 	for witness in npcs:
 		if witness==npc or witness.global_position.distance_to(npc.global_position)>8: continue
 		if not can_see(witness,npc): continue
@@ -183,8 +197,11 @@ func on_aggression(npc: OfficeNPC, _action: int) -> void:
 			witness.reaction=3
 
 
-func on_property_hit(_prop: OfficeProp, _action: int) -> void:
-	pass
+func on_property_hit(prop: OfficeProp, action: int) -> void:
+	for npc in npcs:
+		if npc.position.distance_to(prop.position)<8 and can_see(npc,prop):
+			on_aggression(npc,action)
+			return
 
 func relationship(npc: OfficeNPC) -> String:
 	var tags := PackedStringArray()
