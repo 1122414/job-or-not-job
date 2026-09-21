@@ -10,7 +10,7 @@ Godot 4.7.1 / GDScript / Compatibility。第三人称连续小街区职场沙盒
 
 安装 Godot **4.7.1**，导入 `project.godot`，按 F5；或 `godot --path .`。资产已在仓库中，无运行时下载、账号或联网要求。
 
-- 全部检查：`sh tools/check.sh`（16 项测试，导入、启动、回归日志在 `logs/`）。
+- 全部检查：`sh tools/check.sh`（17 项测试，导入、启动、回归日志在 `logs/`）。
 - 打包：`sh tools/package_macos.sh`。默认引擎在 `/Applications/Godot.app/Contents/MacOS/Godot`，可用 `GODOT_BIN` 覆盖；需 macOS 自带 codesign/ditto 与 Python 3。
 - 性能短测：`godot --path . --script tests/performance.gd`，输出 `build/performance.json`。
 - 无玩家存档的视觉检查：`godot --path . --script tools/visual_preview.gd`。

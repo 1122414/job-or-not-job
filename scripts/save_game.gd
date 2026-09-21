@@ -23,7 +23,7 @@ static func snapshot(game: Node3D) -> Dictionary:
 		var location := "held" if game.player.held==prop else "bag" if game.player.inventory.has(prop) else "world"
 		data.props[prop.stable_id]={"position":vector(prop.position),"rotation":vector(prop.rotation),"location":location,"damaged":prop.damaged}
 	for npc in game.npcs:
-		data.npcs[npc.stable_id]={"position":vector(npc.position),"affinity":npc.affinity,"mood":npc.mood,"down":npc.down,"hostile":npc.hostile}
+		data.npcs[npc.stable_id]={"position":vector(npc.position),"affinity":npc.affinity,"mood":npc.mood,"down":npc.down,"hostile":npc.hostile,"hp":npc.hp,"dead":npc.dead}
 	return data
 
 static func valid_vector(value: Variant) -> bool:
@@ -83,6 +83,10 @@ static func valid(data: Variant, game: Node3D) -> bool:
 	for npc in game.npcs:
 		var entry: Variant = data.npcs.get(npc.stable_id)
 		if not entry is Dictionary or not valid_vector(entry.get("position")) or not entry.get("mood") is String: return false
+		if not entry.get("dead",false) is bool: return false
+		var health: Variant=entry.get("hp",100)
+		if not (health is int or health is float) or not is_finite(health) or health<0 or health>100: return false
+		if entry.get("dead",false)!=(health==0): return false
 		for key in ["affinity","down","hostile"]:
 			if not (entry.get(key) is float or entry.get(key) is int) or not is_finite(entry[key]): return false
 	return true
@@ -149,6 +153,8 @@ static func restore(game: Node3D, data: Dictionary) -> bool:
 		npc.position=unvector(entry.position)
 		npc.affinity=int(entry.affinity)
 		npc.mood=entry.mood
+		npc.hp=int(entry.get("hp",100))
+		npc.dead=entry.get("dead",false)
 		npc.down=maxf(0,entry.down)
 		npc.hostile=maxf(0,entry.hostile)
 		npc.velocity=Vector3.ZERO

@@ -121,6 +121,10 @@ func money_text() -> String:
 	return "¥ %.2f · 发薪 第%d天" % [payroll.balance/100.0,payroll.next_payday/1440+1]
 
 func objective_text() -> String:
+	if career.facts.has("fatal_"+career.employer) or (career.employer=="" and career.facts.has("fatal_a") and career.facts.has("fatal_b")):
+		return "职业线已中断 · 可离职或自由活动"
+	if career.employer=="" and (career.facts.has("fatal_a") or career.facts.has("fatal_b")):
+		return "可去另一家公司面试 · J 查看记录"
 	return career.objective()
 
 func targets() -> Array:
@@ -160,8 +164,8 @@ func interact() -> void:
 	if target is OfficeProp:
 		player.pick(target)
 	elif target is OfficeNPC or target is WorkStation:
-		if target is OfficeNPC and target.down>0:
-			say("对方暂时倒地，稍后会恢复；也可以直接离开。")
+		if target is OfficeNPC and (target.down>0 or target.dead):
+			say("对方已死亡，无法再交谈。" if target.dead else "对方暂时倒地。")
 			return
 		speaker=target
 		conversation=OfficeDialogue.options(target,career)
@@ -174,7 +178,7 @@ func interact() -> void:
 
 func choose(index: int) -> void:
 	if conversation.is_empty() or not is_instance_valid(speaker): return
-	if player.dead>0 or player.position.distance_to(speaker.position)>3.5 or (speaker is OfficeNPC and speaker.down>0):
+	if player.dead>0 or player.position.distance_to(speaker.position)>3.5 or (speaker is OfficeNPC and (speaker.down>0 or speaker.dead)):
 		close_interaction()
 		return
 	var choices: Array = conversation.choices
@@ -188,7 +192,7 @@ func choose(index: int) -> void:
 		var companion: OfficeNPC
 		for npc in npcs:
 			if npc.stable_id=="b_friend": companion=npc
-		if companion.down>0 or companion.position.distance_to(speaker.position)>4:
+		if companion.dead or companion.down>0 or companion.position.distance_to(speaker.position)>4:
 			say("等阿乐走到现场再一起交涉；他倒地时会恢复。")
 			return
 	if action=="rest_evening":
@@ -263,7 +267,7 @@ func on_aggression(npc: OfficeNPC, action: int) -> void:
 	queue_save()
 	if warning!="": say(warning)
 	for witness in npcs:
-		if witness==npc or witness.global_position.distance_to(npc.global_position)>8: continue
+		if witness.dead or witness==npc or witness.global_position.distance_to(npc.global_position)>8: continue
 		if not can_see(witness,npc): continue
 		if witness.role=="guard":
 			witness.hostile=15
@@ -276,9 +280,18 @@ func on_aggression(npc: OfficeNPC, action: int) -> void:
 			witness.reaction=3
 
 
+func on_npc_death(npc: OfficeNPC) -> void:
+	career.record("death_"+npc.stable_id,npc.title.split(" · ")[0]+"已死亡，无法继续交谈。")
+	if npc.role in ["hr","lead","boss","group","friend"]:
+		career.facts["fatal_"+npc.company]=true
+		career.conflict[npc.company]=3
+		career.record("fatal_notice_"+npc.company,"该公司职业线已中断；可离职、去另一家公司或自由活动。")
+	say(npc.title.split(" · ")[0]+"已死亡 · 世界后果已记录")
+	queue_save()
+
 func on_property_hit(prop: OfficeProp, action: int) -> void:
 	for npc in npcs:
-		if npc.position.distance_to(prop.position)<8 and can_see(npc,prop):
+		if not npc.dead and npc.position.distance_to(prop.position)<8 and can_see(npc,prop):
 			on_aggression(npc,action)
 			return
 

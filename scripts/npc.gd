@@ -9,6 +9,8 @@ var home := Vector3.ZERO
 var mood := "平静"
 var affinity := 0
 var down := 0.0
+var hp := 100
+var dead := false
 var last_hit := -1
 var game: Node3D
 var visual: HumanVisual
@@ -49,14 +51,19 @@ func _ready() -> void:
 	label.outline_size=3
 
 func hit(direction: Vector3, strength: float, action: int) -> void:
-	if action == last_hit: return
+	if dead or action == last_hit: return
 	last_hit = action
+	hp=maxi(0,hp-roundi(strength*24))
+	dead=hp==0
 	down = 2.7
 	velocity = direction * strength * 3.0 + Vector3.UP * 2.0
 	mood = "生气：别碰我！"
 	affinity = maxi(-100, affinity - 18)
 	hostile = 12.0
 	game.on_aggression(self, action)
+	if dead:
+		hostile=0
+		game.on_npc_death(self)
 
 func _physics_process(delta: float) -> void:
 	visit_wait=maxf(0,visit_wait-delta)
@@ -65,11 +72,11 @@ func _physics_process(delta: float) -> void:
 	hostile = maxf(0, hostile - delta)
 	var distance := global_position.distance_to(game.player.global_position)
 	label.visible = game.focus_target==self and distance<3.2
-	label.text = title.split(" · ")[0]
+	label.text = title.split(" · ")[0]+(" · 已死亡" if dead else "")
 	if not is_on_floor(): velocity.y -= 20 * delta
-	if down > 0:
-		down -= delta
-		visual.rotation.z = lerpf(visual.rotation.z, 1.4, delta * 12)
+	if down > 0 or dead:
+		down = maxf(0,down-delta)
+		visual.rotation.z = lerpf(visual.rotation.z, PI/2, delta * 12)
 		velocity.x = move_toward(velocity.x,0,delta * 4)
 		velocity.z = move_toward(velocity.z,0,delta * 4)
 	else:
@@ -95,12 +102,13 @@ func _physics_process(delta: float) -> void:
 		if route_clock<=0:
 			route=game.walking.route(global_position,target)
 			route_clock=0.8
-		while not route.is_empty() and Vector2(route[0].x-position.x,route[0].z-position.z).length()<0.5: route.remove_at(0)
+		while not route.is_empty() and Vector2(route[0].x-position.x,route[0].z-position.z).length()<0.28: route.remove_at(0)
 		if Vector2(target.x-position.x,target.z-position.z).length()<0.3: route.clear()
-		var next := target if route.is_empty() else route[0]
+		var next := global_position if route.is_empty() else route[0]
+		if global_position.distance_to(target)<1.5 and game.walking.clear_segment(global_position,target): next=target
 		var direction := next - global_position
 		direction.y = 0
-		if direction.length() > 0.35:
+		if direction.length() > 0.15:
 			direction = direction.normalized()
 			# The grid excludes moving people; steer around nearby bodies locally.
 			for other in game.npcs:
@@ -117,23 +125,23 @@ func _physics_process(delta: float) -> void:
 		else:
 			velocity.x = 0
 			velocity.z = 0
-	seated=role!="guard" and down<=0 and hostile<=0 and reaction<=0 and visit_wait<=0 and game.speaker!=self and game.office.visit_target(self)==null and Vector2(position.x-home.x,position.z-home.z).length()<0.4 and not game.payroll.after_work()
-	visual.position.y=move_toward(visual.position.y,-0.42 if seated else 0.0,delta*1.5)
+	seated=not dead and role!="guard" and down<=0 and hostile<=0 and reaction<=0 and visit_wait<=0 and game.speaker!=self and game.office.visit_target(self)==null and Vector2(position.x-home.x,position.z-home.z).length()<0.4 and not game.payroll.after_work()
+	visual.position.y=move_toward(visual.position.y,0.27 if down>0 or dead else -0.42 if seated else 0.0,delta*2.5)
 	label.position.y=1.65 if seated else 2.05
 	if seated:
 		visual.rotation.y=lerp_angle(visual.rotation.y,0,delta*5)
-	elif down<=0 and Vector2(velocity.x,velocity.z).length()>0.3:
+	elif down<=0 and not dead and Vector2(velocity.x,velocity.z).length()>0.3:
 		visual.rotation.y=lerp_angle(visual.rotation.y,atan2(-velocity.x,-velocity.z),delta*8)
-	elif down<=0:
+	elif down<=0 and not dead:
 		var facing: Vector3 = game.player.global_position-global_position if distance<5 else Vector3(0,0,1)
 		visual.rotation.y=lerp_angle(visual.rotation.y,atan2(-facing.x,-facing.z),delta*4)
 	update_body_pose()
-	visual.pose(Vector2(velocity.x,velocity.z).length(),attack_cooldown>0.7,down>0,seated)
+	visual.pose(Vector2(velocity.x,velocity.z).length(),attack_cooldown>0.7,down>0 or dead,seated)
 	move_and_slide()
 	if position.y < -6: position = home
 
 func update_body_pose() -> void:
-	var next := "down" if down>0 else "seated" if seated else "standing"
+	var next := "down" if down>0 or dead else "seated" if seated else "standing"
 	if next==body_pose: return
 	body_pose=next
 	var capsule: CapsuleShape3D=body_shape.shape
