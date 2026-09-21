@@ -2,7 +2,9 @@ class_name Neighborhood
 extends RefCounted
 
 static func build(game: Node3D) -> void:
-	Shapes.solid(game,Vector3(80,0.4,60),Vector3(0,-0.2,0),Color("858984"))
+	var ground := Shapes.solid(game,Vector3(80,0.4,60),Vector3(0,-0.2,0),Color("858984"))
+	# Keep collision seamless, but separate the rendered surface from road/floor tops.
+	ground.get_child(0).position.y=-0.04
 	Shapes.solid(game,Vector3(64,0.08,8),Vector3(0,-0.04,8),Color("343e48"))
 	for x in range(-30,31,5):
 		Shapes.box(game,Vector3(2,0.02,0.12),Vector3(x,0.01,8),Color("e4cb82"))

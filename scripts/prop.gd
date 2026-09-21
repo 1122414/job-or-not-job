@@ -75,7 +75,7 @@ func _physics_process(delta: float) -> void:
 	flight_time = maxf(0, flight_time - delta)
 	if flight_time == 0:
 		thrown = false
-	label.visible = visible and global_position.distance_to(game.player.global_position) < 3.5
+	label.visible = visible and game.focus_target==self and game.player.held!=self
 	if position.y < -8 or absf(position.x) > 60 or absf(position.z) > 60:
 		reset_position()
 

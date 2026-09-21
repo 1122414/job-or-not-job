@@ -50,10 +50,10 @@ func _draw() -> void:
 	text_at(Vector2(w-236,102),game.money_text(),18,Color("8ed79d"))
 	text_at(Vector2(30,38),"今天不上班",22)
 	text_at(Vector2(30,65),game.objective_text(),17,Color("f2dba7"))
-	var target: Node3D = game.nearest()
+	var target: Node3D = game.focus_target
 	var hint: String = "E  " + target.title if target else "WASD 移动  ·  Shift 跑  ·  空格 跳跃"
 	text_at(Vector2(w*0.34,h-43),hint,20)
-	text_at(Vector2(w*0.30,h-18),"左键 动手  ·  右键 投掷  ·  Q 收纳  ·  R 换物  ·  Tab 背包  ·  J 记录  ·  H 帮助",14)
+	text_at(Vector2(w*0.30,h-18),"左键 动手 · 右键 投掷 · H 操作帮助",14)
 	if toast_time>0:
 		draw_rect(Rect2(w*0.22,h-165,w*0.72,85),Color(0,0,0,0.72))
 		var lines := toast.split("\n")
@@ -68,6 +68,12 @@ func _draw() -> void:
 		draw_rect(Rect2(0,h*0.4,w,100),Color(0.15,0,0,0.75))
 		text_at(Vector2(w*0.38,h*0.4+60),"今天，先躺一下。",34,Color("e27670"))
 
+	if game.speaker is OfficeNPC and not game.conversation.is_empty():
+		var npc: OfficeNPC = game.speaker
+		draw_rect(Rect2(w*0.22,h-399, w*0.75,56),Color(0.02,0.03,0.05,0.85))
+		text_at(Vector2(w*0.24,h-376),npc.title+"  ·  "+game.relationship(npc)+"  ·  "+npc.mood,16)
+		draw_rect(Rect2(w*0.24,h-363,100,4),Color("444b50"))
+		draw_rect(Rect2(w*0.24,h-363,float(npc.affinity+100)/200.0*100,4),Color("89b8a4"))
 	if not game.conversation.is_empty():
 		draw_rect(Rect2(w*0.22,h-335,w*0.75,155),Color(0.02,0.03,0.05,0.9))
 		text_at(Vector2(w*0.24,h-305),game.conversation.text,18)

@@ -35,7 +35,8 @@ func _ready() -> void:
 	if stable_id in ["a_hr","a_group"]: visual.outfit="office_female"
 	add_child(visual)
 	label = Shapes.label(self, title, Vector3(0,2.05,0), 28)
-	label.pixel_size=0.0035
+	label.pixel_size=0.0028
+	label.outline_size=3
 
 func hit(direction: Vector3, strength: float, action: int) -> void:
 	if action == last_hit: return
@@ -52,10 +53,8 @@ func _physics_process(delta: float) -> void:
 	attack_cooldown = maxf(0, attack_cooldown - delta)
 	hostile = maxf(0, hostile - delta)
 	var distance := global_position.distance_to(game.player.global_position)
-	label.visible = distance < 5.0
-	var bar := ""
-	for i in range(10): bar += "■" if i < (affinity + 100) / 20 else "□"
-	label.text = "%s\n%s\n%s\n%s" % [title, "倒地 · 稍后恢复" if down > 0 else mood, bar, game.relationship(self)]
+	label.visible = game.focus_target==self and distance<3.2
+	label.text = title.split(" · ")[0]
 	if not is_on_floor(): velocity.y -= 20 * delta
 	if down > 0:
 		down -= delta

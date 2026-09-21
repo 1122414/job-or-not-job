@@ -15,6 +15,7 @@ var walking := WalkingGrid.new()
 var career := Career.new()
 var stations: Array[WorkStation] = []
 var conversation: Dictionary = {}
+var focus_target: Node3D
 var speaker: Node3D
 var journal_open := false
 var action_counter := 0
@@ -92,6 +93,7 @@ func build_ui() -> void:
 	canvas.add_child(menu)
 
 func _process(delta: float) -> void:
+	focus_target=nearest()
 	var payday_before := payroll.next_payday
 	payroll.tick(delta,career.employer)
 	if payroll.next_payday!=payday_before: queue_save()
@@ -203,6 +205,7 @@ func choose(index: int) -> void:
 		if not career.facts.has(key):
 			speaker.affinity=mini(100,speaker.affinity+8)
 			career.record(key,speaker.title+"：下班聊过，关系不依赖是否还在同一公司。")
+		queue_save()
 		var line: String = speaker.title+"：工作归工作，你不用每天来维护关系。"
 		close_interaction()
 		say(line)
