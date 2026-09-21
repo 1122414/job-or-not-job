@@ -13,6 +13,8 @@ var spring: SpringArm3D
 var visual: Node3D
 var hand: Node3D
 var held: OfficeProp
+var inventory: Array[OfficeProp] = []
+var bag_open := false
 var cooldown := 0.0
 var swing := 0.0
 var hp := 100
@@ -57,6 +59,11 @@ func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("interact"): game.interact()
 	if event.is_action_pressed("throw"): release(true)
 	if event.is_action_pressed("drop"): release(false)
+	if event.is_action_pressed("store"): store_held()
+	if event.is_action_pressed("cycle"): cycle_item()
+	if event.is_action_pressed("bag"):
+		bag_open = not bag_open
+		game.show_inventory()
 	if event.is_action_pressed("cancel"):
 		game.close_interaction()
 		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE if Input.mouse_mode == Input.MOUSE_MODE_CAPTURED else Input.MOUSE_MODE_CAPTURED
@@ -69,6 +76,11 @@ func _physics_process(delta: float) -> void:
 	visual.rotation.y = yaw + sin(swing * 18) * 0.5
 	if held:
 		held.global_transform = hand.global_transform
+	if dead > 0:
+		dead -= delta
+		visual.rotation.z = 1.4
+		if dead <= 0: respawn()
+		return
 	if not is_on_floor(): velocity.y -= 22 * delta
 	var input := Input.get_vector("left","right","forward","back")
 	var direction := Vector3(input.x,0,input.y).rotated(Vector3.UP,yaw)
@@ -78,7 +90,7 @@ func _physics_process(delta: float) -> void:
 	if input.length() > 0.1: game.close_interaction()
 	if Input.is_action_just_pressed("jump") and is_on_floor(): velocity.y = 7
 	move_and_slide()
-	if position.y < -8: position = Vector3(0,1,5)
+	if position.y < -8: hurt(100)
 
 func attack() -> void:
 	if cooldown > 0: return
@@ -101,7 +113,9 @@ func pick(prop: OfficeProp) -> void:
 		prop.strike(forward(),game.next_action())
 		game.on_property_hit(prop,game.action_counter)
 		return
-	if held: release(false)
+	if held: store_held()
+	inventory.erase(prop)
+	prop.show()
 	held = prop
 	prop.freeze = true
 	prop.collision_layer = 0
@@ -128,3 +142,32 @@ func hurt(amount: int) -> void:
 	if protection > 0: return
 	hp = maxi(0,hp-amount)
 	game.impact()
+
+	if hp == 0:
+		dead = 2.0
+		cooldown = 0
+		swing = 0
+		bag_open = false
+		game.close_interaction()
+		game.say("你倒下了。附近复活中，装备保留。")
+
+func store_held() -> void:
+	if not held: return
+	if not inventory.has(held): inventory.append(held)
+	held.hide()
+	held = null
+	game.show_inventory()
+
+func cycle_item() -> void:
+	if inventory.is_empty(): return
+	var item := inventory[0]
+	pick(item)
+	game.show_inventory()
+
+func respawn() -> void:
+	position = game.safe_spawn(global_position)
+	velocity = Vector3.ZERO
+	hp = 100
+	protection = 5.0
+	visual.rotation.z = 0
+	game.say("已在附近复活 · 5 秒保护 · 装备与世界后果保留")

@@ -155,3 +155,24 @@ func build_audio() -> void:
 func impact() -> void:
 	audio.play()
 	if shake_enabled: player.camera.h_offset = 0.12
+
+func show_inventory() -> void:
+	var names := PackedStringArray()
+	for prop in player.inventory: names.append(prop.title)
+	say("背包：%s\nQ 收纳手持 · R 轮换取出 · G 放下 · 右键投掷" % ("空" if names.is_empty() else " / ".join(names)))
+
+func safe_spawn(origin: Vector3) -> Vector3:
+	var candidates: Array[Vector3] = []
+	for x in [-20,-12,0,12,20]:
+		for z in [8,4,-2]: candidates.append(Vector3(x,0.3,z))
+	candidates.sort_custom(func(a: Vector3,b: Vector3) -> bool: return a.distance_squared_to(origin)<b.distance_squared_to(origin))
+	var shape := BoxShape3D.new()
+	shape.size = Vector3(2.0,2.0,2.0)
+	for point in candidates:
+		var query := PhysicsShapeQueryParameters3D.new()
+		query.shape = shape
+		query.transform.origin = point + Vector3.UP
+		query.exclude = [player.get_rid()]
+		if get_world_3d().direct_space_state.intersect_shape(query).is_empty(): return point
+	# Elevated recovery is only used if every normal point is obstructed.
+	return Vector3(0,4,8)
