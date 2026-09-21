@@ -4,26 +4,18 @@ var player: OfficePlayer
 var props: Array[OfficeProp] = []
 var npcs: Array[OfficeNPC] = []
 var action_counter := 0
-var hud: Label
-var notice: Label
-var notice_time := 0.0
+var hud: StreetHUD
 var audio: AudioStreamPlayer
 var shake_enabled := true
 
 func _ready() -> void:
 	bind_inputs()
 	build_lighting()
-	Shapes.solid(self,Vector3(35,0.3,30),Vector3(0,-0.2,0),Color("657775"))
-	Shapes.solid(self,Vector3(20,0.15,14),Vector3(0,0,0),Color("c9c6b6"))
-	Shapes.solid(self,Vector3(20,3,0.3),Vector3(0,1.5,-7),Color("72878a"))
-	Shapes.label(self,"今天不上班 / 动作现场",Vector3(0,3,-6))
 	player = OfficePlayer.new()
 	player.game = self
 	add_child(player)
-	player.position = Vector3(0,0.2,5)
-	for item in [["keyboard",Vector3(-1,1.3,0)],["cup",Vector3(1,1.3,0)],["table",Vector3(0,1,0)],["chair",Vector3(2,0.6,-1)],["printer",Vector3(-3,0.8,-1)]]:
-		add_prop("a_"+item[0],item[0],item[1])
-	add_npc("a_hr","林岚 · HR",Vector3(0,0,-3),"a","hr")
+	player.position = Vector3(-14,0.2,5)
+	Neighborhood.build(self)
 	build_ui()
 	build_audio()
 
@@ -43,7 +35,7 @@ func bind_inputs() -> void:
 func build_lighting() -> void:
 	var light := DirectionalLight3D.new()
 	light.rotation_degrees = Vector3(-55,-25,0)
-	light.light_energy = 1.2
+	light.light_energy = 0.65
 	light.shadow_enabled = true
 	add_child(light)
 	var env := WorldEnvironment.new()
@@ -52,7 +44,7 @@ func build_lighting() -> void:
 	env.environment.background_color = Color("8fb4c5")
 	env.environment.ambient_light_source = Environment.AMBIENT_SOURCE_COLOR
 	env.environment.ambient_light_color = Color("c7dbdf")
-	env.environment.ambient_light_energy = 0.7
+	env.environment.ambient_light_energy = 0.45
 	add_child(env)
 
 func add_prop(id: String, kind: String, pos: Vector3) -> void:
@@ -70,24 +62,28 @@ func add_npc(id: String, title: String, pos: Vector3, firm: String, role: String
 func build_ui() -> void:
 	var canvas := CanvasLayer.new()
 	add_child(canvas)
-	hud = Label.new()
-	hud.position = Vector2(24,20)
-	hud.add_theme_font_size_override("font_size",20)
-	hud.add_theme_color_override("font_shadow_color",Color.BLACK)
-	hud.add_theme_constant_override("shadow_offset_x",2)
-	hud.add_theme_constant_override("shadow_offset_y",2)
+	hud = StreetHUD.new()
+	hud.game = self
 	canvas.add_child(hud)
-	notice = Label.new()
-	notice.position = Vector2(24,620)
-	notice.add_theme_font_size_override("font_size",22)
-	canvas.add_child(notice)
 
 func _process(delta: float) -> void:
-	notice_time = maxf(0,notice_time-delta)
-	notice.visible = notice_time > 0
-	var target := nearest()
-	hud.text = "今天不上班\nWASD 移动 · Shift 跑 · 空格 跳 · 鼠标 视角\n左键 推击/挥击 · 右键 投掷 · E 拿取/互动 · G 放下 · Esc 释放鼠标\n生命 %d | 手持：%s\n%s" % [player.hp,player.held.title if player.held else "空手", "E  " + target.title if target else "自由走走，或直接动手"]
 	player.camera.h_offset = lerpf(player.camera.h_offset,0,delta*15)
+
+func location_name() -> String:
+	if player.position.z > 2: return "下班路 · 公共街区"
+	return "规程科技" if player.position.x<0 else "自己人网络"
+
+func alert_level() -> int:
+	return 0
+
+func clock_text() -> String:
+	return "09:00"
+
+func money_text() -> String:
+	return "¥ 0"
+
+func objective_text() -> String:
+	return "两家公司都能进入 · 靠近人物按 E · 随时可以离开"
 
 func targets() -> Array:
 	return npcs + props
@@ -127,6 +123,19 @@ func next_action() -> int:
 
 func on_aggression(npc: OfficeNPC, _action: int) -> void:
 	say(npc.title + "：别动手！")
+	for witness in npcs:
+		if witness==npc or witness.global_position.distance_to(npc.global_position)>8: continue
+		if not can_see(witness,npc): continue
+		if witness.role=="guard":
+			witness.hostile=15
+			witness.mood="介入：请停止动手"
+		elif witness.role=="friend" and npc.role=="boss":
+			witness.mood="解气，但别再打了！"
+			witness.affinity=mini(100,witness.affinity+3)
+		else:
+			witness.mood="紧张：离远一点"
+			witness.reaction=3
+
 
 func on_property_hit(_prop: OfficeProp, _action: int) -> void:
 	pass
@@ -135,8 +144,8 @@ func relationship(_npc: OfficeNPC) -> String:
 	return "陌生人"
 
 func say(text: String) -> void:
-	notice.text = text
-	notice_time = 5
+	hud.toast = text
+	hud.toast_time = 6
 
 func build_audio() -> void:
 	audio = AudioStreamPlayer.new()

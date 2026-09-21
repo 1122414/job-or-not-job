@@ -13,6 +13,7 @@ var last_hit := -1
 var game: Node3D
 var visual: Node3D
 var label: Label3D
+var reaction := 0.0
 var hostile := 0.0
 var attack_cooldown := 0.0
 
@@ -48,6 +49,7 @@ func hit(direction: Vector3, strength: float, action: int) -> void:
 	game.on_aggression(self, action)
 
 func _physics_process(delta: float) -> void:
+	reaction = maxf(0,reaction-delta)
 	attack_cooldown = maxf(0, attack_cooldown - delta)
 	hostile = maxf(0, hostile - delta)
 	var distance := global_position.distance_to(game.player.global_position)
@@ -69,6 +71,7 @@ func _physics_process(delta: float) -> void:
 			if distance < 1.6 and attack_cooldown == 0:
 				game.player.hurt(18)
 				attack_cooldown = 1.0
+		if reaction>0: target = global_position + (global_position-game.player.global_position).normalized()*2
 		var direction := target - global_position
 		direction.y = 0
 		if direction.length() > 0.8:
