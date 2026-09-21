@@ -18,6 +18,7 @@ func _initialize() -> void:
 		else:
 			c.apply("permission")
 			c.apply("confirm")
+		c.apply("prepare")
 		c.apply("submit")
 		check(c.stage==2 and c.facts.has("output_one"),"第一份考核通过")
 		for action in ["no_hc","transfer","backup","defend"]: c.apply(action)

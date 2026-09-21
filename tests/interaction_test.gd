@@ -24,7 +24,7 @@ func run() -> void:
 	var game = load("res://scenes/main.tscn").instantiate()
 	root.add_child(game)
 	await physics_frame
-	for step in [["a_hr","interview_hr"],["a_lead","interview_lead"],["a_boss","interview_boss"],["a_hr","join_a"],["a_lead","brief"],["archive","data"],["a_friend","shortcut"],["demo","submit"],["a_lead","no_hc"],["a_group","transfer"],["backup","backup"],["a_boss","defend"]]:
+	for step in [["a_hr","interview_hr"],["a_lead","interview_lead"],["a_boss","interview_boss"],["a_hr","join_a"],["a_lead","brief"],["archive","data"],["a_friend","shortcut"],["desk_a","prepare"],["demo","submit"],["a_lead","no_hc"],["a_group","transfer"],["backup","backup"],["a_boss","defend"]]:
 		await choose_at(game,step[0],step[1])
 	check(game.career.stage==6,"场景交互完整转正")
 	game.interact()
@@ -36,7 +36,8 @@ func run() -> void:
 	await choose_at(game,"a_hr","resign")
 	for step in [["b_hr","interview_b"],["b_hr","join_b"],["b_friend","refuse"],["b_friend","negotiate"]]:
 		await choose_at(game,step[0],step[1])
-	game.player.position=Vector3(14,0,-10.2)
+	for npc in game.npcs:
+		if npc.stable_id=="b_boss": game.player.position=npc.home+Vector3(0,0,1.8)
 	for i in range(700): await physics_frame
 	await choose_at(game,"b_boss","settle")
 	check(game.career.b_event=="negotiated","同伴实际到场后交涉完成")

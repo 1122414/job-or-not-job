@@ -10,7 +10,7 @@ func run() -> void:
 	root.add_child(game)
 	await physics_frame
 	await physics_frame
-	game.player.position=Vector3(-14,0,0.4)
+	game.player.position=game.npcs[0].position+Vector3(0,0,1.4)
 	game.player.yaw=0
 	game.player.pick(game.props[0])
 	game.player.pick(game.props[1])

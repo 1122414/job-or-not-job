@@ -10,7 +10,7 @@ Godot 4.7.1 / GDScript / Compatibility。第三人称连续小街区职场沙盒
 
 安装 Godot **4.7.1**，导入 `project.godot`，按 F5；或 `godot --path .`。资产已在仓库中，无运行时下载、账号或联网要求。
 
-- 全部检查：`sh tools/check.sh`（13 项测试，导入、启动、回归日志在 `logs/`）。
+- 全部检查：`sh tools/check.sh`（15 项测试，导入、启动、回归日志在 `logs/`）。
 - 打包：`sh tools/package_macos.sh`。默认引擎在 `/Applications/Godot.app/Contents/MacOS/Godot`，可用 `GODOT_BIN` 覆盖；需 macOS 自带 codesign/ditto 与 Python 3。
 - 性能短测：`godot --path . --script tests/performance.gd`，输出 `build/performance.json`。
 - 无玩家存档的视觉检查：`godot --path . --script tools/visual_preview.gd`。
@@ -32,7 +32,7 @@ Godot 4.7.1 / GDScript / Compatibility。第三人称连续小街区职场沙盒
 
 ## 首次路线提示
 
-开局就能进入任一家。规程科技的 HR → 技术主管 → 老板完成三轮短面试；实习后在资料柜、同事与演示终端间发现要求，也可使用离线演示捷径。考核通过但无 HC 后，找二组负责人、处理备用投影仪，再找老板答辩，确实转为正式员工。
+开局就能进入任一家。规程科技的 HR → 技术主管 → 老板完成三轮短面试；实习入职分配右侧第一排工位，HR 和主管会主动走来；在资料柜获取资料后，回个人工位整理并预览，再在同事与演示终端间发现要求，也可使用离线演示捷径。考核通过但无 HC 后，找二组负责人、处理备用投影仪，再找老板答辩，确实转为正式员工。
 
 可随时离开或主动离职，前往自己人网络，参与阿乐的加班交接事件。帮助、拒绝、结伴交涉和冲突有不同现场结果；结伴交涉需要同伴实际到老板身边。下班后可到公交站和路边摊找重要同事。公交站支持快进。桌椅和打印机留在现场，小件可随身携带。
 
@@ -49,3 +49,5 @@ Godot 4.7.1 / GDScript / Compatibility。第三人称连续小街区职场沙盒
 [验收报告](docs/acceptance.md)、[阶段记录](docs/progress.md)、[资产与许可](docs/assets.md)。设计范围以 [v0.2](2026-09-21_MVP方案_v0.2.md) 为准。
 
 这是有限街区 MVP，包含十位 NPC 和三套复用人物，不是 GTA 规模城市。程序骨骼动画、脸型差异、足部贴地、音效和材质仍有打磨空间。已做引擎自动回归和本机实际操作，尚未做独立目标玩家试玩，不能据此宣称手感或趣味性已获用户验证。
+
+开发状态：当前处于用户试玩后的整改阶段，整体 MVP 尚未验收完成。工位与主动来访已接入，正式写实模型和 Blender 制作后置。每阶段按 `AGENTS.md` 同步 Obsidian 进度。

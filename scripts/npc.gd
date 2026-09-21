@@ -18,6 +18,8 @@ var route_clock := 0.0
 var reaction := 0.0
 var hostile := 0.0
 var attack_cooldown := 0.0
+var seated := false
+var visit_wait := 0.0
 
 func setup(id: String, display: String, pos: Vector3, firm: String, job: String, owner_game: Node3D) -> void:
 	stable_id = id
@@ -49,6 +51,7 @@ func hit(direction: Vector3, strength: float, action: int) -> void:
 	game.on_aggression(self, action)
 
 func _physics_process(delta: float) -> void:
+	visit_wait=maxf(0,visit_wait-delta)
 	reaction = maxf(0,reaction-delta)
 	attack_cooldown = maxf(0, attack_cooldown - delta)
 	hostile = maxf(0, hostile - delta)
@@ -71,6 +74,9 @@ func _physics_process(delta: float) -> void:
 				"refused", "helping": target=Vector3(21,0,-4)
 				"negotiating": target=game.player.position+Vector3(1.5,0,0)
 				"helped", "negotiated", "conflict": target=Vector3(14,0,4)
+		var visiting: Variant=game.office.visit_target(self)
+		if visiting!=null: target=visiting
+		elif (visit_wait>0 or game.speaker==self) and not (stable_id=="b_friend" and game.career.b_event=="negotiating"): target=position
 		if hostile > 0 and game.player.protection <= 0 and distance < 9 and game.can_see(self, game.player):
 			target = game.player.global_position
 			if distance < 1.6 and attack_cooldown == 0:
@@ -82,21 +88,37 @@ func _physics_process(delta: float) -> void:
 			route=game.walking.route(global_position,target)
 			route_clock=0.8
 		while not route.is_empty() and Vector2(route[0].x-position.x,route[0].z-position.z).length()<0.5: route.remove_at(0)
+		if Vector2(target.x-position.x,target.z-position.z).length()<0.3: route.clear()
 		var next := target if route.is_empty() else route[0]
 		var direction := next - global_position
 		direction.y = 0
 		if direction.length() > 0.35:
 			direction = direction.normalized()
+			# The grid excludes moving people; steer around nearby bodies locally.
+			for other in game.npcs:
+				if other==self: continue
+				var away: Vector3=global_position-other.global_position
+				away.y=0
+				var separation := away.length()
+				if separation<1.4 and separation>0.01 and direction.dot(-away.normalized())>0.1:
+					var side := Vector3(-direction.z,0,direction.x)
+					if away.dot(side)<0: side=-side
+					direction=(direction+side*clampf((1.4-separation)*2.8,0,1.8)).normalized()
 			velocity.x = direction.x * 2.3
 			velocity.z = direction.z * 2.3
 		else:
 			velocity.x = 0
 			velocity.z = 0
-	if down<=0 and Vector2(velocity.x,velocity.z).length()>0.3:
+	seated=role!="guard" and down<=0 and hostile<=0 and reaction<=0 and visit_wait<=0 and game.speaker!=self and game.office.visit_target(self)==null and Vector2(position.x-home.x,position.z-home.z).length()<0.4 and not game.payroll.after_work()
+	visual.position.y=move_toward(visual.position.y,-0.42 if seated else 0.0,delta*1.5)
+	label.position.y=1.65 if seated else 2.05
+	if seated:
+		visual.rotation.y=lerp_angle(visual.rotation.y,0,delta*5)
+	elif down<=0 and Vector2(velocity.x,velocity.z).length()>0.3:
 		visual.rotation.y=lerp_angle(visual.rotation.y,atan2(-velocity.x,-velocity.z),delta*8)
 	elif down<=0:
 		var facing: Vector3 = game.player.global_position-global_position if distance<5 else Vector3(0,0,1)
 		visual.rotation.y=lerp_angle(visual.rotation.y,atan2(-facing.x,-facing.z),delta*4)
-	visual.pose(Vector2(velocity.x,velocity.z).length(),attack_cooldown>0.7,down>0)
+	visual.pose(Vector2(velocity.x,velocity.z).length(),attack_cooldown>0.7,down>0,seated)
 	move_and_slide()
 	if position.y < -6: position = home

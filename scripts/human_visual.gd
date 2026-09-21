@@ -16,7 +16,7 @@ func _ready() -> void:
 	animation=AnimationPlayer.new()
 	add_child(animation)
 	var library := AnimationLibrary.new()
-	for clip in ["idle","walk","run","strike"]: library.add_animation(clip,make_clip(clip))
+	for clip in ["idle","walk","run","strike","work"]: library.add_animation(clip,make_clip(clip))
 	animation.add_animation_library("",library)
 	animation.play("idle")
 	if skeleton:
@@ -51,6 +51,12 @@ func make_clip(clip: String) -> Animation:
 				if bone=="upperarm01.L": euler.x=-wave*amount*0.65
 				if bone=="upperarm01.R": euler.x=wave*amount*0.65
 				if bone=="spine02": euler.y=wave*0.05
+			elif clip=="work":
+				if bone.begins_with("upperleg"): euler.x=-PI/2
+				if bone.begins_with("lowerleg"): euler.x=PI/2
+				if bone.begins_with("upperarm"): euler.x=-0.8; euler.z*=0.4
+				if bone.begins_with("lowerarm"): euler.x=-0.6+wave*0.04
+				if bone=="spine02": euler.x=0.06
 			elif clip=="strike":
 				var punch := sin(phase*PI)
 				if bone=="upperarm01.R": euler=Vector3(-1.5*punch,-0.25*punch,0.62*(1-punch))
@@ -61,12 +67,12 @@ func make_clip(clip: String) -> Animation:
 			anim.rotation_track_insert_key(track,phase*anim.length,Quaternion.from_euler(euler))
 	return anim
 
-func pose(speed: float, attacking: bool, fallen: bool) -> void:
+func pose(speed: float, attacking: bool, fallen: bool, working: bool = false) -> void:
 	if fallen:
 		animation.pause()
 		current="fallen"
 		return
-	var next := "strike" if attacking else "run" if speed>5.5 else "walk" if speed>0.2 else "idle"
+	var next := "work" if working else "strike" if attacking else "run" if speed>5.5 else "walk" if speed>0.2 else "idle"
 	if next!=current:
 		animation.play(next,0.13)
 		current=next

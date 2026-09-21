@@ -10,7 +10,7 @@ func run() -> void:
 	root.add_child(game)
 	await physics_frame
 	await physics_frame
-	for action in ["interview_hr","interview_lead","interview_boss","join_a","data","shortcut","submit"]: game.career.apply(action)
+	for action in ["interview_hr","interview_lead","interview_boss","join_a","data","prepare","shortcut","submit"]: game.career.apply(action)
 	game.payroll.advance(Payroll.PERIOD,"a")
 	game.player.pick(game.props[0])
 	game.player.pick(game.props[1])

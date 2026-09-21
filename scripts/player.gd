@@ -20,6 +20,7 @@ var swing := 0.0
 var hp := 100
 var protection := 0.0
 var dead := 0.0
+var seated := false
 
 func _ready() -> void:
 	Shapes.collider(self, Vector3(0.6,1.75,0.6), Vector3(0,0.88,0))
@@ -51,10 +52,13 @@ func _unhandled_input(event: InputEvent) -> void:
 		pitch = clampf(pitch - event.relative.y * sensitivity, -0.9, 0.5)
 	if dead > 0: return
 	if event.is_action_pressed("attack"):
+		stand_up()
 		game.close_interaction()
 		attack()
 	if event.is_action_pressed("interact"): game.interact()
-	if event.is_action_pressed("throw"): release(true)
+	if event.is_action_pressed("throw"):
+		stand_up()
+		release(true)
 	if event.is_action_pressed("drop"): release(false)
 	if event.is_action_pressed("store"): store_held()
 	if event.is_action_pressed("cycle"): cycle_item()
@@ -71,7 +75,8 @@ func _physics_process(delta: float) -> void:
 	protection = maxf(0,protection-delta)
 	pivot.rotation = Vector3(pitch,yaw,0)
 	visual.rotation.y = yaw + sin(swing * 18) * 0.5
-	visual.pose(Vector2(velocity.x,velocity.z).length(),swing>0,dead>0)
+	visual.pose(Vector2(velocity.x,velocity.z).length(),swing>0,dead>0,seated)
+	visual.position.y=move_toward(visual.position.y,-0.42 if seated else 0.0,delta*2)
 	if held:
 		held.global_transform = hand.global_transform
 	if dead > 0:
@@ -81,6 +86,7 @@ func _physics_process(delta: float) -> void:
 		return
 	if not is_on_floor(): velocity.y -= 22 * delta
 	var input := Input.get_vector("left","right","forward","back")
+	if input.length()>0.1 or Input.is_action_just_pressed("jump"): stand_up()
 	var direction := Vector3(input.x,0,input.y).rotated(Vector3.UP,yaw)
 	var speed := run_speed if Input.is_action_pressed("run") else walk_speed
 	velocity.x = direction.x * speed
@@ -137,6 +143,7 @@ func release(throwing: bool) -> void:
 		prop.apply_central_impulse((forward() * 14 + Vector3.UP * 3) * prop.mass)
 
 func hurt(amount: int) -> void:
+	stand_up()
 	if protection > 0: return
 	hp = maxi(0,hp-amount)
 	game.impact()
@@ -169,3 +176,13 @@ func respawn() -> void:
 	protection = 5.0
 	visual.rotation.z = 0
 	game.say("已在附近复活 · 5 秒保护 · 装备与世界后果保留")
+
+func sit_at(point: Vector3) -> void:
+	store_held()
+	position=point
+	velocity=Vector3.ZERO
+	yaw=0
+	seated=true
+
+func stand_up() -> void:
+	seated=false

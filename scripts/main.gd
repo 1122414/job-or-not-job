@@ -12,6 +12,7 @@ var persistence_enabled := false
 var save_delay := -1.0
 var payroll := Payroll.new()
 var walking := WalkingGrid.new()
+var office := OfficeLife.new()
 var career := Career.new()
 var stations: Array[WorkStation] = []
 var conversation: Dictionary = {}
@@ -30,7 +31,9 @@ func _ready() -> void:
 	player.game = self
 	add_child(player)
 	player.position = Vector3(-14,0.2,5)
+	office.game=self
 	Neighborhood.build(self)
+	for id in OfficeLife.DESKS: add_station(id,"我的工位",OfficeLife.DESKS[id])
 	add_station("archive","原始资料",Vector3(-24,0,-4))
 	add_station("demo","演示交付台",Vector3(-19,0,-12))
 	add_station("backup","备用投影",Vector3(-5,0,-12))
@@ -94,6 +97,7 @@ func build_ui() -> void:
 
 func _process(delta: float) -> void:
 	focus_target=nearest()
+	office.tick()
 	var payday_before := payroll.next_payday
 	payroll.tick(delta,career.employer)
 	if payroll.next_payday!=payday_before: queue_save()
@@ -137,7 +141,7 @@ func nearest() -> Node3D:
 
 func can_see(from: Node3D, to: Node3D) -> bool:
 	var start := from.global_position + Vector3.UP
-	var end := to.global_position + (Vector3.UP if to is CharacterBody3D else Vector3.ZERO)
+	var end := to.global_position + (Vector3.UP if to is CharacterBody3D or to is WorkStation else Vector3.ZERO)
 	var query := PhysicsRayQueryParameters3D.create(start,end)
 	if from is CollisionObject3D: query.exclude = [from.get_rid()]
 	var hit := get_world_3d().direct_space_state.intersect_ray(query)
@@ -161,6 +165,7 @@ func interact() -> void:
 			return
 		speaker=target
 		conversation=OfficeDialogue.options(target,career)
+		if target is WorkStation and target.stable_id.begins_with("desk_"): conversation=office.desk_choices(target)
 		if target is OfficeNPC and target.role in ["friend","group"] and payroll.after_work():
 			conversation={"text":target.title+"：下班了，今天的事可以聊，也可以不聊。", "choices":[["聊今天发生的事","social"],["请你帮忙伪造未完成的成果","boundary"]]}
 		if target is OfficeNPC and target.role=="guard":
@@ -175,6 +180,10 @@ func choose(index: int) -> void:
 	var choices: Array = conversation.choices
 	if index>=choices.size(): return
 	var action: String = choices[index][1]
+	if action=="desk_open":
+		office.open_desk(speaker)
+		close_interaction()
+		return
 	if action=="settle":
 		var companion: OfficeNPC
 		for npc in npcs:
@@ -210,6 +219,8 @@ func choose(index: int) -> void:
 		close_interaction()
 		say(line)
 		return
+	if action=="prepare" and speaker is WorkStation:
+		player.sit_at(speaker.position)
 	var result := "小夏：我们关系再好，也不能造假。找捷径可以，伪造成果不行。" if action=="boundary" else career.apply(action)
 	if action in ["join_b","handover","settle"]:
 		for npc in npcs:

@@ -8,3 +8,7 @@ func run() -> void:
 	game.player.yaw=0
 	game.player.pitch=-0.12
 	game.player.hp=100
+
+	if OS.get_cmdline_user_args().has("--internship"):
+		for action in ["interview_hr","interview_lead","interview_boss","join_a"]: game.career.apply(action)
+		game.player.position=OfficeLife.DESKS.desk_a+Vector3(0,0,1.5)

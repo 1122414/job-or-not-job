@@ -19,7 +19,7 @@ func record(key: String, text: String) -> void:
 	records.append(text)
 
 func apply(action: String) -> String:
-	var a_actions := ["interview_hr","interview_lead","interview_boss","join_a","brief","permission","confirm","shortcut","submit","no_hc","transfer","backup","defend"]
+	var a_actions := ["interview_hr","interview_lead","interview_boss","join_a","brief","prepare","permission","confirm","shortcut","submit","no_hc","transfer","backup","defend"]
 	if action in a_actions and conflict.a>=2: return "规程科技已关闭当前职业机会。此前成果保留，可以离开。"
 	if action in ["interview_b","join_b","help","refuse","negotiate","settle","handover"] and conflict.b>=2: return "自己人网络已停止合作，个人关系单独保留。"
 	match action:
@@ -75,7 +75,7 @@ func apply(action: String) -> String:
 				grade="一组实习生"
 				stage=1
 				record("a_join","规程科技：三轮面试通过，接受一组实习。")
-				return "入职。一组需要一个演示，请找周工了解情况。"
+				return "第一章 · 实习第一天。右侧第一排是你的工位，HR 和主管会来找你。"
 		"brief":
 			if employer=="a" and stage==1:
 				record("brief","演示资料在蓝色资料台；听说运行需要权限。")
@@ -83,6 +83,10 @@ func apply(action: String) -> String:
 		"data":
 			record("data","拿到演示资料：原始说明注明离线版无需权限审批。")
 			return "原始说明：离线演示不访问生产环境，不需要审批。可以找小夏核实。"
+		"prepare":
+			if employer=="a" and stage==1 and facts.has("data"):
+				record("prepared","在自己的工位整理已有资料，演示预览成功；生成可交付的演示包。")
+				return "演示预览成功，屏幕已显示交付包。选择离线捷径或常规权限方式后，到演示台交付。"
 		"permission":
 			if employer=="a" and stage==1 and facts.has("data"):
 				record("permission","已取得演示权限，HR 可以确认提交人。")
@@ -96,7 +100,7 @@ func apply(action: String) -> String:
 				record("shortcut","小夏确认离线版有效：取消权限审批和提交人确认，不必补做。")
 				return "小夏：原作者就是我。用离线版，权限和确认都取消，直接交。"
 		"submit":
-			if employer=="a" and stage==1 and facts.has("data") and (facts.has("shortcut") or (facts.has("permission") and facts.has("confirm"))):
+			if employer=="a" and stage==1 and facts.has("data") and facts.has("prepared") and (facts.has("shortcut") or (facts.has("permission") and facts.has("confirm"))):
 				stage=2
 				record("output_one","第一份演示交付完成，考核明确通过。")
 				return "考核通过！成果已记录。找周工谈转正。"
@@ -137,14 +141,16 @@ func objective() -> String:
 	if employer=="a":
 		match stage:
 			1:
-				if not facts.has("brief"): return "找周工了解第一份演示"
+				if not facts.has("desk_a_arrived"): return "第一章 · 实习第一天：右侧第一排，E 查看自己的工位"
+				if not facts.has("brief"): return "实习：周工会到工位找你，也可主动去找他"
 				if not facts.has("data"): return "查看蓝色资料台的原始说明"
+				if not facts.has("prepared"): return "实习：回自己的工位，整理资料并预览演示包"
 				if not facts.has("shortcut") and not facts.has("confirm"): return "找小夏核实离线版，或找周工走权限流程"
 				return "到演示台提交成果"
 			2: return "考核通过 · 找周工谈转正"
 			3: return "没有 HC · 找右后方许姐谈换组"
-			4: return "二组 · 到右后方投影台切换备用线路"
-			5: return "两份成果就绪 · 找方总答辩"
+			4: return "第二章 · 换组实习：后方中间新工位 / 右后方投影现场"
+			5: return "第三章 · 转正答辩：两份成果就绪，找方总"
 			6: return "已转正 · 可以继续上班，也可以离开"
 	if former.has("a"): return "成果保留 · 可去自己人网络应聘"
 	return ["规程科技 HR / 自己人网络 · 都可自由前往","下一轮：左侧周工","最后一轮：后方方总","正式名额冻结 · 可找 HR 接受实习"][recruit.a]

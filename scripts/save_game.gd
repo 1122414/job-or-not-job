@@ -160,6 +160,7 @@ static func restore(game: Node3D, data: Dictionary) -> bool:
 	game.player.pitch=data.player.pitch
 	game.player.hp=int(data.player.hp)
 	game.player.protection=maxf(1,data.player.protection)
+	game.player.seated=false
 	game.player.dead=0
 	game.player.bag_open=false
 	game.player.cooldown=0
