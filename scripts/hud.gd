@@ -67,3 +67,17 @@ func _draw() -> void:
 	if p.dead>0:
 		draw_rect(Rect2(0,h*0.4,w,100),Color(0.15,0,0,0.75))
 		text_at(Vector2(w*0.38,h*0.4+60),"今天，先躺一下。",34,Color("e27670"))
+
+	if not game.conversation.is_empty():
+		draw_rect(Rect2(w*0.22,h-335,w*0.75,155),Color(0.02,0.03,0.05,0.9))
+		text_at(Vector2(w*0.24,h-305),game.conversation.text,18)
+		for i in range(game.conversation.choices.size()):
+			text_at(Vector2(w*0.24,h-275+i*27),str(i+1)+"  "+game.conversation.choices[i][0],18,Color("f5d386"))
+		text_at(Vector2(w*0.24,h-194),"数字键选择 · 走开或动手立即中断",14)
+	if game.journal_open:
+		draw_rect(Rect2(240,100,w-300,h-200),Color(0.02,0.04,0.06,0.95))
+		text_at(Vector2(265,137),"已知事项 / 成果记录 · J 关闭",24)
+		text_at(Vector2(265,175),game.career.grade,18,Color("f5d386"))
+		var records: Array = game.career.records
+		for i in range(maxi(0,records.size()-15),records.size()):
+			text_at(Vector2(265,210+(i-maxi(0,records.size()-15))*26),records[i],16)

@@ -3,6 +3,11 @@ extends Node3D
 var player: OfficePlayer
 var props: Array[OfficeProp] = []
 var npcs: Array[OfficeNPC] = []
+var career := Career.new()
+var stations: Array[WorkStation] = []
+var conversation: Dictionary = {}
+var speaker: Node3D
+var journal_open := false
 var action_counter := 0
 var hud: StreetHUD
 var audio: AudioStreamPlayer
@@ -16,6 +21,9 @@ func _ready() -> void:
 	add_child(player)
 	player.position = Vector3(-14,0.2,5)
 	Neighborhood.build(self)
+	add_station("archive","原始资料",Vector3(-24,0,-4))
+	add_station("demo","演示交付台",Vector3(-19,0,-12))
+	add_station("backup","备用投影",Vector3(-5,0,-12))
 	build_ui()
 	build_audio()
 
@@ -83,10 +91,10 @@ func money_text() -> String:
 	return "¥ 0"
 
 func objective_text() -> String:
-	return "两家公司都能进入 · 靠近人物按 E · 随时可以离开"
+	return career.objective()
 
 func targets() -> Array:
-	return npcs + props
+	return npcs + props + stations
 
 func nearest() -> Node3D:
 	var best: Node3D
@@ -109,13 +117,51 @@ func can_see(from: Node3D, to: Node3D) -> bool:
 	var hit := get_world_3d().direct_space_state.intersect_ray(query)
 	return hit.is_empty() or hit.collider == to
 
+func add_station(id: String, title: String, pos: Vector3) -> void:
+	var station := WorkStation.new()
+	station.stable_id=id
+	station.title=title
+	station.position=pos
+	stations.append(station)
+	add_child(station)
+
 func interact() -> void:
 	var target := nearest()
-	if target is OfficeProp: player.pick(target)
-	elif target is OfficeNPC: say("%s：%s" % [target.title,"让我缓缓……" if target.down>0 else "今天也是来证明自己的？"])
+	if target is OfficeProp:
+		player.pick(target)
+	elif target is OfficeNPC or target is WorkStation:
+		if target is OfficeNPC and target.down>0:
+			say("对方暂时倒地，稍后会恢复；也可以直接离开。")
+			return
+		speaker=target
+		conversation=OfficeDialogue.options(target,career)
+		journal_open=false
+
+func choose(index: int) -> void:
+	if conversation.is_empty() or not is_instance_valid(speaker): return
+	if player.dead>0 or player.position.distance_to(speaker.position)>3.5 or (speaker is OfficeNPC and speaker.down>0):
+		close_interaction()
+		return
+	var choices: Array = conversation.choices
+	if index>=choices.size(): return
+	var action: String = choices[index][1]
+	var result := "小夏：我们关系再好，也不能造假。找捷径可以，伪造成果不行。" if action=="boundary" else career.apply(action)
+	close_interaction()
+	say(result)
+	if action=="backup" and career.facts.has("output_two"):
+		for station in stations:
+			if station.stable_id=="backup": station.label.text="投影已恢复 · 成果已记录"
 
 func close_interaction() -> void:
-	pass
+	conversation.clear()
+	speaker=null
+
+func _unhandled_key_input(event: InputEvent) -> void:
+	if event is InputEventKey and event.pressed and not event.echo:
+		if event.physical_keycode>=KEY_1 and event.physical_keycode<=KEY_4: choose(event.physical_keycode-KEY_1)
+		if event.is_action_pressed("journal"):
+			journal_open=not journal_open
+			close_interaction()
 
 func next_action() -> int:
 	action_counter += 1
@@ -140,8 +186,13 @@ func on_aggression(npc: OfficeNPC, _action: int) -> void:
 func on_property_hit(_prop: OfficeProp, _action: int) -> void:
 	pass
 
-func relationship(_npc: OfficeNPC) -> String:
-	return "陌生人"
+func relationship(npc: OfficeNPC) -> String:
+	var tags := PackedStringArray()
+	if career.employer==npc.company: tags.append("同事")
+	elif career.former.has(npc.company): tags.append("前同事")
+	else: tags.append("认识的人")
+	if npc.affinity>=30: tags.append("朋友")
+	return " · ".join(tags)
 
 func say(text: String) -> void:
 	hud.toast = text
