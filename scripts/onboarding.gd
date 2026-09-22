@@ -107,7 +107,7 @@ func service_options(npc: OfficeNPC,fallback: Dictionary) -> Dictionary:
 	var card := badge(npc.company)
 	if card and not game.player.inventory.has(card) and game.player.held!=card:
 		fallback.choices.push_front(["补办丢失的工牌","service_badge"])
-	if game.recruitment.work.get("account_"+npc.company,true)==false:
+	if game.recruitment.work.get("account_"+npc.company,true)==false and game.career.facts.has("account_failed_"+npc.company):
 		fallback.choices.push_front(["账号通知已完成，但无法登录","service_account"])
 	fallback.choices=fallback.choices.slice(0,3)
 	return fallback

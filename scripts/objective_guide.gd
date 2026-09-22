@@ -7,6 +7,8 @@ static func current(game: Node3D) -> Dictionary:
 	var recruitment: Dictionary=game.recruitment.objective()
 	if not recruitment.is_empty(): return recruitment
 	var c: Career=game.career
+	if c.employer!="" and not game.onboarding.account_ready() and c.facts.has("account_failed_"+c.employer):
+		return {"title":"电脑无法登录 · 找前台核对已完成的账号工单","id":c.employer+"_hr"}
 	var id := ""
 	var title := c.objective()
 	for pending in game.office.pending_visits():

@@ -43,6 +43,7 @@ static func options(target: Node3D, c: Career) -> Dictionary:
 				choices.append(["我来接手：去交接终端完成","help"])
 				if c.b_event=="pending": choices.append(["今晚拒绝加班","refuse"])
 				choices.append(["一起找赵总问清截止时间","negotiate"])
+			if c.employer=="b" and c.b_event=="helping": choices.append(["材料里的截止时间是明天，我们一起核对","negotiate"])
 			if c.b_event in ["helped","negotiated"]: text="阿乐：谢谢你。欠的人情不是无限加班的借口。"
 			if c.b_event=="conflict": text="阿乐：我懂你憋屈，但打我或同事不行。今天先停下。"
 		"b_boss":

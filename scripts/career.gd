@@ -53,7 +53,7 @@ func apply(action: String) -> String:
 				record("b_refuse","拒绝加班，阿乐接下交接工作；一次拒绝没有抹掉友谊。")
 				return "阿乐：行，我先去处理。你不欠我一个晚上。"
 		"negotiate":
-			if employer=="b" and b_event in ["pending","refused"]:
+			if employer=="b" and b_event in ["pending","refused","helping"]:
 				b_event="negotiating"
 				return "阿乐：我跟你一起找赵总，问清楚为什么非得今晚。"
 		"settle":

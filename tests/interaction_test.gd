@@ -56,7 +56,7 @@ func run() -> void:
 	var game = load("res://scenes/main.tscn").instantiate()
 	root.add_child(game)
 	await physics_frame
-	for step in [["a_hr","interview_hr"],["a_lead","interview_lead"],["a_boss","interview_boss"],["a_hr","join_a"],["a_hr","service_account"],["a_lead","brief"],["archive","data"],["desk_a","prepare"],["a_friend","shortcut"],["demo","submit"],["a_lead","no_hc"],["a_group","transfer"],["backup","backup"],["a_boss","defend"]]:
+	for step in [["a_hr","interview_hr"],["a_lead","interview_lead"],["a_boss","interview_boss"],["a_hr","join_a"],["desk_a","desk_open"],["a_hr","service_account"],["a_lead","brief"],["archive","data"],["desk_a","prepare"],["a_friend","shortcut"],["demo","submit"],["a_lead","no_hc"],["a_group","transfer"],["backup","backup"],["a_boss","defend"]]:
 		await choose_at(game,step[0],step[1])
 	check(game.career.stage==6,"场景交互完整转正")
 	game.interact()
@@ -69,7 +69,7 @@ func run() -> void:
 	Input.action_release("forward")
 	check(game.conversation.is_empty(),"走开即时关闭对话")
 	await choose_at(game,"a_hr","resign")
-	for step in [["b_hr","interview_b"],["b_hr","join_b"],["b_hr","service_account"],["desk_b","desk_open"],["b_friend","refuse"],["b_friend","negotiate"],["desk_b","computer_open"]]:
+	for step in [["b_hr","interview_b"],["b_hr","join_b"],["desk_b","desk_open"],["b_hr","service_account"],["b_friend","refuse"],["b_friend","negotiate"],["desk_b","computer_open"]]:
 		await choose_at(game,step[0],step[1])
 	for npc in game.npcs:
 		if npc.stable_id=="b_boss": game.player.position=npc.home+Vector3(0,0,1.8)

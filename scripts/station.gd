@@ -60,8 +60,10 @@ func _ready() -> void:
 		# A visible scene output at the delivery site; results survive save/load via career facts.
 		var board_at := Vector3(0,2.05,-0.55)
 		Shapes.box(self,Vector3(2.1,1.08,0.06),board_at,Color("e6e5db"))
-		result_board=Shapes.label(self,"",board_at+Vector3(0,0,0.04),32)
+		result_board=Shapes.label(self,"",board_at+Vector3(0,0,0.04),48)
 		result_board.billboard=BaseMaterial3D.BILLBOARD_DISABLED
+		result_board.width=720
+		result_board.autowrap_mode=TextServer.AUTOWRAP_WORD_SMART
 		result_board.pixel_size=0.0026
 		result_board.outline_size=0
 		result_board.modulate=Color("234d55")
@@ -111,7 +113,7 @@ func _process(_delta: float) -> void:
 		if project.preview!="":
 			var output: String="错误：草稿包含未确认功能" if project.preview=="error" else project.preview
 			if stable_id=="demo" and result_board:
-				result_board.text=("已归档 / " if project.delivered else "待现场交付 / ")+output
+				result_board.text=("已归档" if project.delivered else "待现场交付")+"\n"+output.replace("；","\n").replace("。","\n")
 			elif stable_id==game.office.assigned_desk() and game.career.stage<4 and game.onboarding.account_ready(): screen.text=output
 	if stable_id=="handover" and game.recruitment.work.has("project_b"):
 		var project: Dictionary=game.recruitment.work.project_b

@@ -43,6 +43,9 @@ func run() -> void:
 	game.career.b_event="helping"
 	project.key(5); project.key(7)
 	check(game.career.b_event=="helped" and project.state("b").sent,"正确包实际发送后才完成帮忙")
+	game.career.b_event="helping"
+	game.career.apply("negotiate")
+	check(game.career.b_event=="negotiating","接手后发现原始期限仍能改为现场协商")
 	game.queue_free()
 	await process_frame
 	print("WORK_PROJECTS_TEST failures=",failures)

@@ -24,6 +24,11 @@ func run() -> void:
 	var card: OfficeProp=game.onboarding.badge("a")
 	check(game.career.employer=="a" and game.player.inventory.has(card),"完成报到取得雇佣和实体工牌")
 	check(not game.onboarding.account_ready(),"通知完成但账号组织尚未开通")
+	check(not str(game.onboarding.service_options(hr,{"text":"","choices":[]})).contains("service_account"),"未尝试登录不提前剧透账号故障")
+	for station in game.stations:
+		if station.stable_id=="desk_a": game.office.open_desk(station)
+	check(game.objective_text().contains("无法登录"),"实际遇到问题后目标指向前台")
+	game.player.position=hr.position+Vector3(0,0,1)
 	game.player.pick(card); game.player.release(false)
 	check(not game.player.inventory.has(card),"工牌可真实丢弃")
 	game.speaker=hr

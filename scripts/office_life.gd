@@ -86,6 +86,7 @@ func open_desk(station: WorkStation) -> void:
 	game.career.record(key,"已在自己的工位安顿："+game.career.grade)
 	game.player.sit_at(station.position)
 	game.onboarding.settled()
+	if not game.onboarding.account_ready(): game.career.facts["account_failed_"+game.career.employer]=true
 	game.say("登录失败：账号仍属于候选人组织。通知明明写已完成，请找前台核对。" if not game.onboarding.account_ready() else "已在工位坐下。同事会过来交代今天的工作。")
 	game.queue_save()
 

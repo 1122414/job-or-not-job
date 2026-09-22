@@ -452,7 +452,9 @@ func startup() -> void:
 	# Unit/integration scenes never load or overwrite the player's save slot.
 	initial_state=SaveGame.snapshot(self)
 	persistence_enabled=get_tree().current_scene==self
-	if persistence_enabled and FileAccess.file_exists(save_path): load_game()
+	if persistence_enabled:
+		if FileAccess.file_exists(save_path): load_game()
+		else: import_previous(OS.get_user_data_dir().get_base_dir().path_join("今天不上班/neighborhood.json"))
 
 func queue_save() -> void:
 	if persistence_enabled: save_delay=0.4
@@ -542,3 +544,16 @@ func position_clear(actor: CharacterBody3D,point: Vector3) -> bool:
 		exceptions.append(actor.seat_body.get_rid())
 		query.exclude=exceptions
 	return get_world_3d().direct_space_state.intersect_shape(query,1).is_empty()
+
+func import_previous(path: String) -> bool:
+	if not persistence_enabled or FileAccess.file_exists(save_path): return false
+	var data := SaveGame.read(path,self)
+	if data.is_empty(): data=SaveGame.read(path+".bak",self)
+	if data.is_empty():
+		if FileAccess.file_exists(path): say("旧版存档未能读取，原文件保持原样。可继续新世界，或在旧版中检查备份。")
+		return false
+	if not SaveGame.restore(self,data): return false
+	if not save_game(false): return false
+	save_delay=-1
+	say("已将旧版进度复制到0.5.0独立存档，原档保留。想体验新开局可在Esc选择新游戏。")
+	return true
