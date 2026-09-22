@@ -49,6 +49,7 @@ func _input(event: InputEvent) -> void:
 			return
 		if page!="":
 			var key: int=event.physical_keycode if event.physical_keycode else event.keycode
+			if page=="computer" and key>=KEY_1 and key<=KEY_7: game.projects.key(key-KEY_1+1)
 			if page=="messages":
 				if key==KEY_LEFT: game.recruitment.selected="a"; game.recruitment.message_page=0
 				if key==KEY_RIGHT: game.recruitment.selected="b"; game.recruitment.message_page=0

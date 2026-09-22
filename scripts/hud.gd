@@ -113,6 +113,7 @@ func _draw() -> void:
 			text_at(Vector2(w*0.24,y),str(i+1)+"  "+game.conversation.choices[i][0],17,Color("f5d386"))
 			y+=29
 		text_at(Vector2(w*0.24,h-97),game.conversation.get("hint","数字键选择 · 走开或动手立即中断"),14,Color("a4b3bd"))
+	if game.panels.page=="computer": draw_computer(w,h)
 	if game.panels.page=="messages": draw_messages(w,h)
 	if game.panels.page=="people": draw_people(w,h)
 	if game.journal_open:
@@ -256,3 +257,42 @@ func draw_messages(w: float,h: float) -> void:
 	if phase in ["offered","deferred","declined"]: actions="1 接受并预约报到     2 暂缓决定     3 拒绝邀请"
 	if phase=="accepted": actions="1 改约到再下一日     2 取消报到安排"
 	text_at(Vector2(190,h-102),actions,18,Color("e4be70"))
+
+func draw_computer(w: float,h: float) -> void:
+	draw_style_box(panel_style(),Rect2(100,55,w-200,h-110))
+	var firm: String=game.career.employer
+	if not firm in ["a","b"]: return
+	var project: Dictionary=game.projects.state(firm)
+	var docs: Array=WorkProjects.A_DOCS if firm=="a" else WorkProjects.B_DOCS
+	text_at(Vector2(130,94),"演示工作台" if firm=="a" else "交接工作台",26)
+	text_at(Vector2(w-230,94),"Esc 回到现场",15,Color("a4b3bd"))
+	for i in range(3):
+		var y := 146+i*60
+		draw_rect(Rect2(120,y-25,290,46),Color("344954") if game.projects.document==i else Color("202c33"))
+		text_at(Vector2(132,y),str(i+1)+"  "+docs[i][0].split(" · ")[0],17,Color("e7d9b9"))
+	var y := 140.0
+	text_at(Vector2(435,y),docs[game.projects.document][0],20,Color("e7d9b9"))
+	y+=34
+	for line in wrap_lines(docs[game.projects.document][1],w-570,17):
+		text_at(Vector2(435,y),line,17)
+		y+=26
+	var choices: Array
+	if firm=="a":
+		choices=["4  演示依据："+{"":"未选择","official":"正式说明 v1.2","draft":"未确认草稿 v2"}[project.source],"5  运行方式："+("离线样例" if project.mode=="offline" else "生产环境"),"6  运行预览"]
+	else:
+		choices=["4  交接版本："+{"":"未选择","complete":"完整交接包","old":"旧交接包"}[project.package],"5  计划时间："+{"":"未填写","tonight":"今晚","tomorrow":"明早10:00"}[project.deadline],"6  检查交接包","7  发送 / 准备协商材料"]
+	for i in range(choices.size()): text_at(Vector2(130,370+i*38),choices[i],17,Color("dfc47b"))
+	text_at(Vector2(435,370),"预览 / 检查结果",19)
+	y=404
+	var preview: String="检查未通过，请查看下方具体问题。" if project.preview=="error" else project.preview if project.preview!="" else "尚未运行。配置改变后需要重新检查。"
+	for line in wrap_lines(preview,w-570,17): text_at(Vector2(435,y),line,17,Color("b6d5c5")); y+=26
+	if firm=="a" and project.preview!="":
+		var rows: Array=[["A-017","已处理","1"],["A-018","待确认","1"]] if project.preview!="error" else [["自动退款","未确认","—"],["实时数据","缺少来源","—"]]
+		for i in range(rows.size()):
+			var row_y := 485+i*38
+			draw_rect(Rect2(435,row_y-24,w-570,32),Color("25443a") if project.preview!="error" else Color("513b36"))
+			text_at(Vector2(450,row_y),rows[i][0],17)
+			text_at(Vector2(670,row_y),rows[i][1],17)
+			text_at(Vector2(w-190,row_y),rows[i][2],17)
+	y=h-160
+	for line in wrap_lines(game.projects.feedback,w-280,17): text_at(Vector2(130,y),line,17,Color("e4be70")); y+=26

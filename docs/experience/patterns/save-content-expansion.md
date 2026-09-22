@@ -11,3 +11,5 @@
 2026-09-22 关系记录反例：`dictionary.days.peace=...` 会产生StringName键，严格`key is String`拒绝内存快照，而JSON往返会将它转成String掩盖问题。统一显式字符串索引，并在键校验允许String/StringName；`destruction_test`的受击后直接snapshot/restore暴露此问题。应同时验证内存恢复和JSON往返，不只验证磁盘档。
 
 2026-09-22 v11复用验证：独立招聘状态先建立scenes/work/promises空结构，旧已入职档保留雇佣，旧已面试未入职档迁移为待确认邀请。recruitment_test同时覆盖内存、JSON、v10迁移及报到前后工资。版本仍使用数值相等而非数组成员检查；全套35项通过。内部Career命令可用于测试前置，玩家入口必须经RecruitmentFlow，不能用直接设置雇佣代替报到路径验收。
+
+2026-09-22 工作分支测试：初始快照在main.startup延后生成；实例化后一帧即运行长串同步状态操作，initial_state可能尚为空。忽略restore返回值会让后续分支沿用上一职业，表现为多个无关断言同时失败。work_projects_test等待初始化，并对每次分支恢复明确断言，定向与完整回归通过。资料阅读编号经JSON变为float，在WorkProjects.state转换为int，避免成员匹配丢失阅读状态；错误反馈也随作品保存。此结论适用于本项目延后startup夹具，不应泛化为任意游戏都需要固定等十帧。

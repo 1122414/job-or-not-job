@@ -22,6 +22,7 @@ var care := NPCCare.new()
 var social := SocialLife.new()
 var onboarding := Onboarding.new()
 var recruitment := RecruitmentFlow.new()
+var projects := WorkProjects.new()
 var person_index := 0
 var interviews := InterviewFlow.new()
 var career := Career.new()
@@ -54,6 +55,7 @@ func _ready() -> void:
 	social.game=self
 	onboarding.game=self
 	recruitment.game=self
+	projects.game=self
 	interviews.game=self
 	Neighborhood.build(self)
 	for firm in ["a","b"]: add_prop(firm+"_badge","badge",OfficeRooms.RECEPTIONS[firm]+Vector3(0.35,0.98,0))
@@ -260,6 +262,7 @@ func choose(index: int) -> void:
 		panels.show_page("messages")
 		return
 	if recruitment.handle(action): return
+	if projects.handle(action): return
 	if onboarding.handle(action): return
 	if interviews.handle(action): return
 	if action in ["visit_confirm","visit_defer"]:
@@ -315,6 +318,8 @@ func choose(index: int) -> void:
 		close_interaction()
 		return
 	var result := "小夏：我们关系再好，也不能造假。找捷径可以，伪造成果不行。" if action=="boundary" else career.apply(action)
+	if action in ["permission","confirm"]:
+		projects.state("a").approval="confirmed" if career.facts.has("confirm") else "permission" if career.facts.has("permission") else "none"
 	if action in ["handover","settle"] and career.employer=="b":
 		var friend: OfficeNPC=npc_for_role("b_friend")
 		if friend: social.remember(friend,action,"你们一起安顿设备或确认了交接的边界。",8,6)

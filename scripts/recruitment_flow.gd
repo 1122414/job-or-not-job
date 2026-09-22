@@ -151,7 +151,7 @@ static func valid(value: Variant) -> bool:
 	if not value is Dictionary or not value.get("applications") is Dictionary or not value.get("messages") is Array: return false
 	for key in ["scenes","work"]:
 		if not value.get(key) is Dictionary: return false
-	if not value.get("promises") is Array: return false
+	if not value.get("promises") is Array or not WorkProjects.valid(value.work): return false
 	for firm in value.scenes:
 		var cursor: Variant=value.scenes[firm]
 		if not firm in ["a","b"] or not cursor is Dictionary or not cursor.get("key") is String: return false

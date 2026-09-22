@@ -57,7 +57,7 @@ func visit_target(npc: OfficeNPC) -> Variant:
 	return Vector3(p.position.x+side*1.8,0,clampf(p.position.z,-14.5,0.3))
 
 func tick(delta: float = 0.0) -> void:
-	tick_preview(delta)
+	# Work validation is driven by player choices in the computer, never a timer.
 	var offer := visit()
 	if offer.is_empty() or not game.conversation.is_empty(): return
 	for npc in game.npcs:
@@ -75,7 +75,8 @@ func desk_choices(station: WorkStation) -> Dictionary:
 	if desk_damaged(station): return {"text":"工位设备损坏，无法工作。可登记维修，或先去处理别的事情。","choices":[["登记维修，恢复可用设备","desk_repair"]]}
 	var choices: Array=[["坐下查看工作资料（随时移动起身）","desk_open"]]
 	if game.career.employer=="a" and game.career.stage==1 and game.career.facts.has("data"):
-		choices.append(["整理已有资料并预览演示包","prepare"])
+		choices.append(["打开电脑，选择资料并制作演示","prepare"])
+	if game.career.employer=="b": choices.append(["打开电脑，核对交接安排","computer_open"])
 	return {"text":"你的工位 / "+game.career.grade,"choices":choices}
 
 func open_desk(station: WorkStation) -> void:
@@ -106,24 +107,7 @@ func answer_visit(npc: OfficeNPC, confirm: bool) -> void:
 	game.queue_save()
 
 func start_preview(station: WorkStation) -> void:
-	if station.stable_id!=assigned_desk() or game.career.employer!="a" or game.career.stage!=1 or not game.career.facts.has("data"): return
-	open_desk(station)
-	preview_station=station
-	preview_elapsed=0
-	game.say("正在运行演示预览 · 可移动起身中断")
-
-func tick_preview(delta: float) -> void:
-	if not is_instance_valid(preview_station): return
-	if not game.player.seated or game.player.dead>0 or game.career.employer!="a" or game.career.stage!=1 or game.player.position.distance_to(preview_station.position)>0.6:
-		preview_station=null
-		preview_elapsed=0
-		game.say("预览已中断，资料保留，可回工位重新运行。")
-		return
-	preview_elapsed+=delta
-	if preview_elapsed>=PREVIEW_SECONDS:
-		preview_station=null
-		game.say(game.career.apply("prepare"))
-		game.queue_save()
+	game.projects.open(station)
 
 func desk_damaged(station: WorkStation) -> bool:
 	if station.stable_id!=assigned_desk(): return false

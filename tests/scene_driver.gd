@@ -72,3 +72,15 @@ static func follow(tree: SceneTree,game: Node3D,npc: OfficeNPC,destination: Vect
 	Input.action_release("forward")
 	push_error("同行未抵达 player="+str(game.player.position)+" npc="+str(npc.position)+" destination="+str(destination))
 	return false
+
+static func computer(game: Node3D) -> bool:
+	if game.panels.page!="computer": return false
+	for key in [1,2,3,4,5]: game.projects.key(key)
+	if game.career.employer=="a": game.projects.key(5) # offline for this route
+	elif game.career.b_event=="negotiating": game.projects.key(5)
+	game.projects.key(6)
+	if game.career.employer=="b": game.projects.key(7)
+	var s: Dictionary=game.projects.state(game.career.employer)
+	var ok: bool=s.preview!="" and s.preview!="error"
+	game.panels.back()
+	return ok

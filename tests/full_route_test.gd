@@ -50,8 +50,7 @@ func perform(game: Node3D,id: String,action: String) -> bool:
 				game.choose(0)
 				game.choose(0)
 			if action in InterviewFlow.ACTIONS: return await Driver.complete_interview(self,game,action)
-			if action=="prepare":
-				for frame in range(200): await physics_frame
+			if action in ["prepare","handover","computer_open"]: return Driver.computer(game)
 			return true
 	push_error("完整路线选项缺失："+id+" / "+action+" "+str(game.conversation))
 	return false
@@ -64,7 +63,7 @@ func run() -> void:
 	root.set_disable_input(true)
 	Input.mouse_mode=Input.MOUSE_MODE_VISIBLE
 	for i in range(10): await physics_frame
-	var route := [["a_hr","interview_hr"],["a_lead","interview_lead"],["a_boss","interview_boss"],["a_hr","join_a"],["desk_a","desk_open"],["a_lead","brief"],["archive","data"],["desk_a","prepare"],["a_friend","shortcut"],["demo","submit"],["a_lead","no_hc"],["a_group","transfer"],["desk_a2","desk_open"],["backup","backup"],["a_boss","defend"],["a_hr","resign"],["b_hr","interview_b"],["b_hr","join_b"],["desk_b","desk_open"],["b_friend","help"],["handover","handover"]]
+	var route := [["a_hr","interview_hr"],["a_lead","interview_lead"],["a_boss","interview_boss"],["a_hr","join_a"],["a_hr","service_account"],["desk_a","desk_open"],["a_lead","brief"],["archive","data"],["desk_a","prepare"],["a_friend","shortcut"],["demo","submit"],["a_lead","no_hc"],["a_group","transfer"],["desk_a2","desk_open"],["backup","backup"],["a_boss","defend"],["a_hr","resign"],["b_hr","interview_b"],["b_hr","join_b"],["b_hr","service_account"],["desk_b","desk_open"],["b_friend","help"],["handover","handover"]]
 	var b_snapshot: Dictionary={}
 	for step in route:
 		print("ROUTE_STEP ",step)
@@ -78,7 +77,7 @@ func run() -> void:
 			root.get_texture().get_image().save_png(evidence_dir.path_join(step[1]+".png"))
 	if game.career.stage!=6 or game.career.b_event!="helped": failures+=1
 	if failures==0 and SaveGame.restore(game,b_snapshot):
-		for step in [["b_friend","refuse"],["b_friend","negotiate"],["b_boss","settle"]]:
+		for step in [["b_friend","refuse"],["b_friend","negotiate"],["desk_b","computer_open"],["b_boss","settle"]]:
 			print("ROUTE_BRANCH ",step)
 			if not await perform(game,step[0],step[1]): failures+=1; break
 		if game.career.b_event!="negotiated": failures+=1

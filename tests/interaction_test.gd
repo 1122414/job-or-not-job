@@ -47,15 +47,14 @@ func choose_at(game: Node3D, id: String, action: String) -> void:
 		if action.begins_with("report_"):
 			game.choose(0)
 			game.choose(0)
-		if action=="prepare":
-			for i in range(200): await physics_frame
+		if action in ["prepare","handover","computer_open"]: check(preload("res://tests/scene_driver.gd").computer(game),"实际配置并预览工作")
 		if action in InterviewFlow.ACTIONS:
 			check(await preload("res://tests/scene_driver.gd").complete_interview(self,game,action),"走入独立房间完成交流："+action)
 func run() -> void:
 	var game = load("res://scenes/main.tscn").instantiate()
 	root.add_child(game)
 	await physics_frame
-	for step in [["a_hr","interview_hr"],["a_lead","interview_lead"],["a_boss","interview_boss"],["a_hr","join_a"],["a_lead","brief"],["archive","data"],["a_friend","shortcut"],["desk_a","prepare"],["demo","submit"],["a_lead","no_hc"],["a_group","transfer"],["backup","backup"],["a_boss","defend"]]:
+	for step in [["a_hr","interview_hr"],["a_lead","interview_lead"],["a_boss","interview_boss"],["a_hr","join_a"],["a_hr","service_account"],["a_lead","brief"],["archive","data"],["desk_a","prepare"],["a_friend","shortcut"],["demo","submit"],["a_lead","no_hc"],["a_group","transfer"],["backup","backup"],["a_boss","defend"]]:
 		await choose_at(game,step[0],step[1])
 	check(game.career.stage==6,"场景交互完整转正")
 	game.interact()
@@ -68,7 +67,7 @@ func run() -> void:
 	Input.action_release("forward")
 	check(game.conversation.is_empty(),"走开即时关闭对话")
 	await choose_at(game,"a_hr","resign")
-	for step in [["b_hr","interview_b"],["b_hr","join_b"],["desk_b","desk_open"],["b_friend","refuse"],["b_friend","negotiate"]]:
+	for step in [["b_hr","interview_b"],["b_hr","join_b"],["b_hr","service_account"],["desk_b","desk_open"],["b_friend","refuse"],["b_friend","negotiate"],["desk_b","computer_open"]]:
 		await choose_at(game,step[0],step[1])
 	for npc in game.npcs:
 		if npc.stable_id=="b_boss": game.player.position=npc.home+Vector3(0,0,1.8)

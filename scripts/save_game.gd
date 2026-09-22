@@ -286,6 +286,7 @@ static func restore(game: Node3D, data: Dictionary) -> bool:
 			session.edition=2
 			game.recruitment.scenes.erase(firm)
 	if data.version<11: game.recruitment.migrate()
+	game.projects.migrate()
 	game.onboarding.tour=data.get("onboarding",{}).duplicate(true)
 	game.social.people=data.get("social",{}).get("people",{}).duplicate(true)
 	game.social.outing=data.get("social",{}).get("outing",{}).duplicate(true)

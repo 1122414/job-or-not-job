@@ -47,10 +47,10 @@ static func options(target: Node3D, c: Career) -> Dictionary:
 			if c.b_event=="conflict": text="阿乐：我懂你憋屈，但打我或同事不行。今天先停下。"
 		"b_boss":
 			text="赵总：都是自己人，多做一点怎么了？"
-			if c.employer=="b" and c.b_event=="negotiating": choices.append(["和阿乐共同交涉：没有今晚截止，改明早交","settle"])
+			if c.employer=="b" and c.b_event=="negotiating": choices.append(["和阿乐展示交接内容与原始截止时间","settle"])
 		"handover":
 			text="交接终端 / 阿乐让出的备用设备"
-			if c.employer=="b" and c.b_event=="helping": choices.append(["发送已有交接包，接替阿乐","handover"])
+			if c.employer=="b" and c.b_event=="helping": choices.append(["打开交接电脑，核对资料和发送","handover"])
 		"rest":
 			text="公交站 / 坐一会儿，世界会继续。"
 			choices=[["休息到傍晚","rest_evening"],["休息一天","rest_day"]]

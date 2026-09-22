@@ -106,6 +106,16 @@ func _process(_delta: float) -> void:
 	if result_board:
 		if stable_id=="demo": result_board.text="演示交付 / 通过\n资料 ✓   预览 ✓   运行 ✓\n第一份成果已归档" if facts.has("output_one") else "演示交付现场\n等待可运行的演示包"
 		else: result_board.text="备用线路 ━ 投影输出\n现场演示已恢复 ✓\n第二份成果已归档" if facts.has("output_two") else "主线路 ┄ 无信号\n备用线路待切换"
+	if stable_id in ["desk_a","desk_a2","demo"] and game.recruitment.work.has("project_a"):
+		var project: Dictionary=game.recruitment.work.project_a
+		if project.preview!="":
+			var output: String="错误：草稿包含未确认功能" if project.preview=="error" else project.preview
+			if stable_id=="demo" and result_board:
+				result_board.text=("已归档 / " if project.delivered else "待现场交付 / ")+output
+			elif stable_id==game.office.assigned_desk() and game.career.stage<4 and game.onboarding.account_ready(): screen.text=output
+	if stable_id=="handover" and game.recruitment.work.has("project_b"):
+		var project: Dictionary=game.recruitment.work.project_b
+		screen.text=("已发送 / " if project.sent else "协商材料就绪 / " if project.proposal else "检查 / ")+project.preview
 	if indicator:
 		var complete: bool=(stable_id=="demo" and facts.has("output_one")) or (stable_id=="backup" and facts.has("output_two")) or (stable_id=="handover" and facts.has("b_help"))
 		indicator.material_override.albedo_color=Color("335647") if complete else Color("29383f")
