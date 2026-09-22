@@ -22,6 +22,7 @@ func _ready() -> void:
 	for entry in [["继续游戏",func(): game.toggle_menu()], ["新游戏（自动备份当前进度）",func(): game.new_game()], ["恢复上一次进度（当前进度也会备份）",func(): game.restore_previous()], ["操作说明 / H",func(): game.panels.toggle("help")], ["保存 / F5",func(): game.save_game()], ["读取 / F9",func(): game.load_game()], ["保存并退出",func():
 		if SaveGame.write(game,game.save_path)==OK: get_tree().quit()
 		else: game.say("保存失败，未退出；请检查磁盘空间。")], ["直接退出",func(): get_tree().quit()]]:
+		if OS.has_feature("web") and entry[0] in ["保存并退出","直接退出"]: continue
 		var button := Button.new()
 		button.text=entry[0]
 		button.pressed.connect(entry[1])
@@ -43,5 +44,7 @@ func _ready() -> void:
 	list.add_child(sensitivity)
 	var help := Label.new()
 	help.text="Esc 返回 · H 操作说明\n菜单期间世界暂停，关闭即恢复。"
+	if OS.has_feature("web"):
+		help.text="点击继续游戏后控制视角，Esc 释放鼠标。\n请用菜单保存；保存后可关闭网页。\n进度仅保留于当前浏览器，清除网站数据会丢失。"
 	list.add_child(help)
 	hide()

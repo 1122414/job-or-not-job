@@ -12,3 +12,5 @@
 | 暂停页面输入归属 | 主页面叠加、暂停帮助失效 | 自动及实机验证一次 | [页面输入](patterns/panel-input-ownership.md) |
 
 | 来访确认后的对象连续性 | 确认老板来访后答辩选项消失，附近工位抢交互 | 定向回归验证一次；完整路线见验收记录 | [来访衔接](patterns/visit-dialogue-continuity.md) |
+
+| 网页平台字体与输入差异 | 中文方框、捕获失败、重复构建扫描产物 | 中文与打包验证一次；边界仍待验 | [网页导出](patterns/web-export-platform-gaps.md) |

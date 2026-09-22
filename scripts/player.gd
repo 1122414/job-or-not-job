@@ -51,7 +51,8 @@ func _ready() -> void:
 	spring.add_child(camera)
 	camera.current = true
 	camera.fov = 65
-	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+	if not OS.has_feature("web"):
+		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 
 func forward() -> Vector3:
 	return Vector3(-sin(yaw),0,-cos(yaw))

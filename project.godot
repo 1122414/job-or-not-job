@@ -5,6 +5,12 @@ config/name="今天不上班"
 run/main_scene="res://scenes/main.tscn"
 config/features=PackedStringArray("4.7", "GL Compatibility")
 
+[autoload]
+WebSupport="*res://scripts/web_support.gd"
+
+[gui]
+theme/custom_font.web="res://assets/fonts/NotoSansCJKsc-Regular.otf"
+
 [display]
 window/size/viewport_width=1280
 window/size/viewport_height=800
