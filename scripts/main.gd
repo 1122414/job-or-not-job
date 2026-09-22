@@ -21,6 +21,7 @@ var staffing := Staffing.new()
 var care := NPCCare.new()
 var social := SocialLife.new()
 var onboarding := Onboarding.new()
+var recruitment := RecruitmentFlow.new()
 var person_index := 0
 var interviews := InterviewFlow.new()
 var career := Career.new()
@@ -52,6 +53,7 @@ func _ready() -> void:
 	care.game=self
 	social.game=self
 	onboarding.game=self
+	recruitment.game=self
 	interviews.game=self
 	Neighborhood.build(self)
 	for id in OfficeLife.DESKS: add_station(id,"我的工位",OfficeLife.DESKS[id])
@@ -67,7 +69,7 @@ func _ready() -> void:
 	startup.call_deferred()
 
 func bind_inputs() -> void:
-	var keys := {"forward":KEY_W,"back":KEY_S,"left":KEY_A,"right":KEY_D,"run":KEY_SHIFT,"jump":KEY_SPACE,"interact":KEY_E,"drop":KEY_G,"cancel":KEY_ESCAPE,"bag":KEY_TAB,"store":KEY_Q,"cycle":KEY_R,"save":KEY_F5,"load":KEY_F9,"journal":KEY_J,"ledger":KEY_L,"help":KEY_H,"history":KEY_K,"dangerous":KEY_ALT,"people":KEY_P}
+	var keys := {"forward":KEY_W,"back":KEY_S,"left":KEY_A,"right":KEY_D,"run":KEY_SHIFT,"jump":KEY_SPACE,"interact":KEY_E,"drop":KEY_G,"cancel":KEY_ESCAPE,"bag":KEY_TAB,"store":KEY_Q,"cycle":KEY_R,"save":KEY_F5,"load":KEY_F9,"journal":KEY_J,"ledger":KEY_L,"help":KEY_H,"history":KEY_K,"dangerous":KEY_ALT,"people":KEY_P,"messages":KEY_N}
 	for action in keys:
 		InputMap.add_action(action)
 		var event := InputEventKey.new()
@@ -137,6 +139,7 @@ func _process(delta: float) -> void:
 	onboarding.tick()
 	var payday_before := payroll.next_payday
 	payroll.tick(delta*(0.2 if not conversation.is_empty() else 1.0),career.employer)
+	recruitment.tick()
 	update_daylight()
 	if payroll.next_payday!=payday_before: queue_save()
 	if save_delay>=0:
@@ -224,6 +227,9 @@ func interact() -> void:
 		speaker=target
 		if target is OfficeNPC: social.meet(target)
 		conversation=OfficeDialogue.options(target,career)
+		if target is OfficeNPC: conversation=recruitment.options(target,conversation)
+		if target is WorkStation and target.stable_id=="rest" and recruitment.next_time()>0:
+			conversation.choices.push_front(["休息到下一安排 · "+recruitment.stamp(recruitment.next_time()),"rest_next"])
 		if target is WorkStation and target.stable_id.begins_with("desk_"): conversation=office.desk_choices(target)
 		if target is WorkStation and target.stable_id.begins_with("interview_"): conversation=interviews.room_options(target.stable_id.trim_prefix("interview_"))
 
@@ -246,6 +252,11 @@ func choose(index: int) -> void:
 	if index>=choices.size(): return
 	var action: String = choices[index][1]
 	if speaker is OfficeNPC and social.handle(action,speaker): return
+	if action=="open_messages":
+		recruitment.selected=speaker.company
+		panels.show_page("messages")
+		return
+	if recruitment.handle(action): return
 	if onboarding.handle(action): return
 	if interviews.handle(action): return
 	if action in ["visit_confirm","visit_defer"]:

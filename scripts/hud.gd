@@ -112,6 +112,7 @@ func _draw() -> void:
 			text_at(Vector2(w*0.24,y),str(i+1)+"  "+game.conversation.choices[i][0],17,Color("f5d386"))
 			y+=29
 		text_at(Vector2(w*0.24,h-97),"数字键选择 · 走开或动手立即中断",14,Color("a4b3bd"))
+	if game.panels.page=="messages": draw_messages(w,h)
 	if game.panels.page=="people": draw_people(w,h)
 	if game.journal_open:
 		draw_style_box(panel_style(),Rect2(230,80,w-460,h-160))
@@ -228,3 +229,29 @@ func draw_people(w: float,h: float) -> void:
 			if y<h-95: text_at(Vector2(350,y),wrapped,17)
 			y+=24
 		y+=12
+
+func draw_messages(w: float,h: float) -> void:
+	draw_style_box(panel_style(),Rect2(160,60,w-320,h-120))
+	var flow: RecruitmentFlow=game.recruitment
+	text_at(Vector2(190,100),"招聘消息 · "+("规程科技" if flow.selected=="a" else "自己人网络"),24)
+	text_at(Vector2(190,132),"← → 公司 · PageUp/Down 历史消息 · Q 追问条件 · Esc 返回",15,Color("a4b3bd"))
+	var selected_messages: Array=[]
+	for item in flow.messages:
+		if item.firm==flow.selected: selected_messages.append(item)
+	var y := 172.0
+	if selected_messages.is_empty(): text_at(Vector2(190,y),"暂无消息。面试结束后，约定时间会在这里收到反馈。",17)
+	flow.message_page=clampi(flow.message_page,0,maxi(0,selected_messages.size()-1))
+	var start := maxi(0,selected_messages.size()-1-flow.message_page)
+	for item in selected_messages.slice(start,start+1):
+		text_at(Vector2(190,y),item.sender+" · "+flow.stamp(int(item.minute)),15,Color("e4be70"))
+		y+=25
+		for line in wrap_lines(item.body,w-400,17):
+			text_at(Vector2(190,y),line,17)
+			y+=24
+		y+=20
+	var phase: String=flow.applications[flow.selected].phase
+	text_at(Vector2(190,h-140),"当前状态："+{"idle":"尚未完成面试","waiting":"等待反馈","offered":"等待回复","deferred":"已暂缓，可继续考虑","declined":"已拒绝，可重新联系","accepted":"待现场报到","reported":"已报到"}.get(phase,phase),17)
+	var actions := ""
+	if phase in ["offered","deferred","declined"]: actions="1 接受并预约报到     2 暂缓决定     3 拒绝邀请"
+	if phase=="accepted": actions="1 改约到再下一日     2 取消报到安排"
+	text_at(Vector2(190,h-102),actions,18,Color("e4be70"))

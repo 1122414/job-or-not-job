@@ -17,6 +17,7 @@ func show_page(next: String) -> void:
 	game.help_open=page=="help"
 	game.history_open=page=="history"
 	game.menu.visible=page=="pause"
+	if page=="messages": game.recruitment.message_page=0
 	game.close_interaction()
 	get_tree().paused=page!=""
 	Input.mouse_mode=Input.MOUSE_MODE_VISIBLE if page!="" else Input.MOUSE_MODE_CAPTURED
@@ -36,7 +37,7 @@ func back() -> void:
 
 func _input(event: InputEvent) -> void:
 	if event is InputEventKey and event.pressed and not event.echo:
-		for action in ["bag","journal","ledger","help","history","people"]:
+		for action in ["bag","journal","ledger","help","history","people","messages"]:
 			if event.is_action_pressed(action):
 				toggle(action)
 				get_viewport().set_input_as_handled()
@@ -48,6 +49,13 @@ func _input(event: InputEvent) -> void:
 			return
 		if page!="":
 			var key: int=event.physical_keycode if event.physical_keycode else event.keycode
+			if page=="messages":
+				if key==KEY_LEFT: game.recruitment.selected="a"; game.recruitment.message_page=0
+				if key==KEY_RIGHT: game.recruitment.selected="b"; game.recruitment.message_page=0
+				if key>=KEY_1 and key<=KEY_3: game.recruitment.message_action(key-KEY_1)
+				if key==KEY_Q: game.recruitment.ask_conditions(); game.recruitment.message_page=0
+				if key==KEY_PAGEUP: game.recruitment.message_page+=1
+				if key==KEY_PAGEDOWN: game.recruitment.message_page=maxi(0,game.recruitment.message_page-1)
 			if page=="people":
 				if key==KEY_DOWN: game.person_index+=1
 				if key==KEY_UP: game.person_index=maxi(0,game.person_index-1)

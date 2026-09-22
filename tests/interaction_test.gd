@@ -10,6 +10,12 @@ func choose_at(game: Node3D, id: String, action: String) -> void:
 	for node in game.targets():
 		if node.stable_id==id: target=node
 	# Place the interaction fixture on a visible approach, not inside the next desk row.
+	if action in ["join_a","join_b"]:
+		var firm := action.trim_prefix("join_")
+		game.recruitment.handle("rest_next")
+		game.recruitment.accept(firm)
+		game.recruitment.handle("rest_next")
+		action="report_"+firm
 	game.close_interaction()
 	game.player.stand_up()
 	for sample in range(24):

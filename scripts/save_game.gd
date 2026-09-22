@@ -1,7 +1,7 @@
 class_name SaveGame
 extends RefCounted
 
-const VERSION := 10
+const VERSION := 11
 const BASE_NPCS := ["a_hr","a_lead","a_boss","a_friend","a_group","a_guard","b_hr","b_friend","b_boss","b_guard"]
 const LEGACY_PROPS := ["a_keyboard","a_cup","a_table","a_chair","a_printer","b_keyboard","b_cup","b_table","b_chair","b_printer"]
 const PATH := "user://neighborhood.json"
@@ -20,7 +20,7 @@ static func fields(object: RefCounted, names: Array) -> Dictionary:
 	return result.duplicate(true)
 
 static func snapshot(game: Node3D) -> Dictionary:
-	var data := {"version":VERSION,"career":fields(game.career,CAREER_FIELDS),"payroll":fields(game.payroll,PAYROLL_FIELDS),"action_counter":game.action_counter,"props":{},"npcs":{},"player":{"position":vector(game.player.position),"yaw":game.player.yaw,"pitch":game.player.pitch,"hp":game.player.hp,"protection":game.player.protection},"shake":game.shake_enabled,"staffing":game.staffing.calm.duplicate(),"interviews":game.interviews.sessions.duplicate(true),"onboarding":game.onboarding.tour.duplicate(true),"social":{"people":game.social.people.duplicate(true),"outing":game.social.outing.duplicate(true)}}
+	var data := {"version":VERSION,"recruitment":game.recruitment.snapshot(),"career":fields(game.career,CAREER_FIELDS),"payroll":fields(game.payroll,PAYROLL_FIELDS),"action_counter":game.action_counter,"props":{},"npcs":{},"player":{"position":vector(game.player.position),"yaw":game.player.yaw,"pitch":game.player.pitch,"hp":game.player.hp,"protection":game.player.protection},"shake":game.shake_enabled,"staffing":game.staffing.calm.duplicate(),"interviews":game.interviews.sessions.duplicate(true),"onboarding":game.onboarding.tour.duplicate(true),"social":{"people":game.social.people.duplicate(true),"outing":game.social.outing.duplicate(true)}}
 	for prop in game.props:
 		var location := "held" if game.player.held==prop else "bag" if game.player.inventory.has(prop) else "world"
 		data.props[prop.stable_id]={"position":vector(prop.position),"rotation":vector(prop.rotation),"location":location,"damaged":prop.damaged,"durability":prop.durability,"tipped":prop.tipped}
@@ -36,7 +36,7 @@ static func valid_vector(value: Variant) -> bool:
 
 static func valid(data: Variant, game: Node3D) -> bool:
 	if not data is Dictionary: return false
-	if data.get("version")!=1 and data.get("version")!=2 and data.get("version")!=3 and data.get("version")!=4 and data.get("version")!=5 and data.get("version")!=6 and data.get("version")!=7 and data.get("version")!=8 and data.get("version")!=9 and data.get("version")!=VERSION: return false
+	if data.get("version")!=1 and data.get("version")!=2 and data.get("version")!=3 and data.get("version")!=4 and data.get("version")!=5 and data.get("version")!=6 and data.get("version")!=7 and data.get("version")!=8 and data.get("version")!=9 and data.get("version")!=10 and data.get("version")!=VERSION: return false
 	for field in ["career","payroll","props","npcs","player"]:
 		if not data.get(field) is Dictionary: return false
 	for field in CAREER_FIELDS:
@@ -140,6 +140,7 @@ static func valid(data: Variant, game: Node3D) -> bool:
 			if session.answers.size()!=int(session.step)+(1 if session.phase=="reply" else 0): return false
 			for answer in session.answers:
 				if not answer is String: return false
+	if data.version>=11 and not RecruitmentFlow.valid(data.get("recruitment")): return false
 	if data.version>=10 and not Onboarding.valid(data.get("onboarding")): return false
 	if data.version>=9 and not SocialLife.valid(data.get("social"),data.npcs): return false
 	var occupied := {}
@@ -275,6 +276,8 @@ static func restore(game: Node3D, data: Dictionary) -> bool:
 		npc.last_hit=-1
 		npc.route.clear()
 		npc.route_clock=0
+	game.recruitment.restore(data.get("recruitment",{}))
+	if data.version<11: game.recruitment.migrate()
 	game.onboarding.tour=data.get("onboarding",{}).duplicate(true)
 	game.social.people=data.get("social",{}).get("people",{}).duplicate(true)
 	game.social.outing=data.get("social",{}).get("outing",{}).duplicate(true)

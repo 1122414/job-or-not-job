@@ -4,6 +4,8 @@ extends RefCounted
 static func current(game: Node3D) -> Dictionary:
 	var introduction: Dictionary=game.onboarding.objective()
 	if not introduction.is_empty(): return introduction
+	var recruitment: Dictionary=game.recruitment.objective()
+	if not recruitment.is_empty(): return recruitment
 	var c: Career=game.career
 	var id := ""
 	var title := c.objective()

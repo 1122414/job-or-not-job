@@ -4,6 +4,12 @@ var failures := 0
 var evidence_dir := "res://docs/evidence/2026-09-22-route"
 func _initialize() -> void: call_deferred("run")
 func perform(game: Node3D,id: String,action: String) -> bool:
+	if action in ["join_a","join_b"]:
+		var firm := action.trim_prefix("join_")
+		game.recruitment.handle("rest_next")
+		game.recruitment.accept(firm)
+		game.recruitment.handle("rest_next")
+		action="report_"+firm
 	game.close_interaction()
 	var target: Node3D=game.npc_for_role(id)
 	if not target:

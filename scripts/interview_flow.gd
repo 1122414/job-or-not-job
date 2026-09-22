@@ -137,9 +137,7 @@ func handle(action: String) -> bool:
 	elif action=="interview_finish" and session.step==pages(session.action).size():
 		session.status="completed"
 		game.career.record("terms_"+session.action,"面试约定："+"；".join(PackedStringArray(session.answers)))
-		var result: String=game.career.apply(session.action)
-		if session.action=="interview_boss" and not session.answers.is_empty() and session.answers.back()=="暂时拒绝这份邀请":
-			result=game.career.apply("decline_a")
+		var result: String=game.recruitment.finish(session.action)
 		game.close_interaction()
 		game.player.stand_up()
 		game.say(result)
