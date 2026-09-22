@@ -23,6 +23,10 @@ func apply(action: String) -> String:
 	if action in a_actions and conflict.a>=2: return "规程科技已关闭当前职业机会。此前成果保留，可以离开。"
 	if action in ["interview_b","join_b","help","refuse","negotiate","settle","handover"] and conflict.b>=2: return "自己人网络已停止合作，个人关系单独保留。"
 	match action:
+		"decline_a", "decline_b":
+			var firm := action.trim_prefix("decline_")
+			record("offer_declined_"+firm,"暂不接受录用；保留面试结果，可重新考虑或选择另一家公司。")
+			return "邀请已暂缓。不会自动入职，也不会分配工位。"
 		"interview_b":
 			if recruit.b==0:
 				recruit.b=1
@@ -60,11 +64,11 @@ func apply(action: String) -> String:
 		"interview_hr":
 			if recruit.a==0:
 				recruit.a=1
-				return "HR 面试通过。周工在左侧工位，下一轮只谈一件事。"
+				return "HR 面试交流完成。下一轮联系周工，他会到01面试室与你谈技术工作。"
 		"interview_lead":
 			if recruit.a==1:
 				recruit.a=2
-				return "技术面试通过。方总在办公室后方等你。"
+				return "技术面试交流完成。下一轮联系方总，再到01面试室确认岗位条件。"
 		"interview_boss":
 			if recruit.a==2:
 				recruit.a=3

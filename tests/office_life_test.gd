@@ -10,7 +10,7 @@ func run() -> void:
 	root.add_child(game)
 	await wait_frames(30)
 	for npc in game.npcs:
-		if npc.role!="guard": check(npc.seated,"员工初始在工位办公："+npc.stable_id)
+		if npc.role not in ["guard","hr"]: check(npc.seated,"员工初始在工位办公："+npc.stable_id)
 	check(game.office.assigned_desk()=="","未入职没有强制工位")
 	for action in ["interview_hr","interview_lead","interview_boss","join_a"]: game.career.apply(action)
 	check(game.office.assigned_desk()=="desk_a","实习入职分配一组工位")

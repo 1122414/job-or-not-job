@@ -79,7 +79,7 @@ func _physics_process(delta: float) -> void:
 	protection = maxf(0,protection-delta)
 	pivot.rotation = Vector3(pitch,yaw,0)
 	visual.rotation.y = yaw + sin(swing * 18) * 0.5
-	visual.pose(Vector2(velocity.x,velocity.z).length(),swing>0,dead>0,seated)
+	visual.pose(Vector2(velocity.x,velocity.z).length(),swing>0,dead>0,seated,game.interviews.player_seated())
 	visual.position=visual.position.move_toward(visual.seated_offset if seated else Vector3.ZERO,delta*2)
 	body_shape.shape.height=1.3 if seated else 1.75
 	body_shape.position.y=0.68 if seated else 0.88

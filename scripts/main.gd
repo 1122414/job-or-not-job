@@ -18,6 +18,7 @@ var payroll := Payroll.new()
 var walking := WalkingGrid.new()
 var office := OfficeLife.new()
 var staffing := Staffing.new()
+var interviews := InterviewFlow.new()
 var career := Career.new()
 var stations: Array[WorkStation] = []
 var conversation: Dictionary = {}
@@ -43,6 +44,7 @@ func _ready() -> void:
 	player.position = Vector3(-14,0.2,5)
 	office.game=self
 	staffing.game=self
+	interviews.game=self
 	Neighborhood.build(self)
 	for id in OfficeLife.DESKS: add_station(id,"我的工位",OfficeLife.DESKS[id])
 	add_station("archive","原始资料",Vector3(-24,0,-4))
@@ -50,6 +52,7 @@ func _ready() -> void:
 	add_station("backup","备用投影",Vector3(-5,0,-12))
 	add_station("handover","交接终端",Vector3(23,0,-4))
 	add_station("rest","公交站 · 休息",Vector3(-2,0,14))
+	for firm in ["a","b"]: add_station("interview_"+firm,"01 面试室",OfficeRooms.INTERVIEW_SEATS[firm])
 	build_ui()
 	build_audio()
 	build_walk_grid.call_deferred()
@@ -118,6 +121,7 @@ func _process(delta: float) -> void:
 		navigation_dirty-=delta
 		if navigation_dirty<0: build_walk_grid.call_deferred()
 	focus_target=nearest()
+	interviews.tick()
 	office.tick()
 	staffing.tick(delta)
 	var payday_before := payroll.next_payday
@@ -170,7 +174,7 @@ func nearest() -> Node3D:
 		var score: float = d*(0.4 if node is WorkStation else 0.55 if node is OfficeNPC else 1.0)
 		var arriving: bool=node is OfficeNPC and not node.dead and not visit.is_empty() and visit.npc==node.role_id and career.facts.get("visit_state_"+visit.key,"")=="arrived"
 		if arriving: score-=1.0
-		if d<3.0 and score < distance and (arriving or offset.normalized().dot(player.forward()) > 0.2) and can_see(player,node):
+		if d<3.0 and score < distance and (arriving or (node is WorkStation and d<0.7) or offset.normalized().dot(player.forward()) > 0.2) and can_see(player,node):
 			best = node
 			distance = score
 	return best
@@ -209,6 +213,7 @@ func interact() -> void:
 		speaker=target
 		conversation=OfficeDialogue.options(target,career)
 		if target is WorkStation and target.stable_id.begins_with("desk_"): conversation=office.desk_choices(target)
+		if target is WorkStation and target.stable_id.begins_with("interview_"): conversation=interviews.room_options(target.stable_id.trim_prefix("interview_"))
 		if target is OfficeNPC and target.role in ["friend","group"] and payroll.after_work():
 			conversation={"text":target.title+"：下班了，今天的事可以聊，也可以不聊。", "choices":[["聊今天发生的事","social"],["请你帮忙伪造未完成的成果","boundary"]]}
 		if target is OfficeNPC and target.role=="guard":
@@ -224,6 +229,7 @@ func choose(index: int) -> void:
 	var choices: Array = conversation.choices
 	if index>=choices.size(): return
 	var action: String = choices[index][1]
+	if interviews.handle(action): return
 	if action in ["visit_confirm","visit_defer"]:
 		office.answer_visit(speaker,action=="visit_confirm")
 		close_interaction()
@@ -282,6 +288,7 @@ func choose(index: int) -> void:
 			if station.stable_id=="backup": station.label.text="投影已恢复 · 成果已记录"
 
 func close_interaction() -> void:
+	interviews.interrupt()
 	conversation.clear()
 	speaker=null
 

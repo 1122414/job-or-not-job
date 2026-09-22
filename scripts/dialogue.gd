@@ -9,7 +9,7 @@ static func options(target: Node3D, c: Career) -> Dictionary:
 		"a_hr":
 			text="林岚：我们需要能适应变化的人，包括岗位名额的变化。"
 			if c.recruit.a==0: choices.append(["参加 HR 面试：先把岗位说清楚","interview_hr"])
-			if c.recruit.a==3 and c.employer=="" and not c.former.has("a"): choices.append(["接受实习邀请","join_a"])
+			if c.recruit.a==3 and c.employer=="" and not c.former.has("a"): choices.append(["接受实习邀请，办理入职","join_a"]); choices.append(["暂不接受录用，保留其他选择","decline_a"])
 			if c.employer=="a" and c.facts.has("permission") and not c.facts.has("confirm"): choices.append(["确认演示提交人","confirm"])
 			if c.employer=="a": choices.append(["主动离职，保留已有成果","resign"])
 		"a_lead":
@@ -35,7 +35,7 @@ static func options(target: Node3D, c: Career) -> Dictionary:
 		"b_hr":
 			text="阿诚：流程就一轮，大家都是自己人。你愿不愿意先了解再决定？"
 			if c.recruit.b==0: choices.append(["参加面试：把职责说清楚","interview_b"])
-			elif c.employer=="" and not c.former.has("b"): choices.append(["接受入职","join_b"])
+			elif c.employer=="" and not c.former.has("b"): choices.append(["接受录用，办理入职","join_b"]); choices.append(["暂不接受录用，保留其他选择","decline_b"])
 			if c.employer=="b": choices.append(["主动离职","resign"])
 		"b_friend":
 			text="阿乐：备用终端你先用。今晚这份交接，老板说‘帮家里一把’。"

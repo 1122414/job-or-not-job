@@ -9,9 +9,16 @@ func choose_at(game: Node3D, id: String, action: String) -> void:
 	var target: Node3D
 	for node in game.targets():
 		if node.stable_id==id: target=node
-	game.player.position=target.position+Vector3(0,0,1.8)
-	game.player.yaw=0
-	await physics_frame
+	# Place the interaction fixture on a visible approach, not inside the next desk row.
+	game.close_interaction()
+	game.player.stand_up()
+	for sample in range(24):
+		var angle := sample*TAU/24
+		var offset := Vector3(sin(angle),0,cos(angle))*1.4
+		game.player.position=target.position+offset
+		game.player.yaw=angle
+		await physics_frame
+		if game.nearest()==target: break
 	game.interact()
 	if not game.conversation.is_empty() and game.conversation.choices.size()>0 and game.conversation.choices[0][1]=="visit_confirm":
 		game.choose(0)
@@ -22,7 +29,10 @@ func choose_at(game: Node3D, id: String, action: String) -> void:
 	for i in range(game.conversation.choices.size()):
 		if game.conversation.choices[i][1]==action: index=i
 	check(index>=0,"应显示选项："+action)
-	if index>=0: game.choose(index)
+	if index>=0:
+		game.choose(index)
+		if action in InterviewFlow.ACTIONS:
+			check(await preload("res://tests/scene_driver.gd").complete_interview(self,game,action),"走入独立房间完成交流："+action)
 func run() -> void:
 	var game = load("res://scenes/main.tscn").instantiate()
 	root.add_child(game)

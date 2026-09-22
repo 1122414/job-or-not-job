@@ -105,6 +105,8 @@ func _physics_process(delta: float) -> void:
 		var visiting: Variant=game.office.visit_target(self)
 		if visiting!=null: target=visiting
 		elif (visit_wait>0 or game.speaker==self) and not (role_id=="b_friend" and game.career.b_event=="negotiating"): target=position
+		var meeting: Variant=game.interviews.host_target(self)
+		if meeting!=null: target=meeting
 		if hostile > 0 and game.player.protection <= 0 and distance < 9 and game.can_see(self, game.player):
 			target = game.player.global_position
 			if distance < 1.6 and attack_cooldown == 0:
@@ -113,12 +115,12 @@ func _physics_process(delta: float) -> void:
 		if reaction>0: target = global_position + (global_position-game.player.global_position).normalized()*2
 		route_clock-=delta
 		if route_clock<=0:
-			route=game.walking.route(global_position,target,seat_body)
+			route=game.walking.route(global_position,target,seat_body,self)
 			route_clock=0.8
 		while not route.is_empty() and Vector2(route[0].x-position.x,route[0].z-position.z).length()<0.28: route.remove_at(0)
 		if Vector2(target.x-position.x,target.z-position.z).length()<0.3: route.clear()
 		var next := global_position if route.is_empty() else route[0]
-		if global_position.distance_to(target)<1.5 and game.walking.clear_segment(global_position,target,seat_body): next=target
+		if global_position.distance_to(target)<1.5 and game.walking.clear_segment(global_position,target,seat_body,self): next=target
 		var direction := next - global_position
 		direction.y = 0
 		if direction.length() > 0.15:
@@ -138,18 +140,19 @@ func _physics_process(delta: float) -> void:
 		else:
 			velocity.x = 0
 			velocity.z = 0
-	seated=not dead and role!="guard" and down<=0 and hostile<=0 and reaction<=0 and visit_wait<=0 and game.speaker!=self and game.office.visit_target(self)==null and Vector2(position.x-home.x,position.z-home.z).length()<0.4 and not game.payroll.after_work()
+	var interview_seated: bool=game.interviews.host_seated(self)
+	seated=interview_seated or not dead and role not in ["guard","hr"] and down<=0 and hostile<=0 and reaction<=0 and visit_wait<=0 and game.speaker!=self and game.office.visit_target(self)==null and Vector2(position.x-home.x,position.z-home.z).length()<0.4 and not game.payroll.after_work()
 	visual.position.y=move_toward(visual.position.y,0.27 if down>0 or dead else visual.seated_offset.y if seated else 0.0,delta*2.5)
 	label.position.y=1.65 if seated else 2.05
 	if seated:
-		visual.rotation.y=lerp_angle(visual.rotation.y,0,delta*5)
+		visual.rotation.y=lerp_angle(visual.rotation.y,PI if interview_seated else 0,delta*5)
 	elif down<=0 and not dead and Vector2(velocity.x,velocity.z).length()>0.3:
 		visual.rotation.y=lerp_angle(visual.rotation.y,atan2(-velocity.x,-velocity.z),delta*8)
 	elif down<=0 and not dead:
 		var facing: Vector3 = game.player.global_position-global_position if distance<5 else Vector3(0,0,1)
 		visual.rotation.y=lerp_angle(visual.rotation.y,atan2(-facing.x,-facing.z),delta*4)
 	update_body_pose()
-	visual.pose(Vector2(velocity.x,velocity.z).length(),attack_cooldown>0.7,down>0 or dead,seated)
+	visual.pose(Vector2(velocity.x,velocity.z).length(),attack_cooldown>0.7,down>0 or dead,seated,interview_seated)
 	var requested_motion := Vector2(velocity.x,velocity.z).length()
 	move_and_slide()
 	if requested_motion>0.4 and position.distance_to(last_position)<delta*0.15:

@@ -99,14 +99,15 @@ static func build(game: Node3D) -> void:
 		for dx in [-7,6]:
 			for z in [-2,-6,-11]:
 				var id := firm+"_desk_"+str(dx)+"_"+str(z)
-				game.add_prop(id,"desk",Vector3(center+dx,0.72,z))
-				game.add_prop(id+"_monitor","monitor",Vector3(center+dx,1.20,z-0.28))
-				game.add_prop(id+"_keyboard","keyboard",Vector3(center+dx,0.85,z+0.58))
-				game.add_prop(id+"_cup","cup",Vector3(center+dx+1,0.94,z+0.15))
-				game.add_prop(id+"_seat","chair",Vector3(center+dx,0.55,z+1.1))
-				game.add_prop(id+"_back","panel",Vector3(center+dx,0.7,z-0.9))
+				var depth: float=z+1.5 if z==-11 else z
+				game.add_prop(id,"desk",Vector3(center+dx,0.72,depth))
+				game.add_prop(id+"_monitor","monitor",Vector3(center+dx,1.20,depth-0.28))
+				game.add_prop(id+"_keyboard","keyboard",Vector3(center+dx,0.85,depth+0.58))
+				game.add_prop(id+"_cup","cup",Vector3(center+dx+1,0.94,depth+0.15))
+				game.add_prop(id+"_seat","chair",Vector3(center+dx,0.55,depth+1.1))
+				game.add_prop(id+"_back","panel",Vector3(center+dx,0.7,depth-0.9))
 				for side in [-1,1]:
-					game.add_prop(id+"_side_"+str(side),"side_panel",Vector3(center+dx+side*1.77,0.7,z-0.1))
+					game.add_prop(id+"_side_"+str(side),"side_panel",Vector3(center+dx+side*1.77,0.7,depth-0.1))
 		for side in [-1,1]: game.add_prop(firm+"_plant_"+str(side),"plant",Vector3(center+side*10.5,0.45,0 if side<0 else -14))
 		game.add_prop(firm+"_cooler","cooler",Vector3(center-4.8,0.75,0))
 	# Context beyond the playable block: façades rather than a bare horizon.

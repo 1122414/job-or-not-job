@@ -28,7 +28,7 @@ func _ready() -> void:
 	animation=AnimationPlayer.new()
 	add_child(animation)
 	var library := AnimationLibrary.new()
-	for clip in ["idle","walk","run","strike","work","fallen"]: library.add_animation(clip,make_clip(clip))
+	for clip in ["idle","walk","run","strike","work","sit","fallen"]: library.add_animation(clip,make_clip(clip))
 	animation.add_animation_library("",library)
 	animation.play("idle")
 	var hip := skeleton.get_bone_global_rest(skeleton.find_bone("upperleg01.L")).origin
@@ -66,13 +66,16 @@ func make_clip(clip: String) -> Animation:
 				if bone=="upperarm01.L": euler.x=-wave*amount*0.65
 				if bone=="upperarm01.R": euler.x=wave*amount*0.65
 				if bone=="spine02": euler.y=wave*0.05
-			elif clip=="work":
+			elif clip in ["work","sit"]:
 				if bone.begins_with("upperleg"): euler.x=-1.4
 				if bone.begins_with("lowerleg"): euler.x=1.4
 				if bone.begins_with("upperarm"): euler.x=-1.05; euler.z*=0.65
 				if bone.begins_with("lowerarm"): euler.x=0.45+wave*0.025
 				if bone=="spine02": euler.x=0.06+wave*0.012
 				if bone=="head": euler.y=wave*0.04
+				if clip=="sit":
+					if bone.begins_with("upperarm"): euler.x=-0.4
+					if bone.begins_with("lowerarm"): euler.x=-0.3
 			elif clip=="fallen":
 				if bone.begins_with("upperarm"): euler=Vector3(-0.15,0,-0.12 if bone.ends_with("L") else 0.12)
 				if bone=="lowerleg01.R": euler.x=0.28
@@ -90,7 +93,7 @@ func make_clip(clip: String) -> Animation:
 			anim.rotation_track_insert_key(track,phase*anim.length,Quaternion.from_euler(euler))
 	return anim
 
-func pose(speed: float, attacking: bool, fallen: bool, working: bool = false) -> void:
+func pose(speed: float, attacking: bool, fallen: bool, working: bool = false, talking: bool = false) -> void:
 	if fallen:
 		if current!="fallen":
 			# Discard queued locomotion blends; body-root motion supplies the fall transition.
@@ -100,7 +103,7 @@ func pose(speed: float, attacking: bool, fallen: bool, working: bool = false) ->
 			animation.advance(0)
 			current="fallen"
 		return
-	var next := "work" if working else "strike" if attacking else "run" if speed>5.5 else "walk" if speed>0.2 else "idle"
+	var next := "sit" if talking else "work" if working else "strike" if attacking else "run" if speed>5.5 else "walk" if speed>0.2 else "idle"
 	if next!=current:
 		animation.play(next,0.20)
 		if next in ["idle","work"]: animation.seek(float(variation%11)/11.0,true)

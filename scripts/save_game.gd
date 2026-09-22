@@ -1,7 +1,7 @@
 class_name SaveGame
 extends RefCounted
 
-const VERSION := 5
+const VERSION := 6
 const BASE_NPCS := ["a_hr","a_lead","a_boss","a_friend","a_group","a_guard","b_hr","b_friend","b_boss","b_guard"]
 const LEGACY_PROPS := ["a_keyboard","a_cup","a_table","a_chair","a_printer","b_keyboard","b_cup","b_table","b_chair","b_printer"]
 const PATH := "user://neighborhood.json"
@@ -20,7 +20,7 @@ static func fields(object: RefCounted, names: Array) -> Dictionary:
 	return result.duplicate(true)
 
 static func snapshot(game: Node3D) -> Dictionary:
-	var data := {"version":VERSION,"career":fields(game.career,CAREER_FIELDS),"payroll":fields(game.payroll,PAYROLL_FIELDS),"action_counter":game.action_counter,"props":{},"npcs":{},"player":{"position":vector(game.player.position),"yaw":game.player.yaw,"pitch":game.player.pitch,"hp":game.player.hp,"protection":game.player.protection},"shake":game.shake_enabled,"staffing":game.staffing.calm.duplicate()}
+	var data := {"version":VERSION,"career":fields(game.career,CAREER_FIELDS),"payroll":fields(game.payroll,PAYROLL_FIELDS),"action_counter":game.action_counter,"props":{},"npcs":{},"player":{"position":vector(game.player.position),"yaw":game.player.yaw,"pitch":game.player.pitch,"hp":game.player.hp,"protection":game.player.protection},"shake":game.shake_enabled,"staffing":game.staffing.calm.duplicate(),"interviews":game.interviews.sessions.duplicate(true)}
 	for prop in game.props:
 		var location := "held" if game.player.held==prop else "bag" if game.player.inventory.has(prop) else "world"
 		data.props[prop.stable_id]={"position":vector(prop.position),"rotation":vector(prop.rotation),"location":location,"damaged":prop.damaged,"durability":prop.durability,"tipped":prop.tipped}
@@ -36,7 +36,7 @@ static func valid_vector(value: Variant) -> bool:
 
 static func valid(data: Variant, game: Node3D) -> bool:
 	if not data is Dictionary: return false
-	if data.get("version")!=1 and data.get("version")!=2 and data.get("version")!=3 and data.get("version")!=4 and data.get("version")!=VERSION: return false
+	if data.get("version")!=1 and data.get("version")!=2 and data.get("version")!=3 and data.get("version")!=4 and data.get("version")!=5 and data.get("version")!=VERSION: return false
 	for field in ["career","payroll","props","npcs","player"]:
 		if not data.get(field) is Dictionary: return false
 	for field in CAREER_FIELDS:
@@ -117,6 +117,20 @@ static func valid(data: Variant, game: Node3D) -> bool:
 		if entry.get("dead",false)!=(health==0): return false
 		for key in ["affinity","down","hostile"]:
 			if not (entry.get(key) is float or entry.get(key) is int) or not is_finite(entry[key]): return false
+	if data.version>=6:
+		if not data.get("interviews") is Dictionary: return false
+		for firm in data.interviews:
+			var session: Variant=data.interviews[firm]
+			if not firm in ["a","b"] or not session is Dictionary: return false
+			if not session.get("action") in InterviewFlow.ACTIONS or (firm=="b")!=(session.action=="interview_b"): return false
+			if not session.get("status") in ["scheduled","active","completed"] or not session.get("phase") in ["question","reply"]: return false
+			for key in ["step","reply"]:
+				var value: Variant=session.get(key)
+				if not (value is int or value is float) or not is_finite(value) or value!=int(value) or value<0: return false
+			if session.step>6 or session.reply>2 or not session.get("answers") is Array: return false
+			if session.answers.size()!=int(session.step)+(1 if session.phase=="reply" else 0): return false
+			for answer in session.answers:
+				if not answer is String: return false
 	var occupied := {}
 	for id in data.npcs:
 		var entry: Dictionary=data.npcs[id]
@@ -172,6 +186,8 @@ static func restore(game: Node3D, data: Dictionary) -> bool:
 			var entry: Dictionary=data.npcs[id]
 			game.add_npc(id,entry.title,unvector(entry.position),entry.company,entry.role,entry.role_id)
 	game.staffing.calm=data.get("staffing",{"a":0.0,"b":0.0}).duplicate()
+	game.interviews.sessions=data.get("interviews",{}).duplicate(true)
+	game.interviews.interrupt()
 	game.player.inventory.clear()
 	game.player.held=null
 	for pair in [[game.career,CAREER_FIELDS,data.career],[game.payroll,PAYROLL_FIELDS,data.payroll]]:
@@ -189,6 +205,8 @@ static func restore(game: Node3D, data: Dictionary) -> bool:
 		var entry: Dictionary = data.props.get(prop.stable_id,{"position":vector(prop.home),"rotation":[0,0,0],"location":"world","damaged":false})
 		prop.position=unvector(entry.position)
 		if data.version<3 and prop.anchored(): prop.position.y=prop.home.y
+		if data.version<6 and "_-11" in prop.stable_id and prop.position.distance_to(prop.home-Vector3(0,0,1.5))<0.6:
+			prop.position.z+=1.5
 		prop.rotation=unvector(entry.rotation)
 		prop.linear_velocity=Vector3.ZERO
 		prop.angular_velocity=Vector3.ZERO
@@ -210,6 +228,14 @@ static func restore(game: Node3D, data: Dictionary) -> bool:
 		var entry: Dictionary = data.npcs[npc.stable_id]
 		npc.position=unvector(entry.position)
 		npc.home=unvector(entry.get("home",vector(npc.home)))
+		if data.version<6 and npc.role=="hr":
+			var previous_home: Vector3=npc.home
+			npc.home=OfficeRooms.RECEPTIONS[npc.company]+Vector3(0,0,-0.85)
+			if npc.position.distance_to(previous_home)<0.6: npc.position=npc.home
+		if data.version<6 and absf(npc.home.z+9.9)<0.1:
+			var old_home: Vector3=npc.home
+			npc.home.z+=1.5
+			if npc.position.distance_to(old_home)<0.6: npc.position.z+=1.5
 		npc.visit_wait=0
 		npc.reaction=0
 		npc.stuck_time=0

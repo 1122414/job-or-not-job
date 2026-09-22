@@ -45,7 +45,8 @@ static func build(game: Node3D) -> void:
 		Shapes.box(game,Vector3(1.8,0.04,0.60),Vector3(center+4,0.45,0.7),accent)
 		# Interview room at the rear left. The two-metre doorway faces the public aisle.
 		var room_x := center-7
-		for side in [-1,1]: glazing(game,Vector3(room_x+side*2.5,1.5,-12.3),Vector3(3.0,3.0,0.07))
+		glazing(game,Vector3(room_x-3.1,1.5,-12.3),Vector3(3.2,3.0,0.07))
+		glazing(game,Vector3(room_x+2.75,1.5,-12.3),Vector3(2.5,3.0,0.07))
 		Shapes.solid(game,Vector3(0.10,3.0,3.6),Vector3(room_x+4.05,1.5,-14.2),Color("b2b2a7"))
 		plaque(game,"01  面试室",Vector3(room_x,2.7,-12.25),2.0)
 		Shapes.solid(game,Vector3(2.0,0.08,0.85),Vector3(room_x,0.75,-14.15),Color("b3a185"))

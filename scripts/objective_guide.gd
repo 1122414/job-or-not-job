@@ -32,6 +32,11 @@ static func current(game: Node3D) -> Dictionary:
 			6: id=""
 	else:
 		id={"pending":"b_friend","helping":"handover","refused":"b_friend","negotiating":"b_boss","helped":"b_friend","negotiated":"b_friend"}.get(c.b_event,"")
+	var selected_firm: String=c.facts.get("guide_company","") if c.facts.get("guide_company","") is String else ""
+	var session: Dictionary=game.interviews.sessions.get(selected_firm,{})
+	if c.employer=="" and not session.is_empty() and session.status in ["scheduled","active"] and c.conflict.get(selected_firm,3)<2:
+		id="interview_"+selected_firm
+		title="前往01面试室 · 落座交流，可随时离开或继续"
 	var visit: Dictionary=game.office.visit()
 	if not visit.is_empty() and c.facts.get("visit_state_"+visit.key,"") in ["arrived","deferred"]:
 		var visitor: OfficeNPC=game.npc_for_role(visit.npc)

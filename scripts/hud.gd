@@ -101,12 +101,19 @@ func _draw() -> void:
 		draw_rect(Rect2(w*0.24,h-363,100,4),Color("444b50"))
 		draw_rect(Rect2(w*0.24,h-363,float(npc.affinity+100)/200.0*100,4),Color("89b8a4"))
 	if not game.conversation.is_empty():
-		draw_rect(Rect2(w*0.22,h-335,w*0.75,155),Color(0.02,0.03,0.05,0.9))
-		var dialogue_lines := wrap_lines(game.conversation.text,w*0.69,17)
-		for i in range(mini(dialogue_lines.size(),2)): text_at(Vector2(w*0.24,h-320+i*22),dialogue_lines[i],17)
+		var dialogue_lines := wrap_lines(game.conversation.text,w*0.69,18)
+		var height: float=80+dialogue_lines.size()*25+game.conversation.choices.size()*29
+		var top: float=h-80-height
+		draw_style_box(panel_style(),Rect2(w*0.22,top,w*0.75,height))
+		var y: float=top+30
+		for line in dialogue_lines:
+			text_at(Vector2(w*0.24,y),line,18)
+			y+=25
+		y+=14
 		for i in range(game.conversation.choices.size()):
-			text_at(Vector2(w*0.24,h-275+i*27),str(i+1)+"  "+game.conversation.choices[i][0],18,Color("f5d386"))
-		text_at(Vector2(w*0.24,h-194),"数字键选择 · 走开或动手立即中断",14)
+			text_at(Vector2(w*0.24,y),str(i+1)+"  "+game.conversation.choices[i][0],17,Color("f5d386"))
+			y+=29
+		text_at(Vector2(w*0.24,h-97),"数字键选择 · 走开或动手立即中断",14,Color("a4b3bd"))
 	if game.journal_open:
 		draw_style_box(panel_style(),Rect2(230,80,w-460,h-160))
 		text_at(Vector2(260,122),"今天的安排",26)
@@ -137,15 +144,14 @@ func _draw() -> void:
 	if game.history_open:
 		draw_style_box(panel_style(),Rect2(230,80,w-460,h-160))
 		text_at(Vector2(260,122),"经历与成果",26)
-		var records: Array=game.career.records
-		var pages := maxi(1,ceili(records.size()/8.0))
+		var lines: PackedStringArray=[]
+		for record in game.career.records:
+			lines.append_array(wrap_lines(record,w-520,16))
+			lines.append("")
+		var pages := maxi(1,ceili(lines.size()/18.0))
 		game.history_page=clampi(game.history_page,0,pages-1)
-		var y := 167.0
-		for i in range(game.history_page*8,mini(records.size(),(game.history_page+1)*8)):
-			for line in wrap_lines(records[i],w-520,16):
-				text_at(Vector2(260,y),line,16)
-				y+=24
-			y+=10
+		for i in range(game.history_page*18,mini(lines.size(),(game.history_page+1)*18)):
+			text_at(Vector2(260,167+(i%18)*25),lines[i],16)
 		text_at(Vector2(260,h-110),"PgUp/PgDn  %d / %d · Esc 返回" % [game.history_page+1,pages],14,Color("a4b3bd"))
 	if game.ledger_open:
 		draw_rect(Rect2(240,100,w-300,h-200),Color(0.02,0.04,0.06,0.95))

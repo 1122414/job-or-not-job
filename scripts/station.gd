@@ -7,7 +7,9 @@ var screen: Label3D
 var indicator: MeshInstance3D
 
 func _ready() -> void:
-	if stable_id.begins_with("desk_"):
+	if stable_id.begins_with("interview_"):
+		pass
+	elif stable_id.begins_with("desk_"):
 		# The first workstations reuse existing desks; the second group has a new place.
 		if stable_id=="desk_a2":
 			Shapes.solid(self,Vector3(2.5,0.12,1.1),Vector3(0,0.72,-1.05),Color("a18a6b"))
