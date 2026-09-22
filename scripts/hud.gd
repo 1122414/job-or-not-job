@@ -34,7 +34,7 @@ func _draw() -> void:
 	text_at(center+Vector2(29,-14),"B",18)
 	for npc in game.npcs:
 		var point := center + Vector2(npc.position.x,npc.position.z)*2.05
-		if point.distance_to(center)<71: draw_circle(point,2.3,Color("e8d9b8"))
+		if npc.visible and point.distance_to(center)<71: draw_circle(point,3.0 if npc.role_id in SocialLife.CORE else 2.3,Color("e8d9b8"))
 	var destination := ObjectiveGuide.target(game)
 	if destination:
 		var point := center+Vector2(destination.position.x,destination.position.z)*2.05
@@ -56,7 +56,7 @@ func _draw() -> void:
 		var goal: String=game.objective_text()
 		var lines := wrap_lines(goal,480,17)
 		for i in range(mini(2,lines.size())): text_at(Vector2(32,38+i*24),lines[i],17,Color("f0e6d3"))
-		text_at(Vector2(32,92),"J  目标与公司    TAB  背包",13,Color("c7cdd0"))
+		text_at(Vector2(32,92),"J  目标与公司    P  人物    TAB  背包",13,Color("c7cdd0"))
 		if destination:
 			text_at(Vector2(35,h-64),"目的地  %dm" % int(p.position.distance_to(destination.position)),14,Color("e4be70"))
 	text_at(Vector2(w-92,h-25),"H  帮助",14,Color("c7cdd0"))
@@ -112,6 +112,7 @@ func _draw() -> void:
 			text_at(Vector2(w*0.24,y),str(i+1)+"  "+game.conversation.choices[i][0],17,Color("f5d386"))
 			y+=29
 		text_at(Vector2(w*0.24,h-97),"数字键选择 · 走开或动手立即中断",14,Color("a4b3bd"))
+	if game.panels.page=="people": draw_people(w,h)
 	if game.journal_open:
 		draw_style_box(panel_style(),Rect2(230,80,w-460,h-160))
 		text_at(Vector2(260,122),"今天的安排",26)
@@ -173,7 +174,7 @@ func _draw() -> void:
 		text_at(Vector2(265,h-120),"第 %d / %d 页 · 在职计薪，不按工作量扣款" % [game.ledger_page+1,pages],16)
 	if game.help_open:
 		draw_rect(Rect2(230,105,w-460,470),Color(0.02,0.04,0.06,0.96))
-		var lines := ["操作说明 / H 关闭", "WASD 移动 · Shift 跑 · 空格 跳跃 · 鼠标转向", "E 交互 / 小件入包 / 推掀大件 · 数字 1–4 选择对话", "左键 普通击打（不致命） · Alt+左键 重物危险攻击", "右键 投掷（重物可能致命） · G 放下", "Q 收纳 · R 轮换取出 · Tab 背包（数字键取出）", "J 已知事项与成果 · L 工资明细", "F5 保存 · F9 读取 · Esc 菜单与设置", "蓝色 A：规程科技 · 棕色 B：自己人网络", "星级代表当前公司后果：警告 → 机会取消 → 决裂", "徒手最多打昏；伤者救助离场，次日上午返岗。", "危险行为可致命；死者不复活，岗位另行接替。", "按 E 找保安清理堵路大件；已造成的后果不会消失。", "移动或动手随时中断对话。所有职业内容均可不动手完成。"]
+		var lines := ["操作说明 / H 关闭", "WASD 移动 · Shift 跑 · 空格 跳跃 · 鼠标转向", "E 交互 / 小件入包 / 推掀大件 · 数字 1–4 选择对话", "左键 普通击打（不致命） · Alt+左键 重物危险攻击", "右键 投掷（重物可能致命） · G 放下", "Q 收纳 · R 轮换取出 · Tab 背包（数字键取出）", "J 已知事项与成果 · P 人物关系 · L 工资明细", "F5 保存 · F9 读取 · Esc 菜单与设置", "蓝色 A：规程科技 · 棕色 B：自己人网络", "星级代表当前公司后果：警告 → 机会取消 → 决裂", "徒手最多打昏；伤者救助离场，次日上午返岗。", "危险行为可致命；死者不复活，岗位另行接替。", "按 E 找保安清理堵路大件；已造成的后果不会消失。", "移动或动手随时中断对话。所有职业内容均可不动手完成。"]
 		for i in range(lines.size()): text_at(Vector2(255,145+i*33),lines[i],18)
 	if game.debug_open:
 		text_at(Vector2(270,95),"DEBUG stage=%d employer=%s facts=%d fps=%d" % [game.career.stage,game.career.employer,game.career.facts.size(),Engine.get_frames_per_second()],16)
@@ -196,3 +197,34 @@ func wrap_lines(value: String,width: float,font_size: int) -> PackedStringArray:
 		else: line+=character
 	if not line.is_empty(): lines.append(line)
 	return lines
+
+func draw_people(w: float,h: float) -> void:
+	draw_style_box(panel_style(),Rect2(80,60,w-160,h-120))
+	text_at(Vector2(108,101),"认识的人",26)
+	text_at(Vector2(108,130),"↑ ↓ 选择 · P / Esc 返回 · 世界已暂停",14,Color("a4b3bd"))
+	var roster: Array[OfficeNPC]=game.social.roster()
+	if roster.is_empty(): return
+	game.person_index=clampi(game.person_index,0,roster.size()-1)
+	var first: int=maxi(0,game.person_index-5)
+	for i in range(first,mini(first+7,roster.size())):
+		var npc: OfficeNPC=roster[i]
+		text_at(Vector2(108,175+(i-first)*46),("› " if i==game.person_index else "  ")+npc.title.split(" · ")[0],18,Color("f5d386") if i==game.person_index else Color.WHITE)
+	var person: OfficeNPC=roster[game.person_index]
+	var profile: Array=SocialLife.PROFILES.get(person.role_id,[person.title,"公司同事","需要相处才能了解。",""])
+	var lines: Array[String]=[]
+	lines.append(person.title)
+	lines.append(game.social.describe(person))
+	lines.append(profile[1])
+	lines.append(profile[2] if game.social.state(person).met else "尚未正式认识。可在招聘接待或办公区找到对方。")
+	if game.social.outing.get("person")==person.stable_id: lines.append("当前约定："+game.social.kind_name(game.social.outing.kind)+"；靠近后E回应，可暂缓。")
+	lines.append("最近的经历")
+	var memories: Array=game.social.state(person).memories
+	if memories.is_empty(): lines.append("还没有共同经历。")
+	else:
+		for i in range(memories.size()-1,maxi(-1,memories.size()-5),-1): lines.append(memories[i])
+	var y := 175.0
+	for line in lines:
+		for wrapped in wrap_lines(line,w-530,17):
+			if y<h-95: text_at(Vector2(350,y),wrapped,17)
+			y+=24
+		y+=12

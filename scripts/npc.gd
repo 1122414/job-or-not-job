@@ -159,6 +159,8 @@ func _physics_process(delta: float) -> void:
 		var visiting: Variant=game.office.visit_target(self)
 		if visiting!=null: target=visiting
 		elif (visit_wait>0 or game.speaker==self) and not (role_id=="b_friend" and game.career.b_event=="negotiating"): target=position
+		var social_target: Variant=game.social.npc_target(self)
+		if social_target!=null: target=social_target
 		var meeting: Variant=game.interviews.host_target(self)
 		if meeting!=null: target=meeting
 		if hostile > 0 and game.player.protection <= 0 and distance < 9 and game.can_see(self, game.player):
@@ -200,7 +202,7 @@ func _physics_process(delta: float) -> void:
 		velocity.x=hit_push.x*hit_stun/0.32
 		velocity.z=hit_push.z*hit_stun/0.32
 	var interview_seated: bool=game.interviews.host_seated(self)
-	seated=interview_seated or not dead and role not in ["guard","hr"] and down<=0 and hostile<=0 and reaction<=0 and visit_wait<=0 and game.speaker!=self and game.office.visit_target(self)==null and Vector2(position.x-home.x,position.z-home.z).length()<0.4 and not game.payroll.after_work()
+	seated=interview_seated or not dead and role not in ["guard","hr"] and down<=0 and hostile<=0 and reaction<=0 and visit_wait<=0 and game.speaker!=self and game.office.visit_target(self)==null and game.social.npc_target(self)==null and Vector2(position.x-home.x,position.z-home.z).length()<0.4 and not game.payroll.after_work()
 	visual.position.y=move_toward(visual.position.y,0.27 if down>0 or dead else visual.seated_offset.y if seated else 0.0,delta*2.5)
 	label.position.y=1.65 if seated else 2.05
 	if seated:

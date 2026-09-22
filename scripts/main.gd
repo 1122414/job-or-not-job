@@ -19,6 +19,8 @@ var walking := WalkingGrid.new()
 var office := OfficeLife.new()
 var staffing := Staffing.new()
 var care := NPCCare.new()
+var social := SocialLife.new()
+var person_index := 0
 var interviews := InterviewFlow.new()
 var career := Career.new()
 var stations: Array[WorkStation] = []
@@ -47,6 +49,7 @@ func _ready() -> void:
 	office.game=self
 	staffing.game=self
 	care.game=self
+	social.game=self
 	interviews.game=self
 	Neighborhood.build(self)
 	for id in OfficeLife.DESKS: add_station(id,"我的工位",OfficeLife.DESKS[id])
@@ -62,7 +65,7 @@ func _ready() -> void:
 	startup.call_deferred()
 
 func bind_inputs() -> void:
-	var keys := {"forward":KEY_W,"back":KEY_S,"left":KEY_A,"right":KEY_D,"run":KEY_SHIFT,"jump":KEY_SPACE,"interact":KEY_E,"drop":KEY_G,"cancel":KEY_ESCAPE,"bag":KEY_TAB,"store":KEY_Q,"cycle":KEY_R,"save":KEY_F5,"load":KEY_F9,"journal":KEY_J,"ledger":KEY_L,"help":KEY_H,"history":KEY_K,"dangerous":KEY_ALT}
+	var keys := {"forward":KEY_W,"back":KEY_S,"left":KEY_A,"right":KEY_D,"run":KEY_SHIFT,"jump":KEY_SPACE,"interact":KEY_E,"drop":KEY_G,"cancel":KEY_ESCAPE,"bag":KEY_TAB,"store":KEY_Q,"cycle":KEY_R,"save":KEY_F5,"load":KEY_F9,"journal":KEY_J,"ledger":KEY_L,"help":KEY_H,"history":KEY_K,"dangerous":KEY_ALT,"people":KEY_P}
 	for action in keys:
 		InputMap.add_action(action)
 		var event := InputEventKey.new()
@@ -128,6 +131,7 @@ func _process(delta: float) -> void:
 	office.tick(delta)
 	staffing.tick(delta)
 	care.tick(delta)
+	social.tick(delta)
 	var payday_before := payroll.next_payday
 	payroll.tick(delta*(0.2 if not conversation.is_empty() else 1.0),career.employer)
 	update_daylight()
@@ -215,14 +219,17 @@ func interact() -> void:
 			say("对方已死亡，无法再交谈。" if target.dead else "对方正在接受救助或休养，之后会返岗。")
 			return
 		speaker=target
+		if target is OfficeNPC: social.meet(target)
 		conversation=OfficeDialogue.options(target,career)
 		if target is WorkStation and target.stable_id.begins_with("desk_"): conversation=office.desk_choices(target)
 		if target is WorkStation and target.stable_id.begins_with("interview_"): conversation=interviews.room_options(target.stable_id.trim_prefix("interview_"))
-		if target is OfficeNPC and target.role in ["friend","group"] and payroll.after_work():
-			conversation={"text":target.title+"：下班了，今天的事可以聊，也可以不聊。", "choices":[["聊今天发生的事","social"],["请你帮忙伪造未完成的成果","boundary"]]}
+
 		if target is OfficeNPC and target.role=="guard":
 			conversation={"text":"保安：需要时可以帮你清理被堵的通路。", "choices":[["请挪开走道上的大件","clear_path"]]}
-		if target is OfficeNPC: conversation=office.visit_choices(target,conversation)
+		if target is OfficeNPC:
+			conversation=office.visit_choices(target,conversation)
+			if social.outing.get("person")==target.stable_id: conversation=social.options(target)
+			elif conversation.choices.size()<4: conversation.choices.append(["聊聊近况与相处","people_menu"])
 		journal_open=false
 
 func choose(index: int) -> void:
@@ -233,6 +240,7 @@ func choose(index: int) -> void:
 	var choices: Array = conversation.choices
 	if index>=choices.size(): return
 	var action: String = choices[index][1]
+	if speaker is OfficeNPC and social.handle(action,speaker): return
 	if interviews.handle(action): return
 	if action in ["visit_confirm","visit_defer"]:
 		var visitor: OfficeNPC=speaker
@@ -274,23 +282,21 @@ func choose(index: int) -> void:
 		say("大件已挪回原处，损坏与公司后果保留。")
 		return
 	if action=="social":
-		var key: String = speaker.stable_id+"_social"
-		if not career.facts.has(key):
-			speaker.affinity=mini(100,speaker.affinity+8)
-			career.record(key,speaker.title+"：下班聊过，关系不依赖是否还在同一公司。")
-		queue_save()
-		var line: String = speaker.title+"：工作归工作，你不用每天来维护关系。"
-		close_interaction()
-		say(line)
+		if speaker is OfficeNPC and social.willing(speaker): career.record(speaker.stable_id+"_social","你们下班后聊过。")
+		social.handle("people_chat",speaker)
 		return
+
 	if action=="prepare" and speaker is WorkStation:
 		office.start_preview(speaker)
 		close_interaction()
 		return
 	var result := "小夏：我们关系再好，也不能造假。找捷径可以，伪造成果不行。" if action=="boundary" else career.apply(action)
-	if action in ["join_b","handover","settle"]:
-		for npc in npcs:
-			if npc.role_id=="b_friend" and not npc.dead: npc.affinity=mini(100,npc.affinity+12)
+	if action in ["join_b","handover","settle"] and career.employer=="b":
+		var friend: OfficeNPC=npc_for_role("b_friend")
+		if friend: social.remember(friend,action,"你们一起安顿设备或确认了交接的边界。",8,6)
+	if action in ["shortcut","submit","no_hc","transfer"] and career.employer=="a":
+		var colleague: OfficeNPC=npc_for_role("a_friend" if action=="shortcut" else "a_lead")
+		if colleague: social.remember(colleague,action,"你们核对了工作依据和已完成的成果。",4,5)
 	close_interaction()
 	queue_save()
 	say(result)
@@ -315,6 +321,7 @@ func next_action() -> int:
 	return action_counter
 
 func on_aggression(npc: OfficeNPC, action: int) -> void:
+	if npc.last_hit==action: social.hurt(npc,action)
 	staffing.calm[npc.company]=0.0
 	close_interaction()
 	var warning := career.aggression(npc.company,action,action_counter)
@@ -352,12 +359,7 @@ func on_property_hit(prop: OfficeProp, action: int) -> void:
 			return
 
 func relationship(npc: OfficeNPC) -> String:
-	var tags := PackedStringArray()
-	if career.employer==npc.company: tags.append("同事")
-	elif career.former.has(npc.company): tags.append("前同事")
-	else: tags.append("认识的人")
-	if npc.affinity>=30: tags.append("朋友")
-	return " · ".join(tags)
+	return social.describe(npc)
 
 func say(text: String) -> void:
 	hud.toast = text

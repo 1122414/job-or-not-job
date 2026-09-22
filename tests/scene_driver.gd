@@ -45,3 +45,22 @@ static func complete_interview(tree: SceneTree,game: Node3D,action: String,exerc
 		push_error("面试未完成 "+action+" player="+str(game.player.position)+" session="+str(game.interviews.sessions[firm])+" conversation="+str(game.conversation))
 		return false
 	return true
+
+static func follow(tree: SceneTree,game: Node3D,npc: OfficeNPC,destination: Vector3,limit: int=3600) -> bool:
+	var path := PackedVector3Array()
+	for frame in range(limit):
+		var distance: float=game.player.position.distance_to(npc.position)
+		if npc.position.distance_to(destination)<0.7 and distance<2.8:
+			Input.action_release("forward")
+			return true
+		if frame%30==0: path=game.walking.route(game.player.position,npc.position,null,game.player)
+		while not path.is_empty() and game.player.position.distance_to(path[0])<0.15: path.remove_at(0)
+		if distance>1.65 and not path.is_empty():
+			var offset: Vector3=path[0]-game.player.position
+			game.player.yaw=atan2(-offset.x,-offset.z)
+			Input.action_press("forward")
+		else: Input.action_release("forward")
+		await tree.physics_frame
+	Input.action_release("forward")
+	push_error("同行未抵达 player="+str(game.player.position)+" npc="+str(npc.position)+" destination="+str(destination))
+	return false

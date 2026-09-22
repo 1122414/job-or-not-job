@@ -36,7 +36,7 @@ func back() -> void:
 
 func _input(event: InputEvent) -> void:
 	if event is InputEventKey and event.pressed and not event.echo:
-		for action in ["bag","journal","ledger","help","history"]:
+		for action in ["bag","journal","ledger","help","history","people"]:
 			if event.is_action_pressed(action):
 				toggle(action)
 				get_viewport().set_input_as_handled()
@@ -48,6 +48,9 @@ func _input(event: InputEvent) -> void:
 			return
 		if page!="":
 			var key: int=event.physical_keycode if event.physical_keycode else event.keycode
+			if page=="people":
+				if key==KEY_DOWN: game.person_index+=1
+				if key==KEY_UP: game.person_index=maxi(0,game.person_index-1)
 			if page=="bag":
 				if key==KEY_PAGEDOWN: game.player.bag_page+=1
 				if key==KEY_PAGEUP: game.player.bag_page=maxi(0,game.player.bag_page-1)
