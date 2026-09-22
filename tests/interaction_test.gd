@@ -31,6 +31,8 @@ func choose_at(game: Node3D, id: String, action: String) -> void:
 	check(index>=0,"应显示选项："+action)
 	if index>=0:
 		game.choose(index)
+		if action=="prepare":
+			for i in range(200): await physics_frame
 		if action in InterviewFlow.ACTIONS:
 			check(await preload("res://tests/scene_driver.gd").complete_interview(self,game,action),"走入独立房间完成交流："+action)
 func run() -> void:

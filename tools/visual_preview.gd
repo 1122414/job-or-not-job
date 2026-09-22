@@ -15,6 +15,11 @@ func run() -> void:
 	if OS.get_cmdline_user_args().has("--interview"):
 		game.interviews.schedule("interview_hr")
 		game.player.position=OfficeRooms.INTERVIEW_SEATS.a+Vector3(0,0,0.25)
+	if OS.get_cmdline_user_args().has("--work"):
+		for action in ["interview_hr","interview_lead","interview_boss","join_a","brief","data"]: game.career.apply(action)
+		game.career.facts.welcome_a=true
+		game.career.facts.visit_brief=true
+		game.player.position=OfficeLife.DESKS.desk_a+Vector3(0,0,1.2)
 	# Preview-only framing controls for repeatable visual inspection; no career mutation.
 	var framing := Node.new()
 	framing.set_script(load("res://tools/preview_framing.gd"))

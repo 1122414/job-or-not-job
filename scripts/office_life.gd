@@ -2,6 +2,9 @@ class_name OfficeLife
 extends RefCounted
 
 var game: Node3D
+var preview_station: WorkStation
+var preview_elapsed := 0.0
+const PREVIEW_SECONDS := 3.0
 const DESKS := {"desk_a":Vector3(-8,0,-0.9),"desk_a2":Vector3(-14,0,-13.5),"desk_b":Vector3(20,0,-0.9)}
 
 func assigned_desk() -> String:
@@ -37,7 +40,8 @@ func visit_target(npc: OfficeNPC) -> Variant:
 	var side := -1.0 if p.position.x>center else 1.0
 	return Vector3(p.position.x+side*1.8,0,clampf(p.position.z,-14.5,0.3))
 
-func tick() -> void:
+func tick(delta: float = 0.0) -> void:
+	tick_preview(delta)
 	var offer := visit()
 	if offer.is_empty() or not game.conversation.is_empty(): return
 	for npc in game.npcs:
@@ -82,3 +86,23 @@ func answer_visit(npc: OfficeNPC, confirm: bool) -> void:
 	else: game.say("已记下待交谈事项，可通过目标找到对方继续。")
 	npc.visit_wait=0
 	game.queue_save()
+
+func start_preview(station: WorkStation) -> void:
+	if station.stable_id!=assigned_desk() or game.career.employer!="a" or game.career.stage!=1 or not game.career.facts.has("data"): return
+	open_desk(station)
+	preview_station=station
+	preview_elapsed=0
+	game.say("正在运行演示预览 · 可移动起身中断")
+
+func tick_preview(delta: float) -> void:
+	if not is_instance_valid(preview_station): return
+	if not game.player.seated or game.player.dead>0 or game.career.employer!="a" or game.career.stage!=1 or game.player.position.distance_to(preview_station.position)>0.6:
+		preview_station=null
+		preview_elapsed=0
+		game.say("预览已中断，资料保留，可回工位重新运行。")
+		return
+	preview_elapsed+=delta
+	if preview_elapsed>=PREVIEW_SECONDS:
+		preview_station=null
+		game.say(game.career.apply("prepare"))
+		game.queue_save()

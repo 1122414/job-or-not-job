@@ -82,8 +82,8 @@ func apply(action: String) -> String:
 				return "第一章 · 实习第一天。右侧第一排是你的工位，HR 和主管会来找你。"
 		"brief":
 			if employer=="a" and stage==1:
-				record("brief","演示资料在蓝色资料台；听说运行需要权限。")
-				return "周工：资料在蓝台。先找原始说明，别急着跑流程。"
+				record("brief","演示资料在左侧资料柜；听说运行需要权限。")
+				return "周工：资料在左侧资料柜。先找原始说明，别急着跑流程。"
 		"data":
 			record("data","拿到演示资料：原始说明注明离线版无需权限审批。")
 			return "原始说明：离线演示不访问生产环境，不需要审批。可以找小夏核实。"
@@ -147,7 +147,7 @@ func objective() -> String:
 			1:
 				if not facts.has("desk_a_arrived"): return "第一章 · 实习第一天：右侧第一排，E 查看自己的工位"
 				if not facts.has("brief"): return "实习：周工会到工位找你，也可主动去找他"
-				if not facts.has("data"): return "查看蓝色资料台的原始说明"
+				if not facts.has("data"): return "查看左侧资料柜的原始说明"
 				if not facts.has("prepared"): return "实习：回自己的工位，整理资料并预览演示包"
 				if not facts.has("shortcut") and not facts.has("confirm"): return "找小夏核实离线版，或找周工走权限流程"
 				return "到演示台提交成果"

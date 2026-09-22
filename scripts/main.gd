@@ -122,7 +122,7 @@ func _process(delta: float) -> void:
 		if navigation_dirty<0: build_walk_grid.call_deferred()
 	focus_target=nearest()
 	interviews.tick()
-	office.tick()
+	office.tick(delta)
 	staffing.tick(delta)
 	var payday_before := payroll.next_payday
 	payroll.tick(delta*(0.2 if not conversation.is_empty() else 1.0),career.employer)
@@ -275,7 +275,9 @@ func choose(index: int) -> void:
 		say(line)
 		return
 	if action=="prepare" and speaker is WorkStation:
-		player.sit_at(speaker.position)
+		office.start_preview(speaker)
+		close_interaction()
+		return
 	var result := "小夏：我们关系再好，也不能造假。找捷径可以，伪造成果不行。" if action=="boundary" else career.apply(action)
 	if action in ["join_b","handover","settle"]:
 		for npc in npcs:
