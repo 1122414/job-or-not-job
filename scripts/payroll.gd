@@ -4,7 +4,7 @@ extends RefCounted
 const DAY := 1440
 const PERIOD := 7 * DAY
 const CENTS_PER_MINUTE := 20
-const GAME_MINUTES_PER_SECOND := 3.0
+const GAME_MINUTES_PER_SECOND := 0.5
 var minute := 9 * 60
 var fraction := 0.0
 var next_payday := PERIOD

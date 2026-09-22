@@ -15,6 +15,7 @@ func show_page(next: String) -> void:
 	game.journal_open=page=="journal"
 	game.ledger_open=page=="ledger"
 	game.help_open=page=="help"
+	game.history_open=page=="history"
 	game.menu.visible=page=="pause"
 	game.close_interaction()
 	get_tree().paused=page!=""
@@ -25,7 +26,7 @@ func toggle(next: String) -> void:
 	if page==next:
 		back()
 	else:
-		return_page="pause" if page=="pause" else ""
+		return_page="pause" if page=="pause" else "journal" if page=="journal" and next=="history" else ""
 		show_page(next)
 
 func back() -> void:
@@ -35,7 +36,7 @@ func back() -> void:
 
 func _input(event: InputEvent) -> void:
 	if event is InputEventKey and event.pressed and not event.echo:
-		for action in ["bag","journal","ledger","help"]:
+		for action in ["bag","journal","ledger","help","history"]:
 			if event.is_action_pressed(action):
 				toggle(action)
 				get_viewport().set_input_as_handled()
@@ -55,6 +56,12 @@ func _input(event: InputEvent) -> void:
 					if index<game.player.inventory.size(): game.player.pick(game.player.inventory[index])
 				if event.is_action_pressed("store"): game.player.store_held()
 				if event.is_action_pressed("drop"): game.player.release(false)
+			if page=="journal" and key in [KEY_1,KEY_2] and game.career.employer=="":
+				game.career.facts["guide_company"]="a" if key==KEY_1 else "b"
+				game.queue_save()
+			if page=="history":
+				if key==KEY_PAGEDOWN: game.history_page+=1
+				if key==KEY_PAGEUP: game.history_page=maxi(0,game.history_page-1)
 			if page=="ledger":
 				if key==KEY_PAGEDOWN: game.ledger_page+=1
 				if key==KEY_PAGEUP: game.ledger_page=maxi(0,game.ledger_page-1)

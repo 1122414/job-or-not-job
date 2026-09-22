@@ -15,7 +15,7 @@ func text_at(pos: Vector2, text: String, size: int = 20, color: Color = Color.WH
 	draw_string(font,pos,text,HORIZONTAL_ALIGNMENT_LEFT,-1,size,color)
 
 func _process(delta: float) -> void:
-	toast_time = maxf(0,toast_time-delta)
+	if not get_tree().paused: toast_time = maxf(0,toast_time-delta)
 	queue_redraw()
 
 func _draw() -> void:
@@ -35,6 +35,11 @@ func _draw() -> void:
 	for npc in game.npcs:
 		var point := center + Vector2(npc.position.x,npc.position.z)*2.05
 		if point.distance_to(center)<71: draw_circle(point,2.3,Color("e8d9b8"))
+	var destination := ObjectiveGuide.target(game)
+	if destination:
+		var point := center+Vector2(destination.position.x,destination.position.z)*2.05
+		draw_circle(point,5,Color("e4be70"))
+		draw_arc(point,8,0,TAU,24,Color("e4be70"),1.5)
 	var marker := center+Vector2(p.position.x,p.position.z)*2.05
 	marker = center+(marker-center).limit_length(71)
 	var points := PackedVector2Array()
@@ -47,10 +52,16 @@ func _draw() -> void:
 	if game.alert_level()>0:
 		text_at(Vector2(w-205,44),"★".repeat(game.alert_level())+"☆".repeat(5-game.alert_level()),27,Color("e3bc69"))
 	text_at(Vector2(w-160,73),game.clock_text(),15,Color("d2d8db"))
-	text_at(Vector2(32,35),"J  任务    TAB  背包",14,Color("c7cdd0"))
+	if game.panels.page=="":
+		var goal: String=game.objective_text()
+		var lines := wrap_lines(goal,480,17)
+		for i in range(mini(2,lines.size())): text_at(Vector2(32,38+i*24),lines[i],17,Color("f0e6d3"))
+		text_at(Vector2(32,92),"J  目标与公司    TAB  背包",13,Color("c7cdd0"))
+		if destination:
+			text_at(Vector2(35,h-64),"目的地  %dm" % int(p.position.distance_to(destination.position)),14,Color("e4be70"))
 	text_at(Vector2(w-92,h-25),"H  帮助",14,Color("c7cdd0"))
 	var target: Node3D = game.focus_target
-	if target and not p.bag_open and game.conversation.is_empty():
+	if target and game.panels.page=="" and game.conversation.is_empty():
 		var verb := "交谈" if target is OfficeNPC else "使用"
 		if target is OfficeProp: verb="收进背包" if target.portable() else "破坏" if target.anchored() else "推动"
 		if target is OfficeNPC and target.dead: verb="查看"
@@ -60,7 +71,7 @@ func _draw() -> void:
 		var width := font.get_string_size(hint,HORIZONTAL_ALIGNMENT_LEFT,-1,18).x+40
 		draw_style_box(panel_style(),Rect2((w-width)/2,h-78,width,42))
 		text_at(Vector2((w-width)/2+20,h-51),hint,18)
-	if toast_time>0 and not p.bag_open and game.conversation.is_empty():
+	if toast_time>0 and game.panels.page=="" and game.conversation.is_empty():
 		var width := minf(620,w-300)
 		var lines := wrap_lines(toast,width-36,17)
 		var height := mini(3,lines.size())*25+24
@@ -91,23 +102,51 @@ func _draw() -> void:
 		draw_rect(Rect2(w*0.24,h-363,float(npc.affinity+100)/200.0*100,4),Color("89b8a4"))
 	if not game.conversation.is_empty():
 		draw_rect(Rect2(w*0.22,h-335,w*0.75,155),Color(0.02,0.03,0.05,0.9))
-		text_at(Vector2(w*0.24,h-305),game.conversation.text,18)
+		var dialogue_lines := wrap_lines(game.conversation.text,w*0.69,17)
+		for i in range(mini(dialogue_lines.size(),2)): text_at(Vector2(w*0.24,h-320+i*22),dialogue_lines[i],17)
 		for i in range(game.conversation.choices.size()):
 			text_at(Vector2(w*0.24,h-275+i*27),str(i+1)+"  "+game.conversation.choices[i][0],18,Color("f5d386"))
 		text_at(Vector2(w*0.24,h-194),"数字键选择 · 走开或动手立即中断",14)
 	if game.journal_open:
-		draw_rect(Rect2(240,100,w-300,h-200),Color(0.02,0.04,0.06,0.95))
-		text_at(Vector2(265,137),"已知事项 / 成果记录 · J 关闭",24)
-		text_at(Vector2(265,175),game.objective_text(),17,Color("d5c393"))
-		var records: Array = game.career.records
-		for i in range(maxi(0,records.size()-15),records.size()):
-			text_at(Vector2(265,210+(i-maxi(0,records.size()-15))*26),records[i],16)
+		draw_style_box(panel_style(),Rect2(230,80,w-460,h-160))
+		text_at(Vector2(260,122),"今天的安排",26)
+		text_at(Vector2(w-400,120),"K 历史 · Esc 返回",14,Color("a4b3bd"))
+		var row := 165.0
+		if game.career.employer=="":
+			for item in [["1  规程科技","三轮面试 · 从实习开始 · 流程明确，名额另算"],["2  自己人网络","一轮面试 · 同事互帮互助，也可能有人情加班"]]:
+				text_at(Vector2(260,row),item[0],20,Color("e4be70"))
+				text_at(Vector2(260,row+28),item[1],16,Color("c7cdd0"))
+				row+=76
+			text_at(Vector2(260,row),"数字键选择导航；可以随时改变主意。",15,Color("a4b3bd"))
+			row+=40
+		text_at(Vector2(260,row),"当前目标",18,Color("e4be70"))
+		row+=28
+		for line in wrap_lines(game.objective_text(),w-520,17):
+			text_at(Vector2(260,row),line,17)
+			row+=25
+		row+=22
+		text_at(Vector2(260,row),"最近发生",18,Color("a4b3bd"))
+		row+=28
+		var records: Array=game.career.records
+		if records.is_empty(): text_at(Vector2(260,row),"先了解岗位，再决定是否入职。",16)
+		for i in range(maxi(0,records.size()-5),records.size()):
+			for line in wrap_lines(records[i],w-520,15):
+				if row<h-120: text_at(Vector2(260,row),line,15,Color("c7cdd0"))
+				row+=23
 
-		text_at(Vector2(265,h-150),"应付：规程 %.2f / 自己人 %.2f" % [game.payroll.pending.a/100.0,game.payroll.pending.b/100.0],16)
-		if not game.payroll.payments.is_empty():
-			var last: Dictionary = game.payroll.payments.back()
-			text_at(Vector2(265,h-120),"最近到账：%s  ¥%.2f（全部明细保存在存档）" % [last.company,last.cents/100.0],16)
-
+	if game.history_open:
+		draw_style_box(panel_style(),Rect2(230,80,w-460,h-160))
+		text_at(Vector2(260,122),"经历与成果",26)
+		var records: Array=game.career.records
+		var pages := maxi(1,ceili(records.size()/8.0))
+		game.history_page=clampi(game.history_page,0,pages-1)
+		var y := 167.0
+		for i in range(game.history_page*8,mini(records.size(),(game.history_page+1)*8)):
+			for line in wrap_lines(records[i],w-520,16):
+				text_at(Vector2(260,y),line,16)
+				y+=24
+			y+=10
+		text_at(Vector2(260,h-110),"PgUp/PgDn  %d / %d · Esc 返回" % [game.history_page+1,pages],14,Color("a4b3bd"))
 	if game.ledger_open:
 		draw_rect(Rect2(240,100,w-300,h-200),Color(0.02,0.04,0.06,0.95))
 		text_at(Vector2(265,137),"工资到账明细 · L 关闭 · PgUp/PgDn 翻页",22)

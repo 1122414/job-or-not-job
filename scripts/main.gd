@@ -23,8 +23,12 @@ var conversation: Dictionary = {}
 var focus_target: Node3D
 var speaker: Node3D
 var journal_open := false
+var history_open := false
+var history_page := 0
 var action_counter := 0
 var hud: StreetHUD
+var sun: DirectionalLight3D
+var environment: Environment
 var audio: AudioStreamPlayer
 var shake_enabled := true
 var navigation_dirty := -1.0
@@ -50,7 +54,7 @@ func _ready() -> void:
 	startup.call_deferred()
 
 func bind_inputs() -> void:
-	var keys := {"forward":KEY_W,"back":KEY_S,"left":KEY_A,"right":KEY_D,"run":KEY_SHIFT,"jump":KEY_SPACE,"interact":KEY_E,"drop":KEY_G,"cancel":KEY_ESCAPE,"bag":KEY_TAB,"store":KEY_Q,"cycle":KEY_R,"save":KEY_F5,"load":KEY_F9,"journal":KEY_J,"ledger":KEY_L,"help":KEY_H}
+	var keys := {"forward":KEY_W,"back":KEY_S,"left":KEY_A,"right":KEY_D,"run":KEY_SHIFT,"jump":KEY_SPACE,"interact":KEY_E,"drop":KEY_G,"cancel":KEY_ESCAPE,"bag":KEY_TAB,"store":KEY_Q,"cycle":KEY_R,"save":KEY_F5,"load":KEY_F9,"journal":KEY_J,"ledger":KEY_L,"help":KEY_H,"history":KEY_K}
 	for action in keys:
 		InputMap.add_action(action)
 		var event := InputEventKey.new()
@@ -67,9 +71,11 @@ func build_lighting() -> void:
 	light.rotation_degrees = Vector3(-55,-25,0)
 	light.light_energy = 0.7
 	light.shadow_enabled = true
+	sun=light
 	add_child(light)
 	var env := WorldEnvironment.new()
 	env.environment = Environment.new()
+	environment=env.environment
 	env.environment.background_mode = Environment.BG_COLOR
 	env.environment.background_color = Color("8fb4c5")
 	env.environment.ambient_light_source = Environment.AMBIENT_SOURCE_COLOR
@@ -111,7 +117,8 @@ func _process(delta: float) -> void:
 	focus_target=nearest()
 	office.tick()
 	var payday_before := payroll.next_payday
-	payroll.tick(delta,career.employer)
+	payroll.tick(delta*(0.2 if not conversation.is_empty() else 1.0),career.employer)
+	update_daylight()
 	if payroll.next_payday!=payday_before: queue_save()
 	if save_delay>=0:
 		save_delay-=delta
@@ -133,11 +140,16 @@ func money_text() -> String:
 	return "¥ %.2f · 发薪 第%d天" % [payroll.balance/100.0,payroll.next_payday/1440+1]
 
 func objective_text() -> String:
-	if career.facts.has("fatal_"+career.employer) or (career.employer=="" and career.facts.has("fatal_a") and career.facts.has("fatal_b")):
-		return "职业线已中断 · 可离职或自由活动"
-	if career.employer=="" and (career.facts.has("fatal_a") or career.facts.has("fatal_b")):
-		return "可去另一家公司面试 · J 查看记录"
-	return career.objective()
+	return ObjectiveGuide.current(self).title
+
+func update_daylight() -> void:
+	var hour := float(payroll.minute%1440)/60.0
+	var daylight := clampf(sin((hour-6.0)/12.0*PI),0,1)
+	sun.light_energy=0.04+daylight*0.65
+	sun.rotation_degrees.x=-10-daylight*55
+	environment.background_color=Color("142330").lerp(Color("91b2c2"),daylight)
+	environment.ambient_light_energy=0.18+daylight*0.23
+	environment.ambient_light_color=Color("8c9bae").lerp(Color("c6c9cc"),daylight)
 
 func targets() -> Array:
 	return npcs + stations + props
