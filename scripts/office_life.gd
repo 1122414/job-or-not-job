@@ -72,6 +72,7 @@ func tick(delta: float = 0.0) -> void:
 func desk_choices(station: WorkStation) -> Dictionary:
 	if station.stable_id!=assigned_desk():
 		return {"text":"工位尚未分配给你。可以先面试，或去另一家公司看看。","choices":[]}
+	if desk_damaged(station): return {"text":"工位设备损坏，无法工作。可登记维修，或先去处理别的事情。","choices":[["登记维修，恢复可用设备","desk_repair"]]}
 	var choices: Array=[["坐下查看工作资料（随时移动起身）","desk_open"]]
 	if game.career.employer=="a" and game.career.stage==1 and game.career.facts.has("data"):
 		choices.append(["整理已有资料并预览演示包","prepare"])
@@ -83,7 +84,7 @@ func open_desk(station: WorkStation) -> void:
 	game.career.record(key,"已在自己的工位安顿："+game.career.grade)
 	game.player.sit_at(station.position)
 	game.onboarding.settled()
-	game.say("已在工位坐下。移动、跳跃或动手立即起身；同事会过来找你。")
+	game.say("登录失败：账号仍属于候选人组织。通知明明写已完成，请找前台核对。" if not game.onboarding.account_ready() else "已在工位坐下。同事会过来交代今天的工作。")
 	game.queue_save()
 
 func visit_choices(npc: OfficeNPC, fallback: Dictionary) -> Dictionary:
@@ -123,3 +124,22 @@ func tick_preview(delta: float) -> void:
 		preview_station=null
 		game.say(game.career.apply("prepare"))
 		game.queue_save()
+
+func desk_damaged(station: WorkStation) -> bool:
+	if station.stable_id!=assigned_desk(): return false
+	for prop in game.props:
+		if prop.kind in ["desk","monitor"] and Vector2(prop.home.x-station.position.x,prop.home.z-station.position.z).length()<1.6:
+			if prop.damaged or prop.position.distance_to(prop.home)>0.3 or not prop.visible: return true
+	return false
+
+func repair_desk(station: WorkStation) -> void:
+	if station.stable_id!=assigned_desk(): return
+	for prop in game.props:
+		if prop.kind in ["desk","monitor"] and Vector2(prop.home.x-station.position.x,prop.home.z-station.position.z).length()<1.6:
+			if game.player.held==prop: game.player.release(false)
+			game.player.inventory.erase(prop)
+			prop.show(); prop.damaged=false; prop.durability=prop.max_durability()
+			prop.reset_position(); prop.apply_damage_state()
+			prop.collision_layer=prop.world_layer(); prop.collision_mask=3
+	game.say("设备已恢复可用。损坏事件和公司处分仍保留。")
+	game.queue_save()

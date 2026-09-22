@@ -34,6 +34,8 @@ func run() -> void:
 	flow.report("a")
 	check(game.career.employer=="","错过接待时间不静默入职")
 	flow.postpone("a"); flow.handle("rest_next"); flow.report("a")
+	check(game.career.employer=="","核对报到时尚未建立雇佣")
+	flow.handle("report_confirm_a"); flow.handle("report_confirm_a")
 	check(game.career.employer=="a" and flow.applications.a.phase=="reported","改约后现场报到才入职")
 	game.payroll.advance(30,game.career.employer)
 	check(game.payroll.pending.a==600,"只计入职后工资")

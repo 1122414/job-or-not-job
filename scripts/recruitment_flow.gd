@@ -62,10 +62,20 @@ func report(firm: String) -> void:
 	if game.payroll.minute>=int(state.report_at)/1440*1440+1080: game.say("已错过当天接待时间，N消息页可重新约报到。"); return
 	var npc: OfficeNPC=game.npc_for_role(firm+"_hr")
 	if not npc or not npc.available() or npc.position.distance_to(game.player.position)>3.5: game.say("请到前台，当面确认报到。"); return
+	var step: int=int(work.get("intake_"+firm,0))
+	if step<2:
+		game.speaker=npc
+		game.conversation={"text":("林岚：我核对一下，今天报到，身份是实习生。通知上写的正式HC还没批，业务评价和转正不是同一次审批。确认按这个条件办理吗？" if firm=="a" else "阿诚：约的是今天。先登记岗位，现场协作和资料交接。临时增加的事情找请求人核对，不填进这张固定职责表。") if step==0 else "接待把工牌放到你面前：账号申请显示已完成。先收好工牌，等一下带你去工位；登录不了再来找我，我只能查工单状态。",
+			"choices":[["确认，继续办理" if step==0 else "领取工牌，完成报到","report_confirm_"+firm],["我再考虑一下","report_pause"]]}
+		game.queue_save()
+		return
 	var result: String=game.career.apply("join_"+firm)
 	game.say(result)
 	if game.career.employer==firm:
 		state.phase="reported"
+		work["account_"+firm]=false
+		game.onboarding.issue_badge(firm)
+		send(firm,"account","入职账号申请：已完成。报到身份："+game.career.grade+"。如无法登录，请联系前台核对账号所属组织。")
 		game.onboarding.start(firm)
 	game.queue_save()
 func next_time() -> int:
@@ -77,8 +87,18 @@ func next_time() -> int:
 func handle(action: String) -> bool:
 	if action in ["join_a","join_b"]:
 		accept(action.trim_prefix("join_")); game.close_interaction(); return true
-	if action.begins_with("report_"):
-		report(action.trim_prefix("report_")); game.close_interaction(); return true
+	if action=="report_pause": game.close_interaction(); return true
+	if action in ["report_confirm_a","report_confirm_b"]:
+		var firm := action.trim_prefix("report_confirm_")
+		if applications[firm].phase!="accepted": return true
+		work["intake_"+firm]=mini(2,int(work.get("intake_"+firm,0))+1)
+		report(firm)
+		if game.career.employer!="": game.close_interaction()
+		return true
+	if action in ["report_a","report_b"]:
+		report(action.trim_prefix("report_"))
+		if game.career.employer!="": game.close_interaction()
+		return true
 	if action=="rest_next":
 		var time := next_time()
 		if time>0: game.payroll.advance(time-game.payroll.minute,game.career.employer); tick(); game.queue_save()
@@ -136,6 +156,11 @@ static func valid(value: Variant) -> bool:
 		var cursor: Variant=value.scenes[firm]
 		if not firm in ["a","b"] or not cursor is Dictionary or not cursor.get("key") is String: return false
 		if not (cursor.get("line") is int or cursor.get("line") is float) or not is_finite(cursor.line) or cursor.line<0 or cursor.line!=int(cursor.line): return false
+	for firm in ["a","b"]:
+		if value.work.has("intake_"+firm):
+			var step: Variant=value.work["intake_"+firm]
+			if not (step is int or step is float) or not is_finite(step) or step!=int(step) or step<0 or step>2: return false
+		if value.work.has("account_"+firm) and not value.work["account_"+firm] is bool: return false
 	var accepted := 0
 	for firm in ["a","b"]:
 		var state: Variant=value.applications.get(firm)

@@ -56,6 +56,7 @@ func _ready() -> void:
 	recruitment.game=self
 	interviews.game=self
 	Neighborhood.build(self)
+	for firm in ["a","b"]: add_prop(firm+"_badge","badge",OfficeRooms.RECEPTIONS[firm]+Vector3(0.35,0.98,0))
 	for id in OfficeLife.DESKS: add_station(id,"我的工位",OfficeLife.DESKS[id])
 	add_station("archive","原始资料",Vector3(-24,0,-4))
 	add_station("demo","演示交付台",Vector3(-15.5,0,-10.5))
@@ -242,6 +243,7 @@ func interact() -> void:
 			elif conversation.choices.size()<4: conversation.choices.append(["回应私人邀约" if social.outing.get("person")==target.stable_id else "聊聊近况与相处","people_menu"])
 			var introduction: Dictionary=onboarding.options(target)
 			if not introduction.is_empty(): conversation=introduction
+			conversation=onboarding.service_options(target,conversation)
 		journal_open=false
 
 func choose(index: int) -> void:
@@ -268,6 +270,10 @@ func choose(index: int) -> void:
 		if action=="visit_confirm":
 			speaker=visitor
 			conversation=OfficeDialogue.options(visitor,career)
+		return
+	if action=="desk_repair":
+		office.repair_desk(speaker)
+		close_interaction()
 		return
 	if action=="desk_open":
 		office.open_desk(speaker)

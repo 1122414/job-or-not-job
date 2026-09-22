@@ -99,6 +99,7 @@ func _process(_delta: float) -> void:
 			elif game.career.stage>=4: screen.text="两份成果已归档 ✓\n正式员工" if game.career.stage==6 else "第二份成果：现场恢复 ✓\n准备答辩" if facts.has("output_two") else "第二章 / 现场投影\n第一次成果已保留 ✓"
 			progress=1.0 if facts.has("prepared") else 0.0
 	else: progress=1.0 if (stable_id=="demo" and facts.has("output_one")) or (stable_id=="backup" and facts.has("output_two")) or (stable_id=="handover" and facts.has("b_help")) else 0.0
+	if stable_id==game.office.assigned_desk() and not game.onboarding.account_ready(): screen.text="无法登录 · 候选人组织\n工单：已完成 / 请联系前台"
 	for i in range(work_bars.size()):
 		work_bars[i].visible=progress>0 and device_present
 		work_bars[i].scale.x=maxf(0.01,clampf(progress*3-i,0,1))

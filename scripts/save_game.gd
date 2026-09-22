@@ -20,7 +20,7 @@ static func fields(object: RefCounted, names: Array) -> Dictionary:
 	return result.duplicate(true)
 
 static func snapshot(game: Node3D) -> Dictionary:
-	var data := {"version":VERSION,"recruitment":game.recruitment.snapshot(),"career":fields(game.career,CAREER_FIELDS),"payroll":fields(game.payroll,PAYROLL_FIELDS),"action_counter":game.action_counter,"props":{},"npcs":{},"player":{"position":vector(game.player.position),"yaw":game.player.yaw,"pitch":game.player.pitch,"hp":game.player.hp,"protection":game.player.protection},"shake":game.shake_enabled,"staffing":game.staffing.calm.duplicate(),"interviews":game.interviews.sessions.duplicate(true),"onboarding":game.onboarding.tour.duplicate(true),"social":{"people":game.social.people.duplicate(true),"outing":game.social.outing.duplicate(true)}}
+	var data := {"version":VERSION,"badge_schema":1,"recruitment":game.recruitment.snapshot(),"career":fields(game.career,CAREER_FIELDS),"payroll":fields(game.payroll,PAYROLL_FIELDS),"action_counter":game.action_counter,"props":{},"npcs":{},"player":{"position":vector(game.player.position),"yaw":game.player.yaw,"pitch":game.player.pitch,"hp":game.player.hp,"protection":game.player.protection},"shake":game.shake_enabled,"staffing":game.staffing.calm.duplicate(),"interviews":game.interviews.sessions.duplicate(true),"onboarding":game.onboarding.tour.duplicate(true),"social":{"people":game.social.people.duplicate(true),"outing":game.social.outing.duplicate(true)}}
 	for prop in game.props:
 		var location := "held" if game.player.held==prop else "bag" if game.player.inventory.has(prop) else "world"
 		data.props[prop.stable_id]={"position":vector(prop.position),"rotation":vector(prop.rotation),"location":location,"damaged":prop.damaged,"durability":prop.durability,"tipped":prop.tipped}
@@ -81,7 +81,6 @@ static func valid(data: Variant, game: Node3D) -> bool:
 		for firm in ["a","b"]:
 			var calm: Variant=data.staffing.get(firm)
 			if not (calm is float or calm is int) or not is_finite(calm) or calm<0: return false
-	if data.version>=2 and data.props.size()!=game.props.size(): return false
 	var known := {}
 	for prop in game.props: known[prop.stable_id]=true
 	for id in data.props:
@@ -90,7 +89,7 @@ static func valid(data: Variant, game: Node3D) -> bool:
 		if not data.props.has(id): return false
 	var held_count := 0
 	for prop in game.props:
-		if data.version==1 and not data.props.has(prop.stable_id): continue
+		if not data.props.has(prop.stable_id) and (data.version==1 or prop.kind=="badge" and data.get("badge_schema",0)==0): continue
 		var entry: Variant = data.props.get(prop.stable_id)
 		if not entry is Dictionary: return false
 		if not valid_vector(entry.get("position")) or not valid_vector(entry.get("rotation")): return false

@@ -25,6 +25,8 @@ func run() -> void:
 	game.recruitment.handle("rest_next")
 	game.player.position=game.npc_for_role("a_hr").position+Vector3(0,0,1)
 	game.recruitment.report("a")
+	game.recruitment.handle("report_confirm_a")
+	game.recruitment.handle("report_confirm_a")
 	check(game.office.assigned_desk()=="desk_a","明确接受后才分配工位")
 	var invalid: Dictionary=SaveGame.snapshot(game)
 	invalid.interviews.a.step=100

@@ -38,7 +38,7 @@ static func build(game: Node3D) -> void:
 		Shapes.solid(game,Vector3(1.5,0.92,0.65),reception+Vector3(0,0.46,0),Color("737b78"))
 		Shapes.box(game,Vector3(1.58,0.045,0.74),reception+Vector3(0,0.945,0),Color("c8bda5"))
 		Shapes.box(game,Vector3(1.4,0.42,0.015),reception+Vector3(0,0.65,0.34),accent)
-		plaque(game,"招聘接待",reception+Vector3(0,1.35,0),1.35)
+		plaque(game,"招聘接待",reception+Vector3(0,0.65,0.39),1.0)
 		# Waiting furniture leaves the entrance axis and all desk aisles open.
 		Shapes.solid(game,Vector3(1.8,0.43,0.60),Vector3(center+4,0.215,0.7),Color("4b595c"))
 		Shapes.solid(game,Vector3(1.8,0.52,0.12),Vector3(center+4,0.67,1.0),Color("4b595c"))

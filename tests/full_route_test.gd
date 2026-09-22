@@ -46,6 +46,9 @@ func perform(game: Node3D,id: String,action: String) -> bool:
 					if companion and companion.position.distance_to(target.position)<3.8: break
 					await physics_frame
 			game.choose(i)
+			if action.begins_with("report_"):
+				game.choose(0)
+				game.choose(0)
 			if action in InterviewFlow.ACTIONS: return await Driver.complete_interview(self,game,action)
 			if action=="prepare":
 				for frame in range(200): await physics_frame

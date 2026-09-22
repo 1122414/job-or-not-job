@@ -2,6 +2,7 @@ class_name OfficeProp
 extends RigidBody3D
 
 const TYPES := {
+	"badge":["工牌",Vector3(0.10,0.016,0.16),Color("e2e8e4"),0.1],
 	"keyboard":["键盘",Vector3(0.52,0.035,0.19),Color("35495b"),1.0],
 	"cup":["杯子",Vector3(0.12,0.16,0.12),Color("cbb489"),0.5],
 	"chair":["办公椅",Vector3(0.65,0.75,0.65),Color("30383e"),5.0],
@@ -43,7 +44,7 @@ func setup(id: String, type: String, pos: Vector3, owner_game: Node3D) -> void:
 	title = TYPES[kind][0]
 
 func portable() -> bool:
-	return kind in ["keyboard", "cup", "monitor"]
+	return kind in ["keyboard", "cup", "monitor", "badge"]
 
 func _ready() -> void:
 	durability=max_durability()
@@ -76,6 +77,9 @@ func _ready() -> void:
 		add_child(handle)
 		handle.position.x=0.07
 		handle.rotation.x=PI/2
+	if kind=="badge":
+		Shapes.box(self,Vector3(0.085,0.003,0.03),Vector3(0,0.010,-0.04),Color("426c84"))
+		Shapes.box(self,Vector3(0.04,0.003,0.05),Vector3(-0.02,0.010,0.015),Color("a4afb6"))
 	if kind == "keyboard":
 		var keys := MultiMeshInstance3D.new()
 		var instances := MultiMesh.new()
@@ -186,7 +190,7 @@ func reset_position() -> void:
 	rotation = Vector3.ZERO
 
 func max_durability() -> float:
-	return {"cup":1.0,"keyboard":2.0,"monitor":3.0,"chair":6.0,"table":12.0,"printer":8.0,"desk":12.0,"panel":8.0,"side_panel":8.0,"plant":3.0,"cooler":10.0}[kind]
+	return {"badge":2.0,"cup":1.0,"keyboard":2.0,"monitor":3.0,"chair":6.0,"table":12.0,"printer":8.0,"desk":12.0,"panel":8.0,"side_panel":8.0,"plant":3.0,"cooler":10.0}[kind]
 
 func resistance() -> float:
 	return 1.5 if kind in ["desk","table","printer","panel","side_panel","cooler"] else 0.0

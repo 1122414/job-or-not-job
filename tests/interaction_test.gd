@@ -44,6 +44,9 @@ func choose_at(game: Node3D, id: String, action: String) -> void:
 	check(index>=0,"应显示选项："+action)
 	if index>=0:
 		game.choose(index)
+		if action.begins_with("report_"):
+			game.choose(0)
+			game.choose(0)
 		if action=="prepare":
 			for i in range(200): await physics_frame
 		if action in InterviewFlow.ACTIONS:

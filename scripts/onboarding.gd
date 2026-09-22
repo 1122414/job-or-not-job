@@ -36,6 +36,7 @@ func options(npc: OfficeNPC) -> Dictionary:
 	return {"text":"跟我来，我会等你。要先逛逛也没关系。","choices":[["继续走","tour_continue"],["先自己探索，暂停带领","tour_pause"]]}
 
 func handle(action: String) -> bool:
+	if service(action): return true
 	if not action.begins_with("tour_"): return false
 	if not active(): return true
 	match action:
@@ -84,3 +85,47 @@ static func valid(value: Variant) -> bool:
 	if not value is Dictionary: return false
 	if value.is_empty(): return true
 	return value.get("firm") in ["a","b"] and value.get("phase") in ["offered","leading","introduce","to_desk","desk","settling","done"] and value.get("paused") is bool
+
+func badge(firm: String) -> OfficeProp:
+	for prop in game.props:
+		if prop.stable_id==firm+"_badge": return prop
+	return null
+
+func issue_badge(firm: String) -> void:
+	var card := badge(firm)
+	if not card: return
+	if game.player.held==card: game.player.store_held()
+	card.damaged=false
+	card.durability=card.max_durability()
+	card.apply_damage_state()
+	game.player.collect(card)
+	game.career.facts["badge_issued_"+firm]=true
+	game.queue_save()
+
+func service_options(npc: OfficeNPC,fallback: Dictionary) -> Dictionary:
+	if npc.role!="hr" or npc.company!=game.career.employer: return fallback
+	var card := badge(npc.company)
+	if card and not game.player.inventory.has(card) and game.player.held!=card:
+		fallback.choices.push_front(["补办丢失的工牌","service_badge"])
+	if game.recruitment.work.get("account_"+npc.company,true)==false:
+		fallback.choices.push_front(["账号通知已完成，但无法登录","service_account"])
+	fallback.choices=fallback.choices.slice(0,3)
+	return fallback
+
+func account_ready() -> bool:
+	return game.recruitment.work.get("account_"+game.career.employer,true)
+
+func service(action: String) -> bool:
+	var firm: String=game.career.employer
+	if not action in ["service_badge","service_account"]: return false
+	if firm=="" or not game.speaker is OfficeNPC or game.speaker.role!="hr" or game.speaker.company!=firm: return true
+	if action=="service_badge":
+		issue_badge(firm)
+		game.say("已补办工牌，旧卡作废。工牌收入背包。")
+	else:
+		game.recruitment.work["account_"+firm]=true
+		game.recruitment.send(firm,"account_fixed","账号组织已修正："+("实习 / 本地资料可用。生产权限仍需另行申请。" if firm=="a" else "资料交接 / 可登录。"))
+		game.say("接待：之前勾成了外部候选人，我改好了。工单完成不代表账号组织填对了。")
+	game.close_interaction()
+	game.queue_save()
+	return true
