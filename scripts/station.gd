@@ -44,7 +44,7 @@ func _ready() -> void:
 
 func _process(_delta: float) -> void:
 	var game = get_parent()
-	label.visible=game.focus_target==self
+	label.visible=false
 	if not screen: return
 	var facts: Dictionary=game.career.facts
 	if stable_id.begins_with("desk_"):

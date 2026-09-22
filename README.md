@@ -10,7 +10,7 @@ Godot 4.7.1 / GDScript / Compatibility。第三人称连续小街区职场沙盒
 
 安装 Godot **4.7.1**，导入 `project.godot`，按 F5；或 `godot --path .`。资产已在仓库中，无运行时下载、账号或联网要求。
 
-- 全部检查：`sh tools/check.sh`（17 项测试，导入、启动、回归日志在 `logs/`）。
+- 全部检查：`sh tools/check.sh`（18 项测试，导入、启动、回归日志在 `logs/`）。
 - 打包：`sh tools/package_macos.sh`。默认引擎在 `/Applications/Godot.app/Contents/MacOS/Godot`，可用 `GODOT_BIN` 覆盖；需 macOS 自带 codesign/ditto 与 Python 3。
 - 性能短测：`godot --path . --script tests/performance.gd`，输出 `build/performance.json`。
 - 无玩家存档的视觉检查：`godot --path . --script tools/visual_preview.gd`。
@@ -21,10 +21,10 @@ Godot 4.7.1 / GDScript / Compatibility。第三人称连续小街区职场沙盒
 | --- | --- |
 | 移动 / 跑 / 跳 | WASD / Shift / Space |
 | 转视角 | 鼠标；Esc 可释放鼠标并暂停 |
-| 近处交谈、操作、拾取 | E；数字键选择对话；走开或动手即可中断 |
+| 近处交谈、操作、小件直接入包 | E；数字键选择对话；走开或动手即可中断 |
 | 挥击 / 投掷手持物 | 鼠标左键 / 右键 |
 | 收纳 / 轮换 / 放下 | Q / R / G |
-| 背包 / 事项 / 工资记录 | Tab / J / L；工资记录用 PgUp/PgDn 翻页 |
+| 背包 / 事项 / 工资记录 | Tab / J / L；背包数字 1–8 取出，背包/工资 PgUp/PgDn 翻页 |
 | 保存 / 读取 | F5 / F9，也可在 Esc 菜单中操作 |
 | 帮助 / 设置与退出 | H / Esc |
 
@@ -51,3 +51,5 @@ Godot 4.7.1 / GDScript / Compatibility。第三人称连续小街区职场沙盒
 这是有限街区 MVP，包含十位 NPC 和三套复用人物，不是 GTA 规模城市。程序骨骼动画、脸型差异、足部贴地、音效和材质仍有打磨空间。已做引擎自动回归和本机实际操作，尚未做独立目标玩家试玩，不能据此宣称手感或趣味性已获用户验证。
 
 开发状态：当前处于用户试玩后的整改阶段，整体 MVP 尚未验收完成。工位与主动来访已接入，正式写实模型和 Blender 制作后置。每阶段按 `AGENTS.md` 同步 Obsidian 进度。
+
+2026-09-22 交互更新：两家公司共 112 件道具，办公桌、椅子、隔板、显示器、键盘、杯子、盆栽与饮水机可破坏；建筑结构和剧情终端保留。NPC 有生命值且可死亡，关键人物死亡会中断本公司职业线，读档仍保留；玩家自身继续使用附近复活。存档 v2 兼容 v1 的十件道具布局，新增家具默认生成。

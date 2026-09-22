@@ -20,6 +20,7 @@ func build(game: Node3D) -> void:
 	shape.size=Vector3(0.6,1.5,0.6)
 	var query := PhysicsShapeQueryParameters3D.new()
 	query.shape=shape
+	query.collision_mask=1
 	query.exclude=excluded
 	for x in range(-70,71):
 		for z in range(-42,45):
@@ -52,6 +53,7 @@ func clear_segment(from: Vector3,to: Vector3) -> bool:
 	shape.radius=0.28
 	shape.height=1.7
 	query.shape=shape
+	query.collision_mask=1
 	query.exclude=excluded
 	query.transform.origin=Vector3(from.x,0.9,from.z)
 	query.motion=Vector3(to.x-from.x,0,to.z-from.z)

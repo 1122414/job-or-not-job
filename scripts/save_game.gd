@@ -1,7 +1,8 @@
 class_name SaveGame
 extends RefCounted
 
-const VERSION := 1
+const VERSION := 2
+const LEGACY_PROPS := ["a_keyboard","a_cup","a_table","a_chair","a_printer","b_keyboard","b_cup","b_table","b_chair","b_printer"]
 const PATH := "user://neighborhood.json"
 const CAREER_FIELDS := ["recruit","employer","grade","stage","facts","records","former","conflict","warning_action","seen_actions","b_event"]
 const PAYROLL_FIELDS := ["minute","fraction","next_payday","balance","pending","payments"]
@@ -33,7 +34,8 @@ static func valid_vector(value: Variant) -> bool:
 	return true
 
 static func valid(data: Variant, game: Node3D) -> bool:
-	if not data is Dictionary or data.get("version")!=VERSION: return false
+	if not data is Dictionary: return false
+	if data.get("version")!=1 and data.get("version")!=VERSION: return false
 	for field in ["career","payroll","props","npcs","player"]:
 		if not data.get(field) is Dictionary: return false
 	for field in CAREER_FIELDS:
@@ -70,9 +72,17 @@ static func valid(data: Variant, game: Node3D) -> bool:
 		if not (data.player.get(key) is float or data.player.get(key) is int) or not is_finite(data.player[key]): return false
 	if data.player.hp<0 or data.player.hp>100: return false
 	if not (data.get("action_counter") is float or data.get("action_counter") is int): return false
-	if data.props.size()!=game.props.size() or data.npcs.size()!=game.npcs.size(): return false
+	if data.npcs.size()!=game.npcs.size(): return false
+	if data.version==VERSION and data.props.size()!=game.props.size(): return false
+	var known := {}
+	for prop in game.props: known[prop.stable_id]=true
+	for id in data.props:
+		if not known.has(id): return false
+	for id in LEGACY_PROPS:
+		if not data.props.has(id): return false
 	var held_count := 0
 	for prop in game.props:
+		if data.version==1 and not data.props.has(prop.stable_id): continue
 		var entry: Variant = data.props.get(prop.stable_id)
 		if not entry is Dictionary: return false
 		if not valid_vector(entry.get("position")) or not valid_vector(entry.get("rotation")): return false
@@ -132,7 +142,7 @@ static func restore(game: Node3D, data: Dictionary) -> bool:
 	game.action_counter=int(data.action_counter)
 	game.shake_enabled=data.get("shake",true)
 	for prop in game.props:
-		var entry: Dictionary = data.props[prop.stable_id]
+		var entry: Dictionary = data.props.get(prop.stable_id,{"position":vector(prop.home),"rotation":[0,0,0],"location":"world","damaged":false})
 		prop.position=unvector(entry.position)
 		prop.rotation=unvector(entry.rotation)
 		prop.linear_velocity=Vector3.ZERO
@@ -140,11 +150,11 @@ static func restore(game: Node3D, data: Dictionary) -> bool:
 		prop.thrown=false
 		prop.hits.clear()
 		prop.damaged=entry.damaged
-		prop.mesh.material_override=Shapes.material(Color("7b7274")) if prop.damaged else prop.base_material
+		prop.apply_damage_state()
 		prop.label.text=prop.title+(" · 已损坏" if prop.damaged else "")
-		prop.freeze=entry.location!="world"
-		prop.collision_layer=1 if entry.location=="world" else 0
-		prop.collision_mask=prop.collision_layer
+		prop.freeze=prop.anchored() or entry.location!="world"
+		prop.collision_layer=prop.world_layer() if entry.location=="world" else 0
+		prop.collision_mask=3 if entry.location=="world" else 0
 		prop.visible=entry.location!="bag"
 		if entry.location=="bag": game.player.inventory.append(prop)
 		elif entry.location=="held": game.player.held=prop
@@ -169,6 +179,8 @@ static func restore(game: Node3D, data: Dictionary) -> bool:
 	game.player.seated=false
 	game.player.dead=0
 	game.player.bag_open=false
+	game.player.bag_page=0
+	game.navigation_dirty=0.1
 	game.player.cooldown=0
 	game.player.swing=0
 	game.player.velocity=Vector3.ZERO

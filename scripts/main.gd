@@ -23,6 +23,7 @@ var action_counter := 0
 var hud: StreetHUD
 var audio: AudioStreamPlayer
 var shake_enabled := true
+var navigation_dirty := -1.0
 
 func _ready() -> void:
 	bind_inputs()
@@ -96,6 +97,9 @@ func build_ui() -> void:
 	canvas.add_child(menu)
 
 func _process(delta: float) -> void:
+	if navigation_dirty>=0:
+		navigation_dirty-=delta
+		if navigation_dirty<0: build_walk_grid.call_deferred()
 	focus_target=nearest()
 	office.tick()
 	var payday_before := payroll.next_payday
@@ -128,7 +132,7 @@ func objective_text() -> String:
 	return career.objective()
 
 func targets() -> Array:
-	return npcs + props + stations
+	return npcs + stations + props
 
 func nearest() -> Node3D:
 	var best: Node3D
@@ -138,9 +142,10 @@ func nearest() -> Node3D:
 		var offset: Vector3 = node.global_position-player.global_position
 		offset.y = 0
 		var d := offset.length()
-		if d < distance and offset.normalized().dot(player.forward()) > 0.2 and can_see(player,node):
+		var score: float = d*(0.4 if node is WorkStation else 0.55 if node is OfficeNPC else 1.0)
+		if d<3.0 and score < distance and offset.normalized().dot(player.forward()) > 0.2 and can_see(player,node):
 			best = node
-			distance = d
+			distance = score
 	return best
 
 func can_see(from: Node3D, to: Node3D) -> bool:
@@ -162,7 +167,8 @@ func add_station(id: String, title: String, pos: Vector3) -> void:
 func interact() -> void:
 	var target := nearest()
 	if target is OfficeProp:
-		player.pick(target)
+		if target.portable(): player.collect(target)
+		else: player.pick(target)
 	elif target is OfficeNPC or target is WorkStation:
 		if target is OfficeNPC and (target.down>0 or target.dead):
 			say("对方已死亡，无法再交谈。" if target.dead else "对方暂时倒地。")
@@ -210,6 +216,7 @@ func choose(index: int) -> void:
 	if action=="clear_path":
 		for prop in props:
 			if not prop.portable(): prop.reset_position()
+		navigation_dirty=0.1
 		close_interaction()
 		say("大件已挪回原处，损坏与公司后果保留。")
 		return
@@ -241,6 +248,13 @@ func close_interaction() -> void:
 	speaker=null
 
 func _unhandled_key_input(event: InputEvent) -> void:
+	if player.bag_open and event is InputEventKey and event.pressed and not event.echo:
+		if event.keycode==KEY_PAGEDOWN: player.bag_page+=1; return
+		if event.keycode==KEY_PAGEUP: player.bag_page=maxi(0,player.bag_page-1); return
+		if event.keycode>=KEY_1 and event.keycode<=KEY_8:
+			var index: int = player.bag_page*8+event.keycode-KEY_1
+			if index<player.inventory.size(): player.pick(player.inventory[index])
+			return
 	if event is InputEventKey and event.pressed and not event.echo:
 		if event.physical_keycode>=KEY_1 and event.physical_keycode<=KEY_4: choose(event.physical_keycode-KEY_1)
 		if event.is_action_pressed("ledger"):

@@ -15,6 +15,7 @@ var hand: Node3D
 var held: OfficeProp
 var inventory: Array[OfficeProp] = []
 var bag_open := false
+var bag_page := 0
 var cooldown := 0.0
 var swing := 0.0
 var hp := 100
@@ -64,7 +65,10 @@ func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("cycle"): cycle_item()
 	if event.is_action_pressed("bag"):
 		bag_open = not bag_open
-		game.show_inventory()
+		game.close_interaction()
+		game.journal_open=false
+		game.ledger_open=false
+		game.help_open=false
 	if event.is_action_pressed("cancel"):
 		game.close_interaction()
 		game.toggle_menu()
@@ -125,6 +129,7 @@ func pick(prop: OfficeProp) -> void:
 	prop.collision_layer = 0
 	prop.collision_mask = 0
 	prop.thrown = false
+	game.queue_save()
 
 func release(throwing: bool) -> void:
 	if not held: return
@@ -132,9 +137,10 @@ func release(throwing: bool) -> void:
 	held = null
 	prop.global_position = global_position + Vector3.UP * 1.3 + forward() * 0.9
 	prop.freeze = false
-	prop.collision_layer = 1
-	prop.collision_mask = 1
+	prop.collision_layer = prop.world_layer()
+	prop.collision_mask = 3
 	prop.linear_velocity = Vector3.ZERO
+	game.queue_save()
 	if throwing:
 		prop.attack_id = game.next_action()
 		prop.hits.clear()
@@ -156,18 +162,29 @@ func hurt(amount: int) -> void:
 		game.close_interaction()
 		game.say("你倒下了。附近复活中，装备保留。")
 
+func collect(prop: OfficeProp) -> void:
+	if not prop.portable() or inventory.has(prop) or held==prop: return
+	prop.freeze=true
+	prop.collision_layer=0
+	prop.collision_mask=0
+	prop.thrown=false
+	prop.hide()
+	inventory.append(prop)
+	game.say("已收纳 "+prop.title)
+	game.queue_save()
+
 func store_held() -> void:
 	if not held: return
 	if not inventory.has(held): inventory.append(held)
 	held.hide()
 	held = null
-	game.show_inventory()
+	game.queue_save()
 
 func cycle_item() -> void:
 	if inventory.is_empty(): return
 	var item := inventory[0]
 	pick(item)
-	game.show_inventory()
+	game.queue_save()
 
 func respawn() -> void:
 	position = game.safe_spawn(global_position)

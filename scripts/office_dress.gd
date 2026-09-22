@@ -66,7 +66,6 @@ static func plant(parent: Node3D, pos: Vector3) -> void:
 
 static func build(game: Node3D) -> void:
 	var carpet := fabric(Color("56595b"))
-	var wood := fabric(Color("9b856a"))
 	for center in [-14.0,14.0]:
 		var floor_mesh := Shapes.box(game,Vector3(23.7,0.012,17.7),Vector3(center,0.006,-7),Color.WHITE)
 		floor_mesh.material_override=carpet
@@ -96,32 +95,20 @@ static func build(game: Node3D) -> void:
 				for dy in [-0.8,0.8]: Shapes.box(game,Vector3(0.055,0.055,3.6),Vector3(center+side*11.74,2.1+dy,z),Color("393f42"))
 				for dz in [-1.8,0,1.8]: Shapes.box(game,Vector3(0.055,1.65,0.06),Vector3(center+side*11.74,2.1,z+dz),Color("393f42"))
 				for slat in range(7): Shapes.box(game,Vector3(0.07,0.025,3.5),Vector3(center+side*11.7,2.8-slat*0.18,z),Color("a0a6a5"))
+		var firm := "a" if center<0 else "b"
 		for dx in [-7,6]:
 			for z in [-2,-6,-11]:
-				var top := Shapes.box(game,Vector3(3.5,0.03,1.5),Vector3(center+dx,0.925,z),Color.WHITE)
-				top.material_override=wood
-				for leg in [-1.5,1.5]: Shapes.box(game,Vector3(0.07,0.8,1.2),Vector3(center+dx+leg,0.43,z),Color("555e64"))
-				Shapes.box(game,Vector3(0.16,0.4,0.12),Vector3(center+dx,1.05,z-0.4),Color("292e32"))
-				Shapes.box(game,Vector3(0.6,0.025,0.3),Vector3(center+dx,0.96,z-0.4),Color("292e32"))
-				Shapes.box(game,Vector3(0.72,0.035,0.24),Vector3(center+dx,0.96,z+0.28),Color("34383b"))
-				for row in range(4): Shapes.box(game,Vector3(0.62,0.012,0.022),Vector3(center+dx,0.985,z+0.20+row*0.045),Color("73777a"))
-				Shapes.box(game,Vector3(0.20,0.008,0.25),Vector3(center+dx+0.7,0.95,z+0.25),Color("252c31"))
-				Shapes.box(game,Vector3(0.075,0.04,0.12),Vector3(center+dx+0.7,0.98,z+0.25),Color("6e7478"))
-				Shapes.box(game,Vector3(0.45,0.035,0.32),Vector3(center+dx-0.8,0.96,z+0.2),Color("e1ddd2"))
-				chair(game,Vector3(center+dx,0,z+1.1))
-				Shapes.box(game,Vector3(3.48,0.45,0.14),Vector3(center+dx,1.15,z-0.9),Color("c9c8bc"))
+				var id := firm+"_desk_"+str(dx)+"_"+str(z)
+				game.add_prop(id,"desk",Vector3(center+dx,0.85,z))
+				game.add_prop(id+"_monitor","monitor",Vector3(center+dx,1.425,z-0.4))
+				game.add_prop(id+"_keyboard","keyboard",Vector3(center+dx,1.0,z+0.28))
+				game.add_prop(id+"_cup","cup",Vector3(center+dx+1,1.08,z+0.15))
+				game.add_prop(id+"_seat","chair",Vector3(center+dx,0.55,z+1.1))
+				game.add_prop(id+"_back","panel",Vector3(center+dx,0.7,z-0.9))
 				for side in [-1,1]:
-					Shapes.solid(game,Vector3(0.10,1.4,1.7),Vector3(center+dx+side*1.77,0.7,z-0.1),Color("687578"))
-					Shapes.box(game,Vector3(0.12,0.45,1.7),Vector3(center+dx+side*1.77,1.15,z-0.1),Color("c9c8bc"))
-					Shapes.box(game,Vector3(0.15,0.045,1.75),Vector3(center+dx+side*1.77,1.42,z-0.1),Color("b4b6b2"))
-				Shapes.box(game,Vector3(3.6,0.045,0.17),Vector3(center+dx,1.42,z-0.9),Color("b4b6b2"))
-				for side in [-1,1]: Shapes.box(game,Vector3(0.06,1.4,0.16),Vector3(center+dx+side*1.76,0.7,z-0.9),Color("b4b6b2"))
-		plant(game,Vector3(center-10.5,0,0))
-		plant(game,Vector3(center+10.5,0,-14))
-		# Water cooler at the entrance.
-		Shapes.box(game,Vector3(0.55,0.95,0.48),Vector3(center-4.8,0.48,0),Color("c3c5c4"))
-		cylinder(game,0.21,0.52,Vector3(center-4.8,1.23,0),Color("63889c"))
-		Shapes.box(game,Vector3(0.3,0.22,0.03),Vector3(center-4.8,0.73,0.25),Color("424b51"))
+					game.add_prop(id+"_side_"+str(side),"side_panel",Vector3(center+dx+side*1.77,0.7,z-0.1))
+		for side in [-1,1]: game.add_prop(firm+"_plant_"+str(side),"plant",Vector3(center+side*10.5,0.45,0 if side<0 else -14))
+		game.add_prop(firm+"_cooler","cooler",Vector3(center-4.8,0.75,0))
 		# Glass meeting-room dividers are visual only; the existing open aisles stay traversable.
 		var glass := Shapes.material(Color(0.45,0.6,0.62,0.20))
 		glass.transparency=BaseMaterial3D.TRANSPARENCY_ALPHA

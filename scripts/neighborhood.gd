@@ -19,12 +19,6 @@ static func build(game: Node3D) -> void:
 		Shapes.box(game,Vector3(6.2,0.5,0.4),Vector3(center,3.45,2),color)
 		Shapes.label(game,"规程科技" if firm=="a" else "自己人网络",Vector3(center,3.1,2.3),45)
 		Shapes.label(game,"流程创新 · 流程先行" if firm=="a" else "我们不是公司，是一家人",Vector3(center,2.9,-15.6),30)
-		for dx in [-7,6]:
-			for z in [-2,-6,-11]:
-				Shapes.solid(game,Vector3(3.5,0.12,1.5),Vector3(center+dx,0.85,z),Color("ac9579"))
-				Shapes.box(game,Vector3(1.1,0.65,0.08),Vector3(center+dx,1.35,z-0.4),Color("253c4d"))
-				Shapes.box(game,Vector3(0.95,0.5,0.09),Vector3(center+dx,1.35,z-0.34),Color("739dad"))
-				Shapes.solid(game,Vector3(3.6,1.4,0.12),Vector3(center+dx,0.7,z-0.9),Color("687578"))
 		game.add_prop(firm+"_keyboard","keyboard",Vector3(center-1,1.3,-5))
 		game.add_prop(firm+"_cup","cup",Vector3(center+1,1.3,-5))
 		game.add_prop(firm+"_table","table",Vector3(center,1,-5))

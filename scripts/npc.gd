@@ -71,7 +71,7 @@ func _physics_process(delta: float) -> void:
 	attack_cooldown = maxf(0, attack_cooldown - delta)
 	hostile = maxf(0, hostile - delta)
 	var distance := global_position.distance_to(game.player.global_position)
-	label.visible = game.focus_target==self and distance<3.2
+	label.visible = false
 	label.text = title.split(" · ")[0]+(" · 已死亡" if dead else "")
 	if not is_on_floor(): velocity.y -= 20 * delta
 	if down > 0 or dead:
@@ -146,8 +146,8 @@ func update_body_pose() -> void:
 	body_pose=next
 	var capsule: CapsuleShape3D=body_shape.shape
 	capsule.height=1.4 if next=="seated" else 1.8
-	body_shape.rotation.z=PI/2 if next=="down" else 0.0
-	body_shape.position=Vector3(-0.75,0.28,0) if next=="down" else Vector3(0,0.7 if next=="seated" else 0.9,0)
+	body_shape.rotation=Vector3(0,visual.rotation.y,PI/2) if next=="down" else Vector3.ZERO
+	body_shape.position=Vector3(-0.75,0.28,0).rotated(Vector3.UP,visual.rotation.y) if next=="down" else Vector3(0,0.7 if next=="seated" else 0.9,0)
 	# A rigid body may be sleeping on the old support surface when posture changes.
 	for prop in game.props:
 		if not prop.freeze and prop.position.distance_to(position)<2.5: prop.sleeping=false
