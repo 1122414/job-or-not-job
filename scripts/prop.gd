@@ -50,6 +50,8 @@ func _ready() -> void:
 	var size: Vector3 = TYPES[kind][1]
 	var color: Color = TYPES[kind][2]
 	mesh = Shapes.box(self, size, Vector3.ZERO, color)
+	if kind in ["desk","table"]: mesh.material_override=OfficeDress.wood(color)
+	if kind in ["panel","side_panel"]: mesh.material_override=OfficeDress.fabric(color)
 	base_material=mesh.material_override
 	if kind=="chair":
 		Shapes.collider(self,Vector3(0.62,0.12,0.55),Vector3(0,-0.03,0))
@@ -75,8 +77,19 @@ func _ready() -> void:
 		handle.position.x=0.13
 		handle.rotation.x=PI/2
 	if kind == "keyboard":
+		var keys := MultiMeshInstance3D.new()
+		var instances := MultiMesh.new()
+		instances.transform_format=MultiMesh.TRANSFORM_3D
+		var key := BoxMesh.new()
+		key.size=Vector3(0.043,0.024,0.039)
+		instances.mesh=key
+		instances.instance_count=48
 		for row in range(4):
-			for col in range(12): Shapes.box(self,Vector3(0.043,0.024,0.039),Vector3(-0.30+col*0.053,0.068,-0.084+row*0.05),Color("72797b"))
+			for col in range(12):
+				instances.set_instance_transform(row*12+col,Transform3D(Basis.IDENTITY,Vector3(-0.30+col*0.053,0.068,-0.084+row*0.05)))
+		keys.multimesh=instances
+		keys.material_override=Shapes.material(Color("72797b"))
+		add_child(keys)
 	if kind == "printer":
 		Shapes.box(self,Vector3(0.75,0.06,0.55),Vector3(0,0.38,0.02),Color("626a6d"))
 		Shapes.box(self,Vector3(0.7,0.08,0.55),Vector3(0,-0.22,0.42),Color("3a4145"))
@@ -117,7 +130,7 @@ func _ready() -> void:
 	label.pixel_size=0.0035
 	for child in get_children():
 		if child is Node3D and child!=label: rest_transforms[child]=child.transform
-		if child is MeshInstance3D: rest_materials[child]=child.material_override
+		if child is GeometryInstance3D: rest_materials[child]=child.material_override
 	for i in range(4):
 		var piece := Shapes.box(self,Vector3(0.16,0.035,0.1),Vector3((i-1.5)*0.16,-size.y*0.4,0.12+i*0.035),Color("3c4141"))
 		piece.rotation=Vector3(0.1*i,0.7*i,0.2*i)
@@ -141,7 +154,7 @@ func apply_damage_state() -> void:
 				child.scale.y=0.28
 			elif child is Node3D:
 				child.rotation.z+=0.18
-			if child is MeshInstance3D and child.material_override:
+			if child is GeometryInstance3D and child.material_override:
 				child.material_override=child.material_override.duplicate()
 				child.material_override.albedo_color=Color("414547")
 	mesh.material_override=Shapes.material(Color("414547")) if damaged else base_material

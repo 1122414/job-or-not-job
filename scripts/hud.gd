@@ -94,16 +94,14 @@ func _draw() -> void:
 		draw_rect(Rect2(0,h*0.4,w,100),Color(0.15,0,0,0.75))
 		text_at(Vector2(w*0.38,h*0.4+60),"今天，先躺一下。",34,Color("e27670"))
 
-	if game.speaker is OfficeNPC and not game.conversation.is_empty():
-		var npc: OfficeNPC = game.speaker
-		draw_rect(Rect2(w*0.22,h-399, w*0.75,56),Color(0.02,0.03,0.05,0.85))
-		text_at(Vector2(w*0.24,h-376),npc.title+"  ·  "+game.relationship(npc)+"  ·  "+npc.mood,16)
-		draw_rect(Rect2(w*0.24,h-363,100,4),Color("444b50"))
-		draw_rect(Rect2(w*0.24,h-363,float(npc.affinity+100)/200.0*100,4),Color("89b8a4"))
 	if not game.conversation.is_empty():
 		var dialogue_lines := wrap_lines(game.conversation.text,w*0.69,18)
 		var height: float=80+dialogue_lines.size()*25+game.conversation.choices.size()*29
 		var top: float=h-80-height
+		if game.speaker is OfficeNPC:
+			var npc: OfficeNPC=game.speaker
+			draw_style_box(panel_style(),Rect2(w*0.22,top-39,w*0.75,35))
+			text_at(Vector2(w*0.24,top-16),npc.title+"  ·  "+game.relationship(npc),16)
 		draw_style_box(panel_style(),Rect2(w*0.22,top,w*0.75,height))
 		var y: float=top+30
 		for line in dialogue_lines:

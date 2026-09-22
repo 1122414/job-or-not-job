@@ -51,6 +51,16 @@ static func build(game: Node3D) -> void:
 		plaque(game,"01  面试室",Vector3(room_x,2.7,-12.25),2.0)
 		Shapes.solid(game,Vector3(2.0,0.08,0.85),Vector3(room_x,0.75,-14.15),Color("b3a185"))
 		for side in [-1,1]: Shapes.solid(game,Vector3(0.08,0.71,0.65),Vector3(room_x+side*0.78,0.355,-14.15),Color("465157"))
+		# Wall treatment and a small working surface make this a meeting room, not a blank box.
+		var wall_panel := Shapes.box(game,Vector3(4.5,1.15,0.05),Vector3(room_x,1.95,-15.74),accent)
+		wall_panel.material_override=OfficeDress.fabric(accent)
+		plaque(game,"规程科技" if firm=="a" else "自己人网络",Vector3(room_x,2.0,-15.66),1.8)
+		for i in range(9):
+			var slat := Shapes.box(game,Vector3(0.075,2.6,0.04),Vector3(room_x-3.3+i*0.12,1.45,-15.72),Color("aa9575"))
+			slat.material_override=OfficeDress.wood(Color("aa9575"))
+		Shapes.box(game,Vector3(0.38,0.022,0.28),Vector3(room_x+0.55,0.81,-14.15),Color("37414b"))
+		Shapes.box(game,Vector3(0.34,0.005,0.25),Vector3(room_x+0.55,0.825,-14.15),Color("ddd9cb"))
+		Shapes.box(game,Vector3(0.015,0.012,0.2),Vector3(room_x+0.78,0.80,-14.1),Color("28313c"))
 		OfficeDress.chair(game,INTERVIEW_SEATS[firm])
 		var host_chair := Node3D.new()
 		game.add_child(host_chair)

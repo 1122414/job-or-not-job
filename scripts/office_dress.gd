@@ -32,6 +32,25 @@ static func fabric(color: Color) -> StandardMaterial3D:
 	mat.uv1_scale=Vector3(2,2,2)
 	return mat
 
+static var wood_texture: ImageTexture
+
+static func wood(color: Color) -> StandardMaterial3D:
+	if wood_texture==null:
+		var image := Image.create(256,256,false,Image.FORMAT_RGB8)
+		for y in range(256):
+			for x in range(256):
+				var grain := sin(y*0.32+sin(x*0.025)*2.4)+0.35*sin(y*1.7+x*0.02)
+				var shade := 0.94+grain*0.012
+				image.set_pixel(x,y,Color(shade,shade,shade))
+		image.generate_mipmaps()
+		wood_texture=ImageTexture.create_from_image(image)
+	var mat := Shapes.material(color)
+	mat.albedo_texture=wood_texture
+	mat.uv1_triplanar=true
+	mat.uv1_scale=Vector3(0.65,0.65,0.65)
+	mat.roughness=0.48
+	return mat
+
 static func chair(parent: Node3D, pos: Vector3) -> void:
 	var group := Node3D.new()
 	parent.add_child(group)
@@ -85,8 +104,20 @@ static func build(game: Node3D) -> void:
 				game.add_child(light)
 				light.position=Vector3(center+x,2.9,z)
 				light.omni_range=6.5
-				light.light_energy=0.50
+				light.light_energy=0.80
 				light.light_color=Color("edf2ff") if center<0 else Color("ffebcb")
+		# Two broad ceiling pools per company give bodies/furniture contact shadows.
+		for x in [-7,6]:
+			var key_light := SpotLight3D.new()
+			game.add_child(key_light)
+			key_light.position=Vector3(center+x,3.42,-5.5)
+			key_light.rotation.x=-PI/2
+			key_light.spot_range=11.0
+			key_light.spot_angle=70.0
+			key_light.light_energy=2.2
+			key_light.light_color=Color("f2f4ff") if center<0 else Color("fff0db")
+			key_light.shadow_enabled=true
+			key_light.shadow_bias=0.035
 		# Wall trim and window frames.
 		for side in [-1,1]:
 			Shapes.box(game,Vector3(0.08,0.15,17.5),Vector3(center+side*11.8,0.1,-7),Color("494f51"))
