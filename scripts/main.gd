@@ -235,8 +235,8 @@ func choose(index: int) -> void:
 		var visitor: OfficeNPC=speaker
 		office.answer_visit(visitor,action=="visit_confirm")
 		close_interaction()
-		# The B welcome introduces an immediate choice; keep the same conversation target.
-		if action=="visit_confirm" and visitor.role_id=="b_friend" and career.employer=="b" and career.b_event=="pending":
+		# Continue with the confirmed visitor; nearby desks must not steal the next action.
+		if action=="visit_confirm":
 			speaker=visitor
 			conversation=OfficeDialogue.options(visitor,career)
 		return

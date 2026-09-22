@@ -89,20 +89,20 @@ static func build(game: Node3D) -> void:
 		var floor_mesh := Shapes.box(game,Vector3(23.7,0.012,17.7),Vector3(center,0.006,-7),Color.WHITE)
 		floor_mesh.material_override=carpet
 		# Full height ceiling and grids keep the camera inside a finished office volume.
-		Shapes.solid(game,Vector3(24,0.2,18),Vector3(center,3.75,-7),Color("a5a59f"))
-		for x in range(-12,13,2): Shapes.box(game,Vector3(0.022,0.025,18),Vector3(center+x,3.63,-7),Color("7d817f"))
-		for z in range(-16,3,2): Shapes.box(game,Vector3(24,0.025,0.022),Vector3(center,3.63,z),Color("7d817f"))
+		Shapes.solid(game,Vector3(24,0.2,18),Vector3(center,3.15,-7),Color("a5a59f"))
+		for x in range(-12,13): Shapes.box(game,Vector3(0.022,0.025,18),Vector3(center+x,3.03,-7),Color("7d817f"))
+		for z in range(-16,3): Shapes.box(game,Vector3(24,0.025,0.022),Vector3(center,3.03,z),Color("7d817f"))
 		for x in [-7,0,7]:
 			for z in [-3,-9,-14]:
-				Shapes.box(game,Vector3(1.5,0.07,0.62),Vector3(center+x,3.58,z),Color("343b3e"))
-				var lamp := Shapes.box(game,Vector3(1.38,0.03,0.51),Vector3(center+x,3.53,z),Color("e3e2d6"))
+				Shapes.box(game,Vector3(1.5,0.07,0.62),Vector3(center+x,2.98,z),Color("343b3e"))
+				var lamp := Shapes.box(game,Vector3(1.38,0.03,0.51),Vector3(center+x,2.93,z),Color("e3e2d6"))
 				var lamp_mat := Shapes.material(Color("dedfd3"))
 				lamp_mat.emission_enabled=true
 				lamp_mat.emission=Color("dedfd3")
 				lamp.material_override=lamp_mat
 				var light := OmniLight3D.new()
 				game.add_child(light)
-				light.position=Vector3(center+x,2.9,z)
+				light.position=Vector3(center+x,2.55,z)
 				light.omni_range=6.5
 				light.light_energy=0.80
 				light.light_color=Color("edf2ff") if center<0 else Color("ffebcb")
@@ -110,7 +110,7 @@ static func build(game: Node3D) -> void:
 		for x in [-7,6]:
 			var key_light := SpotLight3D.new()
 			game.add_child(key_light)
-			key_light.position=Vector3(center+x,3.42,-5.5)
+			key_light.position=Vector3(center+x,2.88,-5.5)
 			key_light.rotation.x=-PI/2
 			key_light.spot_range=11.0
 			key_light.spot_angle=70.0

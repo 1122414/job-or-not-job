@@ -282,7 +282,8 @@ static func restore(game: Node3D, data: Dictionary) -> bool:
 	if game.player.hp==0: game.player.respawn()
 	for station in game.stations:
 		if station.stable_id=="backup": station.label.text="投影已恢复 · 成果已记录" if game.career.facts.has("output_two") else station.title
-	if data.version<6: game.call_deferred("repair_migrated_positions",game.restore_revision)
+	# Validate only obstructed actor positions against the current furniture/ceiling layout.
+	game.call_deferred("repair_migrated_positions",game.restore_revision)
 	return true
 
 static func archives(directory: String = "user://restarts") -> Array[String]:

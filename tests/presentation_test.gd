@@ -13,7 +13,7 @@ func run() -> void:
 	check(ground!=null and ground.get_child(0).position.y< -0.02,"基础可见面不能与道路顶面共面")
 	var keyboard=game.props[0]
 	var table=game.props[2]
-	check(absf((keyboard.position.y-0.06)-(table.position.y+0.11))<0.03,"键盘静置时有桌面支撑，不悬浮")
+	check(absf((keyboard.position.y-OfficeProp.TYPES.keyboard[1].y/2)-(table.position.y+0.11))<0.03,"键盘静置时有桌面支撑，不悬浮")
 	game.focus_target=game.npcs[0]
 	await physics_frame
 	for npc in game.npcs: check(not npc.label.text.contains("\n"),"头顶不堆四行信息")

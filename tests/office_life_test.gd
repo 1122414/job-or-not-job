@@ -55,6 +55,19 @@ func run() -> void:
 	await wait_frames(2)
 	for station in game.stations:
 		if station.stable_id=="backup": check(station.screen.text.contains("在线"),"第二份成果必须改变设备画面")
+	var boss: OfficeNPC=game.npc_for_role("a_boss")
+	game.player.position=boss.position+Vector3(0,0,1)
+	game.career.facts.visit_state_visit_defense="arrived"
+	game.speaker=boss
+	game.conversation=game.office.visit_choices(boss,OfficeDialogue.options(boss,game.career))
+	check(game.conversation.choices[0][1]=="visit_confirm","答辩前先确认老板来访")
+	game.choose(0)
+	check(game.speaker==boss and not game.conversation.is_empty(),"确认来访后保持原交谈对象")
+	var defense_found := false
+	for choice in game.conversation.get("choices",[]):
+		if choice[1]=="defend": defense_found=true
+	check(defense_found,"来访确认后可直接答辩，不重新争抢附近交互")
+	game.close_interaction()
 	game.career.apply("defend")
 	check(game.career.grade=="正式员工","实习两章最终真实转正")
 	game.career.apply("resign")

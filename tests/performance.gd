@@ -3,6 +3,8 @@ func _initialize() -> void: call_deferred("run")
 func run() -> void:
 	var game = load("res://scenes/main.tscn").instantiate()
 	root.add_child(game)
+	root.set_disable_input(true)
+	Input.mouse_mode=Input.MOUSE_MODE_VISIBLE
 	root.size=Vector2i(1280,800)
 	game.player.position=Vector3(-14,0,0)
 	game.player.yaw=0

@@ -2,12 +2,12 @@ class_name OfficeProp
 extends RigidBody3D
 
 const TYPES := {
-	"keyboard":["键盘",Vector3(0.7,0.12,0.25),Color("35495b"),1.0],
-	"cup":["杯子",Vector3(0.22,0.3,0.22),Color("cbb489"),0.5],
+	"keyboard":["键盘",Vector3(0.52,0.035,0.19),Color("35495b"),1.0],
+	"cup":["杯子",Vector3(0.12,0.16,0.12),Color("cbb489"),0.5],
 	"chair":["办公椅",Vector3(0.65,0.75,0.65),Color("30383e"),5.0],
 	"table":["会议桌",Vector3(2.8,0.22,1.3),Color("bd8f62"),12.0],
 	"printer":["打印机",Vector3(0.9,0.7,0.8),Color("dce3e5"),8.0],
-	"desk":["办公桌",Vector3(3.5,0.12,1.5),Color("a68f71"),25.0],
+	"desk":["办公桌",Vector3(2.8,0.12,1.5),Color("a68f71"),25.0],
 	"monitor":["显示器",Vector3(0.85,0.50,0.12),Color("232a30"),2.0],
 	"panel":["工位隔板",Vector3(3.6,1.4,0.12),Color("687578"),20.0],
 	"side_panel":["工位隔板",Vector3(0.1,1.4,1.7),Color("687578"),20.0],
@@ -62,31 +62,31 @@ func _ready() -> void:
 		OfficeDress.chair(self,Vector3(0,-0.55,0))
 	if kind == "cup":
 		var cup := CylinderMesh.new()
-		cup.top_radius=0.11
-		cup.bottom_radius=0.085
-		cup.height=0.28
+		cup.top_radius=0.06
+		cup.bottom_radius=0.05
+		cup.height=0.15
 		mesh.mesh=cup
-		OfficeDress.cylinder(self,0.087,0.006,Vector3(0,0.143,0),Color("44352b"))
+		OfficeDress.cylinder(self,0.051,0.004,Vector3(0,0.076,0),Color("44352b"))
 		var handle := MeshInstance3D.new()
 		var ring := TorusMesh.new()
-		ring.inner_radius=0.045
-		ring.outer_radius=0.073
+		ring.inner_radius=0.022
+		ring.outer_radius=0.035
 		handle.mesh=ring
 		handle.material_override=Shapes.material(color)
 		add_child(handle)
-		handle.position.x=0.13
+		handle.position.x=0.07
 		handle.rotation.x=PI/2
 	if kind == "keyboard":
 		var keys := MultiMeshInstance3D.new()
 		var instances := MultiMesh.new()
 		instances.transform_format=MultiMesh.TRANSFORM_3D
 		var key := BoxMesh.new()
-		key.size=Vector3(0.043,0.024,0.039)
+		key.size=Vector3(0.034,0.010,0.034)
 		instances.mesh=key
 		instances.instance_count=48
 		for row in range(4):
 			for col in range(12):
-				instances.set_instance_transform(row*12+col,Transform3D(Basis.IDENTITY,Vector3(-0.30+col*0.053,0.068,-0.084+row*0.05)))
+				instances.set_instance_transform(row*12+col,Transform3D(Basis.IDENTITY,Vector3(-0.23+col*0.042,0.0225,-0.066+row*0.044)))
 		keys.multimesh=instances
 		keys.material_override=Shapes.material(Color("72797b"))
 		add_child(keys)
@@ -118,6 +118,13 @@ func _ready() -> void:
 			var leg_height := home.y-0.06
 			Shapes.box(self,Vector3(0.1,leg_height,0.85),Vector3(x,-home.y+leg_height/2,0),Color("455665"))
 			Shapes.collider(self,Vector3(0.1,leg_height,0.85),Vector3(x,-home.y+leg_height/2,0))
+	if kind=="desk":
+		var pedestal := Vector3(0.94,0.34-home.y,0)
+		Shapes.box(self,Vector3(0.44,0.64,0.78),pedestal,Color("626c70"))
+		Shapes.collider(self,Vector3(0.44,0.64,0.78),pedestal)
+		for y in [-0.17,0.08,0.25]:
+			Shapes.box(self,Vector3(0.37,0.012,0.012),pedestal+Vector3(0,y,0.396),Color("343c40"))
+			Shapes.box(self,Vector3(0.12,0.018,0.026),pedestal+Vector3(0,y+0.055,0.403),Color("acb3b3"))
 	mass = TYPES[kind][3]
 	freeze=anchored()
 	collision_layer=world_layer()

@@ -25,8 +25,11 @@ static func complete_interview(tree: SceneTree,game: Node3D,action: String,exerc
 		await tree.physics_frame
 	game.interact()
 	if game.conversation.is_empty() or game.conversation.choices.is_empty():
+		push_error("面试交互不可用 "+action+" player="+str(game.player.position)+" host="+str(host.position)+" seated="+str(game.interviews.host_seated(host))+" nearest="+str(game.nearest())+" conversation="+str(game.conversation))
 		return false
-	if game.conversation.choices[0][1]!="interview_seat_"+firm: return false
+	if game.conversation.choices[0][1]!="interview_seat_"+firm:
+		push_error("面试入口未选中 "+action+" "+str(game.conversation))
+		return false
 	game.choose(0)
 	for step in range(6):
 		game.choose(step%3)
@@ -38,4 +41,7 @@ static func complete_interview(tree: SceneTree,game: Node3D,action: String,exerc
 			game.choose(0)
 		game.choose(0)
 	game.choose(0)
-	return game.interviews.sessions[firm].status=="completed"
+	if game.interviews.sessions[firm].status!="completed":
+		push_error("面试未完成 "+action+" player="+str(game.player.position)+" session="+str(game.interviews.sessions[firm])+" conversation="+str(game.conversation))
+		return false
+	return true

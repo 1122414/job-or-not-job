@@ -1,6 +1,7 @@
 extends SceneTree
 const Driver = preload("res://tests/scene_driver.gd")
 var failures := 0
+var evidence_dir := "res://docs/evidence/2026-09-22-route"
 func _initialize() -> void: call_deferred("run")
 func perform(game: Node3D,id: String,action: String) -> bool:
 	game.close_interaction()
@@ -28,7 +29,9 @@ func perform(game: Node3D,id: String,action: String) -> bool:
 		game.choose(0)
 		if action in ["brief","no_hc"]: return true
 		if game.conversation.is_empty(): game.interact()
-	if game.conversation.is_empty(): return false
+	if game.conversation.is_empty():
+		push_error("完整路线交谈中断："+id+" / "+action)
+		return false
 	for i in range(game.conversation.choices.size()):
 		if game.conversation.choices[i][1]==action:
 			if action=="settle":
@@ -44,8 +47,13 @@ func perform(game: Node3D,id: String,action: String) -> bool:
 	push_error("完整路线选项缺失："+id+" / "+action+" "+str(game.conversation))
 	return false
 func run() -> void:
+	for argument in OS.get_cmdline_user_args():
+		if argument.begins_with("--output="): evidence_dir=argument.trim_prefix("--output=")
 	var game=load("res://scenes/main.tscn").instantiate()
 	root.add_child(game)
+	# Script drives input explicitly; desktop Escape/mouse events must not pause this fixture.
+	root.set_disable_input(true)
+	Input.mouse_mode=Input.MOUSE_MODE_VISIBLE
 	for i in range(10): await physics_frame
 	var route := [["a_hr","interview_hr"],["a_lead","interview_lead"],["a_boss","interview_boss"],["a_hr","join_a"],["desk_a","desk_open"],["a_lead","brief"],["archive","data"],["desk_a","prepare"],["a_friend","shortcut"],["demo","submit"],["a_lead","no_hc"],["a_group","transfer"],["desk_a2","desk_open"],["backup","backup"],["a_boss","defend"],["a_hr","resign"],["b_hr","interview_b"],["b_hr","join_b"],["b_friend","help"],["handover","handover"]]
 	var b_snapshot: Dictionary={}
@@ -56,9 +64,9 @@ func run() -> void:
 			break
 		if step[1]=="join_b": b_snapshot=SaveGame.snapshot(game)
 		if DisplayServer.get_name()!="headless" and step[1] in ["interview_hr","join_a","prepare","submit","backup","defend","handover"]:
-			DirAccess.make_dir_recursive_absolute("res://docs/evidence/2026-09-22-route")
+			DirAccess.make_dir_recursive_absolute(evidence_dir)
 			await RenderingServer.frame_post_draw
-			root.get_texture().get_image().save_png("res://docs/evidence/2026-09-22-route/"+step[1]+".png")
+			root.get_texture().get_image().save_png(evidence_dir.path_join(step[1]+".png"))
 	if game.career.stage!=6 or game.career.b_event!="helped": failures+=1
 	if failures==0 and SaveGame.restore(game,b_snapshot):
 		for step in [["b_friend","refuse"],["b_friend","negotiate"],["b_boss","settle"]]:
