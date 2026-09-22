@@ -98,8 +98,9 @@ func _draw() -> void:
 		var dialogue_lines := wrap_lines(game.conversation.text,w*0.69,18)
 		var height: float=80+dialogue_lines.size()*25+game.conversation.choices.size()*29
 		var top: float=h-80-height
-		if game.speaker is OfficeNPC:
-			var npc: OfficeNPC=game.speaker
+		var actor: OfficeNPC=game.npc_for_role(game.conversation.get("actor","")) if game.conversation.get("scene",false) else game.speaker if game.speaker is OfficeNPC else null
+		if actor:
+			var npc: OfficeNPC=actor
 			draw_style_box(panel_style(),Rect2(w*0.22,top-39,w*0.75,35))
 			text_at(Vector2(w*0.24,top-16),npc.title+"  ·  "+game.relationship(npc),16)
 		draw_style_box(panel_style(),Rect2(w*0.22,top,w*0.75,height))
@@ -111,7 +112,7 @@ func _draw() -> void:
 		for i in range(game.conversation.choices.size()):
 			text_at(Vector2(w*0.24,y),str(i+1)+"  "+game.conversation.choices[i][0],17,Color("f5d386"))
 			y+=29
-		text_at(Vector2(w*0.24,h-97),"数字键选择 · 走开或动手立即中断",14,Color("a4b3bd"))
+		text_at(Vector2(w*0.24,h-97),game.conversation.get("hint","数字键选择 · 走开或动手立即中断"),14,Color("a4b3bd"))
 	if game.panels.page=="messages": draw_messages(w,h)
 	if game.panels.page=="people": draw_people(w,h)
 	if game.journal_open:

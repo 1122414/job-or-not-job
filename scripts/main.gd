@@ -216,6 +216,7 @@ func add_station(id: String, title: String, pos: Vector3) -> void:
 	add_child(station)
 
 func interact() -> void:
+	if interviews.advance(): return
 	var target := nearest()
 	if target is OfficeProp:
 		if target.portable(): player.collect(target)

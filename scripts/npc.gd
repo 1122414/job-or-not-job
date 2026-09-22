@@ -222,6 +222,7 @@ func _physics_process(delta: float) -> void:
 		visual.rotation.y=lerp_angle(visual.rotation.y,atan2(-facing.x,-facing.z),delta*4)
 	update_body_pose()
 	visual.blocking=block_time>0 and available()
+	visual.scene_action=game.interviews.performance(self)
 	visual.pose(Vector2(velocity.x,velocity.z).length(),attack_cooldown>0.7,down>0 or dead,seated,interview_seated,hit_stun>0,(game.speaker==self and not game.conversation.is_empty()) or (interview_seated and game.interviews.active_firm()==company))
 	var requested_motion := Vector2(velocity.x,velocity.z).length()
 	move_and_slide()

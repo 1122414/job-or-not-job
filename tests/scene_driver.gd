@@ -31,7 +31,10 @@ static func complete_interview(tree: SceneTree,game: Node3D,action: String,exerc
 		push_error("面试入口未选中 "+action+" "+str(game.conversation))
 		return false
 	game.choose(0)
-	for step in range(6):
+	for step in range(game.interviews.pages(action).size()):
+		for line in range(20):
+			if not game.conversation.choices.is_empty(): break
+			game.interact()
 		game.choose(step%3)
 		if step==0 and exercise_resume:
 			var saved := SaveGame.snapshot(game)
@@ -39,8 +42,12 @@ static func complete_interview(tree: SceneTree,game: Node3D,action: String,exerc
 			if not SaveGame.restore(game,saved): return false
 			game.interact()
 			game.choose(0)
-		game.choose(0)
-	game.choose(0)
+		for line in range(20):
+			if game.interviews.sessions[firm].phase!="reply": break
+			game.interact()
+	for line in range(20):
+		if game.interviews.sessions[firm].status=="completed": break
+		game.interact()
 	if game.interviews.sessions[firm].status!="completed":
 		push_error("面试未完成 "+action+" player="+str(game.player.position)+" session="+str(game.interviews.sessions[firm])+" conversation="+str(game.conversation))
 		return false

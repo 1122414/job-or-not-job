@@ -132,6 +132,10 @@ static func valid(value: Variant) -> bool:
 	for key in ["scenes","work"]:
 		if not value.get(key) is Dictionary: return false
 	if not value.get("promises") is Array: return false
+	for firm in value.scenes:
+		var cursor: Variant=value.scenes[firm]
+		if not firm in ["a","b"] or not cursor is Dictionary or not cursor.get("key") is String: return false
+		if not (cursor.get("line") is int or cursor.get("line") is float) or not is_finite(cursor.line) or cursor.line<0 or cursor.line!=int(cursor.line): return false
 	var accepted := 0
 	for firm in ["a","b"]:
 		var state: Variant=value.applications.get(firm)

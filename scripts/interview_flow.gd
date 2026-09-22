@@ -78,7 +78,7 @@ func host_target(npc: OfficeNPC) -> Variant:
 
 func host_seated(npc: OfficeNPC) -> bool:
 	var target: Variant=host_target(npc)
-	return target!=null and npc.available() and npc.hostile<=0 and npc.position.distance_to(target)<0.35
+	return target!=null and npc.available() and npc.hit_stun<=0 and npc.block_time<=0 and npc.hostile<=0 and npc.position.distance_to(target)<0.35
 
 func player_seated() -> bool:
 	return game.player.seated and active_firm()!=""
@@ -91,7 +91,7 @@ func room_options(firm: String) -> Dictionary:
 	if not host_seated(host): return {"text":host.title+"正在前来。可以先看看环境，等他到位后按E继续。","choices":[]}
 	return {"text":host.title+"：请坐。我们把具体工作和条件聊清楚，你可以随时离开。","choices":[["坐下，开始或继续这轮交流","interview_seat_"+firm],["暂时不参加，保留进度","interview_leave"]]}
 
-func question(firm: String) -> Dictionary:
+func raw_question(firm: String) -> Dictionary:
 	var session: Dictionary=sessions[firm]
 	var items := pages(session.action)
 	if session.step>=items.size(): return {"text":"本轮交流结束。你提出的选择已保留，是否记录本轮结果？通过面试仍需单独接受录用。","choices":[["记录约定，结束本轮交流","interview_finish"],["暂不继续，保留选择与进度","interview_leave"]]}
@@ -100,7 +100,6 @@ func question(firm: String) -> Dictionary:
 	if session.phase=="reply": return {"text":item[2][session.reply],"choices":[["继续交流","interview_next"],["先离开，稍后继续","interview_leave"]]}
 	var choices: Array=[]
 	for i in range(item[1].size()): choices.append([item[1][i],"interview_answer_"+str(i)])
-	choices.append(["暂停这轮交流，稍后再来","interview_leave"])
 	return {"text":OfficeDialogue.voice(host,item[0]) if host else item[0],"choices":choices}
 
 func handle(action: String) -> bool:
@@ -120,6 +119,7 @@ func handle(action: String) -> bool:
 		if not host or not host_seated(host): return true
 		sessions[firm].status="active"
 		game.player.sit_at(OfficeRooms.INTERVIEW_SEATS[firm])
+		game.player.frame_conversation(host)
 		game.conversation=question(firm)
 		return true
 	var firm := active_firm()
@@ -155,6 +155,54 @@ func tick() -> void:
 	var firm := active_firm()
 	if firm=="": return
 	var host: OfficeNPC=game.npc_for_role(HOSTS[sessions[firm].action])
-	if not host or not host.available() or not game.player.seated:
+	if not host or not host.available() or host.hit_stun>0 or host.block_time>0 or not game.player.seated or game.player.position.distance_to(OfficeRooms.INTERVIEW_SEATS[firm])>1.2:
 		game.close_interaction()
 		game.say("面试已中断，未完成的交流可稍后继续。")
+
+# The cursor belongs to a spoken segment, not to a UI panel. Reopening resumes it.
+func question(firm: String) -> Dictionary:
+	var raw := raw_question(firm)
+	var session: Dictionary=sessions[firm]
+	var key: String=session.action+"_"+str(session.step)+"_"+session.phase
+	var cursor: Dictionary=game.recruitment.scenes.get(firm,{})
+	if cursor.get("key","")!=key:
+		cursor={"key":key,"line":0}
+		game.recruitment.scenes[firm]=cursor
+	var parts := segments(raw.text)
+	cursor.line=clampi(int(cursor.line),0,parts.size()-1)
+	var last: bool=cursor.line==parts.size()-1
+	var choices: Array=raw.choices if last and session.phase=="question" and session.step<pages(session.action).size() else []
+	return {"text":parts[cursor.line],"choices":choices,"scene":true,"hint":"数字键回应 · 起身可离开" if not choices.is_empty() else "E 继续 · 起身可离开","actor":HOSTS[session.action]}
+
+static func segments(value: String) -> Array[String]:
+	var result: Array[String]=[]
+	var rest := value
+	while rest.length()>46:
+		var cut := 46
+		for i in range(45,20,-1):
+			if rest[i] in ["。","，","；","？","！"]: cut=i+1; break
+		result.append(rest.substr(0,cut))
+		rest=rest.substr(cut)
+	result.append(rest)
+	return result
+
+func advance() -> bool:
+	var firm := active_firm()
+	if firm=="" or not game.conversation.get("scene",false): return false
+	var session: Dictionary=sessions[firm]
+	var cursor: Dictionary=game.recruitment.scenes[firm]
+	var parts := segments(raw_question(firm).text)
+	if cursor.line<parts.size()-1:
+		cursor.line+=1
+		game.conversation=question(firm)
+	elif session.phase=="reply": handle("interview_next")
+	elif session.step==pages(session.action).size(): handle("interview_finish")
+	game.queue_save()
+	return true
+
+func performance(npc: OfficeNPC) -> String:
+	if active_firm()!=npc.company or not host_seated(npc) or npc.hit_stun>0 or npc.block_time>0: return ""
+	var session: Dictionary=sessions[npc.company]
+	if HOSTS[session.action]!=npc.role_id: return ""
+	if session.phase=="reply": return "sit_talk"
+	return ["read","write","message","pause"][int(session.step)%4]

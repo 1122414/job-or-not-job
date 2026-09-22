@@ -5,6 +5,8 @@ extends CharacterBody3D
 @export var run_speed := 8.0
 @export var sensitivity := 0.0025
 var game: Node3D
+var frame_remaining := 0.0
+var frame_yaw := 0.0
 var yaw := 0.0
 var pitch := -0.12
 var camera: Camera3D
@@ -59,8 +61,7 @@ func forward() -> Vector3:
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventMouseMotion and Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
-		yaw -= event.relative.x * sensitivity
-		pitch = clampf(pitch - event.relative.y * sensitivity, -0.9, 0.5)
+		look(event.relative)
 	if dead > 0: return
 	if event.is_action_pressed("attack"):
 		if not stand_up(): return
@@ -78,6 +79,11 @@ func _physics_process(delta: float) -> void:
 	cooldown = maxf(0,cooldown-delta)
 	swing = maxf(0,swing-delta)
 	protection = maxf(0,protection-delta)
+	if frame_remaining>0 and game.interviews.player_seated():
+		frame_remaining=maxf(0,frame_remaining-delta)
+		yaw=lerp_angle(yaw,frame_yaw,1-exp(-delta*7))
+		pitch=lerpf(pitch,-0.06,1-exp(-delta*7))
+	pivot.position.x=lerpf(pivot.position.x,0.48 if game.interviews.player_seated() else 0.0,1-exp(-delta*6))
 	pivot.rotation = Vector3(pitch,yaw,0)
 	pivot.position.y=lerpf(pivot.position.y,1.32 if seated else 1.6,1.0-exp(-delta*5.0))
 	spring.spring_length=lerpf(spring.spring_length,2.15 if seated else 3.1,1.0-exp(-delta*5.0))
@@ -249,3 +255,13 @@ func stand_up() -> bool:
 			return true
 	game.say("起身空间被挡住了，请先挪开周围物品。")
 	return false
+
+func frame_conversation(person: Node3D) -> void:
+	var direction := person.position-position
+	frame_yaw=atan2(-direction.x,-direction.z)
+	frame_remaining=0.7
+
+func look(relative: Vector2) -> void:
+	frame_remaining=0
+	yaw-=relative.x*sensitivity
+	pitch=clampf(pitch-relative.y*sensitivity,-0.9,0.5)
