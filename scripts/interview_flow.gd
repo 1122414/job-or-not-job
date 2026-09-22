@@ -78,7 +78,7 @@ func host_target(npc: OfficeNPC) -> Variant:
 
 func host_seated(npc: OfficeNPC) -> bool:
 	var target: Variant=host_target(npc)
-	return target!=null and not npc.dead and npc.down<=0 and npc.hostile<=0 and npc.position.distance_to(target)<0.35
+	return target!=null and npc.available() and npc.hostile<=0 and npc.position.distance_to(target)<0.35
 
 func player_seated() -> bool:
 	return game.player.seated and active_firm()!=""
@@ -157,6 +157,6 @@ func tick() -> void:
 	var firm := active_firm()
 	if firm=="": return
 	var host: OfficeNPC=game.npc_for_role(HOSTS[sessions[firm].action])
-	if not host or host.down>0 or not game.player.seated:
+	if not host or not host.available() or not game.player.seated:
 		game.close_interaction()
 		game.say("面试已中断，未完成的交流可稍后继续。")

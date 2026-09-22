@@ -1,6 +1,10 @@
 class_name OfficeNPC
 extends CharacterBody3D
 
+var care_state := "awake"
+var care_elapsed := 0.0
+var return_minute := 0
+var rescue_position := Vector3.ZERO
 var stable_id := ""
 var role_id := ""
 var stuck_time := 0.0
@@ -60,31 +64,68 @@ func _ready() -> void:
 	label.pixel_size=0.0028
 	label.outline_size=3
 
-func hit(direction: Vector3, strength: float, action: int) -> void:
-	if dead or action == last_hit: return
-	last_hit = action
-	hp=maxi(0,hp-roundi(strength*24))
+func temperament() -> String:
+	if role=="guard": return "protective"
+	if role_id in ["a_hr","a_friend","b_hr"]: return "cautious"
+	if role_id in ["a_boss","b_boss"]: return "volatile"
+	return "restrained"
+
+func available() -> bool:
+	return not dead and care_state=="awake" and down<=0
+
+func sync_care() -> void:
+	visible=care_state!="away"
+	collision_layer=0 if care_state in ["away","carried"] else 1
+	collision_mask=0 if care_state in ["away","carried"] else 3
+
+func hit(direction: Vector3, strength: float, action: int, dangerous: bool = true) -> void:
+	if dead or care_state in ["away","carried"] or action==last_hit: return
+	if not dangerous and (care_state!="awake" or down>0): return
+	last_hit=action
+	var damage := roundi(strength*24)
+	hp=maxi(0 if dangerous else 1,hp-damage)
 	dead=hp==0
-	if strength>=1.0 or hp<=30:
+	var knocked_out := not dead and hp<=1
+	if knocked_out:
+		care_state="unconscious"
+		care_elapsed=0
+		rescue_position=Vector3(-14 if company=="a" else 14,0,3)
+		game.say(title.split(" · ")[0]+"昏迷 · 已呼叫救助")
+	if knocked_out or dangerous and (strength>=1.0 or hp<=30):
 		down=2.7
 		var right := Vector3.RIGHT.rotated(Vector3.UP,visual.rotation.y)
 		fall_side=-1.0 if direction.dot(right)>0 else 1.0
-		velocity=direction*strength*3.0+Vector3.UP*0.6
+		velocity=direction*minf(strength,1.0)*0.5
 	else:
 		hit_stun=0.32
-		hit_push=direction*1.2
+		hit_push=direction*0.65
 		reaction=0.6
 		route_clock=0
-
-	mood = "生气：别碰我！"
-	affinity = maxi(-100, affinity - 18)
-	hostile = 12.0
-	game.on_aggression(self, action)
+	affinity=maxi(-100,affinity-18)
+	match temperament():
+		"cautious":
+			mood="别靠近，我要叫保安了"
+			reaction=8
+			hostile=0
+		"restrained":
+			mood="停手！我不想和你打架"
+			hostile=5 if affinity<=-36 else 0
+			attack_cooldown=0.9 if hostile==0 else 0
+		"volatile":
+			mood="别动手！"
+			hostile=6
+		_:
+			mood="停止攻击，退后"
+			hostile=6
+	if knocked_out or dead: hostile=0; reaction=0
+	game.on_aggression(self,action)
 	if dead:
-		hostile=0
+		care_state="awake"
 		game.on_npc_death(self)
 
+
 func _physics_process(delta: float) -> void:
+	if care_state in ["away","carried"]: return
 	if not seat_body:
 		for prop in game.props:
 			if prop.stable_id.ends_with("_seat") and Vector2(prop.position.x-home.x,prop.position.z-home.z).length()<0.5:
@@ -101,7 +142,7 @@ func _physics_process(delta: float) -> void:
 	label.text = title.split(" · ")[0]+(" · 已死亡" if dead else "")
 	if not is_on_floor(): velocity.y -= 20 * delta
 	if down > 0 or dead:
-		down = maxf(0,down-delta)
+		down = maxf(1.0 if care_state=="unconscious" else 0.0,down-delta)
 		visual.rotation.z = lerpf(visual.rotation.z, fall_side*PI/2, delta * 12)
 		velocity.x = move_toward(velocity.x,0,delta * 4)
 		velocity.z = move_toward(velocity.z,0,delta * 4)
@@ -125,7 +166,9 @@ func _physics_process(delta: float) -> void:
 			if distance < 1.6 and attack_cooldown == 0:
 				game.player.hurt(18)
 				attack_cooldown = 1.0
-		if reaction>0: target = global_position + (global_position-game.player.global_position).normalized()*2
+		if reaction>0:
+			var guard: OfficeNPC=game.npc_for_role(company+"_guard")
+			target=guard.home+Vector3(0,0,1) if temperament()=="cautious" and guard else global_position+(global_position-game.player.global_position).normalized()*2
 		route_clock-=delta
 		if route_clock<=0:
 			route=game.walking.route(global_position,target,seat_body,self)

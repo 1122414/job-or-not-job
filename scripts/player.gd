@@ -113,18 +113,20 @@ func attack() -> void:
 	swing = 0.3
 	var action: int = game.next_action()
 	var reach := 2.7 if held and held.kind == "keyboard" else 2.0
+	var dangerous := held!=null and held.mass>=2.0 and Input.is_action_pressed("dangerous")
 	var candidate: Node3D
 	var nearest_distance := reach+1.0
 	for node in game.targets():
 		if not (node is OfficeNPC or node is OfficeProp) or node==held: continue
 		if not node.visible: continue
+		if node is OfficeNPC and (node.care_state in ["away","carried"] or not dangerous and not node.available()): continue
 		var offset: Vector3=node.global_position-global_position
 		offset.y=0
 		if offset.length()<=reach and offset.length()<nearest_distance and offset.normalized().dot(forward())>0.35 and game.can_see(self,node):
 			candidate=node
 			nearest_distance=offset.length()
 	if candidate is OfficeNPC:
-		candidate.hit(forward(),1.4 if held else 0.65,action)
+		candidate.hit(forward(),1.4 if dangerous else 0.5,action,dangerous)
 		game.impact()
 	elif candidate is OfficeProp:
 		var strength := 4.0 if held and held.kind=="monitor" else 2.5 if held else 0.4

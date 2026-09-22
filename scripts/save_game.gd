@@ -1,7 +1,7 @@
 class_name SaveGame
 extends RefCounted
 
-const VERSION := 7
+const VERSION := 8
 const BASE_NPCS := ["a_hr","a_lead","a_boss","a_friend","a_group","a_guard","b_hr","b_friend","b_boss","b_guard"]
 const LEGACY_PROPS := ["a_keyboard","a_cup","a_table","a_chair","a_printer","b_keyboard","b_cup","b_table","b_chair","b_printer"]
 const PATH := "user://neighborhood.json"
@@ -25,7 +25,7 @@ static func snapshot(game: Node3D) -> Dictionary:
 		var location := "held" if game.player.held==prop else "bag" if game.player.inventory.has(prop) else "world"
 		data.props[prop.stable_id]={"position":vector(prop.position),"rotation":vector(prop.rotation),"location":location,"damaged":prop.damaged,"durability":prop.durability,"tipped":prop.tipped}
 	for npc in game.npcs:
-		data.npcs[npc.stable_id]={"position":vector(npc.position),"affinity":npc.affinity,"mood":npc.mood,"down":npc.down,"fall_side":npc.fall_side,"facing":npc.visual.rotation.y,"hostile":npc.hostile,"hp":npc.hp,"dead":npc.dead,"role_id":npc.role_id,"title":npc.title,"company":npc.company,"role":npc.role,"home":vector(npc.home)}
+		data.npcs[npc.stable_id]={"position":vector(npc.position),"affinity":npc.affinity,"mood":npc.mood,"down":npc.down,"fall_side":npc.fall_side,"facing":npc.visual.rotation.y,"hostile":npc.hostile,"hp":npc.hp,"dead":npc.dead,"role_id":npc.role_id,"title":npc.title,"company":npc.company,"role":npc.role,"home":vector(npc.home),"care_state":npc.care_state,"care_elapsed":npc.care_elapsed,"return_minute":npc.return_minute,"rescue_position":vector(npc.rescue_position)}
 	return data
 
 static func valid_vector(value: Variant) -> bool:
@@ -36,7 +36,7 @@ static func valid_vector(value: Variant) -> bool:
 
 static func valid(data: Variant, game: Node3D) -> bool:
 	if not data is Dictionary: return false
-	if data.get("version")!=1 and data.get("version")!=2 and data.get("version")!=3 and data.get("version")!=4 and data.get("version")!=5 and data.get("version")!=6 and data.get("version")!=VERSION: return false
+	if data.get("version")!=1 and data.get("version")!=2 and data.get("version")!=3 and data.get("version")!=4 and data.get("version")!=5 and data.get("version")!=6 and data.get("version")!=7 and data.get("version")!=VERSION: return false
 	for field in ["career","payroll","props","npcs","player"]:
 		if not data.get(field) is Dictionary: return false
 	for field in CAREER_FIELDS:
@@ -119,6 +119,11 @@ static func valid(data: Variant, game: Node3D) -> bool:
 			if not (entry.get("fall_side") is float or entry.get("fall_side") is int): return false
 			if entry.fall_side!=1 and entry.fall_side!=-1: return false
 			if not (entry.get("facing") is float or entry.get("facing") is int) or not is_finite(entry.facing): return false
+		if data.version>=8:
+			if not entry.get("care_state") in ["awake","unconscious","carried","away"] or not valid_vector(entry.get("rescue_position")): return false
+			for key in ["care_elapsed","return_minute"]:
+				if not (entry.get(key) is int or entry.get(key) is float) or not is_finite(entry[key]) or entry[key]<0: return false
+			if entry.dead and entry.care_state!="awake": return false
 		for key in ["affinity","down","hostile"]:
 			if not (entry.get(key) is float or entry.get(key) is int) or not is_finite(entry[key]): return false
 	if data.version>=6:
@@ -234,6 +239,11 @@ static func restore(game: Node3D, data: Dictionary) -> bool:
 	for npc in game.npcs:
 		var entry: Dictionary = data.npcs[npc.stable_id]
 		npc.position=unvector(entry.position)
+		npc.care_state=entry.get("care_state","awake")
+		npc.care_elapsed=float(entry.get("care_elapsed",0))
+		npc.return_minute=int(entry.get("return_minute",0))
+		npc.rescue_position=unvector(entry.get("rescue_position",[0,0,0]))
+		npc.sync_care()
 		npc.home=unvector(entry.get("home",vector(npc.home)))
 		if data.version<6 and npc.role=="hr":
 			var previous_home: Vector3=npc.home
@@ -262,6 +272,7 @@ static func restore(game: Node3D, data: Dictionary) -> bool:
 		npc.last_hit=-1
 		npc.route.clear()
 		npc.route_clock=0
+	game.care.clear()
 	game.player.position=unvector(data.player.position)
 	game.player.yaw=data.player.yaw
 	game.player.pitch=data.player.pitch

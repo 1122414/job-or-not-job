@@ -7,7 +7,7 @@ func tick(delta: float) -> void:
 	for firm in ["a","b"]:
 		var disturbed := false
 		for npc in game.npcs:
-			if npc.company==firm and not npc.dead and (npc.hostile>0 or npc.down>0 or npc.reaction>0): disturbed=true
+			if npc.company==firm and not npc.dead and npc.care_state not in ["away","carried"] and (npc.hostile>0 or npc.down>0 or npc.reaction>0): disturbed=true
 		calm[firm]=0.0 if disturbed else float(calm[firm])+delta
 		if calm[firm]<30: continue
 		var missing: Array[OfficeNPC]=[]

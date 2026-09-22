@@ -18,6 +18,7 @@ var payroll := Payroll.new()
 var walking := WalkingGrid.new()
 var office := OfficeLife.new()
 var staffing := Staffing.new()
+var care := NPCCare.new()
 var interviews := InterviewFlow.new()
 var career := Career.new()
 var stations: Array[WorkStation] = []
@@ -45,6 +46,7 @@ func _ready() -> void:
 	player.position = Vector3(-14,0.2,5)
 	office.game=self
 	staffing.game=self
+	care.game=self
 	interviews.game=self
 	Neighborhood.build(self)
 	for id in OfficeLife.DESKS: add_station(id,"我的工位",OfficeLife.DESKS[id])
@@ -60,7 +62,7 @@ func _ready() -> void:
 	startup.call_deferred()
 
 func bind_inputs() -> void:
-	var keys := {"forward":KEY_W,"back":KEY_S,"left":KEY_A,"right":KEY_D,"run":KEY_SHIFT,"jump":KEY_SPACE,"interact":KEY_E,"drop":KEY_G,"cancel":KEY_ESCAPE,"bag":KEY_TAB,"store":KEY_Q,"cycle":KEY_R,"save":KEY_F5,"load":KEY_F9,"journal":KEY_J,"ledger":KEY_L,"help":KEY_H,"history":KEY_K}
+	var keys := {"forward":KEY_W,"back":KEY_S,"left":KEY_A,"right":KEY_D,"run":KEY_SHIFT,"jump":KEY_SPACE,"interact":KEY_E,"drop":KEY_G,"cancel":KEY_ESCAPE,"bag":KEY_TAB,"store":KEY_Q,"cycle":KEY_R,"save":KEY_F5,"load":KEY_F9,"journal":KEY_J,"ledger":KEY_L,"help":KEY_H,"history":KEY_K,"dangerous":KEY_ALT}
 	for action in keys:
 		InputMap.add_action(action)
 		var event := InputEventKey.new()
@@ -125,6 +127,7 @@ func _process(delta: float) -> void:
 	interviews.tick()
 	office.tick(delta)
 	staffing.tick(delta)
+	care.tick(delta)
 	var payday_before := payroll.next_payday
 	payroll.tick(delta*(0.2 if not conversation.is_empty() else 1.0),career.employer)
 	update_daylight()
@@ -208,8 +211,8 @@ func interact() -> void:
 		if target.portable(): player.collect(target)
 		else: player.pick(target)
 	elif target is OfficeNPC or target is WorkStation:
-		if target is OfficeNPC and (target.down>0 or target.dead):
-			say("对方已死亡，无法再交谈。" if target.dead else "对方暂时倒地。")
+		if target is OfficeNPC and not target.available():
+			say("对方已死亡，无法再交谈。" if target.dead else "对方正在接受救助或休养，之后会返岗。")
 			return
 		speaker=target
 		conversation=OfficeDialogue.options(target,career)
@@ -318,14 +321,14 @@ func on_aggression(npc: OfficeNPC, action: int) -> void:
 	queue_save()
 	if warning!="": say(warning)
 	for witness in npcs:
-		if witness.dead or witness==npc or witness.global_position.distance_to(npc.global_position)>8: continue
+		if not witness.available() or witness==npc or witness.global_position.distance_to(npc.global_position)>8: continue
 		if not can_see(witness,npc): continue
 		if witness.role=="guard":
 			witness.hostile=15
 			witness.mood="介入：请停止动手"
-		elif witness.role=="friend" and npc.role=="boss":
-			witness.mood="解气，但别再打了！"
-			witness.affinity=mini(100,witness.affinity+3)
+		elif witness.role=="friend":
+			witness.mood="别打了，我去找人帮忙"
+			witness.reaction=5
 		else:
 			witness.mood="紧张：离远一点"
 			witness.reaction=3
@@ -474,7 +477,7 @@ func repair_migrated_positions(revision: int) -> void:
 	await get_tree().physics_frame
 	if revision!=restore_revision: return
 	for actor in [player]+npcs:
-		if actor!=player and actor.dead: continue
+		if actor!=player and (actor.dead or actor.care_state!="awake"): continue
 		var origin: Vector3=actor.position
 		if position_clear(actor,origin): continue
 		var found := false

@@ -19,7 +19,7 @@ func run() -> void:
 	game.player.position=Vector3(0,0,20)
 	await physics_frame
 	game.on_aggression(people.a_boss,game.next_action())
-	check(people.a_friend.mood.contains("解气"),"同事对老板受击有不同立场")
+	check(people.a_friend.mood.contains("帮忙") and people.a_friend.affinity==0,"同事会制止求助，不因打老板固定增加好感")
 	check(people.a_guard.hostile>0,"保安介入")
 	check(people.a_hr.mood.contains("紧张"),"普通目击者退避")
 	check(people.b_friend.mood=="平静","远处另一家公司不全知")

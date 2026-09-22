@@ -10,7 +10,11 @@ func run() -> void:
 	root.add_child(game)
 	await physics_frame
 	await physics_frame
-	game.player.position=game.npcs[0].position+Vector3(0,0,1.4)
+	var opponent: OfficeNPC=game.npc_for_role("a_boss")
+	opponent.position=Vector3(0,0,12)
+	game.player.position=opponent.position+Vector3(0,0,1.4)
+	# Self-defence is now brief and personality-dependent, so exercise recovery from an injured state.
+	game.player.hp=36
 	game.player.yaw=0
 	game.player.pick(game.props[0])
 	game.player.pick(game.props[1])
@@ -21,7 +25,7 @@ func run() -> void:
 		await physics_frame
 		if game.player.dead>0: died=true
 		if died and game.player.dead<=0 and game.player.hp==100: revived=true
-	check(died and revived,"真实反击能造成死亡并复活")
+	check(died and revived,"易冲动角色的有限反击能使受伤玩家倒下并恢复")
 	check(game.player.held==game.props[1] and game.player.inventory==[game.props[0]],"真实战斗复活保留装备")
 	check(game.career.conflict.a>0 and game.career.conflict.b==0,"战斗后果不跨公司传播")
 	for i in range(3600):

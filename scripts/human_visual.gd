@@ -2,6 +2,7 @@ class_name HumanVisual
 extends Node3D
 
 var outfit := "casual"
+var carrying := false
 var personality := ""
 var variation := 0
 var skeleton: Skeleton3D
@@ -15,7 +16,7 @@ func _ready() -> void:
 	model.name="Model"
 	model.rotation.y=PI
 	add_child(model)
-	var tint: Color={"boss":Color("c9c0b6"),"hr":Color("d6c8b5"),"lead":Color("b3cbd6"),"friend":Color("c0d1c0"),"group":Color("c5b6ca"),"guard":Color("8293ad")}.get(personality,Color.WHITE)
+	var tint: Color={"boss":Color("c9c0b6"),"hr":Color("d6c8b5"),"lead":Color("b3cbd6"),"friend":Color("c0d1c0"),"group":Color("c5b6ca"),"guard":Color("8293ad"),"medic":Color("72b7ba")}.get(personality,Color.WHITE)
 	for mesh in model.find_children("*","MeshInstance3D",true,false):
 		if "suit" in str(mesh.name):
 			for surface in range(mesh.mesh.get_surface_count()):
@@ -28,7 +29,7 @@ func _ready() -> void:
 	animation=AnimationPlayer.new()
 	add_child(animation)
 	var library := AnimationLibrary.new()
-	for clip in ["idle","walk","run","strike","work","sit","fallen","recoil","talk","sit_talk"]: library.add_animation(clip,make_clip(clip))
+	for clip in ["idle","walk","run","strike","work","sit","fallen","recoil","talk","sit_talk","carry","carry_idle"]: library.add_animation(clip,make_clip(clip))
 	animation.add_animation_library("",library)
 	animation.play("idle")
 	var hip := skeleton.get_bone_global_rest(skeleton.find_bone("upperleg01.L")).origin
@@ -55,7 +56,7 @@ func make_clip(clip: String) -> Animation:
 	var root_rest := skeleton.get_bone_rest(skeleton.find_bone("root")).origin
 	for i in range(33):
 		var phase := float(i)/32.0
-		anim.position_track_insert_key(root_track,phase*anim.length,root_rest+Vector3.UP*gait_drop(clip,phase))
+		anim.position_track_insert_key(root_track,phase*anim.length,root_rest+Vector3.UP*gait_drop("walk" if clip=="carry" else clip,phase))
 	for bone in bones:
 		if skeleton.find_bone(bone)<0: continue
 		var track := anim.add_track(Animation.TYPE_ROTATION_3D)
@@ -69,10 +70,10 @@ func make_clip(clip: String) -> Animation:
 				if clip=="work": euler.x=0.12+0.07*sin(phase*TAU*2+float(bone.unicode_at(6)))
 			if bone=="upperarm01.L": euler.z=-0.62
 			if bone=="upperarm01.R": euler.z=0.62
-			if clip in ["walk","run"]:
+			if clip in ["walk","run","carry"]:
 				var amount := 0.5 if clip=="walk" else 0.8
 				var side := "L" if bone.ends_with("L") else "R"
-				var leg := gait_angles(clip,phase,side)
+				var leg := gait_angles("walk" if clip=="carry" else clip,phase,side)
 				if bone.begins_with("upperleg"): euler.x=leg.x
 				if bone.begins_with("lowerleg"): euler.x=leg.y
 				if bone.begins_with("foot"): euler.x=leg.z
@@ -111,6 +112,9 @@ func make_clip(clip: String) -> Animation:
 				if bone=="head": euler.y=wave*(0.07 if personality=="friend" else 0.025)
 				if personality=="boss" and bone.begins_with("lowerarm"): euler.x=-0.35
 				if personality=="hr" and bone=="head": euler.x=wave*0.03
+			if clip in ["carry","carry_idle"]:
+				if bone.begins_with("upperarm"): euler=Vector3(-0.25,0,-1.05 if bone.ends_with("L") else 1.05)
+				if bone.begins_with("lowerarm"): euler.x=-0.25
 			if clip in ["talk","sit_talk"]:
 				var gesture := pow(maxf(0,wave),2)*(0.65 if personality=="boss" else 1.2 if personality=="friend" else 0.85)
 				var hand := "L" if personality=="friend" else "R"
@@ -166,9 +170,9 @@ func pose(speed: float, attacking: bool, fallen: bool, working: bool = false, ta
 			animation.advance(0)
 			current="fallen"
 		return
-	var next := "recoil" if stunned else ("sit_talk" if conversing else "sit") if talking else "talk" if conversing and speed<0.2 else "work" if working else "strike" if attacking else "run" if speed>3.2 else "walk" if speed>0.2 else "idle"
+	var next := ("carry" if speed>0.2 else "carry_idle") if carrying else "recoil" if stunned else ("sit_talk" if conversing else "sit") if talking else "talk" if conversing and speed<0.2 else "work" if working else "strike" if attacking else "run" if speed>3.2 else "walk" if speed>0.2 else "idle"
 	if next!=current:
 		animation.play(next,0.04 if stunned else 0.20)
 		if next in ["idle","work"]: animation.seek(float(variation%11)/11.0,true)
 		current=next
-	animation.speed_scale=speed/3.44 if next=="run" else speed/1.48 if next=="walk" else 0.85+float(variation%5)*0.06
+	animation.speed_scale=speed/3.44 if next=="run" else speed/1.48 if next in ["walk","carry"] else 0.85+float(variation%5)*0.06

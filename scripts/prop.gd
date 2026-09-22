@@ -234,7 +234,7 @@ func _contact(body: Node) -> void:
 	var strength := clampf(mass*speed/8.0,0.5,9.0)
 	if body is OfficeNPC:
 		hits[body.get_instance_id()]=true
-		body.hit((body.global_position-global_position).normalized(),minf(strength,2.5),attack_id)
+		body.hit((body.global_position-global_position).normalized(),minf(strength,2.5),attack_id,mass>=2.0 and speed>=4.0)
 		game.impact()
 	elif body is OfficeProp:
 		hits[body.get_instance_id()]=true

@@ -173,7 +173,7 @@ func _draw() -> void:
 		text_at(Vector2(265,h-120),"第 %d / %d 页 · 在职计薪，不按工作量扣款" % [game.ledger_page+1,pages],16)
 	if game.help_open:
 		draw_rect(Rect2(230,105,w-460,470),Color(0.02,0.04,0.06,0.96))
-		var lines := ["操作说明 / H 关闭", "WASD 移动 · Shift 跑 · 空格 跳跃 · 鼠标转向", "E 交互 / 小件入包 / 推掀大件 · 数字 1–4 选择对话", "左键 推击或挥击 · 右键 投掷 · G 放下", "Q 收纳 · R 轮换取出 · Tab 背包（数字键取出）", "J 已知事项与成果 · L 工资明细", "F5 保存 · F9 读取 · Esc 菜单与设置", "蓝色 A：规程科技 · 棕色 B：自己人网络", "星级代表当前公司后果：警告 → 机会取消 → 决裂", "玩家死亡附近复活；NPC 可死亡，后果永久保存。", "按 E 找保安清理堵路大件；已造成的后果不会消失。", "移动或动手随时中断对话。所有职业内容均可不动手完成。"]
+		var lines := ["操作说明 / H 关闭", "WASD 移动 · Shift 跑 · 空格 跳跃 · 鼠标转向", "E 交互 / 小件入包 / 推掀大件 · 数字 1–4 选择对话", "左键 普通击打（不致命） · Alt+左键 重物危险攻击", "右键 投掷（重物可能致命） · G 放下", "Q 收纳 · R 轮换取出 · Tab 背包（数字键取出）", "J 已知事项与成果 · L 工资明细", "F5 保存 · F9 读取 · Esc 菜单与设置", "蓝色 A：规程科技 · 棕色 B：自己人网络", "星级代表当前公司后果：警告 → 机会取消 → 决裂", "徒手最多打昏；伤者救助离场，次日上午返岗。", "危险行为可致命；死者不复活，岗位另行接替。", "按 E 找保安清理堵路大件；已造成的后果不会消失。", "移动或动手随时中断对话。所有职业内容均可不动手完成。"]
 		for i in range(lines.size()): text_at(Vector2(255,145+i*33),lines[i],18)
 	if game.debug_open:
 		text_at(Vector2(270,95),"DEBUG stage=%d employer=%s facts=%d fps=%d" % [game.career.stage,game.career.employer,game.career.facts.size(),Engine.get_frames_per_second()],16)

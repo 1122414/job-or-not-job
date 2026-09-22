@@ -48,7 +48,7 @@ func visit_target(npc: OfficeNPC) -> Variant:
 	var offer := visit()
 	if offer.is_empty() or offer.npc!=npc.role_id or game.career.facts.get("visit_state_"+offer.key,"")=="deferred": return null
 	var p: OfficePlayer=game.player
-	if p.dead>0 or npc.dead or npc.hostile>0 or npc.down>0: return null
+	if p.dead>0 or not npc.available() or npc.hostile>0: return null
 	# Visitors wait in their own workplace if the player leaves; no cross-company pursuit.
 	if p.position.z>1.5 or p.position.z< -15.5 or absf(p.position.x-(-14 if npc.company=="a" else 14))>11: return null
 	var center := -14.0 if npc.company=="a" else 14.0
