@@ -17,6 +17,7 @@ var save_delay := -1.0
 var payroll := Payroll.new()
 var walking := WalkingGrid.new()
 var office := OfficeLife.new()
+var staffing := Staffing.new()
 var career := Career.new()
 var stations: Array[WorkStation] = []
 var conversation: Dictionary = {}
@@ -41,6 +42,7 @@ func _ready() -> void:
 	add_child(player)
 	player.position = Vector3(-14,0.2,5)
 	office.game=self
+	staffing.game=self
 	Neighborhood.build(self)
 	for id in OfficeLife.DESKS: add_station(id,"我的工位",OfficeLife.DESKS[id])
 	add_station("archive","原始资料",Vector3(-24,0,-4))
@@ -89,9 +91,10 @@ func add_prop(id: String, kind: String, pos: Vector3) -> void:
 	props.append(prop)
 	add_child(prop)
 
-func add_npc(id: String, title: String, pos: Vector3, firm: String, role: String) -> void:
+func add_npc(id: String, title: String, pos: Vector3, firm: String, role: String, role_id: String = "") -> void:
 	var npc := OfficeNPC.new()
 	npc.setup(id,title,pos,firm,role,self)
+	npc.role_id=id if role_id=="" else role_id
 	npcs.append(npc)
 	add_child(npc)
 
@@ -116,6 +119,7 @@ func _process(delta: float) -> void:
 		if navigation_dirty<0: build_walk_grid.call_deferred()
 	focus_target=nearest()
 	office.tick()
+	staffing.tick(delta)
 	var payday_before := payroll.next_payday
 	payroll.tick(delta*(0.2 if not conversation.is_empty() else 1.0),career.employer)
 	update_daylight()
@@ -157,13 +161,16 @@ func targets() -> Array:
 func nearest() -> Node3D:
 	var best: Node3D
 	var distance := 3.0
+	var visit := office.visit()
 	for node in targets():
 		if node == player.held or not node.visible: continue
 		var offset: Vector3 = node.global_position-player.global_position
 		offset.y = 0
 		var d := offset.length()
 		var score: float = d*(0.4 if node is WorkStation else 0.55 if node is OfficeNPC else 1.0)
-		if d<3.0 and score < distance and offset.normalized().dot(player.forward()) > 0.2 and can_see(player,node):
+		var arriving: bool=node is OfficeNPC and not node.dead and not visit.is_empty() and visit.npc==node.role_id and career.facts.get("visit_state_"+visit.key,"")=="arrived"
+		if arriving: score-=1.0
+		if d<3.0 and score < distance and (arriving or offset.normalized().dot(player.forward()) > 0.2) and can_see(player,node):
 			best = node
 			distance = score
 	return best
@@ -206,6 +213,7 @@ func interact() -> void:
 			conversation={"text":target.title+"：下班了，今天的事可以聊，也可以不聊。", "choices":[["聊今天发生的事","social"],["请你帮忙伪造未完成的成果","boundary"]]}
 		if target is OfficeNPC and target.role=="guard":
 			conversation={"text":"保安：需要时可以帮你清理被堵的通路。", "choices":[["请挪开走道上的大件","clear_path"]]}
+		if target is OfficeNPC: conversation=office.visit_choices(target,conversation)
 		journal_open=false
 
 func choose(index: int) -> void:
@@ -216,6 +224,10 @@ func choose(index: int) -> void:
 	var choices: Array = conversation.choices
 	if index>=choices.size(): return
 	var action: String = choices[index][1]
+	if action in ["visit_confirm","visit_defer"]:
+		office.answer_visit(speaker,action=="visit_confirm")
+		close_interaction()
+		return
 	if action=="desk_open":
 		office.open_desk(speaker)
 		close_interaction()
@@ -223,8 +235,8 @@ func choose(index: int) -> void:
 	if action=="settle":
 		var companion: OfficeNPC
 		for npc in npcs:
-			if npc.stable_id=="b_friend": companion=npc
-		if companion.dead or companion.down>0 or companion.position.distance_to(speaker.position)>4:
+			if npc.role_id=="b_friend" and not npc.dead: companion=npc
+		if not companion or companion.dead or companion.down>0 or companion.position.distance_to(speaker.position)>4:
 			say("等阿乐走到现场再一起交涉；他倒地时会恢复。")
 			return
 	if action=="rest_evening":
@@ -261,7 +273,7 @@ func choose(index: int) -> void:
 	var result := "小夏：我们关系再好，也不能造假。找捷径可以，伪造成果不行。" if action=="boundary" else career.apply(action)
 	if action in ["join_b","handover","settle"]:
 		for npc in npcs:
-			if npc.stable_id=="b_friend": npc.affinity=mini(100,npc.affinity+12)
+			if npc.role_id=="b_friend" and not npc.dead: npc.affinity=mini(100,npc.affinity+12)
 	close_interaction()
 	queue_save()
 	say(result)
@@ -285,6 +297,7 @@ func next_action() -> int:
 	return action_counter
 
 func on_aggression(npc: OfficeNPC, action: int) -> void:
+	staffing.calm[npc.company]=0.0
 	close_interaction()
 	var warning := career.aggression(npc.company,action,action_counter)
 	queue_save()
@@ -303,13 +316,15 @@ func on_aggression(npc: OfficeNPC, action: int) -> void:
 			witness.reaction=3
 
 
+func npc_for_role(id: String) -> OfficeNPC:
+	for npc in npcs:
+		if npc.role_id==id and not npc.dead: return npc
+	return null
+
 func on_npc_death(npc: OfficeNPC) -> void:
-	career.record("death_"+npc.stable_id,npc.title.split(" · ")[0]+"已死亡，无法继续交谈。")
-	if npc.role in ["hr","lead","boss","group","friend"]:
-		career.facts["fatal_"+npc.company]=true
-		career.conflict[npc.company]=3
-		career.record("fatal_notice_"+npc.company,"该公司职业线已中断；可离职、去另一家公司或自由活动。")
-	say(npc.title.split(" · ")[0]+"已死亡 · 世界后果已记录")
+	career.record("death_"+npc.stable_id,npc.title.split(" · ")[0]+"已死亡。岗位等待替代人员到岗，原角色不会复活。")
+	staffing.calm[npc.company]=0.0
+	say(npc.title.split(" · ")[0]+"已死亡 · 现场平静后安排岗位接替")
 	queue_save()
 
 func on_property_hit(prop: OfficeProp, action: int) -> void:

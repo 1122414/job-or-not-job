@@ -2,7 +2,7 @@ class_name OfficeDialogue
 extends RefCounted
 
 static func options(target: Node3D, c: Career) -> Dictionary:
-	var id: String = target.stable_id
+	var id: String = target.role_id if target is OfficeNPC else target.stable_id
 	var text: String = target.title
 	var choices: Array = []
 	match id:

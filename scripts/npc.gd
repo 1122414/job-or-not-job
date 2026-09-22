@@ -2,6 +2,9 @@ class_name OfficeNPC
 extends CharacterBody3D
 
 var stable_id := ""
+var role_id := ""
+var stuck_time := 0.0
+var last_position := Vector3.ZERO
 var title := ""
 var company := "a"
 var role := ""
@@ -45,8 +48,10 @@ func _ready() -> void:
 	body_shape.position.y=0.9
 	add_child(body_shape)
 	visual = HumanVisual.new()
+	visual.personality=role
+	visual.variation=absi(stable_id.hash())
 	visual.outfit="office" if role in ["boss","hr","group","guard"] else "casual"
-	if stable_id in ["a_hr","a_group"]: visual.outfit="office_female"
+	if role_id in ["a_hr","a_group"]: visual.outfit="office_female"
 	add_child(visual)
 	label = Shapes.label(self, title, Vector3(0,2.05,0), 28)
 	label.pixel_size=0.0028
@@ -90,16 +95,16 @@ func _physics_process(delta: float) -> void:
 	else:
 		visual.rotation.z = lerpf(visual.rotation.z, 0, delta * 10)
 		var target := home
-		if game.payroll.after_work() and stable_id in ["a_friend","a_group","b_friend"]:
-			target={"a_friend":Vector3(-8,0,12),"a_group":Vector3(-4,0,12),"b_friend":Vector3(8,0,12)}[stable_id]
-		if stable_id=="b_friend" and (not game.payroll.after_work() or game.career.b_event=="negotiating"):
+		if game.payroll.after_work() and role_id in ["a_friend","a_group","b_friend"]:
+			target={"a_friend":Vector3(-8,0,12),"a_group":Vector3(-4,0,12),"b_friend":Vector3(8,0,12)}[role_id]
+		if role_id=="b_friend" and (not game.payroll.after_work() or game.career.b_event=="negotiating"):
 			match game.career.b_event:
 				"refused", "helping": target=Vector3(21,0,-4)
 				"negotiating": target=game.player.position+Vector3(1.5,0,0)
 				"helped", "negotiated", "conflict": target=Vector3(14,0,4)
 		var visiting: Variant=game.office.visit_target(self)
 		if visiting!=null: target=visiting
-		elif (visit_wait>0 or game.speaker==self) and not (stable_id=="b_friend" and game.career.b_event=="negotiating"): target=position
+		elif (visit_wait>0 or game.speaker==self) and not (role_id=="b_friend" and game.career.b_event=="negotiating"): target=position
 		if hostile > 0 and game.player.protection <= 0 and distance < 9 and game.can_see(self, game.player):
 			target = game.player.global_position
 			if distance < 1.6 and attack_cooldown == 0:
@@ -108,12 +113,12 @@ func _physics_process(delta: float) -> void:
 		if reaction>0: target = global_position + (global_position-game.player.global_position).normalized()*2
 		route_clock-=delta
 		if route_clock<=0:
-			route=game.walking.route(global_position,target)
+			route=game.walking.route(global_position,target,seat_body)
 			route_clock=0.8
 		while not route.is_empty() and Vector2(route[0].x-position.x,route[0].z-position.z).length()<0.28: route.remove_at(0)
 		if Vector2(target.x-position.x,target.z-position.z).length()<0.3: route.clear()
 		var next := global_position if route.is_empty() else route[0]
-		if global_position.distance_to(target)<1.5 and game.walking.clear_segment(global_position,target): next=target
+		if global_position.distance_to(target)<1.5 and game.walking.clear_segment(global_position,target,seat_body): next=target
 		var direction := next - global_position
 		direction.y = 0
 		if direction.length() > 0.15:
@@ -145,7 +150,18 @@ func _physics_process(delta: float) -> void:
 		visual.rotation.y=lerp_angle(visual.rotation.y,atan2(-facing.x,-facing.z),delta*4)
 	update_body_pose()
 	visual.pose(Vector2(velocity.x,velocity.z).length(),attack_cooldown>0.7,down>0 or dead,seated)
+	var requested_motion := Vector2(velocity.x,velocity.z).length()
 	move_and_slide()
+	if requested_motion>0.4 and position.distance_to(last_position)<delta*0.15:
+		stuck_time+=delta
+		if stuck_time>1.2:
+			route.clear()
+			route_clock=0
+			game.navigation_dirty=0.05
+			mood="通道被挡住，等待重新绕行"
+			stuck_time=0
+	else: stuck_time=0
+	last_position=position
 	if position.y < -6: position = home
 
 func update_body_pose() -> void:

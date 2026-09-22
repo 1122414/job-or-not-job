@@ -1,7 +1,8 @@
 class_name SaveGame
 extends RefCounted
 
-const VERSION := 4
+const VERSION := 5
+const BASE_NPCS := ["a_hr","a_lead","a_boss","a_friend","a_group","a_guard","b_hr","b_friend","b_boss","b_guard"]
 const LEGACY_PROPS := ["a_keyboard","a_cup","a_table","a_chair","a_printer","b_keyboard","b_cup","b_table","b_chair","b_printer"]
 const PATH := "user://neighborhood.json"
 const CAREER_FIELDS := ["recruit","employer","grade","stage","facts","records","former","conflict","warning_action","seen_actions","b_event"]
@@ -19,12 +20,12 @@ static func fields(object: RefCounted, names: Array) -> Dictionary:
 	return result.duplicate(true)
 
 static func snapshot(game: Node3D) -> Dictionary:
-	var data := {"version":VERSION,"career":fields(game.career,CAREER_FIELDS),"payroll":fields(game.payroll,PAYROLL_FIELDS),"action_counter":game.action_counter,"props":{},"npcs":{},"player":{"position":vector(game.player.position),"yaw":game.player.yaw,"pitch":game.player.pitch,"hp":game.player.hp,"protection":game.player.protection},"shake":game.shake_enabled}
+	var data := {"version":VERSION,"career":fields(game.career,CAREER_FIELDS),"payroll":fields(game.payroll,PAYROLL_FIELDS),"action_counter":game.action_counter,"props":{},"npcs":{},"player":{"position":vector(game.player.position),"yaw":game.player.yaw,"pitch":game.player.pitch,"hp":game.player.hp,"protection":game.player.protection},"shake":game.shake_enabled,"staffing":game.staffing.calm.duplicate()}
 	for prop in game.props:
 		var location := "held" if game.player.held==prop else "bag" if game.player.inventory.has(prop) else "world"
 		data.props[prop.stable_id]={"position":vector(prop.position),"rotation":vector(prop.rotation),"location":location,"damaged":prop.damaged,"durability":prop.durability,"tipped":prop.tipped}
 	for npc in game.npcs:
-		data.npcs[npc.stable_id]={"position":vector(npc.position),"affinity":npc.affinity,"mood":npc.mood,"down":npc.down,"hostile":npc.hostile,"hp":npc.hp,"dead":npc.dead}
+		data.npcs[npc.stable_id]={"position":vector(npc.position),"affinity":npc.affinity,"mood":npc.mood,"down":npc.down,"hostile":npc.hostile,"hp":npc.hp,"dead":npc.dead,"role_id":npc.role_id,"title":npc.title,"company":npc.company,"role":npc.role,"home":vector(npc.home)}
 	return data
 
 static func valid_vector(value: Variant) -> bool:
@@ -35,7 +36,7 @@ static func valid_vector(value: Variant) -> bool:
 
 static func valid(data: Variant, game: Node3D) -> bool:
 	if not data is Dictionary: return false
-	if data.get("version")!=1 and data.get("version")!=2 and data.get("version")!=3 and data.get("version")!=VERSION: return false
+	if data.get("version")!=1 and data.get("version")!=2 and data.get("version")!=3 and data.get("version")!=4 and data.get("version")!=VERSION: return false
 	for field in ["career","payroll","props","npcs","player"]:
 		if not data.get(field) is Dictionary: return false
 	for field in CAREER_FIELDS:
@@ -72,7 +73,14 @@ static func valid(data: Variant, game: Node3D) -> bool:
 		if not (data.player.get(key) is float or data.player.get(key) is int) or not is_finite(data.player[key]): return false
 	if data.player.hp<0 or data.player.hp>100: return false
 	if not (data.get("action_counter") is float or data.get("action_counter") is int): return false
-	if data.npcs.size()!=game.npcs.size(): return false
+	for id in BASE_NPCS:
+		if not data.npcs.has(id): return false
+	if data.version<5 and data.npcs.size()!=BASE_NPCS.size(): return false
+	if data.version>=5:
+		if not data.get("staffing") is Dictionary: return false
+		for firm in ["a","b"]:
+			var calm: Variant=data.staffing.get(firm)
+			if not (calm is float or calm is int) or not is_finite(calm) or calm<0: return false
 	if data.version>=2 and data.props.size()!=game.props.size(): return false
 	var known := {}
 	for prop in game.props: known[prop.stable_id]=true
@@ -93,15 +101,29 @@ static func valid(data: Variant, game: Node3D) -> bool:
 		if data.version>=4 and (not entry.has("durability") or entry.damaged!=(durability==0) or not entry.get("tipped") is bool): return false
 		if entry.location=="held": held_count+=1
 	if held_count>1: return false
-	for npc in game.npcs:
-		var entry: Variant = data.npcs.get(npc.stable_id)
+	for id in data.npcs:
+		var entry: Variant = data.npcs[id]
 		if not entry is Dictionary or not valid_vector(entry.get("position")) or not entry.get("mood") is String: return false
+		if data.version>=5:
+			if not entry.get("role_id") in BASE_NPCS or not valid_vector(entry.get("home")) or not entry.get("title") is String: return false
+			var role_id: String=entry.role_id
+			if entry.get("company")!=role_id.substr(0,1) or entry.get("role")!=role_id.substr(2): return false
+			if id!=role_id:
+				var prefix := role_id+"_replacement_"
+				if not id.begins_with(prefix) or not id.trim_prefix(prefix).is_valid_int() or int(id.trim_prefix(prefix))<1: return false
 		if not entry.get("dead",false) is bool: return false
 		var health: Variant=entry.get("hp",100)
 		if not (health is int or health is float) or not is_finite(health) or health<0 or health>100: return false
 		if entry.get("dead",false)!=(health==0): return false
 		for key in ["affinity","down","hostile"]:
 			if not (entry.get(key) is float or entry.get(key) is int) or not is_finite(entry[key]): return false
+	var occupied := {}
+	for id in data.npcs:
+		var entry: Dictionary=data.npcs[id]
+		if entry.get("dead",false): continue
+		var role_id: String=entry.get("role_id",id)
+		if occupied.has(role_id): return false
+		occupied[role_id]=true
 	return true
 
 static func read(path: String, game: Node3D) -> Dictionary:
@@ -136,12 +158,31 @@ static func write(game: Node3D, path: String = PATH) -> Error:
 static func restore(game: Node3D, data: Dictionary) -> bool:
 	if not valid(data,game): return false
 	game.close_interaction()
+	game.focus_target=null
+	for npc in game.npcs.duplicate():
+		if not data.npcs.has(npc.stable_id):
+			game.npcs.erase(npc)
+			npc.get_parent().remove_child(npc)
+			npc.queue_free()
+	for id in data.npcs:
+		var exists := false
+		for npc in game.npcs:
+			if npc.stable_id==id: exists=true
+		if not exists:
+			var entry: Dictionary=data.npcs[id]
+			game.add_npc(id,entry.title,unvector(entry.position),entry.company,entry.role,entry.role_id)
+	game.staffing.calm=data.get("staffing",{"a":0.0,"b":0.0}).duplicate()
 	game.player.inventory.clear()
 	game.player.held=null
 	for pair in [[game.career,CAREER_FIELDS,data.career],[game.payroll,PAYROLL_FIELDS,data.payroll]]:
 		for field in pair[1]:
 			if pair[0].get(field) is Array: pair[0].get(field).assign(pair[2][field])
 			else: pair[0].set(field,pair[2][field])
+	if data.version<5:
+		for firm in ["a","b"]:
+			if game.career.facts.has("fatal_"+firm):
+				game.career.facts.erase("fatal_"+firm)
+				game.career.conflict[firm]=mini(3,game.career.seen_actions[firm].size())
 	game.action_counter=int(data.action_counter)
 	game.shake_enabled=data.get("shake",true)
 	for prop in game.props:
@@ -168,6 +209,10 @@ static func restore(game: Node3D, data: Dictionary) -> bool:
 	for npc in game.npcs:
 		var entry: Dictionary = data.npcs[npc.stable_id]
 		npc.position=unvector(entry.position)
+		npc.home=unvector(entry.get("home",vector(npc.home)))
+		npc.visit_wait=0
+		npc.reaction=0
+		npc.stuck_time=0
 		npc.affinity=int(entry.affinity)
 		npc.mood=entry.mood
 		npc.hp=int(entry.get("hp",100))

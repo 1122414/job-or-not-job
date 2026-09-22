@@ -13,6 +13,9 @@ func choose_at(game: Node3D, id: String, action: String) -> void:
 	game.player.yaw=0
 	await physics_frame
 	game.interact()
+	if not game.conversation.is_empty() and game.conversation.choices.size()>0 and game.conversation.choices[0][1]=="visit_confirm":
+		game.choose(0)
+		game.interact()
 	check(game.speaker==target,"应可接近并互动："+id)
 	if game.conversation.is_empty(): return
 	var index := -1
@@ -28,6 +31,9 @@ func run() -> void:
 		await choose_at(game,step[0],step[1])
 	check(game.career.stage==6,"场景交互完整转正")
 	game.interact()
+	if not game.conversation.is_empty() and game.conversation.choices.size()>0 and game.conversation.choices[0][1]=="visit_confirm":
+		game.choose(0)
+		game.interact()
 	Input.action_press("forward")
 	await physics_frame
 	await physics_frame

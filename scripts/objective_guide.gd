@@ -32,10 +32,18 @@ static func current(game: Node3D) -> Dictionary:
 			6: id=""
 	else:
 		id={"pending":"b_friend","helping":"handover","refused":"b_friend","negotiating":"b_boss","helped":"b_friend","negotiated":"b_friend"}.get(c.b_event,"")
+	var visit: Dictionary=game.office.visit()
+	if not visit.is_empty() and c.facts.get("visit_state_"+visit.key,"") in ["arrived","deferred"]:
+		var visitor: OfficeNPC=game.npc_for_role(visit.npc)
+		if visitor:
+			id=visit.npc
+			title="待交谈 · "+visitor.title.split(" · ")[0]+"有事找你（可稍后）"
 	return {"title":title,"id":id}
 
 static func target(game: Node3D) -> Node3D:
 	var id: String=current(game).id
+	var actor: OfficeNPC=game.npc_for_role(id)
+	if actor: return actor
 	for node in game.targets():
-		if node.stable_id==id: return node
+		if node.stable_id==id and not node is OfficeNPC: return node
 	return null

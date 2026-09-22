@@ -20,7 +20,7 @@ func build(game: Node3D) -> void:
 	shape.size=Vector3(0.6,1.5,0.6)
 	var query := PhysicsShapeQueryParameters3D.new()
 	query.shape=shape
-	query.collision_mask=1
+	query.collision_mask=3
 	query.exclude=excluded
 	for x in range(-70,71):
 		for z in range(-42,45):
@@ -38,23 +38,27 @@ func cell(pos: Vector3) -> Vector2i:
 				if grid.is_in_boundsv(other) and not grid.is_point_solid(other): return other
 	return c
 
-func route(from: Vector3, to: Vector3) -> PackedVector3Array:
+func route(from: Vector3, to: Vector3, seat: CollisionObject3D = null) -> PackedVector3Array:
 	var points := PackedVector3Array()
 	if not built: return points
 	for p in grid.get_id_path(cell(from),cell(to)):
 		points.append(Vector3(p.x*0.5,0,p.y*0.5))
-	if not points.is_empty() and clear_segment(points[-1],to): points.append(Vector3(to.x,0,to.z))
+	if not points.is_empty() and clear_segment(points[-1],to,seat): points.append(Vector3(to.x,0,to.z))
 	return points
 
-func clear_segment(from: Vector3,to: Vector3) -> bool:
+func clear_segment(from: Vector3,to: Vector3,seat: CollisionObject3D = null) -> bool:
 	if not built or not is_instance_valid(world): return false
 	var query := PhysicsShapeQueryParameters3D.new()
 	var shape := CapsuleShape3D.new()
 	shape.radius=0.28
 	shape.height=1.7
 	query.shape=shape
-	query.collision_mask=1
+	query.collision_mask=3
 	query.exclude=excluded
+	if seat:
+		var exceptions := query.exclude
+		exceptions.append(seat.get_rid())
+		query.exclude=exceptions
 	query.transform.origin=Vector3(from.x,0.9,from.z)
 	query.motion=Vector3(to.x-from.x,0,to.z-from.z)
 	var result := world.get_world_3d().direct_space_state.cast_motion(query)

@@ -28,7 +28,7 @@ func visit() -> Dictionary:
 
 func visit_target(npc: OfficeNPC) -> Variant:
 	var offer := visit()
-	if offer.is_empty() or offer.npc!=npc.stable_id: return null
+	if offer.is_empty() or offer.npc!=npc.role_id or game.career.facts.get("visit_state_"+offer.key,"")=="deferred": return null
 	var p: OfficePlayer=game.player
 	if p.dead>0 or npc.dead or npc.hostile>0 or npc.down>0: return null
 	# Visitors wait in their own workplace if the player leaves; no cross-company pursuit.
@@ -41,12 +41,13 @@ func tick() -> void:
 	var offer := visit()
 	if offer.is_empty() or not game.conversation.is_empty(): return
 	for npc in game.npcs:
-		if npc.stable_id!=offer.npc or visit_target(npc)==null: continue
+		if npc.role_id!=offer.npc or visit_target(npc)==null: continue
 		if npc.position.distance_to(game.player.position)<2.8 and game.can_see(npc,game.player):
-			game.career.record(offer.key,offer.line)
-			npc.visit_wait=10.0
-			game.say(offer.line+"\nE 交谈 · 可自由离开")
-			game.queue_save()
+			if game.career.facts.get("visit_state_"+offer.key,"")!="arrived":
+				game.career.facts["visit_state_"+offer.key]="arrived"
+				npc.visit_wait=25.0
+				game.say(npc.title.split(" · ")[0]+"来找你了 · E交谈，也可稍后再聊")
+				game.queue_save()
 
 func desk_choices(station: WorkStation) -> Dictionary:
 	if station.stable_id!=assigned_desk():
@@ -62,4 +63,22 @@ func open_desk(station: WorkStation) -> void:
 	game.career.record(key,"已在自己的工位安顿："+game.career.grade)
 	game.player.sit_at(station.position)
 	game.say("已在工位坐下。移动、跳跃或动手立即起身；同事会过来找你。")
+	game.queue_save()
+
+func visit_choices(npc: OfficeNPC, fallback: Dictionary) -> Dictionary:
+	var offer := visit()
+	if offer.is_empty() or offer.npc!=npc.role_id: return fallback
+	return {"text":offer.line,"choices":[["我准备好了，继续说","visit_confirm"],["稍后再聊，我会来找你","visit_defer"]]}
+
+func answer_visit(npc: OfficeNPC, confirm: bool) -> void:
+	var offer := visit()
+	if offer.is_empty() or offer.npc!=npc.role_id: return
+	game.career.facts["visit_state_"+offer.key]="completed" if confirm else "deferred"
+	if confirm:
+		game.career.record(offer.key,offer.line)
+		var action: String={"visit_brief":"brief","visit_review":"no_hc"}.get(offer.key,"")
+		if action!="": game.say(game.career.apply(action))
+		else: game.say(offer.line)
+	else: game.say("已记下待交谈事项，可通过目标找到对方继续。")
+	npc.visit_wait=0
 	game.queue_save()

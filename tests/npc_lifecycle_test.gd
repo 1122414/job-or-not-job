@@ -22,7 +22,7 @@ func run() -> void:
 	check(victim.dead and not victim.seated and victim.visual.current=="fallen","死亡不恢复坐班，使用独立倒地姿势")
 	var data=SaveGame.snapshot(game)
 	check(SaveGame.restore(game,data) and victim.dead,"死亡持久化")
-	check(game.career.facts.has("fatal_a") and game.career.conflict.b==0,"死亡中断本公司，不污染另一公司")
+	check(not game.career.facts.has("fatal_a") and game.career.conflict.b==0,"死亡不额外强制关闭岗位，也不污染另一公司")
 	var invalid=data.duplicate(true)
 	invalid.npcs.a_hr.hp=10
 	check(not SaveGame.valid(invalid,game),"死亡与生命值矛盾的存档应拒绝")
