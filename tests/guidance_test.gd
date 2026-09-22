@@ -15,6 +15,10 @@ func run() -> void:
 		game.career.conflict[firm]=2
 		check(ObjectiveGuide.target(game)==null and game.objective_text().contains("不再招聘"),"关闭路线不指向不可用人物")
 		game.career.conflict[firm]=0
+	game.career.recruit.a=3
+	game.career.facts.guide_company="a"
+	game.career.apply("decline_a")
+	check(game.objective_text().contains("邀请已暂缓"),"拒绝后目标应反映暂缓，而非催促入职")
 	game.payroll.minute=12*60
 	game.update_daylight()
 	var noon: float=game.sun.light_energy

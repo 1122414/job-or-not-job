@@ -15,6 +15,7 @@ func run() -> void:
 		check(await preload("res://tests/scene_driver.gd").complete_interview(self,game,action,true),"实际步行、等待面试官、落座问答、中断存档继续："+action)
 		check(game.career.recruit[firm]==before+1,"结束交流后推进一次")
 		check(game.career.employer=="","面试不会自动入职")
+	check(game.career.facts.has("offer_declined_a"),"最终面试选择拒绝邀请后实际记录暂缓")
 	game.career.apply("decline_a")
 	check(game.career.employer=="" and game.career.recruit.a==3,"拒绝录用保留面试结果")
 	game.career.apply("join_a")

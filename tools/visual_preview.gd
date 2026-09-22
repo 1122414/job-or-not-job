@@ -12,9 +12,15 @@ func run() -> void:
 	if OS.get_cmdline_user_args().has("--internship"):
 		for action in ["interview_hr","interview_lead","interview_boss","join_a"]: game.career.apply(action)
 		game.player.position=OfficeLife.DESKS.desk_a+Vector3(0,0,1.5)
-	if OS.get_cmdline_user_args().has("--interview"):
-		game.interviews.schedule("interview_hr")
-		game.player.position=OfficeRooms.INTERVIEW_SEATS.a+Vector3(0,0,0.25)
+	var interview_action := "interview_hr" if OS.get_cmdline_user_args().has("--interview") else ""
+	for argument in OS.get_cmdline_user_args():
+		if argument.begins_with("--interview="): interview_action=argument.trim_prefix("--interview=")
+	if interview_action in InterviewFlow.ACTIONS:
+		if interview_action in ["interview_lead","interview_boss"]: game.career.apply("interview_hr")
+		if interview_action=="interview_boss": game.career.apply("interview_lead")
+		game.interviews.schedule(interview_action)
+		var firm := "b" if interview_action=="interview_b" else "a"
+		game.player.position=OfficeRooms.INTERVIEW_SEATS[firm]+Vector3(0,0,0.25)
 	if OS.get_cmdline_user_args().has("--work"):
 		for action in ["interview_hr","interview_lead","interview_boss","join_a","brief","data"]: game.career.apply(action)
 		game.career.facts.welcome_a=true

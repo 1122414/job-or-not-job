@@ -20,6 +20,9 @@ static func current(game: Node3D) -> Dictionary:
 			id=["a_hr","a_lead","a_boss","a_hr"][c.recruit.a]
 			title=["规程科技 · 找林岚了解岗位与面试","第二轮 · 找周工了解技术面试","第三轮 · 找方总确认岗位条件","录用决定 · 找林岚办理实习入职"][c.recruit.a]
 		else: title="自己人网络 · 找阿诚了解招聘" if c.recruit.b==0 else "录用决定 · 找阿诚办理入职"
+		if c.facts.has("offer_declined_"+firm):
+			title="邀请已暂缓 · J 比较另一家公司，或找招聘接待重新考虑"
+			id=firm+"_hr"
 	elif c.employer=="a":
 		match c.stage:
 			1:
