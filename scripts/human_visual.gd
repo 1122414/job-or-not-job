@@ -44,9 +44,12 @@ func _ready() -> void:
 
 func make_clip(clip: String) -> Animation:
 	var anim := Animation.new()
-	anim.length=0.45 if clip=="strike" else 1.0
+	anim.length=0.45 if clip=="strike" else 4.0 if clip in ["idle","sit"] else 1.0
 	anim.loop_mode=Animation.LOOP_NONE if clip=="strike" else Animation.LOOP_LINEAR
-	var bones := ["upperarm01.L","upperarm01.R","lowerarm01.L","lowerarm01.R","upperleg01.L","upperleg01.R","lowerleg01.L","lowerleg01.R","spine02","head"]
+	var bones := ["upperarm01.L","upperarm01.R","lowerarm01.L","lowerarm01.R","upperleg01.L","upperleg01.R","lowerleg01.L","lowerleg01.R","spine02","head","wrist.L","wrist.R","foot.L","foot.R"]
+	for side in ["L","R"]:
+		for finger in range(2,6):
+			for joint in range(1,4): bones.append("finger%d-%d.%s"%[finger,joint,side])
 	for bone in bones:
 		if skeleton.find_bone(bone)<0: continue
 		var track := anim.add_track(Animation.TYPE_ROTATION_3D)
@@ -55,6 +58,9 @@ func make_clip(clip: String) -> Animation:
 			var phase := float(i)/8.0
 			var wave := sin(phase*TAU)
 			var euler := Vector3.ZERO
+			if bone.begins_with("finger"):
+				euler.x=0.22 if clip!="strike" else 0.85
+				if clip=="work": euler.x=0.12+0.07*sin(phase*TAU*2+float(bone.unicode_at(6)))
 			if bone=="upperarm01.L": euler.z=-0.62
 			if bone=="upperarm01.R": euler.z=0.62
 			if clip in ["walk","run"]:
@@ -65,14 +71,17 @@ func make_clip(clip: String) -> Animation:
 				if bone=="lowerleg01.R": euler.x=maxf(0,wave)*amount*1.3
 				if bone=="upperarm01.L": euler.x=-wave*amount*0.65
 				if bone=="upperarm01.R": euler.x=wave*amount*0.65
-				if bone=="spine02": euler.y=wave*0.05
+				if bone=="spine02": euler.y=wave*0.07; euler.z=wave*0.025
+				if bone=="foot.L": euler.x=-maxf(0,-wave)*0.2
+				if bone=="foot.R": euler.x=-maxf(0,wave)*0.2
 			elif clip in ["work","sit"]:
 				if bone.begins_with("upperleg"): euler.x=-1.4
 				if bone.begins_with("lowerleg"): euler.x=1.4
 				if bone.begins_with("upperarm"): euler.x=-1.05; euler.z*=0.65
 				if bone.begins_with("lowerarm"): euler.x=0.45+wave*0.025
 				if bone=="spine02": euler.x=0.06+wave*0.012
-				if bone=="head": euler.y=wave*0.04
+				if bone=="head": euler.y=wave*0.025
+				if bone.begins_with("wrist"): euler.x=wave*0.025 if clip=="work" else 0.05
 				if clip=="sit":
 					if bone.begins_with("upperarm"): euler.x=-0.4
 					if bone.begins_with("lowerarm"): euler.x=-0.3

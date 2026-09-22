@@ -53,7 +53,7 @@ func _ready() -> void:
 	base_material=mesh.material_override
 	if kind=="chair":
 		Shapes.collider(self,Vector3(0.62,0.12,0.55),Vector3(0,-0.03,0))
-		Shapes.collider(self,Vector3(0.60,0.65,0.09),Vector3(0,0.29,0.23))
+		Shapes.collider(self,Vector3(0.60,0.46,0.09),Vector3(0,0.23,0.23))
 	else: Shapes.collider(self,size)
 	if kind == "chair":
 		mesh.hide()

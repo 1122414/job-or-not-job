@@ -32,6 +32,7 @@ func run() -> void:
 	game.player.sit_at(desk.position)
 	for i in range(40): await physics_frame
 	check(game.player.seated,"坐姿稳定")
+	check(game.player.spring.spring_length<2.25 and game.player.pivot.position.y<1.36,"坐姿镜头平滑接近工位")
 	check(game.player.stand_up(),"有空间可以起身")
 	check(game.player.position.distance_to(desk.position)>0.7,"起身落在椅子外")
 	check(game.player.seat_body==null,"起身清除本人座椅碰撞例外")

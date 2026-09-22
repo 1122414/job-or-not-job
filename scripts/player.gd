@@ -78,7 +78,11 @@ func _physics_process(delta: float) -> void:
 	swing = maxf(0,swing-delta)
 	protection = maxf(0,protection-delta)
 	pivot.rotation = Vector3(pitch,yaw,0)
-	visual.rotation.y = yaw + sin(swing * 18) * 0.5
+	pivot.position.y=lerpf(pivot.position.y,1.32 if seated else 1.6,1.0-exp(-delta*5.0))
+	spring.spring_length=lerpf(spring.spring_length,2.15 if seated else 3.1,1.0-exp(-delta*5.0))
+	# Camera-relative controls stay unchanged; feet follow the actual travel direction.
+	var facing := atan2(-velocity.x,-velocity.z) if Vector2(velocity.x,velocity.z).length()>0.2 and swing<=0 and not seated else yaw
+	visual.rotation.y = lerp_angle(visual.rotation.y,facing,1.0-exp(-delta*14.0))
 	visual.pose(Vector2(velocity.x,velocity.z).length(),swing>0,dead>0,seated,game.interviews.player_seated())
 	visual.position=visual.position.move_toward(visual.seated_offset if seated else Vector3.ZERO,delta*2)
 	body_shape.shape.height=1.3 if seated else 1.75

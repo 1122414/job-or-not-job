@@ -38,7 +38,7 @@ static func chair(parent: Node3D, pos: Vector3) -> void:
 	group.position=pos
 	var black := Color("20252a")
 	Shapes.box(group,Vector3(0.62,0.12,0.55),Vector3(0,0.52,0),black)
-	var back := Shapes.box(group,Vector3(0.6,0.65,0.09),Vector3(0,0.84,0.23),Color("30353a"))
+	var back := Shapes.box(group,Vector3(0.6,0.46,0.09),Vector3(0,0.78,0.23),Color("30353a"))
 	back.rotation.x=-0.12
 	cylinder(group,0.055,0.38,Vector3(0,0.27,0),Color("838a90"))
 	for angle in range(5):
