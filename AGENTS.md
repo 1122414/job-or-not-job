@@ -15,3 +15,7 @@ At the start of each development day, create or update a dated plan in:
 `/Users/geminchen/Documents/MyKnowledgeBase/Obsidian/项目/游戏/上班全流程模拟器（开放世界版本）/每日开发计划`.
 
 Use `YYYY-MM-DD_<descriptive-name>.md`. Read an existing note before updating it and preserve user edits. Separate planned fixes, planned features, acceptance checks, observed progress, and unfinished work. Plans are not completion records or promises to finish every listed item that day. Respect an explicit user request to playtest and document without changing game code. Append new verified findings using the existing issue IDs, and synchronize completed work to the progress note separately.
+
+# Obsidian document copies
+
+After updating project records, synchronize the project Markdown documents and the original design DOCX to the `项目文档` directory under the same Obsidian game folder, preserving relative paths. The existing top-level plans, daily plans, and progress note must be preserved. Keep `项目记录索引.md` up to date. Use the last synchronization checksums to detect independent Obsidian edits; never blindly overwrite them. Preserve divergent copies and report conflicts. This is document synchronization during authorized work, not a scheduled background task.
