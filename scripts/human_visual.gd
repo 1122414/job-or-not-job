@@ -3,6 +3,7 @@ extends Node3D
 
 var outfit := "casual"
 var carrying := false
+var blocking := false
 var personality := ""
 var variation := 0
 var skeleton: Skeleton3D
@@ -29,7 +30,7 @@ func _ready() -> void:
 	animation=AnimationPlayer.new()
 	add_child(animation)
 	var library := AnimationLibrary.new()
-	for clip in ["idle","walk","run","strike","work","sit","fallen","recoil","talk","sit_talk","carry","carry_idle"]: library.add_animation(clip,make_clip(clip))
+	for clip in ["idle","walk","run","strike","work","sit","fallen","recoil","talk","sit_talk","carry","carry_idle","block"]: library.add_animation(clip,make_clip(clip))
 	animation.add_animation_library("",library)
 	animation.play("idle")
 	var hip := skeleton.get_bone_global_rest(skeleton.find_bone("upperleg01.L")).origin
@@ -97,6 +98,10 @@ func make_clip(clip: String) -> Animation:
 				if bone=="spine02": euler.x=-0.18*flinch
 				if bone=="head": euler.x=-0.10*flinch
 				if bone.begins_with("lowerarm"): euler.x=-0.4*flinch
+			elif clip=="block":
+				if bone.begins_with("upperarm"): euler=Vector3(-1.0,0,-0.25 if bone.ends_with("L") else 0.25)
+				if bone.begins_with("lowerarm"): euler.x=-1.1
+				if bone=="spine02": euler.x=-0.08
 			elif clip=="fallen":
 				if bone.begins_with("upperarm"): euler=Vector3(-0.25,0,-1.05 if bone.ends_with("L") else 1.05)
 				if bone.begins_with("lowerarm"): euler.x=0.25
@@ -112,7 +117,7 @@ func make_clip(clip: String) -> Animation:
 				if bone=="head": euler.y=wave*(0.07 if personality=="friend" else 0.025)
 				if personality=="boss" and bone.begins_with("lowerarm"): euler.x=-0.35
 				if personality=="hr" and bone=="head": euler.x=wave*0.03
-			if clip in ["carry","carry_idle"]:
+			if clip in ["carry","carry_idle","block"]:
 				if bone.begins_with("upperarm"): euler=Vector3(-0.25,0,-1.05 if bone.ends_with("L") else 1.05)
 				if bone.begins_with("lowerarm"): euler.x=-0.25
 			if clip in ["talk","sit_talk"]:
@@ -170,7 +175,7 @@ func pose(speed: float, attacking: bool, fallen: bool, working: bool = false, ta
 			animation.advance(0)
 			current="fallen"
 		return
-	var next := ("carry" if speed>0.2 else "carry_idle") if carrying else "recoil" if stunned else ("sit_talk" if conversing else "sit") if talking else "talk" if conversing and speed<0.2 else "work" if working else "strike" if attacking else "run" if speed>3.2 else "walk" if speed>0.2 else "idle"
+	var next := ("carry" if speed>0.2 else "carry_idle") if carrying else "recoil" if stunned else "block" if blocking else ("sit_talk" if conversing else "sit") if talking else "talk" if conversing and speed<0.2 else "work" if working else "strike" if attacking else "run" if speed>3.2 else "walk" if speed>0.2 else "idle"
 	if next!=current:
 		animation.play(next,0.04 if stunned else 0.20)
 		if next in ["idle","work"]: animation.seek(float(variation%11)/11.0,true)

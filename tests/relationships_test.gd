@@ -44,6 +44,16 @@ func run() -> void:
 	old.version=8
 	old.erase("social")
 	check(SaveGame.restore(game,old) and friend.affinity==affinity+6,"旧档保留好感但不伪造共同经历")
+	friend.dead=true
+	friend.hp=0
+	for npc in game.npcs:
+		npc.hostile=0
+		npc.reaction=0
+		npc.down=0
+	game.staffing.tick(31)
+	var replacement: OfficeNPC=game.npc_for_role("a_friend")
+	check(replacement!=null and replacement!=friend,"死亡后岗位由新人接替")
+	check(game.social.state(replacement).memories.is_empty() and game.social.describe(replacement)=="陌生","新人不继承死者私人经历和信任")
 	game.panels.show_page("people")
 	var minute: int=game.payroll.minute
 	for i in range(10): await process_frame

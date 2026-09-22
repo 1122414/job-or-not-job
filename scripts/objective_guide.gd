@@ -2,6 +2,8 @@ class_name ObjectiveGuide
 extends RefCounted
 
 static func current(game: Node3D) -> Dictionary:
+	var introduction: Dictionary=game.onboarding.objective()
+	if not introduction.is_empty(): return introduction
 	var c: Career=game.career
 	var id := ""
 	var title := c.objective()

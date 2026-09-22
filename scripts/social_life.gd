@@ -74,7 +74,7 @@ func options(npc: OfficeNPC) -> Dictionary:
 		if outing.stage=="offered": return {"text":npc.title.split(" · ")[0]+"：要不要"+kind_name(outing.kind)+"？不方便也没关系。","choices":[["好，一起走","people_accept"],["今天先不了","people_decline"],["先说工作上的事","people_work"]]}
 		if outing.stage=="walking":
 			var arrived: bool=npc.position.distance_to(destination(npc,outing.kind))<0.7 and npc.position.distance_to(game.player.position)<3
-			return {"text":"到了。我们聊几句？" if arrived else "我在前面等你。想先忙自己的事也可以。","choices":[["聊聊最近的生活" if arrived else "继续同行","people_share" if arrived else "people_continue"],["先忙别的，稍后再约","people_pause"]]}
+			return {"text":"到了。我们聊几句？" if arrived else "我在前面等你。想先忙自己的事也可以。","choices":[["聊聊最近的生活" if arrived else "继续同行","people_share" if arrived else "people_continue"],["先忙别的，稍后再约","people_pause"],["先说工作上的事","people_work"]]}
 	var choices: Array=[["聊聊近况","people_chat"]]
 	var kind := kind_now()
 	if kind!="": choices.append([kind_name(kind),"people_invite_"+kind])
@@ -163,6 +163,7 @@ func tick(delta: float) -> void:
 		outing.elapsed+=delta
 		if outing.stage=="offered" and outing.elapsed>60: outing.clear(); game.queue_save()
 		return
+	if game.onboarding.active(): return
 	if game.career.employer=="" or not game.conversation.is_empty() or kind_now()=="": return
 	if game.career.employer=="a" and not game.career.facts.has("brief"): return
 	if game.career.employer=="b" and not game.career.facts.has("welcome_b"): return

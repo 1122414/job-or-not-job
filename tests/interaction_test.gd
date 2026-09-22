@@ -59,7 +59,7 @@ func run() -> void:
 	Input.action_release("forward")
 	check(game.conversation.is_empty(),"走开即时关闭对话")
 	await choose_at(game,"a_hr","resign")
-	for step in [["b_hr","interview_b"],["b_hr","join_b"],["b_friend","refuse"],["b_friend","negotiate"]]:
+	for step in [["b_hr","interview_b"],["b_hr","join_b"],["desk_b","desk_open"],["b_friend","refuse"],["b_friend","negotiate"]]:
 		await choose_at(game,step[0],step[1])
 	for npc in game.npcs:
 		if npc.stable_id=="b_boss": game.player.position=npc.home+Vector3(0,0,1.8)

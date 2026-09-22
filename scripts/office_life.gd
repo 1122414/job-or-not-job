@@ -25,6 +25,7 @@ func offers() -> Array:
 
 func visit() -> Dictionary:
 	var c: Career=game.career
+	if game.onboarding.active(): return {}
 	if c.employer=="" or game.payroll.after_work() or c.conflict[c.employer]>=2: return {}
 	for item in offers():
 		if item[3] and not c.facts.has(item[0]): return {"key":item[0],"npc":item[1],"line":item[2]}
@@ -81,6 +82,7 @@ func open_desk(station: WorkStation) -> void:
 	var key: String=station.stable_id+"_arrived"
 	game.career.record(key,"已在自己的工位安顿："+game.career.grade)
 	game.player.sit_at(station.position)
+	game.onboarding.settled()
 	game.say("已在工位坐下。移动、跳跃或动手立即起身；同事会过来找你。")
 	game.queue_save()
 

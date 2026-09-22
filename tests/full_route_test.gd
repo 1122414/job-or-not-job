@@ -55,14 +55,14 @@ func run() -> void:
 	root.set_disable_input(true)
 	Input.mouse_mode=Input.MOUSE_MODE_VISIBLE
 	for i in range(10): await physics_frame
-	var route := [["a_hr","interview_hr"],["a_lead","interview_lead"],["a_boss","interview_boss"],["a_hr","join_a"],["desk_a","desk_open"],["a_lead","brief"],["archive","data"],["desk_a","prepare"],["a_friend","shortcut"],["demo","submit"],["a_lead","no_hc"],["a_group","transfer"],["desk_a2","desk_open"],["backup","backup"],["a_boss","defend"],["a_hr","resign"],["b_hr","interview_b"],["b_hr","join_b"],["b_friend","help"],["handover","handover"]]
+	var route := [["a_hr","interview_hr"],["a_lead","interview_lead"],["a_boss","interview_boss"],["a_hr","join_a"],["desk_a","desk_open"],["a_lead","brief"],["archive","data"],["desk_a","prepare"],["a_friend","shortcut"],["demo","submit"],["a_lead","no_hc"],["a_group","transfer"],["desk_a2","desk_open"],["backup","backup"],["a_boss","defend"],["a_hr","resign"],["b_hr","interview_b"],["b_hr","join_b"],["desk_b","desk_open"],["b_friend","help"],["handover","handover"]]
 	var b_snapshot: Dictionary={}
 	for step in route:
 		print("ROUTE_STEP ",step)
 		if not await perform(game,step[0],step[1]):
 			failures+=1
 			break
-		if step[1]=="join_b": b_snapshot=SaveGame.snapshot(game)
+		if step[0]=="desk_b": b_snapshot=SaveGame.snapshot(game)
 		if DisplayServer.get_name()!="headless" and step[1] in ["interview_hr","join_a","prepare","submit","backup","defend","handover"]:
 			DirAccess.make_dir_recursive_absolute(evidence_dir)
 			await RenderingServer.frame_post_draw

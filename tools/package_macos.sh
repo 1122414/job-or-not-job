@@ -8,7 +8,7 @@ mkdir -p build logs
 python3 - "$GODOT_BIN" <<'PY'
 from pathlib import Path
 import plistlib, shutil, sys
-app = Path('build/今天不上班-0.3.0.app')
+app = Path('build/今天不上班-0.4.0.app')
 mac = app / 'Contents/MacOS'
 res = app / 'Contents/Resources'
 mac.mkdir(parents=True, exist_ok=True)
@@ -25,8 +25,8 @@ exec "$APP_CONTENTS/MacOS/Godot" --main-pack "$APP_CONTENTS/Resources/game.pck" 
 ''')
 launcher.chmod(0o755)
 with (app / 'Contents/Info.plist').open('wb') as f:
-    plistlib.dump({'CFBundleName':'今天不上班','CFBundleDisplayName':'今天不上班','CFBundleIdentifier':'com.todayoff.mvp','CFBundleVersion':'0.3.0','CFBundleShortVersionString':'0.3.0','CFBundleExecutable':'TodayOff','CFBundlePackageType':'APPL','NSHighResolutionCapable':True,'LSMinimumSystemVersion':'12.0'},f)
+    plistlib.dump({'CFBundleName':'今天不上班','CFBundleDisplayName':'今天不上班','CFBundleIdentifier':'com.todayoff.mvp','CFBundleVersion':'0.4.0','CFBundleShortVersionString':'0.4.0','CFBundleExecutable':'TodayOff','CFBundlePackageType':'APPL','NSHighResolutionCapable':True,'LSMinimumSystemVersion':'12.0'},f)
 PY
 # Local development build, using the exact installed 4.7.1 runtime, not a mismatched template.
-codesign --force --deep --sign - 'build/今天不上班-0.3.0.app'
-ditto -c -k --sequesterRsrc --keepParent 'build/今天不上班-0.3.0.app' 'build/今天不上班-macOS-0.3.0.zip'
+codesign --force --deep --sign - 'build/今天不上班-0.4.0.app'
+ditto -c -k --sequesterRsrc --keepParent 'build/今天不上班-0.4.0.app' 'build/今天不上班-macOS-0.4.0.zip'

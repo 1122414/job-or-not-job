@@ -37,6 +37,14 @@ func run() -> void:
 	var malformed := SaveGame.snapshot(game)
 	malformed.npcs[npc.stable_id].fall_side="left"
 	check(not SaveGame.valid(malformed,game),"拒绝无效倒地方向类型")
+	var restrained: OfficeNPC=game.npc_for_role("a_lead")
+	restrained.hit(Vector3.RIGHT,0.5,game.next_action(),false)
+	check(restrained.hostile==0 and restrained.block_time>0,"克制者先挡手，不立即追打")
+	for i in range(22): await physics_frame
+	check(restrained.visual.current=="block" and not restrained.seated,"挡手使用站立防御动作，不冒充挥拳或同时坐下")
+	var before: int=restrained.hp
+	restrained.hit(Vector3.RIGHT,0.5,game.next_action(),false)
+	check(before-restrained.hp==6,"防御时普通攻击伤害降低")
 	game.queue_free()
 	await process_frame
 	print("HIT_REACTION_TEST failures=",failures)

@@ -20,6 +20,7 @@ var office := OfficeLife.new()
 var staffing := Staffing.new()
 var care := NPCCare.new()
 var social := SocialLife.new()
+var onboarding := Onboarding.new()
 var person_index := 0
 var interviews := InterviewFlow.new()
 var career := Career.new()
@@ -50,6 +51,7 @@ func _ready() -> void:
 	staffing.game=self
 	care.game=self
 	social.game=self
+	onboarding.game=self
 	interviews.game=self
 	Neighborhood.build(self)
 	for id in OfficeLife.DESKS: add_station(id,"我的工位",OfficeLife.DESKS[id])
@@ -132,6 +134,7 @@ func _process(delta: float) -> void:
 	staffing.tick(delta)
 	care.tick(delta)
 	social.tick(delta)
+	onboarding.tick()
 	var payday_before := payroll.next_payday
 	payroll.tick(delta*(0.2 if not conversation.is_empty() else 1.0),career.employer)
 	update_daylight()
@@ -228,8 +231,10 @@ func interact() -> void:
 			conversation={"text":"保安：需要时可以帮你清理被堵的通路。", "choices":[["请挪开走道上的大件","clear_path"]]}
 		if target is OfficeNPC:
 			conversation=office.visit_choices(target,conversation)
-			if social.outing.get("person")==target.stable_id: conversation=social.options(target)
-			elif conversation.choices.size()<4: conversation.choices.append(["聊聊近况与相处","people_menu"])
+			if social.outing.get("person")==target.stable_id and social.outing.get("stage")=="walking": conversation=social.options(target)
+			elif conversation.choices.size()<4: conversation.choices.append(["回应私人邀约" if social.outing.get("person")==target.stable_id else "聊聊近况与相处","people_menu"])
+			var introduction: Dictionary=onboarding.options(target)
+			if not introduction.is_empty(): conversation=introduction
 		journal_open=false
 
 func choose(index: int) -> void:
@@ -241,6 +246,7 @@ func choose(index: int) -> void:
 	if index>=choices.size(): return
 	var action: String = choices[index][1]
 	if speaker is OfficeNPC and social.handle(action,speaker): return
+	if onboarding.handle(action): return
 	if interviews.handle(action): return
 	if action in ["visit_confirm","visit_defer"]:
 		var visitor: OfficeNPC=speaker
@@ -291,7 +297,7 @@ func choose(index: int) -> void:
 		close_interaction()
 		return
 	var result := "小夏：我们关系再好，也不能造假。找捷径可以，伪造成果不行。" if action=="boundary" else career.apply(action)
-	if action in ["join_b","handover","settle"] and career.employer=="b":
+	if action in ["handover","settle"] and career.employer=="b":
 		var friend: OfficeNPC=npc_for_role("b_friend")
 		if friend: social.remember(friend,action,"你们一起安顿设备或确认了交接的边界。",8,6)
 	if action in ["shortcut","submit","no_hc","transfer"] and career.employer=="a":
@@ -300,6 +306,7 @@ func choose(index: int) -> void:
 	close_interaction()
 	queue_save()
 	say(result)
+	if action in ["join_a","join_b"] and career.employer==action.trim_prefix("join_"): onboarding.start(career.employer)
 	if action=="backup" and career.facts.has("output_two"):
 		for station in stations:
 			if station.stable_id=="backup": station.label.text="投影已恢复 · 成果已记录"

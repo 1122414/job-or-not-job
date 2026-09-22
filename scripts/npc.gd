@@ -17,6 +17,7 @@ var mood := "平静"
 var affinity := 0
 var down := 0.0
 var hit_stun := 0.0
+var block_time := 0.0
 var hit_push := Vector3.ZERO
 var fall_side := 1.0
 var hp := 100
@@ -82,7 +83,7 @@ func hit(direction: Vector3, strength: float, action: int, dangerous: bool = tru
 	if dead or care_state in ["away","carried"] or action==last_hit: return
 	if not dangerous and (care_state!="awake" or down>0): return
 	last_hit=action
-	var damage := roundi(strength*24)
+	var damage := roundi(strength*24*(0.5 if block_time>0 and not dangerous else 1.0))
 	hp=maxi(0 if dangerous else 1,hp-damage)
 	dead=hp==0
 	var knocked_out := not dead and hp<=1
@@ -108,9 +109,10 @@ func hit(direction: Vector3, strength: float, action: int, dangerous: bool = tru
 			reaction=8
 			hostile=0
 		"restrained":
+			reaction=0
 			mood="停手！我不想和你打架"
 			hostile=5 if affinity<=-36 else 0
-			attack_cooldown=0.9 if hostile==0 else 0
+			block_time=1.1 if hostile==0 else 0
 		"volatile":
 			mood="别动手！"
 			hostile=6
@@ -132,6 +134,7 @@ func _physics_process(delta: float) -> void:
 				seat_body=prop
 				add_collision_exception_with(prop)
 				break
+	block_time=maxf(0,block_time-delta)
 	hit_stun=maxf(0,hit_stun-delta)
 	visit_wait=maxf(0,visit_wait-delta)
 	reaction = maxf(0,reaction-delta)
@@ -161,6 +164,8 @@ func _physics_process(delta: float) -> void:
 		elif (visit_wait>0 or game.speaker==self) and not (role_id=="b_friend" and game.career.b_event=="negotiating"): target=position
 		var social_target: Variant=game.social.npc_target(self)
 		if social_target!=null: target=social_target
+		var introduction: Variant=game.onboarding.npc_target(self)
+		if introduction!=null: target=introduction
 		var meeting: Variant=game.interviews.host_target(self)
 		if meeting!=null: target=meeting
 		if hostile > 0 and game.player.protection <= 0 and distance < 9 and game.can_see(self, game.player):
@@ -202,10 +207,13 @@ func _physics_process(delta: float) -> void:
 		velocity.x=hit_push.x*hit_stun/0.32
 		velocity.z=hit_push.z*hit_stun/0.32
 	var interview_seated: bool=game.interviews.host_seated(self)
-	seated=interview_seated or not dead and role not in ["guard","hr"] and down<=0 and hostile<=0 and reaction<=0 and visit_wait<=0 and game.speaker!=self and game.office.visit_target(self)==null and game.social.npc_target(self)==null and Vector2(position.x-home.x,position.z-home.z).length()<0.4 and not game.payroll.after_work()
+	seated=interview_seated or not dead and role not in ["guard","hr"] and down<=0 and hostile<=0 and reaction<=0 and block_time<=0 and hit_stun<=0 and visit_wait<=0 and game.speaker!=self and game.office.visit_target(self)==null and game.social.npc_target(self)==null and game.onboarding.npc_target(self)==null and Vector2(position.x-home.x,position.z-home.z).length()<0.4 and not game.payroll.after_work()
 	visual.position.y=move_toward(visual.position.y,0.27 if down>0 or dead else visual.seated_offset.y if seated else 0.0,delta*2.5)
 	label.position.y=1.65 if seated else 2.05
-	if seated:
+	if block_time>0 and down<=0 and not dead:
+		var opponent: Vector3=game.player.position-position
+		visual.rotation.y=lerp_angle(visual.rotation.y,atan2(-opponent.x,-opponent.z),delta*10)
+	elif seated:
 		visual.rotation.y=lerp_angle(visual.rotation.y,PI if interview_seated else 0,delta*5)
 	elif down<=0 and not dead and Vector2(velocity.x,velocity.z).length()>0.3:
 		visual.rotation.y=lerp_angle(visual.rotation.y,atan2(-velocity.x,-velocity.z),delta*8)
@@ -213,6 +221,7 @@ func _physics_process(delta: float) -> void:
 		var facing: Vector3 = game.player.global_position-global_position if distance<5 else Vector3(0,0,1)
 		visual.rotation.y=lerp_angle(visual.rotation.y,atan2(-facing.x,-facing.z),delta*4)
 	update_body_pose()
+	visual.blocking=block_time>0 and available()
 	visual.pose(Vector2(velocity.x,velocity.z).length(),attack_cooldown>0.7,down>0 or dead,seated,interview_seated,hit_stun>0,(game.speaker==self and not game.conversation.is_empty()) or (interview_seated and game.interviews.active_firm()==company))
 	var requested_motion := Vector2(velocity.x,velocity.z).length()
 	move_and_slide()

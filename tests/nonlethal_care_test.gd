@@ -23,9 +23,14 @@ func run() -> void:
 	check(SaveGame.restore(game,saved),"昏迷状态可存取")
 	game.player.position=Vector3(0,0,10)
 	for other in game.npcs: other.hostile=0; other.reaction=0
+	var resumed_carry := false
 	for i in range(2400):
 		await physics_frame
+		if npc.care_state=="carried" and not resumed_carry:
+			resumed_carry=true
+			check(SaveGame.restore(game,SaveGame.snapshot(game)),"搬运中读档仍可继续离场")
 		if npc.care_state=="away": break
+	check(resumed_carry,"实际经过搬运存取检查")
 	check(npc.care_state=="away" and not npc.visible,"救助从入口抵达、搬运离场："+npc.care_state+str(npc.position)+str(npc.rescue_position))
 	check(SaveGame.restore(game,SaveGame.snapshot(game)),"离场休养状态可存取")
 	game.payroll.advance(maxi(0,npc.return_minute-game.payroll.minute),game.career.employer)
