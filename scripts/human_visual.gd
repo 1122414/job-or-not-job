@@ -6,6 +6,7 @@ var skeleton: Skeleton3D
 var animation: AnimationPlayer
 var current := ""
 var grip: Node3D
+var seated_offset := Vector3.ZERO
 
 func _ready() -> void:
 	var model: Node3D = load("res://assets/characters/"+outfit+".glb").instantiate()
@@ -19,6 +20,9 @@ func _ready() -> void:
 	for clip in ["idle","walk","run","strike","work","fallen"]: library.add_animation(clip,make_clip(clip))
 	animation.add_animation_library("",library)
 	animation.play("idle")
+	var hip := skeleton.get_bone_global_rest(skeleton.find_bone("upperleg01.L")).origin
+	# Retarget the hip joint to the seat, rather than an arbitrary visual-root drop.
+	seated_offset=Vector3(0,0.53-hip.y,0)
 	if skeleton:
 		var attachment := BoneAttachment3D.new()
 		attachment.bone_name="wrist.R"
@@ -52,10 +56,10 @@ func make_clip(clip: String) -> Animation:
 				if bone=="upperarm01.R": euler.x=wave*amount*0.65
 				if bone=="spine02": euler.y=wave*0.05
 			elif clip=="work":
-				if bone.begins_with("upperleg"): euler.x=-PI/2
-				if bone.begins_with("lowerleg"): euler.x=PI/2
-				if bone.begins_with("upperarm"): euler.x=-0.8; euler.z*=0.4
-				if bone.begins_with("lowerarm"): euler.x=-0.6+wave*0.04
+				if bone.begins_with("upperleg"): euler.x=-1.4
+				if bone.begins_with("lowerleg"): euler.x=1.4
+				if bone.begins_with("upperarm"): euler.x=-1.05; euler.z*=0.65
+				if bone.begins_with("lowerarm"): euler.x=0.45+wave*0.025
 				if bone=="spine02": euler.x=0.06
 			elif clip=="fallen":
 				if bone.begins_with("upperarm"): euler=Vector3(-0.15,0,-0.12 if bone.ends_with("L") else 0.12)

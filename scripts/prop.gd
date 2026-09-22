@@ -8,7 +8,7 @@ const TYPES := {
 	"table":["会议桌",Vector3(2.8,0.22,1.3),Color("bd8f62"),12.0],
 	"printer":["打印机",Vector3(0.9,0.7,0.8),Color("dce3e5"),8.0],
 	"desk":["办公桌",Vector3(3.5,0.12,1.5),Color("a68f71"),25.0],
-	"monitor":["显示器",Vector3(1.1,0.65,0.12),Color("232a30"),2.0],
+	"monitor":["显示器",Vector3(0.85,0.50,0.12),Color("232a30"),2.0],
 	"panel":["工位隔板",Vector3(3.6,1.4,0.12),Color("687578"),20.0],
 	"side_panel":["工位隔板",Vector3(0.1,1.4,1.7),Color("687578"),20.0],
 	"plant":["盆栽",Vector3(0.5,0.9,0.5),Color("b7b3a5"),6.0],
@@ -47,7 +47,10 @@ func _ready() -> void:
 	var color: Color = TYPES[kind][2]
 	mesh = Shapes.box(self, size, Vector3.ZERO, color)
 	base_material=mesh.material_override
-	Shapes.collider(self, size)
+	if kind=="chair":
+		Shapes.collider(self,Vector3(0.62,0.12,0.55),Vector3(0,-0.03,0))
+		Shapes.collider(self,Vector3(0.60,0.65,0.09),Vector3(0,0.29,0.23))
+	else: Shapes.collider(self,size)
 	if kind == "chair":
 		mesh.hide()
 		OfficeDress.chair(self,Vector3(0,-0.55,0))
@@ -76,10 +79,10 @@ func _ready() -> void:
 		Shapes.box(self,Vector3(0.56,0.025,0.48),Vector3(0,-0.17,0.46),Color("e4e1d7"))
 		Shapes.box(self,Vector3(0.23,0.12,0.03),Vector3(0.2,0.18,0.413),Color("467b86"))
 	if kind == "monitor":
-		Shapes.box(self,Vector3(0.96,0.51,0.025),Vector3(0,0,0.075),Color("73929c"))
-		Shapes.box(self,Vector3(0.12,0.3,0.1),Vector3(0,-0.38,0),Color("292e32"))
-		Shapes.box(self,Vector3(0.55,0.035,0.3),Vector3(0,-0.5,0.02),Color("292e32"))
-		Shapes.collider(self,Vector3(0.55,0.035,0.3),Vector3(0,-0.5,0.02))
+		Shapes.box(self,Vector3(0.75,0.42,0.025),Vector3(0,0,0.075),Color("73929c"))
+		Shapes.box(self,Vector3(0.10,0.2,0.1),Vector3(0,-0.32,0),Color("292e32"))
+		Shapes.box(self,Vector3(0.55,0.035,0.3),Vector3(0,-0.40,0.02),Color("292e32"))
+		Shapes.collider(self,Vector3(0.55,0.035,0.3),Vector3(0,-0.40,0.02))
 	if kind in ["panel","side_panel"]:
 		Shapes.box(self,Vector3(size.x+0.02,0.45,size.z+0.02),Vector3(0,0.45,0),Color("c9c8bc"))
 		Shapes.box(self,Vector3(size.x+0.05,0.04,size.z+0.05),Vector3(0,0.72,0),Color("b4b6b2"))
@@ -91,8 +94,9 @@ func _ready() -> void:
 		Shapes.box(self,Vector3(0.3,0.22,0.03),Vector3(0,0,0.25),Color("424b51"))
 	if kind in ["table","desk"]:
 		for x in [-1.1,1.1]:
-			Shapes.box(self, Vector3(0.1,0.85,1.0), Vector3(x,-0.5,0), Color("455665"))
-		Shapes.collider(self, Vector3(2.4,0.85,1.0), Vector3(0,-0.5,0))
+			var leg_height := home.y-0.06
+			Shapes.box(self,Vector3(0.1,leg_height,0.85),Vector3(x,-home.y+leg_height/2,0),Color("455665"))
+			Shapes.collider(self,Vector3(0.1,leg_height,0.85),Vector3(x,-home.y+leg_height/2,0))
 	mass = TYPES[kind][3]
 	freeze=anchored()
 	collision_layer=world_layer()
@@ -116,7 +120,7 @@ func anchored() -> bool:
 	return kind in ["desk","panel","side_panel","plant","cooler"] or stable_id.ends_with("_seat")
 
 func world_layer() -> int:
-	# Work chairs share the seat with seated actors; they still support dropped items.
+	# Seat layer is included in actors; only the owner has a temporary collision exception.
 	return 2 if stable_id.ends_with("_seat") else 1
 
 func apply_damage_state() -> void:

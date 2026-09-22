@@ -10,11 +10,11 @@ func _ready() -> void:
 	if stable_id.begins_with("desk_"):
 		# The first workstations reuse existing desks; the second group has a new place.
 		if stable_id=="desk_a2":
-			Shapes.solid(self,Vector3(2.5,0.12,1.1),Vector3(0,0.85,-1.05),Color("a18a6b"))
+			Shapes.solid(self,Vector3(2.5,0.12,1.1),Vector3(0,0.72,-1.05),Color("a18a6b"))
 			for x in [-1,1]: Shapes.box(self,Vector3(0.08,0.85,0.8),Vector3(x,0.42,-1.05),Color("42494e"))
-			Shapes.box(self,Vector3(1.1,0.65,0.09),Vector3(0,1.35,-1.5),Color("252f36"))
+			Shapes.box(self,Vector3(1.1,0.65,0.09),Vector3(0,1.20,-1.5),Color("252f36"))
 			OfficeDress.chair(self,Vector3.ZERO)
-		screen=Shapes.label(self,"",Vector3(0,1.35,-1.42),28)
+		screen=Shapes.label(self,"",Vector3(0,1.20,-1.42),28)
 		screen.billboard=BaseMaterial3D.BILLBOARD_DISABLED
 		screen.pixel_size=0.0019
 		screen.outline_size=0

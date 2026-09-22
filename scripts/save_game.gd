@@ -1,7 +1,7 @@
 class_name SaveGame
 extends RefCounted
 
-const VERSION := 2
+const VERSION := 3
 const LEGACY_PROPS := ["a_keyboard","a_cup","a_table","a_chair","a_printer","b_keyboard","b_cup","b_table","b_chair","b_printer"]
 const PATH := "user://neighborhood.json"
 const CAREER_FIELDS := ["recruit","employer","grade","stage","facts","records","former","conflict","warning_action","seen_actions","b_event"]
@@ -35,7 +35,7 @@ static func valid_vector(value: Variant) -> bool:
 
 static func valid(data: Variant, game: Node3D) -> bool:
 	if not data is Dictionary: return false
-	if data.get("version")!=1 and data.get("version")!=VERSION: return false
+	if data.get("version")!=1 and data.get("version")!=2 and data.get("version")!=VERSION: return false
 	for field in ["career","payroll","props","npcs","player"]:
 		if not data.get(field) is Dictionary: return false
 	for field in CAREER_FIELDS:
@@ -73,7 +73,7 @@ static func valid(data: Variant, game: Node3D) -> bool:
 	if data.player.hp<0 or data.player.hp>100: return false
 	if not (data.get("action_counter") is float or data.get("action_counter") is int): return false
 	if data.npcs.size()!=game.npcs.size(): return false
-	if data.version==VERSION and data.props.size()!=game.props.size(): return false
+	if data.version>=2 and data.props.size()!=game.props.size(): return false
 	var known := {}
 	for prop in game.props: known[prop.stable_id]=true
 	for id in data.props:
@@ -144,6 +144,7 @@ static func restore(game: Node3D, data: Dictionary) -> bool:
 	for prop in game.props:
 		var entry: Dictionary = data.props.get(prop.stable_id,{"position":vector(prop.home),"rotation":[0,0,0],"location":"world","damaged":false})
 		prop.position=unvector(entry.position)
+		if data.version<3 and prop.anchored(): prop.position.y=prop.home.y
 		prop.rotation=unvector(entry.rotation)
 		prop.linear_velocity=Vector3.ZERO
 		prop.angular_velocity=Vector3.ZERO
@@ -177,6 +178,9 @@ static func restore(game: Node3D, data: Dictionary) -> bool:
 	game.player.hp=int(data.player.hp)
 	game.player.protection=maxf(1,data.player.protection)
 	game.player.seated=false
+	if game.player.seat_body:
+		game.player.remove_collision_exception_with(game.player.seat_body)
+		game.player.seat_body=null
 	game.player.dead=0
 	game.player.bag_open=false
 	game.player.bag_page=0

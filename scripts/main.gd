@@ -157,10 +157,16 @@ func nearest() -> Node3D:
 	return best
 
 func can_see(from: Node3D, to: Node3D) -> bool:
-	var start := from.global_position + Vector3.UP
-	var end := to.global_position + (Vector3.UP if to is CharacterBody3D or to is WorkStation else Vector3.ZERO)
+	var start := from.global_position + Vector3.UP*1.35
+	var end := to.global_position + (Vector3.UP*1.2 if to is CharacterBody3D or to is WorkStation else Vector3.ZERO)
 	var query := PhysicsRayQueryParameters3D.create(start,end)
 	if from is CollisionObject3D: query.exclude = [from.get_rid()]
+	if to is WorkStation and to.stable_id.begins_with("desk_"):
+		var excluded := query.exclude
+		for prop in props:
+			if prop.stable_id.ends_with("_seat") and Vector2(prop.position.x-to.position.x,prop.position.z-to.position.z).length()<0.5:
+				excluded.append(prop.get_rid())
+		query.exclude=excluded
 	var hit := get_world_3d().direct_space_state.intersect_ray(query)
 	return hit.is_empty() or hit.collider == to
 

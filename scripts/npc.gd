@@ -24,6 +24,7 @@ var seated := false
 var visit_wait := 0.0
 var body_shape: CollisionShape3D
 var body_pose := ""
+var seat_body: OfficeProp
 
 func setup(id: String, display: String, pos: Vector3, firm: String, job: String, owner_game: Node3D) -> void:
 	stable_id = id
@@ -35,6 +36,7 @@ func setup(id: String, display: String, pos: Vector3, firm: String, job: String,
 	game = owner_game
 
 func _ready() -> void:
+	collision_mask=3
 	body_shape=CollisionShape3D.new()
 	var capsule := CapsuleShape3D.new()
 	capsule.radius=0.27
@@ -66,6 +68,12 @@ func hit(direction: Vector3, strength: float, action: int) -> void:
 		game.on_npc_death(self)
 
 func _physics_process(delta: float) -> void:
+	if not seat_body:
+		for prop in game.props:
+			if prop.stable_id.ends_with("_seat") and Vector2(prop.position.x-home.x,prop.position.z-home.z).length()<0.5:
+				seat_body=prop
+				add_collision_exception_with(prop)
+				break
 	visit_wait=maxf(0,visit_wait-delta)
 	reaction = maxf(0,reaction-delta)
 	attack_cooldown = maxf(0, attack_cooldown - delta)
@@ -126,7 +134,7 @@ func _physics_process(delta: float) -> void:
 			velocity.x = 0
 			velocity.z = 0
 	seated=not dead and role!="guard" and down<=0 and hostile<=0 and reaction<=0 and visit_wait<=0 and game.speaker!=self and game.office.visit_target(self)==null and Vector2(position.x-home.x,position.z-home.z).length()<0.4 and not game.payroll.after_work()
-	visual.position.y=move_toward(visual.position.y,0.27 if down>0 or dead else -0.42 if seated else 0.0,delta*2.5)
+	visual.position.y=move_toward(visual.position.y,0.27 if down>0 or dead else visual.seated_offset.y if seated else 0.0,delta*2.5)
 	label.position.y=1.65 if seated else 2.05
 	if seated:
 		visual.rotation.y=lerp_angle(visual.rotation.y,0,delta*5)

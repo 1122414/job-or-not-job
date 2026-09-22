@@ -22,9 +22,18 @@ var hp := 100
 var protection := 0.0
 var dead := 0.0
 var seated := false
+var seat_body: OfficeProp
+var body_shape: CollisionShape3D
 
 func _ready() -> void:
-	Shapes.collider(self, Vector3(0.6,1.75,0.6), Vector3(0,0.88,0))
+	body_shape=CollisionShape3D.new()
+	var capsule := CapsuleShape3D.new()
+	capsule.radius=0.27
+	capsule.height=1.75
+	body_shape.shape=capsule
+	body_shape.position.y=0.88
+	add_child(body_shape)
+	collision_mask=3
 	visual = HumanVisual.new()
 	visual.outfit="casual"
 	add_child(visual)
@@ -53,12 +62,12 @@ func _unhandled_input(event: InputEvent) -> void:
 		pitch = clampf(pitch - event.relative.y * sensitivity, -0.9, 0.5)
 	if dead > 0: return
 	if event.is_action_pressed("attack"):
-		stand_up()
+		if not stand_up(): return
 		game.close_interaction()
 		attack()
 	if event.is_action_pressed("interact"): game.interact()
 	if event.is_action_pressed("throw"):
-		stand_up()
+		if not stand_up(): return
 		release(true)
 	if event.is_action_pressed("drop"): release(false)
 	if event.is_action_pressed("store"): store_held()
@@ -71,7 +80,9 @@ func _physics_process(delta: float) -> void:
 	pivot.rotation = Vector3(pitch,yaw,0)
 	visual.rotation.y = yaw + sin(swing * 18) * 0.5
 	visual.pose(Vector2(velocity.x,velocity.z).length(),swing>0,dead>0,seated)
-	visual.position.y=move_toward(visual.position.y,-0.42 if seated else 0.0,delta*2)
+	visual.position=visual.position.move_toward(visual.seated_offset if seated else Vector3.ZERO,delta*2)
+	body_shape.shape.height=1.3 if seated else 1.75
+	body_shape.position.y=0.68 if seated else 0.88
 	if held:
 		held.global_transform = hand.global_transform
 	if dead > 0:
@@ -81,7 +92,8 @@ func _physics_process(delta: float) -> void:
 		return
 	if not is_on_floor(): velocity.y -= 22 * delta
 	var input := Input.get_vector("left","right","forward","back")
-	if input.length()>0.1 or Input.is_action_just_pressed("jump"): stand_up()
+	if input.length()>0.1 or Input.is_action_just_pressed("jump"):
+		if not stand_up(): return
 	var direction := Vector3(input.x,0,input.y).rotated(Vector3.UP,yaw)
 	var speed := run_speed if Input.is_action_pressed("run") else walk_speed
 	velocity.x = direction.x * speed
@@ -187,10 +199,36 @@ func respawn() -> void:
 
 func sit_at(point: Vector3) -> void:
 	store_held()
+	if seat_body: remove_collision_exception_with(seat_body)
+	seat_body=null
+	for prop in game.props:
+		if prop.stable_id.ends_with("_seat") and Vector2(prop.position.x-point.x,prop.position.z-point.z).length()<0.5:
+			seat_body=prop
+			add_collision_exception_with(prop)
+			break
 	position=point
 	velocity=Vector3.ZERO
 	yaw=0
 	seated=true
 
-func stand_up() -> void:
-	seated=false
+func stand_up() -> bool:
+	if not seated: return true
+	var query := PhysicsShapeQueryParameters3D.new()
+	var capsule := CapsuleShape3D.new()
+	capsule.radius=0.28
+	capsule.height=1.75
+	query.shape=capsule
+	query.margin=0.005
+	query.collision_mask=3
+	query.exclude=[get_rid()]
+	for offset in [Vector3(0,0,0.85),Vector3(0.85,0,0),Vector3(-0.85,0,0),Vector3(0,0,1.5)]:
+		var point: Vector3=position+offset.rotated(Vector3.UP,yaw)
+		query.transform.origin=point+Vector3.UP*0.94
+		if get_world_3d().direct_space_state.intersect_shape(query,1).is_empty():
+			position=point
+			seated=false
+			if seat_body: remove_collision_exception_with(seat_body)
+			seat_body=null
+			return true
+	game.say("起身空间被挡住了，请先挪开周围物品。")
+	return false

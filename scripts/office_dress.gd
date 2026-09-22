@@ -99,10 +99,10 @@ static func build(game: Node3D) -> void:
 		for dx in [-7,6]:
 			for z in [-2,-6,-11]:
 				var id := firm+"_desk_"+str(dx)+"_"+str(z)
-				game.add_prop(id,"desk",Vector3(center+dx,0.85,z))
-				game.add_prop(id+"_monitor","monitor",Vector3(center+dx,1.425,z-0.4))
-				game.add_prop(id+"_keyboard","keyboard",Vector3(center+dx,1.0,z+0.28))
-				game.add_prop(id+"_cup","cup",Vector3(center+dx+1,1.08,z+0.15))
+				game.add_prop(id,"desk",Vector3(center+dx,0.72,z))
+				game.add_prop(id+"_monitor","monitor",Vector3(center+dx,1.20,z-0.28))
+				game.add_prop(id+"_keyboard","keyboard",Vector3(center+dx,0.85,z+0.58))
+				game.add_prop(id+"_cup","cup",Vector3(center+dx+1,0.94,z+0.15))
 				game.add_prop(id+"_seat","chair",Vector3(center+dx,0.55,z+1.1))
 				game.add_prop(id+"_back","panel",Vector3(center+dx,0.7,z-0.9))
 				for side in [-1,1]:
