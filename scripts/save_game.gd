@@ -189,3 +189,19 @@ static func restore(game: Node3D, data: Dictionary) -> bool:
 	for station in game.stations:
 		if station.stable_id=="backup": station.label.text="投影已恢复 · 成果已记录" if game.career.facts.has("output_two") else station.title
 	return true
+
+static func archives(directory: String = "user://restarts") -> Array[String]:
+	var result: Array[String]=[]
+	if not DirAccess.dir_exists_absolute(directory): return result
+	for filename in DirAccess.get_files_at(directory):
+		if filename.ends_with(".json"): result.append(directory.path_join(filename))
+	result.sort()
+	result.reverse()
+	return result
+
+static func archive(game: Node3D, directory: String = "user://restarts") -> String:
+	if DirAccess.make_dir_recursive_absolute(directory)!=OK: return ""
+	var stamp := "%020d-%016d" % [int(Time.get_unix_time_from_system()*1000000),Time.get_ticks_usec()]
+	var path := directory.path_join(stamp+".json")
+	if write(game,path)!=OK: return ""
+	return path if not read(path,game).is_empty() else ""

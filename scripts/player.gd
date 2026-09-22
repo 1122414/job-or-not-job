@@ -63,15 +63,6 @@ func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("drop"): release(false)
 	if event.is_action_pressed("store"): store_held()
 	if event.is_action_pressed("cycle"): cycle_item()
-	if event.is_action_pressed("bag"):
-		bag_open = not bag_open
-		game.close_interaction()
-		game.journal_open=false
-		game.ledger_open=false
-		game.help_open=false
-	if event.is_action_pressed("cancel"):
-		game.close_interaction()
-		game.toggle_menu()
 
 func _physics_process(delta: float) -> void:
 	cooldown = maxf(0,cooldown-delta)

@@ -2,7 +2,7 @@ class_name PauseMenu
 extends PanelContainer
 var game: Node3D
 func _ready() -> void:
-	position=Vector2(430,170)
+	position=Vector2(430,70)
 	custom_minimum_size=Vector2(420,420)
 	mouse_filter=Control.MOUSE_FILTER_STOP
 	var style := StyleBoxFlat.new()
@@ -19,8 +19,8 @@ func _ready() -> void:
 	title.text="今天不上班 / 菜单"
 	title.add_theme_font_size_override("font_size",26)
 	list.add_child(title)
-	for entry in [["继续游戏",func(): game.toggle_menu()], ["保存 / F5",func(): game.save_game()], ["读取 / F9",func(): game.load_game()], ["保存并退出",func():
-		if SaveGame.write(game)==OK: get_tree().quit()
+	for entry in [["继续游戏",func(): game.toggle_menu()], ["新游戏（自动备份当前进度）",func(): game.new_game()], ["恢复上一次进度（当前进度也会备份）",func(): game.restore_previous()], ["操作说明 / H",func(): game.panels.toggle("help")], ["保存 / F5",func(): game.save_game()], ["读取 / F9",func(): game.load_game()], ["保存并退出",func():
+		if SaveGame.write(game,game.save_path)==OK: get_tree().quit()
 		else: game.say("保存失败，未退出；请检查磁盘空间。")], ["直接退出",func(): get_tree().quit()]]:
 		var button := Button.new()
 		button.text=entry[0]
@@ -45,8 +45,3 @@ func _ready() -> void:
 	help.text="Esc 返回 · H 操作说明\n菜单期间世界暂停，关闭即恢复。"
 	list.add_child(help)
 	hide()
-
-func _unhandled_key_input(event: InputEvent) -> void:
-	if visible and event.is_action_pressed("cancel"):
-		game.toggle_menu()
-		get_viewport().set_input_as_handled()

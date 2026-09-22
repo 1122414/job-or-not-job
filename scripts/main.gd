@@ -3,11 +3,15 @@ extends Node3D
 var player: OfficePlayer
 var props: Array[OfficeProp] = []
 var npcs: Array[OfficeNPC] = []
+var panels: GamePanels
+var initial_state: Dictionary
 var menu: PauseMenu
 var ledger_open := false
 var ledger_page := 0
 var help_open := false
 var debug_open := false
+var save_path := SaveGame.PATH
+var archive_directory := "user://restarts"
 var persistence_enabled := false
 var save_delay := -1.0
 var payroll := Payroll.new()
@@ -95,6 +99,10 @@ func build_ui() -> void:
 	menu.game=self
 	menu.process_mode=Node.PROCESS_MODE_ALWAYS
 	canvas.add_child(menu)
+	panels=GamePanels.new()
+	panels.game=self
+	add_child(panels)
+	hud.process_mode=Node.PROCESS_MODE_ALWAYS
 
 func _process(delta: float) -> void:
 	if navigation_dirty>=0:
@@ -248,28 +256,11 @@ func close_interaction() -> void:
 	speaker=null
 
 func _unhandled_key_input(event: InputEvent) -> void:
-	if player.bag_open and event is InputEventKey and event.pressed and not event.echo:
-		if event.keycode==KEY_PAGEDOWN: player.bag_page+=1; return
-		if event.keycode==KEY_PAGEUP: player.bag_page=maxi(0,player.bag_page-1); return
-		if event.keycode>=KEY_1 and event.keycode<=KEY_8:
-			var index: int = player.bag_page*8+event.keycode-KEY_1
-			if index<player.inventory.size(): player.pick(player.inventory[index])
-			return
 	if event is InputEventKey and event.pressed and not event.echo:
 		if event.physical_keycode>=KEY_1 and event.physical_keycode<=KEY_4: choose(event.physical_keycode-KEY_1)
-		if event.is_action_pressed("ledger"):
-			ledger_open=not ledger_open
-			journal_open=false
-		if event.is_action_pressed("help"): help_open=not help_open
-		if event.physical_keycode==KEY_PAGEUP: ledger_page=maxi(0,ledger_page-1)
-		if event.physical_keycode==KEY_PAGEDOWN: ledger_page+=1
 		if event.physical_keycode==KEY_F3 and OS.is_debug_build(): debug_open=not debug_open
 		if event.is_action_pressed("save"): save_game(true)
 		if event.is_action_pressed("load"): load_game()
-		if event.is_action_pressed("journal"):
-			journal_open=not journal_open
-			ledger_open=false
-			close_interaction()
 
 func next_action() -> int:
 	action_counter += 1
@@ -372,24 +363,25 @@ func _exit_tree() -> void:
 func startup() -> void:
 	await get_tree().physics_frame
 	# Unit/integration scenes never load or overwrite the player's save slot.
+	initial_state=SaveGame.snapshot(self)
 	persistence_enabled=get_tree().current_scene==self
-	if persistence_enabled and FileAccess.file_exists(SaveGame.PATH): load_game()
+	if persistence_enabled and FileAccess.file_exists(save_path): load_game()
 
 func queue_save() -> void:
 	if persistence_enabled: save_delay=0.4
 
 func save_game(show_message: bool = true) -> void:
 	if not persistence_enabled: return
-	var error := SaveGame.write(self)
+	var error := SaveGame.write(self,save_path)
 	if error!=OK: say("保存失败："+error_string(error)+"。旧档保留，请检查磁盘空间。")
 	elif show_message: say("已保存。F9 继续此存档，F5 再次保存。")
 
 func load_game() -> void:
 	if not persistence_enabled: return
-	var data := SaveGame.read(SaveGame.PATH,self)
+	var data := SaveGame.read(save_path,self)
 	var backup := false
 	if data.is_empty():
-		data=SaveGame.read(SaveGame.PATH+".bak",self)
+		data=SaveGame.read(save_path+".bak",self)
 		backup=true
 	if data.is_empty():
 		say("没有有效存档。损坏文件保留；当前世界未被清空。")
@@ -399,7 +391,32 @@ func load_game() -> void:
 	say("主档损坏，已恢复有效备份；损坏文件保留。" if backup else "已继续存档：装备、成果、工资和公司后果均已恢复。")
 
 func toggle_menu() -> void:
-	close_interaction()
-	menu.visible=not menu.visible
-	get_tree().paused=menu.visible
-	Input.mouse_mode=Input.MOUSE_MODE_VISIBLE if menu.visible else Input.MOUSE_MODE_CAPTURED
+	panels.toggle("pause")
+
+func new_game() -> void:
+	if not persistence_enabled: return
+	var archive := SaveGame.archive(self,archive_directory)
+	if archive.is_empty():
+		say("备份失败，未重开。当前世界和旧档保留。")
+		return
+	SaveGame.restore(self,initial_state.duplicate(true))
+	panels.show_page("")
+	save_game(false)
+	say("新的一天。旧进度已备份，可在菜单恢复。")
+
+func restore_previous() -> void:
+	var archives := SaveGame.archives(archive_directory)
+	if archives.is_empty():
+		say("尚无重开备份。")
+		return
+	var data := SaveGame.read(archives[0],self)
+	if data.is_empty():
+		say("备份校验失败，当前世界未改变。")
+		return
+	if SaveGame.archive(self,archive_directory).is_empty():
+		say("当前进度备份失败，未执行恢复。")
+		return
+	SaveGame.restore(self,data)
+	panels.show_page("")
+	save_game(false)
+	say("已恢复上一次进度；刚才的进度也已备份。")
