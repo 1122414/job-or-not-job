@@ -18,6 +18,7 @@ func offers() -> Array:
 		["welcome_a","a_hr","林岚：你的工位在右侧第一排。过去看看，周工会来说明第一份工作。",c.employer=="a" and c.stage==1 and not c.facts.has("desk_a_arrived")],
 		["visit_brief","a_lead","周工：我过来跟你说演示的事。准备好了就聊；你也可以先看看资料。",c.employer=="a" and c.facts.has("desk_a_arrived") and c.stage==1 and not c.facts.has("brief")],
 		["visit_review","a_lead","周工：你的演示已经通过。我来跟你说明这次转正名额的情况。",c.employer=="a" and c.stage==2],
+		["visit_support","a_friend","小夏：上次你拿着原文来核对，我记得。我把离线说明和演示记录放一起了，去二组谈的时候用得上。",c.employer=="a" and c.stage==3 and game.promises.support_available()],
 		["visit_group","a_group","许姐：后方中间是你的新工位。上次成果保留，这次只处理现场投影。",c.employer=="a" and c.stage==4],
 		["visit_defense","a_boss","方总：两份成果都收到了。你准备好后可以直接找我答辩。",c.employer=="a" and c.stage==5],
 		["welcome_b","b_friend","阿乐：右侧第一排的终端给你用。我来帮你安顿，顺便聊聊今晚的交接。",c.employer=="b" and c.b_event=="pending"]

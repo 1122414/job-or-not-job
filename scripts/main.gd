@@ -23,6 +23,7 @@ var social := SocialLife.new()
 var onboarding := Onboarding.new()
 var recruitment := RecruitmentFlow.new()
 var projects := WorkProjects.new()
+var promises := WorkPromises.new()
 var person_index := 0
 var interviews := InterviewFlow.new()
 var career := Career.new()
@@ -56,6 +57,7 @@ func _ready() -> void:
 	onboarding.game=self
 	recruitment.game=self
 	projects.game=self
+	promises.game=self
 	interviews.game=self
 	Neighborhood.build(self)
 	for firm in ["a","b"]: add_prop(firm+"_badge","badge",OfficeRooms.RECEPTIONS[firm]+Vector3(0.35,0.98,0))
@@ -72,7 +74,7 @@ func _ready() -> void:
 	startup.call_deferred()
 
 func bind_inputs() -> void:
-	var keys := {"forward":KEY_W,"back":KEY_S,"left":KEY_A,"right":KEY_D,"run":KEY_SHIFT,"jump":KEY_SPACE,"interact":KEY_E,"drop":KEY_G,"cancel":KEY_ESCAPE,"bag":KEY_TAB,"store":KEY_Q,"cycle":KEY_R,"save":KEY_F5,"load":KEY_F9,"journal":KEY_J,"ledger":KEY_L,"help":KEY_H,"history":KEY_K,"dangerous":KEY_ALT,"people":KEY_P,"messages":KEY_N}
+	var keys := {"forward":KEY_W,"back":KEY_S,"left":KEY_A,"right":KEY_D,"run":KEY_SHIFT,"jump":KEY_SPACE,"interact":KEY_E,"drop":KEY_G,"cancel":KEY_ESCAPE,"bag":KEY_TAB,"store":KEY_Q,"cycle":KEY_R,"save":KEY_F5,"load":KEY_F9,"journal":KEY_J,"ledger":KEY_L,"help":KEY_H,"history":KEY_K,"dangerous":KEY_ALT,"people":KEY_P,"messages":KEY_N,"promises":KEY_O}
 	for action in keys:
 		InputMap.add_action(action)
 		var event := InputEventKey.new()
@@ -262,6 +264,7 @@ func choose(index: int) -> void:
 		panels.show_page("messages")
 		return
 	if recruitment.handle(action): return
+	if promises.handle(action,speaker): return
 	if projects.handle(action): return
 	if onboarding.handle(action): return
 	if interviews.handle(action): return
@@ -273,6 +276,7 @@ func choose(index: int) -> void:
 		if action=="visit_confirm":
 			speaker=visitor
 			conversation=OfficeDialogue.options(visitor,career)
+			if visitor.role_id=="a_lead" and career.stage==3 and not career.facts.has("promise_reviewed"): promises.review(visitor)
 		return
 	if action=="desk_repair":
 		office.repair_desk(speaker)

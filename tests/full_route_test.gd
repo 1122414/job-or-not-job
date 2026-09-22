@@ -33,7 +33,9 @@ func perform(game: Node3D,id: String,action: String) -> bool:
 	game.interact()
 	if not game.conversation.is_empty() and not game.conversation.choices.is_empty() and game.conversation.choices[0][1]=="visit_confirm":
 		game.choose(0)
-		if action in ["brief","no_hc"]: return true
+		if action in ["brief","no_hc"]:
+			if action=="no_hc" and not game.conversation.is_empty(): game.choose(0)
+			return true
 		if game.conversation.is_empty(): game.interact()
 	if game.conversation.is_empty():
 		push_error("完整路线交谈中断："+id+" / "+action)
@@ -46,6 +48,7 @@ func perform(game: Node3D,id: String,action: String) -> bool:
 					if companion and companion.position.distance_to(target.position)<3.8: break
 					await physics_frame
 			game.choose(i)
+			if action in ["no_hc","transfer","defend"]: game.choose(0)
 			if action.begins_with("report_"):
 				game.choose(0)
 				game.choose(0)

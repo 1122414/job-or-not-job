@@ -137,6 +137,12 @@ static func valid(data: Variant, game: Node3D) -> bool:
 				if not (value is int or value is float) or not is_finite(value) or value!=int(value) or value<0: return false
 			if session.step>6 or session.reply>2 or not session.get("answers") is Array: return false
 			if session.answers.size()!=int(session.step)+(1 if session.phase=="reply" else 0): return false
+			if session.get("edition",0)==2:
+				var content: Array=InterviewContent.CORE[session.action].duplicate(true)
+				var follow: Array=InterviewContent.FOLLOW[session.action]
+				if follow[0] in session.answers: content.append(follow[1])
+				if session.step>content.size(): return false
+				if session.phase=="reply" and (session.step>=content.size() or session.reply>=content[int(session.step)][1].size()): return false
 			for answer in session.answers:
 				if not answer is String: return false
 	if data.version>=11 and not RecruitmentFlow.valid(data.get("recruitment")): return false

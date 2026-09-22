@@ -95,6 +95,7 @@ func handle(action: String) -> bool:
 		session.reply=answer
 		session.phase="reply"
 	elif action=="interview_next" and session.phase=="reply":
+		game.promises.heard(session,game.npc_for_role(HOSTS[session.action]))
 		session.step+=1
 		session.phase="question"
 	elif action=="interview_finish" and session.step==pages(session.action).size():

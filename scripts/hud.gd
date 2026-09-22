@@ -113,6 +113,7 @@ func _draw() -> void:
 			text_at(Vector2(w*0.24,y),str(i+1)+"  "+game.conversation.choices[i][0],17,Color("f5d386"))
 			y+=29
 		text_at(Vector2(w*0.24,h-97),game.conversation.get("hint","数字键选择 · 走开或动手立即中断"),14,Color("a4b3bd"))
+	if game.panels.page=="promises": draw_promises(w,h)
 	if game.panels.page=="computer": draw_computer(w,h)
 	if game.panels.page=="messages": draw_messages(w,h)
 	if game.panels.page=="people": draw_people(w,h)
@@ -204,7 +205,7 @@ func wrap_lines(value: String,width: float,font_size: int) -> PackedStringArray:
 func draw_people(w: float,h: float) -> void:
 	draw_style_box(panel_style(),Rect2(80,60,w-160,h-120))
 	text_at(Vector2(108,101),"认识的人",26)
-	text_at(Vector2(108,130),"↑ ↓ 选择 · P / Esc 返回 · 世界已暂停",14,Color("a4b3bd"))
+	text_at(Vector2(108,130),"↑ ↓ 选择 · O 查看实际约定 · P / Esc 返回",14,Color("a4b3bd"))
 	var roster: Array[OfficeNPC]=game.social.roster()
 	if roster.is_empty(): return
 	game.person_index=clampi(game.person_index,0,roster.size()-1)
@@ -296,3 +297,21 @@ func draw_computer(w: float,h: float) -> void:
 			text_at(Vector2(w-190,row_y),rows[i][2],17)
 	y=h-160
 	for line in wrap_lines(game.projects.feedback,w-280,17): text_at(Vector2(130,y),line,17,Color("e4be70")); y+=26
+
+func draw_promises(w: float,h: float) -> void:
+	draw_style_box(panel_style(),Rect2(160,70,w-320,h-140))
+	text_at(Vector2(190,112),"谈过的约定",26)
+	text_at(Vector2(190,146),"PageUp / PageDown 翻阅 · O / Esc 返回",15,Color("a4b3bd"))
+	var items: Array=game.recruitment.promises
+	if items.is_empty():
+		text_at(Vector2(190,200),"尚无记录。只保存实际完成过的关键交流。",18)
+		return
+	game.promises.page=clampi(game.promises.page,0,items.size()-1)
+	var item: Dictionary=items[items.size()-1-game.promises.page]
+	var lines: Array=[item.name+" · "+game.recruitment.stamp(int(item.minute)),"你当时说："+item.reply,"对方的原话："+item.quote,"岗位："+{"a_hr":"规程科技 · 招聘接待","a_lead":"规程科技 · 技术主管","a_boss":"规程科技 · 用工负责人","b_hr":"自己人网络 · 招聘接待"}.get(item.role,"岗位事务")]
+	var holder: OfficeNPC=game.npc_for_role(item.role)
+	if holder and holder.stable_id!=item.person: lines.append("岗位现由"+holder.title+"接手；此前原话保留，私人关系独立。")
+	var y := 202.0
+	for line in lines:
+		for wrapped in wrap_lines(line,w-400,18): text_at(Vector2(190,y),wrapped,18); y+=28
+		y+=18

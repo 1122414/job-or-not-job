@@ -37,7 +37,7 @@ func back() -> void:
 
 func _input(event: InputEvent) -> void:
 	if event is InputEventKey and event.pressed and not event.echo:
-		for action in ["bag","journal","ledger","help","history","people","messages"]:
+		for action in ["bag","journal","ledger","help","history","people","messages","promises"]:
 			if event.is_action_pressed(action):
 				toggle(action)
 				get_viewport().set_input_as_handled()
@@ -49,6 +49,9 @@ func _input(event: InputEvent) -> void:
 			return
 		if page!="":
 			var key: int=event.physical_keycode if event.physical_keycode else event.keycode
+			if page=="promises":
+				if key==KEY_PAGEUP: game.promises.page+=1
+				if key==KEY_PAGEDOWN: game.promises.page=maxi(0,game.promises.page-1)
 			if page=="computer" and key>=KEY_1 and key<=KEY_7: game.projects.key(key-KEY_1+1)
 			if page=="messages":
 				if key==KEY_LEFT: game.recruitment.selected="a"; game.recruitment.message_page=0

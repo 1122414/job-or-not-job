@@ -33,6 +33,7 @@ func choose_at(game: Node3D, id: String, action: String) -> void:
 			check(game.career.facts.has("brief"),"主管来访确认已经交代实习工作")
 			return
 		if action=="no_hc":
+			if not game.conversation.is_empty(): game.choose(0)
 			check(previous_stage==2 and game.career.stage==3,"考核来访确认推进无HC说明，不能再重复触发")
 			return
 		if game.conversation.is_empty(): game.interact()
@@ -44,6 +45,7 @@ func choose_at(game: Node3D, id: String, action: String) -> void:
 	check(index>=0,"应显示选项："+action)
 	if index>=0:
 		game.choose(index)
+		if action in ["no_hc","transfer","defend"]: game.choose(0)
 		if action.begins_with("report_"):
 			game.choose(0)
 			game.choose(0)

@@ -83,6 +83,8 @@ func send_b() -> void:
 		if s.deadline!="tonight": feedback="你选择了明早发送，请带着这份安排与阿乐一起向赵总确认。"; return
 		game.career.apply("handover")
 		s.sent=game.career.b_event=="helped"
+		var friend: OfficeNPC=game.npc_for_role("b_friend")
+		if friend and s.sent: game.social.remember(friend,"handover","你核对了原始要求，发送完整交接包，让他按约定离开。",8,6)
 		feedback="已发送给陈工和值班同事。阿乐收到完成通知，可以离开工位。"
 	elif game.career.b_event=="negotiating" and s.deadline=="tomorrow":
 		s.proposal=true
