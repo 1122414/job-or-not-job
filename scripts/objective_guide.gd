@@ -5,6 +5,11 @@ static func current(game: Node3D) -> Dictionary:
 	var c: Career=game.career
 	var id := ""
 	var title := c.objective()
+	for pending in game.office.pending_visits():
+		if c.facts.get("guide_visit","")==pending.key:
+			id=pending.npc
+			var person: OfficeNPC=game.npc_for_role(id)
+			return {"title":"可选交谈 · "+(person.title if person else "岗位正在安排接替")+"（J可取消导航）","id":id}
 	if c.employer=="":
 		var selected: Variant=c.facts.get("guide_company","")
 		var firm: String=selected if selected is String and selected in ["a","b"] else ""
@@ -38,7 +43,7 @@ static func current(game: Node3D) -> Dictionary:
 		id="interview_"+selected_firm
 		title="前往01面试室 · 落座交流，可随时离开或继续"
 	var visit: Dictionary=game.office.visit()
-	if not visit.is_empty() and c.facts.get("visit_state_"+visit.key,"") in ["arrived","deferred"]:
+	if not visit.is_empty() and c.facts.get("visit_state_"+visit.key,"") =="arrived":
 		var visitor: OfficeNPC=game.npc_for_role(visit.npc)
 		if visitor:
 			id=visit.npc

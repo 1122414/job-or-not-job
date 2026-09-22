@@ -25,7 +25,7 @@ exec "$APP_CONTENTS/MacOS/Godot" --main-pack "$APP_CONTENTS/Resources/game.pck" 
 ''')
 launcher.chmod(0o755)
 with (app / 'Contents/Info.plist').open('wb') as f:
-    plistlib.dump({'CFBundleName':'今天不上班','CFBundleDisplayName':'今天不上班','CFBundleIdentifier':'com.todayoff.mvp','CFBundleVersion':'0.1.0','CFBundleShortVersionString':'0.1.0','CFBundleExecutable':'TodayOff','CFBundlePackageType':'APPL','NSHighResolutionCapable':True,'LSMinimumSystemVersion':'12.0'},f)
+    plistlib.dump({'CFBundleName':'今天不上班','CFBundleDisplayName':'今天不上班','CFBundleIdentifier':'com.todayoff.mvp','CFBundleVersion':'0.2.0','CFBundleShortVersionString':'0.2.0','CFBundleExecutable':'TodayOff','CFBundlePackageType':'APPL','NSHighResolutionCapable':True,'LSMinimumSystemVersion':'12.0'},f)
 PY
 # Local development build, using the exact installed 4.7.1 runtime, not a mismatched template.
 codesign --force --deep --sign - 'build/今天不上班.app'

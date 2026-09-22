@@ -16,7 +16,7 @@ def digest(path):
 
 def main():
     previous = json.loads(CHECKSUMS.read_text()) if CHECKSUMS.exists() else {}
-    files = sorted([*ROOT.glob('*.md'), *ROOT.glob('*.docx'), *ROOT.glob('docs/**/*.md')])
+    files = sorted([*ROOT.glob('*.md'), *ROOT.glob('*.docx'), *ROOT.glob('docs/**/*.md'), *ROOT.glob('docs/evidence/**/*.png')])
     conflicts = []
     for source in files:
         rel = source.relative_to(ROOT).as_posix()

@@ -1,0 +1,74 @@
+extends SceneTree
+const Driver = preload("res://tests/scene_driver.gd")
+var failures := 0
+func _initialize() -> void: call_deferred("run")
+func perform(game: Node3D,id: String,action: String) -> bool:
+	game.close_interaction()
+	var target: Node3D=game.npc_for_role(id)
+	if not target:
+		for station in game.stations:
+			if station.stable_id==id: target=station
+	if not target: return false
+	var reached := false
+	# Try reachable approaches, preserving continuous player motion between them.
+	for attempt in range(8):
+		var offset := Vector3(sin(attempt*TAU/8),0,cos(attempt*TAU/8))*1.2
+		if not await Driver.walk(self,game,target.position+offset): continue
+		var toward: Vector3=target.position-game.player.position
+		game.player.yaw=atan2(-toward.x,-toward.z)
+		await physics_frame
+		if game.nearest()==target:
+			reached=true
+			break
+	if not reached:
+		push_error("完整路线无法接近 "+id+" player="+str(game.player.position)+" target="+str(target.position))
+		return false
+	game.interact()
+	if not game.conversation.is_empty() and not game.conversation.choices.is_empty() and game.conversation.choices[0][1]=="visit_confirm":
+		game.choose(0)
+		if action in ["brief","no_hc"]: return true
+		if game.conversation.is_empty(): game.interact()
+	if game.conversation.is_empty(): return false
+	for i in range(game.conversation.choices.size()):
+		if game.conversation.choices[i][1]==action:
+			if action=="settle":
+				for frame in range(900):
+					var companion: OfficeNPC=game.npc_for_role("b_friend")
+					if companion and companion.position.distance_to(target.position)<3.8: break
+					await physics_frame
+			game.choose(i)
+			if action in InterviewFlow.ACTIONS: return await Driver.complete_interview(self,game,action)
+			if action=="prepare":
+				for frame in range(200): await physics_frame
+			return true
+	push_error("完整路线选项缺失："+id+" / "+action+" "+str(game.conversation))
+	return false
+func run() -> void:
+	var game=load("res://scenes/main.tscn").instantiate()
+	root.add_child(game)
+	for i in range(10): await physics_frame
+	var route := [["a_hr","interview_hr"],["a_lead","interview_lead"],["a_boss","interview_boss"],["a_hr","join_a"],["desk_a","desk_open"],["a_lead","brief"],["archive","data"],["desk_a","prepare"],["a_friend","shortcut"],["demo","submit"],["a_lead","no_hc"],["a_group","transfer"],["desk_a2","desk_open"],["backup","backup"],["a_boss","defend"],["a_hr","resign"],["b_hr","interview_b"],["b_hr","join_b"],["b_friend","help"],["handover","handover"]]
+	var b_snapshot: Dictionary={}
+	for step in route:
+		print("ROUTE_STEP ",step)
+		if not await perform(game,step[0],step[1]):
+			failures+=1
+			break
+		if step[1]=="join_b": b_snapshot=SaveGame.snapshot(game)
+		if DisplayServer.get_name()!="headless" and step[1] in ["interview_hr","join_a","prepare","submit","backup","defend","handover"]:
+			DirAccess.make_dir_recursive_absolute("res://docs/evidence/2026-09-22-route")
+			await RenderingServer.frame_post_draw
+			root.get_texture().get_image().save_png("res://docs/evidence/2026-09-22-route/"+step[1]+".png")
+	if game.career.stage!=6 or game.career.b_event!="helped": failures+=1
+	if failures==0 and SaveGame.restore(game,b_snapshot):
+		for step in [["b_friend","refuse"],["b_friend","negotiate"],["b_boss","settle"]]:
+			print("ROUTE_BRANCH ",step)
+			if not await perform(game,step[0],step[1]): failures+=1; break
+		if game.career.b_event!="negotiated": failures+=1
+		SaveGame.restore(game,b_snapshot)
+		game.npc_for_role("b_friend").hit(Vector3.FORWARD,0.65,game.next_action())
+		if game.career.b_event!="conflict": failures+=1
+	game.queue_free()
+	await process_frame
+	print("FULL_ROUTE_TEST failures=",failures)
+	quit(failures)

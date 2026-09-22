@@ -57,7 +57,14 @@ func _input(event: InputEvent) -> void:
 				if event.is_action_pressed("store"): game.player.store_held()
 				if event.is_action_pressed("drop"): game.player.release(false)
 			if page=="journal" and key in [KEY_1,KEY_2] and game.career.employer=="":
+				game.career.facts.erase("guide_visit")
 				game.career.facts["guide_company"]="a" if key==KEY_1 else "b"
+				game.queue_save()
+			if page=="journal":
+				if key==KEY_3: game.career.facts.erase("guide_visit")
+				if key>=KEY_4 and key<=KEY_9:
+					var pending: Array=game.office.pending_visits()
+					if key-KEY_4<pending.size(): game.career.facts.guide_visit=pending[key-KEY_4].key
 				game.queue_save()
 			if page=="history":
 				if key==KEY_PAGEDOWN: game.history_page+=1

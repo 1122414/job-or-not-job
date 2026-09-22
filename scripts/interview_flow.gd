@@ -82,11 +82,12 @@ func question(firm: String) -> Dictionary:
 	var items := pages(session.action)
 	if session.step>=items.size(): return {"text":"本轮交流结束。你提出的选择已保留，是否记录本轮结果？通过面试仍需单独接受录用。","choices":[["记录约定，结束本轮交流","interview_finish"],["暂不继续，保留选择与进度","interview_leave"]]}
 	var item: Array=items[session.step]
+	var host: OfficeNPC=game.npc_for_role(HOSTS[session.action])
 	if session.phase=="reply": return {"text":item[2][session.reply],"choices":[["继续交流","interview_next"],["先离开，稍后继续","interview_leave"]]}
 	var choices: Array=[]
 	for i in range(item[1].size()): choices.append([item[1][i],"interview_answer_"+str(i)])
 	choices.append(["暂停这轮交流，稍后再来","interview_leave"])
-	return {"text":item[0],"choices":choices}
+	return {"text":OfficeDialogue.voice(host,item[0]) if host else item[0],"choices":choices}
 
 func handle(action: String) -> bool:
 	if action in ACTIONS:

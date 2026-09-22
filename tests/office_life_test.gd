@@ -30,6 +30,15 @@ func run() -> void:
 	check(not game.career.facts.has("visit_brief"),"稍后再聊不完成事件")
 	game.office.answer_visit(game.npc_for_role("a_lead"),true)
 	check(game.career.facts.has("brief"),"恢复交谈后实际交代工作")
+	game.career.facts.erase("welcome_a")
+	game.career.facts.visit_state_welcome_a="arrived"
+	check(not game.office.pending_visits().is_empty(),"错过的欢迎仍列入可选交谈")
+	check(ObjectiveGuide.current(game).id=="archive","旧欢迎不覆盖已经进入资料阶段的工作目标")
+	game.career.facts.guide_visit="welcome_a"
+	check(ObjectiveGuide.current(game).id=="a_hr","玩家可主动导航到错过的HR")
+	game.career.facts.erase("guide_visit")
+	game.office.answer_visit(game.npc_for_role("a_hr"),true)
+	check(game.career.facts.has("welcome_a"),"旧欢迎仍可交谈完成")
 	var saved: Dictionary=SaveGame.snapshot(game)
 	check(SaveGame.restore(game,saved),"办公和来访结果可读档")
 	check(game.career.facts.has("visit_brief"),"读档不重复首次来访")

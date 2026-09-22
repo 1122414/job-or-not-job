@@ -39,6 +39,9 @@ func run() -> void:
 	check(game.career.recruit.a==0 and not paused,"真实新游戏入口重置并恢复游戏")
 	game.restore_previous()
 	check(game.career.recruit.a==1,"真实恢复入口还原原进度")
+	game.save_path=directory.path_join("missing/active.save")
+	game.new_game()
+	check(game.hud.toast.contains("保存失败"),"失败提示不能被新游戏成功提示覆盖")
 	game.persistence_enabled=false
 	for filename in DirAccess.get_files_at(directory): DirAccess.remove_absolute(directory.path_join(filename))
 	DirAccess.remove_absolute(directory)

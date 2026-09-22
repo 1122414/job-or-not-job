@@ -12,21 +12,36 @@ func assigned_desk() -> String:
 	if game.career.employer=="a": return "desk_a2" if game.career.stage>=4 else "desk_a"
 	return ""
 
+func offers() -> Array:
+	var c: Career=game.career
+	return [
+		["welcome_a","a_hr","林岚：你的工位在右侧第一排。过去看看，周工会来说明第一份工作。",c.employer=="a" and c.stage==1 and not c.facts.has("desk_a_arrived")],
+		["visit_brief","a_lead","周工：我过来跟你说演示的事。准备好了就聊；你也可以先看看资料。",c.employer=="a" and c.facts.has("desk_a_arrived") and c.stage==1 and not c.facts.has("brief")],
+		["visit_review","a_lead","周工：你的演示已经通过。我来跟你说明这次转正名额的情况。",c.employer=="a" and c.stage==2],
+		["visit_group","a_group","许姐：后方中间是你的新工位。上次成果保留，这次只处理现场投影。",c.employer=="a" and c.stage==4],
+		["visit_defense","a_boss","方总：两份成果都收到了。你准备好后可以直接找我答辩。",c.employer=="a" and c.stage==5],
+		["welcome_b","b_friend","阿乐：右侧第一排的终端给你用。我来帮你安顿，顺便聊聊今晚的交接。",c.employer=="b" and c.b_event=="pending"]
+	]
+
 func visit() -> Dictionary:
 	var c: Career=game.career
-	if c.employer=="" or game.payroll.after_work(): return {}
-	if c.conflict[c.employer]>=2: return {}
-	var offers: Array = []
-	if c.employer=="a":
-		offers.append(["welcome_a","a_hr","林岚：你的工位在右侧第一排。过去看看，周工会来说明第一份工作。",true])
-		offers.append(["visit_brief","a_lead","周工：我过来跟你说演示的事。准备好了就聊；你也可以先看看资料。",c.facts.has("desk_a_arrived") and c.stage==1 and not c.facts.has("brief")])
-		offers.append(["visit_review","a_lead","周工：你的演示已经通过。我来跟你说明这次转正名额的情况。",c.stage==2])
-		offers.append(["visit_group","a_group","许姐：后方中间是你的新工位。上次成果保留，这次只处理现场投影。",c.stage==4])
-		offers.append(["visit_defense","a_boss","方总：两份成果都收到了。你准备好后可以直接找我答辩。",c.stage==5])
-	else:
-		offers.append(["welcome_b","b_friend","阿乐：右侧第一排的终端给你用。我来帮你安顿，顺便聊聊今晚的交接。",c.b_event=="pending"])
-	for item in offers:
+	if c.employer=="" or game.payroll.after_work() or c.conflict[c.employer]>=2: return {}
+	for item in offers():
 		if item[3] and not c.facts.has(item[0]): return {"key":item[0],"npc":item[1],"line":item[2]}
+	return {}
+
+func pending_visits() -> Array[Dictionary]:
+	var pending: Array[Dictionary]=[]
+	for item in offers():
+		if not game.career.facts.has(item[0]) and game.career.facts.get("visit_state_"+item[0],"") in ["arrived","deferred"]:
+			pending.append({"key":item[0],"npc":item[1],"line":item[2]})
+	return pending
+
+func offer_for(npc: OfficeNPC) -> Dictionary:
+	var current := visit()
+	if current.get("npc")==npc.role_id: return current
+	for pending in pending_visits():
+		if pending.npc==npc.role_id: return pending
 	return {}
 
 func visit_target(npc: OfficeNPC) -> Variant:
@@ -70,19 +85,19 @@ func open_desk(station: WorkStation) -> void:
 	game.queue_save()
 
 func visit_choices(npc: OfficeNPC, fallback: Dictionary) -> Dictionary:
-	var offer := visit()
+	var offer := offer_for(npc)
 	if offer.is_empty() or offer.npc!=npc.role_id: return fallback
-	return {"text":offer.line,"choices":[["我准备好了，继续说","visit_confirm"],["稍后再聊，我会来找你","visit_defer"]]}
+	return {"text":OfficeDialogue.voice(npc,offer.line),"choices":[["我准备好了，继续说","visit_confirm"],["稍后再聊，我会来找你","visit_defer"]]}
 
 func answer_visit(npc: OfficeNPC, confirm: bool) -> void:
-	var offer := visit()
+	var offer := offer_for(npc)
 	if offer.is_empty() or offer.npc!=npc.role_id: return
 	game.career.facts["visit_state_"+offer.key]="completed" if confirm else "deferred"
 	if confirm:
-		game.career.record(offer.key,offer.line)
+		game.career.record(offer.key,OfficeDialogue.voice(npc,offer.line))
 		var action: String={"visit_brief":"brief","visit_review":"no_hc"}.get(offer.key,"")
 		if action!="": game.say(game.career.apply(action))
-		else: game.say(offer.line)
+		else: game.say(OfficeDialogue.voice(npc,offer.line))
 	else: game.say("已记下待交谈事项，可通过目标找到对方继续。")
 	npc.visit_wait=0
 	game.queue_save()

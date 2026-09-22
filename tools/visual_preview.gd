@@ -20,6 +20,15 @@ func run() -> void:
 		game.career.facts.welcome_a=true
 		game.career.facts.visit_brief=true
 		game.player.position=OfficeLife.DESKS.desk_a+Vector3(0,0,1.2)
+	if OS.get_cmdline_user_args().has("--pending"):
+		for action in ["interview_hr","interview_lead","interview_boss","join_a","brief","data","prepare"]: game.career.apply(action)
+		game.career.facts.desk_a_arrived=true
+		game.career.facts.visit_state_welcome_a="arrived"
+		game.player.position=OfficeLife.DESKS.desk_a+Vector3(0,0,1.2)
+	if OS.get_cmdline_user_args().has("--bwelcome"):
+		for action in ["interview_b","join_b"]: game.career.apply(action)
+		game.career.facts.visit_state_welcome_b="arrived"
+		game.player.position=game.npc_for_role("b_friend").position+Vector3(0,0,1.3)
 	# Preview-only framing controls for repeatable visual inspection; no career mutation.
 	var framing := Node.new()
 	framing.set_script(load("res://tools/preview_framing.gd"))

@@ -45,6 +45,18 @@ func run() -> void:
 	check(game.payroll.balance==money,"读档不重复支付")
 	for suffix in ["",".bak",".tmp"]:
 		if FileAccess.file_exists(path+suffix): DirAccess.remove_absolute(path+suffix)
+	var migration := SaveGame.snapshot(game)
+	migration.version=5
+	migration.player.position=[-24,0,-12.3]
+	check(SaveGame.restore(game,migration),"旧版布局存档可读")
+	for i in range(8): await physics_frame
+	check(game.position_clear(game.player,game.player.position),"旧档玩家卡在新玻璃墙时只就近修正")
+	check(game.player.position.distance_to(Vector3(-24,0,-12.3))<3.1,"布局迁移不把室内角色送到远处")
+	var valid_position := Vector3(0,0,10)
+	migration.player.position=SaveGame.vector(valid_position)
+	check(SaveGame.restore(game,migration),"旧档无障碍位置恢复")
+	for i in range(8): await physics_frame
+	check(Vector2(game.player.position.x,game.player.position.z)==Vector2(0,10),"有效旧位置不被搬动")
 	game.audio.stop()
 	OS.delay_msec(150)
 	await process_frame

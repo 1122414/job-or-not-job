@@ -68,4 +68,11 @@ static func options(target: Node3D, c: Career) -> Dictionary:
 	if firm!="" and c.conflict[firm]>=2:
 		text="公司已关闭职业机会，已有成果和个人关系保留。你仍可自由离开。"
 		choices=[]
+	if target is OfficeNPC: text=voice(target,text)
 	return {"text":text,"choices":choices}
+
+static func voice(npc: OfficeNPC,line: String) -> String:
+	var separator := line.find("：")
+	if separator>=0 and line.left(separator) in ["林岚","周工","方总","小夏","许姐","阿诚","阿乐","赵总","面试官"]:
+		return npc.title.split(" · ")[0]+line.substr(separator)
+	return line

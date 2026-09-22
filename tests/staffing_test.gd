@@ -19,6 +19,7 @@ func run() -> void:
 	check(replacement!=null and replacement!=original and original.dead,"原人保持死亡，岗位由新人接手")
 	check(replacement.affinity==0 and replacement.position.z>2,"新人从入口出现且不继承私人关系")
 	check(OfficeDialogue.options(replacement,game.career).choices[0][1]=="interview_hr","岗位面试选项仍可继续")
+	check(OfficeDialogue.options(replacement,game.career).text.begins_with(replacement.title.split(" · ")[0]),"接替者使用自己的名字，不冒充死者")
 	var saved: Dictionary=SaveGame.snapshot(game)
 	check(SaveGame.restore(game,game.initial_state.duplicate(true)),"新档可移除旧替代者")
 	check(SaveGame.restore(game,saved),"读档可重建替代者与原死者")

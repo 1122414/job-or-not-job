@@ -132,6 +132,15 @@ func _draw() -> void:
 			text_at(Vector2(260,row),line,17)
 			row+=25
 		row+=22
+		var pending: Array=game.office.pending_visits()
+		if not pending.is_empty():
+			text_at(Vector2(260,row),"可选交谈 · 数字键导航 / 3 回到工作目标",16,Color("e4be70"))
+			row+=28
+			for i in range(pending.size()):
+				var person: OfficeNPC=game.npc_for_role(pending[i].npc)
+				text_at(Vector2(260,row),str(i+4)+"  "+(person.title if person else "岗位接替中")+" · 有未读事项",16)
+				row+=24
+			row+=14
 		text_at(Vector2(260,row),"最近发生",18,Color("a4b3bd"))
 		row+=28
 		var records: Array=game.career.records

@@ -171,7 +171,10 @@ static func write(game: Node3D, path: String = PATH) -> Error:
 
 static func restore(game: Node3D, data: Dictionary) -> bool:
 	if not valid(data,game): return false
+	game.restore_revision+=1
 	game.close_interaction()
+	game.office.preview_station=null
+	game.office.preview_elapsed=0
 	game.focus_target=null
 	for npc in game.npcs.duplicate():
 		if not data.npcs.has(npc.stable_id):
@@ -269,6 +272,7 @@ static func restore(game: Node3D, data: Dictionary) -> bool:
 	if game.player.hp==0: game.player.respawn()
 	for station in game.stations:
 		if station.stable_id=="backup": station.label.text="投影已恢复 · 成果已记录" if game.career.facts.has("output_two") else station.title
+	if data.version<6: game.call_deferred("repair_migrated_positions",game.restore_revision)
 	return true
 
 static func archives(directory: String = "user://restarts") -> Array[String]:

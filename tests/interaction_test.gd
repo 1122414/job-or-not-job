@@ -21,8 +21,15 @@ func choose_at(game: Node3D, id: String, action: String) -> void:
 		if game.nearest()==target: break
 	game.interact()
 	if not game.conversation.is_empty() and game.conversation.choices.size()>0 and game.conversation.choices[0][1]=="visit_confirm":
+		var previous_stage: int=game.career.stage
 		game.choose(0)
-		game.interact()
+		if action=="brief":
+			check(game.career.facts.has("brief"),"主管来访确认已经交代实习工作")
+			return
+		if action=="no_hc":
+			check(previous_stage==2 and game.career.stage==3,"考核来访确认推进无HC说明，不能再重复触发")
+			return
+		if game.conversation.is_empty(): game.interact()
 	check(game.speaker==target,"应可接近并互动："+id)
 	if game.conversation.is_empty(): return
 	var index := -1
@@ -45,7 +52,7 @@ func run() -> void:
 	game.interact()
 	if not game.conversation.is_empty() and game.conversation.choices.size()>0 and game.conversation.choices[0][1]=="visit_confirm":
 		game.choose(0)
-		game.interact()
+		if game.conversation.is_empty(): game.interact()
 	Input.action_press("forward")
 	await physics_frame
 	await physics_frame

@@ -21,6 +21,7 @@ var staffing := Staffing.new()
 var interviews := InterviewFlow.new()
 var career := Career.new()
 var stations: Array[WorkStation] = []
+var restore_revision := 0
 var conversation: Dictionary = {}
 var focus_target: Node3D
 var speaker: Node3D
@@ -231,8 +232,13 @@ func choose(index: int) -> void:
 	var action: String = choices[index][1]
 	if interviews.handle(action): return
 	if action in ["visit_confirm","visit_defer"]:
-		office.answer_visit(speaker,action=="visit_confirm")
+		var visitor: OfficeNPC=speaker
+		office.answer_visit(visitor,action=="visit_confirm")
 		close_interaction()
+		# The B welcome introduces an immediate choice; keep the same conversation target.
+		if action=="visit_confirm" and visitor.role_id=="b_friend" and career.employer=="b" and career.b_event=="pending":
+			speaker=visitor
+			conversation=OfficeDialogue.options(visitor,career)
 		return
 	if action=="desk_open":
 		office.open_desk(speaker)
@@ -412,11 +418,12 @@ func startup() -> void:
 func queue_save() -> void:
 	if persistence_enabled: save_delay=0.4
 
-func save_game(show_message: bool = true) -> void:
-	if not persistence_enabled: return
+func save_game(show_message: bool = true) -> bool:
+	if not persistence_enabled: return false
 	var error := SaveGame.write(self,save_path)
 	if error!=OK: say("保存失败："+error_string(error)+"。旧档保留，请检查磁盘空间。")
 	elif show_message: say("已保存。F9 继续此存档，F5 再次保存。")
+	return error==OK
 
 func load_game() -> void:
 	if not persistence_enabled: return
@@ -443,10 +450,10 @@ func new_game() -> void:
 		return
 	SaveGame.restore(self,initial_state.duplicate(true))
 	panels.show_page("")
-	save_game(false)
-	say("新的一天。旧进度已备份，可在菜单恢复。")
+	if save_game(false): say("新的一天。旧进度已备份，可在菜单恢复。")
 
 func restore_previous() -> void:
+	if not persistence_enabled: return
 	var archives := SaveGame.archives(archive_directory)
 	if archives.is_empty():
 		say("尚无重开备份。")
@@ -460,5 +467,39 @@ func restore_previous() -> void:
 		return
 	SaveGame.restore(self,data)
 	panels.show_page("")
-	save_game(false)
-	say("已恢复上一次进度；刚才的进度也已备份。")
+	if save_game(false): say("已恢复上一次进度；刚才的进度也已备份。")
+
+func repair_migrated_positions(revision: int) -> void:
+	await get_tree().physics_frame
+	await get_tree().physics_frame
+	if revision!=restore_revision: return
+	for actor in [player]+npcs:
+		if actor!=player and actor.dead: continue
+		var origin: Vector3=actor.position
+		if position_clear(actor,origin): continue
+		var found := false
+		for radius in [0.5,1.0,1.5,2.0,3.0]:
+			for step in range(16):
+				var candidate: Vector3 = origin+Vector3(sin(step*TAU/16),0,cos(step*TAU/16))*radius
+				if position_clear(actor,candidate):
+					actor.position=candidate
+					found=true
+					break
+			if found: break
+		if not found and actor==player: player.position=safe_spawn(origin)
+
+func position_clear(actor: CharacterBody3D,point: Vector3) -> bool:
+	var shape := CapsuleShape3D.new()
+	shape.radius=0.27
+	shape.height=1.7
+	var query := PhysicsShapeQueryParameters3D.new()
+	query.shape=shape
+	query.collision_mask=3
+	query.margin=0.001
+	query.transform.origin=Vector3(point.x,maxf(point.y,0)+0.89,point.z)
+	query.exclude=[actor.get_rid()]
+	if actor.seat_body:
+		var exceptions := query.exclude
+		exceptions.append(actor.seat_body.get_rid())
+		query.exclude=exceptions
+	return get_world_3d().direct_space_state.intersect_shape(query,1).is_empty()
