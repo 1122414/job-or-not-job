@@ -79,7 +79,11 @@ func _ready() -> void:
 		Shapes.box(self,Vector3(0.56,0.025,0.48),Vector3(0,-0.17,0.46),Color("e4e1d7"))
 		Shapes.box(self,Vector3(0.23,0.12,0.03),Vector3(0.2,0.18,0.413),Color("467b86"))
 	if kind == "monitor":
-		Shapes.box(self,Vector3(0.75,0.42,0.025),Vector3(0,0,0.075),Color("73929c"))
+		Shapes.box(self,Vector3(0.75,0.42,0.025),Vector3(0,0,0.075),Color("263b48"))
+		Shapes.box(self,Vector3(0.75,0.04,0.006),Vector3(0,0.18,0.092),Color("678997"))
+		Shapes.box(self,Vector3(0.15,0.31,0.006),Vector3(-0.28,-0.015,0.092),Color("334c59"))
+		for i in range(5):
+			Shapes.box(self,Vector3(0.40-i*0.025,0.012,0.006),Vector3(0.05,0.11-i*0.048,0.092),Color("9caaa9"))
 		Shapes.box(self,Vector3(0.10,0.2,0.1),Vector3(0,-0.32,0),Color("292e32"))
 		Shapes.box(self,Vector3(0.55,0.035,0.3),Vector3(0,-0.40,0.02),Color("292e32"))
 		Shapes.collider(self,Vector3(0.55,0.035,0.3),Vector3(0,-0.40,0.02))

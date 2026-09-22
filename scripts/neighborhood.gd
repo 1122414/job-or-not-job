@@ -17,7 +17,7 @@ static func build(game: Node3D) -> void:
 			Shapes.solid(game,Vector3(0.3,3.7,18),Vector3(center+side*12,1.8,-7),color)
 			Shapes.solid(game,Vector3(8.8,3.7,0.3),Vector3(center+side*7.6,1.8,2),color)
 		Shapes.box(game,Vector3(6.2,0.5,0.4),Vector3(center,3.45,2),color)
-		Shapes.label(game,"规程科技" if firm=="a" else "自己人网络",Vector3(center,3.1,2.3),45)
+
 		Shapes.label(game,"流程创新 · 流程先行" if firm=="a" else "我们不是公司，是一家人",Vector3(center,2.9,-15.6),30)
 		game.add_prop(firm+"_keyboard","keyboard",Vector3(center-1,1.3,-5))
 		game.add_prop(firm+"_cup","cup",Vector3(center+1,1.3,-5))
@@ -50,3 +50,4 @@ static func build(game: Node3D) -> void:
 	game.add_npc("b_guard","保安 · 自己人",Vector3(23,0,0),"b","guard")
 
 	OfficeDress.build(game)
+	OfficeRooms.build(game)

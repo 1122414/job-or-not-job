@@ -40,7 +40,7 @@ func _ready() -> void:
 	Neighborhood.build(self)
 	for id in OfficeLife.DESKS: add_station(id,"我的工位",OfficeLife.DESKS[id])
 	add_station("archive","原始资料",Vector3(-24,0,-4))
-	add_station("demo","演示交付台",Vector3(-19,0,-12))
+	add_station("demo","演示交付台",Vector3(-15.5,0,-10.5))
 	add_station("backup","备用投影",Vector3(-5,0,-12))
 	add_station("handover","交接终端",Vector3(23,0,-4))
 	add_station("rest","公交站 · 休息",Vector3(-2,0,14))

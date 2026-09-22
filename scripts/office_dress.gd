@@ -65,7 +65,7 @@ static func plant(parent: Node3D, pos: Vector3) -> void:
 		leaf.rotation=Vector3(cos(angle)*0.45,angle,sin(angle)*0.45)
 
 static func build(game: Node3D) -> void:
-	var carpet := fabric(Color("56595b"))
+	var carpet := fabric(Color("454b4e"))
 	for center in [-14.0,14.0]:
 		var floor_mesh := Shapes.box(game,Vector3(23.7,0.012,17.7),Vector3(center,0.006,-7),Color.WHITE)
 		floor_mesh.material_override=carpet
@@ -85,8 +85,8 @@ static func build(game: Node3D) -> void:
 				game.add_child(light)
 				light.position=Vector3(center+x,2.9,z)
 				light.omni_range=6.5
-				light.light_energy=0.85
-				light.light_color=Color("fff4dc")
+				light.light_energy=0.50
+				light.light_color=Color("edf2ff") if center<0 else Color("ffebcb")
 		# Wall trim and window frames.
 		for side in [-1,1]:
 			Shapes.box(game,Vector3(0.08,0.15,17.5),Vector3(center+side*11.8,0.1,-7),Color("494f51"))
@@ -109,14 +109,6 @@ static func build(game: Node3D) -> void:
 					game.add_prop(id+"_side_"+str(side),"side_panel",Vector3(center+dx+side*1.77,0.7,z-0.1))
 		for side in [-1,1]: game.add_prop(firm+"_plant_"+str(side),"plant",Vector3(center+side*10.5,0.45,0 if side<0 else -14))
 		game.add_prop(firm+"_cooler","cooler",Vector3(center-4.8,0.75,0))
-		# Glass meeting-room dividers are visual only; the existing open aisles stay traversable.
-		var glass := Shapes.material(Color(0.45,0.6,0.62,0.20))
-		glass.transparency=BaseMaterial3D.TRANSPARENCY_ALPHA
-		glass.roughness=0.2
-		for dx in [-9,9]:
-			var pane := Shapes.box(game,Vector3(5.4,2.8,0.03),Vector3(center+dx,1.55,-14),Color.WHITE)
-			pane.material_override=glass
-			for edge in [-2.7,0,2.7]: Shapes.box(game,Vector3(0.045,2.9,0.065),Vector3(center+dx+edge,1.55,-14),Color("465257"))
 	# Context beyond the playable block: façades rather than a bare horizon.
 	for x in [-30,-18,-6,6,18,30]:
 		Shapes.box(game,Vector3(10,12,5),Vector3(x,6,27),Color("778087"))
