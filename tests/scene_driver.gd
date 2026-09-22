@@ -31,11 +31,12 @@ static func complete_interview(tree: SceneTree,game: Node3D,action: String,exerc
 		push_error("面试入口未选中 "+action+" "+str(game.conversation))
 		return false
 	game.choose(0)
-	for step in range(game.interviews.pages(action).size()):
+	for step in range(5):
+		if game.interviews.sessions[firm].step>=game.interviews.pages(action).size(): break
 		for line in range(20):
 			if not game.conversation.choices.is_empty(): break
 			game.interact()
-		game.choose(step%3)
+		game.choose(step%game.conversation.choices.size())
 		if step==0 and exercise_resume:
 			var saved := SaveGame.snapshot(game)
 			game.close_interaction()

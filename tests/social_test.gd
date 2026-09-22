@@ -27,7 +27,15 @@ func run() -> void:
 	game.player.position=people.a_friend.position+Vector3(0,0,1.5)
 	game.speaker=people.a_friend
 	game.conversation=OfficeDialogue.options(people.a_friend,game.career)
-	game.choose(0)
+	check(game.conversation.choices.is_empty(),"陌生求职者不会被默认引导请求伪造工作")
+	game.career.employer="a"
+	game.career.stage=1
+	game.career.facts.data=true
+	game.conversation=OfficeDialogue.options(people.a_friend,game.career)
+	for i in range(game.conversation.choices.size()):
+		if game.conversation.choices[i][1]=="boundary":
+			game.choose(i)
+			break
 	check(not game.career.facts.has("output_one") and game.hud.toast.contains("不能造假"),"满好感仍不能伪造成果")
 	game.career.former.append("a")
 	game.payroll.minute=18*60

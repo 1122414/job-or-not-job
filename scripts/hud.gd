@@ -121,7 +121,7 @@ func _draw() -> void:
 		text_at(Vector2(w-400,120),"K 历史 · Esc 返回",14,Color("a4b3bd"))
 		var row := 165.0
 		if game.career.employer=="":
-			for item in [["1  规程科技","三轮面试 · 从实习开始 · 流程明确，名额另算"],["2  自己人网络","一轮面试 · 同事互帮互助，也可能有人情加班"]]:
+			for item in [["1  规程科技","招聘：演示项目岗位 · 急招 · 三轮沟通"],["2  自己人网络","招聘：现场协作与资料交接 · 一轮沟通"]]:
 				text_at(Vector2(260,row),item[0],20,Color("e4be70"))
 				text_at(Vector2(260,row+28),item[1],16,Color("c7cdd0"))
 				row+=76

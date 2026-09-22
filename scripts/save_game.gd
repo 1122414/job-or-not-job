@@ -277,6 +277,15 @@ static func restore(game: Node3D, data: Dictionary) -> bool:
 		npc.route.clear()
 		npc.route_clock=0
 	game.recruitment.restore(data.get("recruitment",{}))
+	for firm in game.interviews.sessions:
+		var session: Dictionary=game.interviews.sessions[firm]
+		if session.get("edition",0)<2:
+			game.career.record("legacy_interview_"+session.action,"此前交流记录："+"；".join(PackedStringArray(session.answers)))
+			session.step=mini(int(session.step),3)
+			if session.step==3: session.phase="question"
+			session.answers=session.answers.slice(0,int(session.step)+(1 if session.phase=="reply" else 0))
+			session.edition=2
+			game.recruitment.scenes.erase(firm)
 	if data.version<11: game.recruitment.migrate()
 	game.onboarding.tour=data.get("onboarding",{}).duplicate(true)
 	game.social.people=data.get("social",{}).get("people",{}).duplicate(true)

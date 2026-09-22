@@ -7,7 +7,7 @@ static func options(target: Node3D, c: Career) -> Dictionary:
 	var choices: Array = []
 	match id:
 		"a_hr":
-			text="林岚：我们需要能适应变化的人，包括岗位名额的变化。"
+			text="林岚：是来面试的吗？简历带了吗？我查一下今天的安排。"
 			if c.recruit.a==0: choices.append(["参加 HR 面试：先把岗位说清楚","interview_hr"])
 			if c.recruit.a==3 and c.employer=="" and not c.former.has("a"): choices.append(["接受实习邀请，办理入职","join_a"]); choices.append(["暂不接受录用，保留其他选择","decline_a"])
 			if c.employer=="a" and c.facts.has("permission") and not c.facts.has("confirm"): choices.append(["确认演示提交人","confirm"])
@@ -26,9 +26,9 @@ static func options(target: Node3D, c: Career) -> Dictionary:
 			if c.employer=="a" and c.stage==5: choices.append(["答辩：展示演示交付与现场恢复两份成果","defend"])
 			if c.stage==6: text="方总：正式员工身份已经生效，不会再让你实习一遍。"
 		"a_friend":
-			text="小夏：我愿意帮你省事，但不会替你造假。"
+			text="小夏：等一下，这个版本我先存好。你找我有事？"
 			if c.employer=="a" and c.stage==1 and c.facts.has("data"): choices.append(["拿原始说明核实：离线版需要审批吗？","shortcut"])
-			choices.append(["请你在没做完时替我签字","boundary"])
+			if c.employer=="a" and c.facts.has("data"): choices.append(["能先签字，之后再补演示吗？","boundary"])
 		"a_group":
 			text="许姐：你的上次考核通过了，我认。二组只看现场恢复。"
 			if c.employer=="a" and c.stage==3: choices.append(["转入二组继续实习，保留原成果","transfer"])

@@ -61,6 +61,26 @@ static func build(game: Node3D) -> void:
 		Shapes.box(game,Vector3(0.38,0.022,0.28),Vector3(room_x+0.55,0.81,-14.15),Color("37414b"))
 		Shapes.box(game,Vector3(0.34,0.005,0.25),Vector3(room_x+0.55,0.825,-14.15),Color("ddd9cb"))
 		Shapes.box(game,Vector3(0.015,0.012,0.2),Vector3(room_x+0.78,0.80,-14.1),Color("28313c"))
+		# Objects stay on the 0.79 m tabletop; no new collision crosses the approach.
+		var phone := Shapes.box(game,Vector3(0.075,0.014,0.14),Vector3(room_x+0.22,0.798,-14.42),Color("19242c"))
+		phone.rotation.y=0.12
+		Shapes.box(game,Vector3(0.060,0.002,0.12),Vector3(room_x+0.22,0.807,-14.42),Color("6f9297"))
+		var resume := Shapes.label(game,"个人简历\n项目经历  /  交付记录",Vector3(room_x-0.34,0.832,-14.02),24)
+		resume.billboard=BaseMaterial3D.BILLBOARD_DISABLED
+		resume.rotation.x=-PI/2
+		resume.pixel_size=0.0017
+		resume.modulate=Color("343c43")
+		resume.outline_size=0
+		var interview_light := OmniLight3D.new()
+		game.add_child(interview_light)
+		interview_light.position=Vector3(room_x,2.5,-14.2)
+		interview_light.light_color=Color("e6f0f4") if firm=="a" else Color("ffddb6")
+		interview_light.light_energy=0.55
+		interview_light.omni_range=3.2
+		plaque(game,"招聘 · 正式项目岗位 / 急招" if firm=="a" else "招同事 / 有事一起扛",Vector3(center+4,1.8,1.85),3.4)
+		if firm=="b":
+			Shapes.box(game,Vector3(0.45,0.26,0.35),Vector3(room_x+0.68,0.13,-15.5),Color("98714c"))
+			Shapes.box(game,Vector3(0.40,0.04,0.31),Vector3(room_x+0.67,0.28,-15.5),Color("d9d0b9"))
 		OfficeDress.chair(game,INTERVIEW_SEATS[firm])
 		var host_chair := Node3D.new()
 		game.add_child(host_chair)
