@@ -1,7 +1,7 @@
 class_name SaveGame
 extends RefCounted
 
-const VERSION := 3
+const VERSION := 4
 const LEGACY_PROPS := ["a_keyboard","a_cup","a_table","a_chair","a_printer","b_keyboard","b_cup","b_table","b_chair","b_printer"]
 const PATH := "user://neighborhood.json"
 const CAREER_FIELDS := ["recruit","employer","grade","stage","facts","records","former","conflict","warning_action","seen_actions","b_event"]
@@ -22,7 +22,7 @@ static func snapshot(game: Node3D) -> Dictionary:
 	var data := {"version":VERSION,"career":fields(game.career,CAREER_FIELDS),"payroll":fields(game.payroll,PAYROLL_FIELDS),"action_counter":game.action_counter,"props":{},"npcs":{},"player":{"position":vector(game.player.position),"yaw":game.player.yaw,"pitch":game.player.pitch,"hp":game.player.hp,"protection":game.player.protection},"shake":game.shake_enabled}
 	for prop in game.props:
 		var location := "held" if game.player.held==prop else "bag" if game.player.inventory.has(prop) else "world"
-		data.props[prop.stable_id]={"position":vector(prop.position),"rotation":vector(prop.rotation),"location":location,"damaged":prop.damaged}
+		data.props[prop.stable_id]={"position":vector(prop.position),"rotation":vector(prop.rotation),"location":location,"damaged":prop.damaged,"durability":prop.durability,"tipped":prop.tipped}
 	for npc in game.npcs:
 		data.npcs[npc.stable_id]={"position":vector(npc.position),"affinity":npc.affinity,"mood":npc.mood,"down":npc.down,"hostile":npc.hostile,"hp":npc.hp,"dead":npc.dead}
 	return data
@@ -35,7 +35,7 @@ static func valid_vector(value: Variant) -> bool:
 
 static func valid(data: Variant, game: Node3D) -> bool:
 	if not data is Dictionary: return false
-	if data.get("version")!=1 and data.get("version")!=2 and data.get("version")!=VERSION: return false
+	if data.get("version")!=1 and data.get("version")!=2 and data.get("version")!=3 and data.get("version")!=VERSION: return false
 	for field in ["career","payroll","props","npcs","player"]:
 		if not data.get(field) is Dictionary: return false
 	for field in CAREER_FIELDS:
@@ -88,6 +88,9 @@ static func valid(data: Variant, game: Node3D) -> bool:
 		if not valid_vector(entry.get("position")) or not valid_vector(entry.get("rotation")): return false
 		if not entry.get("location") in ["world","held","bag"] or not entry.get("damaged") is bool: return false
 		if entry.location!="world" and not prop.portable(): return false
+		var durability: Variant=entry.get("durability",0.0 if entry.damaged else prop.max_durability())
+		if not (durability is float or durability is int) or not is_finite(durability) or durability<0 or durability>prop.max_durability(): return false
+		if data.version>=4 and (not entry.has("durability") or entry.damaged!=(durability==0) or not entry.get("tipped") is bool): return false
 		if entry.location=="held": held_count+=1
 	if held_count>1: return false
 	for npc in game.npcs:
@@ -151,6 +154,9 @@ static func restore(game: Node3D, data: Dictionary) -> bool:
 		prop.thrown=false
 		prop.hits.clear()
 		prop.damaged=entry.damaged
+		prop.durability=float(entry.get("durability",0.0 if entry.damaged else prop.max_durability()))
+		prop.tipped=entry.get("tipped",false)
+		prop.last_damage_action=-1
 		prop.apply_damage_state()
 		prop.label.text=prop.title+(" · 已损坏" if prop.damaged else "")
 		prop.freeze=prop.anchored() or entry.location!="world"

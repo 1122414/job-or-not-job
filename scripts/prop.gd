@@ -22,6 +22,9 @@ var kind := ""
 var title := ""
 var home := Vector3.ZERO
 var damaged := false
+var durability := 0.0
+var tipped := false
+var last_damage_action := -1
 var thrown := false
 var flight_time := 0.0
 var attack_id := 0
@@ -43,6 +46,7 @@ func portable() -> bool:
 	return kind in ["keyboard", "cup", "monitor"]
 
 func _ready() -> void:
+	durability=max_durability()
 	var size: Vector3 = TYPES[kind][1]
 	var color: Color = TYPES[kind][2]
 	mesh = Shapes.box(self, size, Vector3.ZERO, color)
@@ -121,7 +125,7 @@ func _ready() -> void:
 		damage_parts.append(piece)
 
 func anchored() -> bool:
-	return kind in ["desk","panel","side_panel","plant","cooler"] or stable_id.ends_with("_seat")
+	return (kind in ["desk","panel","side_panel","plant","cooler"] or stable_id.ends_with("_seat")) and not tipped
 
 func world_layer() -> int:
 	# Seat layer is included in actors; only the owner has a temporary collision exception.
@@ -135,7 +139,7 @@ func apply_damage_state() -> void:
 			if kind in ["panel","side_panel","desk","plant","cooler"]:
 				child.position.y=child.position.y*0.28-home.y*0.72
 				child.scale.y=0.28
-			elif child is MeshInstance3D or child is Node3D and not child is CollisionShape3D:
+			elif child is Node3D:
 				child.rotation.z+=0.18
 			if child is MeshInstance3D and child.material_override:
 				child.material_override=child.material_override.duplicate()
@@ -154,39 +158,66 @@ func _physics_process(delta: float) -> void:
 		reset_position()
 
 func reset_position() -> void:
+	tipped=false
+	freeze=anchored()
 	linear_velocity = Vector3.ZERO
 	angular_velocity = Vector3.ZERO
 	position = home
 	rotation = Vector3.ZERO
 
-func strike(direction: Vector3, action: int) -> void:
-	attack_id = action
-	if not damaged:
-		damaged=true
-		apply_damage_state()
-		game.queue_save()
-	game.navigation_dirty=2.0
-	if anchored(): return
+func max_durability() -> float:
+	return {"cup":1.0,"keyboard":2.0,"monitor":3.0,"chair":6.0,"table":12.0,"printer":8.0,"desk":12.0,"panel":8.0,"side_panel":8.0,"plant":3.0,"cooler":10.0}[kind]
+
+func resistance() -> float:
+	return 1.5 if kind in ["desk","table","printer","panel","side_panel","cooler"] else 0.0
+
+func tip(direction: Vector3, action: int) -> bool:
+	if kind in ["panel","side_panel"]:
+		game.say("隔板固定在支架上，需要工具或重物才能破坏。")
+		return false
+	tipped=true
+	freeze=false
+	sleeping=false
+	attack_id=action
 	hits.clear()
-	thrown = true
-	flight_time = 2.0
-	if kind == "table":
-		apply_central_impulse((direction + Vector3.UP * 1.4) * 35)
-		apply_torque_impulse(Vector3(0,0,30))
-	elif kind == "printer":
-		apply_central_impulse(direction * 12)
-	else:
-		apply_central_impulse(direction * 16 + Vector3.UP * 3)
+	thrown=true
+	flight_time=3
+	apply_central_impulse((direction*2.0+Vector3.UP)*mass)
+	apply_torque_impulse(Vector3(direction.z,0,-direction.x)*mass*2.5)
+	game.navigation_dirty=0.5
+	game.queue_save()
+	return true
+
+func strike(direction: Vector3, action: int, strength: float = 1.0, add_impulse: bool = true) -> bool:
+	if action==last_damage_action: return false
+	last_damage_action=action
+	attack_id=action
+	var damage := maxf(0,strength-resistance())
+	var before := damaged
+	if damage>0:
+		durability=maxf(0,durability-damage)
+		damaged=durability<=0
+		if damaged!=before: apply_damage_state()
+		game.queue_save()
+	if damaged!=before: game.navigation_dirty=0.5
+	if not anchored():
+		hits.clear()
+		thrown=true
+		flight_time=2.0
+		if add_impulse: apply_central_impulse((direction*minf(strength,4.0)+Vector3.UP*0.2)*mass)
+	return damage>0
 
 func _contact(body: Node) -> void:
-	if not thrown or hits.has(body.get_instance_id()):
-		return
+	if not thrown or hits.has(body.get_instance_id()): return
+	var speed := linear_velocity.length()
+	if speed<2.0: return
+	var strength := clampf(mass*speed/8.0,0.5,9.0)
 	if body is OfficeNPC:
-		hits[body.get_instance_id()] = true
-		body.hit((body.global_position - global_position).normalized(), 2.0, attack_id)
+		hits[body.get_instance_id()]=true
+		body.hit((body.global_position-global_position).normalized(),minf(strength,2.5),attack_id)
 		game.impact()
 	elif body is OfficeProp:
 		hits[body.get_instance_id()]=true
-		if not body.damaged:
-			body.strike((body.position-position).normalized(),attack_id)
+		# Physics already transfers momentum; do not manufacture another launch impulse.
+		if body.strike((body.position-position).normalized(),attack_id,strength,false):
 			game.on_property_hit(body,attack_id)

@@ -18,7 +18,7 @@ func run() -> void:
 	var kinds := {}
 	for prop in game.props:
 		if not kinds.has(prop.kind):
-			prop.strike(Vector3.FORWARD,game.next_action())
+			prop.strike(Vector3.FORWARD,game.next_action(),20.0)
 			check(prop.damaged and prop.damage_parts[0].visible,"损坏必须可见："+prop.kind)
 			if prop.kind=="desk": check(prop.mesh.global_position.y<0.3,"破坏后的桌面应落低，不能整体悬空")
 			kinds[prop.kind]=true

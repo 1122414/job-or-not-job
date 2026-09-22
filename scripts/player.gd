@@ -109,20 +109,30 @@ func attack() -> void:
 	swing = 0.3
 	var action: int = game.next_action()
 	var reach := 2.7 if held and held.kind == "keyboard" else 2.0
+	var candidate: Node3D
+	var nearest_distance := reach+1.0
 	for node in game.targets():
-		var offset: Vector3 = node.global_position - global_position
-		offset.y = 0
-		if offset.length() <= reach and offset.normalized().dot(forward()) > 0.35 and game.can_see(self,node):
-			if node is OfficeNPC: node.hit(forward(),1.8 if held else 1.0,action)
-			if node is OfficeProp and node != held:
-				node.strike(forward(),action)
-				game.on_property_hit(node,action)
-			game.impact()
+		if not (node is OfficeNPC or node is OfficeProp) or node==held: continue
+		if not node.visible: continue
+		var offset: Vector3=node.global_position-global_position
+		offset.y=0
+		if offset.length()<=reach and offset.length()<nearest_distance and offset.normalized().dot(forward())>0.35 and game.can_see(self,node):
+			candidate=node
+			nearest_distance=offset.length()
+	if candidate is OfficeNPC:
+		candidate.hit(forward(),1.4 if held else 0.65,action)
+		game.impact()
+	elif candidate is OfficeProp:
+		var strength := 4.0 if held and held.kind=="monitor" else 2.5 if held else 0.4
+		if candidate.strike(forward(),action,strength): game.on_property_hit(candidate,action)
+		else: game.say("徒手只能推撞，坚固家具需要重物或明确掀翻。")
+		game.impact()
 
 func pick(prop: OfficeProp) -> void:
 	if not prop.portable():
-		prop.strike(forward(),game.next_action())
-		game.on_property_hit(prop,game.action_counter)
+		if prop.tip(forward(),game.next_action()):
+			game.on_property_hit(prop,game.action_counter)
+			game.say("已推掀 "+prop.title)
 		return
 	if held: store_held()
 	inventory.erase(prop)
