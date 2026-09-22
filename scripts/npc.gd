@@ -12,6 +12,9 @@ var home := Vector3.ZERO
 var mood := "平静"
 var affinity := 0
 var down := 0.0
+var hit_stun := 0.0
+var hit_push := Vector3.ZERO
+var fall_side := 1.0
 var hp := 100
 var dead := false
 var last_hit := -1
@@ -62,8 +65,17 @@ func hit(direction: Vector3, strength: float, action: int) -> void:
 	last_hit = action
 	hp=maxi(0,hp-roundi(strength*24))
 	dead=hp==0
-	down = 2.7
-	velocity = direction * strength * 3.0 + Vector3.UP * 2.0
+	if strength>=1.0 or hp<=30:
+		down=2.7
+		var right := Vector3.RIGHT.rotated(Vector3.UP,visual.rotation.y)
+		fall_side=-1.0 if direction.dot(right)>0 else 1.0
+		velocity=direction*strength*3.0+Vector3.UP*0.6
+	else:
+		hit_stun=0.32
+		hit_push=direction*1.2
+		reaction=0.6
+		route_clock=0
+
 	mood = "生气：别碰我！"
 	affinity = maxi(-100, affinity - 18)
 	hostile = 12.0
@@ -79,6 +91,7 @@ func _physics_process(delta: float) -> void:
 				seat_body=prop
 				add_collision_exception_with(prop)
 				break
+	hit_stun=maxf(0,hit_stun-delta)
 	visit_wait=maxf(0,visit_wait-delta)
 	reaction = maxf(0,reaction-delta)
 	attack_cooldown = maxf(0, attack_cooldown - delta)
@@ -89,7 +102,7 @@ func _physics_process(delta: float) -> void:
 	if not is_on_floor(): velocity.y -= 20 * delta
 	if down > 0 or dead:
 		down = maxf(0,down-delta)
-		visual.rotation.z = lerpf(visual.rotation.z, PI/2, delta * 12)
+		visual.rotation.z = lerpf(visual.rotation.z, fall_side*PI/2, delta * 12)
 		velocity.x = move_toward(velocity.x,0,delta * 4)
 		velocity.z = move_toward(velocity.z,0,delta * 4)
 	else:
@@ -140,6 +153,9 @@ func _physics_process(delta: float) -> void:
 		else:
 			velocity.x = 0
 			velocity.z = 0
+	if hit_stun>0 and down<=0 and not dead:
+		velocity.x=hit_push.x*hit_stun/0.32
+		velocity.z=hit_push.z*hit_stun/0.32
 	var interview_seated: bool=game.interviews.host_seated(self)
 	seated=interview_seated or not dead and role not in ["guard","hr"] and down<=0 and hostile<=0 and reaction<=0 and visit_wait<=0 and game.speaker!=self and game.office.visit_target(self)==null and Vector2(position.x-home.x,position.z-home.z).length()<0.4 and not game.payroll.after_work()
 	visual.position.y=move_toward(visual.position.y,0.27 if down>0 or dead else visual.seated_offset.y if seated else 0.0,delta*2.5)
@@ -152,7 +168,7 @@ func _physics_process(delta: float) -> void:
 		var facing: Vector3 = game.player.global_position-global_position if distance<5 else Vector3(0,0,1)
 		visual.rotation.y=lerp_angle(visual.rotation.y,atan2(-facing.x,-facing.z),delta*4)
 	update_body_pose()
-	visual.pose(Vector2(velocity.x,velocity.z).length(),attack_cooldown>0.7,down>0 or dead,seated,interview_seated)
+	visual.pose(Vector2(velocity.x,velocity.z).length(),attack_cooldown>0.7,down>0 or dead,seated,interview_seated,hit_stun>0,(game.speaker==self and not game.conversation.is_empty()) or (interview_seated and game.interviews.active_firm()==company))
 	var requested_motion := Vector2(velocity.x,velocity.z).length()
 	move_and_slide()
 	if requested_motion>0.4 and position.distance_to(last_position)<delta*0.15:
@@ -169,12 +185,13 @@ func _physics_process(delta: float) -> void:
 
 func update_body_pose() -> void:
 	var next := "down" if down>0 or dead else "seated" if seated else "standing"
-	if next==body_pose: return
-	body_pose=next
+	var pose_key := next+str(fall_side) if next=="down" else next
+	if pose_key==body_pose: return
+	body_pose=pose_key
 	var capsule: CapsuleShape3D=body_shape.shape
 	capsule.height=1.4 if next=="seated" else 1.8
-	body_shape.rotation=Vector3(0,visual.rotation.y,PI/2) if next=="down" else Vector3.ZERO
-	body_shape.position=Vector3(-0.75,0.28,0).rotated(Vector3.UP,visual.rotation.y) if next=="down" else Vector3(0,0.7 if next=="seated" else 0.9,0)
+	body_shape.rotation=Vector3(0,visual.rotation.y,fall_side*PI/2) if next=="down" else Vector3.ZERO
+	body_shape.position=Vector3(-0.75*fall_side,0.28,0).rotated(Vector3.UP,visual.rotation.y) if next=="down" else Vector3(0,0.7 if next=="seated" else 0.9,0)
 	# A rigid body may be sleeping on the old support surface when posture changes.
 	for prop in game.props:
 		if not prop.freeze and prop.position.distance_to(position)<2.5: prop.sleeping=false

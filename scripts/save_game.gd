@@ -1,7 +1,7 @@
 class_name SaveGame
 extends RefCounted
 
-const VERSION := 6
+const VERSION := 7
 const BASE_NPCS := ["a_hr","a_lead","a_boss","a_friend","a_group","a_guard","b_hr","b_friend","b_boss","b_guard"]
 const LEGACY_PROPS := ["a_keyboard","a_cup","a_table","a_chair","a_printer","b_keyboard","b_cup","b_table","b_chair","b_printer"]
 const PATH := "user://neighborhood.json"
@@ -25,7 +25,7 @@ static func snapshot(game: Node3D) -> Dictionary:
 		var location := "held" if game.player.held==prop else "bag" if game.player.inventory.has(prop) else "world"
 		data.props[prop.stable_id]={"position":vector(prop.position),"rotation":vector(prop.rotation),"location":location,"damaged":prop.damaged,"durability":prop.durability,"tipped":prop.tipped}
 	for npc in game.npcs:
-		data.npcs[npc.stable_id]={"position":vector(npc.position),"affinity":npc.affinity,"mood":npc.mood,"down":npc.down,"hostile":npc.hostile,"hp":npc.hp,"dead":npc.dead,"role_id":npc.role_id,"title":npc.title,"company":npc.company,"role":npc.role,"home":vector(npc.home)}
+		data.npcs[npc.stable_id]={"position":vector(npc.position),"affinity":npc.affinity,"mood":npc.mood,"down":npc.down,"fall_side":npc.fall_side,"facing":npc.visual.rotation.y,"hostile":npc.hostile,"hp":npc.hp,"dead":npc.dead,"role_id":npc.role_id,"title":npc.title,"company":npc.company,"role":npc.role,"home":vector(npc.home)}
 	return data
 
 static func valid_vector(value: Variant) -> bool:
@@ -36,7 +36,7 @@ static func valid_vector(value: Variant) -> bool:
 
 static func valid(data: Variant, game: Node3D) -> bool:
 	if not data is Dictionary: return false
-	if data.get("version")!=1 and data.get("version")!=2 and data.get("version")!=3 and data.get("version")!=4 and data.get("version")!=5 and data.get("version")!=VERSION: return false
+	if data.get("version")!=1 and data.get("version")!=2 and data.get("version")!=3 and data.get("version")!=4 and data.get("version")!=5 and data.get("version")!=6 and data.get("version")!=VERSION: return false
 	for field in ["career","payroll","props","npcs","player"]:
 		if not data.get(field) is Dictionary: return false
 	for field in CAREER_FIELDS:
@@ -115,6 +115,10 @@ static func valid(data: Variant, game: Node3D) -> bool:
 		var health: Variant=entry.get("hp",100)
 		if not (health is int or health is float) or not is_finite(health) or health<0 or health>100: return false
 		if entry.get("dead",false)!=(health==0): return false
+		if data.version>=7:
+			if not (entry.get("fall_side") is float or entry.get("fall_side") is int): return false
+			if entry.fall_side!=1 and entry.fall_side!=-1: return false
+			if not (entry.get("facing") is float or entry.get("facing") is int) or not is_finite(entry.facing): return false
 		for key in ["affinity","down","hostile"]:
 			if not (entry.get(key) is float or entry.get(key) is int) or not is_finite(entry[key]): return false
 	if data.version>=6:
@@ -247,6 +251,12 @@ static func restore(game: Node3D, data: Dictionary) -> bool:
 		npc.hp=int(entry.get("hp",100))
 		npc.dead=entry.get("dead",false)
 		npc.down=maxf(0,entry.down)
+		npc.fall_side=float(entry.get("fall_side",1.0))
+		npc.visual.rotation.y=float(entry.get("facing",0.0))
+		npc.visual.rotation.z=npc.fall_side*PI/2 if npc.down>0 or npc.dead else 0.0
+		npc.body_pose=""
+		npc.hit_stun=0
+
 		npc.hostile=maxf(0,entry.hostile)
 		npc.velocity=Vector3.ZERO
 		npc.last_hit=-1
