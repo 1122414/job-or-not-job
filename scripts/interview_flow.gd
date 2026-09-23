@@ -3,6 +3,7 @@ extends RefCounted
 
 var game: Node3D
 var sessions: Dictionary = {}
+var heard_cues: Dictionary = {}
 const ACTIONS := ["interview_hr","interview_lead","interview_boss","interview_b"]
 const HOSTS := {"interview_hr":"a_hr","interview_lead":"a_lead","interview_boss":"a_boss","interview_b":"b_hr"}
 func active_firm() -> String:
@@ -24,7 +25,7 @@ func schedule(action: String) -> void:
 		game.say("公司处分仍在生效，当前不接受面试。")
 		return
 	if not sessions.has(firm) or sessions[firm].action!=action or sessions[firm].status=="completed":
-		sessions[firm]={"action":action,"step":0,"status":"scheduled","phase":"question","answers":[],"reply":0,"edition":2}
+		sessions[firm]={"action":action,"step":0,"status":"scheduled","phase":"question","answers":[],"reply":0,"edition":2,"call_stage":"approach","call_elapsed":0.0,"exit_remaining":0.0,"box_drop_done":false,"gesture_done_step":-1}
 	else: sessions[firm].status="scheduled"
 	game.career.facts["guide_company"]=firm
 	game.close_interaction()
@@ -36,12 +37,19 @@ func schedule(action: String) -> void:
 func host_target(npc: OfficeNPC) -> Variant:
 	if game.career.conflict[npc.company]>=2: return null
 	var session: Dictionary=sessions.get(npc.company,{})
-	if session.is_empty() or session.status not in ["scheduled","active"] or HOSTS[session.action]!=npc.role_id: return null
+	if session.is_empty() or HOSTS[session.action]!=npc.role_id: return null
+	if session.status=="completed": return OfficeRooms.INTERVIEW_CALLS[npc.company] if float(session.get("exit_remaining",0))>0 else null
+	if session.status not in ["scheduled","active"]: return null
+	if session.status=="scheduled" and session.get("call_stage","room") in ["approach","calling"]: return OfficeRooms.INTERVIEW_CALLS[npc.company]
 	return OfficeRooms.INTERVIEW_HOSTS[npc.company]
 
 func host_seated(npc: OfficeNPC) -> bool:
-	var target: Variant=host_target(npc)
-	return target!=null and npc.available() and npc.hit_stun<=0 and npc.block_time<=0 and npc.hostile<=0 and npc.position.distance_to(target)<0.35
+	var session: Dictionary=sessions.get(npc.company,{})
+	return not session.is_empty() and session.status in ["scheduled","active"] and session.get("call_stage","room")=="room" and HOSTS[session.action]==npc.role_id and npc.available() and npc.hit_stun<=0 and npc.block_time<=0 and npc.hostile<=0 and npc.position.distance_to(OfficeRooms.INTERVIEW_HOSTS[npc.company])<0.35
+
+func host_calling(npc: OfficeNPC) -> bool:
+	var session: Dictionary=sessions.get(npc.company,{})
+	return not session.is_empty() and session.status=="scheduled" and session.get("call_stage","room")=="calling" and HOSTS[session.action]==npc.role_id and npc.available() and npc.position.distance_to(OfficeRooms.INTERVIEW_CALLS[npc.company])<0.35
 
 func player_seated() -> bool:
 	return game.player.seated and active_firm()!=""
@@ -52,7 +60,7 @@ func room_options(firm: String) -> Dictionary:
 	if session.is_empty() or session.status=="completed": return {"text":"01 面试室 · 请先联系招聘接待安排面试。","choices":[]}
 	var host: OfficeNPC=game.npc_for_role(HOSTS[session.action])
 	if not host: return {"text":"岗位正在安排接替人员。原交流进度保留，稍后可继续。","choices":[]}
-	if not host_seated(host): return {"text":host.title+"正在前来。可以先看看环境，等他到位后按E继续。","choices":[]}
+	if not host_seated(host): return {"text":host.title+"正在接你进去。","choices":[]}
 	return {"text":host.title+"：请坐。","choices":[["坐下，开始或继续这轮交流","interview_seat_"+firm],["暂时不参加，保留进度","interview_leave"]]}
 
 func raw_question(firm: String) -> Dictionary:
@@ -102,6 +110,8 @@ func handle(action: String) -> bool:
 		session.phase="question"
 	elif action=="interview_finish" and session.step==pages(session.action).size():
 		session.status="completed"
+		session.exit_remaining=4.0
+		cue_once(firm+"/"+session.action+"/exit","chair",OfficeRooms.INTERVIEW_HOSTS[firm])
 		game.career.record("terms_"+session.action,"面试约定："+"；".join(PackedStringArray(session.answers)))
 		var result: String=game.recruitment.finish(session.action)
 		if session.action in ["interview_hr","interview_lead"]: result=closing(session.action)
@@ -116,10 +126,34 @@ func handle(action: String) -> bool:
 
 func interrupt() -> void:
 	for firm in sessions:
-		if sessions[firm].status=="active": sessions[firm].status="scheduled"
+		if sessions[firm].status=="active":
+			var host: OfficeNPC=game.npc_for_role(HOSTS[sessions[firm].action])
+			if host:
+				host.visual.animation.stop()
+				host.visual.current=""
+			sessions[firm].status="scheduled"
 
-func tick() -> void:
+func tick(delta: float=0.016) -> void:
 	update_props()
+	for company in sessions:
+		var pending: Dictionary=sessions[company]
+		if pending.status=="completed": pending.exit_remaining=maxf(0.0,float(pending.get("exit_remaining",0))-delta)
+		if pending.status!="scheduled" or pending.get("call_stage","room")=="room": continue
+		var caller: OfficeNPC=game.npc_for_role(HOSTS[pending.action])
+		if not caller or not caller.available() or caller.hit_stun>0 or caller.block_time>0: continue
+		if pending.call_stage=="calling" and caller.position.distance_to(OfficeRooms.INTERVIEW_CALLS[company])>0.55:
+			pending.call_stage="approach"
+			pending.call_elapsed=0.0
+			continue
+		if pending.call_stage=="approach" and caller.position.distance_to(OfficeRooms.INTERVIEW_CALLS[company])<0.35:
+			pending.call_stage="calling"
+			pending.call_elapsed=0.0
+			cue_once(company+"/"+pending.action+"/call","chair",caller.global_position)
+		elif pending.call_stage=="calling":
+			pending.call_elapsed+=delta
+			if pending.call_elapsed>=1.8:
+				pending.call_stage="room"
+				game.queue_save()
 	var firm := active_firm()
 	if firm=="": return
 	if game.career.conflict[firm]>=2:
@@ -176,11 +210,14 @@ func advance() -> bool:
 	return true
 
 func performance(npc: OfficeNPC) -> String:
+	if host_calling(npc): return "beckon"
 	if active_firm()!=npc.company or not host_seated(npc) or npc.hit_stun>0 or npc.block_time>0: return ""
 	var session: Dictionary=sessions[npc.company]
 	if HOSTS[session.action]!=npc.role_id: return ""
 	var visual: HumanVisual=npc.visual
-	if session.phase=="reply" and visual.current in ["move_box","phone_reply","box_message"] and visual.animation.is_playing(): return visual.current
+	var expected: String=["move_box","phone_reply","box_message"][int(session.step)] if session.action=="interview_b" and int(session.step)<3 else "phone_reply" if session.action=="interview_lead" and int(session.step)==1 or session.action=="interview_boss" and int(session.step)==2 else ""
+	if expected!="" and visual.current==expected and visual.animation.is_playing() and int(session.get("gesture_done_step",-1))!=int(session.step): return visual.current
+	if int(session.get("gesture_done_step",-1))==int(session.step): return "sit_talk"
 	if session.action=="interview_b":
 		if session.phase=="question" and session.step<3: return ["move_box","phone_reply","box_message"][int(session.step)]
 	if session.phase=="reply": return "sit_talk"
@@ -198,12 +235,24 @@ func update_props() -> void:
 	var playing: bool=active_firm()=="b" and host.visual.animation.is_playing()
 	var clip: String=host.visual.current if playing else ""
 	var phase: float=host.visual.animation.current_animation_position/maxf(0.1,host.visual.animation.current_animation_length) if playing else 1.0
+	if active_firm()=="b" and step<3 and host.visual.current==["move_box","phone_reply","box_message"][step] and (phase>=0.96 or not host.visual.animation.is_playing()): session.gesture_done_step=step
+	if clip=="move_box" and phase>=0.3: cue_once("b/"+session.action+"/0/box","paper",host.global_position)
+	if clip=="phone_reply" and phase>=0.2: cue_once("b/"+session.action+"/1/phone","phone",host.global_position)
+	if clip=="box_message":
+		if phase>=0.13: cue_once("b/"+session.action+"/2/slide","paper",host.global_position)
+		if phase>=0.38: cue_once("b/"+session.action+"/2/fall","box",OfficeRooms.B_BOX_EDGE)
+		if phase>=0.40: cue_once("b/"+session.action+"/2/phone","phone",host.global_position)
 	var start := OfficeRooms.B_BOX_START
 	var table := OfficeRooms.B_BOX_TABLE
 	var floor_position := OfficeRooms.B_BOX_FLOOR
 	if step<1: box.position=start.lerp(table,smoothstep(0.10,0.82,phase)) if clip=="move_box" else start
 	elif step==1: box.position=table
-	else: box.position=table.lerp(floor_position,smoothstep(0.02,0.29,phase)) if clip=="box_message" else floor_position
+	elif clip=="box_message":
+		if phase<0.22: box.position=table.lerp(OfficeRooms.B_BOX_EDGE,smoothstep(0.02,0.22,phase))
+		elif phase<0.39: box.position=OfficeRooms.B_BOX_EDGE.lerp(Vector3(OfficeRooms.B_BOX_EDGE.x,floor_position.y,OfficeRooms.B_BOX_EDGE.z),smoothstep(0.22,0.39,phase))
+		else: box.position=Vector3(OfficeRooms.B_BOX_EDGE.x,floor_position.y,OfficeRooms.B_BOX_EDGE.z).lerp(floor_position,smoothstep(0.39,0.55,phase))
+		if phase>=0.55: session.box_drop_done=true
+	else: box.position=floor_position if session.get("box_drop_done",false) or step>2 or session.get("status")=="completed" else table
 	var holding: bool=clip=="phone_reply" and phase>0.17 and phase<0.83 or clip=="box_message" and phase>0.35 and phase<0.84
 	table_phone.visible=not holding
 	host.visual.scene_phone.visible=holding
@@ -218,6 +267,9 @@ func update_a_props() -> void:
 	var is_active: bool=active_firm()=="a" and host and animation.is_playing()
 	var clip: String=host.visual.current if is_active else ""
 	var phase: float=animation.current_animation_position/maxf(0.1,animation.current_animation_length) if is_active else 0
+	if active_firm()=="a" and host and (session.get("action")=="interview_lead" and int(session.get("step",-1))==1 or session.get("action")=="interview_boss" and int(session.get("step",-1))==2) and host.visual.current=="phone_reply" and (phase>=0.96 or not animation.is_playing()): session.gesture_done_step=int(session.step)
+	if clip=="read" and phase>=0.25: cue_once("a/"+session.action+"/"+str(session.step)+"/paper","paper",host.global_position)
+	if clip=="phone_reply" and phase>=0.2: cue_once("a/"+session.action+"/"+str(session.step)+"/phone","phone",host.global_position)
 	var page: MeshInstance3D=papers.get_node("TopPage")
 	var turning: float=sin(phase*TAU) if clip=="read" else 0
 	page.rotation.y=turning*0.22
@@ -228,6 +280,11 @@ func update_a_props() -> void:
 		var colleague: OfficeNPC=game.npc_for_role(role)
 		if colleague and colleague!=host and colleague.visual.scene_phone: colleague.visual.scene_phone.visible=false
 	if host and host.visual.scene_phone: host.visual.scene_phone.visible=holding
+
+func cue_once(key: String,kind: String,position: Vector3) -> void:
+	if heard_cues.has(key): return
+	heard_cues[key]=true
+	game.interview_audio.cue(kind,position)
 
 func closing(action: String) -> String:
 	return {"interview_hr":"林岚：周工在里面，简历你拿好。", "interview_lead":"周工：方总接下来有空。我把意见发给他了。", "interview_boss":"方总：明天十点前，等林岚消息。", "interview_b":"阿诚：明天十点前联系你，路上慢点。"}[action]

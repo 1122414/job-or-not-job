@@ -32,7 +32,7 @@ func _ready() -> void:
 	animation=AnimationPlayer.new()
 	add_child(animation)
 	var library := AnimationLibrary.new()
-	for clip in ["idle","walk","run","strike","work","sit","fallen","recoil","talk","sit_talk","carry","carry_idle","block","read","write","message","pause","move_box","phone_reply","box_message"]: library.add_animation(clip,make_clip(clip))
+	for clip in ["idle","walk","run","strike","work","sit","fallen","recoil","talk","sit_talk","carry","carry_idle","block","read","write","message","pause","beckon","move_box","phone_reply","box_message"]: library.add_animation(clip,make_clip(clip))
 	animation.add_animation_library("",library)
 	animation.play("idle")
 	var hip := skeleton.get_bone_global_rest(skeleton.find_bone("upperleg01.L")).origin
@@ -45,17 +45,20 @@ func _ready() -> void:
 		grip=Node3D.new()
 		attachment.add_child(grip)
 		grip.position=Vector3(0, -0.05, 0.06)
+		var phone_attachment := BoneAttachment3D.new()
+		phone_attachment.bone_name="wrist.L"
+		skeleton.add_child(phone_attachment)
 		scene_phone=Node3D.new()
-		grip.add_child(scene_phone)
+		phone_attachment.add_child(scene_phone)
 		scene_phone.visible=false
-		scene_phone.position=Vector3(0,0.05,0.02)
+		scene_phone.position=Vector3(0,-0.04,0.04)
 		Shapes.box(scene_phone,Vector3(0.075,0.14,0.015),Vector3.ZERO,Color("19242c"))
 		Shapes.box(scene_phone,Vector3(0.062,0.12,0.002),Vector3(0,0,0.009),Color("6f9297"))
 
 func make_clip(clip: String) -> Animation:
 	var anim := Animation.new()
-	anim.length=4.0 if clip=="box_message" else 1.4 if clip in ["move_box","phone_reply"] else 0.32 if clip=="recoil" else 0.45 if clip=="strike" else 4.0 if clip in ["idle","sit","talk","sit_talk"] else 1.0
-	anim.loop_mode=Animation.LOOP_NONE if clip in ["strike","recoil","move_box","phone_reply","box_message"] else Animation.LOOP_LINEAR
+	anim.length=4.0 if clip=="box_message" else 1.8 if clip=="beckon" else 1.4 if clip in ["move_box","phone_reply"] else 0.32 if clip=="recoil" else 0.45 if clip=="strike" else 4.0 if clip in ["idle","sit","talk","sit_talk"] else 1.0
+	anim.loop_mode=Animation.LOOP_NONE if clip in ["strike","recoil","beckon","move_box","phone_reply","box_message"] else Animation.LOOP_LINEAR
 	var bones := ["upperarm01.L","upperarm01.R","lowerarm01.L","lowerarm01.R","upperleg01.L","upperleg01.R","lowerleg01.L","lowerleg01.R","spine02","head","wrist.L","wrist.R","foot.L","foot.R"]
 	for side in ["L","R"]:
 		for finger in range(2,6):
@@ -134,26 +137,30 @@ func make_clip(clip: String) -> Animation:
 				if clip=="message" and bone=="upperarm01.R": euler.x=-0.75
 				if clip=="message" and bone=="lowerarm01.R": euler.x=-0.70
 				if clip=="pause" and bone.begins_with("upperarm"): euler.x=-0.35
-				if clip=="move_box":
-					var reach := sin(minf(1.0,phase*1.5)*PI)
-					if bone=="spine02": euler.x=0.06+0.22*reach; euler.y=-0.18*reach
-					if bone=="upperarm01.L": euler.x=-1.05-0.48*reach
-					if bone=="lowerarm01.L": euler.x=0.45+0.35*reach
-					if bone=="head": euler.x=0.18+0.13*reach; euler.y=-0.12*reach
-				if clip=="phone_reply":
-					var phone_reach := sin(phase*PI)
-					if bone=="upperarm01.R": euler.x=-1.05-0.28*phone_reach
-					if bone=="lowerarm01.R": euler.x=-0.50-0.45*phone_reach
-					if bone=="head": euler.x=0.12; euler.y=0.14*phone_reach
-				if clip=="box_message":
-					var push_box := sin(minf(1.0,phase/0.28)*PI)
-					var record := smoothstep(0.28,0.42,phase)*(1.0-smoothstep(0.78,0.96,phase))
-					if bone=="spine02": euler.x=0.06+0.25*push_box; euler.y=-0.14*push_box
-					if bone=="upperarm01.L": euler.x=-1.05-0.62*push_box
-					if bone=="lowerarm01.L": euler.x=0.45+0.22*push_box
-					if bone=="upperarm01.R": euler.x=-1.05-0.35*record
-					if bone=="lowerarm01.R": euler.x=0.45-1.18*record
-					if bone=="head": euler.x=0.10+0.18*record; euler.y=0.28*record
+			if clip=="move_box":
+				var reach := sin(minf(1.0,phase*1.5)*PI)
+				if bone=="spine02": euler.x=0.06+0.22*reach; euler.y=-0.18*reach
+				if bone=="upperarm01.L": euler.x=-1.05-0.48*reach
+				if bone=="lowerarm01.L": euler.x=0.45+0.35*reach
+				if bone=="head": euler.x=0.18+0.13*reach; euler.y=-0.12*reach
+			if clip=="phone_reply":
+				var phone_reach := sin(phase*PI)
+				if bone=="upperarm01.L": euler.x=-1.05-0.18*phone_reach
+				if bone=="lowerarm01.L": euler.x=-0.50-0.28*phone_reach
+				if bone=="head": euler.x=0.12; euler.y=-0.14*phone_reach
+			if clip=="box_message":
+				var push_box := sin(minf(1.0,phase/0.28)*PI)
+				var record := smoothstep(0.28,0.42,phase)*(1.0-smoothstep(0.78,0.96,phase))
+				if bone=="spine02": euler.x=0.06+0.25*push_box; euler.y=-0.14*push_box
+				if bone=="upperarm01.L": euler.x=-1.05-0.62*push_box-0.12*record
+				if bone=="lowerarm01.L": euler.x=0.45+0.22*push_box-0.75*record
+				if bone=="head": euler.x=0.10+0.18*record; euler.y=-0.28*record
+			if clip=="beckon":
+				var gesture := sin(phase*PI)
+				if bone=="spine02": euler.y=0.13*gesture
+				if bone=="upperarm01.R": euler.x=-0.55-0.50*gesture
+				if bone=="lowerarm01.R": euler.x=-0.35-0.45*gesture
+				if bone=="head": euler.y=-0.25*gesture
 			if clip in ["talk","sit_talk"]:
 				var gesture := pow(maxf(0,wave),2)*(0.65 if personality=="boss" else 1.2 if personality=="friend" else 0.85)
 				var hand := "L" if personality=="friend" else "R"

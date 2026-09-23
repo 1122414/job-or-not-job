@@ -3,9 +3,11 @@ extends RefCounted
 
 const INTERVIEW_SEATS := {"a":Vector3(-21,0,-13.15),"b":Vector3(7,0,-13.15)}
 const INTERVIEW_HOSTS := {"a":Vector3(-21,0,-15.0),"b":Vector3(7,0,-15.0)}
+const INTERVIEW_CALLS := {"a":Vector3(-20.1,0,-12.95),"b":Vector3(7.9,0,-12.95)}
 const RECEPTIONS := {"a":Vector3(-16.2,0,0),"b":Vector3(11.8,0,0)}
 const B_BOX_START := Vector3(7.55,0.88,-14.48)
-const B_BOX_TABLE := Vector3(7.38,0.88,-14.25)
+const B_BOX_TABLE := Vector3(7.32,0.88,-14.42)
+const B_BOX_EDGE := Vector3(7.32,0.88,-13.56)
 const B_BOX_FLOOR := Vector3(7.55,0.15,-14.06)
 
 static func plaque(parent: Node3D,text: String,pos: Vector3,width: float=1.8) -> void:

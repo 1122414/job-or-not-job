@@ -207,6 +207,7 @@ func _physics_process(delta: float) -> void:
 		velocity.x=hit_push.x*hit_stun/0.32
 		velocity.z=hit_push.z*hit_stun/0.32
 	var interview_seated: bool=game.interviews.host_seated(self)
+	var interview_calling: bool=game.interviews.host_calling(self)
 	seated=interview_seated or not dead and role not in ["guard","hr"] and down<=0 and hostile<=0 and reaction<=0 and block_time<=0 and hit_stun<=0 and visit_wait<=0 and game.speaker!=self and game.office.visit_target(self)==null and game.social.npc_target(self)==null and game.onboarding.npc_target(self)==null and Vector2(position.x-home.x,position.z-home.z).length()<0.4 and not game.payroll.after_work()
 	visual.position.y=move_toward(visual.position.y,0.27 if down>0 or dead else visual.seated_offset.y if seated else 0.0,delta*2.5)
 	label.position.y=1.65 if seated else 2.05
@@ -223,7 +224,7 @@ func _physics_process(delta: float) -> void:
 	update_body_pose()
 	visual.blocking=block_time>0 and available()
 	visual.scene_action=game.interviews.performance(self)
-	visual.pose(Vector2(velocity.x,velocity.z).length(),attack_cooldown>0.7,down>0 or dead,seated,interview_seated,hit_stun>0,(game.speaker==self and not game.conversation.is_empty()) or (interview_seated and game.interviews.active_firm()==company))
+	visual.pose(Vector2(velocity.x,velocity.z).length(),attack_cooldown>0.7,down>0 or dead,seated,interview_seated or interview_calling,hit_stun>0,(game.speaker==self and not game.conversation.is_empty()) or interview_calling or (interview_seated and game.interviews.active_firm()==company))
 	var requested_motion := Vector2(velocity.x,velocity.z).length()
 	move_and_slide()
 	if requested_motion>0.4 and position.distance_to(last_position)<delta*0.15:

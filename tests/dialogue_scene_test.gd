@@ -10,6 +10,8 @@ func run() -> void:
 	Input.mouse_mode=Input.MOUSE_MODE_VISIBLE
 	await physics_frame
 	game.interviews.schedule("interview_hr")
+	# This fixture starts inside the room; the separate arrival test walks the host through the call.
+	game.interviews.sessions.a.call_stage="room"
 	var host: OfficeNPC=game.npc_for_role("a_hr")
 	host.position=OfficeRooms.INTERVIEW_HOSTS.a
 	game.player.position=OfficeRooms.INTERVIEW_SEATS.a

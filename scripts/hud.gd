@@ -23,6 +23,7 @@ func _draw() -> void:
 	var p: OfficePlayer = game.player
 	var w := size.x
 	var h := size.y
+	var scene_dialogue: bool=game.conversation.get("scene",false)
 	var center := Vector2(112,h-135)
 	draw_circle(center,83,Color(0.02,0.03,0.04,0.85))
 	draw_circle(center,77,Color("586469"))
@@ -52,14 +53,14 @@ func _draw() -> void:
 	if game.alert_level()>0:
 		text_at(Vector2(w-205,44),"★".repeat(game.alert_level())+"☆".repeat(5-game.alert_level()),27,Color("e3bc69"))
 	text_at(Vector2(w-160,73),game.clock_text(),15,Color("d2d8db"))
-	if game.panels.page=="":
+	if game.panels.page=="" and not scene_dialogue:
 		var goal: String=game.objective_text()
 		var lines := wrap_lines(goal,480,17)
 		for i in range(mini(2,lines.size())): text_at(Vector2(32,38+i*24),lines[i],17,Color("f0e6d3"))
-		if not game.conversation.get("scene",false): text_at(Vector2(32,92),"J  目标与公司    P  人物    TAB  背包",13,Color("c7cdd0"))
+		text_at(Vector2(32,92),"J  目标与公司    P  人物    TAB  背包",13,Color("c7cdd0"))
 		if destination:
 			text_at(Vector2(35,h-64),"目的地  %dm" % int(p.position.distance_to(destination.position)),14,Color("e4be70"))
-	if not game.conversation.get("scene",false): text_at(Vector2(w-92,h-25),"H  帮助",14,Color("c7cdd0"))
+	if not scene_dialogue: text_at(Vector2(w-92,h-25),"H  帮助",14,Color("c7cdd0"))
 	var target: Node3D = game.focus_target
 	if target and game.panels.page=="" and game.conversation.is_empty():
 		var verb := "交谈" if target is OfficeNPC else "使用"
@@ -95,7 +96,7 @@ func _draw() -> void:
 		text_at(Vector2(w*0.38,h*0.4+60),"今天，先躺一下。",34,Color("e27670"))
 
 	if not game.conversation.is_empty():
-		var in_scene: bool=game.conversation.get("scene",false)
+		var in_scene: bool=scene_dialogue
 		var panel_x: float=w*0.22
 		var panel_width: float=w*(0.64 if in_scene else 0.75)
 		var dialogue_lines := wrap_lines(game.conversation.text,panel_width-48,18)

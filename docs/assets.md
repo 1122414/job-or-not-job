@@ -22,3 +22,5 @@
 运行 `python3 tools/build_characters.py SOURCE_DIRECTORY`，随后 `sh tools/check.sh`。转换仅用 Python 标准库：衣服按 MHCLO 顶点映射贴合；删除衣下遮挡人体；插值骨骼权重后归一到四权重；转换单位、UV、法线；输出自包含 GLB。Godot 的导入配置与提取 PNG 一起提交，避免机器间重新导入差异。
 
 `scripts/human_visual.gd` 使用 AnimationPlayer/Skeleton3D 生成待机、走、跑、挥击曲线；手持物跟随腕骨。它们是程序骨骼动画，未使用动作捕捉，尚有转身脚滑与手指姿态可以打磨。三套身体重复用于十位 NPC，尚未制作各角色独立面部。
+
+2026-09-23 新增 `assets/audio/interview/` 中纸张、椅子、纸箱、手机四个短音效。它们以 Python 标准库数学函数在本地合成，未使用第三方录音或外部素材。场景通过 `scripts/interview_audio.gd` 以低音量定位播放；目前只完成事件对时和资源释放验证，耳机/扬声器的主观混音验收仍需执行。

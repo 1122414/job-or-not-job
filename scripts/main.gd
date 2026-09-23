@@ -40,6 +40,7 @@ var hud: StreetHUD
 var sun: DirectionalLight3D
 var environment: Environment
 var audio: AudioStreamPlayer
+var interview_audio: InterviewAudio
 var shake_enabled := true
 var navigation_dirty := -1.0
 
@@ -70,6 +71,8 @@ func _ready() -> void:
 	for firm in ["a","b"]: add_station("interview_"+firm,"01 面试室",OfficeRooms.INTERVIEW_SEATS[firm])
 	build_ui()
 	build_audio()
+	interview_audio=InterviewAudio.new()
+	add_child(interview_audio)
 	build_walk_grid.call_deferred()
 	startup.call_deferred()
 
@@ -136,7 +139,7 @@ func _process(delta: float) -> void:
 		navigation_dirty-=delta
 		if navigation_dirty<0: build_walk_grid.call_deferred()
 	focus_target=nearest()
-	interviews.tick()
+	interviews.tick(delta)
 	office.tick(delta)
 	staffing.tick(delta)
 	care.tick(delta)

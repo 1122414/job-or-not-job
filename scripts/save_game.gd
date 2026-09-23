@@ -132,6 +132,11 @@ static func valid(data: Variant, game: Node3D) -> bool:
 			if not firm in ["a","b"] or not session is Dictionary: return false
 			if not session.get("action") in InterviewFlow.ACTIONS or (firm=="b")!=(session.action=="interview_b"): return false
 			if not session.get("status") in ["scheduled","active","completed"] or not session.get("phase") in ["question","reply"]: return false
+			if session.has("call_stage") and not session.call_stage in ["approach","calling","room"]: return false
+			for key in ["call_elapsed","exit_remaining"]:
+				if session.has(key) and (not (session[key] is int or session[key] is float) or not is_finite(session[key]) or session[key]<0): return false
+			if session.has("box_drop_done") and not session.box_drop_done is bool: return false
+			if session.has("gesture_done_step") and (not (session.gesture_done_step is int or session.gesture_done_step is float) or not is_finite(session.gesture_done_step) or session.gesture_done_step!=int(session.gesture_done_step) or session.gesture_done_step< -1 or session.gesture_done_step>6): return false
 			for key in ["step","reply"]:
 				var value: Variant=session.get(key)
 				if not (value is int or value is float) or not is_finite(value) or value!=int(value) or value<0: return false
