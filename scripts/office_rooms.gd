@@ -4,6 +4,9 @@ extends RefCounted
 const INTERVIEW_SEATS := {"a":Vector3(-21,0,-13.15),"b":Vector3(7,0,-13.15)}
 const INTERVIEW_HOSTS := {"a":Vector3(-21,0,-15.0),"b":Vector3(7,0,-15.0)}
 const RECEPTIONS := {"a":Vector3(-16.2,0,0),"b":Vector3(11.8,0,0)}
+const B_BOX_START := Vector3(7.55,0.88,-14.48)
+const B_BOX_TABLE := Vector3(7.38,0.88,-14.25)
+const B_BOX_FLOOR := Vector3(7.55,0.15,-14.06)
 
 static func plaque(parent: Node3D,text: String,pos: Vector3,width: float=1.8) -> void:
 	Shapes.box(parent,Vector3(width,0.42,0.055),pos,Color("233038"))
@@ -48,7 +51,7 @@ static func build(game: Node3D) -> void:
 		glazing(game,Vector3(room_x-3.1,1.5,-12.3),Vector3(3.2,3.0,0.07))
 		glazing(game,Vector3(room_x+2.75,1.5,-12.3),Vector3(2.5,3.0,0.07))
 		Shapes.solid(game,Vector3(0.10,3.0,3.6),Vector3(room_x+4.05,1.5,-14.2),Color("b2b2a7"))
-		plaque(game,"01  面试室",Vector3(room_x,2.7,-12.25),2.0)
+		plaque(game,"01  面试室",Vector3(room_x-2.35,2.7,-12.25),1.8)
 		Shapes.solid(game,Vector3(2.0,0.08,0.85),Vector3(room_x,0.75,-14.15),Color("b3a185"))
 		for side in [-1,1]: Shapes.solid(game,Vector3(0.08,0.71,0.65),Vector3(room_x+side*0.78,0.355,-14.15),Color("465157"))
 		# Wall treatment and a small working surface make this a meeting room, not a blank box.
@@ -62,9 +65,13 @@ static func build(game: Node3D) -> void:
 		Shapes.box(game,Vector3(0.34,0.005,0.25),Vector3(room_x+0.55,0.825,-14.15),Color("ddd9cb"))
 		Shapes.box(game,Vector3(0.015,0.012,0.2),Vector3(room_x+0.78,0.80,-14.1),Color("28313c"))
 		# Objects stay on the 0.79 m tabletop; no new collision crosses the approach.
-		var phone := Shapes.box(game,Vector3(0.075,0.014,0.14),Vector3(room_x+0.22,0.798,-14.42),Color("19242c"))
+		var phone_holder := Node3D.new()
+		phone_holder.name="InterviewPhoneB" if firm=="b" else "InterviewPhoneA"
+		game.add_child(phone_holder)
+		phone_holder.position=Vector3(room_x+0.22,0.798,-14.42)
+		var phone := Shapes.box(phone_holder,Vector3(0.075,0.014,0.14),Vector3.ZERO,Color("19242c"))
 		phone.rotation.y=0.12
-		Shapes.box(game,Vector3(0.060,0.002,0.12),Vector3(room_x+0.22,0.807,-14.42),Color("6f9297"))
+		Shapes.box(phone_holder,Vector3(0.060,0.002,0.12),Vector3(0,0.009,0),Color("6f9297"))
 		var resume := Shapes.label(game,"个人简历\n项目经历  /  交付记录",Vector3(room_x-0.34,0.832,-14.02),24)
 		resume.billboard=BaseMaterial3D.BILLBOARD_DISABLED
 		resume.rotation.x=-PI/2
@@ -79,15 +86,28 @@ static func build(game: Node3D) -> void:
 		interview_light.omni_range=3.2
 		plaque(game,"招聘 · 正式项目岗位 / 急招" if firm=="a" else "招同事 / 有事一起扛",Vector3(center+4,1.8,1.85),3.4)
 		if firm=="b":
-			Shapes.box(game,Vector3(0.45,0.26,0.35),Vector3(room_x+0.68,0.13,-15.5),Color("98714c"))
-			Shapes.box(game,Vector3(0.40,0.04,0.31),Vector3(room_x+0.67,0.28,-15.5),Color("d9d0b9"))
+			var box := Node3D.new()
+			box.name="InterviewBoxB"
+			game.add_child(box)
+			box.position=B_BOX_START
+			Shapes.box(box,Vector3(0.38,0.24,0.29),Vector3.ZERO,Color("98714c"))
+			Shapes.box(box,Vector3(0.34,0.025,0.27),Vector3(0,0.132,0),Color("d9d0b9"))
 		OfficeDress.chair(game,INTERVIEW_SEATS[firm])
 		var host_chair := Node3D.new()
 		game.add_child(host_chair)
 		host_chair.position=INTERVIEW_HOSTS[firm]
 		host_chair.rotation.y=PI
 		OfficeDress.chair(host_chair,Vector3.ZERO)
-		for i in range(3): Shapes.box(game,Vector3(0.21,0.008,0.29),Vector3(room_x-0.4+i*0.02,0.80+i*0.009,-14.0),Color("e7e2d7"))
+		if firm=="a":
+			var papers := Node3D.new()
+			papers.name="InterviewPapersA"
+			game.add_child(papers)
+			papers.position=Vector3(room_x-0.4,0.80,-14.0)
+			for i in range(2): Shapes.box(papers,Vector3(0.21,0.008,0.29),Vector3(i*0.02,i*0.009,0),Color("e7e2d7"))
+			var top_page := Shapes.box(papers,Vector3(0.21,0.008,0.29),Vector3(0.04,0.018,0),Color("e7e2d7"))
+			top_page.name="TopPage"
+		else:
+			for i in range(3): Shapes.box(game,Vector3(0.21,0.008,0.29),Vector3(room_x-0.4+i*0.02,0.80+i*0.009,-14.0),Color("e7e2d7"))
 		plaque(game,"会议 / 交付" if firm=="a" else "讨论 / 交接",Vector3(center+0.5,2.4,-15.72),2.1)
 		# Lit entry draws the eye from the street without adding floating instructions.
 		var light := OmniLight3D.new()

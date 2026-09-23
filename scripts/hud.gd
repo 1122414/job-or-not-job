@@ -56,10 +56,10 @@ func _draw() -> void:
 		var goal: String=game.objective_text()
 		var lines := wrap_lines(goal,480,17)
 		for i in range(mini(2,lines.size())): text_at(Vector2(32,38+i*24),lines[i],17,Color("f0e6d3"))
-		text_at(Vector2(32,92),"J  目标与公司    P  人物    TAB  背包",13,Color("c7cdd0"))
+		if not game.conversation.get("scene",false): text_at(Vector2(32,92),"J  目标与公司    P  人物    TAB  背包",13,Color("c7cdd0"))
 		if destination:
 			text_at(Vector2(35,h-64),"目的地  %dm" % int(p.position.distance_to(destination.position)),14,Color("e4be70"))
-	text_at(Vector2(w-92,h-25),"H  帮助",14,Color("c7cdd0"))
+	if not game.conversation.get("scene",false): text_at(Vector2(w-92,h-25),"H  帮助",14,Color("c7cdd0"))
 	var target: Node3D = game.focus_target
 	if target and game.panels.page=="" and game.conversation.is_empty():
 		var verb := "交谈" if target is OfficeNPC else "使用"
@@ -95,24 +95,39 @@ func _draw() -> void:
 		text_at(Vector2(w*0.38,h*0.4+60),"今天，先躺一下。",34,Color("e27670"))
 
 	if not game.conversation.is_empty():
-		var dialogue_lines := wrap_lines(game.conversation.text,w*0.69,18)
-		var height: float=80+dialogue_lines.size()*25+game.conversation.choices.size()*29
-		var top: float=h-80-height
-		var actor: OfficeNPC=game.npc_for_role(game.conversation.get("actor","")) if game.conversation.get("scene",false) else game.speaker if game.speaker is OfficeNPC else null
-		if actor:
-			var npc: OfficeNPC=actor
-			draw_style_box(panel_style(),Rect2(w*0.22,top-39,w*0.75,35))
-			text_at(Vector2(w*0.24,top-16),npc.title+"  ·  "+game.relationship(npc),16)
-		draw_style_box(panel_style(),Rect2(w*0.22,top,w*0.75,height))
-		var y: float=top+30
-		for line in dialogue_lines:
-			text_at(Vector2(w*0.24,y),line,18)
-			y+=25
-		y+=14
+		var in_scene: bool=game.conversation.get("scene",false)
+		var panel_x: float=w*0.22
+		var panel_width: float=w*(0.64 if in_scene else 0.75)
+		var dialogue_lines := wrap_lines(game.conversation.text,panel_width-48,18)
+		var option_lines: Array=[]
+		var option_height: float=0
 		for i in range(game.conversation.choices.size()):
-			text_at(Vector2(w*0.24,y),str(i+1)+"  "+game.conversation.choices[i][0],17,Color("f5d386"))
-			y+=29
-		text_at(Vector2(w*0.24,h-97),game.conversation.get("hint","数字键选择 · 走开或动手立即中断"),14,Color("a4b3bd"))
+			var lines := wrap_lines(str(i+1)+"  "+game.conversation.choices[i][0],panel_width-48,17)
+			option_lines.append(lines)
+			option_height+=lines.size()*23+6
+		var actor: OfficeNPC=game.npc_for_role(game.conversation.get("actor","")) if in_scene else game.speaker if game.speaker is OfficeNPC else null
+		var name_height: float=30 if in_scene and actor else 0
+		var height: float=maxf(112,76+name_height+dialogue_lines.size()*25+option_height)
+		var top: float=h-52-height
+		if actor and not in_scene:
+			var npc: OfficeNPC=actor
+			draw_style_box(panel_style(),Rect2(panel_x,top-39,panel_width,35))
+			text_at(Vector2(panel_x+24,top-16),npc.title+"  ·  "+game.relationship(npc),16)
+		draw_style_box(dialogue_style() if in_scene else panel_style(),Rect2(panel_x,top,panel_width,height))
+		var y: float=top+30
+		if actor and in_scene:
+			text_at(Vector2(panel_x+24,y),actor.title.split(" · ")[0],17,Color("e4c889"))
+			y+=name_height
+		for line in dialogue_lines:
+			text_at(Vector2(panel_x+24,y),line,18)
+			y+=25
+		y+=12
+		for lines in option_lines:
+			for line in lines:
+				text_at(Vector2(panel_x+24,y),line,17,Color("f5d386"))
+				y+=23
+			y+=6
+		text_at(Vector2(panel_x+24,top+height-19),game.conversation.get("hint","数字键选择 · 走开或动手立即中断"),14,Color("a4b3bd"))
 	if game.panels.page=="promises": draw_promises(w,h)
 	if game.panels.page=="computer": draw_computer(w,h)
 	if game.panels.page=="messages": draw_messages(w,h)
@@ -187,6 +202,14 @@ func panel_style() -> StyleBoxFlat:
 	var style := StyleBoxFlat.new()
 	style.bg_color=Color(0.045,0.055,0.065,0.91)
 	style.border_color=Color(0.3,0.36,0.4,0.55)
+	style.set_border_width_all(1)
+	style.set_corner_radius_all(6)
+	return style
+
+func dialogue_style() -> StyleBoxFlat:
+	var style := StyleBoxFlat.new()
+	style.bg_color=Color(0.025,0.035,0.045,0.78)
+	style.border_color=Color(0.55,0.60,0.62,0.22)
 	style.set_border_width_all(1)
 	style.set_corner_radius_all(6)
 	return style

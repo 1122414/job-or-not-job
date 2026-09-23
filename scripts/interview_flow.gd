@@ -34,6 +34,7 @@ func schedule(action: String) -> void:
 	game.queue_save()
 
 func host_target(npc: OfficeNPC) -> Variant:
+	if game.career.conflict[npc.company]>=2: return null
 	var session: Dictionary=sessions.get(npc.company,{})
 	if session.is_empty() or session.status not in ["scheduled","active"] or HOSTS[session.action]!=npc.role_id: return null
 	return OfficeRooms.INTERVIEW_HOSTS[npc.company]
@@ -46,6 +47,7 @@ func player_seated() -> bool:
 	return game.player.seated and active_firm()!=""
 
 func room_options(firm: String) -> Dictionary:
+	if game.career.conflict[firm]>=2: return {"text":"这家公司已取消招聘安排。","choices":[]}
 	var session: Dictionary=sessions.get(firm,{})
 	if session.is_empty() or session.status=="completed": return {"text":"01 面试室 · 请先联系招聘接待安排面试。","choices":[]}
 	var host: OfficeNPC=game.npc_for_role(HOSTS[session.action])
@@ -117,8 +119,16 @@ func interrupt() -> void:
 		if sessions[firm].status=="active": sessions[firm].status="scheduled"
 
 func tick() -> void:
+	update_props()
 	var firm := active_firm()
 	if firm=="": return
+	if game.career.conflict[firm]>=2:
+		sessions.erase(firm)
+		game.close_interaction()
+		game.player.stand_up()
+		game.say("现场冲突中止了这家公司的面试。")
+		game.queue_save()
+		return
 	var host: OfficeNPC=game.npc_for_role(HOSTS[sessions[firm].action])
 	if not host or not host.available() or host.hit_stun>0 or host.block_time>0 or not game.player.seated or game.player.position.distance_to(OfficeRooms.INTERVIEW_SEATS[firm])>1.2:
 		game.close_interaction()
@@ -169,8 +179,55 @@ func performance(npc: OfficeNPC) -> String:
 	if active_firm()!=npc.company or not host_seated(npc) or npc.hit_stun>0 or npc.block_time>0: return ""
 	var session: Dictionary=sessions[npc.company]
 	if HOSTS[session.action]!=npc.role_id: return ""
+	var visual: HumanVisual=npc.visual
+	if session.phase=="reply" and visual.current in ["move_box","phone_reply","box_message"] and visual.animation.is_playing(): return visual.current
+	if session.action=="interview_b":
+		if session.phase=="question" and session.step<3: return ["move_box","phone_reply","box_message"][int(session.step)]
 	if session.phase=="reply": return "sit_talk"
-	return ["read","write","message","pause"][int(session.step)%4]
+	var actions := {"interview_hr":["read","write","pause"],"interview_lead":["read","phone_reply","write"],"interview_boss":["sit_talk","pause","phone_reply"]}
+	return actions.get(session.action,["sit_talk"])[mini(int(session.step),2)]
+
+func update_props() -> void:
+	update_a_props()
+	var box: Node3D=game.get_node_or_null("InterviewBoxB")
+	var table_phone: Node3D=game.get_node_or_null("InterviewPhoneB")
+	var host: OfficeNPC=game.npc_for_role("b_hr")
+	if not box or not table_phone or not host or not host.visual.scene_phone: return
+	var session: Dictionary=sessions.get("b",{})
+	var step: int=int(session.get("step",-1))
+	var playing: bool=active_firm()=="b" and host.visual.animation.is_playing()
+	var clip: String=host.visual.current if playing else ""
+	var phase: float=host.visual.animation.current_animation_position/maxf(0.1,host.visual.animation.current_animation_length) if playing else 1.0
+	var start := OfficeRooms.B_BOX_START
+	var table := OfficeRooms.B_BOX_TABLE
+	var floor_position := OfficeRooms.B_BOX_FLOOR
+	if step<1: box.position=start.lerp(table,smoothstep(0.10,0.82,phase)) if clip=="move_box" else start
+	elif step==1: box.position=table
+	else: box.position=table.lerp(floor_position,smoothstep(0.02,0.29,phase)) if clip=="box_message" else floor_position
+	var holding: bool=clip=="phone_reply" and phase>0.17 and phase<0.83 or clip=="box_message" and phase>0.35 and phase<0.84
+	table_phone.visible=not holding
+	host.visual.scene_phone.visible=holding
+
+func update_a_props() -> void:
+	var papers: Node3D=game.get_node_or_null("InterviewPapersA")
+	var table_phone: Node3D=game.get_node_or_null("InterviewPhoneA")
+	if not papers or not table_phone: return
+	var session: Dictionary=sessions.get("a",{})
+	var host: OfficeNPC=game.npc_for_role(HOSTS.get(session.get("action",""),""))
+	var animation: AnimationPlayer=host.visual.animation if host else null
+	var is_active: bool=active_firm()=="a" and host and animation.is_playing()
+	var clip: String=host.visual.current if is_active else ""
+	var phase: float=animation.current_animation_position/maxf(0.1,animation.current_animation_length) if is_active else 0
+	var page: MeshInstance3D=papers.get_node("TopPage")
+	var turning: float=sin(phase*TAU) if clip=="read" else 0
+	page.rotation.y=turning*0.22
+	page.position.x=0.04+turning*0.035
+	var holding: bool=clip=="phone_reply" and phase>0.17 and phase<0.83
+	table_phone.visible=not holding
+	for role in ["a_hr","a_lead","a_boss"]:
+		var colleague: OfficeNPC=game.npc_for_role(role)
+		if colleague and colleague!=host and colleague.visual.scene_phone: colleague.visual.scene_phone.visible=false
+	if host and host.visual.scene_phone: host.visual.scene_phone.visible=holding
 
 func closing(action: String) -> String:
 	return {"interview_hr":"林岚：周工在里面，简历你拿好。", "interview_lead":"周工：方总接下来有空。我把意见发给他了。", "interview_boss":"方总：明天十点前，等林岚消息。", "interview_b":"阿诚：明天十点前联系你，路上慢点。"}[action]
