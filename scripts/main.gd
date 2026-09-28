@@ -77,6 +77,11 @@ func _ready() -> void:
 	startup.call_deferred()
 
 func bind_inputs() -> void:
+	for action in ["ui_accept","ui_cancel"]:
+		var ui_button := InputEventJoypadButton.new()
+		ui_button.button_index=JOY_BUTTON_A if action=="ui_accept" else JOY_BUTTON_B
+		ui_button.device=-1
+		if not InputMap.action_has_event(action,ui_button): InputMap.action_add_event(action,ui_button)
 	var keys := {"forward":KEY_W,"back":KEY_S,"left":KEY_A,"right":KEY_D,"run":KEY_SHIFT,"jump":KEY_SPACE,"interact":KEY_E,"drop":KEY_G,"cancel":KEY_ESCAPE,"bag":KEY_TAB,"store":KEY_Q,"cycle":KEY_R,"save":KEY_F5,"load":KEY_F9,"journal":KEY_J,"ledger":KEY_L,"help":KEY_H,"history":KEY_K,"dangerous":KEY_ALT,"people":KEY_P,"messages":KEY_N,"promises":KEY_O}
 	for action in keys:
 		InputMap.add_action(action)
@@ -132,6 +137,9 @@ func build_ui() -> void:
 	panels=GamePanels.new()
 	panels.game=self
 	add_child(panels)
+	panels.view=GamePageView.new()
+	panels.view.game=self
+	canvas.add_child(panels.view)
 	hud.process_mode=Node.PROCESS_MODE_ALWAYS
 
 func _process(delta: float) -> void:

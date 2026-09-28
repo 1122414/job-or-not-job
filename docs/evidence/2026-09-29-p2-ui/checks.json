@@ -1,0 +1,135 @@
+{
+  "source": "5732f3560ba8433aec1f0171d0b4bc8f35445a193e9c8ca015f874d935963684",
+  "godot_regressions": [
+    "ACTION_TEST failures=0",
+    "BODY_SUPPORT_TEST failures=0 final_height=-0.01963427662849",
+    "CAREER_TEST failures=0",
+    "CHAOS_TEST failures=0 simulated_seconds=85",
+    "CONSEQUENCE_TEST failures=0",
+    "DAILY_ROUTINE_TEST failures=0",
+    "DESTRUCTION_TEST failures=0",
+    "DIALOGUE_SCENE_TEST failures=0",
+    "ENVIRONMENT_ASSETS_TEST failures=0",
+    "FULL_ROUTE_TEST failures=0",
+    "GAIT_TEST failures=0",
+    "GUIDANCE_TEST failures=0",
+    "HIT_REACTION_TEST failures=0",
+    "INTAKE_TEST failures=0",
+    "INTERACTION_TEST failures=0",
+    "INTERRUPTION_TEST failures=0",
+    "INTERVIEW_CALL_TEST failures=0",
+    "INTERVIEW_CONTENT_TEST failures=0",
+    "INTERVIEW_PERFORMANCE_TEST failures=0",
+    "INTERVIEW_TEST failures=0",
+    "INVENTORY_TEST failures=0",
+    "LOCOMOTION_TEST failures=0",
+    "NONLETHAL_CARE_TEST failures=0",
+    "NPC_LIFECYCLE_TEST failures=0",
+    "OFFICE_LIFE_TEST failures=0",
+    "ONBOARDING_TEST failures=0",
+    "PAGE_CONTROLS_TEST failures=0",
+    "PANELS_TEST failures=0",
+    "PAYROLL_TEST failures=0",
+    "PRESENTATION_TEST failures=0",
+    "PROMISES_TEST failures=0",
+    "PROPS_EXPANSION_TEST failures=0 props=114",
+    "RECRUITMENT_TEST failures=0",
+    "RELATIONSHIPS_TEST failures=0",
+    "ROOMS_TEST failures=0",
+    "SAVE_TEST failures=0",
+    "SCHEDULE_TEST failures=0",
+    "SEATING_TEST failures=0",
+    "SOCIAL_TEST failures=0",
+    "STAFFING_TEST failures=0",
+    "VERSION_IMPORT_TEST failures=0",
+    "VISUAL_TEST failures=0",
+    "WORK_PROJECTS_TEST failures=0",
+    "WORK_SCENE_TEST failures=0",
+    "WORLD_TEST failures=0"
+  ],
+  "final_graphical": "PAGE_CONTROLS_TEST failures=0",
+  "final_headless": "PAGE_CONTROLS_TEST failures=0",
+  "panels_final": "PANELS_TEST failures=0",
+  "input_method": "Viewport.push_input; real GUI dispatch, no direct pressed.emit",
+  "physical_controller_tested": false,
+  "resolutions_requested": [
+    [
+      1280,
+      720
+    ],
+    [
+      1280,
+      800
+    ],
+    [
+      1260,
+      540
+    ]
+  ],
+  "font_scales": [
+    1,
+    1.25,
+    1.5
+  ],
+  "scope": "help end reachable at each ratio/scale; all 9 pages no horizontal overflow at 150%; not full movement/controller or subjective acceptance",
+  "actual_viewports": [
+    "UI_VIEWPORT requested=(1280, 720) logical=(1422.0, 800.0) render=(1153.0, 648.0)",
+    "UI_VIEWPORT requested=(1280, 800) logical=(1280.0, 800.0) render=(1280.0, 800.0)",
+    "UI_VIEWPORT requested=(1260, 540) logical=(1866.0, 800.0) render=(851.0, 365.0)"
+  ],
+  "corrected_fixture": "Initial ratio checks only resized the window; stretch aspect was keep. Enable expand and assert observed logical and render aspect. Old mislabeled images are under before-aspect-fix.",
+  "screenshot_dimensions": {
+    "help-1260x540.png": [
+      1260,
+      540
+    ],
+    "computer-a.png": [
+      1280,
+      800
+    ],
+    "computer-b.png": [
+      1280,
+      800
+    ],
+    "packaged-menu.png": [
+      1280,
+      800
+    ],
+    "journal.png": [
+      1280,
+      800
+    ],
+    "pause.png": [
+      1260,
+      540
+    ],
+    "promises.png": [
+      1280,
+      800
+    ],
+    "help-1280x720.png": [
+      1280,
+      720
+    ],
+    "help-1280x800.png": [
+      1280,
+      800
+    ],
+    "messages.png": [
+      1280,
+      800
+    ],
+    "bag.png": [
+      1280,
+      800
+    ],
+    "ledger.png": [
+      1280,
+      800
+    ],
+    "people.png": [
+      1280,
+      800
+    ]
+  }
+}

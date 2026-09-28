@@ -9,7 +9,7 @@
 | 内容扩充与 JSON 版本数值 | 新道具导致旧档失效；内存/JSON类型差异、分支前置状态不完整 | 多轮回归；0.5版本隔离与恢复时机已验证 | [存档扩充](patterns/save-content-expansion.md) |
 | UI 页面状态和来访确认时机 | 叠加面板、暂停快捷键无响应、来访已记而未交谈 | 自动回归通过；UI实机复验，来访整体节奏仍开放 | [未解决观察](unresolved.md) |
 
-| 暂停页面输入归属 | 主页面叠加、暂停帮助失效 | 自动及实机验证一次 | [页面输入](patterns/panel-input-ownership.md) |
+| 暂停页面输入归属 | 主页面叠加、暂停帮助失效 | 2026-09-29真实GUI事件、三比例与字号复核；实体手柄开放 | [页面输入](patterns/panel-input-ownership.md) |
 
 | 来访确认后的对象连续性 | 确认老板来访后答辩选项消失，附近工位抢交互 | 定向回归验证一次；完整路线见验收记录 | [来访衔接](patterns/visit-dialogue-continuity.md) |
 

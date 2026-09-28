@@ -18,6 +18,7 @@ theme/custom_font.web="res://assets/fonts/NotoSansCJKsc-Regular.otf"
 window/size/viewport_width=1280
 window/size/viewport_height=800
 window/stretch/mode="canvas_items"
+window/stretch/aspect="expand"
 
 [rendering]
 anti_aliasing/quality/msaa_3d=1

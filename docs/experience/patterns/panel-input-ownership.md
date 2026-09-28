@@ -5,3 +5,7 @@
 处理：GamePanels 始终处理 UI 快捷键，单一 page 映射展示，记录暂停帮助的返回目标；世界节点仍暂停，不通过恢复整个世界解决 UI 输入。
 验证一次：tests/panels_test.gd；2026-09-22 实机 Tab→J→H 互斥、暂停H→Esc返回暂停，时间不推进。
 边界：游戏场景对话不是暂停页面；后续场景对话减慢时钟必须独立处理。暂停中的背包操作需要显式允许，不能把所有键交还世界。
+
+2026-09-29复用与扩展：R28/R29中手绘HUD文字没有点击对象，GamePanels又在`_input`吞掉鼠标；仅给HUD加按钮不能解决。页面改为Control后，让鼠标与Tab/Enter/方向进入GUI分发，仅保留业务快捷键；通过真实`Viewport.push_input`验证按钮，而非直接emit pressed。返回栈保留“暂停→安排→历史”的父级。当前macOS的默认ui_accept/ui_cancel只有键盘事件，需显式补手柄A/B绑定；方向映射已存在，不重复构造。逻辑检查不代表实体手柄已实测。
+
+宽高比反例：只设置Window.size并断言界面没越界，仍可能测试的是固定16:10内容。`window/stretch/aspect`原为keep，16:9/21:9请求产生相同比例的截图。本轮改expand，同时检查实际逻辑宽高比、保存PNG尺寸；保留初次误标截图。长文本夹具也须先证明高度确实超过滚动区，不能把“没有内容需要滚动”误判成PageDown故障。验证：`tests/page_controls_test.gd`图形通过，见P2页面验收；该结论只适用本项目的canvas_items伸缩配置。

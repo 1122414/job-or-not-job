@@ -45,6 +45,27 @@ func run() -> void:
 							push_error("Packaged model texture import contract failed: "+name)
 							quit(1)
 							return
+	game.panels.show_page("journal")
+	for i in range(5): await process_frame
+	var page: Control=game.panels.view
+	if not page.visible or not page.buttons.has("company-b"):
+		push_error("Packaged interactive page missing")
+		quit(1)
+		return
+	root.set_disable_input(false)
+	for pressed in [true,false]:
+		var click := InputEventMouseButton.new()
+		click.position=page.buttons["company-b"].get_global_rect().get_center()
+		click.button_index=MOUSE_BUTTON_LEFT
+		click.pressed=pressed
+		root.push_input(click,true)
+	for i in range(5): await process_frame
+	if game.career.facts.get("guide_company")!="b":
+		push_error("Packaged company button did not handle mouse input")
+		quit(1)
+		return
+	root.set_disable_input(true)
+	game.panels.show_page("")
 	game.toggle_menu()
 	if DisplayServer.get_name()!="headless":
 		for i in range(6): await process_frame
@@ -53,7 +74,7 @@ func run() -> void:
 			if argument.begins_with("--screenshot="):
 				var error := root.get_texture().get_image().save_png(argument.trim_prefix("--screenshot="))
 				if error!=OK: quit(1); return
-	print("PACKAGED_SMOKE_OK build=",build.build_id," label=",BuildInfo.label()," npcs=",game.npcs.size()," props=",game.props.size()," environment_props=6 asset_sources=5 texture_imports=verified persistence=",game.persistence_enabled)
+	print("PACKAGED_SMOKE_OK build=",build.build_id," label=",BuildInfo.label()," npcs=",game.npcs.size()," props=",game.props.size()," environment_props=6 asset_sources=5 texture_imports=verified ui_mouse=verified persistence=",game.persistence_enabled)
 	paused=false
 	game.queue_free()
 	await process_frame
