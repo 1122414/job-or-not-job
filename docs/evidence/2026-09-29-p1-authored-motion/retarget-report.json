@@ -1,0 +1,151 @@
+{
+	"failures": 0,
+	"samples": [
+		{
+			"clip": "A_TPose",
+			"mapped_bones": 50,
+			"max_local_length_error_m": 0.0,
+			"min_ankle_y_m": 0.0674180537462234,
+			"outfit": "casual",
+			"sample_count": 61
+		},
+		{
+			"clip": "Idle_Loop",
+			"mapped_bones": 50,
+			"max_local_length_error_m": 0.0,
+			"min_ankle_y_m": 0.0701802968978882,
+			"outfit": "casual",
+			"sample_count": 61
+		},
+		{
+			"clip": "Idle_Talking_Loop",
+			"mapped_bones": 50,
+			"max_local_length_error_m": 0.0,
+			"min_ankle_y_m": 0.070390596985817,
+			"outfit": "casual",
+			"sample_count": 61
+		},
+		{
+			"clip": "Walk_Loop",
+			"mapped_bones": 50,
+			"max_local_length_error_m": 0.0,
+			"min_ankle_y_m": 0.0664179623126984,
+			"outfit": "casual",
+			"sample_count": 61
+		},
+		{
+			"clip": "Sitting_Idle_Loop",
+			"mapped_bones": 50,
+			"max_local_length_error_m": 0.0,
+			"min_ankle_y_m": 0.105462372303009,
+			"outfit": "casual",
+			"sample_count": 61
+		},
+		{
+			"clip": "PickUp_Table",
+			"mapped_bones": 50,
+			"max_local_length_error_m": 0.0,
+			"min_ankle_y_m": 0.0617400854825974,
+			"outfit": "casual",
+			"sample_count": 61
+		},
+		{
+			"clip": "A_TPose",
+			"mapped_bones": 50,
+			"max_local_length_error_m": 0.0,
+			"min_ankle_y_m": 0.0674180537462234,
+			"outfit": "office",
+			"sample_count": 61
+		},
+		{
+			"clip": "Idle_Loop",
+			"mapped_bones": 50,
+			"max_local_length_error_m": 0.0,
+			"min_ankle_y_m": 0.0701802968978882,
+			"outfit": "office",
+			"sample_count": 61
+		},
+		{
+			"clip": "Idle_Talking_Loop",
+			"mapped_bones": 50,
+			"max_local_length_error_m": 0.0,
+			"min_ankle_y_m": 0.070390596985817,
+			"outfit": "office",
+			"sample_count": 61
+		},
+		{
+			"clip": "Walk_Loop",
+			"mapped_bones": 50,
+			"max_local_length_error_m": 0.0,
+			"min_ankle_y_m": 0.0664179623126984,
+			"outfit": "office",
+			"sample_count": 61
+		},
+		{
+			"clip": "Sitting_Idle_Loop",
+			"mapped_bones": 50,
+			"max_local_length_error_m": 0.0,
+			"min_ankle_y_m": 0.105462372303009,
+			"outfit": "office",
+			"sample_count": 61
+		},
+		{
+			"clip": "PickUp_Table",
+			"mapped_bones": 50,
+			"max_local_length_error_m": 0.0,
+			"min_ankle_y_m": 0.0617400854825974,
+			"outfit": "office",
+			"sample_count": 61
+		},
+		{
+			"clip": "A_TPose",
+			"mapped_bones": 50,
+			"max_local_length_error_m": 0.0,
+			"min_ankle_y_m": 0.0674180537462234,
+			"outfit": "office_female",
+			"sample_count": 61
+		},
+		{
+			"clip": "Idle_Loop",
+			"mapped_bones": 50,
+			"max_local_length_error_m": 0.0,
+			"min_ankle_y_m": 0.0701802968978882,
+			"outfit": "office_female",
+			"sample_count": 61
+		},
+		{
+			"clip": "Idle_Talking_Loop",
+			"mapped_bones": 50,
+			"max_local_length_error_m": 0.0,
+			"min_ankle_y_m": 0.070390596985817,
+			"outfit": "office_female",
+			"sample_count": 61
+		},
+		{
+			"clip": "Walk_Loop",
+			"mapped_bones": 50,
+			"max_local_length_error_m": 0.0,
+			"min_ankle_y_m": 0.0664179623126984,
+			"outfit": "office_female",
+			"sample_count": 61
+		},
+		{
+			"clip": "Sitting_Idle_Loop",
+			"mapped_bones": 50,
+			"max_local_length_error_m": 0.0,
+			"min_ankle_y_m": 0.105462372303009,
+			"outfit": "office_female",
+			"sample_count": 61
+		},
+		{
+			"clip": "PickUp_Table",
+			"mapped_bones": 50,
+			"max_local_length_error_m": 0.0,
+			"min_ankle_y_m": 0.0617400854825974,
+			"outfit": "office_female",
+			"sample_count": 61
+		}
+	],
+	"scope": "Offline MakeHuman adapter preview; not approved for runtime or contact quality",
+	"source_commit": "e24c23cf2a1323488a3faa226ea7ea21f644b73e"
+}

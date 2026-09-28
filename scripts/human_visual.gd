@@ -33,6 +33,10 @@ func _ready() -> void:
 	add_child(animation)
 	var library := AnimationLibrary.new()
 	for clip in ["idle","walk","run","strike","work","sit","fallen","recoil","talk","sit_talk","carry","carry_idle","block","read","write","message","pause","beckon","move_box","phone_reply","box_message"]: library.add_animation(clip,make_clip(clip))
+	var authored: AnimationLibrary=load("res://assets/animations/quaternius_upper_body.res")
+	for clip in authored.get_animation_list():
+		library.remove_animation(clip)
+		library.add_animation(clip,authored.get_animation(clip))
 	animation.add_animation_library("",library)
 	animation.play("idle")
 	var hip := skeleton.get_bone_global_rest(skeleton.find_bone("upperleg01.L")).origin
@@ -60,8 +64,10 @@ func make_clip(clip: String) -> Animation:
 	anim.length=4.0 if clip=="box_message" else 1.8 if clip=="beckon" else 1.4 if clip in ["move_box","phone_reply"] else 0.32 if clip=="recoil" else 0.45 if clip=="strike" else 4.0 if clip in ["idle","sit","talk","sit_talk"] else 1.0
 	anim.loop_mode=Animation.LOOP_NONE if clip in ["strike","recoil","beckon","move_box","phone_reply","box_message"] else Animation.LOOP_LINEAR
 	var bones := ["upperarm01.L","upperarm01.R","lowerarm01.L","lowerarm01.R","upperleg01.L","upperleg01.R","lowerleg01.L","lowerleg01.R","spine02","head","wrist.L","wrist.R","foot.L","foot.R"]
+	# Every clip owns the same bones so an interrupted authored gesture cannot linger.
+	bones.append_array(["spine05","spine03","spine01","neck01","clavicle.L","clavicle.R"])
 	for side in ["L","R"]:
-		for finger in range(2,6):
+		for finger in range(1,6):
 			for joint in range(1,4): bones.append("finger%d-%d.%s"%[finger,joint,side])
 	var root_track := anim.add_track(Animation.TYPE_POSITION_3D)
 	anim.track_set_path(root_track,NodePath(str(get_path_to(skeleton))+":root"))
@@ -77,7 +83,7 @@ func make_clip(clip: String) -> Animation:
 			var phase := float(i)/32.0
 			var wave := sin(phase*TAU)
 			var euler := Vector3.ZERO
-			if bone.begins_with("finger"):
+			if bone.begins_with("finger") and not bone.begins_with("finger1-"):
 				euler.x=0.22 if clip!="strike" else 0.85
 				if clip=="work": euler.x=0.12+0.07*sin(phase*TAU*2+float(bone.unicode_at(6)))
 			if bone=="upperarm01.L": euler.z=-0.62

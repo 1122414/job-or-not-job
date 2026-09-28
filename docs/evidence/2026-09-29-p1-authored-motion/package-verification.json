@@ -1,0 +1,13 @@
+{
+  "headless_from_source_directory": "PASS",
+  "graphical_from_private_tmp": "PASS",
+  "authored_characters": 11,
+  "authored_clips": 2,
+  "production_source_excluded": true,
+  "save_persistence_enabled": false,
+  "signature": "PASS",
+  "zip_integrity": "PASS",
+  "zip_and_pck_sha256": "PASS",
+  "legacy_artifacts_unchanged": true,
+  "full_route_graphical_failures": 0
+}

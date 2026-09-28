@@ -17,3 +17,9 @@ Source files/checksums: assets/polyhaven/provenance.json. Adaptations: local mat
 lamp scale/clamp alignment, collision wrappers and placement; original asset files unchanged.
 No GTA models, textures, sounds or logos are included. References were used for visual direction only.
 Godot runtime licenses are distributed separately as GODOT-LICENSES.txt.
+Standing idle/talk upper-body animations: Quaternius, CC0 1.0 Universal.
+Original: https://quaternius.com/packs/universalanimationlibrary.html
+Source: 2025-06-10 Standard mirror, J-Ponzo/gltf-universal-animation-library,
+commit e24c23cf2a1323488a3faa226ea7ea21f644b73e. Not claimed as latest official release.
+Adaptation: offline MakeHuman rest-pose mapping and 60 Hz upper-body bake by this project;
+existing leg support and specialized actions retained. See ANIMATION-SOURCES.json.

@@ -1,6 +1,6 @@
 # 资产来源与重建
 
-本项目没有购买资产、加入第三方代码库或运行 MakeHuman 程序。人物使用其官方核心数据：正常人体网格、皮肤、服装、头发、眼球和骨骼权重。环境基础几何、HUD、动作曲线和合成音效由项目代码生成；2026-09-29加入下述Poly Haven开放环境样本。参考截图只作为构图和风格方向，未提取 GTA 游戏素材。
+本项目没有购买资产、加入第三方代码库或运行 MakeHuman 程序。人物使用其官方核心数据：正常人体网格、皮肤、服装、头发、眼球和骨骼权重。环境基础几何、HUD、多数专用动作曲线和合成音效由项目代码生成；2026-09-29加入下述Poly Haven开放环境样本。参考截图只作为构图和风格方向，未提取 GTA 游戏素材。
 
 ## 来源与许可
 
@@ -21,7 +21,7 @@
 
 运行 `python3 tools/build_characters.py SOURCE_DIRECTORY`，随后 `sh tools/check.sh`。转换仅用 Python 标准库：衣服按 MHCLO 顶点映射贴合；删除衣下遮挡人体；插值骨骼权重后归一到四权重；转换单位、UV、法线；输出自包含 GLB。Godot 的导入配置与提取 PNG 一起提交，避免机器间重新导入差异。
 
-`scripts/human_visual.gd` 使用 AnimationPlayer/Skeleton3D 生成待机、走、跑、挥击曲线；手持物跟随腕骨。它们是程序骨骼动画，未使用动作捕捉，尚有转身脚滑与手指姿态可以打磨。三套身体重复用于十位 NPC，尚未制作各角色独立面部。
+`scripts/human_visual.gd` 使用 AnimationPlayer/Skeleton3D 生成待机、走、跑、挥击曲线；手持物跟随腕骨。除下述开放库烘焙的站立待机/交谈外，其余为程序骨骼动画，未使用动作捕捉，尚有转身脚滑与手指姿态可以打磨。三套身体重复用于十位 NPC，尚未制作各角色独立面部。
 
 2026-09-23 新增 `assets/audio/interview/` 中纸张、椅子、纸箱、手机四个短音效。它们以 Python 标准库数学函数在本地合成，未使用第三方录音或外部素材。场景通过 `scripts/interview_audio.gd` 以低音量定位播放；目前只完成事件对时和资源释放验证，耳机/扬声器的主观混音验收仍需执行。
 
@@ -48,4 +48,11 @@ macOS包的`ASSET-SOURCES.json`和`CREDITS.txt`保存来源；通用CC0原文随
 
 [Universal Animation Library原作者页面](https://quaternius.com/packs/universalanimationlibrary.html)标明CC0。本项目保留2025-06-10免费Standard的固定镜像版本，在`production/quaternius/standard-2025-06-10/`附许可、原始README、53骨骼/46片段的glTF与bin、来源和SHA256。镜像提交`e24c23cf2a1323488a3faa226ea7ea21f644b73e`，各文件Git blob SHA1已匹配；未证明与官方现版本逐字节一致，不宣称2026最新版或120+片段均免费。
 
-原件目录由`.gdignore`隔离，游戏未引用，当前独立包不使用该库。`tools/inspect_animation_source.gd`核验摘要并生成片段/骨架/根运动清单与四个预览。源演示人物只用于制作检查，不是正式角色，也未直接替换HumanVisual。详见[动作源验收](2026-09-29_P1动作源资产验收.md)。
+原件目录由`.gdignore`隔离，游戏不直接引用原件；后续已接入下述两个烘焙衍生片段。`tools/inspect_animation_source.gd`核验摘要并生成片段/骨架/根运动清单与四个预览。源演示人物只用于制作检查，不是正式角色；原件验收阶段未替换HumanVisual，后续适配另记如下。详见[动作源验收](2026-09-29_P1动作源资产验收.md)。
+
+
+### 已接入的动作衍生资源
+
+`assets/animations/quaternius_upper_body.res`使用相同CC0源的Idle_Loop/Idle_Talking_Loop，通过`tools/character_retarget.gd`映射和`tools/bake_character_animations.gd`以60Hz烘焙为待机/站立交谈上半身。保留现有腿和根支撑；其余19专用片段保持程序动作。三衣装骨架相同，重建时验证目标rest；目标GLB或源文件改变后必须重新验收。
+
+`assets/animations/provenance.json`记录源版本、文件、目标三GLB摘要和输出摘要；独立包附`ANIMATION-SOURCES.json`及CREDITS。重建命令：`godot --headless --path . --script tools/bake_character_animations.gd`，会覆盖本项目的派生动画资源，应在版本控制工作区内运行；不覆盖原始源模型。验收见[骨架适配与待机交谈](2026-09-29_P1骨架适配与待机交谈验收.md)。

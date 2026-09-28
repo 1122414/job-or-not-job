@@ -12,7 +12,7 @@ func run() -> void:
 		push_error("Package identity or save schema missing")
 		quit(1)
 		return
-	for excluded in ["res://tests/world_test.gd", "res://tools/package_macos.py", "res://docs/progress.md", "res://build/p0-source-identity.json"]:
+	for excluded in ["res://tests/world_test.gd", "res://tools/package_macos.py", "res://docs/progress.md", "res://build/p0-source-identity.json", "res://production/quaternius/standard-2025-06-10/glTF/AnimationLibrary_Godot_Standard.gltf"]:
 		if FileAccess.file_exists(excluded) or ResourceLoader.exists(excluded):
 			push_error("Development files leaked into package: "+excluded)
 			quit(1)
@@ -30,6 +30,23 @@ func run() -> void:
 		push_error("Packaged asset provenance missing")
 		quit(1)
 		return
+	var motion_path := OS.get_executable_path().get_base_dir().path_join("../Resources/ANIMATION-SOURCES.json")
+	var motion: Variant=JSON.parse_string(FileAccess.get_file_as_string(motion_path))
+	var authored: AnimationLibrary=load("res://assets/animations/quaternius_upper_body.res")
+	if not motion is Dictionary or motion.get("clips",[]).size()!=2 or not authored.has_animation("talk") or not authored.has_animation("idle"):
+		push_error("Packaged authored motion or provenance missing")
+		quit(1)
+		return
+	var humans: Array=game.find_children("*","Node3D",true,false).filter(func(node): return node is HumanVisual)
+	if humans.size()!=11:
+		push_error("Packaged character visuals missing")
+		quit(1)
+		return
+	for human in humans:
+		if human.animation.get_animation("talk")!=authored.get_animation("talk") or human.animation.get_animation("idle")!=authored.get_animation("idle"):
+			push_error("Packaged character does not use authored motion")
+			quit(1)
+			return
 	for firm in ["A","B"]:
 		for name in ["ReceptionLamp"+firm,"WaitingChair"+firm+"-1","WaitingChair"+firm+"1"]:
 			var prop: Node=game.get_node_or_null(name)
@@ -74,7 +91,7 @@ func run() -> void:
 			if argument.begins_with("--screenshot="):
 				var error := root.get_texture().get_image().save_png(argument.trim_prefix("--screenshot="))
 				if error!=OK: quit(1); return
-	print("PACKAGED_SMOKE_OK build=",build.build_id," label=",BuildInfo.label()," npcs=",game.npcs.size()," props=",game.props.size()," environment_props=6 asset_sources=5 texture_imports=verified ui_mouse=verified persistence=",game.persistence_enabled)
+	print("PACKAGED_SMOKE_OK build=",build.build_id," label=",BuildInfo.label()," npcs=",game.npcs.size()," props=",game.props.size()," environment_props=6 asset_sources=5 authored_clips=2 authored_characters=11 texture_imports=verified ui_mouse=verified persistence=",game.persistence_enabled)
 	paused=false
 	game.queue_free()
 	await process_frame
