@@ -4,6 +4,16 @@ Source: https://github.com/makehumancommunity/makehuman
 Core asset pack: https://static.makehumancommunity.org/assets/assetpacks/makehuman_system_assets.html
 License: MAKEHUMAN-CC0.txt
 Adaptation: fitted clothing, glTF conversion, four-bone weights and procedural animations by this project.
-Environment geometry, UI, audio synthesis and game code: this project.
+Environment base geometry, UI, audio synthesis and game code: this project.
+Environment samples: Poly Haven, CC0 1.0 Universal. Powered by Poly Haven.
+modern_arm_chair_01: Vibrant Nordic. https://polyhaven.com/a/modern_arm_chair_01
+desk_lamp_arm_01: Kuutti Siitonen (modeling/texturing), Yann Kervran (rigging).
+https://polyhaven.com/a/desk_lamp_arm_01
+painted_plaster_wall: Amal Kumar. https://polyhaven.com/a/painted_plaster_wall
+concrete_floor_01: Rob Tuytel. https://polyhaven.com/a/concrete_floor_01
+clean_asphalt: Dimitrios Savva. https://polyhaven.com/a/clean_asphalt
+License: https://polyhaven.com/license (CC0; commercial use and redistribution allowed).
+Source files/checksums: assets/polyhaven/provenance.json. Adaptations: local material settings,
+lamp scale/clamp alignment, collision wrappers and placement; original asset files unchanged.
 No GTA models, textures, sounds or logos are included. References were used for visual direction only.
 Godot runtime licenses are distributed separately as GODOT-LICENSES.txt.

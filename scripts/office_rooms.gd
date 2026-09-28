@@ -44,10 +44,19 @@ static func build(game: Node3D) -> void:
 		Shapes.box(game,Vector3(1.58,0.045,0.74),reception+Vector3(0,0.945,0),Color("c8bda5"))
 		Shapes.box(game,Vector3(1.4,0.42,0.015),reception+Vector3(0,0.65,0.34),accent)
 		plaque(game,"招聘接待",reception+Vector3(0,0.65,0.39),1.0)
+		var desk_lamp := preload("res://scenes/props/reception_lamp.tscn").instantiate() as StaticBody3D
+		desk_lamp.name="ReceptionLamp"+firm.to_upper()
+		game.add_child(desk_lamp)
+		# The source is a clamp lamp: its origin mounts on the back edge, below the top.
+		desk_lamp.position=reception+Vector3(-0.52,0.9675,-0.37)
+		desk_lamp.rotation.y=PI
 		# Waiting furniture leaves the entrance axis and all desk aisles open.
-		Shapes.solid(game,Vector3(1.8,0.43,0.60),Vector3(center+4,0.215,0.7),Color("4b595c"))
-		Shapes.solid(game,Vector3(1.8,0.52,0.12),Vector3(center+4,0.67,1.0),Color("4b595c"))
-		Shapes.box(game,Vector3(1.8,0.04,0.60),Vector3(center+4,0.45,0.7),accent)
+		for side in [-1,1]:
+			var waiting_chair := preload("res://scenes/props/waiting_chair.tscn").instantiate() as StaticBody3D
+			waiting_chair.name="WaitingChair"+firm.to_upper()+str(side)
+			game.add_child(waiting_chair)
+			waiting_chair.position=Vector3(center+4+side*0.47,0.012,1.2)
+			waiting_chair.rotation.y=PI
 		# Interview room at the rear left. The two-metre doorway faces the public aisle.
 		var room_x := center-7
 		glazing(game,Vector3(room_x-3.1,1.5,-12.3),Vector3(3.2,3.0,0.07))
@@ -86,7 +95,11 @@ static func build(game: Node3D) -> void:
 		interview_light.light_color=Color("e6f0f4") if firm=="a" else Color("ffddb6")
 		interview_light.light_energy=0.55
 		interview_light.omni_range=3.2
-		plaque(game,"招聘 · 正式项目岗位 / 急招" if firm=="a" else "招同事 / 有事一起扛",Vector3(center+4,1.8,1.85),3.4)
+		var waiting_sign := Node3D.new()
+		game.add_child(waiting_sign)
+		waiting_sign.position=Vector3(center+4,1.8,1.80)
+		waiting_sign.rotation.y=PI
+		plaque(waiting_sign,"招聘 · 正式项目岗位 / 急招" if firm=="a" else "招同事 / 有事一起扛",Vector3.ZERO,3.4)
 		if firm=="b":
 			var box := Node3D.new()
 			box.name="InterviewBoxB"

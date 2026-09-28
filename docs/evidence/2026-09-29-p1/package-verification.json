@@ -1,0 +1,8 @@
+{
+  "headless": "PACKAGED_SMOKE_OK build=20260928T201944123689Z-8be115fb-fb03d177 label=v0.5.0 · 8be115fb / fb03d177（含未提交修改） npcs=10 props=114 environment_props=6 asset_sources=5 texture_imports=verified persistence=false",
+  "graphical": "PACKAGED_SMOKE_OK build=20260928T201944123689Z-8be115fb-fb03d177 label=v0.5.0 · 8be115fb / fb03d177（含未提交修改） npcs=10 props=114 environment_props=6 asset_sources=5 texture_imports=verified persistence=false",
+  "codesign": "passed",
+  "zip_crc": "passed",
+  "legacy_artifacts": "unchanged",
+  "build_directory": "build/baselines/20260928T201944123689Z-8be115fb-fb03d177"
+}

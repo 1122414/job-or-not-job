@@ -44,6 +44,7 @@ def build():
     shutil.copy2(ROOT / 'build/GODOT-LICENSES.txt', resources / 'GODOT-LICENSES.txt')
     for name in ('CREDITS.txt', 'MAKEHUMAN-CC0.txt'):
         shutil.copy2(ROOT / 'assets' / name, resources / name)
+    shutil.copy2(ROOT / 'assets/polyhaven/provenance.json', resources / 'ASSET-SOURCES.json')
     identity['pck_sha256'] = sha256(resources / 'game.pck')
     identity['engine_source_sha256'] = sha256(engine)
     data = json.dumps(identity, ensure_ascii=False, indent=2) + '\n'

@@ -1,0 +1,71 @@
+{
+  "godot_regressions": [
+    "ACTION_TEST failures=0",
+    "BODY_SUPPORT_TEST failures=0 final_height=-0.01963427662849",
+    "CAREER_TEST failures=0",
+    "CHAOS_TEST failures=0 simulated_seconds=85",
+    "CONSEQUENCE_TEST failures=0",
+    "DAILY_ROUTINE_TEST failures=0",
+    "DESTRUCTION_TEST failures=0",
+    "DIALOGUE_SCENE_TEST failures=0",
+    "ENVIRONMENT_ASSETS_TEST failures=0",
+    "FULL_ROUTE_TEST failures=0",
+    "GAIT_TEST failures=0",
+    "GUIDANCE_TEST failures=0",
+    "HIT_REACTION_TEST failures=0",
+    "INTAKE_TEST failures=0",
+    "INTERACTION_TEST failures=0",
+    "INTERRUPTION_TEST failures=0",
+    "INTERVIEW_CALL_TEST failures=0",
+    "INTERVIEW_CONTENT_TEST failures=0",
+    "INTERVIEW_PERFORMANCE_TEST failures=0",
+    "INTERVIEW_TEST failures=0",
+    "INVENTORY_TEST failures=0",
+    "LOCOMOTION_TEST failures=0",
+    "NONLETHAL_CARE_TEST failures=0",
+    "NPC_LIFECYCLE_TEST failures=0",
+    "OFFICE_LIFE_TEST failures=0",
+    "ONBOARDING_TEST failures=0",
+    "PANELS_TEST failures=0",
+    "PAYROLL_TEST failures=0",
+    "PRESENTATION_TEST failures=0",
+    "PROMISES_TEST failures=0",
+    "PROPS_EXPANSION_TEST failures=0 props=114",
+    "RECRUITMENT_TEST failures=0",
+    "RELATIONSHIPS_TEST failures=0",
+    "ROOMS_TEST failures=0",
+    "SAVE_TEST failures=0",
+    "SCHEDULE_TEST failures=0",
+    "SEATING_TEST failures=0",
+    "SOCIAL_TEST failures=0",
+    "STAFFING_TEST failures=0",
+    "VERSION_IMPORT_TEST failures=0",
+    "VISUAL_TEST failures=0",
+    "WORK_PROJECTS_TEST failures=0",
+    "WORK_SCENE_TEST failures=0",
+    "WORLD_TEST failures=0"
+  ],
+  "final_material_asset_recheck": "ENVIRONMENT_ASSETS_TEST failures=0",
+  "python_tests": {
+    "count": 8,
+    "result": "passed"
+  },
+  "resolved_regression": {
+    "trigger": "waiting chairs occupied onboarding arrival",
+    "before_observed": "FULL_ROUTE_TEST failures=2",
+    "after_observed": "FULL_ROUTE_TEST failures=0",
+    "fix": "Move chairs 0.5m back; preserve old navigation and test thresholds"
+  },
+  "visual": {
+    "renderer_views": [
+      "Compatibility A/B street/reception/waiting",
+      "Metal Forward+ A/B street/reception/waiting"
+    ],
+    "special_camera": "Detail views use a separate Camera3D; street views use normal player camera",
+    "review": "Original files and placement checked; no GTA quality signoff"
+  },
+  "final_model_texture_recheck": {
+    "result": "ENVIRONMENT_ASSETS_TEST failures=0",
+    "contract": "Actual glTF surface albedo/normal/roughness textures have mipmaps and GPU compression; original file hashes unchanged"
+  }
+}

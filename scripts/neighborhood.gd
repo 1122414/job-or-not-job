@@ -5,18 +5,23 @@ static func build(game: Node3D) -> void:
 	var ground := Shapes.solid(game,Vector3(80,0.4,60),Vector3(0,-0.2,0),Color("858984"))
 	# Keep collision seamless, but separate the rendered surface from road/floor tops.
 	ground.get_child(0).position.y=-0.04
-	Shapes.solid(game,Vector3(64,0.08,8),Vector3(0,-0.04,8),Color("343e48"))
+	ground.get_child(0).material_override=preload("res://assets/materials/pavement.tres")
+	var road := Shapes.solid(game,Vector3(64,0.08,8),Vector3(0,-0.04,8),Color.WHITE)
+	road.get_child(0).material_override=preload("res://assets/materials/asphalt.tres")
 	for x in range(-30,31,5):
 		Shapes.box(game,Vector3(2,0.02,0.12),Vector3(x,0.01,8),Color("e4cb82"))
 	for center in [-14.0,14.0]:
 		var firm := "a" if center < 0 else "b"
 		var color := Color("aaada8") if firm == "a" else Color("b3aaa0")
+		var wall_material: StandardMaterial3D=preload("res://assets/materials/painted_wall.tres").duplicate()
+		wall_material.albedo_color=Color("f5f5f2") if firm=="a" else Color("e8ded0")
 		Shapes.solid(game,Vector3(24,0.1,18),Vector3(center,-0.05,-7),Color("626769"))
-		Shapes.solid(game,Vector3(24,3.7,0.3),Vector3(center,1.8,-16),color)
+		var walls := [Shapes.solid(game,Vector3(24,3.7,0.3),Vector3(center,1.8,-16),color)]
 		for side in [-1,1]:
-			Shapes.solid(game,Vector3(0.3,3.7,18),Vector3(center+side*12,1.8,-7),color)
-			Shapes.solid(game,Vector3(8.8,3.7,0.3),Vector3(center+side*7.6,1.8,2),color)
-		Shapes.box(game,Vector3(6.2,0.5,0.4),Vector3(center,3.45,2),color)
+			walls.append(Shapes.solid(game,Vector3(0.3,3.7,18),Vector3(center+side*12,1.8,-7),color))
+			walls.append(Shapes.solid(game,Vector3(8.8,3.7,0.3),Vector3(center+side*7.6,1.8,2),color))
+		for wall in walls: wall.get_child(0).material_override=wall_material
+		Shapes.box(game,Vector3(6.2,0.5,0.4),Vector3(center,3.45,2),color).material_override=wall_material
 		for side in [-1,1]:
 			var window_pos := Vector3(center+side*7.6,1.9,2.17)
 			Shapes.box(game,Vector3(4.2,1.4,0.04),window_pos,Color("405b66"))

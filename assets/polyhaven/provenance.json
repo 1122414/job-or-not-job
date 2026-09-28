@@ -1,0 +1,233 @@
+{
+  "schema_version": 1,
+  "provider": "Poly Haven",
+  "credit": "Powered by Poly Haven",
+  "retrieved_date": "2026-09-29",
+  "assets": [
+    {
+      "id": "modern_arm_chair_01",
+      "category": "models",
+      "source": "https://polyhaven.com/a/modern_arm_chair_01",
+      "authors": {
+        "Vibrant Nordic": "All"
+      },
+      "license": "CC0-1.0",
+      "license_url": "https://polyhaven.com/license",
+      "license_text_url": "https://creativecommons.org/publicdomain/zero/1.0/legalcode.en",
+      "resolution": "2k",
+      "source_dimensions_mm": [
+        820.3444182872772,
+        986.5616858005524,
+        1022.8520567470696
+      ],
+      "files": {
+        "modern_arm_chair_01_2k.gltf": {
+          "bytes": 5121,
+          "upstream_md5": "1fec9694d156cbed5dc8757576cd16a5",
+          "sha256": "eb971ed98af1ce3d4cc93a058ceee5c31dbd185f99aa3d86938d366820943414",
+          "url": "https://dl.polyhaven.org/file/ph-assets/Models/gltf/2k/modern_arm_chair_01/modern_arm_chair_01_2k.gltf"
+        },
+        "textures/modern_arm_chair_01_pillow_diff_2k.jpg": {
+          "bytes": 843013,
+          "upstream_md5": "c3def4cb2bcef8ee07c90c55c20a637e",
+          "sha256": "20a8b41bd14552643c1355587ec1198cb8c5f1f7dea50dc71dbb0f6a826adfc1",
+          "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/2k/modern_arm_chair_01/modern_arm_chair_01_pillow_diff_2k.jpg"
+        },
+        "textures/modern_arm_chair_01_pillow_nor_gl_2k.jpg": {
+          "bytes": 1074878,
+          "upstream_md5": "2549b1d93eb4ec13e8ad9edd1327d2f0",
+          "sha256": "dfd11d444ba0a6c1a16304f91c10ef2a2a525180f6a46ca57c2d55c196ff39de",
+          "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/2k/modern_arm_chair_01/modern_arm_chair_01_pillow_nor_gl_2k.jpg"
+        },
+        "modern_arm_chair_01.bin": {
+          "bytes": 240728,
+          "upstream_md5": "5a8f2ea1c79ea484140e484b2a621670",
+          "sha256": "8755f2f498c0bb165660379d1b045465751c16bbeaf553c8dd76bb14c16d1ff6",
+          "url": "https://dl.polyhaven.org/file/ph-assets/Models/gltf/8k/modern_arm_chair_01/modern_arm_chair_01.bin"
+        },
+        "textures/modern_arm_chair_01_legs_diff_2k.jpg": {
+          "bytes": 1660925,
+          "upstream_md5": "cfed247a17cafd9f59a7f01ed01fdbf4",
+          "sha256": "a3a289f3265d77e120e81aebdd9107b612609b077190e842389b5cd32bbf9a3d",
+          "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/2k/modern_arm_chair_01/modern_arm_chair_01_legs_diff_2k.jpg"
+        },
+        "textures/modern_arm_chair_01_legs_arm_2k.jpg": {
+          "bytes": 2144468,
+          "upstream_md5": "a62c231c4f42be2f85f6b42a7cc1fc8e",
+          "sha256": "38a2b11cdfb18aeed9804fee38de93d8fd856f53ad9448ee877833ba25643f15",
+          "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/2k/modern_arm_chair_01/modern_arm_chair_01_legs_arm_2k.jpg"
+        },
+        "textures/modern_arm_chair_01_legs_nor_gl_2k.jpg": {
+          "bytes": 2076117,
+          "upstream_md5": "52c08726e839e2c1c87863e6f5a87411",
+          "sha256": "5a57c6b8de10b79d7d2b5540bcb864f4c3c0b4f81c6ef2c5f61470e88620c4a7",
+          "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/2k/modern_arm_chair_01/modern_arm_chair_01_legs_nor_gl_2k.jpg"
+        },
+        "textures/modern_arm_chair_01_pillow_arm_2k.jpg": {
+          "bytes": 1176399,
+          "upstream_md5": "1984906adcaef79cefe2d20cb5be4c7e",
+          "sha256": "3c98a68f8d4d9045082d1af97994ff564dc4f8378814bea717d9862edf5dae22",
+          "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/2k/modern_arm_chair_01/modern_arm_chair_01_pillow_arm_2k.jpg"
+        }
+      }
+    },
+    {
+      "id": "desk_lamp_arm_01",
+      "category": "models",
+      "source": "https://polyhaven.com/a/desk_lamp_arm_01",
+      "authors": {
+        "Yann Kervran": "Rigging",
+        "Kuutti Siitonen": "Modeling & texturing"
+      },
+      "license": "CC0-1.0",
+      "license_url": "https://polyhaven.com/license",
+      "license_text_url": "https://creativecommons.org/publicdomain/zero/1.0/legalcode.en",
+      "resolution": "2k",
+      "source_dimensions_mm": [
+        617.3093914985657,
+        408.02252292633057,
+        879.0190517902374
+      ],
+      "files": {
+        "desk_lamp_arm_01_2k.gltf": {
+          "bytes": 4453,
+          "upstream_md5": "93587e189642dc55cd6567703dc88fd6",
+          "sha256": "b3f03ff2c7c186ec73682f7447b3594db2362cbfc0d72a89d2d8967111d2a2b6",
+          "url": "https://dl.polyhaven.org/file/ph-assets/Models/gltf/2k/desk_lamp_arm_01/desk_lamp_arm_01_2k.gltf"
+        },
+        "textures/desk_lamp_arm_01_nor_gl_2k.jpg": {
+          "bytes": 2491219,
+          "upstream_md5": "f576a49c0203d1115fd4fb4b68f0548c",
+          "sha256": "289e2b9a9d0dcbc02dd8d8dbe612380c13dc48fb7c4484fb39c303f6cf822379",
+          "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/2k/desk_lamp_arm_01/desk_lamp_arm_01_nor_gl_2k.jpg"
+        },
+        "textures/desk_lamp_arm_01_diff_2k.jpg": {
+          "bytes": 2438937,
+          "upstream_md5": "18b2a20186590642bf99537784bdc414",
+          "sha256": "c5f8c5be367a40585f89ce0aeac0224e36146eef63c12864222af080a9784869",
+          "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/2k/desk_lamp_arm_01/desk_lamp_arm_01_diff_2k.jpg"
+        },
+        "desk_lamp_arm_01.bin": {
+          "bytes": 736804,
+          "upstream_md5": "29ffa5bb6bee35b066e46073124fee1a",
+          "sha256": "07f34e32abecbaa63d28b9d12d6a0eb82b775a0f50c92327655909d72ff8489b",
+          "url": "https://dl.polyhaven.org/file/ph-assets/Models/gltf/8k/desk_lamp_arm_01/desk_lamp_arm_01.bin"
+        },
+        "textures/desk_lamp_arm_01_arm_2k.jpg": {
+          "bytes": 2801607,
+          "upstream_md5": "7f4335c90f5be6ac9d9e0073a12cc7e5",
+          "sha256": "d2d55bb3d929ab583d4068adc3dce4e45d29852fd37602ddbb992183a9471b79",
+          "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/2k/desk_lamp_arm_01/desk_lamp_arm_01_arm_2k.jpg"
+        }
+      }
+    },
+    {
+      "id": "painted_plaster_wall",
+      "category": "textures",
+      "source": "https://polyhaven.com/a/painted_plaster_wall",
+      "authors": {
+        "Amal Kumar": "All"
+      },
+      "license": "CC0-1.0",
+      "license_url": "https://polyhaven.com/license",
+      "license_text_url": "https://creativecommons.org/publicdomain/zero/1.0/legalcode.en",
+      "resolution": "2k",
+      "source_dimensions_mm": [
+        2000,
+        2000
+      ],
+      "files": {
+        "painted_plaster_wall_Diffuse_2k.jpg": {
+          "bytes": 3132937,
+          "upstream_md5": "32f4f4e5ded7d20e55e337004d0d9691",
+          "sha256": "6fd812ed8dd5be1873c29aeef38ce9bf1fb30a22c6d4b3a12db725e98c26a1be",
+          "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/2k/painted_plaster_wall/painted_plaster_wall_diff_2k.jpg"
+        },
+        "painted_plaster_wall_nor_gl_2k.jpg": {
+          "bytes": 4048392,
+          "upstream_md5": "18faf9f7949aefdb3ae7cef7195cba04",
+          "sha256": "2d601a46ed5ce2af866741c53cafa3cba472620c272e633b6484d4de16a80eb1",
+          "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/2k/painted_plaster_wall/painted_plaster_wall_nor_gl_2k.jpg"
+        },
+        "painted_plaster_wall_arm_2k.jpg": {
+          "bytes": 2159906,
+          "upstream_md5": "b66f912016257faa7e71a1530e387545",
+          "sha256": "8d6a2e391e87130aabb1dc6fea23e6ebcc80aca6559a0aa82e57b75729055be5",
+          "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/2k/painted_plaster_wall/painted_plaster_wall_arm_2k.jpg"
+        }
+      }
+    },
+    {
+      "id": "concrete_floor_01",
+      "category": "textures",
+      "source": "https://polyhaven.com/a/concrete_floor_01",
+      "authors": {
+        "Rob Tuytel": "All"
+      },
+      "license": "CC0-1.0",
+      "license_url": "https://polyhaven.com/license",
+      "license_text_url": "https://creativecommons.org/publicdomain/zero/1.0/legalcode.en",
+      "resolution": "2k",
+      "source_dimensions_mm": [
+        2000,
+        2000
+      ],
+      "files": {
+        "concrete_floor_01_Diffuse_2k.jpg": {
+          "bytes": 2967720,
+          "upstream_md5": "bde1be20188bbec1d3970f37ee210ca1",
+          "sha256": "ca24c52dabae67ef49093f91d8f9b9e5328a3b9fcb1327742ff6181ee542e017",
+          "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/2k/concrete_floor_01/concrete_floor_01_diff_2k.jpg"
+        },
+        "concrete_floor_01_nor_gl_2k.jpg": {
+          "bytes": 3261423,
+          "upstream_md5": "ee04738b0919c3bd75ea77fc55e1e7d8",
+          "sha256": "796b010208e346bbeec4c468f286c3892852a454f77cb516d6f4a6e7c240de01",
+          "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/2k/concrete_floor_01/concrete_floor_01_nor_gl_2k.jpg"
+        },
+        "concrete_floor_01_arm_2k.jpg": {
+          "bytes": 760362,
+          "upstream_md5": "617bd5e0f53304f5d71e5f7112e1a74d",
+          "sha256": "a2d1d01781c61a4b4e18bc23b0d5c54308ed5d5886948e3ca9f367ffb6ebc31f",
+          "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/2k/concrete_floor_01/concrete_floor_01_arm_2k.jpg"
+        }
+      }
+    },
+    {
+      "id": "clean_asphalt",
+      "category": "textures",
+      "source": "https://polyhaven.com/a/clean_asphalt",
+      "authors": {
+        "Dimitrios Savva": "All"
+      },
+      "license": "CC0-1.0",
+      "license_url": "https://polyhaven.com/license",
+      "license_text_url": "https://creativecommons.org/publicdomain/zero/1.0/legalcode.en",
+      "resolution": "2k",
+      "source_dimensions_mm": [
+        2099.9999046325684,
+        2099.9999046325684
+      ],
+      "files": {
+        "clean_asphalt_Diffuse_2k.jpg": {
+          "bytes": 3314999,
+          "upstream_md5": "d3afa117daf0846a743bbf5b4eb2464d",
+          "sha256": "9d58f263b695c268e391aa39ea2f6b30ab9f36d279715cc78593a4d43368039c",
+          "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/2k/clean_asphalt/clean_asphalt_diff_2k.jpg"
+        },
+        "clean_asphalt_nor_gl_2k.jpg": {
+          "bytes": 3923727,
+          "upstream_md5": "f9d4e1b14ac5b231748b600dcd59f20e",
+          "sha256": "ee6e217a75851a73ab0ce54501e787b63707e0cf8dfd7293989adf7d3e325162",
+          "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/2k/clean_asphalt/clean_asphalt_nor_gl_2k.jpg"
+        },
+        "clean_asphalt_arm_2k.jpg": {
+          "bytes": 3461113,
+          "upstream_md5": "683b881a2b614cd57fd518102f6ce99a",
+          "sha256": "88e7f69b2b749559841c46c5f7732c1dc59f15acca7bb8f27c6a8b3a6f22cfac",
+          "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/2k/clean_asphalt/clean_asphalt_arm_2k.jpg"
+        }
+      }
+    }
+  ]
+}

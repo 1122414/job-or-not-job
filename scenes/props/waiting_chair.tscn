@@ -1,0 +1,32 @@
+[gd_scene load_steps=5 format=3]
+
+[ext_resource type="PackedScene" path="res://assets/polyhaven/modern_arm_chair_01/modern_arm_chair_01_2k.gltf" id="1_chair"]
+
+[sub_resource type="BoxShape3D" id="Seat"]
+size = Vector3(0.81, 0.50, 0.96)
+
+[sub_resource type="BoxShape3D" id="Back"]
+size = Vector3(0.73, 0.52, 0.34)
+
+[sub_resource type="BoxShape3D" id="Arm"]
+size = Vector3(0.10, 0.20, 0.82)
+
+[node name="WaitingChair" type="StaticBody3D"]
+
+[node name="Model" parent="." instance=ExtResource("1_chair")]
+
+[node name="Seat" type="CollisionShape3D" parent="."]
+position = Vector3(0, 0.25, -0.08)
+shape = SubResource("Seat")
+
+[node name="Back" type="CollisionShape3D" parent="."]
+position = Vector3(0, 0.75, -0.40)
+shape = SubResource("Back")
+
+[node name="ArmLeft" type="CollisionShape3D" parent="."]
+position = Vector3(-0.35, 0.60, -0.08)
+shape = SubResource("Arm")
+
+[node name="ArmRight" type="CollisionShape3D" parent="."]
+position = Vector3(0.35, 0.60, -0.08)
+shape = SubResource("Arm")

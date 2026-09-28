@@ -24,6 +24,27 @@ func run() -> void:
 		push_error("Package scene or persistence isolation changed")
 		quit(1)
 		return
+	var sources_path := OS.get_executable_path().get_base_dir().path_join("../Resources/ASSET-SOURCES.json")
+	var sources: Variant=JSON.parse_string(FileAccess.get_file_as_string(sources_path))
+	if not sources is Dictionary or sources.get("assets",[]).size()!=5:
+		push_error("Packaged asset provenance missing")
+		quit(1)
+		return
+	for firm in ["A","B"]:
+		for name in ["ReceptionLamp"+firm,"WaitingChair"+firm+"-1","WaitingChair"+firm+"1"]:
+			var prop: Node=game.get_node_or_null(name)
+			if prop==null:
+				push_error("Packaged environment prop missing: "+name)
+				quit(1)
+				return
+			for mesh in prop.find_children("*","MeshInstance3D",true,false):
+				for surface in range(mesh.mesh.get_surface_count()):
+					var material: StandardMaterial3D=mesh.mesh.surface_get_material(surface)
+					for texture in [material.albedo_texture,material.normal_texture,material.roughness_texture]:
+						if texture==null or not texture.get_image().has_mipmaps() or not texture.get_image().is_compressed():
+							push_error("Packaged model texture import contract failed: "+name)
+							quit(1)
+							return
 	game.toggle_menu()
 	if DisplayServer.get_name()!="headless":
 		for i in range(6): await process_frame
@@ -32,7 +53,7 @@ func run() -> void:
 			if argument.begins_with("--screenshot="):
 				var error := root.get_texture().get_image().save_png(argument.trim_prefix("--screenshot="))
 				if error!=OK: quit(1); return
-	print("PACKAGED_SMOKE_OK build=",build.build_id," label=",BuildInfo.label()," npcs=",game.npcs.size()," props=",game.props.size()," persistence=",game.persistence_enabled)
+	print("PACKAGED_SMOKE_OK build=",build.build_id," label=",BuildInfo.label()," npcs=",game.npcs.size()," props=",game.props.size()," environment_props=6 asset_sources=5 texture_imports=verified persistence=",game.persistence_enabled)
 	paused=false
 	game.queue_free()
 	await process_frame
