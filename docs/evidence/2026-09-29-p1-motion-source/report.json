@@ -1,0 +1,1005 @@
+{
+	"animations": [
+		{
+			"hips_extent_m": [
+				0.0,
+				0.0,
+				0.0
+			],
+			"keys": 18,
+			"name": "A_TPose",
+			"root_extent_m": [
+				0.0,
+				0.0,
+				0.0
+			],
+			"sample_count": 13,
+			"seconds": 0.16666667163372,
+			"tracks": 3
+		},
+		{
+			"hips_extent_m": [
+				0.0465756235644221,
+				0.0604489147663116,
+				0.00596597790718079
+			],
+			"keys": 3111,
+			"name": "Crouch_Fwd_Loop",
+			"root_extent_m": [
+				0.0,
+				0.0,
+				0.0
+			],
+			"sample_count": 13,
+			"seconds": 2.0,
+			"tracks": 51
+		},
+		{
+			"hips_extent_m": [
+				0.00568630173802376,
+				0.00802052021026611,
+				0.00170466303825378
+			],
+			"keys": 4628,
+			"name": "Crouch_Idle_Loop",
+			"root_extent_m": [
+				0.0,
+				0.0,
+				0.0
+			],
+			"sample_count": 13,
+			"seconds": 2.91666674613953,
+			"tracks": 52
+		},
+		{
+			"hips_extent_m": [
+				0.140514239668846,
+				0.0625550150871277,
+				0.0491409227252007
+			],
+			"keys": 1612,
+			"name": "Dance_Loop",
+			"root_extent_m": [
+				0.0,
+				0.0,
+				0.0
+			],
+			"sample_count": 13,
+			"seconds": 1.0,
+			"tracks": 52
+		},
+		{
+			"hips_extent_m": [
+				0.0487269421573728,
+				0.819819927215576,
+				0.470249950885773
+			],
+			"keys": 3796,
+			"name": "Death01",
+			"root_extent_m": [
+				0.0,
+				0.0,
+				0.0
+			],
+			"sample_count": 13,
+			"seconds": 2.375,
+			"tracks": 52
+		},
+		{
+			"hips_extent_m": [
+				0.0,
+				0.0,
+				0.0
+			],
+			"keys": 2652,
+			"name": "Driving_Loop",
+			"root_extent_m": [
+				0.0,
+				0.0,
+				0.0
+			],
+			"sample_count": 13,
+			"seconds": 1.66666662693024,
+			"tracks": 52
+		},
+		{
+			"hips_extent_m": [
+				0.0434004379203543,
+				0.477170884609222,
+				0.151661194860935
+			],
+			"keys": 8112,
+			"name": "Fixing_Kneeling",
+			"root_extent_m": [
+				0.0,
+				0.0,
+				0.0
+			],
+			"sample_count": 13,
+			"seconds": 5.16666650772095,
+			"tracks": 52
+		},
+		{
+			"hips_extent_m": [
+				0.000247683841735125,
+				0.020676851272583,
+				0.0272026695311069
+			],
+			"keys": 572,
+			"name": "Hit_Chest",
+			"root_extent_m": [
+				0.0,
+				0.0,
+				0.0
+			],
+			"sample_count": 13,
+			"seconds": 0.333333343267441,
+			"tracks": 52
+		},
+		{
+			"hips_extent_m": [
+				0.00561764277517796,
+				0.00227266550064087,
+				0.0237194076180458
+			],
+			"keys": 728,
+			"name": "Hit_Head",
+			"root_extent_m": [
+				0.0,
+				0.0,
+				0.0
+			],
+			"sample_count": 13,
+			"seconds": 0.416666656732559,
+			"tracks": 52
+		},
+		{
+			"hips_extent_m": [
+				0.00774480728432536,
+				0.0084720253944397,
+				0.0018480196595192
+			],
+			"keys": 3952,
+			"name": "Idle_Loop",
+			"root_extent_m": [
+				0.0,
+				0.0,
+				0.0
+			],
+			"sample_count": 13,
+			"seconds": 2.5,
+			"tracks": 52
+		},
+		{
+			"hips_extent_m": [
+				0.00488011830020696,
+				0.00530499219894409,
+				0.00121667981147766
+			],
+			"keys": 4272,
+			"name": "Idle_Talking_Loop",
+			"root_extent_m": [
+				0.0,
+				0.0,
+				0.0
+			],
+			"sample_count": 13,
+			"seconds": 2.91666674613953,
+			"tracks": 48
+		},
+		{
+			"hips_extent_m": [
+				0.000456409994512796,
+				0.00847482681274414,
+				0.00192708522081375
+			],
+			"keys": 2028,
+			"name": "Idle_Torch_Loop",
+			"root_extent_m": [
+				0.0,
+				0.0,
+				0.0
+			],
+			"sample_count": 13,
+			"seconds": 1.25,
+			"tracks": 52
+		},
+		{
+			"hips_extent_m": [
+				0.00777516700327396,
+				0.00880712270736694,
+				0.00183069705963135
+			],
+			"keys": 3172,
+			"name": "Interact",
+			"root_extent_m": [
+				0.0,
+				0.0,
+				0.0
+			],
+			"sample_count": 13,
+			"seconds": 2.0,
+			"tracks": 52
+		},
+		{
+			"hips_extent_m": [
+				0.0356003381311893,
+				0.215875923633575,
+				0.0000724643468856812
+			],
+			"keys": 1508,
+			"name": "Jog_Fwd_Loop",
+			"root_extent_m": [
+				0.0,
+				0.0,
+				0.0
+			],
+			"sample_count": 13,
+			"seconds": 0.916666686534882,
+			"tracks": 52
+		},
+		{
+			"hips_extent_m": [
+				0.0329828425310552,
+				0.490475296974182,
+				0.0889523699879646
+			],
+			"keys": 2028,
+			"name": "Jump_Land",
+			"root_extent_m": [
+				0.0,
+				0.0,
+				0.0
+			],
+			"sample_count": 13,
+			"seconds": 1.25,
+			"tracks": 52
+		},
+		{
+			"hips_extent_m": [
+				0.0218353355303407,
+				0.000754058361053467,
+				0.00352752953767776
+			],
+			"keys": 3800,
+			"name": "Jump_Loop",
+			"root_extent_m": [
+				0.0,
+				0.0,
+				0.0
+			],
+			"sample_count": 13,
+			"seconds": 2.5,
+			"tracks": 50
+		},
+		{
+			"hips_extent_m": [
+				0.0394449955783784,
+				0.354204058647156,
+				0.124971158802509
+			],
+			"keys": 2132,
+			"name": "Jump_Start",
+			"root_extent_m": [
+				0.0,
+				0.0,
+				0.0
+			],
+			"sample_count": 13,
+			"seconds": 1.33333337306976,
+			"tracks": 52
+		},
+		{
+			"hips_extent_m": [
+				0.00729068974032998,
+				0.00957691669464111,
+				0.0240671038627625
+			],
+			"keys": 1352,
+			"name": "PickUp_Table",
+			"root_extent_m": [
+				0.0,
+				0.0,
+				0.0
+			],
+			"sample_count": 13,
+			"seconds": 0.833333313465118,
+			"tracks": 52
+		},
+		{
+			"hips_extent_m": [
+				0.0,
+				0.0,
+				0.0
+			],
+			"keys": 288,
+			"name": "Pistol_Aim_Down",
+			"root_extent_m": [
+				0.0,
+				0.0,
+				0.0
+			],
+			"sample_count": 13,
+			"seconds": 0.16666667163372,
+			"tracks": 48
+		},
+		{
+			"hips_extent_m": [
+				0.0,
+				0.0,
+				0.0
+			],
+			"keys": 288,
+			"name": "Pistol_Aim_Neutral",
+			"root_extent_m": [
+				0.0,
+				0.0,
+				0.0
+			],
+			"sample_count": 13,
+			"seconds": 0.16666667163372,
+			"tracks": 48
+		},
+		{
+			"hips_extent_m": [
+				0.0,
+				0.0,
+				0.0
+			],
+			"keys": 288,
+			"name": "Pistol_Aim_Up",
+			"root_extent_m": [
+				0.0,
+				0.0,
+				0.0
+			],
+			"sample_count": 13,
+			"seconds": 0.16666667163372,
+			"tracks": 48
+		},
+		{
+			"hips_extent_m": [
+				0.0,
+				0.0,
+				0.0
+			],
+			"keys": 2448,
+			"name": "Pistol_Idle_Loop",
+			"root_extent_m": [
+				0.0,
+				0.0,
+				0.0
+			],
+			"sample_count": 13,
+			"seconds": 1.66666662693024,
+			"tracks": 48
+		},
+		{
+			"hips_extent_m": [
+				0.000608301721513271,
+				0.00000131130218505859,
+				0.000155821442604065
+			],
+			"keys": 2652,
+			"name": "Pistol_Reload",
+			"root_extent_m": [
+				0.0,
+				0.0,
+				0.0
+			],
+			"sample_count": 13,
+			"seconds": 1.66666662693024,
+			"tracks": 52
+		},
+		{
+			"hips_extent_m": [
+				0.0,
+				0.0,
+				0.0
+			],
+			"keys": 960,
+			"name": "Pistol_Shoot",
+			"root_extent_m": [
+				0.0,
+				0.0,
+				0.0
+			],
+			"sample_count": 13,
+			"seconds": 0.625,
+			"tracks": 48
+		},
+		{
+			"hips_extent_m": [
+				0.0262218881398439,
+				0.0265567302703857,
+				0.00687151774764061
+			],
+			"keys": 1612,
+			"name": "Punch_Cross",
+			"root_extent_m": [
+				0.0,
+				0.0,
+				0.0
+			],
+			"sample_count": 13,
+			"seconds": 1.0,
+			"tracks": 52
+		},
+		{
+			"hips_extent_m": [
+				0.0126421377062798,
+				0.0520710349082947,
+				0.0644848644733429
+			],
+			"keys": 1352,
+			"name": "Punch_Enter",
+			"root_extent_m": [
+				0.0,
+				0.0,
+				0.0
+			],
+			"sample_count": 13,
+			"seconds": 0.833333313465118,
+			"tracks": 52
+		},
+		{
+			"hips_extent_m": [
+				0.0187959517352283,
+				0.00151073932647705,
+				0.0779185555875301
+			],
+			"keys": 1352,
+			"name": "Punch_Jab",
+			"root_extent_m": [
+				0.0,
+				0.0,
+				0.0
+			],
+			"sample_count": 13,
+			"seconds": 0.833333313465118,
+			"tracks": 52
+		},
+		{
+			"hips_extent_m": [
+				0.0313076092861593,
+				0.0478923916816711,
+				0.00884619355201721
+			],
+			"keys": 2916,
+			"name": "Push_Loop",
+			"root_extent_m": [
+				0.0,
+				0.0,
+				0.0
+			],
+			"sample_count": 13,
+			"seconds": 2.66666674613953,
+			"tracks": 36
+		},
+		{
+			"hips_extent_m": [
+				0.0246724784374237,
+				1.05030983686447,
+				0.286659076809883
+			],
+			"keys": 2340,
+			"name": "Roll",
+			"root_extent_m": [
+				0.0,
+				0.0,
+				0.0
+			],
+			"sample_count": 13,
+			"seconds": 1.45833337306976,
+			"tracks": 52
+		},
+		{
+			"hips_extent_m": [
+				0.0246725422330201,
+				1.05030989646912,
+				5.12587180733681
+			],
+			"keys": 2385,
+			"name": "Roll_RM",
+			"root_extent_m": [
+				0.0,
+				0.0,
+				4.99143171310425
+			],
+			"sample_count": 13,
+			"seconds": 1.45833337306976,
+			"tracks": 53
+		},
+		{
+			"hips_extent_m": [
+				0.00287010916508734,
+				0.335956275463104,
+				0.24830150604248
+			],
+			"keys": 2080,
+			"name": "Sitting_Enter",
+			"root_extent_m": [
+				0.0,
+				0.0,
+				0.0
+			],
+			"sample_count": 13,
+			"seconds": 1.29166662693024,
+			"tracks": 52
+		},
+		{
+			"hips_extent_m": [
+				0.00279381754808128,
+				0.33572655916214,
+				0.260661602020264
+			],
+			"keys": 1612,
+			"name": "Sitting_Exit",
+			"root_extent_m": [
+				0.0,
+				0.0,
+				0.0
+			],
+			"sample_count": 13,
+			"seconds": 1.0,
+			"tracks": 52
+		},
+		{
+			"hips_extent_m": [
+				0.0,
+				0.0,
+				0.0
+			],
+			"keys": 2448,
+			"name": "Sitting_Idle_Loop",
+			"root_extent_m": [
+				0.0,
+				0.0,
+				0.0
+			],
+			"sample_count": 13,
+			"seconds": 1.66666662693024,
+			"tracks": 48
+		},
+		{
+			"hips_extent_m": [
+				0.0,
+				0.0,
+				0.0
+			],
+			"keys": 4272,
+			"name": "Sitting_Talking_Loop",
+			"root_extent_m": [
+				0.0,
+				0.0,
+				0.0
+			],
+			"sample_count": 13,
+			"seconds": 2.91666674613953,
+			"tracks": 48
+		},
+		{
+			"hips_extent_m": [
+				0.0250422691460699,
+				0.0000743269920349121,
+				0.00174331665039062
+			],
+			"keys": 832,
+			"name": "Spell_Simple_Enter",
+			"root_extent_m": [
+				0.0,
+				0.0,
+				0.0
+			],
+			"sample_count": 13,
+			"seconds": 0.5,
+			"tracks": 52
+		},
+		{
+			"hips_extent_m": [
+				0.0246901824139059,
+				0.0000732541084289551,
+				0.00173091888427734
+			],
+			"keys": 728,
+			"name": "Spell_Simple_Exit",
+			"root_extent_m": [
+				0.0,
+				0.0,
+				0.0
+			],
+			"sample_count": 13,
+			"seconds": 0.416666656732559,
+			"tracks": 52
+		},
+		{
+			"hips_extent_m": [
+				0.000391021370887756,
+				0.00549393892288208,
+				0.00444698333740234
+			],
+			"keys": 3328,
+			"name": "Spell_Simple_Idle_Loop",
+			"root_extent_m": [
+				0.0,
+				0.0,
+				0.0
+			],
+			"sample_count": 13,
+			"seconds": 2.08333325386047,
+			"tracks": 52
+		},
+		{
+			"hips_extent_m": [
+				0.000213535502552986,
+				0.00382304191589355,
+				0.0191178321838379
+			],
+			"keys": 832,
+			"name": "Spell_Simple_Shoot",
+			"root_extent_m": [
+				0.0,
+				0.0,
+				0.0
+			],
+			"sample_count": 13,
+			"seconds": 0.5,
+			"tracks": 52
+		},
+		{
+			"hips_extent_m": [
+				0.0358987301588058,
+				0.11625063419342,
+				0.000286579132080078
+			],
+			"keys": 1092,
+			"name": "Sprint_Loop",
+			"root_extent_m": [
+				0.0,
+				0.0,
+				0.0
+			],
+			"sample_count": 13,
+			"seconds": 0.666666686534882,
+			"tracks": 52
+		},
+		{
+			"hips_extent_m": [
+				0.000769203637901228,
+				0.0131669640541077,
+				0.00198698043823242
+			],
+			"keys": 2009,
+			"name": "Swim_Fwd_Loop",
+			"root_extent_m": [
+				0.0,
+				0.0,
+				0.0
+			],
+			"sample_count": 13,
+			"seconds": 1.33333337306976,
+			"tracks": 49
+		},
+		{
+			"hips_extent_m": [
+				0.010328505653888,
+				0.100559890270233,
+				0.000567913055419922
+			],
+			"keys": 4949,
+			"name": "Swim_Idle_Loop",
+			"root_extent_m": [
+				0.0,
+				0.0,
+				0.0
+			],
+			"sample_count": 13,
+			"seconds": 3.33333325386047,
+			"tracks": 49
+		},
+		{
+			"hips_extent_m": [
+				0.102828130125999,
+				0.259860932826996,
+				0.0432338714599609
+			],
+			"keys": 2208,
+			"name": "Sword_Attack",
+			"root_extent_m": [
+				0.0,
+				0.0,
+				0.0
+			],
+			"sample_count": 13,
+			"seconds": 1.5,
+			"tracks": 48
+		},
+		{
+			"hips_extent_m": [
+				0.102828111499548,
+				0.259860992431641,
+				1.50531925261021
+			],
+			"keys": 2254,
+			"name": "Sword_Attack_RM",
+			"root_extent_m": [
+				0.0,
+				0.0,
+				1.50050568580627
+			],
+			"sample_count": 13,
+			"seconds": 1.5,
+			"tracks": 49
+		},
+		{
+			"hips_extent_m": [
+				0.0573478963924572,
+				0.027109682559967,
+				0.00159084796905518
+			],
+			"keys": 2601,
+			"name": "Sword_Idle",
+			"root_extent_m": [
+				0.0,
+				0.0,
+				0.0
+			],
+			"sample_count": 13,
+			"seconds": 1.66666662693024,
+			"tracks": 51
+		},
+		{
+			"hips_extent_m": [
+				0.0397160016000271,
+				0.0344215035438538,
+				0.000309348106384277
+			],
+			"keys": 2132,
+			"name": "Walk_Formal_Loop",
+			"root_extent_m": [
+				0.0,
+				0.0,
+				0.0
+			],
+			"sample_count": 13,
+			"seconds": 1.33333337306976,
+			"tracks": 52
+		},
+		{
+			"hips_extent_m": [
+				0.0693033244460821,
+				0.0457953214645386,
+				0.000298738479614258
+			],
+			"keys": 2132,
+			"name": "Walk_Loop",
+			"root_extent_m": [
+				0.0,
+				0.0,
+				0.0
+			],
+			"sample_count": 13,
+			"seconds": 1.33333337306976,
+			"tracks": 52
+		}
+	],
+	"author": "Quaternius",
+	"bones": [
+		{
+			"name": "root",
+			"parent": -1
+		},
+		{
+			"name": "DEF-hips",
+			"parent": 0
+		},
+		{
+			"name": "DEF-spine.001",
+			"parent": 1
+		},
+		{
+			"name": "DEF-spine.002",
+			"parent": 2
+		},
+		{
+			"name": "DEF-spine.003",
+			"parent": 3
+		},
+		{
+			"name": "DEF-neck",
+			"parent": 4
+		},
+		{
+			"name": "DEF-head",
+			"parent": 5
+		},
+		{
+			"name": "DEF-shoulder.L",
+			"parent": 4
+		},
+		{
+			"name": "DEF-upper_arm.L",
+			"parent": 7
+		},
+		{
+			"name": "DEF-forearm.L",
+			"parent": 8
+		},
+		{
+			"name": "DEF-hand.L",
+			"parent": 9
+		},
+		{
+			"name": "DEF-f_index.01.L",
+			"parent": 10
+		},
+		{
+			"name": "DEF-f_index.02.L",
+			"parent": 11
+		},
+		{
+			"name": "DEF-f_index.03.L",
+			"parent": 12
+		},
+		{
+			"name": "DEF-f_middle.01.L",
+			"parent": 10
+		},
+		{
+			"name": "DEF-f_middle.02.L",
+			"parent": 14
+		},
+		{
+			"name": "DEF-f_middle.03.L",
+			"parent": 15
+		},
+		{
+			"name": "DEF-f_pinky.01.L",
+			"parent": 10
+		},
+		{
+			"name": "DEF-f_pinky.02.L",
+			"parent": 17
+		},
+		{
+			"name": "DEF-f_pinky.03.L",
+			"parent": 18
+		},
+		{
+			"name": "DEF-f_ring.01.L",
+			"parent": 10
+		},
+		{
+			"name": "DEF-f_ring.02.L",
+			"parent": 20
+		},
+		{
+			"name": "DEF-f_ring.03.L",
+			"parent": 21
+		},
+		{
+			"name": "DEF-thumb.01.L",
+			"parent": 10
+		},
+		{
+			"name": "DEF-thumb.02.L",
+			"parent": 23
+		},
+		{
+			"name": "DEF-thumb.03.L",
+			"parent": 24
+		},
+		{
+			"name": "DEF-shoulder.R",
+			"parent": 4
+		},
+		{
+			"name": "DEF-upper_arm.R",
+			"parent": 26
+		},
+		{
+			"name": "DEF-forearm.R",
+			"parent": 27
+		},
+		{
+			"name": "DEF-hand.R",
+			"parent": 28
+		},
+		{
+			"name": "DEF-f_index.01.R",
+			"parent": 29
+		},
+		{
+			"name": "DEF-f_index.02.R",
+			"parent": 30
+		},
+		{
+			"name": "DEF-f_index.03.R",
+			"parent": 31
+		},
+		{
+			"name": "DEF-f_middle.01.R",
+			"parent": 29
+		},
+		{
+			"name": "DEF-f_middle.02.R",
+			"parent": 33
+		},
+		{
+			"name": "DEF-f_middle.03.R",
+			"parent": 34
+		},
+		{
+			"name": "DEF-f_pinky.01.R",
+			"parent": 29
+		},
+		{
+			"name": "DEF-f_pinky.02.R",
+			"parent": 36
+		},
+		{
+			"name": "DEF-f_pinky.03.R",
+			"parent": 37
+		},
+		{
+			"name": "DEF-f_ring.01.R",
+			"parent": 29
+		},
+		{
+			"name": "DEF-f_ring.02.R",
+			"parent": 39
+		},
+		{
+			"name": "DEF-f_ring.03.R",
+			"parent": 40
+		},
+		{
+			"name": "DEF-thumb.01.R",
+			"parent": 29
+		},
+		{
+			"name": "DEF-thumb.02.R",
+			"parent": 42
+		},
+		{
+			"name": "DEF-thumb.03.R",
+			"parent": 43
+		},
+		{
+			"name": "DEF-thigh.L",
+			"parent": 1
+		},
+		{
+			"name": "DEF-shin.L",
+			"parent": 45
+		},
+		{
+			"name": "DEF-foot.L",
+			"parent": 46
+		},
+		{
+			"name": "DEF-toe.L",
+			"parent": 47
+		},
+		{
+			"name": "DEF-thigh.R",
+			"parent": 1
+		},
+		{
+			"name": "DEF-shin.R",
+			"parent": 49
+		},
+		{
+			"name": "DEF-foot.R",
+			"parent": 50
+		},
+		{
+			"name": "DEF-toe.R",
+			"parent": 51
+		}
+	],
+	"extent_space": "Skeleton global pose; model-space metres, 13 samples, not continuous extrema",
+	"failures": 0,
+	"mirror_commit": "e24c23cf2a1323488a3faa226ea7ea21f644b73e",
+	"scope": "Production source only; no retargeting or runtime replacement validated"
+}

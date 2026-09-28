@@ -42,3 +42,10 @@
 重建：`python3 tools/fetch_open_assets.py --output assets/polyhaven`，已存在同摘要文件直接使用；不同文件保留并报错，禁止覆盖美术编辑。工具只接受官方HTTPS域名、拒绝跨域重定向及路径越界，下载完成才原子改名；中断的`.tmp`需核查后处理。普通游戏离线使用已入库资源，不需要运行下载器。验证：`tests/environment_assets_test.gd`、`tests/test_open_assets.py`及完整职业/行走回归。
 
 macOS包的`ASSET-SOURCES.json`和`CREDITS.txt`保存来源；通用CC0原文随原有`MAKEHUMAN-CC0.txt`分发。候场椅和台灯暂为固定环境家具，没有擅自变更114件可破坏道具及存档ID。正式场景还需要碰撞精修、材质连续性/使用痕迹、光照与声音；正式主角/林岚/阿诚及动作表情没有由此完成。
+
+
+## 2026-09-29 Quaternius动作制作原件
+
+[Universal Animation Library原作者页面](https://quaternius.com/packs/universalanimationlibrary.html)标明CC0。本项目保留2025-06-10免费Standard的固定镜像版本，在`production/quaternius/standard-2025-06-10/`附许可、原始README、53骨骼/46片段的glTF与bin、来源和SHA256。镜像提交`e24c23cf2a1323488a3faa226ea7ea21f644b73e`，各文件Git blob SHA1已匹配；未证明与官方现版本逐字节一致，不宣称2026最新版或120+片段均免费。
+
+原件目录由`.gdignore`隔离，游戏未引用，当前独立包不使用该库。`tools/inspect_animation_source.gd`核验摘要并生成片段/骨架/根运动清单与四个预览。源演示人物只用于制作检查，不是正式角色，也未直接替换HumanVisual。详见[动作源验收](2026-09-29_P1动作源资产验收.md)。
