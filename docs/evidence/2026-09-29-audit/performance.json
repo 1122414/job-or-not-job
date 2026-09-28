@@ -1,0 +1,22 @@
+{
+  "device": "Apple M5 Pro",
+  "os": "macOS",
+  "renderer": "gl_compatibility",
+  "samples": {
+    "chaos": {
+      "average_fps": 44.6880738926239,
+      "frames": 600,
+      "mean_ms": 22.377335,
+      "p95_ms": 25.901,
+      "p99_ms": 27.981
+    },
+    "normal": {
+      "average_fps": 50.8197049001376,
+      "frames": 600,
+      "mean_ms": 19.6774066666666,
+      "p95_ms": 23.219,
+      "p99_ms": 25.533
+    }
+  },
+  "viewport": "(1280, 800)"
+}

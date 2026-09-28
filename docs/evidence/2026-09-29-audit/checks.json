@@ -1,0 +1,34 @@
+[
+  {
+    "test": "panels_test",
+    "exit_code": 0,
+    "seconds": 1.41,
+    "result_lines": [
+      "PANELS_TEST failures=0"
+    ]
+  },
+  {
+    "test": "interview_performance_test",
+    "exit_code": 0,
+    "seconds": 1.89,
+    "result_lines": [
+      "INTERVIEW_PERFORMANCE_TEST failures=0"
+    ]
+  },
+  {
+    "test": "work_projects_test",
+    "exit_code": 0,
+    "seconds": 1.3,
+    "result_lines": [
+      "WORK_PROJECTS_TEST failures=0"
+    ]
+  },
+  {
+    "test": "full_route_test",
+    "exit_code": 0,
+    "seconds": 23.3,
+    "result_lines": [
+      "FULL_ROUTE_TEST failures=0"
+    ]
+  }
+]

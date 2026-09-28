@@ -1,0 +1,108 @@
+{
+  "source_commit": "3113a91",
+  "date": "2026-09-29",
+  "images": [
+    {
+      "file": "interview-b-action.png",
+      "width": 1280,
+      "height": 800,
+      "sha256": "4cd2febc42a6cfe9a4a04c1c61d8dd067a95e17c34198e529dadb51978171e8c"
+    },
+    {
+      "file": "interview-b.png",
+      "width": 1280,
+      "height": 800,
+      "sha256": "d1de597f402b144990d2745ea53d36bca4a71c3e02a7f41a85f60505a64eb7e9"
+    },
+    {
+      "file": "interview.png",
+      "width": 1280,
+      "height": 800,
+      "sha256": "87314774b87db58099295290ce202f439d2e0fdc38a007541dba7a401cf9006d"
+    },
+    {
+      "file": "office.png",
+      "width": 1280,
+      "height": 800,
+      "sha256": "5635c7fd2129ed78c9ec7e7efbe86129e63a5f29433d17af00ba62bf6b29fcc1"
+    },
+    {
+      "file": "street-reverse.png",
+      "width": 1280,
+      "height": 800,
+      "sha256": "052207e702f484f76de205cad7cd25e02940a555029c2efc42fbdff71e959936"
+    },
+    {
+      "file": "street.png",
+      "width": 1280,
+      "height": 800,
+      "sha256": "0f0753f1cba809715dc54947ba35153433e6d9a689d04d9d77eb558acb28b379"
+    },
+    {
+      "file": "ui-bag.png",
+      "width": 1280,
+      "height": 800,
+      "sha256": "6e4d59249798d6ce5110fdec715825e993c9f943227f782b4af45574dad17da0"
+    },
+    {
+      "file": "ui-computer.png",
+      "width": 1280,
+      "height": 800,
+      "sha256": "a1bed6476636c18a5e6d7314ca4cd60111fd5de9512e6454a6b377f0242510f3"
+    },
+    {
+      "file": "ui-help.png",
+      "width": 1280,
+      "height": 800,
+      "sha256": "2c330020c2e7c1bed3d35f8dd6ea04f58d744077e6f51a9fd5742dce2efff73c"
+    },
+    {
+      "file": "ui-history.png",
+      "width": 1280,
+      "height": 800,
+      "sha256": "5b0b24527338f65f5763efed0fb6e3ac052e6160fd9b923320d18d710f481c51"
+    },
+    {
+      "file": "ui-journal.png",
+      "width": 1280,
+      "height": 800,
+      "sha256": "da1a206234e48fc9d5230c3f3089a12951e7b33c1d89bef840e9d39e5becc3d1"
+    },
+    {
+      "file": "ui-ledger.png",
+      "width": 1280,
+      "height": 800,
+      "sha256": "37bcf14e24ec2080a16585d700e5f7e68197a2e37a53288a3923e8d623df3681"
+    },
+    {
+      "file": "ui-messages.png",
+      "width": 1280,
+      "height": 800,
+      "sha256": "9d4d8cd735298f60f5723ec2d008b639a70dbb07e21620ad41845a908a71ed4a"
+    },
+    {
+      "file": "ui-pause.png",
+      "width": 1280,
+      "height": 800,
+      "sha256": "f97f864f6813c12613d7fb368c2692f698bb4096748321439b5c637527d38f27"
+    },
+    {
+      "file": "ui-people.png",
+      "width": 1280,
+      "height": 800,
+      "sha256": "318087a69efc7f59998a49e59339c4c0ef2e6fe43502173df2813a79fa0dacb4"
+    },
+    {
+      "file": "ui-promises.png",
+      "width": 1280,
+      "height": 800,
+      "sha256": "0326c3c3158b82d7212e30d1c2cf8ad77ca368f3e0d0d2c195cbd3391f595b1b"
+    },
+    {
+      "file": "work.png",
+      "width": 1280,
+      "height": 800,
+      "sha256": "e1e92b5a33c8f4a22db13be9808702afaee70cf47df3a7ca513a279d0f14671b"
+    }
+  ]
+}
