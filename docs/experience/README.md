@@ -14,3 +14,4 @@
 | 来访确认后的对象连续性 | 确认老板来访后答辩选项消失，附近工位抢交互 | 定向回归验证一次；完整路线见验收记录 | [来访衔接](patterns/visit-dialogue-continuity.md) |
 
 | 网页平台字体与输入差异 | 中文方框、捕获失败、重复构建扫描产物 | 中文与打包验证一次；边界仍待验 | [网页导出](patterns/web-export-platform-gaps.md) |
+| 构建与证据身份 | 旧包反馈、有未提交资源、源码目录污染独立包检查、GPU计时为零 | 2026-09-29构建与采样验证一次 | [构建证据](patterns/build-evidence-identity.md) |

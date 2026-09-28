@@ -47,4 +47,9 @@ func _ready() -> void:
 	if OS.has_feature("web"):
 		help.text="点击继续游戏后控制视角，Esc 释放鼠标。\n请用菜单保存；保存后可关闭网页。\n进度仅保留于当前浏览器，清除网站数据会丢失。"
 	list.add_child(help)
+	var build_label := Label.new()
+	build_label.text=BuildInfo.label()
+	build_label.add_theme_font_size_override("font_size",12)
+	build_label.autowrap_mode=TextServer.AUTOWRAP_WORD_SMART
+	list.add_child(build_label)
 	hide()

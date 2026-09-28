@@ -1,0 +1,71 @@
+{
+  "godot_regressions": [
+    "ACTION_TEST failures=0",
+    "BODY_SUPPORT_TEST failures=0 final_height=-0.01963427662849",
+    "CAREER_TEST failures=0",
+    "CHAOS_TEST failures=0 simulated_seconds=85",
+    "CONSEQUENCE_TEST failures=0",
+    "DAILY_ROUTINE_TEST failures=0",
+    "DESTRUCTION_TEST failures=0",
+    "DIALOGUE_SCENE_TEST failures=0",
+    "FULL_ROUTE_TEST failures=0",
+    "GAIT_TEST failures=0",
+    "GUIDANCE_TEST failures=0",
+    "HIT_REACTION_TEST failures=0",
+    "INTAKE_TEST failures=0",
+    "INTERACTION_TEST failures=0",
+    "INTERRUPTION_TEST failures=0",
+    "INTERVIEW_CALL_TEST failures=0",
+    "INTERVIEW_CONTENT_TEST failures=0",
+    "INTERVIEW_PERFORMANCE_TEST failures=0",
+    "INTERVIEW_TEST failures=0",
+    "INVENTORY_TEST failures=0",
+    "LOCOMOTION_TEST failures=0",
+    "NONLETHAL_CARE_TEST failures=0",
+    "NPC_LIFECYCLE_TEST failures=0",
+    "OFFICE_LIFE_TEST failures=0",
+    "ONBOARDING_TEST failures=0",
+    "PANELS_TEST failures=0",
+    "PAYROLL_TEST failures=0",
+    "PRESENTATION_TEST failures=0",
+    "PROMISES_TEST failures=0",
+    "PROPS_EXPANSION_TEST failures=0 props=114",
+    "RECRUITMENT_TEST failures=0",
+    "RELATIONSHIPS_TEST failures=0",
+    "ROOMS_TEST failures=0",
+    "SAVE_TEST failures=0",
+    "SCHEDULE_TEST failures=0",
+    "SEATING_TEST failures=0",
+    "SOCIAL_TEST failures=0",
+    "STAFFING_TEST failures=0",
+    "VERSION_IMPORT_TEST failures=0",
+    "VISUAL_TEST failures=0",
+    "WORK_PROJECTS_TEST failures=0",
+    "WORK_SCENE_TEST failures=0",
+    "WORLD_TEST failures=0"
+  ],
+  "godot_error_lines": [],
+  "python_build_manifest_tests": {
+    "count": 4,
+    "result": "passed"
+  },
+  "package": {
+    "build_id": "20260928T193146327996Z-73ddcc0b-9c736709",
+    "headless_from_project": "passed after launcher cwd fix",
+    "graphical_from_tmp": "passed",
+    "persistence_enabled": false,
+    "npcs": 10,
+    "props": 114,
+    "codesign": "deep strict passed in packaging",
+    "old_artifacts_unchanged": {
+      "build/今天不上班-macOS-0.5.0.zip": "2b8c19ff491f83c9138f71c74e5321f9f5dc50372c5afa37d2428c883621693d",
+      "build/今天不上班-0.5.0.app/Contents/Resources/game.pck": "bb2be57f887913f87920a22d338b2c545c58503b275976e7a4948fe6f3c46018"
+    }
+  },
+  "limits": [
+    "No player-experience signoff",
+    "No final quality-mode/performance-mode acceptance",
+    "No GPU timing available in Compatibility",
+    "No official screenshot pixel comparison"
+  ]
+}
