@@ -147,5 +147,7 @@
     "final": 9,
     "counterexample": 1
   },
-  "final_quality_accepted": false
+  "final_quality_accepted": false,
+  "implementation_commit": "838037f",
+  "committed_runtime_matches_build": true
 }
