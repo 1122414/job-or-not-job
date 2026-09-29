@@ -23,3 +23,9 @@ Source: 2025-06-10 Standard mirror, J-Ponzo/gltf-universal-animation-library,
 commit e24c23cf2a1323488a3faa226ea7ea21f644b73e. Not claimed as latest official release.
 Adaptation: offline MakeHuman rest-pose mapping and 60 Hz upper-body bake by this project;
 existing leg support and specialized actions retained. See ANIMATION-SOURCES.json.
+Company interior materials: Poly Haven, CC0 1.0 Universal.
+wood_floor: Dimitrios Savva. https://polyhaven.com/a/wood_floor
+brick_wall_001: Dimitrios Savva (photography), Rob Tuytel (processing).
+https://polyhaven.com/a/brick_wall_001
+Original files unchanged; 2K texture import and metre-scale materials by this project.
+See COMPANY-MATERIALS.json; editable company architecture is original project geometry.

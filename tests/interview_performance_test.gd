@@ -16,9 +16,9 @@ func run() -> void:
  game.player.position=OfficeRooms.INTERVIEW_SEATS.b
  game.speaker=host
  game.interviews.handle("interview_seat_b")
- var box: Node3D=game.get_node("InterviewBoxB")
- var phone: Node3D=game.get_node("InterviewPhoneB")
- check(box.position.distance_to(OfficeRooms.B_BOX_START)<0.05,"纸箱存在于桌面侧边")
+ var box: Node3D=OfficeRooms.object(game,"b","InterviewBoxB")
+ var phone: Node3D=OfficeRooms.object(game,"b","InterviewPhoneB")
+ check(box.global_position.distance_to(OfficeRooms.B_BOX_START)<0.05,"纸箱存在于桌面侧边")
  check(not game.conversation.text.contains("把旁边椅子上的纸箱搬开"),"字幕仅显示讲话，不叙述未演出的动作")
  game.interviews.sessions.b.step=2
  game.conversation=game.interviews.question("b")
@@ -32,7 +32,7 @@ func run() -> void:
  check(box.position.y>0.80,"纸箱先沿桌面滑向边缘，不穿过桌面")
  for i in range(125): await physics_frame
  check(host.visual.current=="box_message","第三段触发独立骨骼演出")
- check(box.position.distance_to(OfficeRooms.B_BOX_FLOOR)<0.08,"纸箱从桌面滑落到桌下")
+ check(box.global_position.distance_to(OfficeRooms.B_BOX_FLOOR)<0.08,"纸箱从桌面滑落到桌下")
  check(host.visual.scene_phone.visible and not phone.visible,"手机随手部动作拿起，桌面手机不复制")
  check(game.interviews.heard_cues.has("b/interview_b/2/fall") and game.interviews.heard_cues.has("b/interview_b/2/phone"),"纸箱落地与手机提醒对应实际动作时点")
  for i in range(220): await physics_frame
@@ -52,7 +52,7 @@ func run() -> void:
  check(game.player.seated and game.interviews.active_firm()=="a","A 公司面试确实落座并进入现场")
  game.interviews.sessions.a.step=1
  game.conversation=game.interviews.question("a")
- var a_phone: Node3D=game.get_node("InterviewPhoneA")
+ var a_phone: Node3D=OfficeRooms.object(game,"a","InterviewPhoneA")
  for i in range(65): await physics_frame
  check(lead.visual.current=="phone_reply" and lead.visual.scene_phone.visible and not a_phone.visible,"A 公司面试官拿起手机，桌面物件同步隐藏")
  game.interviews.interrupt()

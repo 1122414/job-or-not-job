@@ -260,7 +260,7 @@ static func restore(game: Node3D, data: Dictionary) -> bool:
 		npc.home=unvector(entry.get("home",vector(npc.home)))
 		if data.version<6 and npc.role=="hr":
 			var previous_home: Vector3=npc.home
-			npc.home=OfficeRooms.RECEPTIONS[npc.company]+Vector3(0,0,-0.85)
+			npc.home=OfficeRooms.point(game,npc.company,"reception")+Vector3(0,0,-0.85)
 			if npc.position.distance_to(previous_home)<0.6: npc.position=npc.home
 		if data.version<6 and absf(npc.home.z+9.9)<0.1:
 			var old_home: Vector3=npc.home

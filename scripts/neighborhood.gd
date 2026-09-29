@@ -10,30 +10,15 @@ static func build(game: Node3D) -> void:
 	road.get_child(0).material_override=preload("res://assets/materials/asphalt.tres")
 	for x in range(-30,31,5):
 		Shapes.box(game,Vector3(2,0.02,0.12),Vector3(x,0.01,8),Color("e4cb82"))
-	for center in [-14.0,14.0]:
-		var firm := "a" if center < 0 else "b"
-		var color := Color("aaada8") if firm == "a" else Color("b3aaa0")
-		var wall_material: StandardMaterial3D=preload("res://assets/materials/painted_wall.tres").duplicate()
-		wall_material.albedo_color=Color("f5f5f2") if firm=="a" else Color("e8ded0")
-		Shapes.solid(game,Vector3(24,0.1,18),Vector3(center,-0.05,-7),Color("626769"))
-		var walls := [Shapes.solid(game,Vector3(24,3.7,0.3),Vector3(center,1.8,-16),color)]
-		for side in [-1,1]:
-			walls.append(Shapes.solid(game,Vector3(0.3,3.7,18),Vector3(center+side*12,1.8,-7),color))
-			walls.append(Shapes.solid(game,Vector3(8.8,3.7,0.3),Vector3(center+side*7.6,1.8,2),color))
-		for wall in walls: wall.get_child(0).material_override=wall_material
-		Shapes.box(game,Vector3(6.2,0.5,0.4),Vector3(center,3.45,2),color).material_override=wall_material
-		for side in [-1,1]:
-			var window_pos := Vector3(center+side*7.6,1.9,2.17)
-			Shapes.box(game,Vector3(4.2,1.4,0.04),window_pos,Color("405b66"))
-			for offset in [-2.1,0,2.1]: Shapes.box(game,Vector3(0.055,1.5,0.06),window_pos+Vector3(offset,0,0.03),Color("303d42"))
-			for offset in [-0.73,0.73]: Shapes.box(game,Vector3(4.3,0.055,0.06),window_pos+Vector3(0,offset,0.03),Color("303d42"))
-
-		OfficeRooms.plaque(game,"流程创新 · 流程先行" if firm=="a" else "我们不是公司，是一家人",Vector3(center,2.72,-15.67),3.6)
-		game.add_prop(firm+"_keyboard","keyboard",Vector3(center-1,1.3,-5))
-		game.add_prop(firm+"_cup","cup",Vector3(center+1,1.3,-5))
-		game.add_prop(firm+"_table","table",Vector3(center,1,-5))
-		game.add_prop(firm+"_chair","chair",Vector3(center+2,0.6,-5))
-		game.add_prop(firm+"_printer","printer",Vector3(center-4,0.8,-3))
+	for firm in ["a","b"]:
+		var company: Node3D=load("res://scenes/companies/company_"+firm+".tscn").instantiate()
+		company.name="Company"+firm.to_upper()
+		game.add_child(company)
+		company.position=Vector3(-14 if firm=="a" else 14,0,0)
+		for spawn in company.get_node("PropSpawns").get_children():
+			game.add_prop(String(spawn.name),spawn.get_meta("kind"),spawn.global_position)
+		for spawn in company.get_node("PeopleSpawns").get_children():
+			game.add_npc(String(spawn.name),spawn.get_meta("title"),spawn.global_position,firm,spawn.get_meta("role"))
 	OfficeRooms.plaque(game,"公交站  /  下班以后",Vector3(-6,2.5,14),3.0)
 	Shapes.solid(game,Vector3(6,0.2,2),Vector3(-6,2.9,14),Color("415d63"))
 	for x in [-8,-4]: Shapes.solid(game,Vector3(0.1,3,0.1),Vector3(x,1.5,14.6),Color("415d63"))
@@ -48,16 +33,8 @@ static func build(game: Node3D) -> void:
 	# The finite neighborhood has visible boundaries, unrelated to career progress.
 	for z in [-22,23]: Shapes.solid(game,Vector3(72,2,0.5),Vector3(0,1,z),Color("536c68"))
 	for x in [-36,36]: Shapes.solid(game,Vector3(0.5,2,45),Vector3(x,1,0),Color("536c68"))
-	game.add_npc("a_hr","林岚 · HR",OfficeRooms.RECEPTIONS.a+Vector3(0,0,-0.85),"a","hr")
-	game.add_npc("a_lead","周工 · 技术主管",Vector3(-21,0,-4.9),"a","lead")
-	game.add_npc("a_boss","方总 · 老板",Vector3(-21,0,-8.4),"a","boss")
-	game.add_npc("a_friend","小夏 · 同事",Vector3(-8,0,-4.9),"a","friend")
-	game.add_npc("a_group","许姐 · 二组负责人",Vector3(-8,0,-8.4),"a","group")
-	game.add_npc("a_guard","保安 · 规程",Vector3(-19,0,0),"a","guard")
-	game.add_npc("b_hr","阿诚 · 招聘",OfficeRooms.RECEPTIONS.b+Vector3(0,0,-0.85),"b","hr")
-	game.add_npc("b_friend","阿乐 · 同事",Vector3(7,0,-4.9),"b","friend")
-	game.add_npc("b_boss","赵总 · 老板",Vector3(7,0,-8.4),"b","boss")
-	game.add_npc("b_guard","保安 · 自己人",Vector3(23,0,0),"b","guard")
-
-	OfficeDress.build(game)
-	OfficeRooms.build(game)
+	# Context across the street remains a separate neighborhood layer.
+	for x in [-30,-18,-6,6,18,30]:
+		Shapes.box(game,Vector3(10,12,5),Vector3(x,6,27),Color("778087"))
+		for y in [2,5,8,11]:
+			for dx in [-3,0,3]: Shapes.box(game,Vector3(1.6,1.8,0.03),Vector3(x+dx,y,24.45),Color("495d68"))

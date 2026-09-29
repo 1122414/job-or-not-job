@@ -24,6 +24,10 @@ func run() -> void:
 		push_error("Package scene or persistence isolation changed")
 		quit(1)
 		return
+	if Input.mouse_mode!=Input.MOUSE_MODE_VISIBLE or game.player.capture_permitted():
+		push_error("Automated package probe must not capture the desktop pointer")
+		quit(1)
+		return
 	var sources_path := OS.get_executable_path().get_base_dir().path_join("../Resources/ASSET-SOURCES.json")
 	var sources: Variant=JSON.parse_string(FileAccess.get_file_as_string(sources_path))
 	if not sources is Dictionary or sources.get("assets",[]).size()!=5:
@@ -48,8 +52,13 @@ func run() -> void:
 			quit(1)
 			return
 	for firm in ["A","B"]:
+		var space := OfficeRooms.space(game,firm.to_lower())
+		if space==null or space.get_node_or_null("Anchors/interview_seat")==null or space.get_node_or_null("Architecture")==null:
+			push_error("Packaged authored company space missing")
+			quit(1)
+			return
 		for name in ["ReceptionLamp"+firm,"WaitingChair"+firm+"-1","WaitingChair"+firm+"1"]:
-			var prop: Node=game.get_node_or_null(name)
+			var prop: Node=OfficeRooms.space(game,firm.to_lower()).get_node_or_null(name)
 			if prop==null:
 				push_error("Packaged environment prop missing: "+name)
 				quit(1)
@@ -63,6 +72,18 @@ func run() -> void:
 							quit(1)
 							return
 	game.panels.show_page("journal")
+	var company_sources: Variant=JSON.parse_string(FileAccess.get_file_as_string("res://assets/company_materials/provenance.json"))
+	if not company_sources is Dictionary or company_sources.get("assets",[]).size()!=2:
+		push_error("Packaged company material provenance missing")
+		quit(1)
+		return
+	for path in ["res://assets/materials/office_wood.tres","res://assets/materials/office_brick.tres"]:
+		var material: StandardMaterial3D=load(path)
+		for texture in [material.albedo_texture,material.normal_texture,material.roughness_texture]:
+			if texture==null or not texture.get_image().has_mipmaps() or not texture.get_image().is_compressed():
+				push_error("Packaged company material import contract failed: "+path)
+				quit(1)
+				return
 	for i in range(5): await process_frame
 	var page: Control=game.panels.view
 	if not page.visible or not page.buttons.has("company-b"):
@@ -83,6 +104,10 @@ func run() -> void:
 		return
 	root.set_disable_input(true)
 	game.panels.show_page("")
+	if Input.mouse_mode!=Input.MOUSE_MODE_VISIBLE:
+		push_error("Closing a page recaptured the pointer")
+		quit(1)
+		return
 	game.toggle_menu()
 	if DisplayServer.get_name()!="headless":
 		for i in range(6): await process_frame
@@ -91,7 +116,7 @@ func run() -> void:
 			if argument.begins_with("--screenshot="):
 				var error := root.get_texture().get_image().save_png(argument.trim_prefix("--screenshot="))
 				if error!=OK: quit(1); return
-	print("PACKAGED_SMOKE_OK build=",build.build_id," label=",BuildInfo.label()," npcs=",game.npcs.size()," props=",game.props.size()," environment_props=6 asset_sources=5 authored_clips=2 authored_characters=11 texture_imports=verified ui_mouse=verified persistence=",game.persistence_enabled)
+	print("PACKAGED_SMOKE_OK build=",build.build_id," label=",BuildInfo.label()," npcs=",game.npcs.size()," props=",game.props.size()," company_spaces=2 company_sources=2 environment_props=6 asset_sources=5 authored_clips=2 authored_characters=11 texture_imports=verified ui_mouse=verified persistence=",game.persistence_enabled)
 	paused=false
 	game.queue_free()
 	await process_frame

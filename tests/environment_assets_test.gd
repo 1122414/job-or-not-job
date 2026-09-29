@@ -62,11 +62,11 @@ func run() -> void:
 	for i in range(10): await physics_frame
 	check(not game.persistence_enabled,"测试不写玩家存档")
 	for firm in ["A","B"]:
-		check(game.get_node_or_null("ReceptionLamp"+firm)!=null,"两家公司均接入台灯")
-		var lamp: Node3D=game.get_node("ReceptionLamp"+firm)
-		check(is_equal_approx(lamp.position.z,OfficeRooms.RECEPTIONS[firm.to_lower()].z-0.37),"台灯夹在桌沿")
+		check(OfficeRooms.object(game,firm.to_lower(),"ReceptionLamp"+firm)!=null,"两家公司均接入台灯")
+		var lamp: Node3D=OfficeRooms.object(game,firm.to_lower(),"ReceptionLamp"+firm)
+		check(is_equal_approx(lamp.global_position.z,OfficeRooms.RECEPTIONS[firm.to_lower()].z-0.37),"台灯夹在桌沿")
 		for side in [-1,1]:
-			var chair: Node3D=game.get_node_or_null("WaitingChair"+firm+str(side))
+			var chair: Node3D=OfficeRooms.object(game,firm.to_lower(),"WaitingChair"+firm+str(side))
 			check(chair!=null,"两家公司均接入候场椅")
 			check(chair.basis.z.dot(Vector3.FORWARD)>0.99,"候场椅正面朝向室内")
 		var arrival := Vector3(-10 if firm=="A" else 18,0,0.2)

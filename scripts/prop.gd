@@ -50,14 +50,27 @@ func _ready() -> void:
 	durability=max_durability()
 	var size: Vector3 = TYPES[kind][1]
 	var color: Color = TYPES[kind][2]
+	var shared_partition := stable_id.begins_with("b_") and kind in ["panel","side_panel"]
+	if shared_partition:
+		size.y=0.86
+		color=Color("8c9586")
 	mesh = Shapes.box(self, size, Vector3.ZERO, color)
+	if shared_partition: mesh.position.y=-0.27
 	if kind in ["desk","table"]: mesh.material_override=OfficeDress.wood(color)
 	if kind in ["panel","side_panel"]: mesh.material_override=OfficeDress.fabric(color)
 	base_material=mesh.material_override
 	if kind=="chair":
 		Shapes.collider(self,Vector3(0.62,0.12,0.55),Vector3(0,-0.03,0))
 		Shapes.collider(self,Vector3(0.60,0.46,0.09),Vector3(0,0.23,0.23))
-	else: Shapes.collider(self,size)
+		# Support the visible wheel base; seat-only collision lets the legs sink into the floor.
+		var base := CollisionShape3D.new()
+		var support := CylinderShape3D.new()
+		support.radius=0.36
+		support.height=0.065
+		base.shape=support
+		base.position.y=-0.45
+		add_child(base)
+	else: Shapes.collider(self,size,Vector3(0,-0.27,0) if shared_partition else Vector3.ZERO)
 	if kind == "chair":
 		mesh.hide()
 		OfficeDress.chair(self,Vector3(0,-0.55,0))
@@ -109,8 +122,9 @@ func _ready() -> void:
 		Shapes.box(self,Vector3(0.55,0.035,0.3),Vector3(0,-0.40,0.02),Color("292e32"))
 		Shapes.collider(self,Vector3(0.55,0.035,0.3),Vector3(0,-0.40,0.02))
 	if kind in ["panel","side_panel"]:
-		Shapes.box(self,Vector3(size.x+0.02,0.45,size.z+0.02),Vector3(0,0.45,0),Color("c9c8bc"))
-		Shapes.box(self,Vector3(size.x+0.05,0.04,size.z+0.05),Vector3(0,0.72,0),Color("b4b6b2"))
+		if not shared_partition:
+			Shapes.box(self,Vector3(size.x+0.02,0.45,size.z+0.02),Vector3(0,0.45,0),Color("c9c8bc"))
+		Shapes.box(self,Vector3(size.x+0.05,0.04,size.z+0.05),Vector3(0,0.18 if shared_partition else 0.72,0),Color("b4b6b2"))
 	if kind=="plant":
 		mesh.hide()
 		OfficeDress.plant(self,Vector3(0,-0.45,0))

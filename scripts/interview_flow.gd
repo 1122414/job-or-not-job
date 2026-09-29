@@ -38,18 +38,18 @@ func host_target(npc: OfficeNPC) -> Variant:
 	if game.career.conflict[npc.company]>=2: return null
 	var session: Dictionary=sessions.get(npc.company,{})
 	if session.is_empty() or HOSTS[session.action]!=npc.role_id: return null
-	if session.status=="completed": return OfficeRooms.INTERVIEW_CALLS[npc.company] if float(session.get("exit_remaining",0))>0 else null
+	if session.status=="completed": return OfficeRooms.point(game,npc.company,"interview_call") if float(session.get("exit_remaining",0))>0 else null
 	if session.status not in ["scheduled","active"]: return null
-	if session.status=="scheduled" and session.get("call_stage","room") in ["approach","calling"]: return OfficeRooms.INTERVIEW_CALLS[npc.company]
-	return OfficeRooms.INTERVIEW_HOSTS[npc.company]
+	if session.status=="scheduled" and session.get("call_stage","room") in ["approach","calling"]: return OfficeRooms.point(game,npc.company,"interview_call")
+	return OfficeRooms.point(game,npc.company,"interview_host")
 
 func host_seated(npc: OfficeNPC) -> bool:
 	var session: Dictionary=sessions.get(npc.company,{})
-	return not session.is_empty() and session.status in ["scheduled","active"] and session.get("call_stage","room")=="room" and HOSTS[session.action]==npc.role_id and npc.available() and npc.hit_stun<=0 and npc.block_time<=0 and npc.hostile<=0 and npc.position.distance_to(OfficeRooms.INTERVIEW_HOSTS[npc.company])<0.35
+	return not session.is_empty() and session.status in ["scheduled","active"] and session.get("call_stage","room")=="room" and HOSTS[session.action]==npc.role_id and npc.available() and npc.hit_stun<=0 and npc.block_time<=0 and npc.hostile<=0 and npc.position.distance_to(OfficeRooms.point(game,npc.company,"interview_host"))<0.35
 
 func host_calling(npc: OfficeNPC) -> bool:
 	var session: Dictionary=sessions.get(npc.company,{})
-	return not session.is_empty() and session.status=="scheduled" and session.get("call_stage","room")=="calling" and HOSTS[session.action]==npc.role_id and npc.available() and npc.position.distance_to(OfficeRooms.INTERVIEW_CALLS[npc.company])<0.35
+	return not session.is_empty() and session.status=="scheduled" and session.get("call_stage","room")=="calling" and HOSTS[session.action]==npc.role_id and npc.available() and npc.position.distance_to(OfficeRooms.point(game,npc.company,"interview_call"))<0.35
 
 func player_seated() -> bool:
 	return game.player.seated and active_firm()!=""
@@ -90,7 +90,7 @@ func handle(action: String) -> bool:
 		var host: OfficeNPC=game.npc_for_role(HOSTS[sessions[firm].action])
 		if not host or not host_seated(host): return true
 		sessions[firm].status="active"
-		game.player.sit_at(OfficeRooms.INTERVIEW_SEATS[firm])
+		game.player.sit_at(OfficeRooms.point(game,firm,"interview_seat"))
 		game.player.frame_conversation(host)
 		game.conversation=question(firm)
 		return true
@@ -111,7 +111,7 @@ func handle(action: String) -> bool:
 	elif action=="interview_finish" and session.step==pages(session.action).size():
 		session.status="completed"
 		session.exit_remaining=4.0
-		cue_once(firm+"/"+session.action+"/exit","chair",OfficeRooms.INTERVIEW_HOSTS[firm])
+		cue_once(firm+"/"+session.action+"/exit","chair",OfficeRooms.point(game,firm,"interview_host"))
 		game.career.record("terms_"+session.action,"面试约定："+"；".join(PackedStringArray(session.answers)))
 		var result: String=game.recruitment.finish(session.action)
 		if session.action in ["interview_hr","interview_lead"]: result=closing(session.action)
@@ -141,11 +141,11 @@ func tick(delta: float=0.016) -> void:
 		if pending.status!="scheduled" or pending.get("call_stage","room")=="room": continue
 		var caller: OfficeNPC=game.npc_for_role(HOSTS[pending.action])
 		if not caller or not caller.available() or caller.hit_stun>0 or caller.block_time>0: continue
-		if pending.call_stage=="calling" and caller.position.distance_to(OfficeRooms.INTERVIEW_CALLS[company])>0.55:
+		if pending.call_stage=="calling" and caller.position.distance_to(OfficeRooms.point(game,company,"interview_call"))>0.55:
 			pending.call_stage="approach"
 			pending.call_elapsed=0.0
 			continue
-		if pending.call_stage=="approach" and caller.position.distance_to(OfficeRooms.INTERVIEW_CALLS[company])<0.35:
+		if pending.call_stage=="approach" and caller.position.distance_to(OfficeRooms.point(game,company,"interview_call"))<0.35:
 			pending.call_stage="calling"
 			pending.call_elapsed=0.0
 			cue_once(company+"/"+pending.action+"/call","chair",caller.global_position)
@@ -164,7 +164,7 @@ func tick(delta: float=0.016) -> void:
 		game.queue_save()
 		return
 	var host: OfficeNPC=game.npc_for_role(HOSTS[sessions[firm].action])
-	if not host or not host.available() or host.hit_stun>0 or host.block_time>0 or not game.player.seated or game.player.position.distance_to(OfficeRooms.INTERVIEW_SEATS[firm])>1.2:
+	if not host or not host.available() or host.hit_stun>0 or host.block_time>0 or not game.player.seated or game.player.position.distance_to(OfficeRooms.point(game,firm,"interview_seat"))>1.2:
 		game.close_interaction()
 		game.say("面试已中断，未完成的交流可稍后继续。")
 
@@ -226,8 +226,8 @@ func performance(npc: OfficeNPC) -> String:
 
 func update_props() -> void:
 	update_a_props()
-	var box: Node3D=game.get_node_or_null("InterviewBoxB")
-	var table_phone: Node3D=game.get_node_or_null("InterviewPhoneB")
+	var box: Node3D=OfficeRooms.object(game,"b","InterviewBoxB")
+	var table_phone: Node3D=OfficeRooms.object(game,"b","InterviewPhoneB")
 	var host: OfficeNPC=game.npc_for_role("b_hr")
 	if not box or not table_phone or not host or not host.visual.scene_phone: return
 	var session: Dictionary=sessions.get("b",{})
@@ -240,26 +240,27 @@ func update_props() -> void:
 	if clip=="phone_reply" and phase>=0.2: cue_once("b/"+session.action+"/1/phone","phone",host.global_position)
 	if clip=="box_message":
 		if phase>=0.13: cue_once("b/"+session.action+"/2/slide","paper",host.global_position)
-		if phase>=0.38: cue_once("b/"+session.action+"/2/fall","box",OfficeRooms.B_BOX_EDGE)
+		if phase>=0.38: cue_once("b/"+session.action+"/2/fall","box",OfficeRooms.point(game,"b","box_edge"))
 		if phase>=0.40: cue_once("b/"+session.action+"/2/phone","phone",host.global_position)
-	var start := OfficeRooms.B_BOX_START
-	var table := OfficeRooms.B_BOX_TABLE
-	var floor_position := OfficeRooms.B_BOX_FLOOR
-	if step<1: box.position=start.lerp(table,smoothstep(0.10,0.82,phase)) if clip=="move_box" else start
-	elif step==1: box.position=table
+	var start := OfficeRooms.point(game,"b","box_start")
+	var table := OfficeRooms.point(game,"b","box_table")
+	var edge := OfficeRooms.point(game,"b","box_edge")
+	var floor_position := OfficeRooms.point(game,"b","box_floor")
+	if step<1: box.global_position=start.lerp(table,smoothstep(0.10,0.82,phase)) if clip=="move_box" else start
+	elif step==1: box.global_position=table
 	elif clip=="box_message":
-		if phase<0.22: box.position=table.lerp(OfficeRooms.B_BOX_EDGE,smoothstep(0.02,0.22,phase))
-		elif phase<0.39: box.position=OfficeRooms.B_BOX_EDGE.lerp(Vector3(OfficeRooms.B_BOX_EDGE.x,floor_position.y,OfficeRooms.B_BOX_EDGE.z),smoothstep(0.22,0.39,phase))
-		else: box.position=Vector3(OfficeRooms.B_BOX_EDGE.x,floor_position.y,OfficeRooms.B_BOX_EDGE.z).lerp(floor_position,smoothstep(0.39,0.55,phase))
+		if phase<0.22: box.global_position=table.lerp(edge,smoothstep(0.02,0.22,phase))
+		elif phase<0.39: box.global_position=edge.lerp(Vector3(edge.x,floor_position.y,edge.z),smoothstep(0.22,0.39,phase))
+		else: box.global_position=Vector3(edge.x,floor_position.y,edge.z).lerp(floor_position,smoothstep(0.39,0.55,phase))
 		if phase>=0.55: session.box_drop_done=true
-	else: box.position=floor_position if session.get("box_drop_done",false) or step>2 or session.get("status")=="completed" else table
+	else: box.global_position=floor_position if session.get("box_drop_done",false) or step>2 or session.get("status")=="completed" else table
 	var holding: bool=clip=="phone_reply" and phase>0.17 and phase<0.83 or clip=="box_message" and phase>0.35 and phase<0.84
 	table_phone.visible=not holding
 	host.visual.scene_phone.visible=holding
 
 func update_a_props() -> void:
-	var papers: Node3D=game.get_node_or_null("InterviewPapersA")
-	var table_phone: Node3D=game.get_node_or_null("InterviewPhoneA")
+	var papers: Node3D=OfficeRooms.object(game,"a","InterviewPapersA")
+	var table_phone: Node3D=OfficeRooms.object(game,"a","InterviewPhoneA")
 	if not papers or not table_phone: return
 	var session: Dictionary=sessions.get("a",{})
 	var host: OfficeNPC=game.npc_for_role(HOSTS.get(session.get("action",""),""))

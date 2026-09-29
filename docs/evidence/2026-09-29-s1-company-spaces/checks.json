@@ -1,0 +1,18 @@
+{
+  "scope": "S1 engineering subset, visual quality not accepted",
+  "baseline_commit": "01a9764",
+  "mouse_fix_commit": "9234a4a",
+  "godot_tests_before_pointer_fix": 49,
+  "godot_tests_after_pointer_fix": 50,
+  "python_existing_tests": 8,
+  "negotiation_before_failures": 5,
+  "negotiation_after_failures": 0,
+  "chair_before_failures": 4,
+  "chair_after_failures": 0,
+  "graphical_route_before_chair_fix": "passed",
+  "graphical_route_after_chair_fix": "interrupted at A backup following user mouse-control feedback; not a pass",
+  "performance_sample_count": 14400,
+  "performance_all_samples_drawn": true,
+  "no_render_negative_test_exit": 3,
+  "final_quality": "not accepted"
+}

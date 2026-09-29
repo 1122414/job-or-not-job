@@ -1,0 +1,21 @@
+[gd_resource type="StandardMaterial3D" load_steps=4 format=3]
+
+[ext_resource type="Texture2D" path="res://assets/company_materials/brick_wall_001/brick_wall_001_Diffuse_2k.jpg" id="1"]
+[ext_resource type="Texture2D" path="res://assets/company_materials/brick_wall_001/brick_wall_001_nor_gl_2k.jpg" id="2"]
+[ext_resource type="Texture2D" path="res://assets/company_materials/brick_wall_001/brick_wall_001_arm_2k.jpg" id="3"]
+
+[resource]
+resource_name = "office_brick"
+albedo_texture = ExtResource("1")
+roughness_texture = ExtResource("3")
+roughness_texture_channel = 1
+normal_enabled = true
+normal_scale = 0.6
+normal_texture = ExtResource("2")
+ao_enabled = true
+ao_texture = ExtResource("3")
+ao_texture_channel = 0
+texture_filter = 5
+uv1_triplanar = true
+uv1_world_triplanar = true
+uv1_scale = Vector3(0.333333, 0.333333, 0.333333)

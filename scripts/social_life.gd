@@ -65,7 +65,7 @@ func kind_name(kind: String) -> String:
 	return {"tea":"茶水间聊聊","lunch":"一起吃午饭","walk":"下班同行"}.get(kind,"稍后再约")
 
 func destination(npc: OfficeNPC,kind: String) -> Vector3:
-	if kind=="tea": return Vector3(-18 if npc.company=="a" else 10,0,0.4)
+	if kind=="tea": return OfficeRooms.point(game,npc.company,"tea")
 	return Vector3(9,0,12.3) if kind=="lunch" else Vector3(-5,0,12.8)
 
 func options(npc: OfficeNPC) -> Dictionary:
@@ -84,10 +84,14 @@ func options(npc: OfficeNPC) -> Dictionary:
 
 func npc_target(npc: OfficeNPC) -> Variant:
 	if outing.get("person")!=npc.stable_id or not npc.available(): return null
+	if work_following(npc): return null
 	if game.speaker==npc and not game.conversation.is_empty(): return npc.position
 	if outing.stage=="walking":
 		return npc.position if npc.position.distance_to(game.player.position)>6 else destination(npc,outing.kind)
 	return npc.position
+
+func work_following(npc: OfficeNPC) -> bool:
+	return npc.role_id=="b_friend" and game.career.b_event=="negotiating"
 
 func willing(npc: OfficeNPC) -> bool:
 	var p := state(npc)
@@ -160,6 +164,8 @@ func tick(delta: float) -> void:
 		for npc in game.npcs:
 			if npc.stable_id==outing.person: person=npc
 		if not person or not willing(person): outing.clear(); game.queue_save(); return
+		# A confirmed work follow takes precedence without cancelling a private plan.
+		if work_following(person): return
 		outing.elapsed+=delta
 		if outing.stage=="offered" and outing.elapsed>60: outing.clear(); game.queue_save()
 		return
@@ -168,7 +174,7 @@ func tick(delta: float) -> void:
 	if game.career.employer=="a" and not game.career.facts.has("brief"): return
 	if game.career.employer=="b" and not game.career.facts.has("welcome_b"): return
 	var npc: OfficeNPC=game.npc_for_role(game.career.employer+"_friend")
-	if not npc or not willing(npc) or not state(npc).met or game.office.visit_target(npc)!=null: return
+	if not npc or work_following(npc) or not willing(npc) or not state(npc).met or game.office.visit_target(npc)!=null: return
 	if npc.position.distance_to(game.player.position)>3: return
 	var key := "invite_"+str(day)+"_"+kind_now()
 	if state(npc).days.has(key): return

@@ -45,6 +45,7 @@ def build():
     for name in ('CREDITS.txt', 'MAKEHUMAN-CC0.txt'):
         shutil.copy2(ROOT / 'assets' / name, resources / name)
     shutil.copy2(ROOT / 'assets/polyhaven/provenance.json', resources / 'ASSET-SOURCES.json')
+    shutil.copy2(ROOT / 'assets/company_materials/provenance.json', resources / 'COMPANY-MATERIALS.json')
     shutil.copy2(ROOT / 'assets/animations/provenance.json', resources / 'ANIMATION-SOURCES.json')
     identity['pck_sha256'] = sha256(resources / 'game.pck')
     identity['engine_source_sha256'] = sha256(engine)

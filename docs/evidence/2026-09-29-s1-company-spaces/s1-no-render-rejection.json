@@ -1,0 +1,264 @@
+{
+  "company": "a",
+  "cpu": "Apple M5 Pro",
+  "device": "Apple M5 Pro",
+  "display": "macOS",
+  "engine": "4.7.1-stable (official)",
+  "frames_per_sample": 10,
+  "headless_validation_only": false,
+  "logical_processors": 18,
+  "memory_info": {
+    "available": 14817165312,
+    "free": 14817165312,
+    "physical": 51539607552,
+    "stack": 8372224
+  },
+  "os": "macOS",
+  "os_version": "26.6.2",
+  "render_samples_valid": false,
+  "renderer": "gl_compatibility",
+  "samples": [
+    {
+      "average_fps": 612.032560132199,
+      "frame_ms": {
+        "count": 10,
+        "max": 8.857,
+        "mean": 1.6339,
+        "p50": 0.544,
+        "p95": 8.857,
+        "p99": 8.857
+      },
+      "metrics": {
+        "active_physics_objects": {
+          "available": true,
+          "distribution": {
+            "count": 10,
+            "max": 59.0,
+            "mean": 59.0,
+            "p50": 59.0,
+            "p95": 59.0,
+            "p99": 59.0
+          }
+        },
+        "draw_calls": {
+          "available": false,
+          "reason": "monitor returned only zero; unsupported or inactive"
+        },
+        "nodes": {
+          "available": true,
+          "distribution": {
+            "count": 10,
+            "max": 3397.0,
+            "mean": 3397.0,
+            "p50": 3397.0,
+            "p95": 3397.0,
+            "p99": 3397.0
+          }
+        },
+        "physics_monitor_ms": {
+          "available": true,
+          "distribution": {
+            "count": 10,
+            "max": 1422.199,
+            "mean": 573.3784,
+            "p50": 7.498,
+            "p95": 1422.199,
+            "p99": 1422.199
+          }
+        },
+        "primitives": {
+          "available": false,
+          "reason": "monitor returned only zero; unsupported or inactive"
+        },
+        "render_cpu_ms": {
+          "available": false,
+          "reason": "monitor returned only zero; unsupported or inactive"
+        },
+        "render_gpu_ms": {
+          "available": false,
+          "reason": "monitor returned only zero; unsupported or inactive"
+        },
+        "render_memory_bytes": {
+          "available": true,
+          "distribution": {
+            "count": 10,
+            "max": 345070740.0,
+            "mean": 345070740.0,
+            "p50": 345070740.0,
+            "p95": 345070740.0,
+            "p99": 345070740.0
+          }
+        },
+        "render_setup_cpu_ms": {
+          "available": false,
+          "reason": "monitor returned only zero; unsupported or inactive"
+        },
+        "static_memory_bytes": {
+          "available": true,
+          "distribution": {
+            "count": 10,
+            "max": 186715273.0,
+            "mean": 186713501.8,
+            "p50": 186713257.0,
+            "p95": 186715273.0,
+            "p99": 186715273.0
+          }
+        }
+      },
+      "mode": "normal",
+      "raw_drawn_frames": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "raw_frame_ms": [
+        8.857,
+        1.059,
+        2.54,
+        0.795,
+        0.671,
+        0.544,
+        0.495,
+        0.443,
+        0.465,
+        0.47
+      ],
+      "render_sample_valid": false,
+      "run": 1,
+      "undrawn_samples": 10
+    },
+    {
+      "average_fps": 518.752917985164,
+      "frame_ms": {
+        "count": 10,
+        "max": 13.88,
+        "mean": 1.9277,
+        "p50": 0.456,
+        "p95": 13.88,
+        "p99": 13.88
+      },
+      "metrics": {
+        "active_physics_objects": {
+          "available": true,
+          "distribution": {
+            "count": 10,
+            "max": 59.0,
+            "mean": 59.0,
+            "p50": 59.0,
+            "p95": 59.0,
+            "p99": 59.0
+          }
+        },
+        "draw_calls": {
+          "available": false,
+          "reason": "monitor returned only zero; unsupported or inactive"
+        },
+        "nodes": {
+          "available": true,
+          "distribution": {
+            "count": 10,
+            "max": 3397.0,
+            "mean": 3397.0,
+            "p50": 3397.0,
+            "p95": 3397.0,
+            "p99": 3397.0
+          }
+        },
+        "physics_monitor_ms": {
+          "available": true,
+          "distribution": {
+            "count": 10,
+            "max": 7.498,
+            "mean": 7.498,
+            "p50": 7.498,
+            "p95": 7.498,
+            "p99": 7.498
+          }
+        },
+        "primitives": {
+          "available": false,
+          "reason": "monitor returned only zero; unsupported or inactive"
+        },
+        "render_cpu_ms": {
+          "available": false,
+          "reason": "monitor returned only zero; unsupported or inactive"
+        },
+        "render_gpu_ms": {
+          "available": false,
+          "reason": "monitor returned only zero; unsupported or inactive"
+        },
+        "render_memory_bytes": {
+          "available": true,
+          "distribution": {
+            "count": 10,
+            "max": 345347116.0,
+            "mean": 345347116.0,
+            "p50": 345347116.0,
+            "p95": 345347116.0,
+            "p99": 345347116.0
+          }
+        },
+        "render_setup_cpu_ms": {
+          "available": false,
+          "reason": "monitor returned only zero; unsupported or inactive"
+        },
+        "static_memory_bytes": {
+          "available": true,
+          "distribution": {
+            "count": 10,
+            "max": 188680267.0,
+            "mean": 188678495.8,
+            "p50": 188678251.0,
+            "p95": 188680267.0,
+            "p99": 188680267.0
+          }
+        }
+      },
+      "mode": "chaos",
+      "raw_drawn_frames": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "raw_frame_ms": [
+        13.88,
+        1.493,
+        0.675,
+        0.456,
+        0.415,
+        0.572,
+        0.439,
+        0.463,
+        0.45,
+        0.434
+      ],
+      "render_sample_valid": false,
+      "run": 1,
+      "undrawn_samples": 10
+    }
+  ],
+  "schema_version": 3,
+  "seed": 20260929,
+  "source": {
+    "available": false
+  },
+  "viewport": [
+    1280,
+    800
+  ],
+  "warmup_frames": 2
+}

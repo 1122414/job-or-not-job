@@ -1,0 +1,11 @@
+{
+  "build": "20260929T035910140394Z-9234a4ab-67c733cb",
+  "checks": {
+    "workspace": "passed headless",
+    "outside": "passed headless"
+  },
+  "codesign": "passed",
+  "zip_crc": "passed",
+  "graphical_after_mouse_fix": "not run",
+  "automated_capture": "forbidden; headless guards passed"
+}

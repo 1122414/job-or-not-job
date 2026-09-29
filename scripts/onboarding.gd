@@ -16,8 +16,8 @@ func start(firm: String) -> void:
 	game.queue_save()
 
 func destination() -> Vector3:
-	if tour.get("phase")=="leading": return Vector3(-11,0,-3.1) if tour.firm=="a" else Vector3(8.5,0,-4)
-	return Vector3(-10,0,0.2) if tour.get("firm")=="a" else Vector3(18,0,0.2)
+	var firm: String=tour.get("firm","b")
+	return OfficeRooms.point(game,firm,"tour_greet" if tour.get("phase")=="leading" else "tour_desk")
 
 func npc_target(npc: OfficeNPC) -> Variant:
 	if not active() or npc!=guide() or not npc.available(): return null

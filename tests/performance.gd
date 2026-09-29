@@ -69,7 +69,8 @@ func run() -> void:
 		quit(2)
 		return
 	RenderingServer.viewport_set_measure_render_time(root.get_viewport_rid(),true)
-	var result := {"schema_version":2,"source":identity,"engine":Engine.get_version_info().string,"device":RenderingServer.get_video_adapter_name(),"os":OS.get_name(),"viewport":[root.size.x,root.size.y],"renderer":RenderingServer.get_current_rendering_method(),"display":DisplayServer.get_name(),"headless_validation_only":headless,"company":company,"seed":20260929,"frames_per_sample":frames,"warmup_frames":warmup,"samples":[]}
+	var result := {"schema_version":3,"source":identity,"engine":Engine.get_version_info().string,"device":RenderingServer.get_video_adapter_name(),"os":OS.get_name(),"viewport":[root.size.x,root.size.y],"renderer":RenderingServer.get_current_rendering_method(),"display":DisplayServer.get_name(),"headless_validation_only":headless,"company":company,"seed":20260929,"frames_per_sample":frames,"warmup_frames":warmup,"samples":[]}
+	result["render_samples_valid"]=not headless
 	result["cpu"]=OS.get_processor_name()
 	result["logical_processors"]=OS.get_processor_count()
 	result["os_version"]=OS.get_version()
@@ -86,12 +87,17 @@ func run() -> void:
 			var times: Array = []
 			var metrics := {"render_cpu_ms":[],"render_setup_cpu_ms":[],"render_gpu_ms":[],"physics_monitor_ms":[],"static_memory_bytes":[],"render_memory_bytes":[],"draw_calls":[],"primitives":[],"active_physics_objects":[],"nodes":[]}
 			var previous := Time.get_ticks_usec()
+			var previous_drawn := Engine.get_frames_drawn()
+			var drawn_deltas: Array=[]
 			for i in range(frames):
 				if mode=="chaos" and i%45==0:
 					for prop in game.props: prop.strike(Vector3(1,0,-1),game.next_action(),4.0)
 					for npc in game.npcs:
 						if npc.company==company: npc.hit(Vector3(1,0,-1),0.65,game.next_action())
 				await process_frame
+				var drawn := Engine.get_frames_drawn()
+				drawn_deltas.append(drawn-previous_drawn)
+				previous_drawn=drawn
 				var now := Time.get_ticks_usec()
 				times.append((now-previous)/1000.0)
 				previous=now
@@ -111,6 +117,10 @@ func run() -> void:
 				measured[key]={"available":false,"reason":"monitor returned only zero; unsupported or inactive"} if stats.max<=0 else {"available":true,"distribution":stats}
 			var frame_stats := distribution(times)
 			var entry := {"run":iteration+1,"mode":mode,"frame_ms":frame_stats,"average_fps":1000.0/frame_stats.mean,"metrics":measured,"raw_frame_ms":times}
+			entry["raw_drawn_frames"]=drawn_deltas
+			entry["undrawn_samples"]=drawn_deltas.count(0)
+			entry["render_sample_valid"]=not headless and drawn_deltas.count(0)==0
+			if not entry.render_sample_valid: result.render_samples_valid=false
 			result.samples.append(entry)
 			print("PROFILE_SAMPLE run=",iteration+1," mode=",mode," fps=",entry.average_fps," p95_ms=",frame_stats.p95)
 	var directory := ProjectSettings.globalize_path(output).get_base_dir()
@@ -130,4 +140,7 @@ func run() -> void:
 	game.queue_free()
 	await process_frame
 	print("PROFILE_COMPLETE output=",output," persistence=false headless=",headless)
-	quit()
+	if not headless and not result.render_samples_valid:
+		push_error("Performance samples included undrawn frames; do not use as rendering FPS")
+		quit(3)
+	else: quit()

@@ -20,6 +20,7 @@ SELECTION = {
     'concrete_floor_01': 'textures',
     'clean_asphalt': 'textures',
 }
+COMPANY_SELECTION = {'wood_floor': 'textures', 'brick_wall_001': 'textures'}
 USER_AGENT = 'TodayOff-AssetReview/1.0 (local game production; Poly Haven CC0 sample)'
 
 
@@ -88,11 +89,11 @@ def checked_download(destination, entry):
             'sha256': hashlib.sha256(destination.read_bytes()).hexdigest(), 'url': entry['url']}
 
 
-def fetch(output):
+def fetch(output, selection=SELECTION):
     output = output.resolve()
-    catalog = {kind: metadata('assets?type=' + kind) for kind in set(SELECTION.values())}
+    catalog = {kind: metadata('assets?type=' + kind) for kind in set(selection.values())}
     assets = []
-    for asset_id, kind in SELECTION.items():
+    for asset_id, kind in selection.items():
         data = metadata('files/' + asset_id)
         asset_dir = output / asset_id
         if kind == 'models':
@@ -125,5 +126,8 @@ def fetch(output):
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('--output', type=Path, default=ROOT / 'assets/polyhaven')
-    fetch(parser.parse_args().output)
+    parser.add_argument('--set', choices=('sample', 'company'), default='sample')
+    parser.add_argument('--output', type=Path)
+    options = parser.parse_args()
+    fetch(options.output or ROOT / 'assets' / ('polyhaven' if options.set == 'sample' else 'company_materials'),
+          SELECTION if options.set == 'sample' else COMPANY_SELECTION)

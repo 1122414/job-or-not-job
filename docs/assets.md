@@ -56,3 +56,14 @@ macOS包的`ASSET-SOURCES.json`和`CREDITS.txt`保存来源；通用CC0原文随
 `assets/animations/quaternius_upper_body.res`使用相同CC0源的Idle_Loop/Idle_Talking_Loop，通过`tools/character_retarget.gd`映射和`tools/bake_character_animations.gd`以60Hz烘焙为待机/站立交谈上半身。保留现有腿和根支撑；其余19专用片段保持程序动作。三衣装骨架相同，重建时验证目标rest；目标GLB或源文件改变后必须重新验收。
 
 `assets/animations/provenance.json`记录源版本、文件、目标三GLB摘要和输出摘要；独立包附`ANIMATION-SOURCES.json`及CREDITS。重建命令：`godot --headless --path . --script tools/bake_character_animations.gd`，会覆盖本项目的派生动画资源，应在版本控制工作区内运行；不覆盖原始源模型。验收见[骨架适配与待机交谈](2026-09-29_P1骨架适配与待机交谈验收.md)。
+
+
+## 2026-09-29 双公司场景制作资源
+
+追加两套 Poly Haven CC0 原始 2K 贴图：[Wood Floor](https://polyhaven.com/a/wood_floor)（Dimitrios Savva，1.7m）与 [Brick Wall 001](https://polyhaven.com/a/brick_wall_001)（Dimitrios Savva/Rob Tuytel，3m）。木材用于 B 地板和固定木饰面，砖墙用于 B 改造办公室；原图不改，颜色/法线/ARM 使用压缩、mipmap 与米制投影。新来源独立保存在 `assets/company_materials/provenance.json`；重建 `python3 tools/fetch_open_assets.py --set company`，既有五项来源清单不被改写。独立包附 `COMPANY-MATERIALS.json`。
+
+`scenes/companies/company_a.tscn`、`company_b.tscn` 是可编辑运行时场景，包含建筑、灯光、固定物件与 `Anchors`、`PropSpawns`、`PeopleSpawns`。职业实体由标记生成，原 114 件物品、10 名 NPC 的稳定 ID 保留；运行时不执行制作脚本。脚本 `tools/build_company_spaces.gd` 和 `company_room_source.gd` 保留首轮制作来源，默认只生成到 `build/company-scenes`，不自动覆盖已编辑场景。需要重建时先生成到新目录并比较人工编辑，再选择性更新；不能用生成器覆盖设计师修改。
+
+场景保存遵循 [Godot PackedScene 的节点 owner 规则](https://docs.godotengine.org/en/stable/classes/class_packedscene.html)，外部家具场景保留实例引用；位置转换遵循 [Node3D 父子坐标](https://docs.godotengine.org/en/stable/classes/class_node3d.html)。`OfficeRooms.point()` 返回锚点世界位置，动态纸箱写入 `global_position`，避免 B 场景父节点偏移再次叠加。旧常量仍用于 v11 基线/迁移和历史夹具，不驱动新运行时面试位置。
+
+本轮制作不是 GTA VI 品质签收。当前街道远景、玻璃反射、家具网格和人物仍有原型限制，正式人物/演出及用户视听关卡继续开放。
