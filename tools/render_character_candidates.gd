@@ -3,10 +3,13 @@ extends SceneTree
 # Isolated GPU rendering: hidden unfocusable window, no game scene or pointer lock.
 var output := "res://build/character-candidate-images"
 var source := "res://build/character-candidates"
+var extended := false
+var captures := 0
 func _initialize() -> void:
 	for argument in OS.get_cmdline_user_args():
 		if argument.begins_with("--output="): output=argument.trim_prefix("--output=")
 		if argument.begins_with("--source="): source=argument.trim_prefix("--source=")
+		if argument=="--extended": extended=true
 	DisplayServer.window_set_flag(DisplayServer.WINDOW_FLAG_NO_FOCUS,true)
 	root.hide()
 	Input.mouse_mode=Input.MOUSE_MODE_VISIBLE
@@ -59,16 +62,37 @@ func run() -> void:
 			for mesh in model.find_children("*","MeshInstance3D",true,false):
 				for id in range(mesh.get_blend_shape_count()): mesh.set_blend_shape_value(id,1.0 if String(mesh.mesh.get_blend_shape_name(id))==expression else 0.0)
 			if not await capture(viewport,person+"-"+expression): quit(1); return
+		if extended:
+			for expression in ["blink","brow_raise","brow_lower","mouth_open"]:
+				for weight in [0.25,0.5,0.75]:
+					set_expression(model,{expression:weight})
+					if not await capture(viewport,person+"-"+expression+"-"+str(weight)): quit(1); return
+			for pose in ["surprise","frown"]:
+				set_expression(model,{"mouth_open":0.6,"brow_raise":0.7} if pose=="surprise" else {"blink":0.5,"brow_lower":0.7})
+				if not await capture(viewport,person+"-"+pose): quit(1); return
+			for view in ["portrait-side","portrait-three-quarter"]:
+				camera.position=Vector3(1.03,head_y,0) if view=="portrait-side" else Vector3(0.65,head_y,0.8)
+				camera.look_at(Vector3(0,head_y,0))
+				for pose in ["neutral","mouth_open"]:
+					set_expression(model,{pose:1.0})
+					if not await capture(viewport,person+"-"+view+"-"+pose): quit(1); return
 		model.queue_free()
 		await process_frame
 	viewport.queue_free()
 	await process_frame
-	print("OFFSCREEN_CHARACTERS images=24 pointer_visible=",Input.mouse_mode==Input.MOUSE_MODE_VISIBLE)
+	print("OFFSCREEN_CHARACTERS images=",captures," pointer_visible=",Input.mouse_mode==Input.MOUSE_MODE_VISIBLE)
 	quit()
+
+func set_expression(model: Node,values: Dictionary) -> void:
+	for mesh in model.find_children("*","MeshInstance3D",true,false):
+		for id in range(mesh.get_blend_shape_count()):
+			mesh.set_blend_shape_value(id,float(values.get(String(mesh.mesh.get_blend_shape_name(id)),0.0)))
 
 func capture(viewport: SubViewport,title: String) -> bool:
 	for i in range(3):
 		await process_frame
 		RenderingServer.force_draw(false)
 	var picture := viewport.get_texture().get_image()
-	return picture!=null and not picture.is_empty() and picture.save_png(output.path_join(title+".png"))==OK
+	var success := picture!=null and not picture.is_empty() and picture.save_png(output.path_join(title+".png"))==OK
+	if success: captures+=1
+	return success

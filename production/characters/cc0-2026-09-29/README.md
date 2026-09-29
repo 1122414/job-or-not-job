@@ -27,3 +27,7 @@ open -g -n -a /Applications/Godot.app --args --path "$PWD" --disable-render-loop
 ```
 
 每次复核使用新的输出目录以保留前次反例。单独视口生成速度不代表游戏帧率，图片不代表动态转身/接触/体验验收。
+
+2026-09-29修复补记：选择集扩为96原件，补入原CC0牙齿/舌头。v8已修复眉片表面绑定与皱眉区间穿插、口腔外露/缺牙舌、形变法线、服装分层删面和负蒙皮权重。每人43状态、151,188采样无穿插，结构0失败；最终78图中36张实际查看并归档。发丝/皮肤质感、各体型动作、LOD和实景仍未验收，不能正式替换。详见[修复验收](../../../docs/2026-09-29_S2人物形变与衣装缺陷修复验收.md)。
+
+几何采样使用 `python3 tools/check_character_fitting.py build/character-candidates build/character-candidates/fitting.json`；离屏命令加 `--extended` 可输出中间表情、两组合及侧脸，共78张。候选转换显式启用正蒙皮，旧转换默认行为保留；原游戏三模型不因本轮变化而自动修复。

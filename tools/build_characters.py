@@ -62,7 +62,7 @@ def read_target(path):
 def convert(vertex):
     return (vertex[0]*scale, (vertex[1]-floor)*scale, vertex[2]*scale)
 
-def clothing(path):
+def clothing(path, positive_skin=False):
     lines=path.read_text().splitlines(); mode=''; mapping=[]; hidden=set(); meta={}
     for line in lines:
         p=line.split()
@@ -88,7 +88,9 @@ def clothing(path):
         fitted.append(tuple(sum(base[i][a]*w for i,w in zip(ids,ws))+offset[a]*scales[a] for a in range(3)))
         blend=defaultdict(float)
         for i,w in zip(ids,ws):
-            for b,bw in weights[i].items(): blend[b]+=w*bw
+            for b,bw in weights[i].items():
+                contribution=w*bw
+                if not positive_skin or contribution>0: blend[b]+=contribution
         skin.append(blend)
     assert len(fitted)==len(vertices),(path,len(fitted),len(vertices))
     mat={}
@@ -141,11 +143,11 @@ class GLTF:
             self.doc['textures'].append({'source': image})
         return self.texture_cache[key]
 
-    def material(self,name,texture=None,color=(1,1,1,1),alpha=False,roughness=0.87,normal=None,occlusion=None):
+    def material(self,name,texture=None,color=(1,1,1,1),alpha=False,roughness=0.87,normal=None,occlusion=None,double_sided=True):
         pbr={'baseColorFactor':list(color),'metallicFactor':0,'roughnessFactor':roughness}
         if texture and texture.is_file():
             pbr['baseColorTexture']={'index':self.texture(texture)}
-        item={'name':name,'pbrMetallicRoughness':pbr,'doubleSided':True}
+        item={'name':name,'pbrMetallicRoughness':pbr,'doubleSided':double_sided}
         if normal:
             item['normalTexture']={'index':self.texture(normal)}
         if occlusion:
@@ -185,7 +187,10 @@ class GLTF:
             definition['weights']=[0.0]*len(morphs)
             for deltas in morphs.values():
                 values=[tuple(deltas.get(vertex,(0,0,0))[a]*scale for a in range(3)) for vertex,uv in unique]
-                primitive['targets'].append({'POSITION':self.accessor(values,'f','VEC3',5126)})
+                deformed=[tuple(v[a]+deltas.get(i,(0,0,0))[a] for a in range(3)) for i,v in enumerate(vertices)]
+                target_normals=vertex_normals(deformed,faces)
+                normal_deltas=[tuple(target_normals[vertex][a]-normal[exported][a] for a in range(3)) for exported,(vertex,uv) in enumerate(unique)]
+                primitive['targets'].append({'POSITION':self.accessor(values,'f','VEC3',5126),'NORMAL':self.accessor(normal_deltas,'f','VEC3',5126)})
         self.doc['meshes'].append(definition)
         node=len(self.doc['nodes']);self.doc['nodes'].append({'name':name,'mesh':mesh,'skin':0});self.doc['scenes'][0]['nodes'].append(node)
     def save(self,path):
@@ -194,6 +199,16 @@ class GLTF:
         text+=b' '*((-len(text))%4);self.blob+=b'\x00'*((-len(self.blob))%4)
         length=12+8+len(text)+8+len(self.blob)
         path.write_bytes(struct.pack('<III',0x46546C67,2,length)+struct.pack('<II',len(text),0x4e4f534a)+text+struct.pack('<II',len(self.blob),0x004e4942)+self.blob)
+
+def vertex_normals(vertices, faces):
+    normals=[[0.0,0.0,0.0] for _ in vertices]
+    for face in faces:
+        a,b,c=[vertices[i] for i,u in face]
+        x=[b[i]-a[i] for i in range(3)]; y=[c[i]-a[i] for i in range(3)]
+        n=(x[1]*y[2]-x[2]*y[1],x[2]*y[0]-x[0]*y[2],x[0]*y[1]-x[1]*y[0])
+        for vertex,uv in face:
+            for axis in range(3): normals[vertex][axis]+=n[axis]
+    return [tuple(x/(math.sqrt(sum(y*y for y in n)) or 1.0) for x in n) for n in normals]
 
 # Selection of outfits and textures is deliberately explicit, never copied wholesale.
 def find(name):

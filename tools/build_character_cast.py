@@ -8,10 +8,10 @@ import hashlib
 import json
 from pathlib import Path
 import build_characters as converter
+from character_fitting import contain_mouth, oral_faces, bind_brows, displace, difference, subdivide_attachment
 
 
-def attachment_morphs(path, morphs):
-    """Carry facial displacements through the original barycentric attachment mapping."""
+def attachment_mapping(path):
     mapping = []
     in_vertices = False
     for line in path.read_text().splitlines():
@@ -29,10 +29,49 @@ def attachment_morphs(path, morphs):
             mapping.append(([int(fields[0])], [1.0]))
         else:
             mapping.append((list(map(int, fields[:3])), list(map(float, fields[3:6]))))
+    return mapping
+
+
+def attachment_morphs(path, morphs):
+    """Carry facial displacements through the original barycentric attachment mapping."""
+    mapping=attachment_mapping(path)
     return {name: {vertex: tuple(sum(values.get(i, (0,0,0))[axis]*w for i,w in zip(ids,weights))
                                  for axis in range(3))
                    for vertex,(ids,weights) in enumerate(mapping)}
             for name,values in morphs.items()}
+
+
+def clothing_layer(path):
+    for line in path.read_text().splitlines():
+        fields=line.split()
+        if fields and fields[0]=='z_depth': return int(fields[1])
+    return 0
+
+
+def masked_attachment_vertices(path, hidden):
+    masked=set()
+    for vertex,(indices,weights) in enumerate(attachment_mapping(path)):
+        references=indices[:1] if not any(weights[1:]) else indices
+        if sum(i in hidden for i in references)>len(references)//2:
+            masked.add(vertex)
+    return masked
+
+
+def facial_shapes(source, profiles, body):
+    outer,oral=oral_faces(body,converter.base_uv)
+    original=list(converter.base)
+    rest=contain_mouth(original,outer,oral,0.0015/converter.scale,0.01/converter.scale)
+    expressions={}
+    for name, sources in profiles['expressions'].items():
+        delta={}
+        for target in sources:
+            for vertex,movement in converter.read_target(source/'targets'/target).items():
+                old=delta.get(vertex,(0,0,0))
+                delta[vertex]=tuple(old[axis]+movement[axis] for axis in range(3))
+        shape=contain_mouth(displace(original,delta),outer,oral,0.0015/converter.scale,0.01/converter.scale)
+        expressions[name]=difference(shape,rest)
+    converter.base=rest
+    return expressions,outer,oral
 
 
 def build(source, recipes, output):
@@ -42,24 +81,21 @@ def build(source, recipes, output):
     for profile in profiles['characters']:
         converter.configure(source, {source/'targets'/name: weight for name,weight in profile['shape'].items()}, profile['scale'])
         model = converter.GLTF()
+        body = [(group,face) for group,face in converter.base_faces if group == 'body']
+        expressions,outer,oral=facial_shapes(source,profiles,body)
         parts = []
         hidden = set()
-        for name in [profile['outfit'], profile['shoes'], profile['hair'], profile['eyebrows'], profile['eyelashes']]:
+        for name in [profile['outfit'], profile['shoes'], profile['hair'], profile['eyebrows'], profile['eyelashes'],'teeth_base','tongue01']:
             path = converter.find(name+'.mhclo')
-            item = converter.clothing(path)
+            item = converter.clothing(path,positive_skin=True)
             hidden.update(item[4])
             parts.append((name, path, item))
-        expressions = {}
-        for name, sources in profiles['expressions'].items():
-            delta = {}
-            for target in sources:
-                for vertex, movement in converter.read_target(source/'targets'/target).items():
-                    old = delta.get(vertex, (0,0,0))
-                    delta[vertex] = tuple(old[axis]+movement[axis] for axis in range(3))
-            expressions[name] = delta
-        body = [(group,face) for group,face in converter.base_faces if group == 'body']
-        skin = model.material('skin', converter.find(profile['skin']), roughness=0.6)
-        model.mesh('body', converter.base, converter.base_uv, body, converter.weights, skin, hidden, expressions)
+        skin = model.material('skin', converter.find(profile['skin']), roughness=0.6,double_sided=False)
+        visible=[(g,f) for g,f in outer if not all(i in hidden for i,u in f)]
+        model.mesh('body', converter.base, converter.base_uv, visible, converter.weights, skin, morphs=expressions)
+        cavity=model.material('mouth_interior',converter.find(profile['skin']),color=(.32,.22,.22,1),roughness=.8,double_sided=False)
+        model.mesh('mouth_interior',converter.base,converter.base_uv,oral,converter.weights,cavity,morphs=expressions)
+        coverage={}
         for name, path, (vertices,uvs,faces,weights,deleted,material,directory) in parts:
             facial = name in [profile['eyebrows'], profile['eyelashes']]
             alpha = facial or name == profile['hair']
@@ -67,10 +103,21 @@ def build(source, recipes, output):
             color = profile['hair_color'] if name == profile['hair'] or facial else profile['clothing_color'] if name == profile['outfit'] else [1,1,1,1]
             mat = model.material(name, texture, color=color, alpha=alpha, roughness=0.65 if alpha else 0.8,
                                  normal=directory/material['normalmapTexture'] if material.get('normalmapTexture') else None,
-                                 occlusion=directory/material['aomapTexture'] if material.get('aomapTexture') else None)
-            model.mesh(name, vertices,uvs,faces,weights,mat, morphs=attachment_morphs(path, expressions) if facial else None)
+                                 occlusion=directory/material['aomapTexture'] if material.get('aomapTexture') else None,
+                                 double_sided=material.get('backfaceCull','False')!='True')
+            morphs=attachment_morphs(path,expressions) if facial or name in ['teeth_base','tongue01'] else None
+            if name==profile['eyebrows']:
+                vertices,uvs,faces,weights=subdivide_attachment(vertices,uvs,faces,weights)
+                vertices,morphs=bind_brows(vertices,converter.base,outer,expressions,0.0008/converter.scale)
+            if name in [profile['outfit'],profile['shoes']]:
+                covered=set().union(*(item[4] for other,other_path,item in parts if other in [profile['outfit'],profile['shoes']] and clothing_layer(other_path)>clothing_layer(path)))
+                mask=masked_attachment_vertices(path,covered)
+                filtered=[(g,f) for g,f in faces if not all(i in mask for i,u in f)]
+                coverage[name]=len(faces)-len(filtered)
+                faces=filtered
+            model.mesh(name, vertices,uvs,faces,weights,mat, morphs=morphs)
         eye_path = converter.find('high-poly.mhclo')
-        vertices,uvs,faces,_,_,material,directory = converter.clothing(eye_path)
+        vertices,uvs,faces,_,_,material,directory = converter.clothing(eye_path,positive_skin=True)
         eye_weights = [{converter.index['eye.L' if vertex[0]>0 else 'eye.R']:1.0} for vertex in vertices]
         # The outer eye shell uses texture alpha; opaque export hides the iris.
         eye_material = model.material('eyes',directory/material['diffuseTexture'],
@@ -82,6 +129,7 @@ def build(source, recipes, output):
                         'bytes':target.stat().st_size,'bones':len(converter.names),
                         'triangles':sum(model.doc['accessors'][mesh['primitives'][0]['indices']]['count']//3 for mesh in model.doc['meshes']),
                         'materials':len(model.doc['materials']),'expressions':list(expressions),
+                        'covered_triangles_removed':coverage,
                         'height_m':max(converter.convert(converter.base[i])[1] for _,face in body for i,_ in face),
                         'recipe':profile})
         print(profile['id'],records[-1]['triangles'],'triangles',target.stat().st_size,'bytes')

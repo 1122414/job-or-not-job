@@ -531,6 +531,54 @@
       "bytes": 421040,
       "origin": "official_git",
       "url": "https://raw.githubusercontent.com/makehumancommunity/makehuman/a8bc2d54ff0ac92e78ff71431b1023eda42bf482/makehuman/data/targets/macrodetails/asian-male-young.target"
+    },
+    "teeth/teeth_base/teeth.png": {
+      "sha256": "d0afb57869c6fbb56b98f5efc4aec629ee7593e70d8dd2bfb9de923acfb65f43",
+      "bytes": 1799930,
+      "origin": "official_cc0_archive",
+      "archive_member": "teeth/teeth_base/teeth.png"
+    },
+    "teeth/teeth_base/teeth_base.mhclo": {
+      "sha256": "9edc3deff3bb97a95c791878064dd069a74a38f95ea6d9707a9ba68d888b3b5c",
+      "bytes": 263220,
+      "origin": "official_cc0_archive",
+      "archive_member": "teeth/teeth_base/teeth_base.mhclo"
+    },
+    "teeth/teeth_base/teeth_base.obj": {
+      "sha256": "f55198069e55d360c4b4cc7ecb1cc292b2c7665753ab8b65eabf46a8783f2875",
+      "bytes": 313110,
+      "origin": "official_cc0_archive",
+      "archive_member": "teeth/teeth_base/teeth_base.obj"
+    },
+    "teeth/teeth_base/teeth.mhmat": {
+      "sha256": "3baeff72d9eb06ca16c3cff7ca2ab304216717dee247e0d88f1dc33037c8320e",
+      "bytes": 1086,
+      "origin": "official_cc0_archive",
+      "archive_member": "teeth/teeth_base/teeth.mhmat"
+    },
+    "tongue/tongue01/tongue01.mhmat": {
+      "sha256": "7769df66c69b8c09a0ec713d70d8381abbb08ac82207369f5413970495cd4340",
+      "bytes": 1261,
+      "origin": "official_cc0_archive",
+      "archive_member": "tongue/tongue01/tongue01.mhmat"
+    },
+    "tongue/tongue01/tongue01.mhclo": {
+      "sha256": "61d825899cd78ff3146fa1324118060cb44b095fae1427d408c199ade74e3c9e",
+      "bytes": 2113,
+      "origin": "official_cc0_archive",
+      "archive_member": "tongue/tongue01/tongue01.mhclo"
+    },
+    "tongue/tongue01/tongue01_diffuse.png": {
+      "sha256": "3150be398e48e8ba1feac164c3143c16c0b2e959d9ffb6155f0171f59cfb4ea9",
+      "bytes": 625419,
+      "origin": "official_cc0_archive",
+      "archive_member": "tongue/tongue01/tongue01_diffuse.png"
+    },
+    "tongue/tongue01/tongue01.obj": {
+      "sha256": "12f4a6a9f85abae2ce3b4aa42d8119e1f679a437e0e89cb928ec68b29a7a1587",
+      "bytes": 17155,
+      "origin": "official_cc0_archive",
+      "archive_member": "tongue/tongue01/tongue01.obj"
     }
   },
   "license": "CC0-1.0",

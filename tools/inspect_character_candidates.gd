@@ -24,7 +24,23 @@ func run() -> void:
 		for id in range(skeleton.get_bone_count()):
 			check(skeleton.get_bone_global_rest(id).is_finite(),"有限静止骨骼")
 		var expressions := []
+		var oral_parts := []
+		var negative_weights := 0
 		for mesh in model.find_children("*","MeshInstance3D",true,false):
+			if String(mesh.name) in ["mouth_interior","teeth_base","tongue01"]: oral_parts.append(String(mesh.name))
+			for surface in range(mesh.mesh.get_surface_count()):
+				var arrays: Array=mesh.mesh.surface_get_arrays(surface)
+				var weights: PackedFloat32Array=arrays[Mesh.ARRAY_WEIGHTS]
+				var invalid := 0
+				for id in range(0,weights.size(),4):
+					var total := 0.0
+					for offset in range(4):
+						if weights[id+offset]<0.0: negative_weights+=1
+						total+=weights[id+offset]
+					if absf(total-1.0)>0.0001: invalid+=1
+				check(invalid==0,"骨骼权重和为1："+character.id+"/"+String(mesh.name))
+				for shape in mesh.mesh.surface_get_blend_shape_arrays(surface):
+					check(shape[Mesh.ARRAY_NORMAL]!=null and shape[Mesh.ARRAY_NORMAL].size()>0,"形变包含法线："+String(mesh.name))
 			if String(mesh.name)=="eyes":
 				var eye_material: StandardMaterial3D=mesh.get_active_material(0)
 				check(eye_material.transparency==BaseMaterial3D.TRANSPARENCY_ALPHA_SCISSOR,"眼球透明外层不遮挡虹膜")
@@ -36,7 +52,9 @@ func run() -> void:
 					mesh.set_blend_shape_value(id,0.0)
 			check(mesh.get_aabb().size.length()<3 and mesh.get_aabb().size.length()>0,"网格尺寸合理："+String(mesh.name))
 		for name in ["blink","brow_raise","brow_lower","mouth_open"]: check(expressions.has(name),"表情形变存在："+character.id+"/"+name)
-		report.characters.append({"id":character.id,"bones":skeleton.get_bone_count(),"expressions":expressions,"sha256":character.sha256})
+		check(negative_weights==0,"骨骼权重非负："+character.id)
+		check(oral_parts.size()==3,"口腔、牙齿、舌头齐全："+character.id)
+		report.characters.append({"id":character.id,"bones":skeleton.get_bone_count(),"expressions":expressions,"oral_parts":oral_parts,"negative_weights":negative_weights,"sha256":character.sha256})
 		model.queue_free()
 		await process_frame
 	report["failures"]=failures

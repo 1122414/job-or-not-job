@@ -1,0 +1,57 @@
+{
+  "characters": [
+    {
+      "bones": 163,
+      "expressions": [
+        "blink",
+        "brow_raise",
+        "brow_lower",
+        "mouth_open"
+      ],
+      "id": "protagonist",
+      "negative_weights": 0,
+      "oral_parts": [
+        "mouth_interior",
+        "teeth_base",
+        "tongue01"
+      ],
+      "sha256": "5c6e442a04c4237d0f85ba9d3d256f44129c35d5f7d0beb45865cded6e6e1832"
+    },
+    {
+      "bones": 163,
+      "expressions": [
+        "blink",
+        "brow_raise",
+        "brow_lower",
+        "mouth_open"
+      ],
+      "id": "lin_lan",
+      "negative_weights": 0,
+      "oral_parts": [
+        "mouth_interior",
+        "teeth_base",
+        "tongue01"
+      ],
+      "sha256": "4dd4bf6cc5b5b6b8421c17711498ec48c5279089b12c77a357ac398142bd6055"
+    },
+    {
+      "bones": 163,
+      "expressions": [
+        "blink",
+        "brow_raise",
+        "brow_lower",
+        "mouth_open"
+      ],
+      "id": "a_cheng",
+      "negative_weights": 0,
+      "oral_parts": [
+        "mouth_interior",
+        "teeth_base",
+        "tongue01"
+      ],
+      "sha256": "a171e42c1cec660ae8392d8e74c01ab8a659c0641e0fdf7e8d56afffb0fc2907"
+    }
+  ],
+  "failures": 0,
+  "scope": "headless structural checks only; appearance, contacts, LOD and runtime integration unaccepted"
+}
