@@ -1,0 +1,177 @@
+{
+	"actions-muted": {
+		"dropped_frames": 0,
+		"frames": 24576,
+		"guard": true,
+		"left_rms": 0.0,
+		"peak": 0.0,
+		"rate": 44100,
+		"right_rms": 0.0
+	},
+	"actual-walking": {
+		"dropped_frames": 0,
+		"frames": 45056,
+		"guard": true,
+		"left_rms": 0.00157176738035159,
+		"peak": 0.0219695549458265,
+		"rate": 44100,
+		"right_rms": 0.00149182624887156
+	},
+	"background": {
+		"dropped_frames": 0,
+		"frames": 24576,
+		"guard": true,
+		"left_rms": 0.0,
+		"peak": 0.0,
+		"rate": 44100,
+		"right_rms": 0.0
+	},
+	"bookshop": {
+		"beds_db": {
+			"birds": -104.999977111816,
+			"room": -33.0000114440918,
+			"traffic": -58.4575614929199,
+			"waves": -98.9999771118164
+		},
+		"dropped_frames": 0,
+		"frames": 81920,
+		"guard": true,
+		"interior": 1.0,
+		"left_rms": 0.00187085747817501,
+		"peak": 0.0058529325760901,
+		"rate": 44100,
+		"right_rms": 0.00187092623713182
+	},
+	"garden-day": {
+		"beds_db": {
+			"birds": -26.6786460876465,
+			"room": -112.980003356934,
+			"traffic": -28.0002593994141,
+			"waves": -98.9999847412109
+		},
+		"dropped_frames": 0,
+		"frames": 81920,
+		"guard": true,
+		"interior": 0.00000000193435222619992,
+		"left_rms": 0.00136099041855294,
+		"peak": 0.0102129094302654,
+		"rate": 44100,
+		"right_rms": 0.00135209075672005
+	},
+	"garden-night": {
+		"beds_db": {
+			"birds": -104.999557495117,
+			"room": -112.999984741211,
+			"traffic": -35.534969329834,
+			"waves": -98.9999847412109
+		},
+		"dropped_frames": 0,
+		"frames": 81920,
+		"guard": true,
+		"interior": 0.00000000000000000345820425075997,
+		"left_rms": 0.000363205285235208,
+		"peak": 0.00172098900657147,
+		"rate": 44100,
+		"right_rms": 0.000358873263896224
+	},
+	"office-a": {
+		"beds_db": {
+			"birds": -104.999588012695,
+			"room": -33.0005683898926,
+			"traffic": -58.4563064575195,
+			"waves": -98.9999465942383
+		},
+		"dropped_frames": 0,
+		"frames": 81920,
+		"guard": true,
+		"interior": 0.999999997985967,
+		"left_rms": 0.00192616943331871,
+		"peak": 0.0062595559284091,
+		"rate": 44100,
+		"right_rms": 0.00192966737069793
+	},
+	"office-b": {
+		"beds_db": {
+			"birds": -104.999938964844,
+			"room": -33.0000305175781,
+			"traffic": -58.4575462341309,
+			"waves": -98.9999542236328
+		},
+		"dropped_frames": 0,
+		"frames": 81920,
+		"guard": true,
+		"interior": 0.999999999999999,
+		"left_rms": 0.0020762560225312,
+		"peak": 0.00706607615575194,
+		"rate": 44100,
+		"right_rms": 0.00207563048117668
+	},
+	"paused": {
+		"dropped_frames": 0,
+		"frames": 28672,
+		"guard": true,
+		"left_rms": 0.0,
+		"peak": 0.0,
+		"rate": 44100,
+		"right_rms": 0.0
+	},
+	"source-left": {
+		"dropped_frames": 0,
+		"frames": 28672,
+		"guard": true,
+		"left_rms": 0.0634067128228091,
+		"peak": 0.121870644390583,
+		"rate": 44100,
+		"right_rms": 0.0375842624161589
+	},
+	"source-right": {
+		"dropped_frames": 0,
+		"frames": 28672,
+		"guard": true,
+		"left_rms": 0.0375842624161589,
+		"peak": 0.121870644390583,
+		"rate": 44100,
+		"right_rms": 0.0634067128228091
+	},
+	"street-day": {
+		"beds_db": {
+			"birds": -38.212963104248,
+			"room": -112.627922058105,
+			"traffic": -28.5862998962402,
+			"waves": -98.7857818603516
+		},
+		"dropped_frames": 0,
+		"frames": 81920,
+		"guard": true,
+		"interior": 0.0,
+		"left_rms": 0.000908140471729536,
+		"peak": 0.0060517517849803,
+		"rate": 44100,
+		"right_rms": 0.000908140471729536
+	},
+	"summary": {
+		"audio_driver": "Dummy",
+		"failures": 0,
+		"guard": true,
+		"independent_playtest": false,
+		"listening_acceptance": false,
+		"player_save_written": false,
+		"settings_written": false
+	},
+	"waterfront": {
+		"beds_db": {
+			"birds": -104.999984741211,
+			"room": -112.999992370605,
+			"traffic": -34.7955703735352,
+			"waves": -19.1169242858887
+		},
+		"dropped_frames": 0,
+		"frames": 81920,
+		"guard": true,
+		"interior": 0.00000000000000000000000000777208,
+		"left_rms": 0.00531984867967459,
+		"peak": 0.0349389798939228,
+		"rate": 44100,
+		"right_rms": 0.00531639242268054
+	}
+}

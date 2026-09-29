@@ -11,6 +11,9 @@ config/features=PackedStringArray("4.7", "GL Compatibility")
 [autoload]
 WebSupport="*res://scripts/web_support.gd"
 
+[audio]
+buses/default_bus_layout="res://assets/audio/city_bus_layout.tres"
+
 [gui]
 theme/custom_font.web="res://assets/fonts/NotoSansCJKsc-Regular.otf"
 

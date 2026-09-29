@@ -766,3 +766,16 @@ C4a记录同步：542项资料逐字节核对一致，零冲突；每日计划/�
 详情：[C3e验收](2026-09-30_C3e同事进入公共生活验收.md)与[证据](evidence/2026-09-30-c3e-outing/README.md)。复用更新[导航](experience/patterns/navigation-endpoints.md)、[交谈对象](experience/patterns/visit-dialogue-continuity.md)、[存档](experience/patterns/save-content-expansion.md)。中文实施提交6c2a721，未push；提交后运行源码干净且与已验证包一致。
 
 C3e记录同步：741项项目资料/图片/元数据逐字节及校验和一致，零冲突；9月30日每日计划与进度已追加6c2a721和剩余目标，顶层历史计划保留。
+
+
+## 2026-09-30｜C4e 城区空间声音工程阶段
+
+完成六项有出处的CC0原件和12个运行音频，街道/花园/滨水/室内底声、昼夜与室内外渐变、五辆汽车+公交实际位置发动机声；23位玩家/公司NPC/居民的接地位移与动作周期脚步，四种地表、固定12发声通道和距离剔除。菜单四类音量及独立原子设置，暂停/失焦停止声音，真实Slider Home/End输入归属修复。原有职业、存档v19与鼠标规则保持。
+
+观察验证：77项Godot全套及最终音频补充、29项Python通过，无ERROR/WARNING；四地面真实输入各2次脚步，附近/远处居民、静止/跳跃/坐姿/乘车/读档、已有设置覆盖与四类非法值通过。13段真实PCM共753664双声道采样帧，左右声源能区分，峰值最高0.121871；暂停/后台/分类静音均为0，无捕获缓冲丢帧。四滑块真实鼠标和8个键盘端点通过；最终菜单图和两张职业图已看，另保留五张职业图。Dummy驱动+Master静音，最小化/不可聚焦/无焦点/鼠标可见，无扬声器输出或玩家设置写入。
+
+独立包build/baselines/20260929T164752128846Z-f936909a-1790ac1c/今天不上班-macOS-0.5.0.zip：实际TodayOff两目录PACKAGED_SMOKE_OK，12音频/4总线/来源匹配且原件排除，既有28人物/114物品/职业/居民/出行/救助/v19通过，persistence=false。签名/CRC/内外清单/源码/PCK/输入引擎与签名后引擎摘要分别通过。运行SHA-256 1790ac1c5a0f8b2db7bd7622a89aec3a11150e6077f75b1339b9d89064a9a6d9；ZIP SHA-256 94595b4da428b706ba9b211310018a3de7aecd36ba99d4c74af51b1f6ff51444。构建时dirty/not_yet_verified保持真实，旧包和玩家档保留，未push。
+
+边界：没有完成耳机/扬声器听音，地毯暂用派生拟音；车种区分、精确脚部同步、空间遮蔽/混响、正式人物语音/表演及整体美术仍需继续。PCM不是普通FPS或30—60分钟独立游玩验收。G01—G06、64km²/16km²、八区、长期生活、分区模拟及双画质性能目标继续开放。中文实施提交号在收尾同步项记录。
+
+详情：[C4e验收](2026-09-30_C4e城区空间声音验收.md)、[PCM及GUI证据](evidence/2026-09-30-c4e-audio/README.md)；复用更新[输入归属](experience/patterns/panel-input-ownership.md)，新增[声音生命周期](experience/patterns/audio-output-lifecycle.md)。

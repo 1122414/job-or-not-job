@@ -41,3 +41,8 @@ Adaptations: source-island-preserving offline tree meshes, three detail levels,
 leaf RGB/opacity merge, shared ground anchor and metre-scaled grass materials.
 Original production files are unchanged and excluded from the runtime pack.
 See NATURE-SOURCES.json for original and derived file hashes and processing records.
+
+City sound recordings: CC0 1.0; IgnasD, isaiah658, domasx2 (public-domain pdsounds source),
+jasinski (excerpt by qubodup), TinyWorlds, LEGIT Audio (OpenGameArt free samples only).
+Adaptations: mono conversion, DC removal, loop crossfade, filtering and peak normalization.
+See AUDIO-SOURCES.json for each source URL, original hash, author and derived recording.

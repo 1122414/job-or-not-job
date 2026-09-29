@@ -1,0 +1,38 @@
+[
+  {
+    "file": "traffic.ogg",
+    "url": "https://opengameart.org/sites/default/files/gatve%20Varniu_2.ogg",
+    "bytes": 558092,
+    "sha256": "1c7ce49677ade7ebc4c7f3bd58657a730b892713382d197ea96a2c0f4ead0c51"
+  },
+  {
+    "file": "birds.ogg",
+    "url": "https://opengameart.org/sites/default/files/birds-isaiah658_0.ogg",
+    "bytes": 544669,
+    "sha256": "359e4e3f9da9d75aac64cede511c7e3ef8b461f9d9f8c230f8f80e44c4b3e35f"
+  },
+  {
+    "file": "engine.wav",
+    "url": "https://opengameart.org/sites/default/files/loop_0.wav",
+    "bytes": 76332,
+    "sha256": "69d74b106509037ce547429e4c3f9ae906b0fffe88d0bb8b3b5a8b0cfc239048"
+  },
+  {
+    "file": "waves.flac",
+    "url": "https://opengameart.org/sites/default/files/wave_01_cc0-18363__jasinski__alkaibeach.flac",
+    "bytes": 626248,
+    "sha256": "fcfca178eca2eac536e8c2a4ed5cf8096e44c921acd587047b3d9f1d7845435c"
+  },
+  {
+    "file": "steps.zip",
+    "url": "https://opengameart.org/sites/default/files/%5Bkdd%5DDifferentSteps_0.zip",
+    "bytes": 77711,
+    "sha256": "987d072b7deaa65177e005ddd8185f2351be7c9a76cd7575dea560549c39b33b"
+  },
+  {
+    "file": "shop.zip",
+    "url": "https://opengameart.org/sites/default/files/legit_audio_-_the_shop_free_sfx_wav.zip",
+    "bytes": 19385775,
+    "sha256": "87d49c4431fdf5647f3c434455b3bcd402fc757f97f2640b2ef84e2e5db9d86e"
+  }
+]

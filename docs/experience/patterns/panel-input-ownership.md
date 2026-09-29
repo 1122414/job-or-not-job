@@ -11,3 +11,5 @@
 宽高比反例：只设置Window.size并断言界面没越界，仍可能测试的是固定16:10内容。`window/stretch/aspect`原为keep，16:9/21:9请求产生相同比例的截图。本轮改expand，同时检查实际逻辑宽高比、保存PNG尺寸；保留初次误标截图。长文本夹具也须先证明高度确实超过滚动区，不能把“没有内容需要滚动”误判成PageDown故障。验证：`tests/page_controls_test.gd`图形通过，见P2页面验收；该结论只适用本项目的canvas_items伸缩配置。
 
 2026-09-29鼠标控制权反例：用户指出自动图形验证抢走鼠标。`OfficePlayer._ready()`无条件CAPTURED，`GamePanels.show_page("")`又重新CAPTURED，因此夹具启动后设置VISIBLE只保护到下一次关页面。修复应删除所有生命周期/页面关闭捕获；只有当前游戏场景、窗口有焦点、Viewport未禁输入、非headless、未指定`--no-mouse-capture`，且玩家主动点击世界画面，才可捕获。激活点击被消费，不穿透攻击；失焦/离树释放，回焦不重抓。`tests/mouse_capture_test.gd`无窗口验证启动/十页面往返/模拟点击/鼠标移动/焦点通知/销毁，0失败；真实人工捕获/浏览器锁定未由这些断言证明。以后自动工具不得置顶、拉前台或为了验证而锁住用户指针；停止测试保留部分证据，不能记成全路线通过。
+
+2026-09-30 C4e复用：新增音量HSlider鼠标工作正常，但四总线Home/End共8项真实输入检查失败；GamePanels在_input里吞掉了未列入放行表的键。仅在暂停页面且GUI焦点为Slider时把Home/End交给控件，最终真实点击与8个键盘端点全部通过，保持暂停和鼠标可见。对应tools/capture_city_audio.gd，未修改世界快捷键归属。

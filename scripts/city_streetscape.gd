@@ -1,6 +1,8 @@
 class_name CityStreetscape
 extends Node3D
 
+const GRASS_PATCHES := [[Vector3(-6.5,0,35),Vector3(3,.025,24)],[Vector3(6.5,0,35),Vector3(3,.025,24)],[Vector3(-4.5,0,78),Vector3(2,.025,20)],[Vector3(44,0,68),Vector3(39,.025,7)]]
+
 # Authored lots share repeated geometry. Batches stay within 32 m cells so the
 # entire district does not become a single unculled render object.
 var materials := {}
@@ -179,7 +181,7 @@ func landscape() -> void:
 	# Thin surfaces preserve y=0 collision: the character has no step-climbing.
 	for item in [[Vector3(0,0,18),Vector3(140,.018,6)],[Vector3(0,0,94),Vector3(140,.018,6)],[Vector3(-66,0,56),Vector3(6,.018,78)],[Vector3(66,0,56),Vector3(6,.018,78)],[Vector3(-87,0,56),Vector3(8,.018,90)],[Vector3(87,0,56),Vector3(8,.018,90)],[Vector3(-47,0,52),Vector3(38,.018,17)],[Vector3(47,0,56),Vector3(38,.018,18)],[Vector3(0,0,116),Vector3(214,.018,12)]]:
 		box(item[1],item[0]+Vector3(0,.005,0),"paving")
-	for item in [[Vector3(-6.5,0,35),Vector3(3,.025,24)],[Vector3(6.5,0,35),Vector3(3,.025,24)],[Vector3(-4.5,0,78),Vector3(2,.025,20)],[Vector3(44,0,68),Vector3(39,.025,7)]]:
+	for item in GRASS_PATCHES:
 		box(item[1]+Vector3(1,0,1),item[0]+Vector3(0,.015,0),"stone")
 		box(item[1],item[0]+Vector3(0,.02,0),"grass")
 	# Flush paving joints, spaced in metres rather than scaled over the whole map.

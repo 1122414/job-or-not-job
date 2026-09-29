@@ -16,6 +16,7 @@ func _ready() -> void:
 		add_child(player)
 		player.stream=load(CLIPS[kind])
 		player.volume_db=-19.0
+		player.bus="Interaction"
 		player.unit_size=2.0
 		player.max_distance=12.0
 		players[kind]=player
@@ -28,6 +29,7 @@ func _exit_tree() -> void:
 func cue(kind: String,position: Vector3) -> void:
 	if not players.has(kind): return
 	if DisplayServer.get_name()=="headless": return
+	if not get_parent().soundscape.enabled: return
 	var player: AudioStreamPlayer3D=players[kind]
 	player.global_position=position
 	player.play()

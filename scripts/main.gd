@@ -41,6 +41,7 @@ var sun: DirectionalLight3D
 var environment: Environment
 var audio: AudioStreamPlayer
 var interview_audio: InterviewAudio
+var soundscape: CitySoundscape
 var shake_enabled := true
 var navigation_dirty := -1.0
 var transit: CityTransit
@@ -93,6 +94,9 @@ func _ready() -> void:
 	commons=CityCommons.new()
 	commons.game=self
 	add_child(commons)
+	soundscape=CitySoundscape.new()
+	soundscape.game=self
+	add_child(soundscape)
 	build_ui()
 	build_audio()
 	interview_audio=InterviewAudio.new()
@@ -512,6 +516,7 @@ func say(text: String) -> void:
 
 func build_audio() -> void:
 	audio = AudioStreamPlayer.new()
+	audio.bus="Actions"
 	add_child(audio)
 	var stream := AudioStreamWAV.new()
 	stream.format = AudioStreamWAV.FORMAT_8_BITS
@@ -525,7 +530,7 @@ func build_audio() -> void:
 	audio.volume_db = -12
 
 func impact() -> void:
-	audio.play()
+	if soundscape.enabled: audio.play()
 	if shake_enabled: player.camera.h_offset = 0.12
 
 func show_inventory() -> void:
@@ -563,6 +568,7 @@ func startup() -> void:
 	# Unit/integration scenes never load or overwrite the player's save slot.
 	initial_state=SaveGame.snapshot(self)
 	persistence_enabled=get_tree().current_scene==self
+	soundscape.start_settings()
 	if persistence_enabled:
 		if FileAccess.file_exists(save_path): load_game()
 		else: import_previous(OS.get_user_data_dir().get_base_dir().path_join("今天不上班/neighborhood.json"))

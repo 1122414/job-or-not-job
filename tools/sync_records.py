@@ -18,7 +18,8 @@ def main():
     previous = json.loads(CHECKSUMS.read_text()) if CHECKSUMS.exists() else {}
     files = sorted([*ROOT.glob('*.md'), *ROOT.glob('*.docx'), *ROOT.glob('docs/**/*.md'),
                     *ROOT.glob('production/**/*.md'), *ROOT.glob('assets/**/*.md'), *ROOT.glob('tools/**/*.md'),
-                    *ROOT.glob('docs/evidence/**/*.png'), *ROOT.glob('docs/evidence/**/*.json')])
+                    *ROOT.glob('docs/evidence/**/*.png'), *ROOT.glob('docs/evidence/**/*.json'),
+                    *ROOT.glob('docs/evidence/**/*.wav')])
     conflicts = []
     for source in files:
         rel = source.relative_to(ROOT).as_posix()

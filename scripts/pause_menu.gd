@@ -2,6 +2,7 @@ class_name PauseMenu
 extends PanelContainer
 var game: Node3D
 var first_button: Button
+var audio_sliders := {}
 func arrange() -> void:
 	var viewport := get_viewport_rect().size
 	var width := minf(560,viewport.x-32)
@@ -61,6 +62,23 @@ func _ready() -> void:
 	for scale in [100,125,150]: font_size.add_item("信息页面字号：%d%%" % scale)
 	font_size.item_selected.connect(func(index: int): game.panels.view.set_font_scale([1.0,1.25,1.5][index]))
 	list.add_child(font_size)
+	for bus in CitySoundscape.LABELS:
+		var sound_label := Label.new()
+		list.add_child(sound_label)
+		var volume := HSlider.new()
+		volume.name="Volume"+bus
+		volume.min_value=0; volume.max_value=100; volume.step=1
+		volume.value=game.soundscape.levels[bus]*100
+		volume.custom_minimum_size.y=32
+		volume.tooltip_text=CitySoundscape.LABELS[bus]+"；0 为静音"
+		volume.value_changed.connect(func(value: float):
+			game.soundscape.set_level(bus,value/100)
+			sound_label.text=CitySoundscape.LABELS[bus]+"："+("静音" if value==0 else str(roundi(value))+"%"))
+		sound_label.text=CitySoundscape.LABELS[bus]+"："+str(roundi(volume.value))+"%"
+		list.add_child(volume); audio_sliders[bus]=volume
+	visibility_changed.connect(func():
+		if visible:
+			for bus in audio_sliders: audio_sliders[bus].value=game.soundscape.levels[bus]*100)
 	var help := Label.new()
 	help.text="Esc 释放鼠标 / 返回 · H 操作说明\n关闭菜单后，点击游戏画面才开始控制视角。"
 	help.autowrap_mode=TextServer.AUTOWRAP_WORD_SMART

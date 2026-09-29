@@ -1,0 +1,18 @@
+{
+  "build_id": "20260929T164752128846Z-f936909a-1790ac1c",
+  "source_sha256": "1790ac1c5a0f8b2db7bd7622a89aec3a11150e6077f75b1339b9d89064a9a6d9",
+  "zip_sha256": "94595b4da428b706ba9b211310018a3de7aecd36ba99d4c74af51b1f6ff51444",
+  "zip_bytes": 349103682,
+  "verified": [
+    "manifest",
+    "source",
+    "PCK",
+    "source_engine",
+    "signed_runtime",
+    "ZIP CRC",
+    "ZIP SHA",
+    "codesign"
+  ],
+  "construction_dirty": true,
+  "construction_validation": "not_yet_verified"
+}

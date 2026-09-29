@@ -20,6 +20,18 @@ func run() -> void:
 	var game=load("res://scenes/main.tscn").instantiate()
 	root.add_child(game)
 	for i in range(10): await physics_frame
+	var audio_sources := OS.get_executable_path().get_base_dir().path_join("../Resources/AUDIO-SOURCES.json")
+	if FileAccess.get_file_as_string(audio_sources)!=FileAccess.get_file_as_string("res://assets/audio/city/provenance.json") or ResourceLoader.exists("res://production/audio/cc0-2026-09-30/engine.wav") or FileAccess.file_exists("res://production/audio/cc0-2026-09-30/shop.zip"):
+		push_error("Packaged audio provenance mismatch or originals leaked"); quit(1); return
+	if game.soundscape.clips.size()!=12 or game.soundscape.step_players.size()!=12 or game.soundscape.engines.size()!=6 or game.soundscape.persistence or game.soundscape.enabled:
+		push_error("Packaged spatial audio or background isolation missing"); quit(1); return
+	for bus in CitySoundscape.DEFAULTS:
+		if AudioServer.get_bus_index(bus)<0:
+			push_error("Packaged audio bus missing "+bus); quit(1); return
+	for clip in game.soundscape.clips.values():
+		if clip.get_length()<.1:
+			push_error("Packaged audio stream invalid"); quit(1); return
+	print("PACKAGED_AUDIO clips=12 buses=4 pool=12 vehicles=6 sources=true originals_excluded=true silent_background=true")
 	if game.persistence_enabled or game.npcs.size()!=10 or game.props.size()!=114:
 		push_error("Package scene or persistence isolation changed")
 		quit(1)

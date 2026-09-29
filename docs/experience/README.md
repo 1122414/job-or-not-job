@@ -9,7 +9,7 @@
 | 内容扩充与 JSON 版本数值 | 新道具导致旧档失效；内存/JSON类型差异、分支前置状态不完整；恢复重置镜头或手持物 | 多轮回归；v19新旧同行含义、13类坏档、18旧版本夹具及九份实走档跨进程恢复通过 | [存档扩充](patterns/save-content-expansion.md) |
 | UI 页面状态和来访确认时机 | 叠加面板、暂停快捷键无响应、来访已记而未交谈 | 自动回归通过；UI实机复验，来访整体节奏仍开放 | [未解决观察](unresolved.md) |
 
-| 暂停页面输入归属 | 主页面叠加、暂停帮助失效 | 2026-09-29真实GUI事件、三比例与字号复核；实体手柄开放 | [页面输入](patterns/panel-input-ownership.md) |
+| 暂停页面输入归属 | 主页面叠加、暂停帮助失效 | 2026-09-29真实GUI与比例字号复核；C4e滑块Home/End八端点真实输入通过；实体手柄开放 | [页面输入](patterns/panel-input-ownership.md) |
 
 | 交谈对象连续性与附近目标竞争 | 工位抢来访交互，或侧面路人抢正面同伴 | 来访与C3e连续场景分别验证；面向选择两向回归通过 | [来访与同行交谈](patterns/visit-dialogue-continuity.md) |
 
@@ -31,3 +31,5 @@
 | 扩建后的旧落点与地面恢复 | 旧档位于新楼芯，查询安全但角色在地板下 | C4c三处定向恢复验证一次，范围限当前平地 | [地面支撑与恢复](patterns/floor-seams.md) |
 | 天空的雾色覆盖 | 天空资源已配置但实际仍是单色 | C4c同位昼夜图片验证一次 | [天空与雾](patterns/sky-fog-coverage.md) |
 | 独立枝叶减面与连通性 | 整体自动LOD使树冠变秃；局部LOD拆断叶柄；裸枝裁切片误判为管状 | C4d三级连通、独立几何重建及330次实际LOD绘制验证一次；最终观感/预算开放 | [枝叶减面](patterns/foliage-simplification.md) |
+
+| 空间声音输出与音频线程生命周期 | playing但声像无证据、退出WAV泄漏、后台声音 | C4e真实PCM方向/静音和固定FPS释放验证一次；最终听音开放 | [声音输出](patterns/audio-output-lifecycle.md) |
