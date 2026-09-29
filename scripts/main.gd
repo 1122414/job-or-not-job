@@ -46,6 +46,7 @@ var navigation_dirty := -1.0
 var transit: CityTransit
 var driving: CityDriving
 var population: CityPopulation
+var city_life: CityLife
 
 func _ready() -> void:
 	bind_inputs()
@@ -81,6 +82,9 @@ func _ready() -> void:
 	population=CityPopulation.new()
 	population.game=self
 	add_child(population)
+	city_life=CityLife.new()
+	city_life.game=self
+	add_child(city_life)
 	build_ui()
 	build_audio()
 	interview_audio=InterviewAudio.new()
@@ -193,6 +197,7 @@ func money_text() -> String:
 	return "¥ %.2f · 发薪 第%d天" % [payroll.balance/100.0,payroll.next_payday/1440+1]
 
 func objective_text() -> String:
+	if city_life and city_life.guide!="": return city_life.status_text()
 	if driving and driving.guide_car!="": return "前往 "+driving.car_for(driving.guide_car).title+" · 靠近车辆按 E 上车"
 	if transit and transit.waypoint!="":
 		for stop in CityLayout.STOPS:
@@ -212,11 +217,12 @@ func in_vehicle() -> bool:
 	return transit!=null and transit.riding or driving!=null and driving.in_vehicle()
 
 func navigation_target() -> Node3D:
+	if city_life and city_life.guide!="": return city_life.point_for(city_life.guide)
 	if driving and driving.guide_car!="": return driving.car_for(driving.guide_car)
 	return transit.station_for(transit.waypoint) if transit.waypoint!="" else ObjectiveGuide.target(self)
 
 func targets() -> Array:
-	return npcs + stations + props + (driving.cars.filter(func(car): return not car.traffic) if driving else []) + (population.residents if population else [])
+	return npcs + stations + props + (driving.cars.filter(func(car): return not car.traffic) if driving else []) + (population.residents if population else []) + (city_life.points if city_life else [])
 
 func nearest() -> Node3D:
 	var best: Node3D
@@ -227,7 +233,7 @@ func nearest() -> Node3D:
 		var offset: Vector3 = node.global_position-player.global_position
 		offset.y = 0
 		var d := offset.length()
-		var score: float = d*(0.4 if node is WorkStation else 0.55 if node is OfficeNPC else 1.0)
+		var score: float = d*(0.4 if node is WorkStation or node is CityActivityPoint else 0.55 if node is OfficeNPC else 1.0)
 		var arriving: bool=node is OfficeNPC and not node.dead and not visit.is_empty() and visit.npc==node.role_id and career.facts.get("visit_state_"+visit.key,"")=="arrived"
 		if arriving: score-=1.0
 		if d<3.0 and score < distance and (arriving or (node is WorkStation and d<0.7) or offset.normalized().dot(player.forward()) > 0.2) and can_see(player,node):
@@ -237,7 +243,7 @@ func nearest() -> Node3D:
 
 func can_see(from: Node3D, to: Node3D) -> bool:
 	var start := from.global_position + Vector3.UP*1.35
-	var end := to.global_position + (Vector3.UP*1.2 if to is CharacterBody3D or to is WorkStation else Vector3.ZERO)
+	var end := to.global_position + (Vector3.UP*1.2 if to is CharacterBody3D or to is WorkStation or to is CityActivityPoint else Vector3.ZERO)
 	var query := PhysicsRayQueryParameters3D.create(start,end)
 	if from is CollisionObject3D: query.exclude = [from.get_rid()]
 	if to is WorkStation and to.stable_id.begins_with("desk_"):
@@ -266,6 +272,9 @@ func interact() -> void:
 		return
 	if interviews.advance(): return
 	var target := nearest()
+	if target is CityActivityPoint:
+		city_life.open_point(target)
+		return
 	if target is CityResident:
 		population.talk(target)
 		return
@@ -311,6 +320,9 @@ func choose(index: int) -> void:
 	var choices: Array = conversation.choices
 	if index>=choices.size(): return
 	var action: String = choices[index][1]
+	if speaker is CityActivityPoint:
+		city_life.answer(speaker,action)
+		return
 	if speaker is CityResident:
 		population.answer(speaker,action)
 		return

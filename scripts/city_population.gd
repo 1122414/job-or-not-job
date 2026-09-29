@@ -8,11 +8,15 @@ const POINTS := {
 	"homes":Vector3(58,0,58),"garden":Vector3(42,0,54),"east_in":Vector3(68,0,58),
 	"east_out":Vector3(84,0,58),"east_garden":Vector3(86,0,68),
 	"north_in":Vector3(0,0,97),"north_out":Vector3(0,0,112),
-	"sea_west":Vector3(-28,0,116),"sea_east":Vector3(28,0,116)
+	"sea_west":Vector3(-28,0,116),"sea_east":Vector3(28,0,116),
+	"bookshop_entry":Vector3(-52,0,41),"bookshop_room":Vector3(-52,0,35),
+	"reading_west":Vector3(-54,0,31),"reading_center":Vector3(-52,0,31),"reading_east":Vector3(-49.5,0,31),
+	"paper_west":Vector3(-56.5,0,30.5),"paper_center":Vector3(-54.3,0,30),"paper_east":Vector3(-52.9,0,28.6),
+	"garden_west":Vector3(36,0,56),"garden_center":Vector3(38,0,58),"garden_east":Vector3(40,0,56)
 }
-const LINKS := [["office","south"],["south","center"],["center","west_path"],["west_path","shop_walk"],["shop_walk","bookshop"],["west_path","west_in"],["west_in","west_out"],["west_out","market"],["center","homes"],["center","garden"],["garden","homes"],["homes","east_in"],["east_in","east_out"],["east_out","east_garden"],["center","north_in"],["north_in","north_out"],["north_out","sea_west"],["north_out","sea_east"]]
+const LINKS := [["office","south"],["south","center"],["center","west_path"],["west_path","shop_walk"],["shop_walk","bookshop"],["west_path","west_in"],["west_in","west_out"],["west_out","market"],["center","homes"],["center","garden"],["garden","homes"],["homes","east_in"],["east_in","east_out"],["east_out","east_garden"],["center","north_in"],["north_in","north_out"],["north_out","sea_west"],["north_out","sea_east"],["bookshop","bookshop_entry"],["bookshop_entry","bookshop_room"],["bookshop_room","reading_west"],["bookshop_room","reading_center"],["bookshop_room","reading_east"],["bookshop_room","paper_west"],["bookshop_room","paper_center"],["bookshop_room","paper_east"],["garden","garden_west"],["garden","garden_center"],["garden","garden_east"]]
 const CROSSINGS := {"market":["west_in","west_out"],"homes":["east_in","east_out"],"waterfront":["north_in","north_out"]}
-const TITLES := {"office":"下班路","bookshop":"社区书屋门口","market":"榕树街广场","homes":"东里社区","garden":"社区花园","east_garden":"东里东街","sea_west":"海风步道西段","sea_east":"海风步道东段"}
+const TITLES := {"office":"下班路","bookshop":"社区书屋门口","market":"榕树街广场","homes":"东里社区","garden":"社区花园","east_garden":"东里东街","sea_west":"海风步道西段","sea_east":"海风步道东段","reading_west":"书屋阅览区","reading_center":"书屋阅览区","reading_east":"书屋阅览区"}
 const PROFILES := [
 	["zhou_ning","周宁","casual","homes"],["chen_yu","陈雨","office_female","garden"],
 	["liang_bo","梁伯","casual","market"],["lin_qiao","林巧","office_female","bookshop"],
@@ -62,6 +66,7 @@ func destination(person: CityResident) -> String:
 	var choices: Array=PLANS[time_phase()]
 	var next: String=choices[(person.index+person.journey)%choices.size()]
 	if next==person.destination: next=choices[(person.index+person.journey+1)%choices.size()]
+	if next=="bookshop" and game.city_life and game.city_life.is_open(): next=CityLife.INDOOR[person.index%3]
 	return next
 
 func closest(point: Vector3) -> String:
@@ -182,7 +187,7 @@ func answer(person: CityResident,action: String) -> void:
 	if not person.available(): game.close_interaction(); return
 	person.conversations+=1
 	if action=="resident_places":
-		game.conversation={"text":person.title.split(" · ")[0]+"：沿中间步道往北，过斑马线就是海边；西边是书屋和榕树街，东边通社区。过街先看车。","choices":[["谢谢，回头见","resident_bye"]]}
+		game.conversation={"text":person.title.split(" · ")[0]+"："+game.city_life.resident_line(person)+"沿中间步道往北，过斑马线就是海边。过街先看车。","choices":[["谢谢，回头见","resident_bye"]]}
 	elif action=="resident_apology":
 		person.apologized=true
 		game.conversation={"text":person.title.split(" · ")[0]+"：希望不会再发生。我先回去休息。","choices":[["好","resident_bye"]]}

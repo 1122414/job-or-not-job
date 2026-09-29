@@ -65,6 +65,15 @@ func _draw() -> void:
 		if destination:
 			text_at(Vector2(35,h-64),"目的地  %dm" % int(p.position.distance_to(destination.position)),14,Color("e4be70"))
 	if not scene_dialogue: text_at(Vector2(w-92,h-25),"H  帮助",14,Color("c7cdd0"))
+	if game.city_life and game.panels.page=="" and game.conversation.is_empty():
+		var caption: String=game.city_life.caption()
+		if caption!="":
+			var width := minf(780,w-340)
+			var subtitle_lines := wrap_lines(caption,width-40,19)
+			var height := 34+subtitle_lines.size()*27
+			var at := Vector2((w-width)/2,h-height-85)
+			draw_style_box(dialogue_style(),Rect2(at,Vector2(width,height)))
+			for i in range(subtitle_lines.size()): text_at(at+Vector2(20,27+i*27),subtitle_lines[i],19)
 	if game.transit.riding and game.panels.page=="":
 		text_at(Vector2(w*0.35,h-52),"101 · "+("已到站 · E 下车" if game.transit.current_stop>=0 else "E 请求下车 · 下一站 "+CityLayout.STOPS[game.transit.next_stop].title),18,Color("e4be70"))
 	if game.driving.in_vehicle() and game.panels.page=="":

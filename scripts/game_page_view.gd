@@ -303,6 +303,13 @@ func ledger() -> void:
 
 func city_page() -> void:
 	paragraph("当前位置："+game.location_name())
+	paragraph(game.city_life.status_text())
+	action("city-bookshop","前往社区书屋 · 自由阅览与手绘图册分享",func():
+		game.city_life.guide="notice"
+		game.driving.guide_car=""
+		game.transit.waypoint=""
+		game.queue_save()
+		game.panels.show_page(""))
 	var map := CityMapView.new()
 	map.game=game
 	map.custom_minimum_size.y=290
@@ -313,6 +320,7 @@ func city_page() -> void:
 		var id: String=stop.id
 		var distance: float=game.player.position.distance_to(stop.platform)
 		action("city-"+id,stop.title+" · %dm" % distance+(" · 已到访" if id in game.transit.visited else ""),func():
+			game.city_life.guide=""
 			game.driving.guide_car=""
 			game.transit.waypoint=id
 			game.queue_save()
@@ -320,11 +328,13 @@ func city_page() -> void:
 	for entry in CityDriving.PARKED:
 		var car: CityCar=game.driving.car_for(entry.id)
 		action("guide-"+entry.id,entry.title+" · %dm" % game.player.position.distance_to(car.position),func():
+			game.city_life.guide=""
 			game.driving.guide_car=car.stable_id
 			game.transit.waypoint=""
 			game.queue_save()
 			game.panels.show_page(""))
 	action("city-clear","返回职业目标",func():
+		game.city_life.guide=""
 		game.driving.guide_car=""
 		game.transit.waypoint=""
 		game.queue_save()

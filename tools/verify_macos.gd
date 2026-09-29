@@ -200,6 +200,32 @@ func run() -> void:
 		push_error("Packaged resident movement or JSON restore failed")
 		quit(1)
 		return
+	var life: CityLife=game.city_life
+	if life.points.size()!=4 or CityBookshop.IMAGES.size()!=3 or CityBookshop.IMAGES[0].get_width()!=800 or not life.valid(life.snapshot()):
+		push_error("Packaged bookshop activity or original illustrations missing")
+		quit(1)
+		return
+	game.player.position=Vector3(-52,0,35)
+	game.player.yaw=0
+	game.set_process(false)
+	for i in range(3): await physics_frame
+	Input.action_press("forward")
+	for i in range(35): await physics_frame
+	Input.action_release("forward")
+	if game.player.position.z>33.5:
+		push_error("Packaged bookshop interior is not walkable")
+		quit(1)
+		return
+	game.player.position=Vector3(-49.2,0,29.7)
+	life.open_point(life.point_for("notice"))
+	life.answer(life.point_for("notice"),"city_plan_screen")
+	life.open_point(life.point_for("screen"))
+	life.answer(life.point_for("screen"),"city_check")
+	life.answer(life.point_for("screen"),"city_prepare")
+	if not life.prepared or not SaveGame.restore(game,JSON.parse_string(JSON.stringify(SaveGame.snapshot(game)))) or not life.room.projection.visible:
+		push_error("Packaged activity scene preparation or JSON restore failed")
+		quit(1)
+		return
 	game.toggle_menu()
 	if DisplayServer.get_name()!="headless":
 		for i in range(6): await process_frame
@@ -208,7 +234,7 @@ func run() -> void:
 			if argument.begins_with("--screenshot="):
 				var error := root.get_texture().get_image().save_png(argument.trim_prefix("--screenshot="))
 				if error!=OK: quit(1); return
-	print("PACKAGED_SMOKE_OK build=",build.build_id," label=",BuildInfo.label()," npcs=",game.npcs.size()," props=",game.props.size()," company_spaces=2 company_sources=2 environment_props=6 asset_sources=5 authored_clips=2 authored_characters=26 texture_imports=verified ui_mouse=verified city_stops=4 bus_ride_save=verified driving_save=verified traffic=3 public_residents=12 population_save=verified persistence=",game.persistence_enabled)
+	print("PACKAGED_SMOKE_OK build=",build.build_id," label=",BuildInfo.label()," npcs=",game.npcs.size()," props=",game.props.size()," company_spaces=2 company_sources=2 environment_props=6 asset_sources=5 authored_clips=2 authored_characters=26 texture_imports=verified ui_mouse=verified city_stops=4 bus_ride_save=verified driving_save=verified traffic=3 public_residents=12 population_save=verified bookshop_walk_save=verified original_illustrations=3 persistence=",game.persistence_enabled)
 	paused=false
 	game.queue_free()
 	await process_frame

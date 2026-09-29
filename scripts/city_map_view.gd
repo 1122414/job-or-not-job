@@ -24,4 +24,6 @@ func _draw() -> void:
 		draw_rect(Rect2(point(car.position)-Vector2(3,3),Vector2(6,6)),Color("c4ccca") if car.traffic else Color("73c990"))
 	draw_circle(point(game.transit.bus.position),5,Color("e09267"))
 	draw_circle(point(game.player.position),5,Color("63d6ef"))
+	draw_rect(Rect2(point(CityPopulation.POINTS.bookshop_entry)-Vector2(4,4),Vector2(8,8)),Color("eee1bf"))
+	draw_string(ThemeDB.fallback_font,point(CityPopulation.POINTS.bookshop_entry)+Vector2(-8,-12),"书屋",HORIZONTAL_ALIGNMENT_LEFT,-1,16,Color("eee1bf"))
 	draw_string(ThemeDB.fallback_font,Vector2(12,24),"N ↑    蓝：你    橙：101    绿：可用车",HORIZONTAL_ALIGNMENT_LEFT,-1,16,Color.WHITE)

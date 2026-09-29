@@ -66,6 +66,7 @@ func requested_crossing() -> String:
 func _physics_process(delta: float) -> void:
 	fear=maxf(0,fear-delta)
 	down=maxf(0,down-delta)
+	if game.city_life: game.city_life.redirect(self)
 	if hp==0: state="dead"
 	elif down>0: state="fallen"
 	elif state in ["fallen","dead"]:
@@ -95,7 +96,12 @@ func _physics_process(delta: float) -> void:
 	elif state=="talking":
 		var direction: Vector3=game.player.position-position
 		visual.rotation.y=lerp_angle(visual.rotation.y,atan2(-direction.x,-direction.z),1-exp(-delta*5))
-	visual.pose(Vector2(velocity.x,velocity.z).length(),false,falling,false,false,false,state=="talking")
+	var sharing: bool=game.city_life!=null and game.city_life.present(self)
+	if sharing:
+		var look: Vector3=game.city_life.focus_position()-position
+		visual.rotation.y=lerp_angle(visual.rotation.y,atan2(-look.x,-look.z),1-exp(-delta*5))
+	var telling: bool=sharing and index==CityLife.AUDIENCE[mini(2,int(game.city_life.elapsed/6))]
+	visual.pose(Vector2(velocity.x,velocity.z).length(),false,falling,false,false,false,state=="talking" or telling)
 	visual.rotation.y=wrapf(visual.rotation.y,-PI,PI)
 	update_body()
 	if not is_on_floor(): velocity.y=-4

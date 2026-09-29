@@ -64,10 +64,16 @@ static func build(game: Node3D) -> void:
 		OfficeRooms.plaque(shelter,stop.title,Vector3(0,2.45,1.8),3.4)
 	# Distinct massing and traversable public spaces. Interiors/content follow later.
 	for z in [32,82]:
-		for x in [-96,-52,-34]: building(district,Vector3(x,0,z),Vector3(13,7 if x!= -34 else 10,13),Color("b6a18c"))
+		for x in [-96,-52,-34]:
+			if x== -52 and z==32:
+				var bookshop := CityBookshop.new()
+				bookshop.name="CommunityBookshop"
+				bookshop.position=Vector3(x,0,z)
+				district.add_child(bookshop)
+			else: building(district,Vector3(x,0,z),Vector3(13,7 if x!= -34 else 10,13),Color("b6a18c"))
 	for x in [-96,-52]:
 		Shapes.box(district,Vector3(13.8,0.2,2.4),Vector3(x,3.1,40),Color("875e49"))
-	OfficeRooms.plaque(district,"榕树街  /  社区书屋 · 修理铺",Vector3(-51,3.8,41),6)
+	OfficeRooms.plaque(district,"榕树街  /  社区书屋",Vector3(-62,2.4,44),4)
 	for x in [36,56,96]:
 		for z in [32,82]: building(district,Vector3(x,0,z),Vector3(14,16 if x==96 else 12,14),Color("aab4b3"))
 	OfficeRooms.plaque(district,"东里社区  /  公共花园",Vector3(51,3,48),5)
