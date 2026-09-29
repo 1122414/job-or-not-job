@@ -50,9 +50,9 @@ static func build(game: Node3D, firm: String) -> void:
 	var phone_holder := Node3D.new()
 	phone_holder.name="InterviewPhoneB" if firm=="b" else "InterviewPhoneA"
 	game.add_child(phone_holder)
-	phone_holder.position=Vector3(room_x+0.22,0.798,-14.42)
-	var phone := Shapes.box(phone_holder,Vector3(0.075,0.014,0.14),Vector3.ZERO,Color("19242c"))
-	phone.rotation.y=0.12
+	# Keep the authored rest pose aligned with the accepted S4 hand-contact scene.
+	phone_holder.position=Vector3(room_x+0.22,0.798,-14.54)
+	Shapes.box(phone_holder,Vector3(0.075,0.014,0.14),Vector3.ZERO,Color("19242c"))
 	Shapes.box(phone_holder,Vector3(0.060,0.002,0.12),Vector3(0,0.009,0),Color("6f9297"))
 	var resume := Shapes.label(game,"个人简历\n项目经历  /  交付记录",Vector3(room_x-0.34,0.832,-14.02),24)
 	resume.billboard=BaseMaterial3D.BILLBOARD_DISABLED

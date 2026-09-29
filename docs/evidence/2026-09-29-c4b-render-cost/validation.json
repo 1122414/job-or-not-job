@@ -1,0 +1,79 @@
+{
+  "source_sha256": "1258310f5c75bca906e5c985352a3f8dd9976eb6a2fc424afe9ccb5f5ddb1229",
+  "checks": {
+    "full_checks": {
+      "command": "GODOT_BIN=/Applications/Godot.app/Contents/MacOS/Godot sh tools/check.sh",
+      "result": "68 Godot tests, import and smoke; exit 0",
+      "exit_code": 0,
+      "log_sha256": "bdb6a4855c762d0718395257d3761331018645022f79388b1278fffe54e44991",
+      "error_warning_count": 0,
+      "last_result_lines": [
+        "WORK_PROJECTS_TEST failures=0",
+        "WORK_SCENE_TEST failures=0",
+        "WORLD_TEST failures=0"
+      ]
+    },
+    "python": {
+      "command": "python3 -m unittest discover -s tests -p 'test_*.py'",
+      "result": "24 tests passed; exit 0",
+      "exit_code": 0,
+      "log_sha256": "b52aa5ee857634502ee45e54477a15e1c518b6fa216e31f640fd255a0ccefa64",
+      "error_warning_count": 0,
+      "last_result_lines": []
+    },
+    "route": {
+      "command": "Godot --path . --position -10000,-10000 --rendering-method gl_compatibility --disable-render-loop --fixed-fps 60 --script tests/full_route_test.gd -- --output=res://build/c4b-company-route",
+      "result": "FULL_ROUTE_TEST failures=0",
+      "exit_code": 0,
+      "log_sha256": "f1f9f8f59e061ad95928d741c20f0a27a37dc4bd8ad1c70b58c48c74c171549d",
+      "error_warning_count": 0,
+      "last_result_lines": [
+        "FULL_ROUTE_TEST failures=0"
+      ]
+    },
+    "geometry": {
+      "command": "Godot --headless --path . --script tools/verify_company_batches.gd",
+      "result": "COMPANY_EQUIVALENCE_TEST failures=0",
+      "exit_code": 0,
+      "log_sha256": "140c06eefa9c12cdc8834cdcc9a34e111cd8ae37f06173f548f50b67e56bcaba",
+      "error_warning_count": 0,
+      "last_result_lines": [
+        "COMPANY_EQUIVALENCE_TEST failures=0"
+      ]
+    },
+    "source_rebuild": {
+      "command": "Godot tools/build_company_spaces.gd default source followed by tools/verify_company_batches.gd --before=res://tools/company_sources --after=res://build/c4b-source-rebuild",
+      "result": "COMPANY_EQUIVALENCE_TEST failures=0",
+      "exit_code": 0,
+      "log_sha256": "140c06eefa9c12cdc8834cdcc9a34e111cd8ae37f06173f548f50b67e56bcaba",
+      "error_warning_count": 0,
+      "last_result_lines": [
+        "COMPANY_EQUIVALENCE_TEST failures=0"
+      ]
+    },
+    "package_project": {
+      "command": "actual TodayOff --headless --fixed-fps 60 --script absolute tools/verify_macos.gd; cwd=project",
+      "result": "PACKAGED_SMOKE_OK",
+      "exit_code": 0,
+      "log_sha256": "c0fb078b326b4c6489a0a4925e09ead59ed021a7b03e3f4231bbfbe17ea79a10",
+      "error_warning_count": 0,
+      "last_result_lines": [
+        "PACKAGED_SMOKE_OK build=20260929T112301149196Z-16f261b5-1258310f label=v0.5.0 · 16f261b5 / 1258310f（含未提交修改） npcs=10 props=114 company_spaces=2 company_sources=2 environment_props=6 asset_sources=5 authored_clips=2 authored_characters=28 texture_imports=verified ui_mouse=verified city_stops=4 bus_ride_save=verified driving_save=verified traffic=3 public_residents=12 population_save=verified bookshop_walk_save=verified original_illustrations=3 public_response_transfer_save=verified persistence=false"
+      ]
+    },
+    "package_tmp": {
+      "command": "actual TodayOff --headless --fixed-fps 60 --script absolute tools/verify_macos.gd; cwd=/private/tmp",
+      "result": "PACKAGED_SMOKE_OK",
+      "exit_code": 0,
+      "log_sha256": "c0fb078b326b4c6489a0a4925e09ead59ed021a7b03e3f4231bbfbe17ea79a10",
+      "error_warning_count": 0,
+      "last_result_lines": [
+        "PACKAGED_SMOKE_OK build=20260929T112301149196Z-16f261b5-1258310f label=v0.5.0 · 16f261b5 / 1258310f（含未提交修改） npcs=10 props=114 company_spaces=2 company_sources=2 environment_props=6 asset_sources=5 authored_clips=2 authored_characters=28 texture_imports=verified ui_mouse=verified city_stops=4 bus_ride_save=verified driving_save=verified traffic=3 public_residents=12 population_save=verified bookshop_walk_save=verified original_illustrations=3 public_response_transfer_save=verified persistence=false"
+      ]
+    }
+  },
+  "zip_crc": "passed",
+  "codesign_deep_strict": "passed",
+  "normal_game_performance_accepted": false,
+  "final_visual_acceptance": false
+}

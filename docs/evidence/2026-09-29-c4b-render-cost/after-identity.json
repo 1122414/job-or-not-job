@@ -1,0 +1,8 @@
+{
+  "manifest_version": 1,
+  "created_utc": "2026-09-29T11:15:32.958024+00:00",
+  "source_commit": "16f261b52f8aff9d235592e1e1e6641f24afd51b",
+  "runtime_dirty": true,
+  "source_sha256": "1258310f5c75bca906e5c985352a3f8dd9976eb6a2fc424afe9ccb5f5ddb1229",
+  "save_schema": 16
+}

@@ -12,7 +12,7 @@ func run() -> void:
 		push_error("Package identity or save schema missing")
 		quit(1)
 		return
-	for excluded in ["res://tests/world_test.gd", "res://tools/package_macos.py", "res://docs/progress.md", "res://build/p0-source-identity.json", "res://production/quaternius/standard-2025-06-10/glTF/AnimationLibrary_Godot_Standard.gltf"]:
+	for excluded in ["res://tests/world_test.gd", "res://tools/package_macos.py", "res://tools/company_sources/company_a.tscn", "res://tools/company_sources/company_b.tscn", "res://docs/progress.md", "res://build/p0-source-identity.json", "res://production/quaternius/standard-2025-06-10/glTF/AnimationLibrary_Godot_Standard.gltf"]:
 		if FileAccess.file_exists(excluded) or ResourceLoader.exists(excluded):
 			push_error("Development files leaked into package: "+excluded)
 			quit(1)
@@ -86,6 +86,17 @@ func run() -> void:
 		var space := OfficeRooms.space(game,firm.to_lower())
 		if space==null or space.get_node_or_null("Anchors/interview_seat")==null or space.get_node_or_null("Architecture")==null:
 			push_error("Packaged authored company space missing")
+			quit(1)
+			return
+		var batch_report: Dictionary=space.get_meta("static_batch_report",{})
+		var actual_batches := 0
+		var actual_triangles := 0
+		for mesh in space.find_children("*","MeshInstance3D",true,false):
+			if mesh.has_meta("source_paths"):
+				actual_batches+=1
+				actual_triangles+=mesh.mesh.surface_get_arrays(0)[Mesh.ARRAY_INDEX].size()/3
+		if actual_batches<=0 or actual_batches!=batch_report.get("batches",-1) or actual_triangles!=batch_report.get("source_triangles",-1):
+			push_error("Packaged company static batches are missing or incomplete")
 			quit(1)
 			return
 		for name in ["ReceptionLamp"+firm,"WaitingChair"+firm+"-1","WaitingChair"+firm+"1"]:

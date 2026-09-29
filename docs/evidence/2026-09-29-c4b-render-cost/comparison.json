@@ -1,0 +1,168 @@
+{
+  "old-street": {
+    "draw_calls": {
+      "before": 6157.0,
+      "after": 5212.0,
+      "change_percent": -15.348383953223973
+    },
+    "primitives": {
+      "before": 517487.0,
+      "after": 517487.0,
+      "change_percent": 0.0
+    },
+    "force_draw_wall_ms": {
+      "before": 15.9065037037037,
+      "after": 14.457662962962965,
+      "change_percent": -9.10848020236769
+    },
+    "render_cpu_ms": {
+      "before": 13.6004592754223,
+      "after": 11.623440735428433,
+      "change_percent": -14.536410131138604
+    },
+    "render_setup_cpu_ms": {
+      "before": 0.009403703703703723,
+      "after": 0.009329629629629623,
+      "change_percent": -0.7877116975189785
+    },
+    "render_gpu_ms": {
+      "before": 0.0,
+      "after": 0.0,
+      "change_percent": null
+    },
+    "pixels": {
+      "mean_absolute_rgb_255": [
+        0.00019907407407407406,
+        0.00021296296296296298,
+        0.00019830246913580247
+      ],
+      "channels_over_8_percent": 0.00015432098765432098
+    },
+    "draw_call_budget": 5500
+  },
+  "company-a": {
+    "draw_calls": {
+      "before": 4471.0,
+      "after": 3580.0,
+      "change_percent": -19.928427644822186
+    },
+    "primitives": {
+      "before": 160793.0,
+      "after": 160793.0,
+      "change_percent": 0.0
+    },
+    "force_draw_wall_ms": {
+      "before": 10.577788888888898,
+      "after": 9.05821851851852,
+      "change_percent": -14.365671184519119
+    },
+    "render_cpu_ms": {
+      "before": 7.9045148125401274,
+      "after": 6.415818528775816,
+      "change_percent": -18.83349350427641
+    },
+    "render_setup_cpu_ms": {
+      "before": 0.009440740740740734,
+      "after": 0.009022222222222225,
+      "change_percent": -4.433111023930856
+    },
+    "render_gpu_ms": {
+      "before": 0.0,
+      "after": 0.0,
+      "change_percent": null
+    },
+    "pixels": {
+      "mean_absolute_rgb_255": [
+        1.5432098765432098e-06,
+        2.3148148148148148e-06,
+        1.5432098765432098e-06
+      ],
+      "channels_over_8_percent": 0.0
+    },
+    "draw_call_budget": 3800
+  },
+  "company-b": {
+    "draw_calls": {
+      "before": 1510.0,
+      "after": 1175.0,
+      "change_percent": -22.185430463576157
+    },
+    "primitives": {
+      "before": 55410.0,
+      "after": 55410.0,
+      "change_percent": 0.0
+    },
+    "force_draw_wall_ms": {
+      "before": 4.62975925925926,
+      "after": 4.0784925925925934,
+      "change_percent": -11.907026603255108
+    },
+    "render_cpu_ms": {
+      "before": 2.7816962992703496,
+      "after": 2.2599888907538497,
+      "change_percent": -18.755009619610377
+    },
+    "render_setup_cpu_ms": {
+      "before": 0.00760370370370371,
+      "after": 0.0071925925925926,
+      "change_percent": -5.406721870433486
+    },
+    "render_gpu_ms": {
+      "before": 0.0,
+      "after": 0.0,
+      "change_percent": null
+    },
+    "pixels": {
+      "mean_absolute_rgb_255": [
+        5.401234567901234e-06,
+        3.0864197530864196e-06,
+        7.71604938271605e-06
+      ],
+      "channels_over_8_percent": 0.0
+    },
+    "draw_call_budget": 1250
+  },
+  "waterfront-night": {
+    "draw_calls": {
+      "before": 565.0,
+      "after": 565.0,
+      "change_percent": 0.0
+    },
+    "primitives": {
+      "before": 294832.0,
+      "after": 294832.0,
+      "change_percent": 0.0
+    },
+    "force_draw_wall_ms": {
+      "before": 2.41614074074074,
+      "after": 2.3190777777777765,
+      "change_percent": -4.017272724485653
+    },
+    "render_cpu_ms": {
+      "before": 1.5860888869674135,
+      "after": 1.4966962942370634,
+      "change_percent": -5.636039282846741
+    },
+    "render_setup_cpu_ms": {
+      "before": 0.0061333333333333405,
+      "after": 0.005874074074074077,
+      "change_percent": -4.227053140096687
+    },
+    "render_gpu_ms": {
+      "before": 0.0,
+      "after": 0.0,
+      "change_percent": null
+    },
+    "pixels": {
+      "mean_absolute_rgb_255": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "channels_over_8_percent": 0.0
+    },
+    "draw_call_budget": 600
+  },
+  "normal_game_fps": false,
+  "all_images_equal_to_reviewed_candidate": true
+}

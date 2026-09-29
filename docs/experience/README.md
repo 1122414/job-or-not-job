@@ -14,7 +14,7 @@
 | 来访确认后的对象连续性 | 确认老板来访后答辩选项消失，附近工位抢交互 | 定向回归验证一次；完整路线见验收记录 | [来访衔接](patterns/visit-dialogue-continuity.md) |
 
 | 网页平台字体与输入差异 | 中文方框、捕获失败、重复构建扫描产物 | 中文与打包验证一次；边界仍待验 | [网页导出](patterns/web-export-platform-gaps.md) |
-| 构建与证据身份 | 旧包反馈、有未提交资源、源码目录污染独立包检查、GPU计时为零 | 2026-09-29构建与采样验证一次 | [构建证据](patterns/build-evidence-identity.md) |
+| 构建与证据身份 | 旧包反馈、源码回退、零GPU计时、强制绘制计数为零、旧生成源覆盖已修姿态 | 多轮包身份复验；C4b完成信号和制作源漂移各验证一次 | [构建证据](patterns/build-evidence-identity.md) |
 | 开放资产的安装、材质语义与导航占地 | 导入通过但朝向/支撑/材质用途错误；旧路线被新家具封堵 | 2026-09-29环境/人物实际纹理压缩机制重复验证；人物LOD索引实查 | [资产接入](patterns/open-asset-integration.md) |
 | 附件几何、蒙皮与表情贴合混用 | 眉片尖角、表情中途穿插、裤脚白块、鞋边碎片 | 2026-09-29三候选43状态采样验证一次；动态/材质开放 | [人物附件贴合](patterns/character-attachment-fitting.md) |
 | 人物比例与运动支撑 | 同名骨骼的新体型滑脚、悬脚或碰撞托物 | 2026-09-29三人体型和碰撞验证一次；任意地形/精细接触开放 | [比例适配](patterns/character-proportion-adaptation.md) |

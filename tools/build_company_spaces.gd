@@ -1,6 +1,7 @@
 extends SceneTree
 
 const RoomSource = preload("res://tools/company_room_source.gd")
+const StaticBatches = preload("res://tools/company_static_batches.gd")
 var materials: Dictionary = {}
 
 func _initialize() -> void: call_deferred("run")
@@ -252,18 +253,25 @@ func own_descendants(node: Node, scene: Node) -> void:
 
 func run() -> void:
 	var output := "res://build/company-scenes"
+	var batches := true
+	var source := "res://tools/company_sources"
 	for argument in OS.get_cmdline_user_args():
 		if argument.begins_with("--output="): output=argument.trim_prefix("--output=")
+		if argument=="--unbatched": batches=false
+		if argument.begins_with("--source="): source=argument.trim_prefix("--source=")
 	DirAccess.make_dir_recursive_absolute(output)
 	for firm in ["a","b"]:
-		var company := Node3D.new()
+		# A bake of authored scenes must preserve edits made since initial generation.
+		var company: Node3D=Node3D.new() if source.is_empty() else load(source.path_join("company_"+firm+".tscn")).instantiate()
 		company.name="Company"+firm.to_upper()
 		root.add_child(company)
-		anchors(company,firm)
-		shell(company,firm)
-		RoomSource.build(company,firm)
-		lighting(company,firm)
-		dressing(company,firm)
+		if source.is_empty():
+			anchors(company,firm)
+			shell(company,firm)
+			RoomSource.build(company,firm)
+			lighting(company,firm)
+			dressing(company,firm)
+		if batches: print("COMPANY_BATCHES ",firm," ",StaticBatches.bake(company))
 		own_descendants(company,company)
 		var scene := PackedScene.new()
 		if scene.pack(company)!=OK or ResourceSaver.save(scene,output.path_join("company_"+firm+".tscn"))!=OK:
