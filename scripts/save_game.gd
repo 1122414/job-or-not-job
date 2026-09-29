@@ -1,7 +1,7 @@
 class_name SaveGame
 extends RefCounted
 
-const VERSION := 20
+const VERSION := 21
 const BASE_NPCS := ["a_hr","a_lead","a_boss","a_friend","a_group","a_guard","b_hr","b_friend","b_boss","b_guard"]
 const LEGACY_PROPS := ["a_keyboard","a_cup","a_table","a_chair","a_printer","b_keyboard","b_cup","b_table","b_chair","b_printer"]
 const PATH := "user://neighborhood.json"
@@ -43,7 +43,7 @@ static func valid_vector(value: Variant) -> bool:
 
 static func valid(data: Variant, game: Node3D) -> bool:
 	if not data is Dictionary: return false
-	if data.get("version")!=1 and data.get("version")!=2 and data.get("version")!=3 and data.get("version")!=4 and data.get("version")!=5 and data.get("version")!=6 and data.get("version")!=7 and data.get("version")!=8 and data.get("version")!=9 and data.get("version")!=10 and data.get("version")!=11 and data.get("version")!=12 and data.get("version")!=13 and data.get("version")!=14 and data.get("version")!=15 and data.get("version")!=16 and data.get("version")!=17 and data.get("version")!=18 and data.get("version")!=19 and data.get("version")!=VERSION: return false
+	if data.get("version")!=1 and data.get("version")!=2 and data.get("version")!=3 and data.get("version")!=4 and data.get("version")!=5 and data.get("version")!=6 and data.get("version")!=7 and data.get("version")!=8 and data.get("version")!=9 and data.get("version")!=10 and data.get("version")!=11 and data.get("version")!=12 and data.get("version")!=13 and data.get("version")!=14 and data.get("version")!=15 and data.get("version")!=16 and data.get("version")!=17 and data.get("version")!=18 and data.get("version")!=19 and data.get("version")!=20 and data.get("version")!=VERSION: return false
 	for field in ["career","payroll","props","npcs","player"]:
 		if not data.get(field) is Dictionary: return false
 	for field in CAREER_FIELDS:
@@ -171,7 +171,7 @@ static func valid(data: Variant, game: Node3D) -> bool:
 	if data.version>=18 and not game.commons.valid(data.get("city_commons"),data): return false
 	if data.version>=11 and not RecruitmentFlow.valid(data.get("recruitment")): return false
 	if data.version>=10 and not Onboarding.valid(data.get("onboarding")): return false
-	if data.version>=9 and not SocialLife.valid(data.get("social"),data.npcs): return false
+	if data.version>=9 and not SocialLife.valid(data.get("social"),data.npcs,data.version>=21): return false
 	var occupied := {}
 	for id in data.npcs:
 		var entry: Dictionary=data.npcs[id]

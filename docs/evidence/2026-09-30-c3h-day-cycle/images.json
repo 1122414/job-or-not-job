@@ -1,0 +1,110 @@
+[
+  {
+    "file": "career/backup.png",
+    "sha256": "eddfd2caf9c8b35c45dc1824a4fe85fee7c1fffe934e649a8762c37b448d550b",
+    "reviewed": false,
+    "review_basis": "archived, not inspected"
+  },
+  {
+    "file": "career/defend.png",
+    "sha256": "254090f78a79d21261959cbf2334c98d4adc4ae852d78672c9f4d540e9d5dbf8",
+    "reviewed": false,
+    "review_basis": "archived, not inspected"
+  },
+  {
+    "file": "career/handover.png",
+    "sha256": "5ee417af55f15daf5785697b34360d656738c81cc229b3c49abb70fc511c88e5",
+    "reviewed": true,
+    "review_basis": "view_image this continuation"
+  },
+  {
+    "file": "career/interview_hr.png",
+    "sha256": "dcc2c9959873b6dab4e9aa0eaba846dab6f779909d89af2f2679e7665e6a4a72",
+    "reviewed": false,
+    "review_basis": "archived, not inspected"
+  },
+  {
+    "file": "career/join_a.png",
+    "sha256": "3799e468665ae847e1616fb34c06ddfc8128eb2ff0e770ff83bd14095edbd4d2",
+    "reviewed": false,
+    "review_basis": "archived, not inspected"
+  },
+  {
+    "file": "career/prepare.png",
+    "sha256": "5ff924164c0e188993707e20b57d818e846cbdee2f249688718e40ff59cd6d1c",
+    "reviewed": false,
+    "review_basis": "archived, not inspected"
+  },
+  {
+    "file": "career/submit.png",
+    "sha256": "769cd180907437ff065a095ee9c08a63653eb87345c549a1026c7a74fe83e85d",
+    "reviewed": true,
+    "review_basis": "view_image this continuation"
+  },
+  {
+    "file": "day-route/evening-agreement.png",
+    "sha256": "83593dcd7e206cd66e737df16a05ed86ee84ccd95d09196d7b46dd45d071f62b",
+    "reviewed": true,
+    "review_basis": "identical bytes to previously inspected route image"
+  },
+  {
+    "file": "day-route/garden-conversation.png",
+    "sha256": "69864867a5bfd850b51694d684fc8baeb5947553fce3489d33c54165bcc8e823",
+    "reviewed": true,
+    "review_basis": "identical bytes to previously inspected route image"
+  },
+  {
+    "file": "day-route/morning-bookshop.png",
+    "sha256": "fbde2a98e346535391a3bdfffa80543fbacafd7a7234b03c07ecf8b37dec3e1b",
+    "reviewed": true,
+    "review_basis": "identical bytes to previously inspected route image"
+  },
+  {
+    "file": "day-route/next-day-memory.png",
+    "sha256": "bd317d746e5b5d020850c6beebb90414308b5027818e79ed77a3eebb520916df",
+    "reviewed": true,
+    "review_basis": "identical bytes to previously inspected route image"
+  },
+  {
+    "file": "day-route/next-morning.png",
+    "sha256": "9c55b5638416b099ca300068683631cce64c4b46eb119c37b3667d048c382ebc",
+    "reviewed": true,
+    "review_basis": "identical bytes to previously inspected route image"
+  },
+  {
+    "file": "day-route/rest-options.png",
+    "sha256": "880a68a5c21024590aa3e23f6bce86293a4692cc1b21facdf5d16b949b48be82",
+    "reviewed": true,
+    "review_basis": "identical bytes to previously inspected route image"
+  },
+  {
+    "file": "day-route/resume-next-evening.png",
+    "sha256": "967a6662d25b54da90f2f7d8313a3aeb601fd79feade0d4477770704a92a052e",
+    "reviewed": true,
+    "review_basis": "view_image this continuation"
+  },
+  {
+    "file": "day-route/retained-agreement.png",
+    "sha256": "c7b195ba1f69ee15b5a468830d1db3e501e4547a506143d1db201a35b2bf2d1b",
+    "reviewed": true,
+    "review_basis": "identical bytes to previously inspected route image"
+  },
+  {
+    "file": "package/day-walk.png",
+    "sha256": "95d8bf83d045c79400ac8efc9098f77b33bb68d7be47920e894e545b32c624aa",
+    "reviewed": false,
+    "review_basis": "archived, not inspected"
+  },
+  {
+    "file": "package/night-company-a.png",
+    "sha256": "4529c756ba8effa95ce6be337274e2ee96b3f9f907e2d33a4142382884e3e9cc",
+    "reviewed": false,
+    "review_basis": "archived, not inspected"
+  },
+  {
+    "file": "package/night-garden.png",
+    "sha256": "9a2ab6adbb717653e6083001c9d964ad27ae3afa6b6829b34a56ef87652ea461",
+    "reviewed": true,
+    "review_basis": "view_image this continuation"
+  }
+]

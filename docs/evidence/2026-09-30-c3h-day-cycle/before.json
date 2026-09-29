@@ -1,0 +1,39 @@
+[
+	{
+		"case": "offered",
+		"minute": 2580,
+		"outing": {
+			"elapsed": 0.0,
+			"kind": "walk",
+			"person": "a_friend",
+			"stage": "offered"
+		}
+	},
+	{
+		"case": "city_walk",
+		"minute": 2580,
+		"outing": {
+			"elapsed": 0.0,
+			"kind": "walk",
+			"person": "a_friend",
+			"stage": "walking",
+			"venue": "garden"
+		}
+	},
+	{
+		"case": "lunch",
+		"minute": 1080,
+		"outing": {
+			"elapsed": 0.0,
+			"kind": "lunch",
+			"person": "a_friend",
+			"stage": "walking"
+		}
+	},
+	{
+		"case": "rest_evening_immediate",
+		"minute": 1080,
+		"recruitment_phase": "waiting",
+		"sky_unchanged": true
+	}
+]

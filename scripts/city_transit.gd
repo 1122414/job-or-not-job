@@ -193,7 +193,7 @@ func wait_for_bus(index: int) -> bool:
 	if not get_world_3d().direct_space_state.intersect_shape(query,1).is_empty():
 		game.say("站点车道被挡住了，暂时无法跳过等车。")
 		return false
-	game.payroll.tick(seconds,game.career.employer)
+	game.advance_time(seconds*Payroll.GAME_MINUTES_PER_SECOND)
 	distance=stop_offsets[index]
 	current_stop=index
 	next_stop=(index+1)%CityLayout.STOPS.size()

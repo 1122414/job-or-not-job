@@ -1,0 +1,145 @@
+{
+	"actual_inputs_and_clock": true,
+	"background_guard": true,
+	"friend_metres": 245.908045738935,
+	"images": 8,
+	"independent_player_acceptance": false,
+	"initial_time_player_fixture": true,
+	"max_friend_step": 0.0383421964943409,
+	"max_player_step": 0.0833354964852333,
+	"metres": 388.254995888565,
+	"normal_game_fps": false,
+	"npc_teleports": false,
+	"persistence": false,
+	"visits": [
+		{
+			"image": "evening-agreement",
+			"minute": 1132,
+			"outing": {
+				"elapsed": 0.0333333333333333,
+				"guiding": true,
+				"kind": "walk",
+				"person": "a_friend",
+				"stage": "walking",
+				"venue": "garden"
+			},
+			"player": [
+				-7.2263035774231,
+				-0.00478515634313226,
+				19.4809665679932
+			]
+		},
+		{
+			"image": "rest-options",
+			"minute": 1133,
+			"outing": {
+				"elapsed": 1.46666666666667,
+				"guiding": true,
+				"kind": "walk",
+				"person": "a_friend",
+				"stage": "walking",
+				"venue": "garden"
+			},
+			"player": [
+				-2.15823578834534,
+				-0.00478515634313226,
+				15.421630859375
+			]
+		},
+		{
+			"image": "next-morning",
+			"minute": 1980,
+			"outing": {
+				"elapsed": 1.46666666666667,
+				"guiding": true,
+				"kind": "walk",
+				"person": "a_friend",
+				"stage": "paused",
+				"venue": "garden"
+			},
+			"player": [
+				-2.15823578834534,
+				-0.00478515634313226,
+				15.421630859375
+			]
+		},
+		{
+			"image": "retained-agreement",
+			"minute": 1980,
+			"outing": {
+				"elapsed": 1.46666666666667,
+				"guiding": true,
+				"kind": "walk",
+				"person": "a_friend",
+				"stage": "paused",
+				"venue": "garden"
+			},
+			"player": [
+				-2.15823578834534,
+				-0.00478515634313226,
+				15.421630859375
+			]
+		},
+		{
+			"image": "morning-bookshop",
+			"minute": 1994,
+			"outing": {
+				"elapsed": 1.46666666666667,
+				"guiding": true,
+				"kind": "walk",
+				"person": "a_friend",
+				"stage": "paused",
+				"venue": "garden"
+			},
+			"player": [
+				-55.5660171508789,
+				-0.00478515634313226,
+				30.6696300506592
+			]
+		},
+		{
+			"image": "resume-next-evening",
+			"minute": 2532,
+			"outing": {
+				"elapsed": 1.46666666666667,
+				"guiding": true,
+				"kind": "walk",
+				"person": "a_friend",
+				"stage": "paused",
+				"venue": "garden"
+			},
+			"player": [
+				-7.24010229110718,
+				-0.00478515634313226,
+				19.3861141204834
+			]
+		},
+		{
+			"image": "garden-conversation",
+			"minute": 2551,
+			"outing": {
+				"elapsed": 40.599999999999,
+				"guiding": true,
+				"kind": "walk",
+				"person": "a_friend",
+				"stage": "sharing",
+				"venue": "garden"
+			},
+			"player": [
+				39.6591682434082,
+				-0.00478515634313226,
+				54.2229423522949
+			]
+		},
+		{
+			"image": "next-day-memory",
+			"minute": 2551,
+			"outing": {},
+			"player": [
+				39.6591682434082,
+				-0.00478515634313226,
+				54.2229423522949
+			]
+		}
+	]
+}

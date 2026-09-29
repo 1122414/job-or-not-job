@@ -194,15 +194,31 @@ func _process(delta: float) -> void:
 	care.tick(delta)
 	social.tick(delta)
 	onboarding.tick()
-	var payday_before := payroll.next_payday
-	payroll.tick(delta*(0.2 if not conversation.is_empty() else 1.0),career.employer)
-	recruitment.tick()
-	update_daylight()
-	if payroll.next_payday!=payday_before: queue_save()
+	advance_time(delta*(0.2 if not conversation.is_empty() else 1.0)*Payroll.GAME_MINUTES_PER_SECOND,false)
 	if save_delay>=0:
 		save_delay-=delta
 		if save_delay<0: save_game(false)
 	player.camera.h_offset = lerpf(player.camera.h_offset,0,delta*15)
+
+func advance_time(minutes: float, skipped: bool=true) -> void:
+	# Only the calendar advances here. Physical routes and encounters continue
+	# normally, rather than receiving a huge movement delta or being completed.
+	var before := payroll.minute
+	var payday_before := payroll.next_payday
+	var seconds := maxf(0,minutes)/Payroll.GAME_MINUTES_PER_SECOND
+	payroll.tick(seconds,career.employer)
+	if skipped and payroll.minute!=before: care.tick(0)
+	social.time_changed(before,seconds if skipped else 0.0)
+	recruitment.tick()
+	update_daylight()
+	if payroll.minute!=before: city_life.sync_scene()
+	if skipped or payroll.next_payday!=payday_before: queue_save()
+
+func rest_time(action: String) -> int:
+	if action=="rest_day": return payroll.minute+Payroll.DAY
+	var daytime := 540 if action=="rest_morning" else 1080
+	var remaining := posmod(daytime-payroll.minute%Payroll.DAY,Payroll.DAY)
+	return payroll.minute+(remaining if remaining>0 else Payroll.DAY)
 
 func location_name() -> String:
 	if player.position.z>2 or absf(player.position.x)>29:
@@ -331,8 +347,10 @@ func interact() -> void:
 		if target is OfficeNPC: social.meet(target)
 		conversation=OfficeDialogue.options(target,career)
 		if target is OfficeNPC: conversation=recruitment.options(target,conversation)
-		if target is WorkStation and target.stable_id=="rest" and recruitment.next_time()>0:
-			conversation.choices.push_front(["休息到下一安排 · "+recruitment.stamp(recruitment.next_time()),"rest_next"])
+		if target is WorkStation and target.stable_id=="rest":
+			for choice in conversation.choices:
+				choice[0]+=" · "+recruitment.stamp(rest_time(choice[1]))
+			if recruitment.next_time()>0: conversation.choices.push_front(["休息到下一安排 · "+recruitment.stamp(recruitment.next_time()),"rest_next"])
 		if target is WorkStation and target.stable_id.begins_with("desk_"): conversation=office.desk_choices(target)
 		if target is WorkStation and target.stable_id.begins_with("interview_"): conversation=interviews.room_options(target.stable_id.trim_prefix("interview_"))
 
@@ -397,17 +415,10 @@ func choose(index: int) -> void:
 		if not companion or companion.dead or companion.down>0 or companion.position.distance_to(speaker.position)>4:
 			say("等阿乐走到现场再一起交涉；他倒地时会恢复。")
 			return
-	if action=="rest_evening":
-		payroll.advance(posmod(18*60-payroll.minute%1440,1440),career.employer)
-		queue_save()
+	if action in ["rest_evening","rest_day","rest_morning"]:
+		advance_time(rest_time(action)-payroll.minute)
 		close_interaction()
-		say("休息到傍晚。下班不结束世界，也不强制退出。")
-		return
-	if action=="rest_day":
-		payroll.advance(1440,career.employer)
-		queue_save()
-		close_interaction()
-		say("一天过去了，应得工资照常累计。")
+		say(payroll.time_text()+" · 可以继续自己的安排，应得工资照常累计。")
 		return
 	if action=="clear_path":
 		for prop in props:

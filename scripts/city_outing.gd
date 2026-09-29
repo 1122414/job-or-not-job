@@ -45,7 +45,7 @@ static func at_place(social: SocialLife,npc: OfficeNPC) -> bool:
 
 static func options(social: SocialLife,npc: OfficeNPC) -> Dictionary:
 	var o: Dictionary=social.outing
-	if o.stage=="paused": return {"text":"去"+VENUES[o.venue][0]+"的约定还在。各忙各的也没关系，方便时再继续。","choices":[["继续刚才的同行","people_city_resume"],["换个地方","people_city_menu"],["今天到这里","people_decline"],["先说工作上的事","people_work"]]}
+	if o.stage=="paused": return {"text":"去"+VENUES[o.venue][0]+"的约定还在。各忙各的也没关系，方便时再继续。","choices":[["继续之前的同行","people_city_resume"],["换个地方","people_city_menu"],["今天到这里","people_decline"],["先说工作上的事","people_work"]]}
 	return {"text":"已经到了"+VENUES[o.venue][0]+"。" if at_place(social,npc) else "一起去"+VENUES[o.venue][0]+"，我会在路边等你。","choices":[["聊聊这里和今天的事" if at_place(social,npc) else "继续同行","people_share" if at_place(social,npc) else "people_continue"],["先忙别的，保留约定","people_pause"],["今天到这里","people_decline"],["先说工作上的事","people_work"]]}
 
 static func topic(social: SocialLife,npc: OfficeNPC) -> String:
@@ -94,7 +94,7 @@ static func handle(social: SocialLife,npc: OfficeNPC,action: String) -> bool:
 		game.queue_save(); return true
 	if not o.has("venue") or o.get("person")!=npc.stable_id: return false
 	if action=="people_city_resume":
-		if social.willing(npc) and social.kind_now()=="walk" and (o.venue!="bookshop" or game.city_life.is_open()):
+		if social.willing(npc) and not social.work_following(npc) and social.kind_now()=="walk" and (o.venue!="bookshop" or game.city_life.is_open()):
 			o.stage="walking"; npc.route_clock=0; game.close_interaction(); game.queue_save()
 		else: game.say("现在不方便继续，约定保留；书屋09:00—20:00开放，也可改约户外。")
 		return true
@@ -126,10 +126,7 @@ static func tick(social: SocialLife) -> void:
 	var o: Dictionary=social.outing
 	if not o.has("venue") or o.stage=="paused": return
 	if social.kind_now()!="walk" or o.venue=="bookshop" and not social.game.city_life.is_open():
-		o.stage="paused"
-		social.game.close_interaction()
-		social.game.say("时间晚了，同行约定保留。书屋已经闭馆时，也可以改去户外。")
-		social.game.queue_save()
+		social.pause_outing("时间晚了，同行约定保留。书屋已经闭馆时，也可以改去户外。")
 
 static func valid_visit(visits: Variant) -> bool:
 	if not visits is Dictionary or visits.size()>VENUES.size(): return false

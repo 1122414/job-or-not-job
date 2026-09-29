@@ -1,0 +1,69 @@
+[
+	{
+		"case": "offered",
+		"minute": 2580,
+		"outing": {}
+	},
+	{
+		"case": "garden_overnight",
+		"minute": 2580,
+		"outing": {
+			"elapsed": 0.0,
+			"kind": "walk",
+			"person": "a_friend",
+			"stage": "paused",
+			"venue": "garden"
+		}
+	},
+	{
+		"case": "bookshop_morning",
+		"minute": 1980,
+		"outing": {
+			"elapsed": 0.0,
+			"kind": "walk",
+			"person": "a_friend",
+			"stage": "paused",
+			"venue": "bookshop"
+		}
+	},
+	{
+		"case": "lunch_to_evening",
+		"minute": 1080,
+		"outing": {
+			"elapsed": 0.0,
+			"kind": "lunch",
+			"person": "a_friend",
+			"stage": "paused"
+		}
+	},
+	{
+		"case": "tea_overnight",
+		"minute": 1980,
+		"outing": {
+			"elapsed": 0.0,
+			"kind": "tea",
+			"person": "a_friend",
+			"stage": "paused"
+		}
+	},
+	{
+		"case": "legacy_walk",
+		"minute": 2580,
+		"outing": {
+			"elapsed": 0.0,
+			"kind": "walk",
+			"person": "a_friend",
+			"stage": "paused"
+		}
+	},
+	{
+		"case": "afternoon_tea",
+		"minute": 1080,
+		"outing": {
+			"elapsed": 0.0,
+			"kind": "tea",
+			"person": "a_friend",
+			"stage": "paused"
+		}
+	}
+]

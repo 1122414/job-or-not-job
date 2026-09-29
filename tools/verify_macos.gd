@@ -90,7 +90,7 @@ func run() -> void:
 			push_error("Packaged public gallery is obstructed")
 			quit(1)
 			return
-	if game.commons.benches.size()!=6 or SaveGame.VERSION!=20:
+	if game.commons.benches.size()!=6 or SaveGame.VERSION!=21:
 		push_error("Packaged public commons missing"); quit(1); return
 	var commons_original := SaveGame.snapshot(game)
 	game.set_process(false)
@@ -101,7 +101,14 @@ func run() -> void:
 		if game.commons.sitting(neighbour): break
 	if not game.commons.sitting(neighbour) or not SaveGame.restore(game,JSON.parse_string(JSON.stringify(SaveGame.snapshot(game)))):
 		push_error("Packaged resident cannot naturally use and restore a bench"); quit(1); return
-	print("PACKAGED_COMMONS benches=6 schema=20 natural_seating=true json_restore=true")
+	print("PACKAGED_COMMONS benches=6 schema=",SaveGame.VERSION," natural_seating=true json_restore=true")
+	if not SaveGame.restore(game,commons_original): quit(1); return
+	game.payroll.minute=780
+	game.social.outing={"person":"a_friend","kind":"lunch","stage":"walking","elapsed":0.0}
+	game.advance_time(game.rest_time("rest_morning")-game.payroll.minute)
+	if game.payroll.minute!=1980 or game.social.outing.get("stage")!="paused" or not SaveGame.restore(game,JSON.parse_string(JSON.stringify(SaveGame.snapshot(game)))):
+		push_error("Packaged next morning or paused private plan failed"); quit(1); return
+	print("PACKAGED_DAY_CYCLE morning=1980 private_plan=paused json_restore=true")
 	if not SaveGame.restore(game,commons_original): quit(1); return
 	if not await verify_city_evening(game): quit(1); return
 	if not await verify_city_outing(game): quit(1); return
@@ -499,5 +506,5 @@ func verify_city_evening(game: Node3D) -> bool:
 		var place: Vector3=game.social.destination(npc,kind)
 		if place.z<17 or not game.walking.clear_segment(place,place+Vector3(0,0,.5)):
 			push_error("Packaged legacy meeting point is not on the sidewalk"); return false
-	print("PACKAGED_EVENING autonomous_arrivals=3 office_crossing=true actual_encounter=true json_restore=true legacy_v19=true legacy_meeting_spots=true schema=20")
+	print("PACKAGED_EVENING autonomous_arrivals=3 office_crossing=true actual_encounter=true json_restore=true legacy_v19=true legacy_meeting_spots=true schema=",SaveGame.VERSION)
 	return SaveGame.restore(game,original)

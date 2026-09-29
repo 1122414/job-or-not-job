@@ -1,0 +1,15 @@
+{
+  "source_sha256": "209f4bca9a60893d1268b80aa6711b12e15c570908d7f4cb61961677ed7973f1",
+  "source_commit": "167e11cabf458d662d86881f04a6af09b28b9705",
+  "runtime_dirty_at_build": true,
+  "validation_at_build": "not_yet_verified",
+  "build_id": "20260929T213521379210Z-167e11ca-209f4bca",
+  "zip_sha256": "d086bd14ca1cff43df6f449340c12eb4dbe30ded9e43da74aa27675094202d98",
+  "pck_sha256": "7830a61634c7bb1663bf2c2694fa69e8e79672bcd9b34c7dfffb7b5c00ceb180",
+  "package_path": "build/baselines/20260929T213521379210Z-167e11ca-209f4bca/今天不上班-macOS-0.5.0.zip",
+  "signature": 0,
+  "crc": true,
+  "manifest_inputs_match_current": true,
+  "internal_manifest_matches": true,
+  "packaged_engine_matches": true
+}
