@@ -20,6 +20,8 @@ func _draw() -> void:
 		var p := point(stop.point)
 		draw_circle(p,6,Color("e6c785"))
 		draw_string(ThemeDB.fallback_font,p+Vector2(10,-8),stop.title.split(" · ")[0],HORIZONTAL_ALIGNMENT_LEFT,-1,17,Color.WHITE)
+	for car in game.driving.cars:
+		draw_rect(Rect2(point(car.position)-Vector2(3,3),Vector2(6,6)),Color("c4ccca") if car.traffic else Color("73c990"))
 	draw_circle(point(game.transit.bus.position),5,Color("e09267"))
 	draw_circle(point(game.player.position),5,Color("63d6ef"))
-	draw_string(ThemeDB.fallback_font,Vector2(12,24),"N ↑    蓝：你    橙：101",HORIZONTAL_ALIGNMENT_LEFT,-1,16,Color.WHITE)
+	draw_string(ThemeDB.fallback_font,Vector2(12,24),"N ↑    蓝：你    橙：101    绿：可用车",HORIZONTAL_ALIGNMENT_LEFT,-1,16,Color.WHITE)

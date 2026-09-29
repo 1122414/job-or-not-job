@@ -156,7 +156,7 @@ func restore_focus(page: String,id: String,old_scroll: int) -> void:
 	else: back_button.grab_focus()
 
 func journal() -> void:
-	action("city-map","城区与公交 · M",func(): game.panels.open_child("city"))
+	action("city-map","城区与出行 · M",func(): game.panels.open_child("city"))
 	paragraph("当前目标",ACCENT)
 	paragraph(game.objective_text())
 	if game.career.employer=="":
@@ -187,6 +187,7 @@ func journal() -> void:
 func help_page() -> void:
 	for section in [
 		["走进城市","WASD 移动 · Shift 跑 · 空格跳跃 · 鼠标转向。\nE 交互或推进台词，数字键回应；移动或动手可中断对话。"],
+		["城区出行","M 查看城区、站点和可用车辆。站牌旁 E 乘坐 101 公交；乘车后 E 请求下车。\n共享车旁 E 驾驶；W 加速，S 刹车/倒车，A/D 转向，空格手刹，刹停后 E 下车。"],
 		["随身物品","Q 收纳 · R 轮换取出 · Tab 打开背包。\n背包内可点击物品取出、收纳或放下，Esc 返回；Tab 在按钮间移动焦点。"],
 		["信息与工作","J 已知事项 · P 人物关系 · L 工资明细。\nN 招聘消息 · O 实际约定 · K 历史经历。\n电脑可点击阅读资料与配置，保留 1—7 快捷键。"],
 		["冲突与后果","左键普通击打，不致命；Alt＋左键为重物危险攻击。\n右键投掷，重物可能致命；G 放下。\n星级代表当前公司后果：警告、机会取消、决裂。"],
@@ -199,6 +200,7 @@ func help_page() -> void:
 
 func bag() -> void:
 	var p: OfficePlayer=game.player
+	if game.in_vehicle(): paragraph("乘车时物品留在背包，下车后可取出。",MUTED)
 	paragraph("手持："+(p.held.title if p.held else "无"),ACCENT)
 	key_action("store","Q  收纳手持物",KEY_Q,p.held==null)
 	key_action("drop","G  放下手持物",KEY_G,p.held==null)
@@ -206,7 +208,7 @@ func bag() -> void:
 	p.bag_page=clampi(p.bag_page,0,pages-1)
 	if p.inventory.is_empty(): paragraph("靠近可携带物件，按 E 收纳。",MUTED)
 	for i in range(p.bag_page*8,mini(p.inventory.size(),(p.bag_page+1)*8)):
-		key_action("item-"+str(i),str(i%8+1)+"  取出 "+p.inventory[i].title,KEY_1+i%8)
+		key_action("item-"+str(i),str(i%8+1)+"  取出 "+p.inventory[i].title,KEY_1+i%8,game.in_vehicle())
 	paragraph("第 %d / %d 页" % [p.bag_page+1,pages],MUTED)
 	key_action("previous","上一页 · PgUp",KEY_PAGEUP,p.bag_page==0)
 	key_action("next","下一页 · PgDn",KEY_PAGEDOWN,p.bag_page>=pages-1)
@@ -306,14 +308,24 @@ func city_page() -> void:
 	map.custom_minimum_size.y=290
 	body.add_child(map)
 	paragraph("101 环线：下班路 → 榕树街 → 海风步道 → 东里社区 → 下班路。步行可达全部站点；在站牌旁按 E 乘车，也可主动跳过等车。",MUTED)
+	paragraph("绿色标记是可用共享车，灰色标记是通行车辆。共享车旁按 E 驾驶，刹停后 E 下车。",MUTED)
 	for stop in CityLayout.STOPS:
 		var id: String=stop.id
 		var distance: float=game.player.position.distance_to(stop.platform)
 		action("city-"+id,stop.title+" · %dm" % distance+(" · 已到访" if id in game.transit.visited else ""),func():
+			game.driving.guide_car=""
 			game.transit.waypoint=id
 			game.queue_save()
 			game.panels.show_page(""))
+	for entry in CityDriving.PARKED:
+		var car: CityCar=game.driving.car_for(entry.id)
+		action("guide-"+entry.id,entry.title+" · %dm" % game.player.position.distance_to(car.position),func():
+			game.driving.guide_car=car.stable_id
+			game.transit.waypoint=""
+			game.queue_save()
+			game.panels.show_page(""))
 	action("city-clear","返回职业目标",func():
+		game.driving.guide_car=""
 		game.transit.waypoint=""
 		game.queue_save()
 		game.panels.show_page(""))

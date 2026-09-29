@@ -39,7 +39,7 @@ func _draw() -> void:
 	for stop in CityLayout.STOPS:
 		draw_circle(center+(Vector2(stop.point.x,stop.point.z)-map_origin)*map_scale,3,Color("e4be70"))
 	draw_circle(center+(Vector2(game.transit.bus.position.x,game.transit.bus.position.z)-map_origin)*map_scale,3,Color("e09267"))
-	var destination: Node3D=game.transit.station_for(game.transit.waypoint) if game.transit.waypoint!="" else ObjectiveGuide.target(game)
+	var destination: Node3D=game.navigation_target()
 	if destination:
 		var point := center+(Vector2(destination.position.x,destination.position.z)-map_origin)*map_scale
 		draw_arc(point,6,0,TAU,24,Color("e4be70"),1.5)
@@ -67,9 +67,12 @@ func _draw() -> void:
 	if not scene_dialogue: text_at(Vector2(w-92,h-25),"H  帮助",14,Color("c7cdd0"))
 	if game.transit.riding and game.panels.page=="":
 		text_at(Vector2(w*0.35,h-52),"101 · "+("已到站 · E 下车" if game.transit.current_stop>=0 else "E 请求下车 · 下一站 "+CityLayout.STOPS[game.transit.next_stop].title),18,Color("e4be70"))
-	var target: Node3D = null if game.transit.riding else game.focus_target
+	if game.driving.in_vehicle() and game.panels.page=="":
+		text_at(Vector2(w*0.35,h-52),"%02d km/h   W/S 油门与倒车 · A/D 转向 · 空格手刹 · E 下车" % roundi(absf(game.driving.active.speed)*3.6),16,Color("e4be70"))
+	var target: Node3D = null if game.in_vehicle() else game.focus_target
 	if target and game.panels.page=="" and game.conversation.is_empty():
 		var verb := "交谈" if target is OfficeNPC else "使用"
+		if target is CityCar: verb="驾驶"
 		if target is OfficeProp: verb="收进背包" if target.portable() else "查看固定支架" if target.kind in ["panel","side_panel"] else "推掀"
 		if target is OfficeNPC and target.dead: verb="查看"
 		var title: String=target.title.split(" · ")[0]

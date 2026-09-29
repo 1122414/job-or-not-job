@@ -132,7 +132,7 @@ func at_platform(index: int) -> bool:
 	return game.player.dead<=0 and game.player.position.distance_to(CityLayout.STOPS[index].platform)<3.1
 
 func board(index: int) -> bool:
-	if riding or not at_platform(index) or current_stop!=index: return false
+	if game.in_vehicle() or not at_platform(index) or current_stop!=index: return false
 	if not game.player.stand_up(): return false
 	game.player.store_held()
 	game.player.add_collision_exception_with(bus)

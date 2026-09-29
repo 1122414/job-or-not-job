@@ -10,6 +10,7 @@ func _ready() -> void:
 	process_mode=Node.PROCESS_MODE_ALWAYS
 
 func show_page(next: String) -> void:
+	if game.driving: game.driving.suspend_controls()
 	page=next
 	if page=="": return_pages.clear()
 	game.player.bag_open=page=="bag"
