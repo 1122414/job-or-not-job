@@ -1,0 +1,16 @@
+{
+  "code_commit": "11a9ce0",
+  "build_id": "20260929T101147621077Z-f79a223d-3c1b9267",
+  "source_sha256": "3c1b926756ecb16bf9a915efc791f2cc1d164b52f3b7188c0156ece26437c6bf",
+  "launcher": "TodayOff",
+  "working_directories": [
+    "project",
+    "/private/tmp"
+  ],
+  "actual_transfer_and_json": true,
+  "humans": 28,
+  "public_residents": 12,
+  "persistence": false,
+  "signature": "passed",
+  "zip_crc": "passed"
+}

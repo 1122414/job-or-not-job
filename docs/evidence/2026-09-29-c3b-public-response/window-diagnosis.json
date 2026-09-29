@@ -1,0 +1,10 @@
+{
+  "initial_render_root_hidden": false,
+  "runtime_hide_error": "Can't change visibility of main window",
+  "initialize_only_minimized_guard": "failed",
+  "final_initialize_and_deferred_minimized": true,
+  "final_root_focused": false,
+  "final_root_unfocusable": true,
+  "final_pointer_visible": true,
+  "scope": "Godot 4.7.1 on local M5 Pro; do not infer other platforms or rewrite historical captures"
+}

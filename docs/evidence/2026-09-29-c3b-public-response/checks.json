@@ -1,0 +1,86 @@
+{
+  "code_commit": "11a9ce0",
+  "godot_tests": 66,
+  "godot_suite_exit": 0,
+  "python_tests": 24,
+  "python_exit": 0,
+  "errors": 0,
+  "warnings": 0,
+  "response_routes": {
+    "bookshop": {
+      "max_step_m": 0.0300025604665279,
+      "received": true,
+      "traffic_released": false,
+      "traffic_stopped": false,
+      "walked_m": 246.776760401204
+    },
+    "homes": {
+      "max_step_m": 0.0300027951598167,
+      "received": true,
+      "traffic_released": true,
+      "traffic_stopped": true,
+      "walked_m": 201.117058817297
+    },
+    "market": {
+      "max_step_m": 0.0300025604665279,
+      "received": true,
+      "traffic_released": true,
+      "traffic_stopped": true,
+      "walked_m": 201.626008702442
+    },
+    "waterfront": {
+      "max_step_m": 0.0300027877092361,
+      "received": true,
+      "traffic_released": true,
+      "traffic_stopped": true,
+      "walked_m": 142.016339154914
+    }
+  },
+  "actual_report_input": true,
+  "observed_report": true,
+  "duplicate_report_deduplication": true,
+  "queued_cases": 2,
+  "self_recovery_cancels_transfer": true,
+  "barrier_wait_and_release": true,
+  "nearby_hit_pauses_assessment": true,
+  "disk_save_phases": [
+    "approaching",
+    "assessing",
+    "transporting"
+  ],
+  "json_received": true,
+  "bad_save_cases": 19,
+  "legacy_versions": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15
+  ],
+  "graphical_company_routes": true,
+  "notes": [
+    "The 66-test suite preceded final wording, an assessment-distance save guard, and additional targeted assertions. Final targeted tests and package verification cover those changes.",
+    "Eight final render images and graphical company routes used dc973533; final runtime adds only the assessment-distance validation condition, with no scene or animation changes.",
+    "Fixture positions establish the incident. Crew paths are actual physics movement. No final visual, player or performance acceptance claimed."
+  ],
+  "logs_sha256": {
+    "c3b-checks": "2f592bdf46a5f7bf834d9bb22cd9d0d0675e5f9905eb17e152ffc892ac70e2f7",
+    "c3b-python": "07db0fc13886c5eefeeb8830b41ef6eb88b76346579b10641f8a577b8dcaa98a",
+    "c3b-response-acceptance": "73fcff4695be7b1955b552a9dcae6adbfdc00c8bcea135160dbed0d1d9aec230",
+    "c3b-save-acceptance": "bef4684eb1c9ab47d94eb1b8310d4180412d17af454d1724b79d561429491235",
+    "c3b-full-route": "f1f9f8f59e061ad95928d741c20f0a27a37dc4bd8ad1c70b58c48c74c171549d",
+    "c3b-render-delivery": "4e2e74a2f824433df50ab1f3cbfe39217f8e0a84cb0e81436b7ed159fee0894c",
+    "c3b-package-final-project": "ba39108e63f1b2c067f34cd37a5b5437cbb85399362425946a817dafc11f0799",
+    "c3b-package-final-tmp": "ba39108e63f1b2c067f34cd37a5b5437cbb85399362425946a817dafc11f0799"
+  }
+}

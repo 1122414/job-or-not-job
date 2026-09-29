@@ -1,0 +1,84 @@
+{
+	"death_preserved": true,
+	"final_visual_acceptance": false,
+	"images": 8,
+	"physical_transfer": true,
+	"pointer_visible": true,
+	"real_report_input": true,
+	"root_focused": false,
+	"root_hidden": false,
+	"root_minimized": true,
+	"root_unfocusable": true,
+	"stages": {
+		"crew-arrival": {
+			"crew": [
+				-62.097785949707,
+				0.0,
+				58.0039901733398
+			],
+			"hp": 0,
+			"patient": [
+				-76.0,
+				-0.009765625,
+				58.0
+			],
+			"phase": "approaching"
+		},
+		"return-through-city": {
+			"crew": [
+				-39.8986892700195,
+				0.0,
+				58.0000114440918
+			],
+			"hp": 0,
+			"patient": [
+				-39.2486877441406,
+				0.0,
+				58.0000114440918
+			],
+			"phase": "transporting"
+		},
+		"scene-assessment": {
+			"crew": [
+				-73.5273208618164,
+				0.0,
+				58.0000114440918
+			],
+			"hp": 0,
+			"patient": [
+				-76.0,
+				-0.009765625,
+				58.0
+			],
+			"phase": "assessing"
+		},
+		"scene-transfer": {
+			"crew": [
+				-73.4073257446289,
+				0.0,
+				58.0000114440918
+			],
+			"hp": 0,
+			"patient": [
+				-73.7387619018555,
+				0.0,
+				57.440860748291
+			],
+			"phase": "transporting"
+		},
+		"station-received": {
+			"crew": [
+				15.7954063415527,
+				0.0,
+				79.5615158081055
+			],
+			"hp": 0,
+			"patient": [
+				11.0,
+				0.0,
+				78.9499969482422
+			],
+			"phase": "received"
+		}
+	}
+}
