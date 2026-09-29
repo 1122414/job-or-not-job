@@ -6,5 +6,7 @@
   "codesign_verify": true,
   "zip_crc": true,
   "runtime_source_matches": true,
-  "source_sha256": "a960c72f298306bd51f1d3f5379ea84ce90a820a6b15985378e1eadac19e2e74"
+  "source_sha256": "a960c72f298306bd51f1d3f5379ea84ce90a820a6b15985378e1eadac19e2e74",
+  "implementation_commit": "1db0025",
+  "post_commit_runtime_clean": true
 }
