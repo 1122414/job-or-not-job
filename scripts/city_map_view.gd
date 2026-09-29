@@ -29,4 +29,6 @@ func _draw() -> void:
 	draw_circle(point(game.response.crew.position),3,Color("83c9bc"))
 	draw_rect(Rect2(point(CityPopulation.POINTS.bookshop_entry)-Vector2(4,4),Vector2(8,8)),Color("eee1bf"))
 	draw_string(ThemeDB.fallback_font,point(CityPopulation.POINTS.bookshop_entry)+Vector2(-8,-12),"书屋",HORIZONTAL_ALIGNMENT_LEFT,-1,16,Color("eee1bf"))
+	draw_rect(Rect2(point(game.home.entrance.position)-Vector2(4,4),Vector2(8,8)),Color("e6c785"))
+	draw_string(ThemeDB.fallback_font,point(game.home.entrance.position)+Vector2(-8,-12),"住处",HORIZONTAL_ALIGNMENT_LEFT,-1,16,Color("e6c785"))
 	draw_string(ThemeDB.fallback_font,Vector2(12,24),"N ↑    蓝：你    橙：101    绿：可用车",HORIZONTAL_ALIGNMENT_LEFT,-1,16,Color.WHITE)

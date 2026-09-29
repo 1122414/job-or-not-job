@@ -99,6 +99,7 @@ func output_allowed() -> bool:
 
 func room_at(point: Vector3) -> String:
 	if point.y<-.5 or point.y>3.8: return ""
+	if game.home and game.home.inside(point): return "home"
 	for firm in ["a","b"]:
 		var p := OfficeRooms.space(game,firm).to_local(point)
 		if absf(p.x)<11.86 and p.z>-15.86 and p.z<1.86: return firm
@@ -108,6 +109,9 @@ func room_at(point: Vector3) -> String:
 
 func indoor_weight(point: Vector3) -> float:
 	var room := room_at(point)
+	if room=="home":
+		var local := point-CityHome.CENTER
+		return smoothstep(6.84,4.5,local.z) if absf(local.x)<1.4 else 1.0
 	if room in ["a","b"]:
 		var local := OfficeRooms.space(game,room).to_local(point)
 		return smoothstep(1.86,.0,local.z) if absf(local.x)<3.1 else 1.0
@@ -119,7 +123,7 @@ func indoor_weight(point: Vector3) -> float:
 func surface_at(point: Vector3) -> String:
 	var room := room_at(point)
 	if room=="a": return "carpet"
-	if room in ["b","bookshop"]: return "wood"
+	if room in ["b","bookshop","home"]: return "wood"
 	for patch in CityStreetscape.GRASS_PATCHES:
 		var offset: Vector3=(point-patch[0]).abs()
 		if offset.x<patch[1].x/2 and offset.z<patch[1].z/2: return "grass"

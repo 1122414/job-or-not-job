@@ -50,6 +50,7 @@ var population: CityPopulation
 var city_life: CityLife
 var response: CityResponse
 var commons: CityCommons
+var home: CityHome
 
 func _ready() -> void:
 	bind_inputs()
@@ -94,6 +95,9 @@ func _ready() -> void:
 	commons=CityCommons.new()
 	commons.game=self
 	add_child(commons)
+	home=CityHome.new()
+	home.game=self
+	add_child(home)
 	soundscape=CitySoundscape.new()
 	soundscape.game=self
 	add_child(soundscape)
@@ -221,6 +225,7 @@ func rest_time(action: String) -> int:
 	return payroll.minute+(remaining if remaining>0 else Payroll.DAY)
 
 func location_name() -> String:
+	if home and home.inside(player.position): return "东里 101 · 我的住处"
 	if player.position.z>2 or absf(player.position.x)>29:
 		var region := CityLayout.region_at(player.position)
 		for entry in CityLayout.REGIONS:
@@ -238,6 +243,7 @@ func money_text() -> String:
 	return "¥ %.2f · 发薪 第%d天" % [payroll.balance/100.0,payroll.next_payday/1440+1]
 
 func objective_text() -> String:
+	if home and home.guiding: return "回家 · 东里 101（M 更改目的地）"
 	if CityOuting.target(social)!=null and city_life.guide=="" and not city_life.walk.guiding and driving.guide_car=="" and transit.waypoint=="": return CityOuting.status(social)
 	if city_life and city_life.walk.guiding: return city_life.walk.status_text()
 	if city_life and city_life.guide!="": return city_life.status_text()
@@ -256,6 +262,7 @@ func in_vehicle() -> bool:
 	return transit!=null and transit.riding or driving!=null and driving.in_vehicle()
 
 func navigation_target() -> Node3D:
+	if home and home.guiding: return home.entrance
 	if city_life and city_life.walk.guiding: return city_life.walk.target()
 	if city_life and city_life.guide!="": return city_life.point_for(city_life.guide)
 	if driving and driving.guide_car!="": return driving.car_for(driving.guide_car)
@@ -264,7 +271,7 @@ func navigation_target() -> Node3D:
 	return companion if companion else ObjectiveGuide.target(self)
 
 func targets() -> Array:
-	return npcs + stations + props + (driving.cars.filter(func(car): return not car.traffic) if driving else []) + (population.residents if population else []) + (city_life.points if city_life else []) + (commons.benches.values() if commons else [])
+	return npcs + stations + props + (driving.cars.filter(func(car): return not car.traffic) if driving else []) + (population.residents if population else []) + (city_life.points if city_life else []) + (commons.benches.values() if commons else []) + (home.points if home else [])
 
 func nearest() -> Node3D:
 	var best: Node3D
@@ -272,10 +279,11 @@ func nearest() -> Node3D:
 	var visit := office.visit()
 	for node in targets():
 		if node == player.held or not node.visible: continue
+		if node is CityHomePoint and not home.inside(player.position): continue
 		var offset: Vector3 = node.global_position-player.global_position
 		offset.y = 0
 		var d := offset.length()
-		var score: float = d*(0.4 if node is WorkStation or node is CityActivityPoint else 0.55 if node is OfficeNPC else 1.0)
+		var score: float = d*(0.4 if node is WorkStation or node is CityActivityPoint or node is CityHomePoint else 0.55 if node is OfficeNPC else 1.0)
 		if node is CityBench: score=d*(1.15 if player.seated else .65)+(.8 if commons.player_bench()==node else 0.0)
 		var arriving: bool=node is OfficeNPC and not node.dead and not visit.is_empty() and visit.npc==node.role_id and career.facts.get("visit_state_"+visit.key,"")=="arrived"
 		if arriving: score-=1.0
@@ -288,7 +296,7 @@ func nearest() -> Node3D:
 
 func can_see(from: Node3D, to: Node3D) -> bool:
 	var start := from.global_position + Vector3.UP*1.35
-	var end := to.global_position + (Vector3.UP*.6 if to is CityBench else Vector3.UP*1.2 if to is CharacterBody3D or to is WorkStation or to is CityActivityPoint else Vector3.ZERO)
+	var end := to.global_position + (Vector3.UP*.6 if to is CityBench else Vector3.UP*1.2 if to is CharacterBody3D or to is WorkStation or to is CityActivityPoint or to is CityHomePoint else Vector3.ZERO)
 	var query := PhysicsRayQueryParameters3D.create(start,end)
 	if from is CollisionObject3D: query.exclude = [from.get_rid()]
 	if to is WorkStation and to.stable_id.begins_with("desk_"):
@@ -317,6 +325,9 @@ func interact() -> void:
 		return
 	if interviews.advance(): return
 	var target := nearest()
+	if target is CityHomePoint:
+		home.open_point(target)
+		return
 	if target is CityBench:
 		commons.use_bench(target)
 		return
@@ -374,6 +385,9 @@ func choose(index: int) -> void:
 	var choices: Array = conversation.choices
 	if index>=choices.size(): return
 	var action: String = choices[index][1]
+	if speaker is CityHomePoint:
+		home.answer(speaker,action)
+		return
 	if speaker is CityActivityPoint:
 		city_life.answer(speaker,action)
 		return

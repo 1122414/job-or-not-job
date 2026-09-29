@@ -1,0 +1,107 @@
+{
+	"actual_E_and_choices": true,
+	"actual_map_click": true,
+	"background_guard": true,
+	"bounded_sofa_sit_stand": true,
+	"clock_from": 1110,
+	"clock_to": 1993,
+	"images": 9,
+	"independent_player_acceptance": false,
+	"normal_game_fps": false,
+	"normal_player_camera": true,
+	"persistence": false,
+	"visits": [
+		{
+			"image": "home-map",
+			"minute": 1110,
+			"outing": {},
+			"player": [
+				0.0,
+				0.0,
+				23.0
+			]
+		},
+		{
+			"image": "arrive-home",
+			"minute": 1121,
+			"outing": {},
+			"player": [
+				56.1364059448242,
+				-0.00416618818417192,
+				42.1482925415039
+			]
+		},
+		{
+			"image": "sofa-evening",
+			"minute": 1122,
+			"outing": {},
+			"player": [
+				59.5999984741211,
+				-0.029687499627471,
+				35.75
+			]
+		},
+		{
+			"image": "home-lights-off",
+			"minute": 1123,
+			"outing": {},
+			"player": [
+				57.7441368103027,
+				-0.0044806026853621,
+				37.0782814025879
+			]
+		},
+		{
+			"image": "curtains-closed",
+			"minute": 1124,
+			"outing": {},
+			"player": [
+				60.3238487243652,
+				-0.0044806026853621,
+				37.7538642883301
+			]
+		},
+		{
+			"image": "chosen-postcard",
+			"minute": 1124,
+			"outing": {},
+			"player": [
+				61.5964012145996,
+				-0.00405722297728062,
+				33.1941795349121
+			]
+		},
+		{
+			"image": "rest-choice",
+			"minute": 1126,
+			"outing": {},
+			"player": [
+				52.1169509887695,
+				-0.00405722297728062,
+				29.1195316314697
+			]
+		},
+		{
+			"image": "next-morning",
+			"minute": 1980,
+			"outing": {},
+			"player": [
+				52.1169509887695,
+				-0.00405722297728062,
+				29.1195316314697
+			]
+		},
+		{
+			"image": "back-to-city",
+			"minute": 1993,
+			"outing": {},
+			"player": [
+				0.000230944540817291,
+				-0.00405722297728062,
+				23.2140426635742
+			]
+		}
+	],
+	"walking_max_step": 0.101201884448528,
+	"walking_metres": 278.383851971477
+}

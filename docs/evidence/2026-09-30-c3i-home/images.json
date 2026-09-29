@@ -1,0 +1,197 @@
+[
+  {
+    "file": "career/backup.png",
+    "sha256": "eddfd2caf9c8b35c45dc1824a4fe85fee7c1fffe934e649a8762c37b448d550b",
+    "viewed": false
+  },
+  {
+    "file": "career/defend.png",
+    "sha256": "43befc3c0dbba5cba4c47eb2d36d31a5915a2fd4e64d7260fd354b8d60259bf6",
+    "viewed": false
+  },
+  {
+    "file": "career/handover.png",
+    "sha256": "5ee417af55f15daf5785697b34360d656738c81cc229b3c49abb70fc511c88e5",
+    "viewed": true
+  },
+  {
+    "file": "career/interview_hr.png",
+    "sha256": "dcc2c9959873b6dab4e9aa0eaba846dab6f779909d89af2f2679e7665e6a4a72",
+    "viewed": false
+  },
+  {
+    "file": "career/join_a.png",
+    "sha256": "3799e468665ae847e1616fb34c06ddfc8128eb2ff0e770ff83bd14095edbd4d2",
+    "viewed": true
+  },
+  {
+    "file": "career/prepare.png",
+    "sha256": "5ff924164c0e188993707e20b57d818e846cbdee2f249688718e40ff59cd6d1c",
+    "viewed": false
+  },
+  {
+    "file": "career/submit.png",
+    "sha256": "769cd180907437ff065a095ee9c08a63653eb87345c549a1026c7a74fe83e85d",
+    "viewed": false
+  },
+  {
+    "file": "cost/central-night.png",
+    "sha256": "609f391a53695087e66bde4122caeed9c593de85960435857923e3e5cc6549aa",
+    "viewed": false
+  },
+  {
+    "file": "cost/central-walk.png",
+    "sha256": "918cc89a4839d2cf587107696e274f914cefa90dfea5c94e7d99583b9056deba",
+    "viewed": false
+  },
+  {
+    "file": "cost/district-overview.png",
+    "sha256": "48c492a323a5527fcbd908f5332e0e94f4d6a708924d47e4d44175b5bae96ce2",
+    "viewed": true
+  },
+  {
+    "file": "cost/east-night.png",
+    "sha256": "50e87deaa98bbd389cdbd98e8d3ee21bced01f20adbe9f21b33a973a2dd8b806",
+    "viewed": false
+  },
+  {
+    "file": "cost/east-street.png",
+    "sha256": "ea905e4c56b04e503dbc9853197a685428593075e9bc163898be0f12bf42c366",
+    "viewed": true
+  },
+  {
+    "file": "cost/north-night.png",
+    "sha256": "bd346f4e8d07ab1ca6dc4cf015a3118537817ce0db534dba42dc613b997084da",
+    "viewed": false
+  },
+  {
+    "file": "cost/north-street.png",
+    "sha256": "f102242b999b408adfad38e9fb1a844958d9af2449e86af4e4ee0d157baa397f",
+    "viewed": false
+  },
+  {
+    "file": "cost/west-detail.png",
+    "sha256": "32423b28dab104bea601ba51a6ecdfbda12533c16ea9676ff2c139ed715833f2",
+    "viewed": false
+  },
+  {
+    "file": "cost/west-gallery.png",
+    "sha256": "a8543be60d93c717318cc27123c1372aed0ee4b0cc66ab283d6dc750378f3520",
+    "viewed": false
+  },
+  {
+    "file": "cost/west-night.png",
+    "sha256": "82280e845d68b834bc667dfd6deba7ffa4d1864ff7d2f16fe1a0402918063de1",
+    "viewed": false
+  },
+  {
+    "file": "cost/west-street.png",
+    "sha256": "24e76ba2f833d235da569c4499e10a9efbda8fd6f8fdfb2a746607237683532a",
+    "viewed": false
+  },
+  {
+    "file": "iteration/sofa-front.png",
+    "sha256": "e317b990dbd22ff0711f0ef088632e72c5f9f2b2f3d7ab896c84aa7d8ea03fba",
+    "viewed": true
+  },
+  {
+    "file": "iteration/sofa-side.png",
+    "sha256": "c401b893b85d1660476dd95646cb04d124ef6e9889f820b0ef0dc28b0341fc3f",
+    "viewed": true
+  },
+  {
+    "file": "package/bed-options.png",
+    "sha256": "098d637937d503446140dae1724192c54adbb482c5f511405e7502ace052f7f7",
+    "viewed": true
+  },
+  {
+    "file": "package/home-evening.png",
+    "sha256": "edcb69e535cab22967b7806a24fb9c24bae532a689958999c6a10f9e4fe9c47f",
+    "viewed": true
+  },
+  {
+    "file": "package/home-morning.png",
+    "sha256": "f235f65e4cf61dacc8e342b64e36673195abd3ad6905b7775066330c72611986",
+    "viewed": true
+  },
+  {
+    "file": "package/home-sofa.png",
+    "sha256": "da9229eef0717d01db2310fa8876778b60142133152a65dc04df04c5dd562b7e",
+    "viewed": true
+  },
+  {
+    "file": "route/arrive-home.png",
+    "sha256": "0fea0ef0f7ae50d41a7a2d5ee10d2bbcbb70ffd2dc16f866cac2ea876928dd63",
+    "viewed": true
+  },
+  {
+    "file": "route/back-to-city.png",
+    "sha256": "f87d022615683ba7435dfa505c3bb02666c975184f003b73e0b217f47c7b4177",
+    "viewed": true
+  },
+  {
+    "file": "route/chosen-postcard.png",
+    "sha256": "6a81fb6f63886863f3b3b505a944c2549ee88ad47009319c86f01575ff0d47f0",
+    "viewed": true
+  },
+  {
+    "file": "route/curtains-closed.png",
+    "sha256": "6fd89f1b2fdeaaea080a78ecd9f672a39c58ee0d4700cdfc32587d402d011770",
+    "viewed": true
+  },
+  {
+    "file": "route/home-lights-off.png",
+    "sha256": "f0519b6503d1430dc4131dbd085357d3837c0c17a2df30f0f6a98d23286097f5",
+    "viewed": true
+  },
+  {
+    "file": "route/home-map.png",
+    "sha256": "767c6db0fe7eab3c8d3fb2587e8ac22572a7d9331703554c9baf70e33661fdd4",
+    "viewed": true
+  },
+  {
+    "file": "route/next-morning.png",
+    "sha256": "339af1ed0171067bbae2cd288b1ab2280af9b5da966a801ae9488ecce7d35397",
+    "viewed": true
+  },
+  {
+    "file": "route/rest-choice.png",
+    "sha256": "a9db2c16864da705ca2b6c4555fb2408ea1d0e50e36a959729d0c8c530f5b6ac",
+    "viewed": true
+  },
+  {
+    "file": "route/sofa-evening.png",
+    "sha256": "5b972b73157f4333e7615e99fa7c6c866ae799acf67038a152f1a74f99492869",
+    "viewed": true
+  },
+  {
+    "file": "seat/sofa-front.png",
+    "sha256": "27c855bbee3fd1716198ae3ca53f14c4ac61d6cfc38d0659a2b820240eb74f8d",
+    "viewed": true
+  },
+  {
+    "file": "seat/sofa-side.png",
+    "sha256": "c001a0974898e08164930dc358b98036eb276457e085fd3c23b6e66906228870",
+    "viewed": true
+  },
+  {
+    "file": "views/bedroom-day.png",
+    "sha256": "71fb39321b9a693e8b7dab7e052b6a4d053155311ed2febd70e30c1bf3f667d4",
+    "viewed": true
+  },
+  {
+    "file": "views/entrance-day.png",
+    "sha256": "5ea9f4c48f5f6939b36fb1cd27a7c086b774c1f613b7fe75ecfeb68397a86058",
+    "viewed": true
+  },
+  {
+    "file": "views/living-day.png",
+    "sha256": "0826ef734d3a157f0e131cc3b2d8e38487f79c98f5934eb747767f3a2d9d2127",
+    "viewed": true
+  },
+  {
+    "file": "views/living-night.png",
+    "sha256": "eb3c3e59c6fb788e9c3b6b6a9b7d92a01e9f447f17b0a55be99ca56e2c3471b3",
+    "viewed": true
+  }
+]

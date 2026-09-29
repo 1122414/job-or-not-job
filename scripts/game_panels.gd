@@ -101,10 +101,12 @@ func activate_key(key: int) -> void:
 		if key==KEY_Q: game.player.store_held()
 		if key==KEY_G: game.player.release(false)
 	if page=="journal" and key in [KEY_1,KEY_2] and game.career.employer=="":
+		game.home.guiding=false
 		game.career.facts.erase("guide_visit")
 		game.career.facts["guide_company"]="a" if key==KEY_1 else "b"
 		game.queue_save()
 	if page=="journal":
+		if key>=KEY_3 and key<=KEY_9: game.home.guiding=false
 		if key==KEY_3: game.career.facts.erase("guide_visit")
 		if key>=KEY_4 and key<=KEY_9:
 			var pending: Array=game.office.pending_visits()

@@ -309,7 +309,16 @@ func city_page() -> void:
 	paragraph("当前位置："+game.location_name())
 	paragraph(game.city_life.status_text())
 	paragraph(game.response.status_text(),MUTED)
+	action("city-home","回家 · 东里 101 · %dm" % game.player.position.distance_to(game.home.entrance.position),func():
+		game.home.guiding=true
+		game.city_life.walk.guiding=false
+		game.city_life.guide=""
+		game.driving.guide_car=""
+		game.transit.waypoint=""
+		game.queue_save()
+		game.panels.show_page(""))
 	action("city-bookshop","前往社区书屋 · 自由阅览与手绘图册分享",func():
+		game.home.guiding=false
 		game.city_life.walk.guiding=false
 		game.city_life.guide="notice"
 		game.driving.guide_car=""
@@ -318,6 +327,7 @@ func city_page() -> void:
 		game.panels.show_page(""))
 	if game.city_life.result!="":
 		action("city-walk","旧站到海边 · "+("找到带路人" if game.city_life.walk.stage in [1,2,3] else "查看书屋走访记录"),func():
+			game.home.guiding=false
 			if game.city_life.walk.stage==0:
 				game.city_life.guide="notice"
 				game.driving.guide_car=""
@@ -335,6 +345,7 @@ func city_page() -> void:
 		var id: String=stop.id
 		var distance: float=game.player.position.distance_to(stop.platform)
 		action("city-"+id,stop.title+" · %dm" % distance+(" · 已到访" if id in game.transit.visited else ""),func():
+			game.home.guiding=false
 			game.city_life.walk.guiding=false
 			game.city_life.guide=""
 			game.driving.guide_car=""
@@ -344,6 +355,7 @@ func city_page() -> void:
 	for entry in CityDriving.PARKED:
 		var car: CityCar=game.driving.car_for(entry.id)
 		action("guide-"+entry.id,entry.title+" · %dm" % game.player.position.distance_to(car.position),func():
+			game.home.guiding=false
 			game.city_life.walk.guiding=false
 			game.city_life.guide=""
 			game.driving.guide_car=car.stable_id
@@ -351,6 +363,7 @@ func city_page() -> void:
 			game.queue_save()
 			game.panels.show_page(""))
 	action("city-clear","返回职业目标",func():
+		game.home.guiding=false
 		game.city_life.walk.guiding=false
 		game.city_life.guide=""
 		game.driving.guide_car=""

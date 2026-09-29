@@ -1,0 +1,20 @@
+{
+	"adapter": "Apple M5 Pro (Apple9)",
+	"background_guard": true,
+	"build_id": "20260929T232221654312Z-e0cb5d78-513ba886",
+	"home_rest": 1980,
+	"images": [
+		"home-evening",
+		"bed-options",
+		"home-morning",
+		"home-sofa"
+	],
+	"json_restore": true,
+	"normal_game_fps": false,
+	"persistence": false,
+	"player_positions_are_fixtures": true,
+	"real_E_and_choice": true,
+	"renderer": "forward_plus",
+	"seated_restore": true,
+	"source_sha256": "513ba886fce65a774988c745884c061f20ba7d9abfdbb1104642d349ded15b15"
+}

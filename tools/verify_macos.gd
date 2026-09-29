@@ -40,6 +40,22 @@ func run() -> void:
 		push_error("Automated package probe must not capture the desktop pointer")
 		quit(1)
 		return
+	var before_home := SaveGame.snapshot(game)
+	if game.home==null or game.home.points.size()!=6 or not game.walking.clear_segment(CityHome.CENTER+Vector3(0,0,10),CityHome.CENTER+Vector3(0,0,3)):
+		push_error("Packaged home interior or real entrance missing");quit(1);return
+	game.player.position=CityHome.CENTER+Vector3(-4.05,0,-2.8)
+	for i in range(5): await physics_frame
+	var bed: CityHomePoint=game.home.point_for("home_bed")
+	game.home.open_point(bed)
+	if game.speaker!=bed or game.conversation.is_empty():push_error("Packaged home bed unreachable");quit(1);return
+	game.home.answer(bed,"home_morning")
+	game.home.lights_on=false;game.home.curtains_closed=true;game.home.picture=2;game.home.sync_scene()
+	var home_save := SaveGame.snapshot(game)
+	if game.home.last_rest!=1980 or not SaveGame.restore(game,JSON.parse_string(JSON.stringify(home_save))) or game.home.room.lamps[0].light_energy!=0 or game.home.room.curtains[0].scale.x!=1 or game.home.room.postcard.texture!=CityBookshop.IMAGES[2] or game.soundscape.room_at(game.player.position)!="home":
+		push_error("Packaged home rest, furnishings or JSON restore missing");quit(1);return
+	if not SaveGame.restore(game,before_home):push_error("Packaged home probe restore failed");quit(1);return
+	for i in range(5): await physics_frame
+	print("PACKAGED_HOME actual_entrance=true rest=true furnishings=true sound_zone=true json_restore=true schema=",SaveGame.VERSION)
 	var streets: CityStreetscape=game.get_node_or_null("ConnectedDistrict/Streetscape")
 	if streets==null:
 		push_error("Packaged streetscape missing");quit(1);return
@@ -111,7 +127,7 @@ func run() -> void:
 			push_error("Packaged public gallery is obstructed")
 			quit(1)
 			return
-	if game.commons.benches.size()!=6 or SaveGame.VERSION!=21:
+	if game.commons.benches.size()!=6 or SaveGame.VERSION!=22:
 		push_error("Packaged public commons missing"); quit(1); return
 	var commons_original := SaveGame.snapshot(game)
 	game.set_process(false)

@@ -1,0 +1,17 @@
+{
+	"attempted_forward_frames": 150,
+	"end": [
+		56.0,
+		-0.00478515634313226,
+		39.2704010009766
+	],
+	"fixed_fps": 60,
+	"persistence": false,
+	"pointer_visible": true,
+	"room_exists": false,
+	"start": [
+		56.0,
+		-0.00478515634313226,
+		43.0
+	]
+}

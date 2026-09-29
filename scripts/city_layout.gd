@@ -77,7 +77,13 @@ static func build(game: Node3D) -> void:
 	for x in [-96]:
 		Shapes.box(district,Vector3(13.8,0.2,2.4),Vector3(x,3.1,40),Color("875e49"))
 	for x in [36,56,96]:
-		for z in [32,82]: streets.facade(Vector3(x,0,z),Vector3(14,16 if x==96 else 12,14),false)
+		for z in [32,82]:
+			var home_lot: bool=x==56 and z==32
+			streets.facade(Vector3(x,0,z),Vector3(14,16 if x==96 else 12,14),false,home_lot)
+			if home_lot:
+				var room := CityHomeRoom.new()
+				room.name="HomeRoom";room.position=CityHome.CENTER
+				district.add_child(room)
 	var sea := MeshInstance3D.new()
 	sea.name="CoastalWater"
 	var plane := PlaneMesh.new()

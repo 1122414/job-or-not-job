@@ -109,8 +109,9 @@ func _physics_process(delta: float) -> void:
 	# Camera-relative controls stay unchanged; feet follow the actual travel direction.
 	var facing := atan2(-velocity.x,-velocity.z) if Vector2(velocity.x,velocity.z).length()>0.2 and swing<=0 and not seated else yaw
 	if game.commons and game.commons.player_bench(): facing=game.commons.player_bench().rotation.y
+	if game.home and game.home.sitting(): facing=0.0
 	visual.rotation.y = lerp_angle(visual.rotation.y,facing,1.0-exp(-delta*14.0))
-	visual.pose(Vector2(velocity.x,velocity.z).length(),swing>0,dead>0,seated,game.interviews.player_seated() or game.in_vehicle() or game.commons!=null and game.commons.player_bench()!=null)
+	visual.pose(Vector2(velocity.x,velocity.z).length(),swing>0,dead>0,seated,game.interviews.player_seated() or game.in_vehicle() or game.commons!=null and game.commons.player_bench()!=null or game.home!=null and game.home.sitting())
 	var speaker: OfficeNPC=game.speaker if game.speaker is OfficeNPC else null
 	if speaker==null and game.interviews.player_seated():
 		var session: Dictionary=game.interviews.sessions[game.interviews.active_firm()]
@@ -311,8 +312,10 @@ func stand_up() -> bool:
 	query.collision_mask=3
 	query.exclude=[get_rid()]
 	var facing: float=game.commons.player_bench().rotation.y if game.commons and game.commons.player_bench() else yaw
+	if game.home and game.home.sitting(): facing=0.0
 	var offsets := [Vector3(0,0,0.85),Vector3(0.85,0,0),Vector3(-0.85,0,0),Vector3(0,0,1.5)]
 	if game.commons and game.commons.player_bench(): offsets.push_front(Vector3(0,0,-.95))
+	if game.home and game.home.sitting(): offsets.push_front(Vector3(0,0,-.95))
 	for offset in offsets:
 		var point: Vector3=position+offset.rotated(Vector3.UP,facing)
 		query.transform.origin=point+Vector3.UP*0.94
@@ -322,6 +325,7 @@ func stand_up() -> bool:
 			if seat_body: remove_collision_exception_with(seat_body)
 			seat_body=null
 			if game.commons: game.commons.player_slot=""
+			if game.home: game.home.seat_owned=false
 			game.queue_save()
 			return true
 	game.say("起身空间被挡住了，请先挪开周围物品。")

@@ -1,0 +1,96 @@
+{
+  "before": "docs/evidence/2026-09-30-c4h-architecture/after/render.json",
+  "after": "cost/render.json",
+  "same_views_resolution_fov": true,
+  "views": [
+    {
+      "name": "central-walk",
+      "before_calls": 353,
+      "after_calls": 353,
+      "before_triangles": 2413524,
+      "after_triangles": 2413020,
+      "change_percent": 0.0
+    },
+    {
+      "name": "west-street",
+      "before_calls": 1105,
+      "after_calls": 1105,
+      "before_triangles": 1063548,
+      "after_triangles": 1063548,
+      "change_percent": 0.0
+    },
+    {
+      "name": "east-street",
+      "before_calls": 982,
+      "after_calls": 1035,
+      "before_triangles": 951110,
+      "after_triangles": 950982,
+      "change_percent": 5.4
+    },
+    {
+      "name": "north-street",
+      "before_calls": 1149,
+      "after_calls": 1149,
+      "before_triangles": 1289439,
+      "after_triangles": 1289439,
+      "change_percent": 0.0
+    },
+    {
+      "name": "west-detail",
+      "before_calls": 1143,
+      "after_calls": 1143,
+      "before_triangles": 836377,
+      "after_triangles": 836377,
+      "change_percent": 0.0
+    },
+    {
+      "name": "west-gallery",
+      "before_calls": 1645,
+      "after_calls": 1645,
+      "before_triangles": 632106,
+      "after_triangles": 632106,
+      "change_percent": 0.0
+    },
+    {
+      "name": "district-overview",
+      "before_calls": 2347,
+      "after_calls": 2400,
+      "before_triangles": 2115238,
+      "after_triangles": 2115110,
+      "change_percent": 2.26
+    },
+    {
+      "name": "central-night",
+      "before_calls": 353,
+      "after_calls": 353,
+      "before_triangles": 2514240,
+      "after_triangles": 2513736,
+      "change_percent": 0.0
+    },
+    {
+      "name": "west-night",
+      "before_calls": 1105,
+      "after_calls": 1105,
+      "before_triangles": 1063548,
+      "after_triangles": 1063548,
+      "change_percent": 0.0
+    },
+    {
+      "name": "east-night",
+      "before_calls": 982,
+      "after_calls": 1035,
+      "before_triangles": 951110,
+      "after_triangles": 950982,
+      "change_percent": 5.4
+    },
+    {
+      "name": "north-night",
+      "before_calls": 1149,
+      "after_calls": 1149,
+      "before_triangles": 1289439,
+      "after_triangles": 1289439,
+      "change_percent": 0.0
+    }
+  ],
+  "normal_game_fps": false
+}

@@ -70,11 +70,12 @@ func solid(size: Vector3,at: Vector3,material: String,yaw: float=0) -> void:
 	body.rotation.y=yaw
 	Shapes.collider(body,size)
 
-func facade(point: Vector3,size: Vector3,old_town: bool) -> void:
+func facade(point: Vector3,size: Vector3,old_town: bool,open_ground: bool=false) -> void:
 	var variant := (int(absf(point.x))+int(point.z))%3
 	var wall: String=["old_wall","old_ochre","old_rose"][variant] if old_town else ["home_wall","home_chalk","home_sage"][variant]
-	solid(size,point+Vector3(0,size.y/2,0),wall)
-	box(Vector3(size.x+.18,.85,size.z+.18),point+Vector3(0,.425,0),"brick" if old_town else "stone")
+	var base := 3.4 if open_ground else 0.0
+	solid(Vector3(size.x,size.y-base,size.z),point+Vector3(0,(size.y+base)/2,0),wall)
+	if not open_ground: box(Vector3(size.x+.18,.85,size.z+.18),point+Vector3(0,.425,0),"brick" if old_town else "stone")
 	box(Vector3(size.x+.3,.16,size.z+.3),point+Vector3(0,size.y+.04,0),"trim")
 	box(Vector3(size.x-.3,.08,size.z-.3),point+Vector3(0,size.y+.15,0),"roof")
 	for face in range(4):
@@ -88,6 +89,7 @@ func facade(point: Vector3,size: Vector3,old_town: bool) -> void:
 		var spacing := (width-1.8)/columns
 		var window_width := spacing*.68
 		for floor_index in range(int((size.y-1)/3)):
+			if open_ground and floor_index==0: continue
 			var y := 1.72+floor_index*3.0
 			if old_town: box(Vector3(width+.22,.09,.18),center+Vector3(0,y+1.27,0),"trim",yaw)
 			for column in range(columns):
@@ -122,8 +124,8 @@ func facade(point: Vector3,size: Vector3,old_town: bool) -> void:
 							for stem in range(5): box(Vector3(.11,.16+stem%2*.08,.16),window+rot*Vector3(.02+stem*.11,-.63,.66),"awning",yaw)
 		for dx in [-width/2+.25,width/2-.25]: box(Vector3(.1,size.y,.1),center+rot*Vector3(dx,size.y/2,.12),"metal",yaw)
 		if not old_town:
-			box(Vector3(.55,size.y,.12),center+rot*Vector3(0,size.y/2,.11),"brick",yaw)
-		if face in [0,2]:
+			box(Vector3(.55,size.y-base,.12),center+rot*Vector3(0,(size.y+base)/2,.11),"brick",yaw)
+		if face in [0,2] and not open_ground:
 			var doorway := center+rot*Vector3(0,1.25,.1)
 			box(Vector3(2.9,2.5,.2),doorway,"reveal",yaw)
 			box(Vector3(2.55,2.32,.25),doorway,"timber" if old_town else "glass",yaw)
