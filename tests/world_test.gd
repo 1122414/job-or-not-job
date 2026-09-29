@@ -25,6 +25,9 @@ func run() -> void:
 	await walk(game,Vector3(14,0,5))
 	await walk(game,Vector3(14,0,0.5))
 	check(game.npcs.size()==10,"两家公司人物存在")
+	check(game.player.visual.cast_id=="protagonist","主角使用新人物")
+	check(game.npc_for_role("a_hr").visual.cast_id=="lin_lan","林岚使用独立人物")
+	check(game.npc_for_role("b_hr").visual.cast_id=="a_cheng","阿诚使用独立人物")
 	print("WORLD_TEST failures=",failures)
 	game.queue_free()
 	await process_frame

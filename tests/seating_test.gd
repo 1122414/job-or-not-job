@@ -8,9 +8,10 @@ func run() -> void:
 	root.add_child(game)
 	await physics_frame
 	await physics_frame
-	for outfit in ["casual","office","office_female"]:
+	for outfit in ["casual","office","office_female","protagonist","lin_lan","a_cheng"]:
 		var v := HumanVisual.new()
-		v.outfit=outfit
+		if outfit in ["protagonist","lin_lan","a_cheng"]: v.cast_id=outfit
+		else: v.outfit=outfit
 		game.add_child(v)
 		v.animation.play("work")
 		v.animation.advance(0.4)
@@ -21,6 +22,10 @@ func run() -> void:
 		check(absf(hip.y-0.53)<0.03,"臀部对齐座面 "+outfit)
 		check(foot.y>0.02 and foot.y<0.14,"脚踝接近地面 "+outfit)
 		check(head.y>1.1,"头部高于桌面 "+outfit)
+		if not v.cast_id.is_empty():
+			var rest_y := s.get_bone_global_rest(s.find_bone("foot.L")).origin.y
+			check(absf(foot.y-rest_y)<0.012,"新体型坐姿脚底保持原站立高度 "+outfit)
+			print("CAST_SEAT ",outfit," ankle_error_m=",absf(foot.y-rest_y))
 		v.queue_free()
 	var desk: WorkStation
 	for station in game.stations:

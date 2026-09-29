@@ -2,6 +2,8 @@ class_name HumanVisual
 extends Node3D
 
 var outfit := "casual"
+var cast_id := ""
+var use_authored_motion := true
 var carrying := false
 var blocking := false
 var scene_action := ""
@@ -13,15 +15,22 @@ var current := ""
 var grip: Node3D
 var scene_phone: Node3D
 var seated_offset := Vector3.ZERO
+var standing_height := 1.8
+var face_meshes: Array[MeshInstance3D]=[]
+var facial_expression := {}
+var attention_target := Vector3.ZERO
+var attention_enabled := false
+var face_clock := 0.0
 
 func _ready() -> void:
-	var model: Node3D = load("res://assets/characters/"+outfit+".glb").instantiate()
+	var model_path := "res://assets/characters/"+outfit+".glb" if cast_id.is_empty() else "res://assets/characters/cast/"+cast_id+".glb"
+	var model: Node3D = load(model_path).instantiate()
 	model.name="Model"
 	model.rotation.y=PI
 	add_child(model)
 	var tint: Color={"boss":Color("c9c0b6"),"hr":Color("d6c8b5"),"lead":Color("b3cbd6"),"friend":Color("c0d1c0"),"group":Color("c5b6ca"),"guard":Color("8293ad"),"medic":Color("72b7ba")}.get(personality,Color.WHITE)
 	for mesh in model.find_children("*","MeshInstance3D",true,false):
-		if "suit" in str(mesh.name):
+		if cast_id.is_empty() and "suit" in str(mesh.name):
 			for surface in range(mesh.mesh.get_surface_count()):
 				var source: Material=mesh.mesh.surface_get_material(surface)
 				if source is StandardMaterial3D:
@@ -29,14 +38,22 @@ func _ready() -> void:
 					material.albedo_color=tint
 					mesh.set_surface_override_material(surface,material)
 	for node in model.find_children("*","Skeleton3D",true,false): skeleton=node
+	for mesh in model.find_children("*","MeshInstance3D",true,false):
+		if mesh.get_blend_shape_count()>0: face_meshes.append(mesh)
+		if not cast_id.is_empty() and mesh.name=="body": standing_height=mesh.get_aabb().end.y
+	face_clock=float(variation%17)*0.19
+	process_priority=1
+	set_process(not cast_id.is_empty())
 	animation=AnimationPlayer.new()
 	add_child(animation)
 	var library := AnimationLibrary.new()
 	for clip in ["idle","walk","run","strike","work","sit","fallen","recoil","talk","sit_talk","carry","carry_idle","block","read","write","message","pause","beckon","move_box","phone_reply","box_message"]: library.add_animation(clip,make_clip(clip))
-	var authored: AnimationLibrary=load("res://assets/animations/quaternius_upper_body.res")
-	for clip in authored.get_animation_list():
-		library.remove_animation(clip)
-		library.add_animation(clip,authored.get_animation(clip))
+	if use_authored_motion:
+		var path := "res://assets/animations/quaternius_upper_body.res" if cast_id.is_empty() else "res://assets/animations/cast/"+cast_id+".res"
+		var authored: AnimationLibrary=load(path)
+		for clip in authored.get_animation_list():
+			library.remove_animation(clip)
+			library.add_animation(clip,authored.get_animation(clip))
 	animation.add_animation_library("",library)
 	animation.play("idle")
 	var hip := skeleton.get_bone_global_rest(skeleton.find_bone("upperleg01.L")).origin
@@ -59,6 +76,48 @@ func _ready() -> void:
 		Shapes.box(scene_phone,Vector3(0.075,0.14,0.015),Vector3.ZERO,Color("19242c"))
 		Shapes.box(scene_phone,Vector3(0.062,0.12,0.002),Vector3(0,0,0.009),Color("6f9297"))
 
+func face_position() -> Vector3:
+	return skeleton.to_global(skeleton.get_bone_global_pose(skeleton.find_bone("head")).origin+Vector3(0,0.08,0))
+
+# Explicit mouth weights are reserved for a synchronized voice/performance driver.
+# A text conversation alone must not produce a looping fake mouth animation.
+func set_facial_expression(values: Dictionary) -> void:
+	facial_expression.clear()
+	for key in ["blink","brow_raise","brow_lower","mouth_open"]:
+		var value := float(values.get(key,0.0))
+		facial_expression[key]=clampf(value,0.0,1.0) if is_finite(value) else 0.0
+
+func set_attention(target: Vector3,enabled: bool) -> void:
+	attention_target=target
+	attention_enabled=enabled and target.is_finite()
+
+func _process(delta: float) -> void:
+	update_face(delta)
+
+func update_face(delta: float) -> void:
+	if cast_id.is_empty(): return
+	face_clock+=delta
+	var resting := current=="fallen"
+	var blink_phase := fposmod(face_clock,3.8+float(variation%5)*0.27)
+	var blink := sin(blink_phase/0.18*PI) if blink_phase<0.18 and not resting else 0.0
+	for mesh in face_meshes:
+		for id in range(mesh.get_blend_shape_count()):
+			var key := String(mesh.mesh.get_blend_shape_name(id))
+			var weight := float(facial_expression.get(key,0.0)) if not resting else 0.0
+			mesh.set_blend_shape_value(id,maxf(weight,blink) if key=="blink" else weight)
+	for side in ["L","R"]:
+		var eye := skeleton.find_bone("eye."+side)
+		if eye<0: continue
+		var target := Quaternion.IDENTITY
+		if attention_enabled and not resting:
+			var rest := skeleton.get_bone_rest(eye)
+			var parent := skeleton.get_bone_global_pose(skeleton.get_bone_parent(eye))
+			var eye_frame := parent*rest
+			var direction := eye_frame.affine_inverse()*skeleton.to_local(attention_target)
+			if direction.z>0.01:
+				target=Quaternion.from_euler(Vector3(clampf(-atan2(direction.y,direction.z),-0.15,0.15),clampf(atan2(direction.x,direction.z),-0.25,0.25),0))
+		skeleton.set_bone_pose_rotation(eye,skeleton.get_bone_pose_rotation(eye).slerp(target,1.0-exp(-delta*12)))
+
 func make_clip(clip: String) -> Animation:
 	var anim := Animation.new()
 	anim.length=4.0 if clip=="box_message" else 1.8 if clip=="beckon" else 1.4 if clip in ["move_box","phone_reply"] else 0.32 if clip=="recoil" else 0.45 if clip=="strike" else 4.0 if clip in ["idle","sit","talk","sit_talk"] else 1.0
@@ -72,15 +131,17 @@ func make_clip(clip: String) -> Animation:
 	var root_track := anim.add_track(Animation.TYPE_POSITION_3D)
 	anim.track_set_path(root_track,NodePath(str(get_path_to(skeleton))+":root"))
 	var root_rest := skeleton.get_bone_rest(skeleton.find_bone("root")).origin
-	for i in range(33):
-		var phase := float(i)/32.0
+	var gait_samples := 128 if not cast_id.is_empty() and clip in ["walk","run","carry"] else 32
+	for i in range(gait_samples+1):
+		var phase := float(i)/gait_samples
 		anim.position_track_insert_key(root_track,phase*anim.length,root_rest+Vector3.UP*gait_drop("walk" if clip=="carry" else clip,phase))
 	for bone in bones:
 		if skeleton.find_bone(bone)<0: continue
 		var track := anim.add_track(Animation.TYPE_ROTATION_3D)
 		anim.track_set_path(track,NodePath(str(get_path_to(skeleton))+":"+bone))
-		for i in range(33):
-			var phase := float(i)/32.0
+		var samples := gait_samples if bone.begins_with("upperleg") or bone.begins_with("lowerleg") or bone.begins_with("foot") else 32
+		for i in range(samples+1):
+			var phase := float(i)/samples
 			var wave := sin(phase*TAU)
 			var euler := Vector3.ZERO
 			if bone.begins_with("finger") and not bone.begins_with("finger1-"):
@@ -102,6 +163,9 @@ func make_clip(clip: String) -> Animation:
 			elif clip in ["work","sit","sit_talk","read","write","message","pause","move_box","phone_reply","box_message"]:
 				if bone.begins_with("upperleg"): euler.x=-1.4
 				if bone.begins_with("lowerleg"): euler.x=1.4
+				if not cast_id.is_empty() and (bone.begins_with("upperleg") or bone.begins_with("lowerleg") or bone.begins_with("foot")):
+					var leg := seated_leg_angles("L" if bone.ends_with("L") else "R")
+					euler.x=leg.x if bone.begins_with("upperleg") else leg.y if bone.begins_with("lowerleg") else leg.z
 				if bone.begins_with("upperarm"): euler.x=-1.05; euler.z*=0.65
 				if bone.begins_with("lowerarm"): euler.x=0.45+wave*0.025
 				if bone=="spine02": euler.x=0.06+wave*0.012
@@ -179,9 +243,20 @@ func make_clip(clip: String) -> Animation:
 # Flat-ground two-bone solve. Stance feet travel backwards at the world speed;
 # swing feet clear the floor. Use imported proportions instead of fixed joint angles.
 func gait_drop(clip: String,phase: float) -> float:
-	if clip=="walk": return -0.10+0.012*cos(phase*TAU*2)
-	if clip=="run": return -0.125+0.008*sin(phase*TAU*2)
-	return 0.0
+	if clip not in ["walk","run"]: return 0.0
+	var drop := -0.10+0.012*cos(phase*TAU*2) if clip=="walk" else -0.125+0.008*sin(phase*TAU*2)
+	if not cast_id.is_empty():
+		# Shorter bodies need a lower hip for the same world-speed stride. Otherwise
+		# the IK distance clamp silently shortens the stance and slides the foot.
+		for side in ["L","R"]:
+			var hip := skeleton.get_bone_global_rest(skeleton.find_bone("upperleg01."+side)).origin
+			var knee := skeleton.get_bone_global_rest(skeleton.find_bone("lowerleg01."+side)).origin
+			var ankle := skeleton.get_bone_global_rest(skeleton.find_bone("foot."+side)).origin
+			var length := Vector2(knee.y-hip.y,knee.z-hip.z).length()+Vector2(ankle.y-knee.y,ankle.z-knee.z).length()-0.002
+			var reach := (0.43 if clip=="run" else 0.37)+absf(ankle.z-hip.z)
+			var max_depth := sqrt(maxf(0.0,length*length-reach*reach))
+			drop=minf(drop,max_depth-(hip.y-ankle.y))
+	return drop
 
 func gait_angles(clip: String,phase: float,side: String) -> Vector3:
 	var hip := skeleton.get_bone_global_rest(skeleton.find_bone("upperleg01."+side)).origin
@@ -189,8 +264,6 @@ func gait_angles(clip: String,phase: float,side: String) -> Vector3:
 	var ankle := skeleton.get_bone_global_rest(skeleton.find_bone("foot."+side)).origin
 	var upper := Vector2(knee.y-hip.y,knee.z-hip.z)
 	var lower := Vector2(ankle.y-knee.y,ankle.z-knee.z)
-	var upper_length := upper.length()
-	var lower_length := lower.length()
 	var t := fposmod(phase+(0.5 if side=="R" else 0.0),1.0)
 	var stance := 0.25 if clip=="run" else 0.5
 	var reach := 0.43 if clip=="run" else 0.37
@@ -204,6 +277,19 @@ func gait_angles(clip: String,phase: float,side: String) -> Vector3:
 		lift=sin(swing*PI)*(0.20 if clip=="run" else 0.12)
 	var depth := hip.y+gait_drop(clip,phase)-ankle.y-lift
 	var forward := ankle.z+stride-hip.z
+	return solve_leg(upper,lower,depth,forward)
+
+func seated_leg_angles(side: String) -> Vector3:
+	var hip := skeleton.get_bone_global_rest(skeleton.find_bone("upperleg01."+side)).origin
+	var knee := skeleton.get_bone_global_rest(skeleton.find_bone("lowerleg01."+side)).origin
+	var ankle := skeleton.get_bone_global_rest(skeleton.find_bone("foot."+side)).origin
+	var upper := Vector2(knee.y-hip.y,knee.z-hip.z)
+	var lower := Vector2(ankle.y-knee.y,ankle.z-knee.z)
+	return solve_leg(upper,lower,0.53-ankle.y,upper.length())
+
+func solve_leg(upper: Vector2,lower: Vector2,depth: float,forward: float) -> Vector3:
+	var upper_length := upper.length()
+	var lower_length := lower.length()
 	var distance := minf(Vector2(depth,forward).length(),upper_length+lower_length-0.001)
 	var direction := atan2(forward,depth)
 	var upper_angle := direction+acos(clampf((upper_length*upper_length+distance*distance-lower_length*lower_length)/(2*upper_length*distance),-1,1))
@@ -215,6 +301,7 @@ func gait_angles(clip: String,phase: float,side: String) -> Vector3:
 func pose(speed: float, attacking: bool, fallen: bool, working: bool = false, talking: bool = false, stunned: bool = false, conversing: bool = false) -> void:
 	if fallen:
 		if current!="fallen":
+			facial_expression.clear()
 			# Discard queued locomotion blends; body-root motion supplies the fall transition.
 			animation.stop()
 			animation.speed_scale=1.0

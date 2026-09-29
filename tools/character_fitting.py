@@ -128,3 +128,35 @@ def displace(vertices, deltas):
 
 def difference(vertices, rest):
     return {i:tuple(v[a]-rest[i][a] for a in range(3)) for i,v in enumerate(vertices) if v!=rest[i]}
+
+def skirt_weights(vertices, faces, weights, hip_height, waist_bone, left_leg, right_leg):
+    """Rebind the separate skirt panel; body-projected shin weights tear its hem.
+
+    This is a fitted skirt, not a general cloth solver. The recipe must opt in.
+    Keep the blouse unchanged and blend continuously across both upper thighs.
+    """
+    adjacent = {i: set() for _, face in faces for i, _ in face}
+    for _, face in faces:
+        ids = {i for i, _ in face}
+        for i in ids:
+            adjacent[i].update(ids - {i})
+    start = min(adjacent, key=lambda i: vertices[i][1])
+    panel, pending = {start}, [start]
+    while pending:
+        for i in adjacent[pending.pop()] - panel:
+            panel.add(i)
+            pending.append(i)
+    waist = max(vertices[i][1] for i in panel)
+    if not hip_height < waist < hip_height + .2:
+        raise ValueError('Skirt must be a separate component below the waist')
+    half_blend = max(abs(vertices[i][0]) for i in panel) * .5
+    def smooth(t):
+        t = max(0., min(1., t))
+        return t*t*(3.-2.*t)
+    result = [dict(w) for w in weights]
+    for i in panel:
+        x, y, _ = vertices[i]
+        thigh = smooth((waist-y)/(waist-hip_height))
+        left = smooth((x+half_blend)/(2*half_blend))
+        result[i] = {waist_bone: 1-thigh, left_leg: thigh*left, right_leg: thigh*(1-left)}
+    return result

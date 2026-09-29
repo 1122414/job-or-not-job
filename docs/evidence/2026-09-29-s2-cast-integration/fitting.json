@@ -1,0 +1,1224 @@
+{
+  "scope": "43 frontal morph states; brow vertices, edge midpoints and centroids; no skeletal poses",
+  "characters": [
+    {
+      "id": "protagonist",
+      "sha256": "5c6e442a04c4237d0f85ba9d3d256f44129c35d5f7d0beb45865cded6e6e1832",
+      "negative_exported_skin_weights": 0,
+      "oral_bounds_m": {
+        "min": [
+          -0.042569600045681,
+          1.493826150894165,
+          0.039559200406074524
+        ],
+        "max": [
+          0.042569600045681,
+          1.5864490270614624,
+          0.15026560425758362
+        ]
+      },
+      "brow_samples": [
+        {
+          "weights": {},
+          "samples": 3516,
+          "unmapped": 0,
+          "penetrations": 0,
+          "minimum_clearance_mm": 0.602584572748921
+        },
+        {
+          "weights": {
+            "blink": 0.1
+          },
+          "samples": 3516,
+          "unmapped": 0,
+          "penetrations": 0,
+          "minimum_clearance_mm": 0.602584572748921
+        },
+        {
+          "weights": {
+            "blink": 0.2
+          },
+          "samples": 3516,
+          "unmapped": 0,
+          "penetrations": 0,
+          "minimum_clearance_mm": 0.602584572748921
+        },
+        {
+          "weights": {
+            "blink": 0.3
+          },
+          "samples": 3516,
+          "unmapped": 0,
+          "penetrations": 0,
+          "minimum_clearance_mm": 0.602584572748921
+        },
+        {
+          "weights": {
+            "blink": 0.4
+          },
+          "samples": 3516,
+          "unmapped": 0,
+          "penetrations": 0,
+          "minimum_clearance_mm": 0.602584572748921
+        },
+        {
+          "weights": {
+            "blink": 0.5
+          },
+          "samples": 3516,
+          "unmapped": 0,
+          "penetrations": 0,
+          "minimum_clearance_mm": 0.602584572748921
+        },
+        {
+          "weights": {
+            "blink": 0.6
+          },
+          "samples": 3516,
+          "unmapped": 0,
+          "penetrations": 0,
+          "minimum_clearance_mm": 0.602584572748921
+        },
+        {
+          "weights": {
+            "blink": 0.7
+          },
+          "samples": 3516,
+          "unmapped": 0,
+          "penetrations": 0,
+          "minimum_clearance_mm": 0.602584572748921
+        },
+        {
+          "weights": {
+            "blink": 0.8
+          },
+          "samples": 3516,
+          "unmapped": 0,
+          "penetrations": 0,
+          "minimum_clearance_mm": 0.602584572748921
+        },
+        {
+          "weights": {
+            "blink": 0.9
+          },
+          "samples": 3516,
+          "unmapped": 0,
+          "penetrations": 0,
+          "minimum_clearance_mm": 0.602584572748921
+        },
+        {
+          "weights": {
+            "blink": 1.0
+          },
+          "samples": 3516,
+          "unmapped": 0,
+          "penetrations": 0,
+          "minimum_clearance_mm": 0.602584572748921
+        },
+        {
+          "weights": {
+            "brow_raise": 0.1
+          },
+          "samples": 3516,
+          "unmapped": 0,
+          "penetrations": 0,
+          "minimum_clearance_mm": 0.602584572748921
+        },
+        {
+          "weights": {
+            "brow_raise": 0.2
+          },
+          "samples": 3516,
+          "unmapped": 0,
+          "penetrations": 0,
+          "minimum_clearance_mm": 0.602584572748921
+        },
+        {
+          "weights": {
+            "brow_raise": 0.3
+          },
+          "samples": 3516,
+          "unmapped": 0,
+          "penetrations": 0,
+          "minimum_clearance_mm": 0.602584572748921
+        },
+        {
+          "weights": {
+            "brow_raise": 0.4
+          },
+          "samples": 3516,
+          "unmapped": 0,
+          "penetrations": 0,
+          "minimum_clearance_mm": 0.602584572748921
+        },
+        {
+          "weights": {
+            "brow_raise": 0.5
+          },
+          "samples": 3516,
+          "unmapped": 0,
+          "penetrations": 0,
+          "minimum_clearance_mm": 0.602584572748921
+        },
+        {
+          "weights": {
+            "brow_raise": 0.6
+          },
+          "samples": 3516,
+          "unmapped": 0,
+          "penetrations": 0,
+          "minimum_clearance_mm": 0.602584572748921
+        },
+        {
+          "weights": {
+            "brow_raise": 0.7
+          },
+          "samples": 3516,
+          "unmapped": 0,
+          "penetrations": 0,
+          "minimum_clearance_mm": 0.602584572748921
+        },
+        {
+          "weights": {
+            "brow_raise": 0.8
+          },
+          "samples": 3516,
+          "unmapped": 0,
+          "penetrations": 0,
+          "minimum_clearance_mm": 0.602584572748921
+        },
+        {
+          "weights": {
+            "brow_raise": 0.9
+          },
+          "samples": 3516,
+          "unmapped": 0,
+          "penetrations": 0,
+          "minimum_clearance_mm": 0.602584572748921
+        },
+        {
+          "weights": {
+            "brow_raise": 1.0
+          },
+          "samples": 3516,
+          "unmapped": 0,
+          "penetrations": 0,
+          "minimum_clearance_mm": 0.602584572748921
+        },
+        {
+          "weights": {
+            "brow_lower": 0.1
+          },
+          "samples": 3516,
+          "unmapped": 0,
+          "penetrations": 0,
+          "minimum_clearance_mm": 0.5975524907129159
+        },
+        {
+          "weights": {
+            "brow_lower": 0.2
+          },
+          "samples": 3516,
+          "unmapped": 0,
+          "penetrations": 0,
+          "minimum_clearance_mm": 0.5850405755984667
+        },
+        {
+          "weights": {
+            "brow_lower": 0.3
+          },
+          "samples": 3516,
+          "unmapped": 0,
+          "penetrations": 0,
+          "minimum_clearance_mm": 0.5773620772099586
+        },
+        {
+          "weights": {
+            "brow_lower": 0.4
+          },
+          "samples": 3516,
+          "unmapped": 0,
+          "penetrations": 0,
+          "minimum_clearance_mm": 0.577775425706889
+        },
+        {
+          "weights": {
+            "brow_lower": 0.5
+          },
+          "samples": 3516,
+          "unmapped": 0,
+          "penetrations": 0,
+          "minimum_clearance_mm": 0.578238439145784
+        },
+        {
+          "weights": {
+            "brow_lower": 0.6
+          },
+          "samples": 3516,
+          "unmapped": 0,
+          "penetrations": 0,
+          "minimum_clearance_mm": 0.5656731986806995
+        },
+        {
+          "weights": {
+            "brow_lower": 0.7
+          },
+          "samples": 3516,
+          "unmapped": 0,
+          "penetrations": 0,
+          "minimum_clearance_mm": 0.5010786761515118
+        },
+        {
+          "weights": {
+            "brow_lower": 0.8
+          },
+          "samples": 3516,
+          "unmapped": 0,
+          "penetrations": 0,
+          "minimum_clearance_mm": 0.47009185895158234
+        },
+        {
+          "weights": {
+            "brow_lower": 0.9
+          },
+          "samples": 3516,
+          "unmapped": 0,
+          "penetrations": 0,
+          "minimum_clearance_mm": 0.47133254079026465
+        },
+        {
+          "weights": {
+            "brow_lower": 1.0
+          },
+          "samples": 3516,
+          "unmapped": 0,
+          "penetrations": 0,
+          "minimum_clearance_mm": 0.4728277564156058
+        },
+        {
+          "weights": {
+            "mouth_open": 0.1
+          },
+          "samples": 3516,
+          "unmapped": 0,
+          "penetrations": 0,
+          "minimum_clearance_mm": 0.602584572748921
+        },
+        {
+          "weights": {
+            "mouth_open": 0.2
+          },
+          "samples": 3516,
+          "unmapped": 0,
+          "penetrations": 0,
+          "minimum_clearance_mm": 0.602584572748921
+        },
+        {
+          "weights": {
+            "mouth_open": 0.3
+          },
+          "samples": 3516,
+          "unmapped": 0,
+          "penetrations": 0,
+          "minimum_clearance_mm": 0.602584572748921
+        },
+        {
+          "weights": {
+            "mouth_open": 0.4
+          },
+          "samples": 3516,
+          "unmapped": 0,
+          "penetrations": 0,
+          "minimum_clearance_mm": 0.602584572748921
+        },
+        {
+          "weights": {
+            "mouth_open": 0.5
+          },
+          "samples": 3516,
+          "unmapped": 0,
+          "penetrations": 0,
+          "minimum_clearance_mm": 0.602584572748921
+        },
+        {
+          "weights": {
+            "mouth_open": 0.6
+          },
+          "samples": 3516,
+          "unmapped": 0,
+          "penetrations": 0,
+          "minimum_clearance_mm": 0.602584572748921
+        },
+        {
+          "weights": {
+            "mouth_open": 0.7
+          },
+          "samples": 3516,
+          "unmapped": 0,
+          "penetrations": 0,
+          "minimum_clearance_mm": 0.602584572748921
+        },
+        {
+          "weights": {
+            "mouth_open": 0.8
+          },
+          "samples": 3516,
+          "unmapped": 0,
+          "penetrations": 0,
+          "minimum_clearance_mm": 0.602584572748921
+        },
+        {
+          "weights": {
+            "mouth_open": 0.9
+          },
+          "samples": 3516,
+          "unmapped": 0,
+          "penetrations": 0,
+          "minimum_clearance_mm": 0.602584572748921
+        },
+        {
+          "weights": {
+            "mouth_open": 1.0
+          },
+          "samples": 3516,
+          "unmapped": 0,
+          "penetrations": 0,
+          "minimum_clearance_mm": 0.602584572748921
+        },
+        {
+          "weights": {
+            "mouth_open": 0.6,
+            "brow_raise": 0.7
+          },
+          "samples": 3516,
+          "unmapped": 0,
+          "penetrations": 0,
+          "minimum_clearance_mm": 0.602584572748921
+        },
+        {
+          "weights": {
+            "blink": 0.5,
+            "brow_lower": 0.7
+          },
+          "samples": 3516,
+          "unmapped": 0,
+          "penetrations": 0,
+          "minimum_clearance_mm": 0.5139795461168717
+        }
+      ]
+    },
+    {
+      "id": "lin_lan",
+      "sha256": "8bb54a7e49bd9d29a95a43c8d3c420be92a6df970665fae036116fb067004144",
+      "negative_exported_skin_weights": 0,
+      "oral_bounds_m": {
+        "min": [
+          -0.03970760107040405,
+          1.3737493753433228,
+          0.04454119876027107
+        ],
+        "max": [
+          0.03970760107040405,
+          1.4567261934280396,
+          0.13831940293312073
+        ]
+      },
+      "brow_samples": [
+        {
+          "weights": {},
+          "samples": 3516,
+          "unmapped": 0,
+          "penetrations": 0,
+          "minimum_clearance_mm": 0.6657533070439925
+        },
+        {
+          "weights": {
+            "blink": 0.1
+          },
+          "samples": 3516,
+          "unmapped": 0,
+          "penetrations": 0,
+          "minimum_clearance_mm": 0.6657533070439925
+        },
+        {
+          "weights": {
+            "blink": 0.2
+          },
+          "samples": 3516,
+          "unmapped": 0,
+          "penetrations": 0,
+          "minimum_clearance_mm": 0.6657533070439925
+        },
+        {
+          "weights": {
+            "blink": 0.3
+          },
+          "samples": 3516,
+          "unmapped": 0,
+          "penetrations": 0,
+          "minimum_clearance_mm": 0.6657533070439925
+        },
+        {
+          "weights": {
+            "blink": 0.4
+          },
+          "samples": 3516,
+          "unmapped": 0,
+          "penetrations": 0,
+          "minimum_clearance_mm": 0.6657533070439925
+        },
+        {
+          "weights": {
+            "blink": 0.5
+          },
+          "samples": 3516,
+          "unmapped": 0,
+          "penetrations": 0,
+          "minimum_clearance_mm": 0.6657533070439925
+        },
+        {
+          "weights": {
+            "blink": 0.6
+          },
+          "samples": 3516,
+          "unmapped": 0,
+          "penetrations": 0,
+          "minimum_clearance_mm": 0.6657533070439925
+        },
+        {
+          "weights": {
+            "blink": 0.7
+          },
+          "samples": 3516,
+          "unmapped": 0,
+          "penetrations": 0,
+          "minimum_clearance_mm": 0.6657533070439925
+        },
+        {
+          "weights": {
+            "blink": 0.8
+          },
+          "samples": 3516,
+          "unmapped": 0,
+          "penetrations": 0,
+          "minimum_clearance_mm": 0.6657533070439925
+        },
+        {
+          "weights": {
+            "blink": 0.9
+          },
+          "samples": 3516,
+          "unmapped": 0,
+          "penetrations": 0,
+          "minimum_clearance_mm": 0.6657533070439925
+        },
+        {
+          "weights": {
+            "blink": 1.0
+          },
+          "samples": 3516,
+          "unmapped": 0,
+          "penetrations": 0,
+          "minimum_clearance_mm": 0.6657533070439925
+        },
+        {
+          "weights": {
+            "brow_raise": 0.1
+          },
+          "samples": 3516,
+          "unmapped": 0,
+          "penetrations": 0,
+          "minimum_clearance_mm": 0.6657533070439925
+        },
+        {
+          "weights": {
+            "brow_raise": 0.2
+          },
+          "samples": 3516,
+          "unmapped": 0,
+          "penetrations": 0,
+          "minimum_clearance_mm": 0.6657533070439925
+        },
+        {
+          "weights": {
+            "brow_raise": 0.3
+          },
+          "samples": 3516,
+          "unmapped": 0,
+          "penetrations": 0,
+          "minimum_clearance_mm": 0.6657533070439925
+        },
+        {
+          "weights": {
+            "brow_raise": 0.4
+          },
+          "samples": 3516,
+          "unmapped": 0,
+          "penetrations": 0,
+          "minimum_clearance_mm": 0.6657533070439925
+        },
+        {
+          "weights": {
+            "brow_raise": 0.5
+          },
+          "samples": 3516,
+          "unmapped": 0,
+          "penetrations": 0,
+          "minimum_clearance_mm": 0.6657533070439925
+        },
+        {
+          "weights": {
+            "brow_raise": 0.6
+          },
+          "samples": 3516,
+          "unmapped": 0,
+          "penetrations": 0,
+          "minimum_clearance_mm": 0.6657533070439925
+        },
+        {
+          "weights": {
+            "brow_raise": 0.7
+          },
+          "samples": 3516,
+          "unmapped": 0,
+          "penetrations": 0,
+          "minimum_clearance_mm": 0.6657533070439925
+        },
+        {
+          "weights": {
+            "brow_raise": 0.8
+          },
+          "samples": 3516,
+          "unmapped": 0,
+          "penetrations": 0,
+          "minimum_clearance_mm": 0.6657533070439925
+        },
+        {
+          "weights": {
+            "brow_raise": 0.9
+          },
+          "samples": 3516,
+          "unmapped": 0,
+          "penetrations": 0,
+          "minimum_clearance_mm": 0.6657533070439925
+        },
+        {
+          "weights": {
+            "brow_raise": 1.0
+          },
+          "samples": 3516,
+          "unmapped": 0,
+          "penetrations": 0,
+          "minimum_clearance_mm": 0.6657533070439925
+        },
+        {
+          "weights": {
+            "brow_lower": 0.1
+          },
+          "samples": 3516,
+          "unmapped": 0,
+          "penetrations": 0,
+          "minimum_clearance_mm": 0.6650117230559693
+        },
+        {
+          "weights": {
+            "brow_lower": 0.2
+          },
+          "samples": 3516,
+          "unmapped": 0,
+          "penetrations": 0,
+          "minimum_clearance_mm": 0.6642611273436072
+        },
+        {
+          "weights": {
+            "brow_lower": 0.3
+          },
+          "samples": 3516,
+          "unmapped": 0,
+          "penetrations": 0,
+          "minimum_clearance_mm": 0.663501354637025
+        },
+        {
+          "weights": {
+            "brow_lower": 0.4
+          },
+          "samples": 3516,
+          "unmapped": 0,
+          "penetrations": 0,
+          "minimum_clearance_mm": 0.6629386251783553
+        },
+        {
+          "weights": {
+            "brow_lower": 0.5
+          },
+          "samples": 3516,
+          "unmapped": 0,
+          "penetrations": 0,
+          "minimum_clearance_mm": 0.6630089751112622
+        },
+        {
+          "weights": {
+            "brow_lower": 0.6
+          },
+          "samples": 3516,
+          "unmapped": 0,
+          "penetrations": 0,
+          "minimum_clearance_mm": 0.6630793250441691
+        },
+        {
+          "weights": {
+            "brow_lower": 0.7
+          },
+          "samples": 3516,
+          "unmapped": 0,
+          "penetrations": 0,
+          "minimum_clearance_mm": 0.663149674977076
+        },
+        {
+          "weights": {
+            "brow_lower": 0.8
+          },
+          "samples": 3516,
+          "unmapped": 0,
+          "penetrations": 0,
+          "minimum_clearance_mm": 0.6369999877614552
+        },
+        {
+          "weights": {
+            "brow_lower": 0.9
+          },
+          "samples": 3516,
+          "unmapped": 0,
+          "penetrations": 0,
+          "minimum_clearance_mm": 0.570484118840836
+        },
+        {
+          "weights": {
+            "brow_lower": 1.0
+          },
+          "samples": 3516,
+          "unmapped": 0,
+          "penetrations": 0,
+          "minimum_clearance_mm": 0.13338281344485448
+        },
+        {
+          "weights": {
+            "mouth_open": 0.1
+          },
+          "samples": 3516,
+          "unmapped": 0,
+          "penetrations": 0,
+          "minimum_clearance_mm": 0.6657533070439925
+        },
+        {
+          "weights": {
+            "mouth_open": 0.2
+          },
+          "samples": 3516,
+          "unmapped": 0,
+          "penetrations": 0,
+          "minimum_clearance_mm": 0.6657533070439925
+        },
+        {
+          "weights": {
+            "mouth_open": 0.3
+          },
+          "samples": 3516,
+          "unmapped": 0,
+          "penetrations": 0,
+          "minimum_clearance_mm": 0.6657533070439925
+        },
+        {
+          "weights": {
+            "mouth_open": 0.4
+          },
+          "samples": 3516,
+          "unmapped": 0,
+          "penetrations": 0,
+          "minimum_clearance_mm": 0.6657533070439925
+        },
+        {
+          "weights": {
+            "mouth_open": 0.5
+          },
+          "samples": 3516,
+          "unmapped": 0,
+          "penetrations": 0,
+          "minimum_clearance_mm": 0.6657533070439925
+        },
+        {
+          "weights": {
+            "mouth_open": 0.6
+          },
+          "samples": 3516,
+          "unmapped": 0,
+          "penetrations": 0,
+          "minimum_clearance_mm": 0.6657533070439925
+        },
+        {
+          "weights": {
+            "mouth_open": 0.7
+          },
+          "samples": 3516,
+          "unmapped": 0,
+          "penetrations": 0,
+          "minimum_clearance_mm": 0.6657533070439925
+        },
+        {
+          "weights": {
+            "mouth_open": 0.8
+          },
+          "samples": 3516,
+          "unmapped": 0,
+          "penetrations": 0,
+          "minimum_clearance_mm": 0.6657533070439925
+        },
+        {
+          "weights": {
+            "mouth_open": 0.9
+          },
+          "samples": 3516,
+          "unmapped": 0,
+          "penetrations": 0,
+          "minimum_clearance_mm": 0.6657533070439925
+        },
+        {
+          "weights": {
+            "mouth_open": 1.0
+          },
+          "samples": 3516,
+          "unmapped": 0,
+          "penetrations": 0,
+          "minimum_clearance_mm": 0.6657533070439925
+        },
+        {
+          "weights": {
+            "mouth_open": 0.6,
+            "brow_raise": 0.7
+          },
+          "samples": 3516,
+          "unmapped": 0,
+          "penetrations": 0,
+          "minimum_clearance_mm": 0.6657533070439925
+        },
+        {
+          "weights": {
+            "blink": 0.5,
+            "brow_lower": 0.7
+          },
+          "samples": 3516,
+          "unmapped": 0,
+          "penetrations": 0,
+          "minimum_clearance_mm": 0.663149674977076
+        }
+      ]
+    },
+    {
+      "id": "a_cheng",
+      "sha256": "a171e42c1cec660ae8392d8e74c01ab8a659c0641e0fdf7e8d56afffb0fc2907",
+      "negative_exported_skin_weights": 0,
+      "oral_bounds_m": {
+        "min": [
+          -0.043774399906396866,
+          1.5361043214797974,
+          0.04067879915237427
+        ],
+        "max": [
+          0.043774399906396866,
+          1.6313484907150269,
+          0.15451839566230774
+        ]
+      },
+      "brow_samples": [
+        {
+          "weights": {},
+          "samples": 3516,
+          "unmapped": 0,
+          "penetrations": 0,
+          "minimum_clearance_mm": 0.6038332684309144
+        },
+        {
+          "weights": {
+            "blink": 0.1
+          },
+          "samples": 3516,
+          "unmapped": 0,
+          "penetrations": 0,
+          "minimum_clearance_mm": 0.6038332684309144
+        },
+        {
+          "weights": {
+            "blink": 0.2
+          },
+          "samples": 3516,
+          "unmapped": 0,
+          "penetrations": 0,
+          "minimum_clearance_mm": 0.6038332684309144
+        },
+        {
+          "weights": {
+            "blink": 0.3
+          },
+          "samples": 3516,
+          "unmapped": 0,
+          "penetrations": 0,
+          "minimum_clearance_mm": 0.6038332684309144
+        },
+        {
+          "weights": {
+            "blink": 0.4
+          },
+          "samples": 3516,
+          "unmapped": 0,
+          "penetrations": 0,
+          "minimum_clearance_mm": 0.6038332684309144
+        },
+        {
+          "weights": {
+            "blink": 0.5
+          },
+          "samples": 3516,
+          "unmapped": 0,
+          "penetrations": 0,
+          "minimum_clearance_mm": 0.6038332684309144
+        },
+        {
+          "weights": {
+            "blink": 0.6
+          },
+          "samples": 3516,
+          "unmapped": 0,
+          "penetrations": 0,
+          "minimum_clearance_mm": 0.6038332684309144
+        },
+        {
+          "weights": {
+            "blink": 0.7
+          },
+          "samples": 3516,
+          "unmapped": 0,
+          "penetrations": 0,
+          "minimum_clearance_mm": 0.6038332684309144
+        },
+        {
+          "weights": {
+            "blink": 0.8
+          },
+          "samples": 3516,
+          "unmapped": 0,
+          "penetrations": 0,
+          "minimum_clearance_mm": 0.6038332684309144
+        },
+        {
+          "weights": {
+            "blink": 0.9
+          },
+          "samples": 3516,
+          "unmapped": 0,
+          "penetrations": 0,
+          "minimum_clearance_mm": 0.6038332684309144
+        },
+        {
+          "weights": {
+            "blink": 1.0
+          },
+          "samples": 3516,
+          "unmapped": 0,
+          "penetrations": 0,
+          "minimum_clearance_mm": 0.6038332684309144
+        },
+        {
+          "weights": {
+            "brow_raise": 0.1
+          },
+          "samples": 3516,
+          "unmapped": 0,
+          "penetrations": 0,
+          "minimum_clearance_mm": 0.6038332684309144
+        },
+        {
+          "weights": {
+            "brow_raise": 0.2
+          },
+          "samples": 3516,
+          "unmapped": 0,
+          "penetrations": 0,
+          "minimum_clearance_mm": 0.6038332684309144
+        },
+        {
+          "weights": {
+            "brow_raise": 0.3
+          },
+          "samples": 3516,
+          "unmapped": 0,
+          "penetrations": 0,
+          "minimum_clearance_mm": 0.6038332684309144
+        },
+        {
+          "weights": {
+            "brow_raise": 0.4
+          },
+          "samples": 3516,
+          "unmapped": 0,
+          "penetrations": 0,
+          "minimum_clearance_mm": 0.6038332684309144
+        },
+        {
+          "weights": {
+            "brow_raise": 0.5
+          },
+          "samples": 3516,
+          "unmapped": 0,
+          "penetrations": 0,
+          "minimum_clearance_mm": 0.6038332684309144
+        },
+        {
+          "weights": {
+            "brow_raise": 0.6
+          },
+          "samples": 3516,
+          "unmapped": 0,
+          "penetrations": 0,
+          "minimum_clearance_mm": 0.6038332684309144
+        },
+        {
+          "weights": {
+            "brow_raise": 0.7
+          },
+          "samples": 3516,
+          "unmapped": 0,
+          "penetrations": 0,
+          "minimum_clearance_mm": 0.6038332684309144
+        },
+        {
+          "weights": {
+            "brow_raise": 0.8
+          },
+          "samples": 3516,
+          "unmapped": 0,
+          "penetrations": 0,
+          "minimum_clearance_mm": 0.6038332684309144
+        },
+        {
+          "weights": {
+            "brow_raise": 0.9
+          },
+          "samples": 3516,
+          "unmapped": 0,
+          "penetrations": 0,
+          "minimum_clearance_mm": 0.6038332684309144
+        },
+        {
+          "weights": {
+            "brow_raise": 1.0
+          },
+          "samples": 3516,
+          "unmapped": 0,
+          "penetrations": 0,
+          "minimum_clearance_mm": 0.6038332684309144
+        },
+        {
+          "weights": {
+            "brow_lower": 0.1
+          },
+          "samples": 3516,
+          "unmapped": 0,
+          "penetrations": 0,
+          "minimum_clearance_mm": 0.6038332684309144
+        },
+        {
+          "weights": {
+            "brow_lower": 0.2
+          },
+          "samples": 3516,
+          "unmapped": 0,
+          "penetrations": 0,
+          "minimum_clearance_mm": 0.6038332684309144
+        },
+        {
+          "weights": {
+            "brow_lower": 0.3
+          },
+          "samples": 3516,
+          "unmapped": 0,
+          "penetrations": 0,
+          "minimum_clearance_mm": 0.6038332684309144
+        },
+        {
+          "weights": {
+            "brow_lower": 0.4
+          },
+          "samples": 3516,
+          "unmapped": 0,
+          "penetrations": 0,
+          "minimum_clearance_mm": 0.6038332684309144
+        },
+        {
+          "weights": {
+            "brow_lower": 0.5
+          },
+          "samples": 3516,
+          "unmapped": 0,
+          "penetrations": 0,
+          "minimum_clearance_mm": 0.6038332684309144
+        },
+        {
+          "weights": {
+            "brow_lower": 0.6
+          },
+          "samples": 3516,
+          "unmapped": 0,
+          "penetrations": 0,
+          "minimum_clearance_mm": 0.6038332684309144
+        },
+        {
+          "weights": {
+            "brow_lower": 0.7
+          },
+          "samples": 3516,
+          "unmapped": 0,
+          "penetrations": 0,
+          "minimum_clearance_mm": 0.6038332684309144
+        },
+        {
+          "weights": {
+            "brow_lower": 0.8
+          },
+          "samples": 3516,
+          "unmapped": 0,
+          "penetrations": 0,
+          "minimum_clearance_mm": 0.6038332684309144
+        },
+        {
+          "weights": {
+            "brow_lower": 0.9
+          },
+          "samples": 3516,
+          "unmapped": 0,
+          "penetrations": 0,
+          "minimum_clearance_mm": 0.6038332684309144
+        },
+        {
+          "weights": {
+            "brow_lower": 1.0
+          },
+          "samples": 3516,
+          "unmapped": 0,
+          "penetrations": 0,
+          "minimum_clearance_mm": 0.5491887773483584
+        },
+        {
+          "weights": {
+            "mouth_open": 0.1
+          },
+          "samples": 3516,
+          "unmapped": 0,
+          "penetrations": 0,
+          "minimum_clearance_mm": 0.6038332684309144
+        },
+        {
+          "weights": {
+            "mouth_open": 0.2
+          },
+          "samples": 3516,
+          "unmapped": 0,
+          "penetrations": 0,
+          "minimum_clearance_mm": 0.6038332684309144
+        },
+        {
+          "weights": {
+            "mouth_open": 0.3
+          },
+          "samples": 3516,
+          "unmapped": 0,
+          "penetrations": 0,
+          "minimum_clearance_mm": 0.6038332684309144
+        },
+        {
+          "weights": {
+            "mouth_open": 0.4
+          },
+          "samples": 3516,
+          "unmapped": 0,
+          "penetrations": 0,
+          "minimum_clearance_mm": 0.6038332684309144
+        },
+        {
+          "weights": {
+            "mouth_open": 0.5
+          },
+          "samples": 3516,
+          "unmapped": 0,
+          "penetrations": 0,
+          "minimum_clearance_mm": 0.6038332684309144
+        },
+        {
+          "weights": {
+            "mouth_open": 0.6
+          },
+          "samples": 3516,
+          "unmapped": 0,
+          "penetrations": 0,
+          "minimum_clearance_mm": 0.6038332684309144
+        },
+        {
+          "weights": {
+            "mouth_open": 0.7
+          },
+          "samples": 3516,
+          "unmapped": 0,
+          "penetrations": 0,
+          "minimum_clearance_mm": 0.6038332684309144
+        },
+        {
+          "weights": {
+            "mouth_open": 0.8
+          },
+          "samples": 3516,
+          "unmapped": 0,
+          "penetrations": 0,
+          "minimum_clearance_mm": 0.6038332684309144
+        },
+        {
+          "weights": {
+            "mouth_open": 0.9
+          },
+          "samples": 3516,
+          "unmapped": 0,
+          "penetrations": 0,
+          "minimum_clearance_mm": 0.6038332684309144
+        },
+        {
+          "weights": {
+            "mouth_open": 1.0
+          },
+          "samples": 3516,
+          "unmapped": 0,
+          "penetrations": 0,
+          "minimum_clearance_mm": 0.6038332684309144
+        },
+        {
+          "weights": {
+            "mouth_open": 0.6,
+            "brow_raise": 0.7
+          },
+          "samples": 3516,
+          "unmapped": 0,
+          "penetrations": 0,
+          "minimum_clearance_mm": 0.6038332684309144
+        },
+        {
+          "weights": {
+            "blink": 0.5,
+            "brow_lower": 0.7
+          },
+          "samples": 3516,
+          "unmapped": 0,
+          "penetrations": 0,
+          "minimum_clearance_mm": 0.6038332684309144
+        }
+      ]
+    }
+  ],
+  "failures": 0
+}

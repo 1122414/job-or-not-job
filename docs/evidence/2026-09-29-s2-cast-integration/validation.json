@@ -1,0 +1,16 @@
+{
+  "godot_full_suite": 53,
+  "current_godot_test_files": 53,
+  "python_tests": 24,
+  "final_full_suite_errors": 0,
+  "final_offscreen_route": "passed",
+  "observed_final_motion_images": 6,
+  "observed_world_images": 6,
+  "observed_route_images": 3,
+  "observed_before_images": 2,
+  "pointer_policy": "background hidden NO_FOCUS; no capture",
+  "runtime_sha256": "4cbb52f8b07c96a235c57cb34f8f440f64a337cf97a3997c6ddbfaf76fc58c3b",
+  "gait_samples_per_cycle": 513,
+  "max_new_cast_stance_drift_m": 0.00203680759296,
+  "observed_motion_images_match_final_bytes": true
+}

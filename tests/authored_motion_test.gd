@@ -18,14 +18,21 @@ func sample(human: HumanVisual,clip: String,time: float) -> void:
 func run() -> void:
 	var provenance: Dictionary=JSON.parse_string(FileAccess.get_file_as_string("res://assets/animations/provenance.json"))
 	check(FileAccess.get_sha256("res://assets/animations/quaternius_upper_body.res")==provenance.library_sha256,"Baked resource provenance")
-	for outfit in ["casual","office","office_female"]:
-		check(FileAccess.get_sha256("res://assets/characters/"+outfit+".glb")==provenance.target_files[outfit],"Target rig must be rebaked after asset change")
+	for outfit in ["casual","office","office_female","protagonist","lin_lan","a_cheng"]:
+		if outfit in ["protagonist","lin_lan","a_cheng"]:
+			var cast_provenance: Dictionary=JSON.parse_string(FileAccess.get_file_as_string("res://assets/animations/cast/"+outfit+"-provenance.json"))
+			check(FileAccess.get_sha256("res://assets/characters/cast/"+outfit+".glb")==cast_provenance.target_files["cast/"+outfit],"New proportions require own bake")
+			check(FileAccess.get_sha256("res://assets/animations/cast/"+outfit+".res")==cast_provenance.library_sha256,"Cast animation provenance")
+		else:
+			check(FileAccess.get_sha256("res://assets/characters/"+outfit+".glb")==provenance.target_files[outfit],"Target rig must be rebaked after asset change")
 		var human := HumanVisual.new()
-		human.outfit=outfit
+		if outfit in ["protagonist","lin_lan","a_cheng"]: human.cast_id=outfit
+		else: human.outfit=outfit
 		root.add_child(human)
 		human.animation.callback_mode_process=AnimationMixer.ANIMATION_CALLBACK_MODE_PROCESS_MANUAL
 		var reference := HumanVisual.new()
-		reference.outfit=outfit
+		if outfit in ["protagonist","lin_lan","a_cheng"]: reference.cast_id=outfit
+		else: reference.outfit=outfit
 		root.add_child(reference)
 		reference.animation.callback_mode_process=AnimationMixer.ANIMATION_CALLBACK_MODE_PROCESS_MANUAL
 		var expected := paths(human.animation.get_animation("idle"))

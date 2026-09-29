@@ -60,7 +60,11 @@ func _ready() -> void:
 	visual.variation=absi(stable_id.hash())
 	visual.outfit="office" if role in ["boss","hr","group","guard"] else "casual"
 	if role_id in ["a_hr","a_group"]: visual.outfit="office_female"
+	visual.cast_id={"a_hr":"lin_lan","b_hr":"a_cheng"}.get(stable_id,"")
 	add_child(visual)
+	if not visual.cast_id.is_empty():
+		capsule.height=visual.standing_height
+		body_shape.position.y=capsule.height*0.5
 	label = Shapes.label(self, title, Vector3(0,2.05,0), 28)
 	label.pixel_size=0.0028
 	label.outline_size=3
@@ -224,6 +228,7 @@ func _physics_process(delta: float) -> void:
 	update_body_pose()
 	visual.blocking=block_time>0 and available()
 	visual.scene_action=game.interviews.performance(self)
+	visual.set_attention(game.player.visual.face_position(),available() and hit_stun<=0 and (game.speaker==self or interview_calling or interview_seated))
 	visual.pose(Vector2(velocity.x,velocity.z).length(),attack_cooldown>0.7,down>0 or dead,seated,interview_seated or interview_calling,hit_stun>0,(game.speaker==self and not game.conversation.is_empty()) or interview_calling or (interview_seated and game.interviews.active_firm()==company))
 	var requested_motion := Vector2(velocity.x,velocity.z).length()
 	move_and_slide()
@@ -246,8 +251,11 @@ func update_body_pose() -> void:
 	body_pose=pose_key
 	var capsule: CapsuleShape3D=body_shape.shape
 	capsule.height=1.4 if next=="seated" else 1.8
+	if not visual.cast_id.is_empty(): capsule.height=visual.standing_height+(visual.seated_offset.y if next=="seated" else 0.0)
 	body_shape.rotation=Vector3(0,visual.rotation.y,fall_side*PI/2) if next=="down" else Vector3.ZERO
 	body_shape.position=Vector3(-0.75*fall_side,0.28,0).rotated(Vector3.UP,visual.rotation.y) if next=="down" else Vector3(0,0.7 if next=="seated" else 0.9,0)
+	if not visual.cast_id.is_empty():
+		body_shape.position=Vector3(-capsule.height*0.5*fall_side,0.28,0).rotated(Vector3.UP,visual.rotation.y) if next=="down" else Vector3(0,capsule.height*0.5,0)
 	# A rigid body may be sleeping on the old support surface when posture changes.
 	for prop in game.props:
 		if not prop.freeze and prop.position.distance_to(position)<2.5: prop.sleeping=false

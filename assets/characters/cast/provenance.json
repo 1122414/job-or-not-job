@@ -1,6 +1,6 @@
 {
-  "status": "import_validated_motion_and_art_acceptance_pending",
-  "recipes_sha256": "f9936f701b2848575205afe31adc5a84a0fa9331ebc281a463cda38e3af2166f",
+  "status": "runtime_integrated_art_acceptance_pending",
+  "recipes_sha256": "cd36f525f89c2b5f28cc288659fb0501f41fbdc827ef2c83fa8b1b48db4f3402",
   "characters": [
     {
       "id": "protagonist",
@@ -52,7 +52,7 @@
     },
     {
       "id": "lin_lan",
-      "sha256": "4dd4bf6cc5b5b6b8421c17711498ec48c5279089b12c77a357ac398142bd6055",
+      "sha256": "8bb54a7e49bd9d29a95a43c8d3c420be92a6df970665fae036116fb067004144",
       "bytes": 19599592,
       "bones": 163,
       "triangles": 41628,
@@ -95,7 +95,8 @@
           0.76,
           0.82,
           1
-        ]
+        ],
+        "skirt_weighting": true
       }
     },
     {

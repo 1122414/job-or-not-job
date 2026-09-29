@@ -47,10 +47,28 @@ func run() -> void:
 		quit(1)
 		return
 	for human in humans:
-		if human.animation.get_animation("talk")!=authored.get_animation("talk") or human.animation.get_animation("idle")!=authored.get_animation("idle"):
+		var expected: AnimationLibrary=authored if human.cast_id.is_empty() else load("res://assets/animations/cast/"+human.cast_id+".res")
+		if human.animation.get_animation("talk")!=expected.get_animation("talk") or human.animation.get_animation("idle")!=expected.get_animation("idle"):
 			push_error("Packaged character does not use authored motion")
 			quit(1)
 			return
+		if not human.cast_id.is_empty():
+			if human.face_meshes.is_empty() or human.skeleton.find_bone("eye.L")<0 or human.skeleton.find_bone("eye.R")<0:
+				push_error("Packaged cast facial resources missing")
+				quit(1)
+				return
+			for mesh in human.find_children("*","MeshInstance3D",true,false):
+				if mesh.skin==null: continue
+				for surface in range(mesh.mesh.get_surface_count()):
+					var material: StandardMaterial3D=mesh.mesh.surface_get_material(surface)
+					if material==null or material.albedo_texture==null or not material.albedo_texture.get_image().is_compressed():
+						push_error("Packaged cast texture compression missing")
+						quit(1)
+						return
+	if game.player.visual.cast_id!="protagonist" or game.npc_for_role("a_hr").visual.cast_id!="lin_lan" or game.npc_for_role("b_hr").visual.cast_id!="a_cheng":
+		push_error("Packaged cast identities missing")
+		quit(1)
+		return
 	for firm in ["A","B"]:
 		var space := OfficeRooms.space(game,firm.to_lower())
 		if space==null or space.get_node_or_null("Anchors/interview_seat")==null or space.get_node_or_null("Architecture")==null:

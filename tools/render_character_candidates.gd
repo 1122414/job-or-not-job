@@ -7,12 +7,14 @@ var extended := false
 var captures := 0
 var imported := false
 var msaa := 0
+var motion := false
 func _initialize() -> void:
 	for argument in OS.get_cmdline_user_args():
 		if argument.begins_with("--output="): output=argument.trim_prefix("--output=")
 		if argument.begins_with("--source="): source=argument.trim_prefix("--source=")
 		if argument=="--extended": extended=true
 		if argument=="--imported": imported=true
+		if argument=="--motion": motion=true
 		if argument.begins_with("--msaa="): msaa=int(argument.trim_prefix("--msaa="))
 	DisplayServer.window_set_flag(DisplayServer.WINDOW_FLAG_NO_FOCUS,true)
 	root.hide()
@@ -48,7 +50,11 @@ func run() -> void:
 	Shapes.box(stage,Vector3(4,0.03,4),Vector3(0,-0.025,0),Color("4c5662"))
 	for person in ["protagonist","lin_lan","a_cheng"]:
 		var model: Node3D
-		if imported:
+		if motion:
+			model=HumanVisual.new()
+			model.cast_id=person
+			model.rotation.y=PI
+		elif imported:
 			model=load(source.path_join(person+".glb")).instantiate()
 		else:
 			var document := GLTFDocument.new()
@@ -56,6 +62,11 @@ func run() -> void:
 			if document.append_from_file(source.path_join(person+".glb"),state)!=OK: quit(1); return
 			model=document.generate_scene(state)
 		stage.add_child(model)
+		if motion:
+			if not await capture_motion(viewport,camera,model,person): quit(1); return
+			model.queue_free()
+			await process_frame
+			continue
 		var skeleton: Skeleton3D=model.find_children("*","Skeleton3D",true,false)[0]
 		for side in ["L","R"]:
 			skeleton.set_bone_pose_rotation(skeleton.find_bone("upperarm01."+side),Quaternion(Vector3.FORWARD,0.62 if side=="L" else -0.62))
@@ -91,6 +102,26 @@ func run() -> void:
 	await process_frame
 	print("OFFSCREEN_CHARACTERS images=",captures," pointer_visible=",Input.mouse_mode==Input.MOUSE_MODE_VISIBLE)
 	quit()
+
+func capture_motion(viewport: SubViewport,camera: Camera3D,human: HumanVisual,person: String) -> bool:
+	human.set_process(false)
+	human.animation.callback_mode_process=AnimationMixer.ANIMATION_CALLBACK_MODE_PROCESS_MANUAL
+	var poses := {"idle":0.6,"talk":0.8,"walk":0.25,"run":0.125,"work":0.4,"sit":0.4,"carry":0.25,"carry_idle":0.4,"strike":0.22,"recoil":0.15,"fallen":0.4}
+	for clip in poses:
+		human.position=human.seated_offset if clip in ["work","sit"] else Vector3.ZERO
+		human.animation.stop()
+		human.skeleton.reset_bone_poses()
+		human.animation.play(clip)
+		human.animation.seek(poses[clip],true)
+		human.animation.advance(0)
+		camera.position=Vector3(2.0,1.1,3.2)
+		camera.look_at(Vector3(0,0.92,0))
+		if not await capture(viewport,person+"-motion-"+clip): return false
+		if clip in ["work","sit","carry_idle"]:
+			camera.position=Vector3(3.8,1.1,0)
+			camera.look_at(Vector3(0,0.92,0))
+			if not await capture(viewport,person+"-motion-"+clip+"-side"): return false
+	return true
 
 func set_expression(model: Node,values: Dictionary) -> void:
 	for mesh in model.find_children("*","MeshInstance3D",true,false):

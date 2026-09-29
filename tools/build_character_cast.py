@@ -8,7 +8,7 @@ import hashlib
 import json
 from pathlib import Path
 import build_characters as converter
-from character_fitting import contain_mouth, oral_faces, bind_brows, displace, difference, subdivide_attachment
+from character_fitting import contain_mouth, oral_faces, bind_brows, displace, difference, subdivide_attachment, skirt_weights
 
 
 def attachment_mapping(path):
@@ -109,6 +109,10 @@ def build(source, recipes, output):
             if name==profile['eyebrows']:
                 vertices,uvs,faces,weights=subdivide_attachment(vertices,uvs,faces,weights)
                 vertices,morphs=bind_brows(vertices,converter.base,outer,expressions,0.0008/converter.scale)
+            if profile.get('skirt_weighting') and name==profile['outfit']:
+                weights=skirt_weights([converter.convert(v) for v in vertices],faces,weights,
+                    converter.heads['upperleg01.L'][1],converter.index['spine05'],
+                    converter.index['upperleg01.L'],converter.index['upperleg01.R'])
             if name in [profile['outfit'],profile['shoes']]:
                 covered=set().union(*(item[4] for other,other_path,item in parts if other in [profile['outfit'],profile['shoes']] and clothing_layer(other_path)>clothing_layer(path)))
                 mask=masked_attachment_vertices(path,covered)

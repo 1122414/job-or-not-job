@@ -7,6 +7,8 @@ func run() -> void:
 	var game=load("res://scenes/main.tscn").instantiate()
 	root.add_child(game)
 	var npc: OfficeNPC=game.npcs[0]
+	check(npc.visual.cast_id=="lin_lan","短体型碰撞回归使用林岚")
+	check(absf(npc.body_shape.shape.height-npc.visual.standing_height)<0.001,"碰撞高度不能沿用高于林岚头顶的旧1.8m胶囊")
 	npc.position=Vector3(0,0,16)
 	npc.home=npc.position
 	npc.role="guard"

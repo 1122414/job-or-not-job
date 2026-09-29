@@ -1,0 +1,51 @@
+{
+	"author": "Quaternius",
+	"clips": [
+		{
+			"frames": 151,
+			"max_loop_seam_radians": 0.000690533954184502,
+			"name": "idle",
+			"seconds": 2.5,
+			"source": "Idle_Loop",
+			"tracks": 51
+		},
+		{
+			"frames": 177,
+			"max_loop_seam_radians": 0.0,
+			"name": "talk",
+			"seconds": 2.91666674613953,
+			"source": "Idle_Talking_Loop",
+			"tracks": 51
+		}
+	],
+	"library_sha256": "92c4078d127acc0a93bf822795726c00eab0380c6022d08aacd9d60bc9ba5abf",
+	"license": "CC0-1.0",
+	"sample_rate_hz": 60,
+	"scope": "Upper body only; existing planted legs, root and specialized interactions retained",
+	"source_commit": "e24c23cf2a1323488a3faa226ea7ea21f644b73e",
+	"source_files": {
+		"LICENSE": {
+			"bytes": 7048.0,
+			"sha256": "a2010f343487d3f7618affe54f789f5487602331c0a8d03f49e9a7c547cf0499",
+			"url": "https://raw.githubusercontent.com/J-Ponzo/gltf-universal-animation-library/e24c23cf2a1323488a3faa226ea7ea21f644b73e/LICENSE"
+		},
+		"README.md": {
+			"bytes": 1051.0,
+			"sha256": "370e6ff244ef43b269f936be7d630a77a3eb7ed8bbc3315ffcae5b327b814fcb",
+			"url": "https://raw.githubusercontent.com/J-Ponzo/gltf-universal-animation-library/e24c23cf2a1323488a3faa226ea7ea21f644b73e/README.md"
+		},
+		"glTF/AnimationLibrary_Godot_Standard.bin": {
+			"bytes": 1587224.0,
+			"sha256": "6e65377d81558333c4093dbb144a48fd19019343d82b1a3a7992a98ec0e0543c",
+			"url": "https://raw.githubusercontent.com/J-Ponzo/gltf-universal-animation-library/e24c23cf2a1323488a3faa226ea7ea21f644b73e/glTF/AnimationLibrary_Godot_Standard.bin"
+		},
+		"glTF/AnimationLibrary_Godot_Standard.gltf": {
+			"bytes": 2459987.0,
+			"sha256": "0ff075c7ad6855c5c2c37a171592ee8f0d6ab2f58259e2be77a9b63dd8027765",
+			"url": "https://raw.githubusercontent.com/J-Ponzo/gltf-universal-animation-library/e24c23cf2a1323488a3faa226ea7ea21f644b73e/glTF/AnimationLibrary_Godot_Standard.gltf"
+		}
+	},
+	"target_files": {
+		"cast/protagonist": "5c6e442a04c4237d0f85ba9d3d256f44129c35d5f7d0beb45865cded6e6e1832"
+	}
+}

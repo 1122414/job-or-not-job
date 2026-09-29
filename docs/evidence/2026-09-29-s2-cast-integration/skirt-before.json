@@ -1,0 +1,13 @@
+{
+  "source_commit": "6717322",
+  "source": "assets/characters/cast/lin_lan.glb",
+  "frames_per_clip": 33,
+  "max_edge_ratios": {
+    "walk": 6.40573935274059,
+    "run": 8.13148760247594,
+    "work": 7.59791337930749,
+    "sit": 7.59791337930749,
+    "strike": 1.00048146310503
+  },
+  "scope": "Raw GLTF numeric Skin bindings resolved by source skeleton; invalid earlier probe excluded"
+}

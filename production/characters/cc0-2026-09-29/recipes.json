@@ -56,7 +56,8 @@
         0.76,
         0.82,
         1
-      ]
+      ],
+      "skirt_weighting": true
     },
     {
       "id": "a_cheng",

@@ -1,0 +1,18 @@
+{
+  "build_id": "20260929T060256514331Z-67173223-4cbb52f8",
+  "runtime_sha256": "4cbb52f8b07c96a235c57cb34f8f440f64a337cf97a3997c6ddbfaf76fc58c3b",
+  "probes": {
+    "project": {
+      "exit_code": 0,
+      "log_sha256": "623c0394053f685d00dd3d97ea5ef6f1562af25de29cc29fad3355d7831e18ad"
+    },
+    "external": {
+      "exit_code": 0,
+      "log_sha256": "623c0394053f685d00dd3d97ea5ef6f1562af25de29cc29fad3355d7831e18ad"
+    }
+  },
+  "signature": "passed",
+  "zip": "passed",
+  "cast_provenance": "byte_identical",
+  "scope": "headless package validation; visual and performance acceptance separate"
+}

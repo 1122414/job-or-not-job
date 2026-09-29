@@ -37,6 +37,7 @@ func _ready() -> void:
 	add_child(body_shape)
 	collision_mask=3
 	visual = HumanVisual.new()
+	visual.cast_id="protagonist"
 	visual.outfit="casual"
 	add_child(visual)
 	hand=visual.grip
@@ -104,6 +105,11 @@ func _physics_process(delta: float) -> void:
 	var facing := atan2(-velocity.x,-velocity.z) if Vector2(velocity.x,velocity.z).length()>0.2 and swing<=0 and not seated else yaw
 	visual.rotation.y = lerp_angle(visual.rotation.y,facing,1.0-exp(-delta*14.0))
 	visual.pose(Vector2(velocity.x,velocity.z).length(),swing>0,dead>0,seated,game.interviews.player_seated())
+	var speaker: OfficeNPC=game.speaker if game.speaker is OfficeNPC else null
+	if speaker==null and game.interviews.player_seated():
+		var session: Dictionary=game.interviews.sessions[game.interviews.active_firm()]
+		speaker=game.npc_for_role(InterviewFlow.HOSTS[session.action])
+	visual.set_attention(speaker.visual.face_position() if is_instance_valid(speaker) else Vector3.ZERO,is_instance_valid(speaker) and dead<=0)
 	visual.position=visual.position.move_toward(visual.seated_offset if seated else Vector3.ZERO,delta*2)
 	body_shape.shape.height=1.3 if seated else 1.75
 	body_shape.position.y=0.68 if seated else 0.88

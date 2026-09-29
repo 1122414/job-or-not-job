@@ -47,6 +47,11 @@ def build():
     shutil.copy2(ROOT / 'assets/polyhaven/provenance.json', resources / 'ASSET-SOURCES.json')
     shutil.copy2(ROOT / 'assets/company_materials/provenance.json', resources / 'COMPANY-MATERIALS.json')
     shutil.copy2(ROOT / 'assets/animations/provenance.json', resources / 'ANIMATION-SOURCES.json')
+    shutil.copy2(ROOT / 'assets/characters/cast/provenance.json', resources / 'CAST-SOURCES.json')
+    shutil.copy2(ROOT / 'production/characters/cc0-2026-09-29/provenance.json', resources / 'CAST-ORIGINALS.json')
+    for person in ('protagonist', 'lin_lan', 'a_cheng'):
+        shutil.copy2(ROOT / f'assets/animations/cast/{person}-provenance.json',
+                     resources / f'CAST-MOTION-{person}.json')
     identity['pck_sha256'] = sha256(resources / 'game.pck')
     identity['engine_source_sha256'] = sha256(engine)
     data = json.dumps(identity, ensure_ascii=False, indent=2) + '\n'

@@ -2,12 +2,19 @@ extends SceneTree
 
 const Adapter = preload("res://tools/character_retarget.gd")
 const SOURCE := "res://production/quaternius/standard-2025-06-10/"
-const OUTPUT := "res://assets/animations/"
+var output := "res://assets/animations/"
+var cast_id := ""
 var failures := 0
 func _initialize() -> void: call_deferred("run")
 func check(value: bool,message: String) -> void:
 	if not value: push_error(message); failures+=1
 func run() -> void:
+	for argument in OS.get_cmdline_user_args():
+		if argument.begins_with("--cast="): cast_id=argument.trim_prefix("--cast=")
+	if not cast_id.is_empty():
+		check(cast_id in ["protagonist","lin_lan","a_cheng"],"Known cast identity")
+		output+="cast/"
+	if failures: quit(1); return
 	var provenance: Dictionary=JSON.parse_string(FileAccess.get_file_as_string(SOURCE+"provenance.json"))
 	for file in provenance.files: check(FileAccess.get_sha256(SOURCE+file)==provenance.files[file].sha256,"Source checksum: "+file)
 	if failures: quit(1); return
@@ -20,6 +27,8 @@ func run() -> void:
 	var player: AnimationPlayer=scene.find_children("*","AnimationPlayer",true,false)[0]
 	player.callback_mode_process=AnimationMixer.ANIMATION_CALLBACK_MODE_PROCESS_MANUAL
 	var human := HumanVisual.new()
+	human.cast_id=cast_id
+	human.use_authored_motion=false
 	root.add_child(human)
 	human.animation.callback_mode_process=AnimationMixer.ANIMATION_CALLBACK_MODE_PROCESS_MANUAL
 	var base := human.make_clip("idle")
@@ -28,7 +37,7 @@ func run() -> void:
 	check(adapter.setup(source,human.skeleton)==OK,"Complete bone mapping")
 	if failures: scene.queue_free(); human.queue_free(); await process_frame; quit(1); return
 	# Existing outfits currently share a rig. Refuse silent reuse if proportions change.
-	for outfit in ["office","office_female"]:
+	for outfit in (["office","office_female"] if cast_id.is_empty() else []):
 		var model: Node=load("res://assets/characters/"+outfit+".glb").instantiate()
 		root.add_child(model)
 		var other: Skeleton3D=model.find_children("*","Skeleton3D",true,false)[0]
@@ -40,7 +49,7 @@ func run() -> void:
 	if failures: scene.queue_free(); human.queue_free(); await process_frame; quit(1); return
 	var library := AnimationLibrary.new()
 	var metadata := {"author":"Quaternius","license":"CC0-1.0","source_commit":provenance.mirror_commit,"scope":"Upper body only; existing planted legs, root and specialized interactions retained","sample_rate_hz":60,"clips":[],"source_files":provenance.files,"target_files":{}}
-	for outfit in ["casual","office","office_female"]: metadata.target_files[outfit]=FileAccess.get_sha256("res://assets/characters/"+outfit+".glb")
+	for outfit in (["casual","office","office_female"] if cast_id.is_empty() else ["cast/"+cast_id]): metadata.target_files[outfit]=FileAccess.get_sha256("res://assets/characters/"+outfit+".glb")
 	for pair in [["idle","Idle_Loop"],["talk","Idle_Talking_Loop"]]:
 		var clip := Animation.new()
 		clip.length=player.get_animation(pair[1]).length
@@ -80,10 +89,11 @@ func run() -> void:
 		library.add_animation(pair[0],clip)
 		metadata.clips.append({"name":pair[0],"source":pair[1],"seconds":clip.length,"frames":frame_count+1,"tracks":clip.get_track_count(),"max_loop_seam_radians":seam})
 	if failures==0:
-		DirAccess.make_dir_recursive_absolute(OUTPUT)
-		check(ResourceSaver.save(library,OUTPUT+"quaternius_upper_body.res")==OK,"Save baked library")
-		metadata["library_sha256"]=FileAccess.get_sha256(OUTPUT+"quaternius_upper_body.res")
-		var file := FileAccess.open(OUTPUT+"provenance.json",FileAccess.WRITE)
+		DirAccess.make_dir_recursive_absolute(output)
+		var resource_name := "quaternius_upper_body" if cast_id.is_empty() else cast_id
+		check(ResourceSaver.save(library,output+resource_name+".res")==OK,"Save baked library")
+		metadata["library_sha256"]=FileAccess.get_sha256(output+resource_name+".res")
+		var file := FileAccess.open(output+("provenance" if cast_id.is_empty() else cast_id+"-provenance")+".json",FileAccess.WRITE)
 		file.store_string(JSON.stringify(metadata,"\t"))
 	scene.queue_free(); human.queue_free()
 	await process_frame

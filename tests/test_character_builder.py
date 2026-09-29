@@ -10,7 +10,7 @@ TOOLS = Path(__file__).resolve().parents[1] / 'tools'
 sys.path.insert(0, str(TOOLS))
 import build_characters as converter
 from build_character_cast import attachment_morphs, masked_attachment_vertices
-from character_fitting import front_triangles, front_depth, bind_brows, contain_mouth, oral_faces, subdivide_attachment
+from character_fitting import front_triangles, front_depth, bind_brows, contain_mouth, oral_faces, subdivide_attachment, skirt_weights
 
 
 class CharacterBuilderTest(unittest.TestCase):
@@ -118,6 +118,20 @@ class CharacterBuilderTest(unittest.TestCase):
             self.assertEqual(directory.resolve(), (root/'materials').resolve())
             self.assertEqual(material['transparent'], 'True')
             self.assertEqual(material['diffuseTexture'], 'iris.png')
+
+    def test_skirt_panel_does_not_follow_shins_or_modify_blouse(self):
+        vertices = [(-.2,.5,0),(0,.5,0),(.2,.5,0),(-.2,.9,0),(.2,.9,0),
+                    (-.3,1.2,0),(.3,1.2,0),(0,1.,0)]
+        faces = [('',[(i,0) for i in face]) for face in [(0,1,3),(1,4,3),(1,2,4),(5,6,7)]]
+        old = [{99:1.} for _ in vertices]
+        actual = skirt_weights(vertices,faces,old,.8,0,1,2)
+        self.assertEqual(actual[5:],old[5:])
+        self.assertEqual(old[1],{99:1.})
+        self.assertEqual(actual[1],{0:0.,1:.5,2:.5})
+        for weight in actual[:5]:
+            self.assertAlmostEqual(sum(weight.values()),1.)
+            self.assertTrue(all(0<=v<=1 for v in weight.values()))
+            self.assertNotIn(99,weight)
 
     def test_target_comments_and_sparse_vertices(self):
         with tempfile.TemporaryDirectory() as tmp:

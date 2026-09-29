@@ -2,7 +2,13 @@ extends SceneTree
 const Driver = preload("res://tests/scene_driver.gd")
 var failures := 0
 var evidence_dir := "res://docs/evidence/2026-09-22-route"
-func _initialize() -> void: call_deferred("run")
+var capture_viewport: Viewport
+func _initialize() -> void:
+	if DisplayServer.get_name()!="headless":
+		DisplayServer.window_set_flag(DisplayServer.WINDOW_FLAG_NO_FOCUS,true)
+		root.hide()
+	Input.mouse_mode=Input.MOUSE_MODE_VISIBLE
+	call_deferred("run")
 func perform(game: Node3D,id: String,action: String) -> bool:
 	if action in ["join_a","join_b"]:
 		var firm := action.trim_prefix("join_")
@@ -67,7 +73,17 @@ func run() -> void:
 	for argument in OS.get_cmdline_user_args():
 		if argument.begins_with("--output="): evidence_dir=argument.trim_prefix("--output=")
 	var game=load("res://scenes/main.tscn").instantiate()
-	root.add_child(game)
+	capture_viewport=root
+	if DisplayServer.get_name()!="headless":
+		var viewport := SubViewport.new()
+		viewport.size=Vector2i(1280,800)
+		viewport.own_world_3d=true
+		viewport.msaa_3d=Viewport.MSAA_2X
+		viewport.render_target_update_mode=SubViewport.UPDATE_ALWAYS
+		viewport.set_disable_input(true)
+		root.add_child(viewport)
+		capture_viewport=viewport
+	capture_viewport.add_child(game)
 	# Script drives input explicitly; desktop Escape/mouse events must not pause this fixture.
 	root.set_disable_input(true)
 	Input.mouse_mode=Input.MOUSE_MODE_VISIBLE
@@ -85,7 +101,7 @@ func run() -> void:
 			paused=true
 			for frame in range(3): await process_frame
 			RenderingServer.force_draw()
-			root.get_texture().get_image().save_png(evidence_dir.path_join(step[1]+".png"))
+			if capture_viewport.get_texture().get_image().save_png(evidence_dir.path_join(step[1]+".png"))!=OK: failures+=1
 			paused=false
 	if game.career.stage!=6 or game.career.b_event!="helped":
 		push_error("最终职业状态不符 stage="+str(game.career.stage)+" B="+game.career.b_event)
@@ -106,6 +122,7 @@ func run() -> void:
 			push_error("冲突分支未触发："+game.career.b_event+" care="+game.npc_for_role("b_friend").care_state+" company="+str(game.career.conflict))
 			failures+=1
 	game.queue_free()
+	if capture_viewport!=root: capture_viewport.queue_free()
 	await process_frame
 	print("FULL_ROUTE_TEST failures=",failures)
 	quit(failures)
