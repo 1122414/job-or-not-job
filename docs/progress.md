@@ -720,4 +720,4 @@ C4a记录同步：542项资料逐字节核对一致，零冲突；每日计划/�
 
 边界：中心步道调用650→762、滨水565→652，几何增加有成本，不是正常游玩FPS或性能通过。正式美术/人物/声音、场所与活动密度、30—60分钟完整城区、分区/八区整城、双画质持续性能与玩家签收仍未完成。接续重心是可参与场所、居民自主活动和持续职业/人物后果，完整64km²都市圈/16km²密集城区与G01—G06保持。
 
-详情：[C4c验收](2026-09-29_C4c中心街廊与城市背景验收.md)；复用更新[地面恢复](experience/patterns/floor-seams.md)，新增[天空与雾](experience/patterns/sky-fog-coverage.md)。中文实施提交号见本阶段Git及Obsidian追加。
+详情：[C4c验收](2026-09-29_C4c中心街廊与城市背景验收.md)；复用更新[地面恢复](experience/patterns/floor-seams.md)，新增[天空与雾](experience/patterns/sky-fog-coverage.md)。中文实施提交c34d512，未push。
