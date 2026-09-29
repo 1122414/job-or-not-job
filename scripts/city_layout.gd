@@ -78,9 +78,22 @@ static func build(game: Node3D) -> void:
 		Shapes.box(district,Vector3(13.8,0.2,2.4),Vector3(x,3.1,40),Color("875e49"))
 	for x in [36,56,96]:
 		for z in [32,82]: streets.facade(Vector3(x,0,z),Vector3(14,16 if x==96 else 12,14),false)
-	Shapes.box(district,Vector3(220,0.1,70),Vector3(0,-0.5,164),Color("4c8992"))
+	var sea := MeshInstance3D.new()
+	sea.name="CoastalWater"
+	var plane := PlaneMesh.new()
+	plane.size=Vector2(4000,4000)
+	sea.mesh=plane
+	sea.position=Vector3(0,-.48,2129)
+	streets.water=ShaderMaterial.new()
+	streets.water.shader=preload("res://assets/materials/city_water.gdshader")
+	sea.material_override=streets.water
+	district.add_child(sea)
 	for x in [-107,107]: Shapes.solid(district,Vector3(0.4,1.2,156),Vector3(x,0.6,54),Color("657d75"))
-	for z in [-24,131]: Shapes.solid(district,Vector3(216,1.2,0.4),Vector3(0,0.6,z),Color("657d75"))
+	Shapes.solid(district,Vector3(216,1.2,.4),Vector3(0,.6,-24),Color("657d75"))
+	# The outer sea ledge stays below the promenade railing, leaving the water
+	# visible from standing height instead of adding a second eye-level fence.
+	Shapes.solid(district,Vector3(216,.45,.4),Vector3(0,.225,131),Color("657d75"))
 
 	streets.landscape()
+	CityUrbanFabric.build(streets)
 	streets.flush()

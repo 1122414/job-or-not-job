@@ -1,0 +1,193 @@
+{
+	"deterministic_gpu_buffers": true,
+	"final_visual_acceptance": false,
+	"fov": 65,
+	"nonempty_gpu_batches": 563,
+	"normal_game_performance": false,
+	"pointer_visible": true,
+	"resolution": [
+		1440,
+		900
+	],
+	"root_focused": false,
+	"root_minimized": true,
+	"root_unfocusable": true,
+	"views": [
+		{
+			"camera": [
+				-64.0,
+				1.75,
+				54.0
+			],
+			"draw_calls": 6400,
+			"minute": 540,
+			"name": "old-street",
+			"primitives": 573563,
+			"target": [
+				-47.0,
+				2.79999995231628,
+				36.0
+			]
+		},
+		{
+			"camera": [
+				-47.0,
+				1.70000004768372,
+				48.0
+			],
+			"draw_calls": 1419,
+			"minute": 540,
+			"name": "bookshop",
+			"primitives": 117490,
+			"target": [
+				-53.0,
+				2.09999990463257,
+				32.0
+			]
+		},
+		{
+			"camera": [
+				64.0,
+				1.70000004768372,
+				63.0
+			],
+			"draw_calls": 853,
+			"minute": 540,
+			"name": "homes",
+			"primitives": 366552,
+			"target": [
+				43.0,
+				5.0,
+				82.0
+			]
+		},
+		{
+			"camera": [
+				-30.0,
+				1.70000004768372,
+				115.0
+			],
+			"draw_calls": 652,
+			"minute": 540,
+			"name": "waterfront",
+			"primitives": 327966,
+			"target": [
+				16.0,
+				1.60000002384186,
+				121.0
+			]
+		},
+		{
+			"camera": [
+				-20.0,
+				1.70000004768372,
+				17.0
+			],
+			"draw_calls": 1206,
+			"minute": 540,
+			"name": "company-exit",
+			"primitives": 265058,
+			"target": [
+				-46.0,
+				3.0,
+				34.0
+			]
+		},
+		{
+			"camera": [
+				-59.0,
+				18.0,
+				95.0
+			],
+			"draw_calls": 4910,
+			"minute": 540,
+			"name": "district-overview",
+			"primitives": 807752,
+			"target": [
+				2.0,
+				1.0,
+				50.0
+			]
+		},
+		{
+			"camera": [
+				-64.0,
+				1.75,
+				54.0
+			],
+			"draw_calls": 6089,
+			"minute": 1230,
+			"name": "old-street-night",
+			"primitives": 573563,
+			"target": [
+				-47.0,
+				2.79999995231628,
+				36.0
+			]
+		},
+		{
+			"camera": [
+				-30.0,
+				1.70000004768372,
+				115.0
+			],
+			"draw_calls": 652,
+			"minute": 1230,
+			"name": "waterfront-night",
+			"primitives": 327966,
+			"target": [
+				16.0,
+				1.60000002384186,
+				121.0
+			]
+		},
+		{
+			"camera": [
+				0.0,
+				1.70000004768372,
+				23.0
+			],
+			"draw_calls": 762,
+			"minute": 540,
+			"name": "central-walk",
+			"primitives": 498602,
+			"target": [
+				0.0,
+				2.5,
+				65.0
+			]
+		},
+		{
+			"camera": [
+				-8.0,
+				1.70000004768372,
+				46.0
+			],
+			"draw_calls": 1163,
+			"minute": 540,
+			"name": "west-arcade",
+			"primitives": 202690,
+			"target": [
+				-21.0,
+				1.64999997615814,
+				43.0
+			]
+		},
+		{
+			"camera": [
+				25.0,
+				1.70000004768372,
+				123.0
+			],
+			"draw_calls": 37,
+			"minute": 540,
+			"name": "open-sea",
+			"primitives": 19274,
+			"target": [
+				-15.0,
+				1.39999997615814,
+				245.0
+			]
+		}
+	]
+}

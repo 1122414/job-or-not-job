@@ -41,6 +41,28 @@ func run() -> void:
 			return
 	game.update_daylight()
 	print("PACKAGED_STREETSCAPE pieces=",streets.get_meta("pieces")," batches=",streets.get_meta("batches")," lights=",streets.lamps.size())
+	var sea := game.get_node_or_null("ConnectedDistrict/CoastalWater") as MeshInstance3D
+	if streets.get_meta("arcade_lots",0)!=3 or streets.get_meta("background_lots",0)!=29 or sea==null or sea.material_override!=streets.water or streets.water.shader==null:
+		push_error("Packaged urban galleries or coastal water missing")
+		quit(1)
+		return
+	for ends in [[Vector3(-8,0,42),Vector3(-28,0,42)],[Vector3(8,0,42),Vector3(28,0,42)],[Vector3(-6,0,85),Vector3(-26,0,85)]]:
+		if not game.walking.clear_segment(ends[0],ends[1]):
+			push_error("Packaged public gallery is obstructed")
+			quit(1)
+			return
+	var urban_original := SaveGame.snapshot(game)
+	var urban_old := JSON.parse_string(JSON.stringify(urban_original)) as Dictionary
+	urban_old.player.position=[-18,0,32]
+	if not SaveGame.restore(game,urban_old):
+		push_error("Packaged urban old-position fixture rejected"); quit(1); return
+	for i in range(10): await physics_frame
+	if game.player.position.y<-.05 or game.player.position.distance_to(Vector3(-18,0,32))>3.5 or not game.player.is_on_floor():
+		push_error("Packaged urban local ground recovery failed"); quit(1); return
+	if not SaveGame.restore(game,urban_original):
+		push_error("Packaged urban fixture cleanup failed"); quit(1); return
+	for i in range(8): await physics_frame
+	print("PACKAGED_URBAN galleries=3 scenery_only=29 coastal_shader=true local_ground_restore=true")
 	var sources_path := OS.get_executable_path().get_base_dir().path_join("../Resources/ASSET-SOURCES.json")
 	var sources: Variant=JSON.parse_string(FileAccess.get_file_as_string(sources_path))
 	if not sources is Dictionary or sources.get("assets",[]).size()!=5:

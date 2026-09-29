@@ -130,6 +130,7 @@ func build_lighting() -> void:
 	env.environment.sky=sky
 	env.environment.fog_enabled=true
 	env.environment.fog_density=.0012
+	env.environment.fog_sky_affect=.18
 	env.environment.background_color = Color("8fb4c5")
 	env.environment.ambient_light_source = Environment.AMBIENT_SOURCE_COLOR
 	env.environment.ambient_light_color = Color("c6c9cc")
@@ -606,13 +607,22 @@ func repair_migrated_positions(revision: int) -> void:
 		if actor==player and in_vehicle(): continue
 		if actor!=player and (actor.dead or actor.care_state!="awake"): continue
 		var origin: Vector3=actor.position
-		if position_clear(actor,origin): continue
+		# Before this deferred repair runs, physics can push an actor embedded in
+		# new scenery below the flat district floor. Query and assign the same
+		# supported height; position_clear already evaluates at least y=0.
+		origin.y=maxf(origin.y,0)
+		if position_clear(actor,origin):
+			if actor.position.y<0:
+				actor.position=origin
+				actor.velocity=Vector3.ZERO
+			continue
 		var found := false
 		for radius in [0.5,1.0,1.5,2.0,3.0]:
 			for step in range(16):
 				var candidate: Vector3 = origin+Vector3(sin(step*TAU/16),0,cos(step*TAU/16))*radius
 				if position_clear(actor,candidate):
 					actor.position=candidate
+					actor.velocity=Vector3.ZERO
 					found=true
 					break
 			if found: break

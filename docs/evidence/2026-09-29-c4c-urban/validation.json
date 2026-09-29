@@ -1,0 +1,36 @@
+{
+  "date": "2026-09-29",
+  "source_sha256": "89916bb4bb906497b97ec8f6a5e8d79fd873d2ae8b3d9e6281407514bad90397",
+  "godot_tests": 71,
+  "python_tests": 24,
+  "stage_test_displacement_m": 191.167528152466,
+  "source_matches_pack": true,
+  "zip_crc_ok": true,
+  "logs": {
+    "build/c4c-check.log": "14f8ad262b7dce5ada20285b5fca5bbda9cdc2b63a1f124e5da7d1359feeb9ef",
+    "build/c4c-python.log": "b52aa5ee857634502ee45e54477a15e1c518b6fa216e31f640fd255a0ccefa64",
+    "build/c4c-urban-diagnosis.log": "a0cf2a0a2b841e8e60c8f5a823ac9dde81763acba06e98c8aa55c43aaf24b9fc",
+    "build/c4c-urban-final.log": "ceddcabad493bac72995eef94dc9ee73737a9e84021e74ff16148535bd21dbb1",
+    "build/c4c-render-final.log": "3d2dc866591290000f1658adba596f50932474d8ea0d2aa6c4f123dfafe70aab",
+    "build/c4c-company-route.log": "f1f9f8f59e061ad95928d741c20f0a27a37dc4bd8ad1c70b58c48c74c171549d",
+    "build/c4c-probe-project-final.log": "c222274906607cfee1fdbe01d280578eb03cafe6796b6c437d9491ffe61d709a",
+    "build/c4c-probe-tmp-final.log": "c222274906607cfee1fdbe01d280578eb03cafe6796b6c437d9491ffe61d709a"
+  },
+  "observed_failure": {
+    "old_lots": 3,
+    "restored_y_m": [
+      -2.290137,
+      -2.314581,
+      -2.314581
+    ],
+    "cause": "query height clamped to ground but assigned height retained physics depenetration below ground"
+  },
+  "window": {
+    "minimized": true,
+    "unfocusable": true,
+    "focused": false,
+    "mouse_visible": true
+  },
+  "visual_acceptance_complete": false,
+  "normal_game_fps_measured": false
+}

@@ -11,6 +11,9 @@ const VIEWS := [
 	["waterfront-night",Vector3(-30,1.7,115),Vector3(16,1.6,121),1230]
 ]
 
+func views() -> Array:
+	return VIEWS
+
 func fingerprint(game: Node3D) -> Dictionary:
 	var result := {}
 	for node in game.get_node("ConnectedDistrict/Streetscape").find_children("*","MultiMeshInstance3D",true,false):
@@ -43,7 +46,7 @@ func run() -> void:
 	camera.make_current()
 	camera.fov=65
 	var data := {"views":[],"root_minimized":root.mode==Window.MODE_MINIMIZED,"root_focused":root.has_focus(),"root_unfocusable":root.get_flag(Window.FLAG_NO_FOCUS),"pointer_visible":Input.mouse_mode==Input.MOUSE_MODE_VISIBLE,"resolution":[1440,900],"fov":65,"normal_game_performance":false,"final_visual_acceptance":false}
-	for shot in VIEWS:
+	for shot in views():
 		game.payroll.minute=shot[3]
 		game.update_daylight()
 		camera.position=shot[1]

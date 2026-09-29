@@ -11,6 +11,8 @@ var last_night := -1.0
 var piece_count := 0
 var leaf_mesh: ArrayMesh
 var cylinder_mesh: CylinderMesh
+var water: ShaderMaterial
+var wave_time := 0.0
 
 func _init() -> void:
 	name="Streetscape"
@@ -203,7 +205,7 @@ func landscape() -> void:
 	# Thin surfaces preserve y=0 collision: the character has no step-climbing.
 	for item in [[Vector3(0,0,18),Vector3(140,.018,6)],[Vector3(0,0,94),Vector3(140,.018,6)],[Vector3(-66,0,56),Vector3(6,.018,78)],[Vector3(66,0,56),Vector3(6,.018,78)],[Vector3(-87,0,56),Vector3(8,.018,90)],[Vector3(87,0,56),Vector3(8,.018,90)],[Vector3(-47,0,52),Vector3(38,.018,17)],[Vector3(47,0,56),Vector3(38,.018,18)],[Vector3(0,0,116),Vector3(214,.018,12)]]:
 		box(item[1],item[0]+Vector3(0,.005,0),"paving")
-	for item in [[Vector3(-17,0,37),Vector3(16,.025,27)],[Vector3(17,0,37),Vector3(16,.025,27)],[Vector3(-16,0,78),Vector3(18,.025,26)],[Vector3(44,0,68),Vector3(39,.025,7)]]:
+	for item in [[Vector3(-6.5,0,35),Vector3(3,.025,24)],[Vector3(6.5,0,35),Vector3(3,.025,24)],[Vector3(-4.5,0,78),Vector3(2,.025,20)],[Vector3(44,0,68),Vector3(39,.025,7)]]:
 		box(item[1]+Vector3(1,0,1),item[0]+Vector3(0,.015,0),"stone")
 		box(item[1],item[0]+Vector3(0,.02,0),"grass")
 	# Flush paving joints, spaced in metres rather than scaled over the whole map.
@@ -211,7 +213,7 @@ func landscape() -> void:
 	for z in [111,114,117,120]: box(Vector3(212,.005,.025),Vector3(0,.017,z),"stone")
 	for z in [16,20,92,96]: box(Vector3(138,.006,.14),Vector3(0,.019,z),"trim")
 	for x in [-69,-63,63,69]: box(Vector3(.14,.006,77),Vector3(x,.019,56),"trim")
-	var trees := [Vector3(-60,0,48),Vector3(-36,0,48),Vector3(28,0,48),Vector3(52,0,48),Vector3(-60,0,70),Vector3(-36,0,70),Vector3(28,0,70),Vector3(52,0,70),Vector3(-18,0,30),Vector3(-18,0,46),Vector3(-18,0,70),Vector3(-18,0,87),Vector3(18,0,29),Vector3(18,0,46),Vector3(38,0,68)]
+	var trees := [Vector3(-60,0,48),Vector3(-36,0,48),Vector3(28,0,48),Vector3(52,0,48),Vector3(-60,0,70),Vector3(-36,0,70),Vector3(28,0,70),Vector3(52,0,70),Vector3(-6.5,0,29),Vector3(-6.5,0,45),Vector3(-4.5,0,70),Vector3(-4.5,0,87),Vector3(6.5,0,29),Vector3(6.5,0,45),Vector3(38,0,68)]
 	for x in [-90,-66,-42,-18,18,42,66,90]: trees.append(Vector3(x,0,122))
 	for i in range(trees.size()):
 		tree(trees[i],900+i)
@@ -254,8 +256,16 @@ func flush() -> void:
 	batches.clear()
 
 func daylight(value: float) -> void:
+	if water: water.set_shader_parameter("daylight",value)
 	var night := 1.0-smoothstep(.04,.35,value)
 	if is_equal_approx(night,last_night): return
 	last_night=night
 	for light in lamps: light.light_energy=night*1.1
 	for material in night_materials: material.emission_energy_multiplier=night*.8
+
+func _process(delta: float) -> void:
+	if not water: return
+	# The inherited process mode pauses with the world. All wave frequencies
+	# share this period, so wrapping time cannot introduce a surface jump.
+	wave_time=fmod(wave_time+delta,TAU*200)
+	water.set_shader_parameter("wave_time",wave_time)

@@ -27,3 +27,6 @@
 | 图形窗口启动覆盖 | 初始化隐藏/最小化后仍可见，运行中hide报错 | 本机Godot4.7.1修正后最小化/无焦点/鼠标可见验证一次 | [后台窗口状态](patterns/background-window-state.md) |
 
 | 程序化地表细节与像素足迹 | 近处砖缝正常，远处出现点线，MSAA未改善材质内部混叠 | C4a静态同位对比验证一次，移动镜头待验 | [地表过滤](patterns/procedural-surface-filtering.md) |
+
+| 扩建后的旧落点与地面恢复 | 旧档位于新楼芯，查询安全但角色在地板下 | C4c三处定向恢复验证一次，范围限当前平地 | [地面支撑与恢复](patterns/floor-seams.md) |
+| 天空的雾色覆盖 | 天空资源已配置但实际仍是单色 | C4c同位昼夜图片验证一次 | [天空与雾](patterns/sky-fog-coverage.md) |
