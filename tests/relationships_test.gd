@@ -17,10 +17,12 @@ func run() -> void:
 	for kind in ["tea","lunch","walk"]:
 		game.payroll.minute={"tea":600,"lunch":750,"walk":1110}[kind]
 		game.social.handle("people_invite_"+kind,friend)
+		if kind=="walk": game.social.handle("people_city_go_garden",friend)
 		check(game.social.outing.get("stage")=="walking","日常活动接受后有实际行走目标："+kind)
 		check(not game.social.state(friend).days.has("outing_0"),"未到场交谈不计完成")
 		friend.position=game.social.destination(friend,kind)
 		game.player.position=friend.position+Vector3(1,0,0)
+		game.speaker=friend
 		game.social.handle("people_share",friend)
 		check(game.conversation.choices[0][1]=="people_listen","到场后才进入具体生活话题")
 		if kind!="walk": game.social.handle("people_pause",friend)

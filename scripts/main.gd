@@ -215,6 +215,7 @@ func money_text() -> String:
 	return "¥ %.2f · 发薪 第%d天" % [payroll.balance/100.0,payroll.next_payday/1440+1]
 
 func objective_text() -> String:
+	if CityOuting.target(social)!=null and city_life.guide=="" and not city_life.walk.guiding and driving.guide_car=="" and transit.waypoint=="": return CityOuting.status(social)
 	if city_life and city_life.walk.guiding: return city_life.walk.status_text()
 	if city_life and city_life.guide!="": return city_life.status_text()
 	if driving and driving.guide_car!="": return "前往 "+driving.car_for(driving.guide_car).title+" · 靠近车辆按 E 上车"
@@ -249,7 +250,9 @@ func navigation_target() -> Node3D:
 	if city_life and city_life.walk.guiding: return city_life.walk.target()
 	if city_life and city_life.guide!="": return city_life.point_for(city_life.guide)
 	if driving and driving.guide_car!="": return driving.car_for(driving.guide_car)
-	return transit.station_for(transit.waypoint) if transit.waypoint!="" else ObjectiveGuide.target(self)
+	if transit.waypoint!="": return transit.station_for(transit.waypoint)
+	var companion := CityOuting.target(social)
+	return companion if companion else ObjectiveGuide.target(self)
 
 func targets() -> Array:
 	return npcs + stations + props + (driving.cars.filter(func(car): return not car.traffic) if driving else []) + (population.residents if population else []) + (city_life.points if city_life else []) + (commons.benches.values() if commons else [])
@@ -267,6 +270,8 @@ func nearest() -> Node3D:
 		if node is CityBench: score=d*(1.15 if player.seated else .65)+(.8 if commons.player_bench()==node else 0.0)
 		var arriving: bool=node is OfficeNPC and not node.dead and not visit.is_empty() and visit.npc==node.role_id and career.facts.get("visit_state_"+visit.key,"")=="arrived"
 		if arriving: score-=1.0
+		# Keep a deliberately faced companion selectable when pedestrians pass by.
+		if node is OfficeNPC and node.available() and social.outing.get("person")==node.stable_id and social.outing.has("venue") and offset.normalized().dot(player.forward())>.9: score-=.75
 		if d<3.0 and score < distance and (arriving or (node is WorkStation and d<0.7) or offset.normalized().dot(player.forward()) > 0.2) and can_see(player,node):
 			best = node
 			distance = score
@@ -323,6 +328,9 @@ func interact() -> void:
 		if target.portable(): player.collect(target)
 		else: player.pick(target)
 	elif target is OfficeNPC or target is WorkStation:
+		if target is OfficeNPC and CityFootRoutes.crossing_at(target.position)!="":
+			say("先走到路边再聊。")
+			return
 		if target is OfficeNPC and not target.available():
 			say("对方已死亡，无法再交谈。" if target.dead else "对方正在接受救助或休养，之后会返岗。")
 			return
@@ -339,7 +347,7 @@ func interact() -> void:
 			conversation={"text":"保安：需要时可以帮你清理被堵的通路。", "choices":[["请挪开走道上的大件","clear_path"]]}
 		if target is OfficeNPC:
 			conversation=office.visit_choices(target,conversation)
-			if social.outing.get("person")==target.stable_id and social.outing.get("stage")=="walking": conversation=social.options(target)
+			if social.outing.get("person")==target.stable_id and social.outing.get("stage") in ["walking","sharing","paused"]: conversation=social.options(target)
 			elif conversation.choices.size()<4: conversation.choices.append(["回应私人邀约" if social.outing.get("person")==target.stable_id else "聊聊近况与相处","people_menu"])
 			var introduction: Dictionary=onboarding.options(target)
 			if not introduction.is_empty(): conversation=introduction

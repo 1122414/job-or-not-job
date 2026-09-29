@@ -68,7 +68,7 @@ func run() -> void:
 			push_error("Packaged public gallery is obstructed")
 			quit(1)
 			return
-	if game.commons.benches.size()!=6 or SaveGame.VERSION!=18:
+	if game.commons.benches.size()!=6 or SaveGame.VERSION!=19:
 		push_error("Packaged public commons missing"); quit(1); return
 	var commons_original := SaveGame.snapshot(game)
 	game.set_process(false)
@@ -79,8 +79,9 @@ func run() -> void:
 		if game.commons.sitting(neighbour): break
 	if not game.commons.sitting(neighbour) or not SaveGame.restore(game,JSON.parse_string(JSON.stringify(SaveGame.snapshot(game)))):
 		push_error("Packaged resident cannot naturally use and restore a bench"); quit(1); return
-	print("PACKAGED_COMMONS benches=6 schema=18 natural_seating=true json_restore=true")
+	print("PACKAGED_COMMONS benches=6 schema=19 natural_seating=true json_restore=true")
 	if not SaveGame.restore(game,commons_original): quit(1); return
+	if not await verify_city_outing(game): quit(1); return
 	game.set_process(true)
 	var urban_original := SaveGame.snapshot(game)
 	var urban_old := JSON.parse_string(JSON.stringify(urban_original)) as Dictionary
@@ -342,3 +343,36 @@ func run() -> void:
 	game.queue_free()
 	await process_frame
 	quit()
+
+func verify_city_outing(game: Node3D) -> bool:
+	var original := SaveGame.snapshot(game)
+	game.set_process(false)
+	game.payroll.minute=1110
+	var npc: OfficeNPC=game.npc_for_role("b_friend")
+	npc.position=Vector3(0,0,18); npc.route_clock=0
+	game.player.position=Vector3(0,0,16)
+	await physics_frame
+	game.social.meet(npc)
+	game.social.handle("people_city_go_garden",npc)
+	if game.social.outing.get("venue")!="garden": push_error("Packaged public outing missing"); return false
+	var path := PackedVector3Array()
+	var start := npc.position
+	for frame in range(9000):
+		if npc.position.distance_to(CityOuting.VENUES.garden[1])<.7 and game.player.position.distance_to(npc.position)<2.8: break
+		if frame%30==0: path=game.walking.route(game.player.position,npc.position,null,game.player)
+		while not path.is_empty() and game.player.position.distance_to(path[0])<.15: path.remove_at(0)
+		if game.player.position.distance_to(npc.position)>1.65 and not path.is_empty():
+			var offset: Vector3=path[0]-game.player.position
+			game.player.yaw=atan2(-offset.x,-offset.z); Input.action_press("forward")
+		else: Input.action_release("forward")
+		await physics_frame
+	Input.action_release("forward")
+	game.speaker=npc
+	game.social.handle("people_share",npc)
+	game.social.handle("people_boundary",npc)
+	if not game.social.outing.is_empty() or not game.social.state(npc).get("city",{}).has("garden") or npc.position.distance_to(start)<40:
+		push_error("Packaged outing failed: npc=%s player=%s route=%s outing=%s" % [npc.position,game.player.position,npc.route,game.social.outing]); return false
+	if not SaveGame.restore(game,JSON.parse_string(JSON.stringify(SaveGame.snapshot(game)))):
+		push_error("Packaged public outing JSON failed"); return false
+	print("PACKAGED_OUTING actual_garden_walk=true distinct_memory=true schema=19 json_restore=true")
+	return SaveGame.restore(game,original)

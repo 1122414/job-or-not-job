@@ -65,12 +65,14 @@ func kind_name(kind: String) -> String:
 	return {"tea":"茶水间聊聊","lunch":"一起吃午饭","walk":"下班同行"}.get(kind,"稍后再约")
 
 func destination(npc: OfficeNPC,kind: String) -> Vector3:
+	if kind=="walk" and outing.get("person")==npc.stable_id and outing.has("venue"): return CityOuting.VENUES[outing.venue][1]
 	if kind=="tea": return OfficeRooms.point(game,npc.company,"tea")
 	return Vector3(9,0,12.3) if kind=="lunch" else Vector3(-5,0,12.8)
 
 func options(npc: OfficeNPC) -> Dictionary:
 	var p := state(npc)
 	if outing.get("person")==npc.stable_id:
+		if outing.has("venue"): return CityOuting.options(self,npc)
 		if outing.stage=="offered": return {"text":npc.title.split(" · ")[0]+"：要不要"+kind_name(outing.kind)+"？不方便也没关系。","choices":[["好，一起走","people_accept"],["今天先不了","people_decline"],["先说工作上的事","people_work"]]}
 		if outing.stage=="walking":
 			var arrived: bool=npc.position.distance_to(destination(npc,outing.kind))<0.7 and npc.position.distance_to(game.player.position)<3
@@ -84,10 +86,10 @@ func options(npc: OfficeNPC) -> Dictionary:
 
 func npc_target(npc: OfficeNPC) -> Variant:
 	if outing.get("person")!=npc.stable_id or not npc.available(): return null
-	if work_following(npc): return null
+	if work_following(npc) or game.office.visit_target(npc)!=null or outing.stage=="paused": return null
 	if game.speaker==npc and not game.conversation.is_empty(): return npc.position
-	if outing.stage=="walking":
-		return npc.position if npc.position.distance_to(game.player.position)>6 else destination(npc,outing.kind)
+	if outing.stage in ["walking","sharing"]:
+		return npc.position if npc.position.distance_to(game.player.position)>6 and CityFootRoutes.crossing_at(npc.position)=="" else destination(npc,outing.kind)
 	return npc.position
 
 func work_following(npc: OfficeNPC) -> bool:
@@ -101,6 +103,7 @@ func handle(action: String,npc: OfficeNPC) -> bool:
 	if not action.begins_with("people_"): return false
 	var p := state(npc)
 	var day := str(game.payroll.minute/1440)
+	if CityOuting.handle(self,npc,action): return true
 	if action=="people_menu": game.conversation=options(npc); return true
 	if action=="people_bookshop": game.city_life.share(npc); return true
 	if action=="people_story_walk": game.city_life.walk.share(npc); return true
@@ -123,8 +126,9 @@ func handle(action: String,npc: OfficeNPC) -> bool:
 		var kind: String=outing.get("kind",kind_now()) if action=="people_accept" else action.trim_prefix("people_invite_")
 		game.close_interaction()
 		if not willing(npc): game.say("现在只谈必要的工作吧，我还不想私下相处。"); return true
-		if not outing.is_empty() and outing.person!=npc.stable_id: game.say("先结束或暂停正在进行的约定。"); return true
+		if not outing.is_empty() and outing.person!=npc.stable_id: game.say("先结束原来的约定，再约其他人；暂缓会保留原约定。" if outing.has("venue") else "先结束或暂停正在进行的约定。"); return true
 		if kind!=kind_now(): game.say("这个时间不合适，换个时间再约。"); return true
+		if kind=="walk": CityOuting.menu(self,npc); return true
 		outing={"person":npc.stable_id,"kind":kind,"stage":"walking","elapsed":0.0}
 		game.say(npc.title.split(" · ")[0]+"：走吧，我会等你。P人物页可找到我们的约定。")
 		game.queue_save()
@@ -146,6 +150,7 @@ func handle(action: String,npc: OfficeNPC) -> bool:
 		if not willing(npc): game.close_interaction(); game.say("我现在想保持距离，工作需要的事可以照常谈。"); return true
 		remember(npc,"chat_"+day,"你们聊过近况，没有把拒绝加班当作不合群。",2,2)
 		game.conversation={"text":npc.title.split(" · ")[0]+"："+PROFILES.get(npc.role_id,["","","","今天想把事情做好，也想准时回家。"])[3],"choices":[["谢谢你和我说这些","people_continue"],["回到工作话题","people_work"]]}
+		game.conversation.text+=CityOuting.memory_line(self,npc)
 		if game.city_life and game.city_life.can_share(npc): game.conversation.choices.push_front(["聊起社区书屋的分享会","people_bookshop"])
 		if game.city_life.walk.stage==5 and game.city_life.can_share(npc): game.conversation.choices.push_front(["聊起旧站到海边的走访记录","people_story_walk"])
 		return true
@@ -170,6 +175,7 @@ func tick(delta: float) -> void:
 		if not person or not willing(person): outing.clear(); game.queue_save(); return
 		# A confirmed work follow takes precedence without cancelling a private plan.
 		if work_following(person): return
+		CityOuting.tick(self)
 		outing.elapsed+=delta
 		if outing.stage=="offered" and outing.elapsed>60: outing.clear(); game.queue_save()
 		return
@@ -196,6 +202,7 @@ static func valid(data: Variant,npcs: Dictionary) -> bool:
 		for key in ["trust","fear"]:
 			if not (p.get(key) is int or p.get(key) is float) or not is_finite(p[key]) or p[key]<-100 or p[key]>100: return false
 		if p.fear<0: return false
+		if p.has("city") and not CityOuting.valid_visit(p.city): return false
 		if p.memories.size()>8: return false
 		for line in p.memories:
 			if not line is String or line.length()>600: return false
@@ -203,6 +210,10 @@ static func valid(data: Variant,npcs: Dictionary) -> bool:
 			if not (key is String or key is StringName) or not (p.days[key] is int or p.days[key] is float) or not is_finite(p.days[key]) or p.days[key]<0: return false
 	var o: Dictionary=data.outing
 	if not o.is_empty():
-		if not npcs.has(o.get("person","")) or not o.get("kind") in ["tea","lunch","walk"] or not o.get("stage") in ["offered","walking"]: return false
+		if not npcs.has(o.get("person","")) or not o.get("kind") in ["tea","lunch","walk"] or not o.get("stage") in ["offered","walking","sharing","paused"]: return false
+		if o.has("venue"):
+			if o.kind!="walk" or not o.venue in CityOuting.VENUES or o.stage=="offered": return false
+			if o.has("guiding") and not o.guiding is bool: return false
+		elif not o.stage in ["offered","walking"] or o.has("guiding"): return false
 		if not (o.get("elapsed") is int or o.get("elapsed") is float) or not is_finite(o.elapsed) or o.elapsed<0: return false
 	return true

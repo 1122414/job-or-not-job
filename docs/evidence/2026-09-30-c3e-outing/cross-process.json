@@ -1,0 +1,47 @@
+[
+  {
+    "file": "bookshop-completed.json",
+    "exit": 0,
+    "passed": true
+  },
+  {
+    "file": "garden-completed.json",
+    "exit": 0,
+    "passed": true
+  },
+  {
+    "file": "waterfront-completed.json",
+    "exit": 0,
+    "passed": true
+  },
+  {
+    "file": "a_friend-bookshop-mid.json",
+    "exit": 0,
+    "passed": true
+  },
+  {
+    "file": "a_friend-bookshop-return-mid.json",
+    "exit": 0,
+    "passed": true
+  },
+  {
+    "file": "a_friend-waterfront-mid.json",
+    "exit": 0,
+    "passed": true
+  },
+  {
+    "file": "a_friend-waterfront-return-mid.json",
+    "exit": 0,
+    "passed": true
+  },
+  {
+    "file": "b_friend-garden-mid.json",
+    "exit": 0,
+    "passed": true
+  },
+  {
+    "file": "b_friend-garden-return-mid.json",
+    "exit": 0,
+    "passed": true
+  }
+]

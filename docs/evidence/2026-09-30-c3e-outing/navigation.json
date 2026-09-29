@@ -1,0 +1,18 @@
+{
+	"images": 1,
+	"independent_player_acceptance": false,
+	"normal_fps_measured": false,
+	"normal_player_camera": true,
+	"pointer_visible": true,
+	"returns": [
+		{
+			"actual_mouse_click": true,
+			"companion_target": "b_friend",
+			"people_key_open": true,
+			"pointer_visible": true
+		}
+	],
+	"root_focused": false,
+	"root_minimized": true,
+	"root_unfocusable": true
+}

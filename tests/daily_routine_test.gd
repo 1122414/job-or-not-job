@@ -14,7 +14,8 @@ func run() -> void:
 	for kind in ["tea","lunch","walk"]:
 		game.payroll.advance({"tea":600,"lunch":750,"walk":1110}[kind]-game.payroll.minute,"")
 		game.social.handle("people_invite_"+kind,npc)
-		if not await Driver.follow(self,game,npc,game.social.destination(npc,kind)): failures+=1; break
+		if kind=="walk": game.social.handle("people_city_go_garden",npc)
+		if not await Driver.follow(self,game,npc,game.social.destination(npc,kind),12000): failures+=1; break
 		game.speaker=npc
 		game.conversation=game.social.options(npc)
 		if game.conversation.choices[0][1]!="people_share": failures+=1; break

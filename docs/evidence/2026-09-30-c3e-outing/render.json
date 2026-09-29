@@ -1,0 +1,60 @@
+{
+	"images": 9,
+	"independent_player_acceptance": false,
+	"normal_fps_measured": false,
+	"normal_player_camera": true,
+	"pointer_visible": true,
+	"returns": [
+		{
+			"end": [
+				-56.2612800598145,
+				0.000941560370847583,
+				50.8096961975098
+			],
+			"max_step": 0.0383355207741261,
+			"metres": 21.2364567555487,
+			"physics_frames": 600,
+			"start": [
+				-50.6476821899414,
+				0.000941560370847583,
+				35.0194702148438
+			],
+			"venue": "bookshop"
+		},
+		{
+			"end": [
+				24.6342430114746,
+				0.000940423051360995,
+				55.1941146850586
+			],
+			"max_step": 0.0383355356752872,
+			"metres": 21.1871913336217,
+			"physics_frames": 600,
+			"start": [
+				41.8701286315918,
+				0.000940423051360995,
+				53.9985084533691
+			],
+			"venue": "garden"
+		},
+		{
+			"end": [
+				7.31677627563477,
+				0.000941560370847583,
+				112.65193939209
+			],
+			"max_step": 0.0383369103074074,
+			"metres": 21.2366676181555,
+			"physics_frames": 600,
+			"start": [
+				27.8548049926758,
+				0.000941560370847583,
+				115.977912902832
+			],
+			"venue": "waterfront"
+		}
+	],
+	"root_focused": false,
+	"root_minimized": true,
+	"root_unfocusable": true
+}

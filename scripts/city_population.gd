@@ -93,12 +93,16 @@ func crossing_for(from: String,to: String) -> String:
 	return ""
 
 func waiting(id: String) -> bool:
+	for npc in game.npcs:
+		if npc.available() and npc.street_request==id: return true
 	if game.response and (game.response.requests(id) or game.response.closed(id)): return true
 	for person in residents:
 		if person.available() and person.crossing=="" and person.requested_crossing()==id: return true
 	return false
 
 func occupied(id: String) -> bool:
+	for npc in game.npcs:
+		if npc.care_state not in ["away","carried"] and CityFootRoutes.crossing_at(npc.position)==id: return true
 	if game.response and (game.response.occupied(id) or game.response.closed(id)): return true
 	for person in residents:
 		if person.crossing==id: return true

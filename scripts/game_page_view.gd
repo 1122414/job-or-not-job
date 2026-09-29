@@ -273,7 +273,9 @@ func people() -> void:
 	paragraph(person.title+" · "+game.social.describe(person),ACCENT)
 	paragraph(profile[1])
 	paragraph(profile[2] if game.social.state(person).met else "尚未正式认识。可在招聘接待或办公区找到对方。")
-	if game.social.outing.get("person")==person.stable_id: paragraph("当前约定："+game.social.kind_name(game.social.outing.kind)+"；靠近后 E 回应，可暂缓。")
+	if game.social.outing.get("person")==person.stable_id: paragraph("当前约定："+(CityOuting.VENUES[game.social.outing.venue][0]+(" · 暂缓" if game.social.outing.stage=="paused" else " · 同行中") if game.social.outing.has("venue") else game.social.kind_name(game.social.outing.kind))+"；靠近后 E 回应，可暂缓。")
+	if game.social.outing.get("person")==person.stable_id and game.social.outing.has("venue"):
+		action("follow-companion","找到同行的人",func(): CityOuting.focus(game.social); game.panels.show_page(""))
 	paragraph("最近的经历",ACCENT)
 	var memories: Array=game.social.state(person).memories
 	if memories.is_empty(): paragraph("还没有共同经历。",MUTED)

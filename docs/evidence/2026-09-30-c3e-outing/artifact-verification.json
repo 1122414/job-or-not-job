@@ -1,0 +1,18 @@
+{
+  "build_id": "20260929T160710908571Z-3c79f6cf-aac2b5e2",
+  "runtime_sha256": "aac2b5e2b6f2c5b52b91ceeee81bd4ea2b827854a94b94d270cd83dc2a48fa43",
+  "zip_sha256": "9a0b482f19b6e26cc4ef3e302847481fd4458ea11dc9f9c87849d5a8738dd2c0",
+  "zip_bytes": 347394620,
+  "crc_verified": true,
+  "signature_verified": true,
+  "manifests_match": true,
+  "pck_hash_matches": true,
+  "packaged_engine_hash_matches": true,
+  "engine_source_hash_matches": true,
+  "runtime_dirty": true,
+  "package_probe_directories": [
+    "project",
+    "/private/tmp"
+  ],
+  "probe_save_isolation": true
+}

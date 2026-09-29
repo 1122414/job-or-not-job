@@ -43,6 +43,8 @@ func cell(pos: Vector3) -> Vector2i:
 func route(from: Vector3, to: Vector3, seat: CollisionObject3D = null, actor: Node3D = null) -> PackedVector3Array:
 	var points := PackedVector3Array()
 	if not built: return points
+	if not CityFootRoutes.in_office(from) or not CityFootRoutes.in_office(to):
+		return CityFootRoutes.route(self,from,to,seat,actor)
 	var occupied := {}
 	if actor:
 		for person in world.npcs+[world.player]+world.population.residents:

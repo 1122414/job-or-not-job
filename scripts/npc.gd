@@ -28,6 +28,7 @@ var visual: HumanVisual
 var label: Label3D
 var route := PackedVector3Array()
 var route_clock := 0.0
+var street_request := ""
 var reaction := 0.0
 var hostile := 0.0
 var attack_cooldown := 0.0
@@ -132,6 +133,7 @@ func hit(direction: Vector3, strength: float, action: int, dangerous: bool = tru
 
 
 func _physics_process(delta: float) -> void:
+	street_request=""
 	if care_state in ["away","carried"]: return
 	if not seat_body:
 		for prop in game.props:
@@ -189,12 +191,14 @@ func _physics_process(delta: float) -> void:
 		if Vector2(target.x-position.x,target.z-position.z).length()<0.3: route.clear()
 		var next := global_position if route.is_empty() else route[0]
 		if global_position.distance_to(target)<1.5 and game.walking.clear_segment(global_position,target,seat_body,self): next=target
+		street_request=CityFootRoutes.request(global_position,next)
+		if street_request!="" and not game.population.may_cross(street_request): next=global_position
 		var direction := next - global_position
 		direction.y = 0
 		if direction.length() > 0.15:
 			direction = direction.normalized()
 			# The grid excludes moving people; steer around nearby bodies locally.
-			for other in game.npcs:
+			for other in game.npcs+game.population.residents+[game.player]:
 				if other==self: continue
 				var away: Vector3=global_position-other.global_position
 				away.y=0
