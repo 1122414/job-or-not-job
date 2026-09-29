@@ -1,0 +1,61 @@
+{
+	"failures": 0,
+	"measurements": {
+		"a_cheng": {
+			"reach_error_m": 0.000000247556670274207,
+			"skin_error_m": 0.0000183501797437202
+		},
+		"casual": {
+			"reach_error_m": 0.000000265307619429223,
+			"skin_error_m": 0.0000372465729014948
+		},
+		"held/badge": {
+			"max_support_penetration_m": 0.000319438055157661,
+			"skin_error_m": 0.00203399197198451
+		},
+		"held/cup": {
+			"max_support_penetration_m": 0.000320431590080258,
+			"skin_error_m": 0.00203399197198451
+		},
+		"held/keyboard": {
+			"max_support_penetration_m": 0.000319750979542732,
+			"skin_error_m": 0.00203399197198451
+		},
+		"held/monitor": {
+			"max_support_penetration_m": 0.000325726345181465,
+			"skin_error_m": 0.0020341114141047
+		},
+		"interview_b/box_message": {
+			"max_sample_displacement_m": 0.0160876493901014,
+			"skin_error_m": 0.0000237702242884552
+		},
+		"interview_b/phone_reply": {
+			"max_sample_displacement_m": 0.0112689230591059,
+			"skin_error_m": 0.0000238659849856049
+		},
+		"interview_boss/phone_reply": {
+			"max_sample_displacement_m": 0.0126111255958676,
+			"skin_error_m": 0.0000478081274195574
+		},
+		"interview_lead/phone_reply": {
+			"max_sample_displacement_m": 0.0126111255958676,
+			"skin_error_m": 0.0000478081274195574
+		},
+		"lin_lan": {
+			"reach_error_m": 0.000000149754811218372,
+			"skin_error_m": 0.0000331897826981731
+		},
+		"office": {
+			"reach_error_m": 0.000000265307619429223,
+			"skin_error_m": 0.0000372465729014948
+		},
+		"office_female": {
+			"reach_error_m": 0.000000265307619429223,
+			"skin_error_m": 0.0000372465729014948
+		},
+		"protagonist": {
+			"reach_error_m": 0.000000273142802598159,
+			"skin_error_m": 0.0000358850884367712
+		}
+	}
+}

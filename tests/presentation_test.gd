@@ -19,7 +19,7 @@ func run() -> void:
 	for npc in game.npcs: check(not npc.label.text.contains("\n"),"头顶不堆四行信息")
 	game.player.pick(keyboard)
 	await physics_frame
-	check(keyboard.global_position.distance_to(game.player.hand.global_position)<0.01,"手持物跟随手腕")
+	check(keyboard.to_global(keyboard.support_point()).distance_to(game.player.visual.contacts.palm("R").origin)<0.01,"手持物底部支撑点跟随手掌")
 	game.player.release(false)
 	for i in range(120): await physics_frame
 	check(not keyboard.freeze and keyboard.position.y<0.3,"放下后回到物理地面")

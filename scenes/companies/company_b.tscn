@@ -3466,10 +3466,10 @@ material_override = SubResource("StandardMaterial3D_bkdfk")
 mesh = SubResource("BoxMesh_8mp00")
 
 [node name="InterviewPhoneB" type="Node3D" parent="." unique_id=664315733]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.78, 0.798, -14.42)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.78, 0.798, -14.54)
 
 [node name="@MeshInstance3D@844" type="MeshInstance3D" parent="InterviewPhoneB" unique_id=1354195052]
-transform = Transform3D(0.99280864, 0, 0.119712204, 0, 1, 0, -0.119712204, 0, 0.99280864, 0, 0, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 material_override = SubResource("StandardMaterial3D_42hk8")
 mesh = SubResource("BoxMesh_xar5t")
 

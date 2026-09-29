@@ -1,6 +1,8 @@
 class_name OfficeProp
 extends RigidBody3D
 
+const HAND_CLEARANCE := 0.002
+
 const TYPES := {
 	"badge":["工牌",Vector3(0.10,0.016,0.16),Color("e2e8e4"),0.1],
 	"keyboard":["键盘",Vector3(0.52,0.035,0.19),Color("35495b"),1.0],
@@ -45,6 +47,15 @@ func setup(id: String, type: String, pos: Vector3, owner_game: Node3D) -> void:
 
 func portable() -> bool:
 	return kind in ["keyboard", "cup", "monitor", "badge"]
+
+# Contact on the underside, with wide objects supported toward the right edge.
+# The monitor has a stand extending below its display's bounding box.
+func support_point() -> Vector3:
+	return {"keyboard":Vector3(0.16,-0.0175,0),"cup":Vector3(0,-0.075,0),"monitor":Vector3(0.19,-0.4175,0.02),"badge":Vector3(0,-0.008,0)}.get(kind,Vector3.ZERO)
+
+func in_palm() -> Transform3D:
+	var basis := Basis(Vector3.RIGHT,Vector3.BACK,Vector3.DOWN)
+	return Transform3D(basis,Vector3.BACK*HAND_CLEARANCE-(basis*support_point()))
 
 func _ready() -> void:
 	durability=max_durability()

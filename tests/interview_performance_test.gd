@@ -33,10 +33,10 @@ func run() -> void:
  for i in range(125): await physics_frame
  check(host.visual.current=="box_message","第三段触发独立骨骼演出")
  check(box.global_position.distance_to(OfficeRooms.B_BOX_FLOOR)<0.08,"纸箱从桌面滑落到桌下")
- check(host.visual.scene_phone.visible and not phone.visible,"手机随手部动作拿起，桌面手机不复制")
+ check(phone.visible and phone.global_position.y>1.0 and phone.get_parent()==OfficeRooms.space(game,"b"),"手机随手部动作拿起，桌面手机不复制")
  check(game.interviews.heard_cues.has("b/interview_b/2/fall") and game.interviews.heard_cues.has("b/interview_b/2/phone"),"纸箱落地与手机提醒对应实际动作时点")
  for i in range(220): await physics_frame
- check(phone.visible and not host.visual.scene_phone.visible,"语音动作结束后手机回到桌面")
+ check(phone.visible and absf(phone.global_position.y-0.798)<0.001,"语音动作结束后手机回到桌面")
  check(int(game.interviews.sessions.b.gesture_done_step)==2,"动作完整播完后不会在同一句反复举手机")
  game.career.conflict.b=2
  game.interviews.tick()
@@ -54,10 +54,10 @@ func run() -> void:
  game.conversation=game.interviews.question("a")
  var a_phone: Node3D=OfficeRooms.object(game,"a","InterviewPhoneA")
  for i in range(65): await physics_frame
- check(lead.visual.current=="phone_reply" and lead.visual.scene_phone.visible and not a_phone.visible,"A 公司面试官拿起手机，桌面物件同步隐藏")
+ check(lead.visual.current=="phone_reply" and a_phone.visible and a_phone.global_position.y>0.9,"A 公司面试官拿起手机，桌面物件同步隐藏")
  game.interviews.interrupt()
  for i in range(3): await physics_frame
- check(a_phone.visible and not lead.visual.scene_phone.visible,"离场中断后手机回到桌面")
+ check(a_phone.visible and absf(a_phone.global_position.y-0.798)<0.001,"离场中断后手机回到桌面")
  game.queue_free()
  for i in range(3): await process_frame
  print("INTERVIEW_PERFORMANCE_TEST failures=",failures)

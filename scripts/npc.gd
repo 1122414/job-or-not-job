@@ -62,6 +62,7 @@ func _ready() -> void:
 	if role_id in ["a_hr","a_group"]: visual.outfit="office_female"
 	visual.cast_id={"a_hr":"lin_lan","b_hr":"a_cheng"}.get(stable_id,"")
 	add_child(visual)
+	visual.animation.mixer_applied.connect(func(): game.interviews.update_phone_contact(self))
 	if not visual.cast_id.is_empty():
 		capsule.height=visual.standing_height
 		body_shape.position.y=capsule.height*0.5

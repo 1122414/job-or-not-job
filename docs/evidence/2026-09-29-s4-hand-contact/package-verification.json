@@ -1,0 +1,17 @@
+{
+  "repository": {
+    "returncode": 0,
+    "output": "Godot Engine v4.7.1.stable.official.a13da4feb - https://godotengine.org\n\nPACKAGED_SMOKE_OK build=20260929T063601251860Z-8505c34f-8cea17f0 label=v0.5.0 · 8505c34f / 8cea17f0（含未提交修改） npcs=10 props=114 company_spaces=2 company_sources=2 environment_props=6 asset_sources=5 authored_clips=2 authored_characters=11 texture_imports=verified ui_mouse=verified persistence=false\n"
+  },
+  "outside": {
+    "returncode": 0,
+    "output": "Godot Engine v4.7.1.stable.official.a13da4feb - https://godotengine.org\n\nPACKAGED_SMOKE_OK build=20260929T063601251860Z-8505c34f-8cea17f0 label=v0.5.0 · 8505c34f / 8cea17f0（含未提交修改） npcs=10 props=114 company_spaces=2 company_sources=2 environment_props=6 asset_sources=5 authored_clips=2 authored_characters=11 texture_imports=verified ui_mouse=verified persistence=false\n"
+  },
+  "signature": {
+    "returncode": 0
+  },
+  "zip": {
+    "returncode": 0
+  },
+  "source_sha256": "8cea17f0ea1d758350038cc32b570d91051c0550728e957f94250f6c709623a0"
+}

@@ -4,6 +4,7 @@ extends RefCounted
 var game: Node3D
 var sessions: Dictionary = {}
 var heard_cues: Dictionary = {}
+var phone_homes: Dictionary = {}
 const ACTIONS := ["interview_hr","interview_lead","interview_boss","interview_b"]
 const HOSTS := {"interview_hr":"a_hr","interview_lead":"a_lead","interview_boss":"a_boss","interview_b":"b_hr"}
 func active_firm() -> String:
@@ -132,6 +133,7 @@ func interrupt() -> void:
 				host.visual.animation.stop()
 				host.visual.current=""
 			sessions[firm].status="scheduled"
+			reset_phone(firm)
 
 func tick(delta: float=0.016) -> void:
 	update_props()
@@ -229,7 +231,10 @@ func update_props() -> void:
 	var box: Node3D=OfficeRooms.object(game,"b","InterviewBoxB")
 	var table_phone: Node3D=OfficeRooms.object(game,"b","InterviewPhoneB")
 	var host: OfficeNPC=game.npc_for_role("b_hr")
-	if not box or not table_phone or not host or not host.visual.scene_phone: return
+	if not box or not table_phone: return
+	if not host:
+		reset_phone("b")
+		return
 	var session: Dictionary=sessions.get("b",{})
 	var step: int=int(session.get("step",-1))
 	var playing: bool=active_firm()=="b" and host.visual.animation.is_playing()
@@ -254,9 +259,7 @@ func update_props() -> void:
 		else: box.global_position=Vector3(edge.x,floor_position.y,edge.z).lerp(floor_position,smoothstep(0.39,0.55,phase))
 		if phase>=0.55: session.box_drop_done=true
 	else: box.global_position=floor_position if session.get("box_drop_done",false) or step>2 or session.get("status")=="completed" else table
-	var holding: bool=clip=="phone_reply" and phase>0.17 and phase<0.83 or clip=="box_message" and phase>0.35 and phase<0.84
-	table_phone.visible=not holding
-	host.visual.scene_phone.visible=holding
+	update_phone_contact(host)
 
 func update_a_props() -> void:
 	var papers: Node3D=OfficeRooms.object(game,"a","InterviewPapersA")
@@ -275,12 +278,43 @@ func update_a_props() -> void:
 	var turning: float=sin(phase*TAU) if clip=="read" else 0
 	page.rotation.y=turning*0.22
 	page.position.x=0.04+turning*0.035
-	var holding: bool=clip=="phone_reply" and phase>0.17 and phase<0.83
-	table_phone.visible=not holding
-	for role in ["a_hr","a_lead","a_boss"]:
-		var colleague: OfficeNPC=game.npc_for_role(role)
-		if colleague and colleague!=host and colleague.visual.scene_phone: colleague.visual.scene_phone.visible=false
-	if host and host.visual.scene_phone: host.visual.scene_phone.visible=holding
+	if host: update_phone_contact(host)
+	else: reset_phone("a")
+
+func reset_phone(firm: String) -> void:
+	var phone := OfficeRooms.object(game,firm,"InterviewPhone"+firm.to_upper())
+	if not phone_homes.has(firm): phone_homes[firm]=phone.transform
+	phone.transform=phone_homes[firm]
+	phone.show()
+
+func update_phone_contact(host: OfficeNPC) -> void:
+	var firm := host.company
+	if firm not in ["a","b"]: return
+	var session: Dictionary=sessions.get(firm,{})
+	if HOSTS.get(session.get("action",""),"")!=host.role_id:
+		if session.is_empty(): reset_phone(firm)
+		return
+	var phone := OfficeRooms.object(game,firm,"InterviewPhone"+firm.to_upper())
+	if not phone_homes.has(firm): phone_homes[firm]=phone.transform
+	var home: Transform3D=phone.get_parent().global_transform*phone_homes[firm]
+	var visual := host.visual
+	var animation := visual.animation
+	var active := active_firm()==firm and host_seated(host) and visual.current in ["phone_reply","box_message"] and animation.is_playing()
+	phone.show()
+	if not active:
+		phone.global_transform=home
+		return
+	var phase := animation.current_animation_position/animation.current_animation_length
+	if visual.current=="box_message": phase=clampf((phase-0.25)/0.70,0,1)
+	var lift := smoothstep(0.18,0.40,phase)*(1.0-smoothstep(0.68,0.84,phase))
+	# Raise the same phone, then place it back before releasing the palm.
+	var raised := host.global_transform*Transform3D(Basis(Vector3.RIGHT,-PI/2),Vector3(0.22,visual.standing_height+visual.seated_offset.y-0.30,0.32))
+	phone.global_transform=home.interpolate_with(raised,lift)
+	# Grip the side edge; an underside grip would pass through the tabletop.
+	var support := Transform3D(Basis(Vector3.DOWN,Vector3.BACK,Vector3.LEFT),Vector3(0.0375,0,0))
+	var weight := smoothstep(0.0,0.16,phase)*(1.0-smoothstep(0.86,1.0,phase))
+	visual.contacts.reach("L",phone.global_transform*support,weight)
+	visual.contacts.fingers("L",0.8,weight)
 
 func cue_once(key: String,kind: String,position: Vector3) -> void:
 	if heard_cues.has(key): return

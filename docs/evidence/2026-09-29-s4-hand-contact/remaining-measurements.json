@@ -1,0 +1,19 @@
+{
+  "scope": "pose samples, distance from palm frame to actual mesh AABB; inside=0 does not prove nonpenetration",
+  "phases": [
+    0.08,
+    0.15,
+    0.25
+  ],
+  "A_read_paper_gap_m": [
+    0.403832376,
+    0.398834616,
+    0.396338075
+  ],
+  "B_box_message_gap_m": [
+    0,
+    0.376524448,
+    0.702306271
+  ],
+  "status": "unfixed; not player-experience acceptance"
+}

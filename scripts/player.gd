@@ -41,6 +41,7 @@ func _ready() -> void:
 	visual.outfit="casual"
 	add_child(visual)
 	hand=visual.grip
+	visual.animation.mixer_applied.connect(sync_held)
 	pivot = Node3D.new()
 	add_child(pivot)
 	pivot.position.y = 1.6
@@ -113,8 +114,7 @@ func _physics_process(delta: float) -> void:
 	visual.position=visual.position.move_toward(visual.seated_offset if seated else Vector3.ZERO,delta*2)
 	body_shape.shape.height=1.3 if seated else 1.75
 	body_shape.position.y=0.68 if seated else 0.88
-	if held:
-		held.global_transform = hand.global_transform
+	sync_held()
 	if dead > 0:
 		dead -= delta
 		visual.rotation.z = 1.4
@@ -174,17 +174,38 @@ func pick(prop: OfficeProp) -> void:
 	prop.collision_layer = 0
 	prop.collision_mask = 0
 	prop.thrown = false
+	prop.linear_velocity=Vector3.ZERO
+	prop.angular_velocity=Vector3.ZERO
+	sync_held()
 	game.queue_save()
+
+func sync_held() -> void:
+	if not is_instance_valid(held): return
+	if swing<=0 and dead<=0:
+		var frame := Basis(Vector3.RIGHT,Vector3.FORWARD,Vector3.UP)
+		var target := visual.global_transform*Transform3D(frame,Vector3(0.20,visual.standing_height*0.64,-0.38))
+		visual.contacts.reach("R",target)
+		visual.contacts.fingers("R",-0.3)
+	# Use the evaluated bone pose directly; BoneAttachment updates later in the
+	# frame and otherwise leaves the rigid prop one frame behind the hand.
+	held.global_transform=visual.contacts.palm("R")*held.in_palm()
+	if held.kind in ["keyboard","monitor"]:
+		var support := held.support_point()
+		support.x=-support.x
+		var target := Transform3D(held.global_basis*held.in_palm().basis.inverse(),held.to_global(support)-held.global_basis.y*OfficeProp.HAND_CLEARANCE)
+		visual.contacts.reach("L",target)
+		visual.contacts.fingers("L",-0.3)
 
 func release(throwing: bool) -> void:
 	if not held: return
+	sync_held()
 	var prop := held
 	held = null
-	prop.global_position = global_position + Vector3.UP * 1.3 + forward() * 0.9
 	prop.freeze = false
 	prop.collision_layer = prop.world_layer()
 	prop.collision_mask = 3
 	prop.linear_velocity = Vector3.ZERO
+	prop.angular_velocity = Vector3.ZERO
 	game.queue_save()
 	if throwing:
 		prop.attack_id = game.next_action()

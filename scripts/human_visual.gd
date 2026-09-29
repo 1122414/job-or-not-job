@@ -13,7 +13,6 @@ var skeleton: Skeleton3D
 var animation: AnimationPlayer
 var current := ""
 var grip: Node3D
-var scene_phone: Node3D
 var seated_offset := Vector3.ZERO
 var standing_height := 1.8
 var face_meshes: Array[MeshInstance3D]=[]
@@ -21,6 +20,7 @@ var facial_expression := {}
 var attention_target := Vector3.ZERO
 var attention_enabled := false
 var face_clock := 0.0
+var contacts: HandContact
 
 func _ready() -> void:
 	var model_path := "res://assets/characters/"+outfit+".glb" if cast_id.is_empty() else "res://assets/characters/cast/"+cast_id+".glb"
@@ -59,22 +59,14 @@ func _ready() -> void:
 	var hip := skeleton.get_bone_global_rest(skeleton.find_bone("upperleg01.L")).origin
 	# Retarget the hip joint to the seat, rather than an arbitrary visual-root drop.
 	seated_offset=Vector3(0,0.53-hip.y,0)
+	contacts=HandContact.new(self)
 	if skeleton:
 		var attachment := BoneAttachment3D.new()
 		attachment.bone_name="wrist.R"
 		skeleton.add_child(attachment)
 		grip=Node3D.new()
 		attachment.add_child(grip)
-		grip.position=Vector3(0, -0.05, 0.06)
-		var phone_attachment := BoneAttachment3D.new()
-		phone_attachment.bone_name="wrist.L"
-		skeleton.add_child(phone_attachment)
-		scene_phone=Node3D.new()
-		phone_attachment.add_child(scene_phone)
-		scene_phone.visible=false
-		scene_phone.position=Vector3(0,-0.04,0.04)
-		Shapes.box(scene_phone,Vector3(0.075,0.14,0.015),Vector3.ZERO,Color("19242c"))
-		Shapes.box(scene_phone,Vector3(0.062,0.12,0.002),Vector3(0,0,0.009),Color("6f9297"))
+		grip.transform=contacts.palms.R
 
 func face_position() -> Vector3:
 	return skeleton.to_global(skeleton.get_bone_global_pose(skeleton.find_bone("head")).origin+Vector3(0,0.08,0))
@@ -120,7 +112,7 @@ func update_face(delta: float) -> void:
 
 func make_clip(clip: String) -> Animation:
 	var anim := Animation.new()
-	anim.length=4.0 if clip=="box_message" else 1.8 if clip=="beckon" else 1.4 if clip in ["move_box","phone_reply"] else 0.32 if clip=="recoil" else 0.45 if clip=="strike" else 4.0 if clip in ["idle","sit","talk","sit_talk"] else 1.0
+	anim.length=4.0 if clip=="box_message" else 3.2 if clip=="phone_reply" else 1.8 if clip=="beckon" else 1.4 if clip=="move_box" else 0.32 if clip=="recoil" else 0.45 if clip=="strike" else 4.0 if clip in ["idle","sit","talk","sit_talk"] else 1.0
 	anim.loop_mode=Animation.LOOP_NONE if clip in ["strike","recoil","beckon","move_box","phone_reply","box_message"] else Animation.LOOP_LINEAR
 	var bones := ["upperarm01.L","upperarm01.R","lowerarm01.L","lowerarm01.R","upperleg01.L","upperleg01.R","lowerleg01.L","lowerleg01.R","spine02","head","wrist.L","wrist.R","foot.L","foot.R"]
 	# Every clip owns the same bones so an interrupted authored gesture cannot linger.
