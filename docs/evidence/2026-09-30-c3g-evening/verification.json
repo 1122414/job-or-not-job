@@ -947,5 +947,8 @@
   },
   "normal_fps_measured": false,
   "independent_player_acceptance": false,
-  "final_visual_quality_accepted": false
+  "final_visual_quality_accepted": false,
+  "implementation_commit": "59018383955dd3b941f751b7acb010ee439f2e4e",
+  "post_commit_runtime_dirty": false,
+  "post_commit_source_sha256": "07307d65c32e443266cac4325bc486adf11a628fc26cc72b9035bfd0ec16da38"
 }
