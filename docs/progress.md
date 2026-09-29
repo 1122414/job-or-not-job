@@ -748,4 +748,4 @@ C4a记录同步：542项资料逐字节核对一致，零冲突；每日计划/�
 
 边界：中心同位图元498,602→2,498,288，树木细节增加仍有明显成本；最终专项三轮中心提交均值4.401ms、无树2.642ms，属于冻结离屏提交时间，GPU计时不可用，不等于普通FPS。三帧截图与充分热身工具的中心图元差一个远档模型，原因仍待定位，不混用统计。正式风动画/移动抗闪烁、人物/动作/声音、场所与事件密度、完整30—60分钟城区、分区/八区整城、双画质持续性能和独立玩家签收继续开放。G01—G06及64km²/16km²目标保持；接续以完整城市生活样板为交付单位。
 
-详情：[C4d验收](2026-09-29_C4d城区植被材质与自然光照验收.md)；新增[枝叶减面经验](experience/patterns/foliage-simplification.md)，复用更新[资产语义](experience/patterns/open-asset-integration.md)。中文实施提交待记录，未push。
+详情：[C4d验收](2026-09-29_C4d城区植被材质与自然光照验收.md)；新增[枝叶减面经验](experience/patterns/foliage-simplification.md)，复用更新[资产语义](experience/patterns/open-asset-integration.md)。中文实施提交6e73cc3，未push。
