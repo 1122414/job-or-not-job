@@ -1,0 +1,41 @@
+{
+  "godot": {
+    "command": "GODOT_BIN=/Applications/Godot.app/Contents/MacOS/Godot sh tools/check.sh",
+    "exit": 0,
+    "tests": 50,
+    "failure_zero_markers": 50,
+    "errors": false,
+    "mode": "headless; import and smoke included"
+  },
+  "python": {
+    "command": "python3 -m unittest discover -s tests -p 'test_*.py'",
+    "exit": 0,
+    "tests": 14
+  },
+  "candidate_inspection": {
+    "exit": 0,
+    "characters": 3,
+    "bones_per_character": 163,
+    "expressions_per_character": 4,
+    "scope": "structure, hash, bounds, finite bone rest, eye alpha; not appearance"
+  },
+  "reproducibility": {
+    "legacy_runtime_models_byte_identical": 3,
+    "candidate_repeat_byte_identical": 3,
+    "original_source_hashes_verified": 88
+  },
+  "visual": {
+    "candidate_v2_pngs_reviewed": 24,
+    "v1_examples_retained": 2,
+    "eye_alpha_correction_observed": true,
+    "formal_character_acceptance": false,
+    "runtime_replacement": false,
+    "open": [
+      "eyebrow clipping/triangles",
+      "mouth-open self-intersection and missing oral assets",
+      "hair edges/material finish",
+      "shoe/pants fit and contact",
+      "LOD, animation retarget, seated/held/hit and real-scene acceptance"
+    ]
+  }
+}

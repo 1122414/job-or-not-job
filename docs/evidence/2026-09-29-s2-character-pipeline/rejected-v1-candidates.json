@@ -1,0 +1,139 @@
+{
+  "status": "review_candidates_not_accepted",
+  "recipes_sha256": "871bb315ebc180f96a9f0a4d396832f312c6381483ad68a60271f05c77b2b3b8",
+  "characters": [
+    {
+      "id": "protagonist",
+      "sha256": "29fa0353e21d2e84675bc7cea86caae584780c6522c0b7e714215b6400c6ba90",
+      "bytes": 18344948,
+      "bones": 163,
+      "triangles": 41332,
+      "materials": 7,
+      "expressions": [
+        "blink",
+        "brow_raise",
+        "brow_lower",
+        "mouth_open"
+      ],
+      "height_m": 1.7277788,
+      "recipe": {
+        "id": "protagonist",
+        "name": "主角",
+        "intent": "年轻求职者；较窄下颌，松开的工作衬衫，深短发。",
+        "shape": {
+          "macrodetails/asian-male-young.target": 1.0,
+          "head/head-oval.target": 0.16,
+          "chin/chin-width-decr.target": 0.12
+        },
+        "scale": 0.106,
+        "outfit": "male_casualsuit01",
+        "shoes": "shoes02",
+        "hair": "short01",
+        "eyebrows": "eyebrow005",
+        "eyelashes": "eyelashes01",
+        "skin": "young_lightskinned_male_diffuse3.png",
+        "hair_color": [
+          0.18,
+          0.16,
+          0.14,
+          1
+        ],
+        "clothing_color": [
+          0.8,
+          0.9,
+          1,
+          1
+        ]
+      }
+    },
+    {
+      "id": "lin_lan",
+      "sha256": "58647b6b8b7e4a7301c7dd2d6d3db2b36b6f2cb0a7540df2c5908defa2849fa6",
+      "bytes": 19213292,
+      "bones": 163,
+      "triangles": 32188,
+      "materials": 7,
+      "expressions": [
+        "blink",
+        "brow_raise",
+        "brow_lower",
+        "mouth_open"
+      ],
+      "height_m": 1.5868942000000001,
+      "recipe": {
+        "id": "lin_lan",
+        "name": "林岚",
+        "intent": "克制、注重边界的招聘接待；长椭圆脸，整齐发型，素色职业衣装。",
+        "shape": {
+          "macrodetails/asian-female-young.target": 1.0,
+          "head/head-oval.target": 0.3,
+          "chin/chin-width-decr.target": 0.15
+        },
+        "scale": 0.106,
+        "outfit": "female_casualsuit02",
+        "shoes": "shoes04",
+        "hair": "bob02",
+        "eyebrows": "eyebrow007",
+        "eyelashes": "eyelashes02",
+        "skin": "young_lightskinned_female_diffuse3.png",
+        "hair_color": [
+          0.12,
+          0.1,
+          0.09,
+          1
+        ],
+        "clothing_color": [
+          0.65,
+          0.7,
+          0.78,
+          1
+        ]
+      }
+    },
+    {
+      "id": "a_cheng",
+      "sha256": "1a2248de041d8854e1a5ec66d03d7a606190c307d826ee0f04f811b84278d728",
+      "bytes": 25979744,
+      "bones": 163,
+      "triangles": 27262,
+      "materials": 7,
+      "expressions": [
+        "blink",
+        "brow_raise",
+        "brow_lower",
+        "mouth_open"
+      ],
+      "height_m": 1.7719585000000002,
+      "recipe": {
+        "id": "a_cheng",
+        "name": "阿诚",
+        "intent": "B公司招聘接待；较宽下颌和短发，休闲外套，不沿用主角脸型。",
+        "shape": {
+          "macrodetails/asian-male-young.target": 1.0,
+          "head/head-square.target": 0.25,
+          "chin/chin-width-incr.target": 0.22,
+          "head/head-age-incr.target": 0.12
+        },
+        "scale": 0.109,
+        "outfit": "male_casualsuit03",
+        "shoes": "shoes01",
+        "hair": "short04",
+        "eyebrows": "eyebrow002",
+        "eyelashes": "eyelashes01",
+        "skin": "middleage_lightskinned_male_diffuse2.png",
+        "hair_color": [
+          0.15,
+          0.14,
+          0.13,
+          1
+        ],
+        "clothing_color": [
+          0.8,
+          0.82,
+          0.76,
+          1
+        ]
+      }
+    }
+  ]
+}

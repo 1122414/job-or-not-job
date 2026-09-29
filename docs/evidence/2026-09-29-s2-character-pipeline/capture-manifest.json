@@ -1,0 +1,116 @@
+{
+  "recorded_utc": "2026-09-29T04:15:53.304542+00:00",
+  "scope": "isolated character candidates; not gameplay or formal visual acceptance",
+  "runtime_source": {
+    "source_commit": "d09849d3bd24cb5a6b331a4e2851d95adf79cedf",
+    "runtime_dirty": false,
+    "source_sha256": "67c733cb740bbcc306c1f80ef0f1b9f8895010982c6ad214d1fa3d3a0193a048",
+    "save_schema": 11
+  },
+  "tool_and_recipe_sha256": {
+    "tools/build_characters.py": "82cb07731ae83659af17f91814ad0ddea5e41a025e65a191a2078580c1217569",
+    "tools/build_character_cast.py": "6fcb4d4ddb004e382eebd46c5e156b432aa39129c631597fdf01750fecddfb0b",
+    "tools/render_character_candidates.gd": "0ddd7a3929d4e1365a8d37e5f236c6ebca6b89fe695fe27182d55acac856d0dd",
+    "tools/inspect_character_candidates.gd": "7d5304f04e62e863fcb4992e363f6e47f241109dcd54705ca6e15c6fd538eb73",
+    "production/characters/cc0-2026-09-29/provenance.json": "72c084dea0b8e4abb5baca54fe77e81c5985845a31eb6e1fac7f33fdd23027f1",
+    "production/characters/cc0-2026-09-29/recipes.json": "f9936f701b2848575205afe31adc5a84a0fa9331ebc281a463cda38e3af2166f"
+  },
+  "preview": {
+    "engine": "Godot 4.7.1",
+    "renderer": "Compatibility",
+    "resolution": [
+      900,
+      1000
+    ],
+    "fov_degrees": 32,
+    "background": "303844",
+    "ambient_energy": 0.55,
+    "directional_energy": 1.2,
+    "directional_rotation_degrees": [
+      -30,
+      -25,
+      0
+    ],
+    "msaa": "disabled",
+    "arms_rotation_radians": {
+      "L": 0.62,
+      "R": -0.62
+    },
+    "views": {
+      "front": {
+        "camera": [
+          0,
+          1.1,
+          3.8
+        ],
+        "target": [
+          0,
+          0.92,
+          0
+        ]
+      },
+      "side": {
+        "camera": [
+          3.8,
+          1.1,
+          0
+        ],
+        "target": [
+          0,
+          0.92,
+          0
+        ]
+      },
+      "back": {
+        "camera": [
+          0,
+          1.1,
+          -3.8
+        ],
+        "target": [
+          0,
+          0.92,
+          0
+        ]
+      },
+      "face": {
+        "camera": "(0, head global rest Y + .09, 1.03)",
+        "target": "(0, head global rest Y + .09, 0)",
+        "weights": [
+          0,
+          1
+        ]
+      }
+    },
+    "launch": "macOS open -g -n; hidden Window; WINDOW_FLAG_NO_FOCUS; --disable-render-loop; isolated SubViewport force_draw",
+    "observed_log": "OFFSCREEN_CHARACTERS images=24 pointer_visible=true"
+  },
+  "png_sha256": {
+    "a_cheng-back.png": "9c2e86468c1de45ff5f5350f6c1f8a7211c36185d1c265ff674be972a7bb4211",
+    "a_cheng-blink.png": "84a2a4e7fcbd8a63906d8dd934df662ed36946d858694936d69d8b87e09f2fbe",
+    "a_cheng-brow_lower.png": "de544eca4ab2a92d9f810ac585b466ffb111e1ee73e07da8ed1b423b404dc0fc",
+    "a_cheng-brow_raise.png": "6c49d47fc0f29e6560bcefaf6033e7102631b3262dc8401a05774eccfab522f2",
+    "a_cheng-front.png": "144487a29608cca6fcc4115224cfef5010bae0afaae14f3d4010b522ab7bcf1d",
+    "a_cheng-mouth_open.png": "60ab473b22c69e94a8ae04d3ceee4dede266d91b092443568cacac85f8d9dbb7",
+    "a_cheng-neutral.png": "550fe0f7c730893e5eb232c43dd0994bab0d7e5182862b4d3a4ecbda1e571f7b",
+    "a_cheng-side.png": "e1b06917d7d70eb52ff67aacf2795f75e24a2d5877e560d0983687d139988311",
+    "lin_lan-back.png": "a1ed655bbbb403ee7157aa1cdb863b46e0bddb47c03a029aa3d75dd6de7ccf6b",
+    "lin_lan-blink.png": "0e68a6d9d2eeced6d4b907216225e3598e79039f4faf7fc11d846c78c06baa51",
+    "lin_lan-brow_lower.png": "0d65b93f12629fac48c22f6759aa281d2a6478f355e3bf9126caa567c8929cc8",
+    "lin_lan-brow_raise.png": "4b036b56a15ce380dbef22d0c2468cc80ea63c110baa9c5eec4052f77552ee8c",
+    "lin_lan-front.png": "720867b45150ed9957149276b2b946eb85f77a192d7917de6d662419fb8b802d",
+    "lin_lan-mouth_open.png": "fb31844bcc72a1d08d6c4a83a115450c62e69255b0535301d3befff80908c6ad",
+    "lin_lan-neutral.png": "2dcba56c7ccf93a17a2437ab55ecace5bb001aa036d82e414584b0acd3c65733",
+    "lin_lan-side.png": "27b84376fcbab65ed06e8c26aaabf61bf452925da10e9314cf801646d766cbaa",
+    "protagonist-back.png": "cf7339fd77064acf56d110438e24c9ccbc0fda4dc5592338c7a1abc0873edca8",
+    "protagonist-blink.png": "306494f72fa7fc3d1207362b1e693ced0bfee0240fe9ffef89ae18df7c81da51",
+    "protagonist-brow_lower.png": "8e3f0281b05562c6f1e7a0065b13c06977d48984a160bfc24988060fc48b938c",
+    "protagonist-brow_raise.png": "cbab8c706ef0236ea1cb133a3219814f43d2dc9b82a872fe548783c70f55f7c4",
+    "protagonist-front.png": "87b36689ee93b340575132e5acea8356ef13ae943de906040a76767ec3000c18",
+    "protagonist-mouth_open.png": "4f9295a76596afc18aa20802b26c4a0f6f0328fb4a504961afbcba0a914519ca",
+    "protagonist-neutral.png": "ac177ea67fdd1d186c631374d4964e705c1a18604a1446457486385a1cb2ae7a",
+    "protagonist-side.png": "794fb91e693b779e20fc810b4effed916ffc5bf762e66db0c98059a541030fef",
+    "rejected-v1-lin_lan-front.png": "a8a3d15ba5834b654267f10702ce8f595e0b73423755f32ccfb3a75a98dbb6ee",
+    "rejected-v1-protagonist-neutral.png": "f480dfc2d01d56e03c499872cd2b2d467ed6cdb5b099aac574269958979b7687"
+  }
+}

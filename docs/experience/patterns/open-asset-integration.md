@@ -14,3 +14,7 @@
 
 
 动作源补记（2026-09-29，验证一次）：官方产品页的120+描述覆盖完整产品，下载到的免费Standard固定2025镜像实际仅46段（含T-pose），必须记录具体版本/子集。保留原作者许可与镜像固定提交、Git blob/SHA256；镜像一致不等于当前官方文件一致。Godot会优化常量轨道，原始通道数不同于导入轨道数。`tools/inspect_animation_source.gd`实测全部片段及根/骨盆轨迹：Roll_RM根位移约4.99m，Walk_Loop根无位移；不能把所有动作直接交给现有速度控制器。骨架命名、静止姿势和轴向与现有MakeHuman不同，重定向尚未验证，不从“可导入”推导“可替换”。
+
+人物材质反例（2026-09-29，验证一次）：高精度MakeHuman眼球的`.mhclo`引用`../materials/brown.mhmat`，其透明声明用于外层；只拷贝纹理并默认不透明时，GLB结构检查0失败但虹膜完全被白蓝外层盖住。复制原材质、相对材质所在目录解析纹理、保留alpha语义后，三人近景恢复虹膜。新增`test_attachment_textures_resolve_from_referenced_material`与`inspect_character_candidates.gd`检查解析目录和眼alpha；旧三GLB重建逐字节一致，限定已有调用兼容。本修复只证明这套资产的遮挡原因，不证明眼睛PBR、发片或所有材质均通过。
+
+选择资源时不能从casualsuit名称推断职业衣装：首轮林岚实际是标志T恤短裤。原始缩略图和完整人体预览分别检查用途与贴合；两轮反例保存在`docs/evidence/2026-09-29-s2-character-pipeline/`。第二轮24图仍发现眉部和嘴角问题，结构检查继续通过，故明确拒绝正式接入；这些未确诊原因见`../unresolved.md`，不将“CC0+能导入”升级为品质认可。

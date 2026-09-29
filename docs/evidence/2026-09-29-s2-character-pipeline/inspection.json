@@ -1,0 +1,39 @@
+{
+  "characters": [
+    {
+      "bones": 163,
+      "expressions": [
+        "blink",
+        "brow_raise",
+        "brow_lower",
+        "mouth_open"
+      ],
+      "id": "protagonist",
+      "sha256": "362562dc0022c025f6a7ce60acc4ef23affa603101fea723f328a2263cd7870c"
+    },
+    {
+      "bones": 163,
+      "expressions": [
+        "blink",
+        "brow_raise",
+        "brow_lower",
+        "mouth_open"
+      ],
+      "id": "lin_lan",
+      "sha256": "25e271886aac4b857f9e6bec9204d1fc46a10057c2365d215f2d59a5c0253dc8"
+    },
+    {
+      "bones": 163,
+      "expressions": [
+        "blink",
+        "brow_raise",
+        "brow_lower",
+        "mouth_open"
+      ],
+      "id": "a_cheng",
+      "sha256": "7e7113199afc772ad75d5d7252f7cb67fceb243e5b523c3bebeabcbfb0cc852f"
+    }
+  ],
+  "failures": 0,
+  "scope": "headless structural checks only; appearance, contacts, LOD and runtime integration unaccepted"
+}

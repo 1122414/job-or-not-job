@@ -67,3 +67,9 @@ macOS包的`ASSET-SOURCES.json`和`CREDITS.txt`保存来源；通用CC0原文随
 场景保存遵循 [Godot PackedScene 的节点 owner 规则](https://docs.godotengine.org/en/stable/classes/class_packedscene.html)，外部家具场景保留实例引用；位置转换遵循 [Node3D 父子坐标](https://docs.godotengine.org/en/stable/classes/class_node3d.html)。`OfficeRooms.point()` 返回锚点世界位置，动态纸箱写入 `global_position`，避免 B 场景父节点偏移再次叠加。旧常量仍用于 v11 基线/迁移和历史夹具，不驱动新运行时面试位置。
 
 本轮制作不是 GTA VI 品质签收。当前街道远景、玻璃反射、家具网格和人物仍有原型限制，正式人物/演出及用户视听关卡继续开放。
+
+## 2026-09-29 三关键人物候选制作源（未接运行时）
+
+[CC0制作包](../production/characters/cc0-2026-09-29/README.md)保存88原件、59.9MB，包含MakeHuman官方CC0 ZIP选择集及官方Git固定提交`a8bc2d54ff0ac92e78ff71431b1023eda42bf482`的体型/表情/骨架源；逐文件来源、作者原始声明、URL/包内位置与SHA256在同目录provenance.json。原件与下载ZIP/固定Git已逐一核对，不包含应用程序代码。三配方通过`tools/build_character_cast.py`生成候选，保留原始文件；没有新增依赖或付费采购。
+
+候选结构通过但外观拒收：眼睛透明材质和衣装方向已修，眉部、张口/口腔、发边和鞋裤仍有问题。163骨骼和四表情接口不代表正式表演；未制作LOD、未测驻留显存、未替换`assets/characters`、未加入游戏包。旧三模型重建逐字节一致，完整限制见[S2复核](2026-09-29_S2人物制作管线与候选复核.md)。

@@ -7,9 +7,8 @@ from pathlib import Path
 from collections import defaultdict
 import json, math, struct, sys
 
-SOURCE=Path(sys.argv[1])
-OUTPUT=Path('assets/characters')
-OUTPUT.mkdir(parents=True,exist_ok=True)
+SOURCE = None
+OUTPUT = Path('assets/characters')
 
 def obj(path):
     vertices=[]; uvs=[]; faces=[]; group=''
@@ -26,21 +25,42 @@ def obj(path):
             for i in range(1,len(f)-1): faces.append((group,[f[0],f[i],f[i+1]]))
     return vertices,uvs,faces
 
-base,base_uv,base_faces=obj(SOURCE/'base.obj')
-rig=json.loads((SOURCE/'default.mhskel').read_text())
-weight_file=json.loads((SOURCE/'default_weights.mhw').read_text())['weights']
-names=list(rig['bones'])
-index={name:i for i,name in enumerate(names)}
-weights=defaultdict(dict)
-for bone,entries in weight_file.items():
-    for vertex,weight in entries: weights[vertex][index[bone]]=weight
-scale=0.106
-floor=min(v[1] for _,face in base_faces if _=='body' for vi,uv in face for v in [base[vi]])
-def convert(v): return (v[0]*scale,(v[1]-floor)*scale,v[2]*scale)
-heads={}
-for name,bone in rig['bones'].items():
-    ids=rig['joints'][bone['head']]
-    heads[name]=convert([sum(base[i][a] for i in ids)/len(ids) for a in range(3)])
+def configure(source, targets=None, output_scale=0.106):
+    global SOURCE, base, base_uv, base_faces, rig, names, index, weights, scale, floor, heads
+    SOURCE = Path(source)
+    base, base_uv, base_faces = obj(SOURCE/'base.obj')
+    for target, amount in (targets or {}).items():
+        for vertex, delta in read_target(target).items():
+            base[vertex] = tuple(base[vertex][axis] + amount*delta[axis] for axis in range(3))
+    rig = json.loads((SOURCE/'default.mhskel').read_text())
+    names = list(rig['bones'])
+    index = {name: i for i, name in enumerate(names)}
+    weights = defaultdict(dict)
+    for bone, entries in json.loads((SOURCE/'default_weights.mhw').read_text())['weights'].items():
+        for vertex, weight in entries:
+            weights[vertex][index[bone]] = weight
+    scale = output_scale
+    floor = min(base[vi][1] for group, face in base_faces if group == 'body' for vi, uv in face)
+    heads = {}
+    for name, bone in rig['bones'].items():
+        ids = rig['joints'][bone['head']]
+        heads[name] = convert([sum(base[i][axis] for i in ids)/len(ids) for axis in range(3)])
+
+
+def read_target(path):
+    result = {}
+    for line in Path(path).read_text().splitlines():
+        fields = line.split()
+        if not fields or fields[0].startswith('#'):
+            continue
+        if len(fields) != 4:
+            raise ValueError(f'Invalid morph line in {path}')
+        result[int(fields[0])] = tuple(map(float, fields[1:]))
+    return result
+
+
+def convert(vertex):
+    return (vertex[0]*scale, (vertex[1]-floor)*scale, vertex[2]*scale)
 
 def clothing(path):
     lines=path.read_text().splitlines(); mode=''; mapping=[]; hidden=set(); meta={}
@@ -77,7 +97,7 @@ def clothing(path):
         for line in mat_path.read_text().splitlines():
             p=line.split(maxsplit=1)
             if len(p)==2: mat[p[0]]=p[1]
-    return fitted,uvs,faces,skin,hidden,mat,path.parent
+    return fitted,uvs,faces,skin,hidden,mat,mat_path.parent
 
 class GLTF:
     def __init__(self):
@@ -112,18 +132,27 @@ class GLTF:
             item['min']=[min(v[a] for v in values) for a in range(3)]
             item['max']=[max(v[a] for v in values) for a in range(3)]
         self.doc['accessors'].append(item);return len(self.doc['accessors'])-1
-    def material(self,name,texture=None,color=(1,1,1,1),alpha=False):
-        pbr={'baseColorFactor':list(color),'metallicFactor':0,'roughnessFactor':0.87}
+    def texture(self, path):
+        key = str(path)
+        if key not in self.texture_cache:
+            image = len(self.doc['images'])
+            self.doc['images'].append({'bufferView': self.view(path.read_bytes()), 'mimeType': 'image/png' if path.suffix.lower() == '.png' else 'image/jpeg'})
+            self.texture_cache[key] = len(self.doc['textures'])
+            self.doc['textures'].append({'source': image})
+        return self.texture_cache[key]
+
+    def material(self,name,texture=None,color=(1,1,1,1),alpha=False,roughness=0.87,normal=None,occlusion=None):
+        pbr={'baseColorFactor':list(color),'metallicFactor':0,'roughnessFactor':roughness}
         if texture and texture.is_file():
-            key=str(texture)
-            if key not in self.texture_cache:
-                image=len(self.doc['images']); self.doc['images'].append({'bufferView':self.view(texture.read_bytes()),'mimeType':'image/png' if texture.suffix.lower()=='.png' else 'image/jpeg'})
-                self.texture_cache[key]=len(self.doc['textures']);self.doc['textures'].append({'source':image})
-            pbr['baseColorTexture']={'index':self.texture_cache[key]}
+            pbr['baseColorTexture']={'index':self.texture(texture)}
         item={'name':name,'pbrMetallicRoughness':pbr,'doubleSided':True}
+        if normal:
+            item['normalTexture']={'index':self.texture(normal)}
+        if occlusion:
+            item['occlusionTexture']={'index':self.texture(occlusion)}
         if alpha:item.update(alphaMode='MASK',alphaCutoff=0.4)
         self.doc['materials'].append(item);return len(self.doc['materials'])-1
-    def mesh(self,name,vertices,uvs,faces,skin,material,hidden=None):
+    def mesh(self,name,vertices,uvs,faces,skin,material,hidden=None,morphs=None):
         faces=[f for group,f in faces if hidden is None or not any(i in hidden for i,u in f)]
         normals=[[0,0,0] for _ in vertices]
         for face in faces:
@@ -147,7 +176,17 @@ class GLTF:
         attributes={}
         for key,data,fmt,kind,component in [('POSITION',positions,'f','VEC3',5126),('NORMAL',normal,'f','VEC3',5126),('TEXCOORD_0',coords,'f','VEC2',5126),('JOINTS_0',joints,'H','VEC4',5123),('WEIGHTS_0',strength,'f','VEC4',5126)]:attributes[key]=self.accessor(data,fmt,kind,component)
         indices=self.accessor(triangles,'I','SCALAR',5125)
-        mesh=len(self.doc['meshes']);self.doc['meshes'].append({'name':name,'primitives':[{'attributes':attributes,'indices':indices,'material':material}]})
+        mesh=len(self.doc['meshes'])
+        primitive={'attributes':attributes,'indices':indices,'material':material}
+        definition={'name':name,'primitives':[primitive]}
+        if morphs:
+            primitive['targets']=[]
+            definition['extras']={'targetNames':list(morphs)}
+            definition['weights']=[0.0]*len(morphs)
+            for deltas in morphs.values():
+                values=[tuple(deltas.get(vertex,(0,0,0))[a]*scale for a in range(3)) for vertex,uv in unique]
+                primitive['targets'].append({'POSITION':self.accessor(values,'f','VEC3',5126)})
+        self.doc['meshes'].append(definition)
         node=len(self.doc['nodes']);self.doc['nodes'].append({'name':name,'mesh':mesh,'skin':0});self.doc['scenes'][0]['nodes'].append(node)
     def save(self,path):
         self.doc['buffers']=[{'byteLength':len(self.blob)}]
@@ -186,6 +225,8 @@ def build(outfit,output,female=False):
     print(output, (OUTPUT/output).stat().st_size)
 
 if __name__=='__main__':
+    configure(Path(sys.argv[1]))
+    OUTPUT.mkdir(parents=True,exist_ok=True)
     build('male_casualsuit01','casual.glb')
     build('male_elegantsuit01','office.glb')
     build('female_elegantsuit01','office_female.glb',True)
