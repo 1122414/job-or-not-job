@@ -58,6 +58,8 @@ func _draw() -> void:
 		var lines := wrap_lines(goal,480,17)
 		for i in range(mini(2,lines.size())): text_at(Vector2(32,38+i*24),lines[i],17,Color("f0e6d3"))
 		text_at(Vector2(32,92),"J  目标与公司    P  人物    TAB  背包",13,Color("c7cdd0"))
+		if game==get_tree().current_scene and Input.mouse_mode!=Input.MOUSE_MODE_CAPTURED:
+			text_at(Vector2(32,118),"点击画面控制视角 · Esc 释放鼠标",15,Color("e4be70"))
 		if destination:
 			text_at(Vector2(35,h-64),"目的地  %dm" % int(p.position.distance_to(destination.position)),14,Color("e4be70"))
 	if not scene_dialogue: text_at(Vector2(w-92,h-25),"H  帮助",14,Color("c7cdd0"))

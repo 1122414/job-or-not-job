@@ -21,7 +21,8 @@ func show_page(next: String) -> void:
 	if page=="messages": game.recruitment.message_page=0
 	game.close_interaction()
 	get_tree().paused=page!=""
-	Input.mouse_mode=Input.MOUSE_MODE_VISIBLE if page!="" else Input.MOUSE_MODE_CAPTURED
+	# Returning from UI does not constitute permission to lock the desktop pointer.
+	Input.mouse_mode=Input.MOUSE_MODE_VISIBLE
 	game.hud.queue_redraw()
 	if view: view.refresh()
 	if page=="pause": game.menu.focus_first.call_deferred()

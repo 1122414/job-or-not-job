@@ -53,13 +53,26 @@ func _ready() -> void:
 	spring.add_child(camera)
 	camera.current = true
 	camera.fov = 65
-	if not OS.has_feature("web"):
-		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+
+func capture_permitted() -> bool:
+	# Script fixtures and background windows must never own the desktop pointer.
+	return game==get_tree().current_scene and not get_viewport().is_input_disabled() and DisplayServer.get_name()!="headless" and not "--no-mouse-capture" in OS.get_cmdline_user_args() and get_window().has_focus() and game.panels.page==""
+
+func _notification(what: int) -> void:
+	if what in [NOTIFICATION_WM_WINDOW_FOCUS_OUT,NOTIFICATION_APPLICATION_FOCUS_OUT,NOTIFICATION_EXIT_TREE]:
+		Input.mouse_mode=Input.MOUSE_MODE_VISIBLE
 
 func forward() -> Vector3:
 	return Vector3(-sin(yaw),0,-cos(yaw))
 
 func _unhandled_input(event: InputEvent) -> void:
+	if event is InputEventMouseButton and Input.mouse_mode!=Input.MOUSE_MODE_CAPTURED:
+		if event.pressed and event.button_index==MOUSE_BUTTON_LEFT and capture_permitted():
+			Input.mouse_mode=Input.MOUSE_MODE_CAPTURED
+		# The activation click must not also attack or throw an item.
+		get_viewport().set_input_as_handled()
+		return
 	if event is InputEventMouseMotion and Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
 		look(event.relative)
 	if dead > 0: return

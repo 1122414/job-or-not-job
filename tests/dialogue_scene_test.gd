@@ -36,11 +36,10 @@ func run() -> void:
 	for i in range(30): await physics_frame
 	check(absf(game.player.yaw)<0.2,"交谈镜头平滑靠近目标")
 	game.player.frame_remaining=0.7
-	Input.mouse_mode=Input.MOUSE_MODE_CAPTURED
 	var motion := InputEventMouseMotion.new()
 	motion.relative=Vector2(20,0)
-	if DisplayServer.get_name()=="headless": game.player.look(motion.relative)
-	else: game.player._unhandled_input(motion)
+	# Camera arbitration is independent of desktop pointer ownership.
+	game.player.look(motion.relative)
 	check(game.player.frame_remaining==0,"鼠标立即接管镜头")
 	Input.mouse_mode=Input.MOUSE_MODE_VISIBLE
 	var controlled_yaw: float=game.player.yaw

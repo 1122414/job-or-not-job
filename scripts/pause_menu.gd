@@ -62,10 +62,10 @@ func _ready() -> void:
 	font_size.item_selected.connect(func(index: int): game.panels.view.set_font_scale([1.0,1.25,1.5][index]))
 	list.add_child(font_size)
 	var help := Label.new()
-	help.text="Esc 返回 · H 操作说明\n菜单期间世界暂停，关闭即恢复。"
+	help.text="Esc 释放鼠标 / 返回 · H 操作说明\n关闭菜单后，点击游戏画面才开始控制视角。"
 	help.autowrap_mode=TextServer.AUTOWRAP_WORD_SMART
 	if OS.has_feature("web"):
-		help.text="点击继续游戏后控制视角，Esc 释放鼠标。\n请用菜单保存；保存后可关闭网页。\n进度仅保留于当前浏览器，清除网站数据会丢失。"
+		help.text="关闭菜单后，点击游戏画面控制视角；Esc 释放鼠标。\n请用菜单保存；保存后可关闭网页。\n进度仅保留于当前浏览器，清除网站数据会丢失。"
 	list.add_child(help)
 	var build_label := Label.new()
 	build_label.text=BuildInfo.label()
