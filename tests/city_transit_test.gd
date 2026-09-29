@@ -125,10 +125,13 @@ func run() -> void:
 		invalid.city_transit[entry[0]]=entry[1]
 		var before_state := transit.snapshot()
 		check(not SaveGame.restore(game,invalid) and transit.snapshot()==before_state,"非法交通档拒绝且世界不变 "+entry[0])
-	var legacy := original.duplicate(true)
-	legacy.version=11
-	legacy.erase("city_transit")
-	check(SaveGame.restore(game,legacy) and not transit.riding and transit.current_stop==0,"v11 原始档恢复为初始公交且不丢旧事实")
+	for version in range(1,12):
+		var legacy := original.duplicate(true)
+		legacy.version=version
+		legacy.erase("city_transit")
+		var json_legacy: Variant=JSON.parse_string(JSON.stringify(legacy))
+		check(SaveGame.restore(game,json_legacy) and not transit.riding and transit.current_stop==0,"v%d 兼容夹具 JSON 恢复为初始公交" % version)
+		check(game.payroll.balance==original.payroll.balance and game.career.employer==original.career.employer,"旧版职业/工资保留 v%d" % version)
 	for suffix in ["",".bak",".tmp"]:
 		if FileAccess.file_exists(path+suffix): DirAccess.remove_absolute(path+suffix)
 	print("CITY_TRANSIT_TEST failures=",failures," route_m=",transit.curve.get_baked_length()," stops=",reached)
