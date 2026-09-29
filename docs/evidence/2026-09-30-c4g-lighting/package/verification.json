@@ -1,0 +1,14 @@
+{
+	"adapter": "Apple M5 Pro (Apple9)",
+	"background_guard": true,
+	"build_id": "20260929T204542764289Z-b3fcacc5-54ef9da4",
+	"images": [
+		"day-walk",
+		"night-garden",
+		"night-company-a"
+	],
+	"normal_game_fps": false,
+	"persistence": false,
+	"renderer": "forward_plus",
+	"source_sha256": "54ef9da4a6e5282a52339ce0836fb60c811b6543caba7762d636399cb1a6c329"
+}

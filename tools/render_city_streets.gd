@@ -14,6 +14,9 @@ const VIEWS := [
 func views() -> Array:
 	return VIEWS
 
+func prepare_scene(_game: Node3D) -> void:
+	pass
+
 func fingerprint(game: Node3D) -> Dictionary:
 	var result := {}
 	for node in game.get_node("ConnectedDistrict/Streetscape").find_children("*","MultiMeshInstance3D",true,false):
@@ -48,11 +51,12 @@ func run() -> void:
 		push_error("Street capture must remain minimized, unfocusable, without focus or mouse capture"); quit(1); return
 	game.set_process(false)
 	game.process_mode=Node.PROCESS_MODE_DISABLED
+	prepare_scene(game)
 	var camera := Camera3D.new()
 	game.add_child(camera)
 	camera.make_current()
 	camera.fov=65
-	var data := {"views":[],"root_minimized":root.mode==Window.MODE_MINIMIZED,"root_focused":root.has_focus(),"root_unfocusable":root.get_flag(Window.FLAG_NO_FOCUS),"pointer_visible":Input.mouse_mode==Input.MOUSE_MODE_VISIBLE,"resolution":[1440,900],"fov":65,"normal_game_performance":false,"final_visual_acceptance":false}
+	var data := {"views":[],"renderer":RenderingServer.get_current_rendering_method(),"adapter":RenderingServer.get_video_adapter_name(),"root_minimized":root.mode==Window.MODE_MINIMIZED,"root_focused":root.has_focus(),"root_unfocusable":root.get_flag(Window.FLAG_NO_FOCUS),"pointer_visible":Input.mouse_mode==Input.MOUSE_MODE_VISIBLE,"resolution":[1440,900],"fov":65,"normal_game_performance":false,"final_visual_acceptance":false}
 	for shot in views():
 		game.payroll.minute=shot[3]
 		game.update_daylight()

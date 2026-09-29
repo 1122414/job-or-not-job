@@ -10,6 +10,15 @@ import subprocess
 ROOT = Path(__file__).resolve().parents[1]
 
 
+def configured_renderer(config, platform):
+    """Record the target platform override; actual runtime fallback is separate."""
+    for suffix in ('.' + platform, ''):
+        match = re.search(r'^renderer/rendering_method' + re.escape(suffix) + r'="([^"]+)"$', config, re.M)
+        if match:
+            return match.group(1)
+    raise ValueError('Missing configured rendering method')
+
+
 def sha256(path):
     with path.open('rb') as stream:
         digest = hashlib.sha256()

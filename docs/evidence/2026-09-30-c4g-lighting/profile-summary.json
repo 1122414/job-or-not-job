@@ -1,0 +1,262 @@
+{
+  "before-compat": {
+    "old-street": {
+      "force_draw_wall_ms": 16.0987333333333,
+      "render_cpu_ms": 13.6080555703905,
+      "render_gpu_ms": 0.0,
+      "draw_calls": 5414.0,
+      "primitives": 1496146.0
+    },
+    "company-a": {
+      "force_draw_wall_ms": 11.074955555555567,
+      "render_cpu_ms": 8.075888872146606,
+      "render_gpu_ms": 0.0,
+      "draw_calls": 3757.0,
+      "primitives": 185333.0
+    },
+    "company-b": {
+      "force_draw_wall_ms": 5.099744444444443,
+      "render_cpu_ms": 3.2972777658038663,
+      "render_gpu_ms": 0.0,
+      "draw_calls": 1329.0,
+      "primitives": 78426.0
+    },
+    "waterfront-night": {
+      "force_draw_wall_ms": 4.0304222222222235,
+      "render_cpu_ms": 2.6023777882258066,
+      "render_gpu_ms": 0.0,
+      "draw_calls": 685.0,
+      "primitives": 1242708.0
+    },
+    "central-walk": {
+      "force_draw_wall_ms": 4.944844444444446,
+      "render_cpu_ms": 2.69252223968506,
+      "render_gpu_ms": 0.0,
+      "draw_calls": 785.0,
+      "primitives": 2499252.0
+    },
+    "garden-night": {
+      "force_draw_wall_ms": 15.073288888888866,
+      "render_cpu_ms": 13.576511086357934,
+      "render_gpu_ms": 0.0,
+      "draw_calls": 5725.0,
+      "primitives": 854027.0
+    },
+    "bookshop-evening": {
+      "force_draw_wall_ms": 9.330188888888879,
+      "render_cpu_ms": 6.642766666412354,
+      "render_gpu_ms": 0.0,
+      "draw_calls": 3458.0,
+      "primitives": 103520.0
+    },
+    "company-a-night": {
+      "force_draw_wall_ms": 14.550599999999967,
+      "render_cpu_ms": 12.616922187805168,
+      "render_gpu_ms": 0.0,
+      "draw_calls": 7410.0,
+      "primitives": 185333.0
+    },
+    "company-b-night": {
+      "force_draw_wall_ms": 13.6486111111111,
+      "render_cpu_ms": 9.440455585055878,
+      "render_gpu_ms": 0.0,
+      "draw_calls": 5727.0,
+      "primitives": 78426.0
+    }
+  },
+  "before-metal": {
+    "old-street": {
+      "force_draw_wall_ms": 7.580311111111114,
+      "render_cpu_ms": 1.2206666655010665,
+      "render_gpu_ms": 0.0,
+      "draw_calls": 2010.0,
+      "primitives": 1496146.0
+    },
+    "company-a": {
+      "force_draw_wall_ms": 2.7006333333333337,
+      "render_cpu_ms": 0.716288889116711,
+      "render_gpu_ms": 0.0,
+      "draw_calls": 766.0,
+      "primitives": 185333.0
+    },
+    "company-b": {
+      "force_draw_wall_ms": 1.7851222222222198,
+      "render_cpu_ms": 0.2751777794626027,
+      "render_gpu_ms": 0.0,
+      "draw_calls": 299.0,
+      "primitives": 78426.0
+    },
+    "waterfront-night": {
+      "force_draw_wall_ms": 3.2247555555555536,
+      "render_cpu_ms": 0.30168888933128796,
+      "render_gpu_ms": 0.0,
+      "draw_calls": 410.0,
+      "primitives": 1235048.0
+    },
+    "central-walk": {
+      "force_draw_wall_ms": 5.465911111111111,
+      "render_cpu_ms": 0.43156666523880466,
+      "render_gpu_ms": 0.0,
+      "draw_calls": 297.0,
+      "primitives": 2499252.0
+    },
+    "garden-night": {
+      "force_draw_wall_ms": 6.777677777777776,
+      "render_cpu_ms": 1.2162888858053433,
+      "render_gpu_ms": 0.0,
+      "draw_calls": 1823.0,
+      "primitives": 854027.0
+    },
+    "bookshop-evening": {
+      "force_draw_wall_ms": 2.86557777777778,
+      "render_cpu_ms": 0.734277774890264,
+      "render_gpu_ms": 0.0,
+      "draw_calls": 489.0,
+      "primitives": 103520.0
+    },
+    "company-a-night": {
+      "force_draw_wall_ms": 3.664677777777777,
+      "render_cpu_ms": 1.3400444454616967,
+      "render_gpu_ms": 0.0,
+      "draw_calls": 766.0,
+      "primitives": 185333.0
+    },
+    "company-b-night": {
+      "force_draw_wall_ms": 3.3812222222222235,
+      "render_cpu_ms": 1.02303332818879,
+      "render_gpu_ms": 0.0,
+      "draw_calls": 299.0,
+      "primitives": 78426.0
+    }
+  },
+  "final-compat": {
+    "old-street": {
+      "force_draw_wall_ms": 15.374311111111133,
+      "render_cpu_ms": 12.996555561489535,
+      "render_gpu_ms": 0.0,
+      "draw_calls": 5462.0,
+      "primitives": 1496338.0
+    },
+    "company-a": {
+      "force_draw_wall_ms": 10.381877777777767,
+      "render_cpu_ms": 7.643444410959884,
+      "render_gpu_ms": 0.0,
+      "draw_calls": 4015.0,
+      "primitives": 185333.0
+    },
+    "company-b": {
+      "force_draw_wall_ms": 4.81041111111111,
+      "render_cpu_ms": 3.060322223769296,
+      "render_gpu_ms": 0.0,
+      "draw_calls": 1445.0,
+      "primitives": 78426.0
+    },
+    "waterfront-night": {
+      "force_draw_wall_ms": 2.7571333333333334,
+      "render_cpu_ms": 1.8024999976158134,
+      "render_gpu_ms": 0.0,
+      "draw_calls": 425.0,
+      "primitives": 1242780.0
+    },
+    "central-walk": {
+      "force_draw_wall_ms": 4.648944444444443,
+      "render_cpu_ms": 2.37409999370575,
+      "render_gpu_ms": 0.0,
+      "draw_calls": 801.0,
+      "primitives": 2499840.0
+    },
+    "garden-night": {
+      "force_draw_wall_ms": 9.014522222222224,
+      "render_cpu_ms": 7.1714555475446895,
+      "render_gpu_ms": 0.0,
+      "draw_calls": 2123.0,
+      "primitives": 854207.0
+    },
+    "bookshop-evening": {
+      "force_draw_wall_ms": 3.4979888888888904,
+      "render_cpu_ms": 2.3260888867908065,
+      "render_gpu_ms": 0.0,
+      "draw_calls": 552.622222222222,
+      "primitives": 103544.0
+    },
+    "company-a-night": {
+      "force_draw_wall_ms": 5.1087,
+      "render_cpu_ms": 3.4090444405873597,
+      "render_gpu_ms": 0.0,
+      "draw_calls": 911.0,
+      "primitives": 185333.0
+    },
+    "company-b-night": {
+      "force_draw_wall_ms": 2.733122222222223,
+      "render_cpu_ms": 1.7246222217877698,
+      "render_gpu_ms": 0.0,
+      "draw_calls": 330.0,
+      "primitives": 78426.0
+    }
+  },
+  "final-metal": {
+    "old-street": {
+      "force_draw_wall_ms": 7.501533333333337,
+      "render_cpu_ms": 1.2115999950302967,
+      "render_gpu_ms": 0.0,
+      "draw_calls": 2012.0,
+      "primitives": 1496338.0
+    },
+    "company-a": {
+      "force_draw_wall_ms": 2.704944444444447,
+      "render_cpu_ms": 0.7478777752982246,
+      "render_gpu_ms": 0.0,
+      "draw_calls": 766.0,
+      "primitives": 185333.0
+    },
+    "company-b": {
+      "force_draw_wall_ms": 1.7791,
+      "render_cpu_ms": 0.29582222137186237,
+      "render_gpu_ms": 0.0,
+      "draw_calls": 299.0,
+      "primitives": 78426.0
+    },
+    "waterfront-night": {
+      "force_draw_wall_ms": 2.71821111111111,
+      "render_cpu_ms": 0.23525555382172234,
+      "render_gpu_ms": 0.0,
+      "draw_calls": 411.0,
+      "primitives": 1235120.0
+    },
+    "central-walk": {
+      "force_draw_wall_ms": 5.895844444444443,
+      "render_cpu_ms": 0.4557555546363194,
+      "render_gpu_ms": 0.0,
+      "draw_calls": 299.0,
+      "primitives": 2499840.0
+    },
+    "garden-night": {
+      "force_draw_wall_ms": 5.5949666666666635,
+      "render_cpu_ms": 0.7729444450802273,
+      "render_gpu_ms": 0.0,
+      "draw_calls": 1825.0,
+      "primitives": 854207.0
+    },
+    "bookshop-evening": {
+      "force_draw_wall_ms": 1.6452888888888868,
+      "render_cpu_ms": 0.234955556028419,
+      "render_gpu_ms": 0.0,
+      "draw_calls": 489.0,
+      "primitives": 103544.0
+    },
+    "company-a-night": {
+      "force_draw_wall_ms": 2.18642222222222,
+      "render_cpu_ms": 0.3439444445901443,
+      "render_gpu_ms": 0.0,
+      "draw_calls": 766.0,
+      "primitives": 185333.0
+    },
+    "company-b-night": {
+      "force_draw_wall_ms": 1.32701111111111,
+      "render_cpu_ms": 0.161899999777476,
+      "render_gpu_ms": 0.0,
+      "draw_calls": 299.0,
+      "primitives": 78426.0
+    }
+  }
+}

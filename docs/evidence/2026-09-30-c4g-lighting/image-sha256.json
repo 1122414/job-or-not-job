@@ -1,0 +1,298 @@
+{
+  "before-compat/bookshop-evening.png": {
+    "sha256": "442480b722085f0f2c0fd0f202f924e2d452a68a39ce49c82707c698d5d36750",
+    "visually_reviewed": false
+  },
+  "before-compat/central-walk.png": {
+    "sha256": "14a00f70bd28b89ec638458c1b0054d313add687c37f6b03248f18fbbb4d3063",
+    "visually_reviewed": true
+  },
+  "before-compat/company-a.png": {
+    "sha256": "446096d4f4bf238aea9600398a0d7d45e4a30f381d850ccbcf40e95793e07b7d",
+    "visually_reviewed": true
+  },
+  "before-compat/company-b-night.png": {
+    "sha256": "09a24fd9d6e3d549d5a2e9718266a26865cb58539ad7375013d708de726b95f4",
+    "visually_reviewed": false
+  },
+  "before-compat/garden-dusk.png": {
+    "sha256": "5c404d19eb7ff2f465757f59b5c519e1464ad0b89bad7b49886ad76e3a321ba2",
+    "visually_reviewed": false
+  },
+  "before-compat/garden-night.png": {
+    "sha256": "de4442948a63a2b6dc42b73e29afd20cd9b09a23defc25a3afc130e160d20536",
+    "visually_reviewed": true
+  },
+  "before-compat/waterfront-night.png": {
+    "sha256": "62f64d2dc3a982e60fb5b0778c49f6a5af12a23d80376c7796f45a729f75e28f",
+    "visually_reviewed": false
+  },
+  "before-metal/bookshop-evening.png": {
+    "sha256": "959a879556fb2548ff93032ad8e41eb86111e87c7d24adba566389d05d458829",
+    "visually_reviewed": false
+  },
+  "before-metal/central-walk.png": {
+    "sha256": "20722ec12e3f05f3bcd95ca4550d18bc6ae24fbc66774e8635be513da2e3291e",
+    "visually_reviewed": true
+  },
+  "before-metal/company-a.png": {
+    "sha256": "d026577cf477f25b946f2a678a694b651abd1a154cc13cde3dcca5ca540b540e",
+    "visually_reviewed": true
+  },
+  "before-metal/company-b-night.png": {
+    "sha256": "7f2bd18032ae922aeef2d3ebea63b7302acf541f7dbb8a955789b30503b69038",
+    "visually_reviewed": false
+  },
+  "before-metal/garden-dusk.png": {
+    "sha256": "c22a4f925666cb2b5ee13559f1b43d294f77f8f66d88a7ec4cf708127a795211",
+    "visually_reviewed": false
+  },
+  "before-metal/garden-night.png": {
+    "sha256": "293931fcc08883dd8ede050c346cfdf7d7a8ad60e1517e94bd149f8174ea35b6",
+    "visually_reviewed": true
+  },
+  "before-metal/waterfront-night.png": {
+    "sha256": "f007db2ada8cc9af8b746371ce71341824b74535693e8648d9ec1ce165f4bad0",
+    "visually_reviewed": false
+  },
+  "career/backup.png": {
+    "sha256": "eddfd2caf9c8b35c45dc1824a4fe85fee7c1fffe934e649a8762c37b448d550b",
+    "visually_reviewed": false
+  },
+  "career/defend.png": {
+    "sha256": "254090f78a79d21261959cbf2334c98d4adc4ae852d78672c9f4d540e9d5dbf8",
+    "visually_reviewed": true
+  },
+  "career/handover.png": {
+    "sha256": "5ee417af55f15daf5785697b34360d656738c81cc229b3c49abb70fc511c88e5",
+    "visually_reviewed": true
+  },
+  "career/interview_hr.png": {
+    "sha256": "dcc2c9959873b6dab4e9aa0eaba846dab6f779909d89af2f2679e7665e6a4a72",
+    "visually_reviewed": true
+  },
+  "career/join_a.png": {
+    "sha256": "3799e468665ae847e1616fb34c06ddfc8128eb2ff0e770ff83bd14095edbd4d2",
+    "visually_reviewed": false
+  },
+  "career/prepare.png": {
+    "sha256": "5ff924164c0e188993707e20b57d818e846cbdee2f249688718e40ff59cd6d1c",
+    "visually_reviewed": false
+  },
+  "career/submit.png": {
+    "sha256": "a18760f42cb9638a71042363720174543a42b0fd07ebc5cc573cb851c67aee7c",
+    "visually_reviewed": false
+  },
+  "evening/a_friend-encounter.png": {
+    "sha256": "eba2c8ca609c0ea349ce749ebe89ca1399537e20add4753d9eb221cc90cc3800",
+    "visually_reviewed": true
+  },
+  "evening/a_friend-own-time.png": {
+    "sha256": "e0e5dceaeb4899854346685c6569c829956a941c2d4b859771f612123acc6b6d",
+    "visually_reviewed": false
+  },
+  "evening/a_friend-response.png": {
+    "sha256": "67eab605b44225754710c53b6b2e62ca550b080882f09a3b00a44efec0dcb689",
+    "visually_reviewed": false
+  },
+  "evening/a_group-encounter.png": {
+    "sha256": "0ded0bdadb438d05490fccaf66709abd049f3ecece9431d57484f6f55a7b7e1f",
+    "visually_reviewed": true
+  },
+  "evening/a_group-own-time.png": {
+    "sha256": "3f03c320fd3ef3b88c33d515b3e75e444bf2bf573efc5e12bbf7ef0c858d32ef",
+    "visually_reviewed": false
+  },
+  "evening/a_group-response.png": {
+    "sha256": "7bcd44df08711c2bbb458d4a506031bcc2376f76cb32aacccb7645e10815ab52",
+    "visually_reviewed": false
+  },
+  "evening/b_friend-encounter.png": {
+    "sha256": "afcfe629da0656ef5d16b1da9d2170906b5dad1bce7e78d1ffb143b28cb37448",
+    "visually_reviewed": true
+  },
+  "evening/b_friend-own-time.png": {
+    "sha256": "2915e425452e644fd844ac2d3bb3daa229bd33814a6b13f5dfecc5601ac8c8a0",
+    "visually_reviewed": false
+  },
+  "evening/b_friend-response.png": {
+    "sha256": "4cb4c75c460f12e289cee24cf12ae6095b11407f3588d5292dada4ae3e6aa510",
+    "visually_reviewed": false
+  },
+  "evening/later-waterfront.png": {
+    "sha256": "312c1826756bda8543499d26105deaf48dee00f4ff1bf3199b7eed8b1a285f86",
+    "visually_reviewed": false
+  },
+  "evening/office-crossing.png": {
+    "sha256": "2aca6f38ce78a8d57e9761279408e6f2fbdcf7a794aa4ad548f4060b5d9704fa",
+    "visually_reviewed": false
+  },
+  "final-compat/bookshop-evening.png": {
+    "sha256": "71746e6e8d6c21d13192a3f32c6334696c65941f646e8a71e4662e427be3d5d9",
+    "visually_reviewed": false
+  },
+  "final-compat/central-walk.png": {
+    "sha256": "e0da75c4b9f79e0e6414b8eca6115d3a52d792a275dfaf30e6c1e6c668c56690",
+    "visually_reviewed": true
+  },
+  "final-compat/company-a.png": {
+    "sha256": "7339630f3dbe968d0c6efd8ad99e8e397f149167e768d70e6f32060662e1ed3b",
+    "visually_reviewed": false
+  },
+  "final-compat/company-b-night.png": {
+    "sha256": "4d698883dd6ed19f3a17379558bc0abde5a582e266900dbd04d2d71e70e17953",
+    "visually_reviewed": true
+  },
+  "final-compat/garden-dusk.png": {
+    "sha256": "cfd7bb2ef6ead46ce17dad2056cb97c3309d668006b201aea27df295b479677b",
+    "visually_reviewed": false
+  },
+  "final-compat/garden-night.png": {
+    "sha256": "71374c0ac2fe3a899ac802908d5996ac280b5644370669654c8cf3fdc037f404",
+    "visually_reviewed": true
+  },
+  "final-compat/waterfront-night.png": {
+    "sha256": "9dc170f08efb71ef893143b53a0830859332717420567aea17495142f0c49263",
+    "visually_reviewed": false
+  },
+  "final-metal/bookshop-evening.png": {
+    "sha256": "89e3e0fc39a4b721e95bd8c2d2375e38088eb60533c1b78f9a7c9bc813c3dcd0",
+    "visually_reviewed": true
+  },
+  "final-metal/bookshop-gallery.png": {
+    "sha256": "20312db652bb66d1360e72f5667c90b8948397c4fbb5c0507f3d7c937ade330c",
+    "visually_reviewed": false
+  },
+  "final-metal/bookshop-inside.png": {
+    "sha256": "e3221cadf12632298a0a7954649d872fc96d3bd9292c625607df59463160b02e",
+    "visually_reviewed": true
+  },
+  "final-metal/bookshop-window.png": {
+    "sha256": "17a132f492ccae37042034099c1e25a4143f7327c0122f2fe171201a9c916492",
+    "visually_reviewed": false
+  },
+  "final-metal/bookshop.png": {
+    "sha256": "48e5aa83cda826b1380cf0b3603c4a645805a0687910eeb218c30a24212c2bec",
+    "visually_reviewed": false
+  },
+  "final-metal/central-walk.png": {
+    "sha256": "32a0fa51793c52958d95fb5dc5f6b57f060ecaf3c954c8cde90d31579ed28ad7",
+    "visually_reviewed": true
+  },
+  "final-metal/coast-dusk.png": {
+    "sha256": "d7b70a9004b5aa18b49b4d8add73a39caaf83e0dd099d64312f043c0a0201bd8",
+    "visually_reviewed": true
+  },
+  "final-metal/coast-night.png": {
+    "sha256": "7c2dbea22216cbaf4ab19404622620b7ba9ed50b5122457071b509185b194ff1",
+    "visually_reviewed": false
+  },
+  "final-metal/company-a-night.png": {
+    "sha256": "1f219d5e95162d76a56bb4b7814e5061839113d311f72a791d305f5a6947c5e9",
+    "visually_reviewed": true
+  },
+  "final-metal/company-a.png": {
+    "sha256": "69128de7cca0005c2a8b58c7c78be8bc3ade04733b3d08d24fc079e10cfb0c56",
+    "visually_reviewed": true
+  },
+  "final-metal/company-b-night.png": {
+    "sha256": "4fc9ec5da02c7bb91dbc2d7bdaf5ba012ae3a2b0104b4091e16071d81630dcdb",
+    "visually_reviewed": true
+  },
+  "final-metal/company-b.png": {
+    "sha256": "f8df325565c322798eff635d3ec0ba93bb2ee44dbe4a31a75bf85414f79d5003",
+    "visually_reviewed": true
+  },
+  "final-metal/company-exit.png": {
+    "sha256": "3a5c4a27c249d0be3895a04420733e9a83b3acc1ebcab4f4cf19c28a3bf4040b",
+    "visually_reviewed": false
+  },
+  "final-metal/district-overview.png": {
+    "sha256": "30dac19d77c090f0efd09bbf755021cbce68e9f0ae51f824f105a82253b0e46b",
+    "visually_reviewed": true
+  },
+  "final-metal/garden-day.png": {
+    "sha256": "48a5227dc9151abf65f242f100d3d0be0861302c0226a07defb9138979a8b940",
+    "visually_reviewed": false
+  },
+  "final-metal/garden-dusk.png": {
+    "sha256": "bf4d10393912d505ed1548766276e898449250055585a12bc08b86d93286bada",
+    "visually_reviewed": true
+  },
+  "final-metal/garden-night.png": {
+    "sha256": "045f0b9c02f6913e8082957df71a1360267f433bcd3bdbff16a3a1ad511272da",
+    "visually_reviewed": true
+  },
+  "final-metal/homes.png": {
+    "sha256": "02962cde3a2cf9bd6d80567910eafc56e12210d632d3bb668dbe6704611fa086",
+    "visually_reviewed": true
+  },
+  "final-metal/old-street-night.png": {
+    "sha256": "e0c4777255898bcb2cf79980790cf90708daf4fafe5bf624897ef189631d05d6",
+    "visually_reviewed": false
+  },
+  "final-metal/old-street.png": {
+    "sha256": "1ce0ea2010a31d1ccccc86703fcd21403905ab5021b938bdd54ef5889364c24c",
+    "visually_reviewed": true
+  },
+  "final-metal/waterfront-night.png": {
+    "sha256": "afa3ae945fcad4c76237df7e31a05adbe7b2c4173eb459c22a7c94b95d67e6db",
+    "visually_reviewed": true
+  },
+  "final-metal/waterfront.png": {
+    "sha256": "84bf1a7b4a567406c7c083fe1c3fd36017f9aebddc889e406f62e0d734e1b94b",
+    "visually_reviewed": false
+  },
+  "iteration/filmic-bright-walk.png": {
+    "sha256": "8425acded70928dbdc455121fbab985dd954a160fc20e77d0611cc7a958f0036",
+    "visually_reviewed": true
+  },
+  "package/day-walk.png": {
+    "sha256": "95d8bf83d045c79400ac8efc9098f77b33bb68d7be47920e894e545b32c624aa",
+    "visually_reviewed": true
+  },
+  "package/night-company-a.png": {
+    "sha256": "ce1390f9582677cb1df2e1d6b4eab15ab4038f321118f75267828ee1beec3b2c",
+    "visually_reviewed": true
+  },
+  "package/night-garden.png": {
+    "sha256": "9a2ab6adbb717653e6083001c9d964ad27ae3afa6b6829b34a56ef87652ea461",
+    "visually_reviewed": true
+  },
+  "walk/actual-reading.png": {
+    "sha256": "8798672454d1243ed98454fbb86af3b0b08f402e817cc15d07a0d3f1a393af42",
+    "visually_reviewed": true
+  },
+  "walk/route-0.png": {
+    "sha256": "2a1a41832a681f7df0a0d9cfbf7ee6941ea07a8d0d17c0271fdfc0f386c1f26a",
+    "visually_reviewed": true
+  },
+  "walk/route-1.png": {
+    "sha256": "c6604c18ca5b0014a46cae308110fdd292f3d45d554df3dd07e585c7feae2e9a",
+    "visually_reviewed": false
+  },
+  "walk/route-2.png": {
+    "sha256": "b6daedf2ac551b6657be83f4108de68394a5012c79b43829be1bbd1df107d929",
+    "visually_reviewed": false
+  },
+  "walk/route-3.png": {
+    "sha256": "af655907ee1b07d98219c4b913aebbe423685577e09072b8b6f629e1942880b1",
+    "visually_reviewed": false
+  },
+  "walk/route-4.png": {
+    "sha256": "817ac1f8c2021cb47ea39e4318f1b458903ab1ac9f5ae92b115122cce9c582cd",
+    "visually_reviewed": true
+  },
+  "walk/route-5.png": {
+    "sha256": "41aa018e696e7ddffb88993205be7790e3432c2f08884ab382c61f9205f0f72f",
+    "visually_reviewed": false
+  },
+  "walk/route-6.png": {
+    "sha256": "873a1c688a55873a338a6d9e1e7a703c4ef48cf216a2643912fef8b4dab70462",
+    "visually_reviewed": false
+  },
+  "walk/route-7.png": {
+    "sha256": "4c8e3e2a03225909b79646cb3ba5037173b3202e60c07404918ca1e7184afafe",
+    "visually_reviewed": false
+  }
+}

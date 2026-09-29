@@ -349,6 +349,8 @@ static func restore(game: Node3D, data: Dictionary) -> bool:
 	game.city_life.walk.restore(data.get("city_walk",{}) if data.version>=17 else {})
 	game.response.restore(data.get("city_response",{}) if data.version>=16 else {})
 	game.commons.restore(data.get("city_commons",{}) if data.version>=18 else {})
+	# Restore the visible time immediately, including when loading while paused.
+	game.update_daylight()
 	for station in game.stations:
 		if station.stable_id=="backup": station.label.text="投影已恢复 · 成果已记录" if game.career.facts.has("output_two") else station.title
 	# Validate only obstructed actor positions against the current furniture/ceiling layout.

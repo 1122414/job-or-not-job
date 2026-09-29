@@ -26,3 +26,7 @@ C4a取证路径补记：full_route_test默认输出2026-09-22历史目录；本�
 
 
 2026-09-30 C4f验证入口补记：本机4.7.1实际TodayOff执行外部`tools/verify_macos.gd`时，新增`var hit := game.get_world_3d().direct_space_state.intersect_ray(ray)`无法推断类型，日志出现Parse Error，但进程退出0；工具加载失败，不能记为包通过。明确声明`Dictionary`后同一包实际运行至`PACKAGED_SMOKE_OK`，运行资源无需重建。检查必须同时要求成功标记、无SCRIPT ERROR/ERROR及预期检查项，不能只看shell返回码。项目`tools/check.sh`已有错误扫描，外部包与图形验证也沿用。这里只确认该外部脚本/本机版本案例，不泛化为所有Godot错误都返回0。
+
+2026-09-30 C4g平台覆盖：项目基础renderer仍为GL，macOS feature override为Forward+。包生成器若只正则读取基础值，会写错目标配置（代码预测，在最终打包前修正）。`configured_renderer`先读取目标平台覆盖，Python用macOS覆盖和web回退两种结果验证；实际后端不能仅看配置，`verify_packaged_lighting.gd`通过TodayOff在项目外真实绘制并读取RenderingServer，确认本机默认Metal/Forward+。包清单保留配置身份，实际后端由外部验收记录；headless不能充当图形后端验证。本机一次验证，不外推其他Mac硬件或驱动回退。
+
+C4g完成信号边界：同一工具GL总frame_post_draw为1080，Metal为2159；每个被计时样本内均实际增加1，差异位于采样区间外。汇总曾错误要求所有后端总数都等于GL结果，核查原始27条/810样本和工具逐样本断言后纠正。总信号数不是正常帧率或重复绘制归因；保持原始总数，不把Metal数据改写为1080。详见C4g四组profile JSON及验收限制。

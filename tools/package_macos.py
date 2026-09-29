@@ -8,7 +8,7 @@ import re
 import shutil
 import subprocess
 
-from build_manifest import ROOT, manifest, sha256, source_identity
+from build_manifest import ROOT, configured_renderer, manifest, sha256, source_identity
 
 
 def build():
@@ -18,7 +18,7 @@ def build():
     identity['engine_version'] = subprocess.check_output([str(engine), '--version'], text=True).strip()
     config = (ROOT / 'project.godot').read_text()
     app_version = re.search(r'config/version="([^"]+)"', config).group(1)
-    renderer = re.search(r'renderer/rendering_method="([^"]+)"', config).group(1)
+    renderer = configured_renderer(config, 'macos')
     stamp = datetime.datetime.now(datetime.timezone.utc).strftime('%Y%m%dT%H%M%S%fZ')
     build_id = f"{stamp}-{identity['source_commit'][:8]}-{identity['source_sha256'][:8]}"
     output = ROOT / 'build' / 'baselines' / build_id

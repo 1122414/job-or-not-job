@@ -70,6 +70,16 @@ func run() -> void:
 			return
 	game.update_daylight()
 	print("PACKAGED_STREETSCAPE pieces=",streets.get_meta("pieces")," batches=",streets.get_meta("batches")," lights=",streets.lamps.size())
+	game.payroll.minute=1080; game.update_daylight()
+	var dusk_color: Color=game.environment.sky.sky_material.sky_horizon_color
+	game.payroll.minute=1230; game.update_daylight()
+	var garden_lit := false
+	for lamp in streets.lamps:
+		if lamp.light_energy>.5 and lamp.global_position.distance_to(Vector3(40.8,1.6,54))<lamp.omni_range*.85: garden_lit=true
+	if not garden_lit or game.environment.sky.sky_material.sky_horizon_color==dusk_color or game.environment.tonemap_mode!=Environment.TONE_MAPPER_ACES or build.renderer!="forward_plus":
+		push_error("Packaged district lighting or target renderer missing"); quit(1); return
+	game.payroll.minute=540; game.update_daylight()
+	print("PACKAGED_DAYLIGHT garden_lit=true twilight_distinct=true tonemap=ACES configured_renderer=",build.renderer," actual_renderer=",RenderingServer.get_current_rendering_method())
 	var sea := game.get_node_or_null("ConnectedDistrict/CoastalWater") as MeshInstance3D
 	if streets.get_meta("arcade_lots",0)!=3 or streets.get_meta("background_lots",0)!=29 or sea==null or sea.material_override!=streets.water or streets.water.shader==null:
 		push_error("Packaged urban galleries or coastal water missing")

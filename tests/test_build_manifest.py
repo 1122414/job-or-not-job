@@ -11,6 +11,11 @@ spec.loader.exec_module(module)
 
 
 class ManifestInputsTest(unittest.TestCase):
+    def test_platform_renderer_overrides_base_without_changing_other_targets(self):
+        config = 'renderer/rendering_method="gl_compatibility"\nrenderer/rendering_method.macos="forward_plus"\n'
+        self.assertEqual(module.configured_renderer(config, 'macos'), 'forward_plus')
+        self.assertEqual(module.configured_renderer(config, 'web'), 'gl_compatibility')
+
     def setUp(self):
         self.directory = tempfile.TemporaryDirectory()
         self.addCleanup(self.directory.cleanup)

@@ -190,7 +190,7 @@ func lamp(at: Vector3) -> void:
 	var light := OmniLight3D.new()
 	light.position=at+Vector3(.75,4.05,0)
 	light.light_color=Color("ffdcab")
-	light.omni_range=10
+	light.omni_range=11
 	light.light_energy=0
 	light.shadow_enabled=false
 	light.distance_fade_enabled=true
@@ -222,6 +222,9 @@ func landscape() -> void:
 		tree(tree_points[i],900+i)
 		box(Vector3(2,.022,2),tree_points[i]+Vector3(0,.015,0),"soil")
 	for at in [Vector3(-64,0,43),Vector3(-64,0,73),Vector3(64,0,43),Vector3(64,0,73),Vector3(-19,0,54),Vector3(21,0,54),Vector3(-48,0,118),Vector3(-12,0,118),Vector3(24,0,118),Vector3(60,0,118)]: lamp(at)
+	# Light the places people actually use and the connecting pedestrian spine.
+	# Poles remain outside the authored walking links, doorways and seats.
+	for at in [Vector3(44,0,60),Vector3(56,0,60),Vector3(-48,0,42),Vector3(-1,0,22),Vector3(-6,0,35),Vector3(7,0,61),Vector3(-6,0,82)]: lamp(at)
 	for at in [Vector3(-43,0,63),Vector3(-23,0,63),Vector3(32,0,49),Vector3(54,0,63)]: bench(at)
 	for x in [-36,-18,18,36]: bench(Vector3(x,0,120))
 	# A continuous sea wall and repeated upright rails ground the waterfront.
@@ -259,7 +262,7 @@ func daylight(value: float) -> void:
 	var night := 1.0-smoothstep(.04,.35,value)
 	if is_equal_approx(night,last_night): return
 	last_night=night
-	for light in lamps: light.light_energy=night*1.1
+	for light in lamps: light.light_energy=night*1.5
 	for material in night_materials: material.emission_energy_multiplier=night*.8
 
 func _process(delta: float) -> void:

@@ -1,0 +1,373 @@
+{
+	"adapter": "Apple M5 Pro (Apple9)",
+	"deterministic_gpu_buffers": true,
+	"deterministic_tree_transforms": true,
+	"final_visual_acceptance": false,
+	"fov": 65,
+	"nonempty_gpu_batches": 615,
+	"normal_game_performance": false,
+	"pointer_visible": true,
+	"renderer": "forward_plus",
+	"resolution": [
+		1440,
+		900
+	],
+	"root_focused": false,
+	"root_minimized": true,
+	"root_unfocusable": true,
+	"tree_instances": 23,
+	"views": [
+		{
+			"camera": [
+				-64.0,
+				1.75,
+				54.0
+			],
+			"draw_calls": 1986,
+			"minute": 540,
+			"name": "old-street",
+			"primitives": 1491425,
+			"target": [
+				-47.0,
+				2.79999995231628,
+				36.0
+			]
+		},
+		{
+			"camera": [
+				-47.0,
+				1.70000004768372,
+				48.0
+			],
+			"draw_calls": 432,
+			"minute": 540,
+			"name": "bookshop",
+			"primitives": 107756,
+			"target": [
+				-53.0,
+				2.09999990463257,
+				32.0
+			]
+		},
+		{
+			"camera": [
+				64.0,
+				1.70000004768372,
+				63.0
+			],
+			"draw_calls": 397,
+			"minute": 540,
+			"name": "homes",
+			"primitives": 1656787,
+			"target": [
+				43.0,
+				5.0,
+				82.0
+			]
+		},
+		{
+			"camera": [
+				-30.0,
+				1.70000004768372,
+				115.0
+			],
+			"draw_calls": 423,
+			"minute": 540,
+			"name": "waterfront",
+			"primitives": 1238336,
+			"target": [
+				16.0,
+				1.60000002384186,
+				121.0
+			]
+		},
+		{
+			"camera": [
+				-20.0,
+				1.70000004768372,
+				17.0
+			],
+			"draw_calls": 503,
+			"minute": 540,
+			"name": "company-exit",
+			"primitives": 907013,
+			"target": [
+				-46.0,
+				3.0,
+				34.0
+			]
+		},
+		{
+			"camera": [
+				-59.0,
+				18.0,
+				95.0
+			],
+			"draw_calls": 2253,
+			"minute": 540,
+			"name": "district-overview",
+			"primitives": 2091620,
+			"target": [
+				2.0,
+				1.0,
+				50.0
+			]
+		},
+		{
+			"camera": [
+				-64.0,
+				1.75,
+				54.0
+			],
+			"draw_calls": 1986,
+			"minute": 1230,
+			"name": "old-street-night",
+			"primitives": 1491425,
+			"target": [
+				-47.0,
+				2.79999995231628,
+				36.0
+			]
+		},
+		{
+			"camera": [
+				-30.0,
+				1.70000004768372,
+				115.0
+			],
+			"draw_calls": 423,
+			"minute": 1230,
+			"name": "waterfront-night",
+			"primitives": 1238336,
+			"target": [
+				16.0,
+				1.60000002384186,
+				121.0
+			]
+		},
+		{
+			"camera": [
+				-51.0,
+				1.70000004768372,
+				37.0
+			],
+			"draw_calls": 493,
+			"minute": 630,
+			"name": "bookshop-inside",
+			"primitives": 139026,
+			"target": [
+				-52.0,
+				1.54999995231628,
+				28.0
+			]
+		},
+		{
+			"camera": [
+				-55.0,
+				1.70000004768372,
+				29.7000007629395
+			],
+			"draw_calls": 752,
+			"minute": 630,
+			"name": "bookshop-gallery",
+			"primitives": 2068693,
+			"target": [
+				-46.2999992370605,
+				1.54999995231628,
+				35.0
+			]
+		},
+		{
+			"camera": [
+				-53.0,
+				1.70000004768372,
+				32.0
+			],
+			"draw_calls": 355,
+			"minute": 630,
+			"name": "bookshop-window",
+			"primitives": 1945316,
+			"target": [
+				-50.5,
+				1.79999995231628,
+				39.0
+			]
+		},
+		{
+			"camera": [
+				-51.0,
+				1.70000004768372,
+				37.0
+			],
+			"draw_calls": 493,
+			"minute": 1140,
+			"name": "bookshop-evening",
+			"primitives": 139026,
+			"target": [
+				-52.0,
+				1.54999995231628,
+				28.0
+			]
+		},
+		{
+			"camera": [
+				0.0,
+				1.75,
+				23.0
+			],
+			"draw_calls": 302,
+			"minute": 540,
+			"name": "central-walk",
+			"primitives": 2500436,
+			"target": [
+				0.0,
+				2.20000004768372,
+				78.0
+			]
+		},
+		{
+			"camera": [
+				-14.0,
+				1.70000004768372,
+				-1.79999995231628
+			],
+			"draw_calls": 751,
+			"minute": 540,
+			"name": "company-a",
+			"primitives": 158136,
+			"target": [
+				-8.5,
+				1.35000002384186,
+				-8.0
+			]
+		},
+		{
+			"camera": [
+				14.0,
+				1.70000004768372,
+				-1.79999995231628
+			],
+			"draw_calls": 299,
+			"minute": 540,
+			"name": "company-b",
+			"primitives": 78426,
+			"target": [
+				19.5,
+				1.35000002384186,
+				-8.0
+			]
+		},
+		{
+			"camera": [
+				-14.0,
+				1.70000004768372,
+				-1.79999995231628
+			],
+			"draw_calls": 751,
+			"minute": 1230,
+			"name": "company-a-night",
+			"primitives": 158136,
+			"target": [
+				-8.5,
+				1.35000002384186,
+				-8.0
+			]
+		},
+		{
+			"camera": [
+				14.0,
+				1.70000004768372,
+				-1.79999995231628
+			],
+			"draw_calls": 299,
+			"minute": 1230,
+			"name": "company-b-night",
+			"primitives": 78426,
+			"target": [
+				19.5,
+				1.35000002384186,
+				-8.0
+			]
+		},
+		{
+			"camera": [
+				43.0,
+				1.70000004768372,
+				57.0
+			],
+			"draw_calls": 1795,
+			"minute": 540,
+			"name": "garden-day",
+			"primitives": 805296,
+			"target": [
+				41.2000007629395,
+				1.39999997615814,
+				54.0
+			]
+		},
+		{
+			"camera": [
+				43.0,
+				1.70000004768372,
+				57.0
+			],
+			"draw_calls": 1795,
+			"minute": 1080,
+			"name": "garden-dusk",
+			"primitives": 805296,
+			"target": [
+				41.2000007629395,
+				1.39999997615814,
+				54.0
+			]
+		},
+		{
+			"camera": [
+				43.0,
+				1.70000004768372,
+				57.0
+			],
+			"draw_calls": 1795,
+			"minute": 1230,
+			"name": "garden-night",
+			"primitives": 805296,
+			"target": [
+				41.2000007629395,
+				1.39999997615814,
+				54.0
+			]
+		},
+		{
+			"camera": [
+				30.0,
+				1.70000004768372,
+				120.0
+			],
+			"draw_calls": 2246,
+			"minute": 1080,
+			"name": "coast-dusk",
+			"primitives": 1915151,
+			"target": [
+				28.0,
+				1.39999997615814,
+				116.0
+			]
+		},
+		{
+			"camera": [
+				30.0,
+				1.70000004768372,
+				120.0
+			],
+			"draw_calls": 2246,
+			"minute": 1230,
+			"name": "coast-night",
+			"primitives": 1915151,
+			"target": [
+				28.0,
+				1.39999997615814,
+				116.0
+			]
+		}
+	]
+}
