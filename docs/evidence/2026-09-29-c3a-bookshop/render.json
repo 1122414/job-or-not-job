@@ -1,0 +1,51 @@
+{
+	"images": 10,
+	"note": "Player positioned near interaction points for capture; residents walk naturally. Continuous player routes verified separately in city_bookshop_test. Offscreen rendering is not final visual/performance acceptance.",
+	"pointer_visible": true,
+	"results": {
+		"garden": {
+			"checked": false,
+			"elapsed": 18.0,
+			"guide": "garden",
+			"joined": true,
+			"method": "garden",
+			"participants": [
+				"resident_zhou_ning",
+				"resident_wu_fan"
+			],
+			"prepared": true,
+			"result": "garden",
+			"schema": 1
+		},
+		"paper": {
+			"checked": false,
+			"elapsed": 18.0,
+			"guide": "paper",
+			"joined": true,
+			"method": "paper",
+			"participants": [
+				"resident_zhou_ning",
+				"resident_lin_qiao"
+			],
+			"prepared": true,
+			"result": "paper",
+			"schema": 1
+		},
+		"screen": {
+			"checked": true,
+			"elapsed": 18.0,
+			"guide": "paper",
+			"joined": true,
+			"method": "screen",
+			"participants": [
+				"resident_zhou_ning",
+				"resident_lin_qiao",
+				"resident_wu_fan"
+			],
+			"prepared": true,
+			"result": "screen",
+			"schema": 1
+		}
+	},
+	"root_hidden": false
+}

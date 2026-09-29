@@ -1,0 +1,12 @@
+{
+  "build_id": "20260929T092217309634Z-21739658-a1887c45",
+  "runtime_sha256": "a1887c451ab6c08d06b9118a82d44a5f9adff0a89ac4326747ec560d71ca3ee6",
+  "source_matches": true,
+  "launcher_project": true,
+  "launcher_tmp": true,
+  "persistence": false,
+  "bookshop_walk_and_preparation_json": true,
+  "svg_count": 3,
+  "signature_verified": true,
+  "zip_crc_verified": true
+}

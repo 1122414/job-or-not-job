@@ -1,0 +1,56 @@
+{
+  "godot_test_count": 63,
+  "godot_suite_exit": 0,
+  "python_test_count": 24,
+  "python_exit": 0,
+  "errors": 0,
+  "warnings": 0,
+  "headless_routes": {
+    "screen": {
+      "first_join_frame": 6089,
+      "participants": 3
+    },
+    "paper": {
+      "first_join_frame": 6571,
+      "participants": 3
+    },
+    "garden": {
+      "first_join_frame": 2052,
+      "participants": 2
+    }
+  },
+  "real_attack_interrupt": true,
+  "outdoor_wall_boundary": true,
+  "real_gui_map_click": true,
+  "json_disk_write_read": true,
+  "legacy_json_versions": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14
+  ],
+  "rejected_activity_cases": 12,
+  "graphical_company_routes": true,
+  "notes": [
+    "63-test full suite completed before adding map-click assertions; augmented city_activity_save_test ran separately afterward.",
+    "Headless route fixture starts at bookshop doorstep.",
+    "Timing reflects fixed 60Hz simulated physics, not presentation performance."
+  ],
+  "logs_sha256": {
+    "c3a-verified-checks": "aacb1799f361ce88627a18cae996d35edb625e6c5899b19dec40b47b4df34237",
+    "c3a-full-route": "9f610f13b681206d7f3c6184903bad3bd1476260d30b403e38e4873ef4b13741",
+    "c3a-package-project": "87be6dec2c4b6948e6475cfcbef1424dde4b152aed1c5560627981051531ab56",
+    "c3a-package-tmp": "87be6dec2c4b6948e6475cfcbef1424dde4b152aed1c5560627981051531ab56",
+    "c3a-activity-verified": "94a8955f333cffdb43f7c27b91f70f02a420a89714c28a0de219c36593642ba6"
+  }
+}
