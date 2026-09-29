@@ -45,6 +45,7 @@ var shake_enabled := true
 var navigation_dirty := -1.0
 var transit: CityTransit
 var driving: CityDriving
+var population: CityPopulation
 
 func _ready() -> void:
 	bind_inputs()
@@ -77,6 +78,9 @@ func _ready() -> void:
 	driving=CityDriving.new()
 	driving.game=self
 	add_child(driving)
+	population=CityPopulation.new()
+	population.game=self
+	add_child(population)
 	build_ui()
 	build_audio()
 	interview_audio=InterviewAudio.new()
@@ -212,7 +216,7 @@ func navigation_target() -> Node3D:
 	return transit.station_for(transit.waypoint) if transit.waypoint!="" else ObjectiveGuide.target(self)
 
 func targets() -> Array:
-	return npcs + stations + props + (driving.cars.filter(func(car): return not car.traffic) if driving else [])
+	return npcs + stations + props + (driving.cars.filter(func(car): return not car.traffic) if driving else []) + (population.residents if population else [])
 
 func nearest() -> Node3D:
 	var best: Node3D
@@ -262,6 +266,9 @@ func interact() -> void:
 		return
 	if interviews.advance(): return
 	var target := nearest()
+	if target is CityResident:
+		population.talk(target)
+		return
 	if target is CityCar:
 		driving.enter(target)
 		return
@@ -304,6 +311,9 @@ func choose(index: int) -> void:
 	var choices: Array = conversation.choices
 	if index>=choices.size(): return
 	var action: String = choices[index][1]
+	if speaker is CityResident:
+		population.answer(speaker,action)
+		return
 	if speaker is OfficeNPC and social.handle(action,speaker): return
 	if action=="open_messages":
 		recruitment.selected=speaker.company
@@ -401,6 +411,7 @@ func next_action() -> int:
 	return action_counter
 
 func on_aggression(npc: OfficeNPC, action: int) -> void:
+	if population: population.alarm(npc,action)
 	if npc.last_hit==action: social.hurt(npc,action)
 	staffing.calm[npc.company]=0.0
 	close_interaction()

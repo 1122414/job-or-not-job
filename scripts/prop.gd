@@ -203,7 +203,7 @@ func _physics_process(delta: float) -> void:
 	if flight_time == 0:
 		thrown = false
 	label.visible = false
-	if position.y < -8 or absf(position.x) > 60 or absf(position.z) > 60:
+	if position.y < -8 or not CityLayout.BOUNDS.grow(4).has_point(Vector2(position.x,position.z)):
 		reset_position()
 
 func reset_position() -> void:
@@ -261,7 +261,7 @@ func _contact(body: Node) -> void:
 	var speed := linear_velocity.length()
 	if speed<2.0: return
 	var strength := clampf(mass*speed/8.0,0.5,9.0)
-	if body is OfficeNPC:
+	if body is OfficeNPC or body is CityResident:
 		hits[body.get_instance_id()]=true
 		body.hit((body.global_position-global_position).normalized(),minf(strength,2.5),attack_id,mass>=2.0 and speed>=4.0)
 		game.impact()

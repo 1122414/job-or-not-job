@@ -14,6 +14,7 @@ func build(game: Node3D) -> void:
 	grid.update()
 	excluded = [game.player.get_rid(),game.transit.bus.get_rid()]
 	for car in game.driving.cars: excluded.append(car.get_rid())
+	for person in game.population.residents: excluded.append(person.get_rid())
 	for npc in game.npcs: excluded.append(npc.get_rid())
 	for prop in game.props:
 		if prop.portable(): excluded.append(prop.get_rid())
@@ -44,7 +45,7 @@ func route(from: Vector3, to: Vector3, seat: CollisionObject3D = null, actor: No
 	if not built: return points
 	var occupied := {}
 	if actor:
-		for person in world.npcs+[world.player]:
+		for person in world.npcs+[world.player]+world.population.residents:
 			if person==actor or person.position.distance_to(to)<0.9: continue
 			var center := Vector2i(roundi(person.position.x*2),roundi(person.position.z*2))
 			for dx in range(-1,2):

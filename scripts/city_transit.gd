@@ -102,8 +102,9 @@ func tick(delta: float) -> void:
 	var length := curve.get_baked_length()
 	var remaining := fposmod(stop_offsets[next_stop]-distance,length)
 	var desired := minf(MAX_SPEED,sqrt(2*ACCELERATION*remaining))
+	if game.population: desired=minf(desired,game.population.speed_limit(distance,ACCELERATION,3.6))
 	speed=move_toward(speed,desired,ACCELERATION*delta)
-	var advance := minf(remaining,maxf(0.12,speed)*delta)
+	var advance := minf(remaining,speed*delta)
 	var proposed := fposmod(distance+advance,length)
 	var target := vehicle_transform(proposed)
 	# Swept physical collision checks both the current and next orientation on bends.

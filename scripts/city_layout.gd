@@ -46,7 +46,7 @@ static func build(game: Node3D) -> void:
 	for z in range(24,94,8):
 		for x in [-76,76]: Shapes.box(district,Vector3(0.12,0.015,3),Vector3(x,0.012,z),Color("e4cb82"))
 	# Public paths cross the inner block; no invisible barrier gates employment.
-	for path in [[Vector3(0,0,58),Vector3(144,0.025,5)],[Vector3(0,0,58),Vector3(6,0.025,94)]]:
+	for path in [[Vector3(0,0,58),Vector3(140,0.025,5)],[Vector3(0,0,56),Vector3(6,0.025,84)]]:
 		Shapes.box(district,path[1],path[0],Color("c1bcab"))
 	for i in range(STOPS.size()):
 		var stop: Dictionary=STOPS[i]

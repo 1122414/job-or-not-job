@@ -42,7 +42,7 @@ func run() -> void:
 		quit(1)
 		return
 	var humans: Array=game.find_children("*","Node3D",true,false).filter(func(node): return node is HumanVisual)
-	if humans.size()!=14:
+	if humans.size()!=26:
 		push_error("Packaged character visuals missing")
 		quit(1)
 		return
@@ -188,6 +188,18 @@ func run() -> void:
 		quit(1)
 		return
 	game.driving.detach()
+	if game.population.residents.size()!=12 or not game.population.valid(JSON.parse_string(JSON.stringify(game.population.snapshot()))):
+		push_error("Packaged public residents or crossing state missing")
+		quit(1)
+		return
+	var resident: CityResident=game.population.residents[0]
+	var resident_position := resident.position
+	for i in range(180): await physics_frame
+	var population_save: Variant=JSON.parse_string(JSON.stringify(SaveGame.snapshot(game)))
+	if resident.position.distance_to(resident_position)<.5 or not SaveGame.restore(game,population_save):
+		push_error("Packaged resident movement or JSON restore failed")
+		quit(1)
+		return
 	game.toggle_menu()
 	if DisplayServer.get_name()!="headless":
 		for i in range(6): await process_frame
@@ -196,7 +208,7 @@ func run() -> void:
 			if argument.begins_with("--screenshot="):
 				var error := root.get_texture().get_image().save_png(argument.trim_prefix("--screenshot="))
 				if error!=OK: quit(1); return
-	print("PACKAGED_SMOKE_OK build=",build.build_id," label=",BuildInfo.label()," npcs=",game.npcs.size()," props=",game.props.size()," company_spaces=2 company_sources=2 environment_props=6 asset_sources=5 authored_clips=2 authored_characters=14 texture_imports=verified ui_mouse=verified city_stops=4 bus_ride_save=verified driving_save=verified traffic=3 persistence=",game.persistence_enabled)
+	print("PACKAGED_SMOKE_OK build=",build.build_id," label=",BuildInfo.label()," npcs=",game.npcs.size()," props=",game.props.size()," company_spaces=2 company_sources=2 environment_props=6 asset_sources=5 authored_clips=2 authored_characters=26 texture_imports=verified ui_mouse=verified city_stops=4 bus_ride_save=verified driving_save=verified traffic=3 public_residents=12 population_save=verified persistence=",game.persistence_enabled)
 	paused=false
 	game.queue_free()
 	await process_frame

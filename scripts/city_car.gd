@@ -134,6 +134,9 @@ func drive(delta: float, throttle: float, turn: float, handbrake: bool) -> void:
 		var motion := -basis.z*travel/substeps
 		var collision := move_and_collide(motion)
 		if collision:
+			var actor := collision.get_collider()
+			if actor is CityResident and not traffic and absf(old_speed)>1.5:
+				actor.hit(-basis.z*signf(old_speed),clampf(absf(old_speed)/3,0.5,5),actor.game.next_action(),absf(old_speed)>6)
 			blocked=true
 			speed=0
 			break
@@ -155,6 +158,8 @@ func tick_traffic(delta: float, transit: CityTransit) -> void:
 	var dt := minf(delta,0.1)
 	var length := transit.curve.get_baked_length()
 	var desired := 7.0
+	var city: Node3D=get_parent().game
+	if city.population: desired=minf(desired,city.population.speed_limit(route_distance,BRAKING,2.2))
 	# Preview the curved path, rather than a tangent that misses a stopped bus on a bend.
 	var ahead := maxf(3.0,speed*speed/(2*BRAKING)+2.0)
 	var probe := transform
