@@ -225,10 +225,23 @@ func run() -> void:
 		quit(1)
 		return
 	var life: CityLife=game.city_life
-	if life.points.size()!=4 or CityBookshop.IMAGES.size()!=3 or CityBookshop.IMAGES[0].get_width()!=800 or not life.valid(life.snapshot()):
+	if life.points.size()!=5 or CityBookshop.IMAGES.size()!=3 or CityBookshop.IMAGES[0].get_width()!=800 or not life.valid(life.snapshot()) or not life.walk.valid(life.walk.snapshot(),life.snapshot(),game.payroll.minute):
 		push_error("Packaged bookshop activity or original illustrations missing")
 		quit(1)
 		return
+	var walk: CityStoryWalk=life.walk
+	var before_walk := SaveGame.snapshot(game)
+	life.method="paper"; life.prepared=true; life.joined=true; life.elapsed=18; life.result="paper"
+	life.participants.assign(["resident_zhou_ning","resident_lin_qiao"])
+	if not walk.start(CityStoryWalk.GUIDES[1]): push_error("Packaged story invitation failed"); quit(1); return
+	walk.stage=5; walk.meeting=false; walk.ready_day=1
+	walk.notes.assign(["daily","named","album"])
+	walk.authors.assign([walk.partner,walk.partner,walk.partner])
+	game.payroll.advance(1980-game.payroll.minute,game.career.employer)
+	if not SaveGame.restore(game,JSON.parse_string(JSON.stringify(SaveGame.snapshot(game)))) or not walk.album.visible or walk.board.visible:
+		push_error("Packaged story outcome or v17 JSON restore failed"); quit(1); return
+	print("PACKAGED_STORY_WALK schema=17 physical_album=true notes=",walk.notes)
+	if not SaveGame.restore(game,before_walk): push_error("Packaged story probe cleanup failed"); quit(1); return
 	game.player.position=Vector3(-52,0,35)
 	game.player.yaw=0
 	game.set_process(false)

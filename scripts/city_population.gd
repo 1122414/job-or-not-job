@@ -188,10 +188,13 @@ func talk(person: CityResident) -> void:
 	else: text+="我准备去"+TITLES.get(person.destination,"街口")+"。"
 	game.conversation={"text":text,"choices":[["附近有什么地方可以走走？","resident_places"],["那你先忙，回头见","resident_bye"]]}
 	if person.hits>0 and not person.apologized: game.conversation.choices.push_front(["为之前动手道歉","resident_apology"])
+	var walk_options: Dictionary=game.city_life.walk.options(person)
+	if not walk_options.is_empty() and (person.hits==0 or person.apologized): game.conversation=walk_options
 	game.queue_save()
 
 func answer(person: CityResident,action: String) -> void:
 	if action.begins_with("response_"): game.response.answer(person,action); return
+	if action.begins_with("walk_"): game.city_life.walk.answer(person,action); return
 	if not person.available(): game.close_interaction(); return
 	person.conversations+=1
 	if action=="resident_places":

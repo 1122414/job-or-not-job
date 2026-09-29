@@ -27,6 +27,7 @@ var result := ""
 var participants: Array[String]=[]
 var guide := ""
 var joined := false
+var walk: CityStoryWalk
 
 func _ready() -> void:
 	name="CityLife"
@@ -50,6 +51,9 @@ func _ready() -> void:
 	garden_board.width=700
 	garden_board.autowrap_mode=TextServer.AUTOWRAP_WORD_SMART
 	for i in range(3): garden_pictures.append(CityBookshop.picture(garden_art,CityBookshop.IMAGES[i],Vector3((i-1)*.95,1.45,.09),.0011))
+	walk=CityStoryWalk.new()
+	walk.game=game
+	add_child(walk)
 	sync_scene()
 
 func is_open() -> bool:
@@ -69,6 +73,7 @@ func venue_goal(person: CityResident) -> String:
 	return (OUTDOOR if method=="garden" else PAPER if method=="paper" else INDOOR)[slot] if active() and slot>=0 else ""
 
 func redirect(person: CityResident) -> void:
+	if walk and walk.redirect(person): return
 	if not person.available() or person.fear>0 or person.crossing!="" or game.speaker==person: return
 	var target := venue_goal(person)
 	if not is_open() and (person.destination in INDOOR or person.destination in PAPER or person.destination in ["bookshop_entry","bookshop_room"]): target="bookshop"
@@ -138,13 +143,14 @@ func sync_scene() -> void:
 		else: room.screen.text=line.replace("：","\n")
 
 func status_text() -> String:
-	if result!="": return "街区记忆分享已完成 · "+METHODS[result]+"。可回访书屋，或与熟悉的同事聊起。"
+	if result!="": return "街区记忆分享已完成 · "+METHODS[result]+"。"+(walk.status_text() if walk else "可回访书屋。")
 	if not is_open(): return "书屋已闭馆（09:00—20:00）；准备进度保留，可明天继续。"
 	if method=="": return "榕树街书屋开放中：自由阅览，或协助街区记忆分享。"
 	if not prepared: return "街区记忆分享 · "+METHODS[method]+"："+{"screen":"去播放台检查故障并启用本地图册。","paper":"去阅览台展开纸本图画。","garden":"去花园展示架布置图画。"}[method]
 	return "街区记忆分享 · "+METHODS[method]+"：等待居民到场，在现场听完分享（%d/18秒）。" % int(elapsed)
 
 func open_point(point: CityActivityPoint) -> void:
+	if point.stable_id=="walk" or point.stable_id=="notice" and result!="": walk.open_board(point); return
 	game.close_interaction()
 	game.speaker=point
 	var choices: Array=[]
@@ -162,6 +168,7 @@ func open_point(point: CityActivityPoint) -> void:
 	game.conversation={"text":text,"choices":choices}
 
 func answer(point: CityActivityPoint,action: String) -> void:
+	if action.begins_with("walk_"): walk.answer(point,action); return
 	if action=="city_leave": game.close_interaction(); return
 	if not is_open(): open_point(point); return
 	if action=="city_read":
@@ -189,6 +196,8 @@ func answer(point: CityActivityPoint,action: String) -> void:
 	game.queue_save()
 
 func resident_line(person: CityResident) -> String:
+	if walk.stage==5 and person.stable_id in walk.authors: return "我记得我们一起走过的那条路。"+("墙上的展览" if walk.notes[2]=="wall" else "桌上的图册")+"里，也留下了我的话。"
+	if walk.stage==4 and person.stable_id in walk.authors: return "走访的笔记还在整理。明天回书屋，我们把它留给后来的人。"
 	if person.stable_id in participants and result!="": return "我记得那次"+METHODS[result]+"，下次带自己的图画来。"
 	return "书屋九点到二十点开放，可以看街区图册，也能帮忙办分享会。"
 

@@ -129,6 +129,10 @@ func walk(_delta: float) -> void:
 		velocity=Vector3.ZERO
 		game.queue_save()
 		return
+	if game.city_life and game.city_life.walk.waits(self):
+		state="waiting"
+		velocity=Vector3.ZERO
+		return
 	var target: Vector3=CityPopulation.POINTS[route[0]]
 	if Vector2(target.x-position.x,target.z-position.z).length()<.62:
 		from_node=route.pop_front()

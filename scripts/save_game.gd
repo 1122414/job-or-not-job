@@ -1,7 +1,7 @@
 class_name SaveGame
 extends RefCounted
 
-const VERSION := 16
+const VERSION := 17
 const BASE_NPCS := ["a_hr","a_lead","a_boss","a_friend","a_group","a_guard","b_hr","b_friend","b_boss","b_guard"]
 const LEGACY_PROPS := ["a_keyboard","a_cup","a_table","a_chair","a_printer","b_keyboard","b_cup","b_table","b_chair","b_printer"]
 const PATH := "user://neighborhood.json"
@@ -25,6 +25,7 @@ static func snapshot(game: Node3D) -> Dictionary:
 	data.city_driving=game.driving.snapshot()
 	data.city_population=game.population.snapshot()
 	data.city_life=game.city_life.snapshot()
+	data.city_walk=game.city_life.walk.snapshot()
 	data.city_response=game.response.snapshot()
 	for prop in game.props:
 		var location := "held" if game.player.held==prop else "bag" if game.player.inventory.has(prop) else "world"
@@ -41,7 +42,7 @@ static func valid_vector(value: Variant) -> bool:
 
 static func valid(data: Variant, game: Node3D) -> bool:
 	if not data is Dictionary: return false
-	if data.get("version")!=1 and data.get("version")!=2 and data.get("version")!=3 and data.get("version")!=4 and data.get("version")!=5 and data.get("version")!=6 and data.get("version")!=7 and data.get("version")!=8 and data.get("version")!=9 and data.get("version")!=10 and data.get("version")!=11 and data.get("version")!=12 and data.get("version")!=13 and data.get("version")!=14 and data.get("version")!=15 and data.get("version")!=VERSION: return false
+	if data.get("version")!=1 and data.get("version")!=2 and data.get("version")!=3 and data.get("version")!=4 and data.get("version")!=5 and data.get("version")!=6 and data.get("version")!=7 and data.get("version")!=8 and data.get("version")!=9 and data.get("version")!=10 and data.get("version")!=11 and data.get("version")!=12 and data.get("version")!=13 and data.get("version")!=14 and data.get("version")!=15 and data.get("version")!=16 and data.get("version")!=VERSION: return false
 	for field in ["career","payroll","props","npcs","player"]:
 		if not data.get(field) is Dictionary: return false
 	for field in CAREER_FIELDS:
@@ -156,6 +157,7 @@ static func valid(data: Variant, game: Node3D) -> bool:
 			for answer in session.answers:
 				if not answer is String: return false
 	if data.version>=15 and not game.city_life.valid(data.get("city_life")): return false
+	if data.version>=17 and not game.city_life.walk.valid(data.get("city_walk"),data.city_life,p.minute): return false
 	if data.version>=14 and not game.population.valid(data.get("city_population")): return false
 	if data.version>=16 and not game.response.valid(data.get("city_response"),data.city_population.people): return false
 	if data.version>=13:
@@ -341,6 +343,7 @@ static func restore(game: Node3D, data: Dictionary) -> bool:
 	game.driving.restore(data.get("city_driving",{}) if data.version>=13 else {})
 	game.population.restore(data.get("city_population",{}) if data.version>=14 else {})
 	game.city_life.restore(data.get("city_life",{}) if data.version>=15 else {})
+	game.city_life.walk.restore(data.get("city_walk",{}) if data.version>=17 else {})
 	game.response.restore(data.get("city_response",{}) if data.version>=16 else {})
 	for station in game.stations:
 		if station.stable_id=="backup": station.label.text="投影已恢复 · 成果已记录" if game.career.facts.has("output_two") else station.title

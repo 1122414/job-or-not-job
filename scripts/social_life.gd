@@ -103,6 +103,7 @@ func handle(action: String,npc: OfficeNPC) -> bool:
 	var day := str(game.payroll.minute/1440)
 	if action=="people_menu": game.conversation=options(npc); return true
 	if action=="people_bookshop": game.city_life.share(npc); return true
+	if action=="people_story_walk": game.city_life.walk.share(npc); return true
 	if action=="people_work":
 		game.conversation=OfficeDialogue.options(npc,game.career)
 		return true
@@ -146,6 +147,7 @@ func handle(action: String,npc: OfficeNPC) -> bool:
 		remember(npc,"chat_"+day,"你们聊过近况，没有把拒绝加班当作不合群。",2,2)
 		game.conversation={"text":npc.title.split(" · ")[0]+"："+PROFILES.get(npc.role_id,["","","","今天想把事情做好，也想准时回家。"])[3],"choices":[["谢谢你和我说这些","people_continue"],["回到工作话题","people_work"]]}
 		if game.city_life and game.city_life.can_share(npc): game.conversation.choices.push_front(["聊起社区书屋的分享会","people_bookshop"])
+		if game.city_life.walk.stage==5 and game.city_life.can_share(npc): game.conversation.choices.push_front(["聊起旧站到海边的走访记录","people_story_walk"])
 		return true
 	return true
 

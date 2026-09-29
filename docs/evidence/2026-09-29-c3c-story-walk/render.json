@@ -1,0 +1,9 @@
+{
+	"images": 8,
+	"note": "Fixed review camera, not a continuous play recording or final visual acceptance.",
+	"pointer_visible": true,
+	"root_focused": false,
+	"root_minimized": true,
+	"root_unfocusable": true,
+	"source": "Both guide conversations and wall/album outcomes restored from actual continuous input routes"
+}

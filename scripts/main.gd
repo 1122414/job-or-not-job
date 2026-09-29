@@ -206,6 +206,7 @@ func money_text() -> String:
 	return "¥ %.2f · 发薪 第%d天" % [payroll.balance/100.0,payroll.next_payday/1440+1]
 
 func objective_text() -> String:
+	if city_life and city_life.walk.guiding: return city_life.walk.status_text()
 	if city_life and city_life.guide!="": return city_life.status_text()
 	if driving and driving.guide_car!="": return "前往 "+driving.car_for(driving.guide_car).title+" · 靠近车辆按 E 上车"
 	if transit and transit.waypoint!="":
@@ -234,6 +235,7 @@ func in_vehicle() -> bool:
 	return transit!=null and transit.riding or driving!=null and driving.in_vehicle()
 
 func navigation_target() -> Node3D:
+	if city_life and city_life.walk.guiding: return city_life.walk.target()
 	if city_life and city_life.guide!="": return city_life.point_for(city_life.guide)
 	if driving and driving.guide_car!="": return driving.car_for(driving.guide_car)
 	return transit.station_for(transit.waypoint) if transit.waypoint!="" else ObjectiveGuide.target(self)
