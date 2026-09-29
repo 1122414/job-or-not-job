@@ -41,6 +41,27 @@ func run() -> void:
 		quit(1)
 		return
 	var streets: CityStreetscape=game.get_node_or_null("ConnectedDistrict/Streetscape")
+	if streets==null:
+		push_error("Packaged streetscape missing");quit(1);return
+	var architecture_sources := OS.get_executable_path().get_base_dir().path_join("../Resources/ARCHITECTURE-SOURCES.json")
+	if FileAccess.get_file_as_string(architecture_sources)!=FileAccess.get_file_as_string(CityArchitecture.ROOT+"provenance.json"):
+		push_error("Packaged architecture provenance mismatch");quit(1);return
+	for extension in ["_2k.gltf",".bin"]:
+		var original: String="res://production/environment/polyhaven_architecture/modular_urban_apartments_facade/modular_urban_apartments_facade"+extension
+		if FileAccess.file_exists(original) or ResourceLoader.exists(original):push_error("Original architecture library leaked into package");quit(1);return
+	var architecture_bays := 0
+	for lot in CityUrbanFabric.LOTS:
+		var facade := streets.get_node_or_null("Architecture_"+lot.id)
+		if facade==null:push_error("Packaged architecture missing");quit(1);return
+		architecture_bays+=int(facade.get_meta("window_bays"))
+		if not game.walking.clear_segment(lot.at+Vector3(-10,0,7),lot.at+Vector3(10,0,7)):push_error("Architecture blocks gallery");quit(1);return
+	for variant in CityArchitecture.MODULES:
+		var module: ArrayMesh=load(CityArchitecture.ROOT+variant+".res")
+		for surface in range(module.get_surface_count()):
+			var material: StandardMaterial3D=module.surface_get_material(surface)
+			for texture in [material.albedo_texture,material.normal_texture,material.ao_texture]:
+				if not texture.get_image().is_compressed() or not texture.get_image().has_mipmaps():push_error("Architecture texture import missing");quit(1);return
+	print("PACKAGED_ARCHITECTURE lots=3 window_bays=",architecture_bays," source_excluded=true compressed_mipmaps=true routes=true")
 	if streets==null or streets.find_children("*","MultiMeshInstance3D",true,false).is_empty() or not streets.materials.paving is ShaderMaterial or not streets.materials.grass is StandardMaterial3D:
 		push_error("Packaged streetscape or ground materials missing")
 		quit(1)

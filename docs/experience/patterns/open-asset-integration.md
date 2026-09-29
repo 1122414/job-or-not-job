@@ -23,3 +23,7 @@
 
 
 2026-09-29 C4d再次验证材质语义：`tree_small_02`的glTF声明混合透明，但叶色JPEG不含透明通道，必须从同一官方资产取得独立alpha再合并。`prepare_city_nature.gd`验证来源后合并RGBA，并设置实际12张纹理的VRAM压缩与mipmap，`city_nature_test.gd`实测36,350,808字节。不能把glTF的alphaMode当作贴图已含正确alpha。Concrete Floor 01的粗骨料颜色贴到连廊立面会产生碎石观感，实际对照后仅保留其法线/粗糙度/AO，另给结构混凝土颜色；地面则降低该颜色混合比例。这个表面用途判断只针对本次场所与素材。枝叶减面另见[拓扑案例](foliage-simplification.md)。
+
+2026-09-30 C4h再次验证独立alpha与实际压缩：Poly Haven公寓模块的glass也共用不含alpha的objects JPEG，须合并同源objects_alpha。三类运行窗墙只需十张贴图，真实压缩mipmap合计30,758,376字节；未使用的trim_02留在制作源，运行包排除原始库。源glTF节点平移用于展示拆开的模块，装配应按实际共享3m开间与底部基准，不能直接复制整库节点位置。
+
+该模块首次空间验证还有两项边界：双窗中间存在实体墙柱，窗洞射线应取真实玻璃三角面内部，而不是假定AABB中心总是开口；室内隔墙顶到外墙同平面会在斜视街景出现竖线闪烁，退入窗后0.3m后同位图消失。`tests/city_architecture_test.gd`分别要求玻璃命中、墙不命中；`tools/render_city_architecture.gd`在真实GPU上检查226个变换的净空，Dummy后端的空变换不能替代。验证范围为这三种模块/三处现有地块；不外推任意资产风格和室内制作均合格。详见`docs/2026-09-30_C4h中心街段建筑制作验收.md`及同位前后证据。

@@ -21,7 +21,8 @@ func fingerprint(game: Node3D) -> Dictionary:
 	var result := {}
 	for node in game.get_node("ConnectedDistrict/Streetscape").find_children("*","MultiMeshInstance3D",true,false):
 		var buffer: PackedFloat32Array=node.multimesh.buffer
-		if buffer.size()!=node.multimesh.instance_count*12:
+		var stride := 12+(4 if node.multimesh.use_colors else 0)+(4 if node.multimesh.use_custom_data else 0)
+		if buffer.size()!=node.multimesh.instance_count*stride:
 			push_error("Street fingerprint requires actual nonempty GPU transforms: "+String(node.name))
 			return {}
 		result[String(node.name)]=hash(buffer)

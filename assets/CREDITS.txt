@@ -46,3 +46,9 @@ City sound recordings: CC0 1.0; IgnasD, isaiah658, domasx2 (public-domain pdsoun
 jasinski (excerpt by qubodup), TinyWorlds, LEGIT Audio (OpenGameArt free samples only).
 Adaptations: mono conversion, DC removal, loop crossfade, filtering and peak normalization.
 See AUDIO-SOURCES.json for each source URL, original hash, author and derived recording.
+
+Central street architecture: Poly Haven, CC0 1.0 Universal; James Ray Cock.
+https://polyhaven.com/a/modular_urban_apartments_facade
+Adaptations: three selected 3m facade bays, normalized placement, original glass alpha,
+compressed textures and generated mesh LODs. Source library excluded from runtime.
+See ARCHITECTURE-SOURCES.json for original and derived hashes. Powered by Poly Haven.

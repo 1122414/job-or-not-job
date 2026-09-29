@@ -1,0 +1,242 @@
+[
+  {
+    "path": "after/central-night.png",
+    "sha256": "609f391a53695087e66bde4122caeed9c593de85960435857923e3e5cc6549aa",
+    "visually_reviewed": true
+  },
+  {
+    "path": "after/central-walk.png",
+    "sha256": "918cc89a4839d2cf587107696e274f914cefa90dfea5c94e7d99583b9056deba",
+    "visually_reviewed": true
+  },
+  {
+    "path": "after/district-overview.png",
+    "sha256": "1220a83dcd422f8e0d99c19018be6e2a0d6b3d4abc97ebb0c701a80bc8440c47",
+    "visually_reviewed": true
+  },
+  {
+    "path": "after/east-night.png",
+    "sha256": "0ad66feb2701ae61871c4990d5624799cfc5760e6427fc1569e81fc4bf40a094",
+    "visually_reviewed": true
+  },
+  {
+    "path": "after/east-street.png",
+    "sha256": "2d5ba83c7fa48b0def69b939c33c8ceafbd3e578b6d1d14b30e4d8f02a5c48d9",
+    "visually_reviewed": true
+  },
+  {
+    "path": "after/north-night.png",
+    "sha256": "3dde3d06a2d26f38c2ab538b12c17189e464db55c9ee55992af3c2b07cbf6615",
+    "visually_reviewed": true
+  },
+  {
+    "path": "after/north-street.png",
+    "sha256": "f4cdd1357f11dbd9548499991700d0ee421bcf2fe7e496d087e525ff4da02a57",
+    "visually_reviewed": true
+  },
+  {
+    "path": "after/west-detail.png",
+    "sha256": "fa82f61b2455847cc17355c1b64de77fba6b041ceffeee789c5cf16b9e0082a4",
+    "visually_reviewed": true
+  },
+  {
+    "path": "after/west-gallery.png",
+    "sha256": "a8543be60d93c717318cc27123c1372aed0ee4b0cc66ab283d6dc750378f3520",
+    "visually_reviewed": true
+  },
+  {
+    "path": "after/west-night.png",
+    "sha256": "31f80c4177ad161f940596aa49d6c99d7ad51035358fed4b994eead18a819432",
+    "visually_reviewed": true
+  },
+  {
+    "path": "after/west-street.png",
+    "sha256": "680e81fe145707400670a69fa39cc579cb8e3a2e8a598a95f10bf98b12b7cf5e",
+    "visually_reviewed": true
+  },
+  {
+    "path": "before/central-night.png",
+    "sha256": "ff0202a54a7bd9c04263ff12d4c426bc107ee057a275080cf02a61b42cd42078",
+    "visually_reviewed": false
+  },
+  {
+    "path": "before/central-walk.png",
+    "sha256": "16e28c4d3ab2b7bbd2fddad2a72514e236e21f6870271b99f696f71273634fb8",
+    "visually_reviewed": true
+  },
+  {
+    "path": "before/district-overview.png",
+    "sha256": "ea13848cd92e04231689dbf0ac2e8d61b628651165570f26f1b515d409e642d9",
+    "visually_reviewed": false
+  },
+  {
+    "path": "before/east-night.png",
+    "sha256": "0546b00169608fa53c7c638538686f44dea4a9ed6e874a8aab12c56f9980777e",
+    "visually_reviewed": false
+  },
+  {
+    "path": "before/east-street.png",
+    "sha256": "0adc51e6c7d59d2e8d5d3c4f79298a6b7bffe78fbcd3550d894ae8a8a68690c9",
+    "visually_reviewed": false
+  },
+  {
+    "path": "before/north-night.png",
+    "sha256": "958ab523216bcd0d9aa8d8926af676e3b15dd9616789605119e9ccea58e08c16",
+    "visually_reviewed": false
+  },
+  {
+    "path": "before/north-street.png",
+    "sha256": "11dd2faeab0ecee9b92d546469b33ffebb4343704eb2338a257cb4641c81afcc",
+    "visually_reviewed": false
+  },
+  {
+    "path": "before/west-detail.png",
+    "sha256": "9396076e1498392cb83d9aad94d3394516e420f342597de290c3fb3afe7f7d28",
+    "visually_reviewed": true
+  },
+  {
+    "path": "before/west-gallery.png",
+    "sha256": "c7ac96081c5f06cb7bf82dfcc9cb9fdc7038f110ce02f11f7f62fd02de024965",
+    "visually_reviewed": false
+  },
+  {
+    "path": "before/west-night.png",
+    "sha256": "7e956c5111f9e9b305fde400880c6c402fc70d6b226c01dfd625750c1e4993bd",
+    "visually_reviewed": false
+  },
+  {
+    "path": "before/west-street.png",
+    "sha256": "b5211378efe8e60b33a33db73b1dd0f693139dc4a7edac3d0aee3b7e00396ff7",
+    "visually_reviewed": false
+  },
+  {
+    "path": "career/backup.png",
+    "sha256": "eddfd2caf9c8b35c45dc1824a4fe85fee7c1fffe934e649a8762c37b448d550b",
+    "visually_reviewed": false
+  },
+  {
+    "path": "career/defend.png",
+    "sha256": "3680c3211292614e1392d008e46d44918c0668571e5b6f63e5b9956647bdecd7",
+    "visually_reviewed": false
+  },
+  {
+    "path": "career/handover.png",
+    "sha256": "5ee417af55f15daf5785697b34360d656738c81cc229b3c49abb70fc511c88e5",
+    "visually_reviewed": false
+  },
+  {
+    "path": "career/interview_hr.png",
+    "sha256": "dcc2c9959873b6dab4e9aa0eaba846dab6f779909d89af2f2679e7665e6a4a72",
+    "visually_reviewed": false
+  },
+  {
+    "path": "career/join_a.png",
+    "sha256": "3799e468665ae847e1616fb34c06ddfc8128eb2ff0e770ff83bd14095edbd4d2",
+    "visually_reviewed": false
+  },
+  {
+    "path": "career/prepare.png",
+    "sha256": "5ff924164c0e188993707e20b57d818e846cbdee2f249688718e40ff59cd6d1c",
+    "visually_reviewed": false
+  },
+  {
+    "path": "career/submit.png",
+    "sha256": "769cd180907437ff065a095ee9c08a63653eb87345c549a1026c7a74fe83e85d",
+    "visually_reviewed": false
+  },
+  {
+    "path": "iteration/central-walk.png",
+    "sha256": "4f3f3665edd896af95af947215f24969f794e3a162fa677ec82f8b53c1109ea9",
+    "visually_reviewed": true
+  },
+  {
+    "path": "iteration/west-night.png",
+    "sha256": "6f5369c46e316696d8e8bd80265dbd57efb509db95a63b02698b5debe1f0d479",
+    "visually_reviewed": true
+  },
+  {
+    "path": "iteration/west-street.png",
+    "sha256": "b9069dfcbd3b0b906240917e7eafbe929ada517d7ec326729526e1b7101d2d2c",
+    "visually_reviewed": true
+  },
+  {
+    "path": "modules/centered_double_02-front.png",
+    "sha256": "fb2bd03d0cb663140915e7e4dffd65c8eb7db33d6ef6c4f160672ae183c5a12a",
+    "visually_reviewed": false
+  },
+  {
+    "path": "modules/centered_double_02-oblique.png",
+    "sha256": "32c0105e02e08ee78dbc7753a05d64baeb081b52abcedec286b2165c59e5ca76",
+    "visually_reviewed": false
+  },
+  {
+    "path": "modules/centered_large_02-front.png",
+    "sha256": "db94c6e3af4f0209ee5307df14596b0d47b9549fbdc8f4b2422f6fcfa4d4f9e8",
+    "visually_reviewed": false
+  },
+  {
+    "path": "modules/centered_large_02-oblique.png",
+    "sha256": "240c666b06686c6a47ec60bd3f5a92a3d372a41e243e4ccfcdbf4559d58bd926",
+    "visually_reviewed": true
+  },
+  {
+    "path": "modules/centered_small_03-front.png",
+    "sha256": "977f822fea8cd6fd9a7af0394659e757f427bf0b44d833c7f415d9cb396b5ba2",
+    "visually_reviewed": true
+  },
+  {
+    "path": "modules/centered_small_03-oblique.png",
+    "sha256": "750769652968cc8f9d18476146ab3323cf1dbe61b3f051e31f2b9faf79d27b20",
+    "visually_reviewed": false
+  },
+  {
+    "path": "package/day-walk.png",
+    "sha256": "319335b82903d2402e29a79afff3d6f84b7c50a5f99737bbabf601f481a3e8da",
+    "visually_reviewed": true
+  },
+  {
+    "path": "package/night-company-a.png",
+    "sha256": "4529c756ba8effa95ce6be337274e2ee96b3f9f907e2d33a4142382884e3e9cc",
+    "visually_reviewed": true
+  },
+  {
+    "path": "package/night-garden.png",
+    "sha256": "1a66dcf0217c59805191c7913453ab58e6802d8c7c5a704536d66c9d5ec50f96",
+    "visually_reviewed": true
+  },
+  {
+    "path": "walk/walk-1.png",
+    "sha256": "d749bcebc73d77e58b309e598bb0a219b7c9f3f4831e5db5e2f2801be614466c",
+    "visually_reviewed": false
+  },
+  {
+    "path": "walk/walk-11.png",
+    "sha256": "dfb63bcf571ac0c8390f549c69fe4d2eb9a0f532e5756b66986c6819ae02a905",
+    "visually_reviewed": false
+  },
+  {
+    "path": "walk/walk-12.png",
+    "sha256": "468cbf68f78e363365814707814664399784b7224f935537256dfc61541b916e",
+    "visually_reviewed": true
+  },
+  {
+    "path": "walk/walk-14.png",
+    "sha256": "765cb36770ad957ceb45ec0bd727824e0713c9e0e3533719bf28a42cbb30cb49",
+    "visually_reviewed": true
+  },
+  {
+    "path": "walk/walk-2.png",
+    "sha256": "dce4a3d2e6023c1fa50d67adb20c43c4fe875678849292c8ec4e10c75012f660",
+    "visually_reviewed": true
+  },
+  {
+    "path": "walk/walk-6.png",
+    "sha256": "d824b12075a82b6cc8213aadc59aa095b262aff0828e0c77d4f39583c07904a2",
+    "visually_reviewed": false
+  },
+  {
+    "path": "walk/walk-7.png",
+    "sha256": "684fbd4dd7fc006cfecbba71e24ea3416645bca09d11366846fa7bbbf7f419ab",
+    "visually_reviewed": true
+  }
+]

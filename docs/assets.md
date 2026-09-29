@@ -79,3 +79,9 @@ macOS包的`ASSET-SOURCES.json`和`CREDITS.txt`保存来源；通用CC0原文随
 新增Poly Haven CC0的[Tree Small 02](https://polyhaven.com/a/tree_small_02)（Rico Cilliers）与[Leafy Grass](https://polyhaven.com/a/leafy_grass)（Charlotte Baglioni）。原始2K文件及逐文件摘要保存在`production/environment/polyhaven_nature`，由`.gdignore`排除运行导入；制作说明见[植被制作源](../production/environment/polyhaven_nature/README.md)。未引入新依赖或付费素材。
 
 `CityTree`在原23处树位使用共享的三级派生网格和压缩材质。保留源30,250个独立枝叶组；叶色和官方alpha合并，采用深度裁切；枝、干保留独立法线和ARM。草地按2米尺度投影；人行铺地复用现有Concrete Floor 01材质细节，长凳复用现有木材。原始树模型不直接随游戏分发，独立包另附`NATURE-SOURCES.json`；最终品质与性能状态以阶段验收为准。
+
+## 2026-09-30 中心街段建筑模块
+
+新增Poly Haven CC0的[Modular Urban Apartments Facade](https://polyhaven.com/a/modular_urban_apartments_facade)，作者James Ray Cock。完整原始库和独立玻璃alpha在[制作源](../production/environment/polyhaven_architecture/README.md)，运行时只加载三种选定窗墙开间、十张2K压缩贴图及网格LOD。`CityArchitecture`将真实模块装配到三处中心连廊上方；上层碰撞、首层通路、六张长凳及原物品身份保留。
+
+玻璃使用原始独立alpha，窗后有退进的房间背墙和部分窗帘；这属于外观深度，没有新增可进入房间或可玩面积。单套实际压缩贴图含mipmap合计30,758,376字节，独立包附`ARCHITECTURE-SOURCES.json`。重建顺序、源节点展示偏移和运行导出范围见制作说明。正式环境品质、人物/演出、整城内容和持续性能继续按完整目标验收。

@@ -22,6 +22,7 @@ SELECTION = {
 }
 COMPANY_SELECTION = {'wood_floor': 'textures', 'brick_wall_001': 'textures'}
 NATURE_SELECTION = {'tree_small_02': 'models', 'leafy_grass': 'textures'}
+ARCHITECTURE_SELECTION = {'modular_urban_apartments_facade': 'models'}
 USER_AGENT = 'TodayOff-AssetReview/1.0 (local game production; Poly Haven CC0 sample)'
 
 
@@ -105,6 +106,9 @@ def fetch(output, selection=SELECTION):
             if asset_id == 'tree_small_02':
                 # The glTF's JPEG leaf map omits the separate opacity channel.
                 files['textures/tree_small_02_leaves_alpha_2k.png'] = data['leaves_alpha']['2k']['png']
+            if asset_id == 'modular_urban_apartments_facade':
+                # Window glass shares the opaque object's JPEG RGB atlas.
+                files['textures/modular_urban_apartments_facade_objects_alpha_2k.png'] = data['objects_alpha']['2k']['png']
         else:
             files = {asset_id + '_' + channel + '_2k.jpg': data[channel]['2k']['jpg']
                      for channel in ('Diffuse', 'nor_gl', 'arm')}
@@ -136,15 +140,16 @@ def fetch(output, selection=SELECTION):
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('--set', choices=('sample', 'company', 'nature'), default='sample')
+    parser.add_argument('--set', choices=('sample', 'company', 'nature', 'architecture'), default='sample')
     parser.add_argument('--output', type=Path)
     options = parser.parse_args()
     sets = {'sample': (SELECTION, ROOT / 'assets/polyhaven'),
             'company': (COMPANY_SELECTION, ROOT / 'assets/company_materials'),
-            'nature': (NATURE_SELECTION, ROOT / 'production/environment/polyhaven_nature')}
+            'nature': (NATURE_SELECTION, ROOT / 'production/environment/polyhaven_nature'),
+            'architecture': (ARCHITECTURE_SELECTION, ROOT / 'production/environment/polyhaven_architecture')}
     selection, default_output = sets[options.set]
     output = options.output or default_output
-    if options.set == 'nature':
+    if options.set in ('nature', 'architecture'):
         output.mkdir(parents=True, exist_ok=True)
         (output / '.gdignore').touch(exist_ok=True)
     fetch(output, selection)

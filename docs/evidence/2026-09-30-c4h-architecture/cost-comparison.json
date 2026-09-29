@@ -1,0 +1,94 @@
+{
+  "normal_game_fps": false,
+  "texture_bytes_additional": 30758376,
+  "views": [
+    {
+      "name": "central-walk",
+      "before_calls": 301,
+      "after_calls": 353,
+      "before_primitives": 2401500,
+      "after_primitives": 2413524,
+      "call_change_percent": 17.28
+    },
+    {
+      "name": "west-street",
+      "before_calls": 1077,
+      "after_calls": 1105,
+      "before_primitives": 1057228,
+      "after_primitives": 1063548,
+      "call_change_percent": 2.6
+    },
+    {
+      "name": "east-street",
+      "before_calls": 954,
+      "after_calls": 982,
+      "before_primitives": 942422,
+      "after_primitives": 951110,
+      "call_change_percent": 2.94
+    },
+    {
+      "name": "north-street",
+      "before_calls": 1092,
+      "after_calls": 1149,
+      "before_primitives": 1274843,
+      "after_primitives": 1289439,
+      "call_change_percent": 5.22
+    },
+    {
+      "name": "west-detail",
+      "before_calls": 1114,
+      "after_calls": 1143,
+      "before_primitives": 830057,
+      "after_primitives": 836377,
+      "call_change_percent": 2.6
+    },
+    {
+      "name": "west-gallery",
+      "before_calls": 1624,
+      "after_calls": 1645,
+      "before_primitives": 628317,
+      "after_primitives": 632106,
+      "call_change_percent": 1.29
+    },
+    {
+      "name": "district-overview",
+      "before_calls": 2262,
+      "after_calls": 2347,
+      "before_primitives": 2092338,
+      "after_primitives": 2115238,
+      "call_change_percent": 3.76
+    },
+    {
+      "name": "central-night",
+      "before_calls": 301,
+      "after_calls": 353,
+      "before_primitives": 2502216,
+      "after_primitives": 2514240,
+      "call_change_percent": 17.28
+    },
+    {
+      "name": "west-night",
+      "before_calls": 1077,
+      "after_calls": 1105,
+      "before_primitives": 1057228,
+      "after_primitives": 1063548,
+      "call_change_percent": 2.6
+    },
+    {
+      "name": "east-night",
+      "before_calls": 954,
+      "after_calls": 982,
+      "before_primitives": 942422,
+      "after_primitives": 951110,
+      "call_change_percent": 2.94
+    },
+    {
+      "name": "north-night",
+      "before_calls": 1092,
+      "after_calls": 1149,
+      "before_primitives": 1274843,
+      "after_primitives": 1289439,
+      "call_change_percent": 5.22
+    }
+  ]
+}

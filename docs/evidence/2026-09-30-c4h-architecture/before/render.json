@@ -1,0 +1,197 @@
+{
+	"adapter": "Apple M5 Pro (Apple9)",
+	"deterministic_gpu_buffers": true,
+	"deterministic_tree_transforms": true,
+	"final_visual_acceptance": false,
+	"fov": 65,
+	"nonempty_gpu_batches": 582,
+	"normal_game_performance": false,
+	"pointer_visible": true,
+	"renderer": "forward_plus",
+	"resolution": [
+		1440,
+		900
+	],
+	"root_focused": false,
+	"root_minimized": true,
+	"root_unfocusable": true,
+	"tree_instances": 23,
+	"views": [
+		{
+			"camera": [
+				0.0,
+				1.75,
+				23.0
+			],
+			"draw_calls": 301,
+			"minute": 540,
+			"name": "central-walk",
+			"primitives": 2401500,
+			"target": [
+				0.0,
+				4.5,
+				78.0
+			]
+		},
+		{
+			"camera": [
+				-2.0,
+				1.75,
+				48.0
+			],
+			"draw_calls": 1077,
+			"minute": 540,
+			"name": "west-street",
+			"primitives": 1057228,
+			"target": [
+				-18.0,
+				6.0,
+				35.0
+			]
+		},
+		{
+			"camera": [
+				1.0,
+				1.75,
+				51.0
+			],
+			"draw_calls": 954,
+			"minute": 540,
+			"name": "east-street",
+			"primitives": 942422,
+			"target": [
+				18.0,
+				7.0,
+				35.0
+			]
+		},
+		{
+			"camera": [
+				2.0,
+				1.75,
+				92.0
+			],
+			"draw_calls": 1092,
+			"minute": 540,
+			"name": "north-street",
+			"primitives": 1274843,
+			"target": [
+				-16.0,
+				6.0,
+				78.0
+			]
+		},
+		{
+			"camera": [
+				-6.0,
+				3.5,
+				43.0
+			],
+			"draw_calls": 1114,
+			"minute": 540,
+			"name": "west-detail",
+			"primitives": 830057,
+			"target": [
+				-10.0,
+				5.5,
+				38.0
+			]
+		},
+		{
+			"camera": [
+				-18.0,
+				1.75,
+				42.0
+			],
+			"draw_calls": 1624,
+			"minute": 540,
+			"name": "west-gallery",
+			"primitives": 628317,
+			"target": [
+				-18.0,
+				1.60000002384186,
+				32.0
+			]
+		},
+		{
+			"camera": [
+				-59.0,
+				18.0,
+				95.0
+			],
+			"draw_calls": 2262,
+			"minute": 540,
+			"name": "district-overview",
+			"primitives": 2092338,
+			"target": [
+				2.0,
+				1.0,
+				50.0
+			]
+		},
+		{
+			"camera": [
+				0.0,
+				1.75,
+				23.0
+			],
+			"draw_calls": 301,
+			"minute": 1230,
+			"name": "central-night",
+			"primitives": 2502216,
+			"target": [
+				0.0,
+				4.5,
+				78.0
+			]
+		},
+		{
+			"camera": [
+				-2.0,
+				1.75,
+				48.0
+			],
+			"draw_calls": 1077,
+			"minute": 1230,
+			"name": "west-night",
+			"primitives": 1057228,
+			"target": [
+				-18.0,
+				6.0,
+				35.0
+			]
+		},
+		{
+			"camera": [
+				1.0,
+				1.75,
+				51.0
+			],
+			"draw_calls": 954,
+			"minute": 1230,
+			"name": "east-night",
+			"primitives": 942422,
+			"target": [
+				18.0,
+				7.0,
+				35.0
+			]
+		},
+		{
+			"camera": [
+				2.0,
+				1.75,
+				92.0
+			],
+			"draw_calls": 1092,
+			"minute": 1230,
+			"name": "north-night",
+			"primitives": 1274843,
+			"target": [
+				-16.0,
+				6.0,
+				78.0
+			]
+		}
+	]
+}
