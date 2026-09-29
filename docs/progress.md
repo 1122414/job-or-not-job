@@ -708,4 +708,4 @@ C4a记录同步：542项资料逐字节核对一致，零冲突；每日计划/�
 
 未完成：仅新增一条持续支线，不是完整30—60分钟城区验收；途中活动密度、正式人物/声音/笔记布展动作、更多场所及职业后续、分区/八区整城、双画质持续性能和独立玩家/用户签收仍开放。完整64km²都市圈/16km²密集城区和G01—G06目标继续。
 
-详情：[C3c验收](2026-09-29_C3c街区走访与持续展陈验收.md)；复用更新经验：[活动优先级](experience/patterns/activity-priority.md)、[存档与JSON类型](experience/patterns/save-content-expansion.md)。中文提交号随后追加，未push。
+详情：[C3c验收](2026-09-29_C3c街区走访与持续展陈验收.md)；复用更新经验：[活动优先级](experience/patterns/activity-priority.md)、[存档与JSON类型](experience/patterns/save-content-expansion.md)。中文实施提交9ca8879，未push。
