@@ -1,0 +1,1025 @@
+{
+	"a_cheng": {
+		"meshes": [
+			{
+				"blend_shapes": 4,
+				"lods": [
+					{
+						"error": 0.00241854670457542,
+						"triangles": 7510
+					},
+					{
+						"error": 0.00484667811542749,
+						"triangles": 3754
+					},
+					{
+						"error": 0.00947740767151117,
+						"triangles": 1876
+					},
+					{
+						"error": 0.0194482356309891,
+						"triangles": 938
+					},
+					{
+						"error": 0.0481609627604485,
+						"triangles": 468
+					},
+					{
+						"error": 0.358673393726349,
+						"triangles": 234
+					},
+					{
+						"error": 0.768572926521301,
+						"triangles": 86
+					}
+				],
+				"name": "body",
+				"triangles": 15020
+			},
+			{
+				"blend_shapes": 4,
+				"lods": [
+					{
+						"error": 0.00423187669366598,
+						"triangles": 398
+					},
+					{
+						"error": 0.0110357087105513,
+						"triangles": 198
+					},
+					{
+						"error": 0.0233142487704754,
+						"triangles": 98
+					},
+					{
+						"error": 0.100075043737888,
+						"triangles": 48
+					}
+				],
+				"name": "mouth_interior",
+				"triangles": 796
+			},
+			{
+				"blend_shapes": 0,
+				"lods": [
+					{
+						"error": 0.0139079671353102,
+						"triangles": 2998
+					},
+					{
+						"error": 0.0281782504171133,
+						"triangles": 1498
+					},
+					{
+						"error": 0.0986530855298042,
+						"triangles": 748
+					},
+					{
+						"error": 1.15001273155212,
+						"triangles": 504
+					}
+				],
+				"name": "male_casualsuit05",
+				"triangles": 5996
+			},
+			{
+				"blend_shapes": 0,
+				"lods": [
+					{
+						"error": 0.00593939004465938,
+						"triangles": 1660
+					},
+					{
+						"error": 0.0127357905730605,
+						"triangles": 830
+					},
+					{
+						"error": 0.0322117209434509,
+						"triangles": 414
+					},
+					{
+						"error": 0.112231552600861,
+						"triangles": 206
+					},
+					{
+						"error": 0.410038113594055,
+						"triangles": 60
+					}
+				],
+				"name": "shoes01",
+				"triangles": 3320
+			},
+			{
+				"blend_shapes": 0,
+				"lods": [
+					{
+						"error": 0.225584387779236,
+						"triangles": 502
+					}
+				],
+				"name": "short04",
+				"triangles": 1050
+			},
+			{
+				"blend_shapes": 4,
+				"lods": [
+					{
+						"error": 0.000286251102807,
+						"triangles": 384
+					},
+					{
+						"error": 0.000511721533257514,
+						"triangles": 192
+					},
+					{
+						"error": 0.0022600416559726,
+						"triangles": 100
+					}
+				],
+				"name": "eyebrow002",
+				"triangles": 768
+			},
+			{
+				"blend_shapes": 4,
+				"lods": [
+					{
+						"error": 0.0012066705385223,
+						"triangles": 184
+					},
+					{
+						"error": 0.0101513210684061,
+						"triangles": 116
+					}
+				],
+				"name": "eyelashes01",
+				"triangles": 368
+			},
+			{
+				"blend_shapes": 4,
+				"lods": [
+					{
+						"error": 0.00154936569742858,
+						"triangles": 3560
+					},
+					{
+						"error": 0.00367935583926737,
+						"triangles": 1780
+					},
+					{
+						"error": 0.0117418607696891,
+						"triangles": 890
+					},
+					{
+						"error": 0.022404670715332,
+						"triangles": 322
+					},
+					{
+						"error": 0.0727070495486259,
+						"triangles": 236
+					}
+				],
+				"name": "teeth_base",
+				"triangles": 7120
+			},
+			{
+				"blend_shapes": 4,
+				"lods": [
+					{
+						"error": 0.00272028823383152,
+						"triangles": 224
+					},
+					{
+						"error": 0.00629481347277761,
+						"triangles": 112
+					},
+					{
+						"error": 0.0157172754406929,
+						"triangles": 56
+					},
+					{
+						"error": 0.0235759112983942,
+						"triangles": 28
+					},
+					{
+						"error": 0.047949455678463,
+						"triangles": 14
+					},
+					{
+						"error": 0.0719241797924042,
+						"triangles": 6
+					}
+				],
+				"name": "tongue01",
+				"triangles": 448
+			},
+			{
+				"blend_shapes": 0,
+				"lods": [
+					{
+						"error": 0.0010821350151673,
+						"triangles": 1020
+					},
+					{
+						"error": 0.00183652702253312,
+						"triangles": 510
+					},
+					{
+						"error": 0.00350837805308402,
+						"triangles": 254
+					},
+					{
+						"error": 0.0105821751058102,
+						"triangles": 126
+					},
+					{
+						"error": 0.0679301172494888,
+						"triangles": 20
+					}
+				],
+				"name": "eyes",
+				"triangles": 2040
+			}
+		],
+		"texture_bytes": 188743666,
+		"textures": {
+			"res://assets/characters/cast/a_cheng_0.png": {
+				"bytes": 16777215,
+				"compressed": false,
+				"format": 4,
+				"height": 2048,
+				"mipmaps": true,
+				"width": 2048
+			},
+			"res://assets/characters/cast/a_cheng_1.png": {
+				"bytes": 22369620,
+				"compressed": false,
+				"format": 5,
+				"height": 2048,
+				"mipmaps": true,
+				"width": 2048
+			},
+			"res://assets/characters/cast/a_cheng_10.png": {
+				"bytes": 4194303,
+				"compressed": false,
+				"format": 4,
+				"height": 1024,
+				"mipmaps": true,
+				"width": 1024
+			},
+			"res://assets/characters/cast/a_cheng_11.png": {
+				"bytes": 5592404,
+				"compressed": false,
+				"format": 5,
+				"height": 1024,
+				"mipmaps": true,
+				"width": 1024
+			},
+			"res://assets/characters/cast/a_cheng_2.png": {
+				"bytes": 67108863,
+				"compressed": false,
+				"format": 4,
+				"height": 4096,
+				"mipmaps": true,
+				"width": 4096
+			},
+			"res://assets/characters/cast/a_cheng_3.png": {
+				"bytes": 16777215,
+				"compressed": false,
+				"format": 4,
+				"height": 2048,
+				"mipmaps": true,
+				"width": 2048
+			},
+			"res://assets/characters/cast/a_cheng_4.png": {
+				"bytes": 4194303,
+				"compressed": false,
+				"format": 4,
+				"height": 1024,
+				"mipmaps": true,
+				"width": 1024
+			},
+			"res://assets/characters/cast/a_cheng_5.png": {
+				"bytes": 4194303,
+				"compressed": false,
+				"format": 4,
+				"height": 1024,
+				"mipmaps": true,
+				"width": 1024
+			},
+			"res://assets/characters/cast/a_cheng_6.png": {
+				"bytes": 22369620,
+				"compressed": false,
+				"format": 5,
+				"height": 2048,
+				"mipmaps": true,
+				"width": 2048
+			},
+			"res://assets/characters/cast/a_cheng_7.png": {
+				"bytes": 1398100,
+				"compressed": false,
+				"format": 5,
+				"height": 512,
+				"mipmaps": true,
+				"width": 512
+			},
+			"res://assets/characters/cast/a_cheng_8.png": {
+				"bytes": 1398100,
+				"compressed": false,
+				"format": 5,
+				"height": 512,
+				"mipmaps": true,
+				"width": 512
+			},
+			"res://assets/characters/cast/a_cheng_9.png": {
+				"bytes": 22369620,
+				"compressed": false,
+				"format": 5,
+				"height": 2048,
+				"mipmaps": true,
+				"width": 2048
+			}
+		}
+	},
+	"lin_lan": {
+		"meshes": [
+			{
+				"blend_shapes": 4,
+				"lods": [
+					{
+						"error": 0.00224520592018962,
+						"triangles": 8208
+					},
+					{
+						"error": 0.00489823054522276,
+						"triangles": 4104
+					},
+					{
+						"error": 0.00979524757713079,
+						"triangles": 2052
+					},
+					{
+						"error": 0.0191936492919922,
+						"triangles": 1026
+					},
+					{
+						"error": 0.0481913648545742,
+						"triangles": 512
+					},
+					{
+						"error": 0.304429620504379,
+						"triangles": 256
+					}
+				],
+				"name": "body",
+				"triangles": 16416
+			},
+			{
+				"blend_shapes": 4,
+				"lods": [
+					{
+						"error": 0.00383387180045247,
+						"triangles": 398
+					},
+					{
+						"error": 0.00888769794255495,
+						"triangles": 198
+					},
+					{
+						"error": 0.021601552143693,
+						"triangles": 98
+					},
+					{
+						"error": 0.0791464298963547,
+						"triangles": 50
+					}
+				],
+				"name": "mouth_interior",
+				"triangles": 796
+			},
+			{
+				"blend_shapes": 0,
+				"lods": [
+					{
+						"error": 0.00796299893409014,
+						"triangles": 2096
+					},
+					{
+						"error": 0.0164984576404095,
+						"triangles": 1048
+					},
+					{
+						"error": 0.0413177236914635,
+						"triangles": 524
+					},
+					{
+						"error": 0.817509293556213,
+						"triangles": 218
+					}
+				],
+				"name": "female_elegantsuit01",
+				"triangles": 4192
+			},
+			{
+				"blend_shapes": 0,
+				"lods": [
+					{
+						"error": 0.00523738656193018,
+						"triangles": 2064
+					},
+					{
+						"error": 0.0135238850489259,
+						"triangles": 1032
+					},
+					{
+						"error": 0.0523401834070683,
+						"triangles": 516
+					},
+					{
+						"error": 0.115818932652473,
+						"triangles": 236
+					},
+					{
+						"error": 0.348083645105362,
+						"triangles": 102
+					}
+				],
+				"name": "shoes03",
+				"triangles": 4128
+			},
+			{
+				"blend_shapes": 0,
+				"lods": [
+					{
+						"error": 0.00748325791209936,
+						"triangles": 2676
+					},
+					{
+						"error": 0.338236540555954,
+						"triangles": 2000
+					}
+				],
+				"name": "ponytail01",
+				"triangles": 5352
+			},
+			{
+				"blend_shapes": 4,
+				"lods": [
+					{
+						"error": 0.000128205472719856,
+						"triangles": 384
+					},
+					{
+						"error": 0.000322078500175849,
+						"triangles": 192
+					},
+					{
+						"error": 0.00309994630515575,
+						"triangles": 100
+					}
+				],
+				"name": "eyebrow007",
+				"triangles": 768
+			},
+			{
+				"blend_shapes": 4,
+				"lods": [
+					{
+						"error": 0.00131225422956049,
+						"triangles": 184
+					},
+					{
+						"error": 0.015431109815836,
+						"triangles": 60
+					}
+				],
+				"name": "eyelashes02",
+				"triangles": 368
+			},
+			{
+				"blend_shapes": 4,
+				"lods": [
+					{
+						"error": 0.00134417682420462,
+						"triangles": 3560
+					},
+					{
+						"error": 0.00317053264006972,
+						"triangles": 1780
+					},
+					{
+						"error": 0.0109121603891253,
+						"triangles": 558
+					},
+					{
+						"error": 0.0246776156127453,
+						"triangles": 236
+					}
+				],
+				"name": "teeth_base",
+				"triangles": 7120
+			},
+			{
+				"blend_shapes": 4,
+				"lods": [
+					{
+						"error": 0.00246454100124538,
+						"triangles": 224
+					},
+					{
+						"error": 0.00582143431529403,
+						"triangles": 112
+					},
+					{
+						"error": 0.0128643475472927,
+						"triangles": 56
+					},
+					{
+						"error": 0.0229943692684174,
+						"triangles": 28
+					},
+					{
+						"error": 0.0393798500299454,
+						"triangles": 14
+					},
+					{
+						"error": 0.0590697787702084,
+						"triangles": 6
+					}
+				],
+				"name": "tongue01",
+				"triangles": 448
+			},
+			{
+				"blend_shapes": 0,
+				"lods": [
+					{
+						"error": 0.000925345229916275,
+						"triangles": 1020
+					},
+					{
+						"error": 0.0015626639360562,
+						"triangles": 510
+					},
+					{
+						"error": 0.00295810820534825,
+						"triangles": 254
+					},
+					{
+						"error": 0.00948516093194485,
+						"triangles": 126
+					},
+					{
+						"error": 0.0633052960038185,
+						"triangles": 36
+					}
+				],
+				"name": "eyes",
+				"triangles": 2040
+			}
+		],
+		"texture_bytes": 139810120,
+		"textures": {
+			"res://assets/characters/cast/lin_lan_0.png": {
+				"bytes": 16777215,
+				"compressed": false,
+				"format": 4,
+				"height": 2048,
+				"mipmaps": true,
+				"width": 2048
+			},
+			"res://assets/characters/cast/lin_lan_1.png": {
+				"bytes": 22369620,
+				"compressed": false,
+				"format": 5,
+				"height": 2048,
+				"mipmaps": true,
+				"width": 2048
+			},
+			"res://assets/characters/cast/lin_lan_10.png": {
+				"bytes": 5592404,
+				"compressed": false,
+				"format": 5,
+				"height": 1024,
+				"mipmaps": true,
+				"width": 1024
+			},
+			"res://assets/characters/cast/lin_lan_2.png": {
+				"bytes": 22369620,
+				"compressed": false,
+				"format": 5,
+				"height": 2048,
+				"mipmaps": true,
+				"width": 2048
+			},
+			"res://assets/characters/cast/lin_lan_3.png": {
+				"bytes": 16777215,
+				"compressed": false,
+				"format": 4,
+				"height": 2048,
+				"mipmaps": true,
+				"width": 2048
+			},
+			"res://assets/characters/cast/lin_lan_4.png": {
+				"bytes": 4194303,
+				"compressed": false,
+				"format": 4,
+				"height": 1024,
+				"mipmaps": true,
+				"width": 1024
+			},
+			"res://assets/characters/cast/lin_lan_5.png": {
+				"bytes": 22369620,
+				"compressed": false,
+				"format": 5,
+				"height": 2048,
+				"mipmaps": true,
+				"width": 2048
+			},
+			"res://assets/characters/cast/lin_lan_6.png": {
+				"bytes": 1398100,
+				"compressed": false,
+				"format": 5,
+				"height": 512,
+				"mipmaps": true,
+				"width": 512
+			},
+			"res://assets/characters/cast/lin_lan_7.png": {
+				"bytes": 1398100,
+				"compressed": false,
+				"format": 5,
+				"height": 512,
+				"mipmaps": true,
+				"width": 512
+			},
+			"res://assets/characters/cast/lin_lan_8.png": {
+				"bytes": 22369620,
+				"compressed": false,
+				"format": 5,
+				"height": 2048,
+				"mipmaps": true,
+				"width": 2048
+			},
+			"res://assets/characters/cast/lin_lan_9.png": {
+				"bytes": 4194303,
+				"compressed": false,
+				"format": 4,
+				"height": 1024,
+				"mipmaps": true,
+				"width": 1024
+			}
+		}
+	},
+	"protagonist": {
+		"meshes": [
+			{
+				"blend_shapes": 4,
+				"lods": [
+					{
+						"error": 0.00227285572327673,
+						"triangles": 7350
+					},
+					{
+						"error": 0.00464714458212256,
+						"triangles": 3674
+					},
+					{
+						"error": 0.00853398907929659,
+						"triangles": 1836
+					},
+					{
+						"error": 0.0181630775332451,
+						"triangles": 918
+					},
+					{
+						"error": 0.0394337698817253,
+						"triangles": 458
+					},
+					{
+						"error": 0.125341102480888,
+						"triangles": 228
+					},
+					{
+						"error": 0.716944575309753,
+						"triangles": 94
+					}
+				],
+				"name": "body",
+				"triangles": 14702
+			},
+			{
+				"blend_shapes": 4,
+				"lods": [
+					{
+						"error": 0.00419678492471576,
+						"triangles": 398
+					},
+					{
+						"error": 0.010052315890789,
+						"triangles": 198
+					},
+					{
+						"error": 0.0232770815491676,
+						"triangles": 98
+					},
+					{
+						"error": 0.0754816308617592,
+						"triangles": 48
+					}
+				],
+				"name": "mouth_interior",
+				"triangles": 796
+			},
+			{
+				"blend_shapes": 0,
+				"lods": [
+					{
+						"error": 0.00626251101493835,
+						"triangles": 8336
+					},
+					{
+						"error": 0.0116139240562916,
+						"triangles": 4168
+					},
+					{
+						"error": 0.0225370824337006,
+						"triangles": 2084
+					},
+					{
+						"error": 0.0464861504733562,
+						"triangles": 1042
+					},
+					{
+						"error": 0.105757236480713,
+						"triangles": 520
+					},
+					{
+						"error": 0.712766408920288,
+						"triangles": 260
+					}
+				],
+				"name": "male_casualsuit01",
+				"triangles": 16672
+			},
+			{
+				"blend_shapes": 0,
+				"lods": [
+					{
+						"error": 0.00511509319767356,
+						"triangles": 1422
+					},
+					{
+						"error": 0.0100360959768295,
+						"triangles": 710
+					},
+					{
+						"error": 0.022968627512455,
+						"triangles": 354
+					},
+					{
+						"error": 0.12712961435318,
+						"triangles": 176
+					},
+					{
+						"error": 0.344411939382553,
+						"triangles": 56
+					}
+				],
+				"name": "shoes02",
+				"triangles": 2844
+			},
+			{
+				"blend_shapes": 0,
+				"lods": [
+					{
+						"error": 0.00748919323086739,
+						"triangles": 1838
+					},
+					{
+						"error": 0.0215730369091034,
+						"triangles": 464
+					},
+					{
+						"error": 0.0486693233251572,
+						"triangles": 208
+					},
+					{
+						"error": 0.221867904067039,
+						"triangles": 78
+					}
+				],
+				"name": "short01",
+				"triangles": 3678
+			},
+			{
+				"blend_shapes": 4,
+				"lods": [
+					{
+						"error": 0.000254903687164187,
+						"triangles": 384
+					},
+					{
+						"error": 0.000667827785946429,
+						"triangles": 192
+					},
+					{
+						"error": 0.0114544648677111,
+						"triangles": 100
+					}
+				],
+				"name": "eyebrow005",
+				"triangles": 768
+			},
+			{
+				"blend_shapes": 4,
+				"lods": [
+					{
+						"error": 0.0011794634629041,
+						"triangles": 184
+					},
+					{
+						"error": 0.010054673999548,
+						"triangles": 116
+					}
+				],
+				"name": "eyelashes01",
+				"triangles": 368
+			},
+			{
+				"blend_shapes": 4,
+				"lods": [
+					{
+						"error": 0.00153544405475259,
+						"triangles": 3560
+					},
+					{
+						"error": 0.00354799604974687,
+						"triangles": 1780
+					},
+					{
+						"error": 0.01152228936553,
+						"triangles": 890
+					},
+					{
+						"error": 0.0197261516004801,
+						"triangles": 298
+					},
+					{
+						"error": 0.0735353752970695,
+						"triangles": 188
+					}
+				],
+				"name": "teeth_base",
+				"triangles": 7120
+			},
+			{
+				"blend_shapes": 4,
+				"lods": [
+					{
+						"error": 0.00264535704627633,
+						"triangles": 224
+					},
+					{
+						"error": 0.00612155068665743,
+						"triangles": 112
+					},
+					{
+						"error": 0.0152847021818161,
+						"triangles": 56
+					},
+					{
+						"error": 0.0229270532727242,
+						"triangles": 28
+					},
+					{
+						"error": 0.0466294512152672,
+						"triangles": 14
+					},
+					{
+						"error": 0.0699441805481911,
+						"triangles": 6
+					}
+				],
+				"name": "tongue01",
+				"triangles": 448
+			},
+			{
+				"blend_shapes": 0,
+				"lods": [
+					{
+						"error": 0.00105386495124549,
+						"triangles": 1020
+					},
+					{
+						"error": 0.00179381563793868,
+						"triangles": 510
+					},
+					{
+						"error": 0.00341377477161586,
+						"triangles": 254
+					},
+					{
+						"error": 0.01005267072469,
+						"triangles": 126
+					},
+					{
+						"error": 0.0662211924791336,
+						"triangles": 36
+					}
+				],
+				"name": "eyes",
+				"triangles": 2040
+			}
+		],
+		"texture_bytes": 141208221,
+		"textures": {
+			"res://assets/characters/cast/protagonist_0.png": {
+				"bytes": 16777215,
+				"compressed": false,
+				"format": 4,
+				"height": 2048,
+				"mipmaps": true,
+				"width": 2048
+			},
+			"res://assets/characters/cast/protagonist_1.png": {
+				"bytes": 22369620,
+				"compressed": false,
+				"format": 5,
+				"height": 2048,
+				"mipmaps": true,
+				"width": 2048
+			},
+			"res://assets/characters/cast/protagonist_10.png": {
+				"bytes": 5592404,
+				"compressed": false,
+				"format": 5,
+				"height": 1024,
+				"mipmaps": true,
+				"width": 1024
+			},
+			"res://assets/characters/cast/protagonist_2.png": {
+				"bytes": 16777215,
+				"compressed": false,
+				"format": 4,
+				"height": 2048,
+				"mipmaps": true,
+				"width": 2048
+			},
+			"res://assets/characters/cast/protagonist_3.png": {
+				"bytes": 22369620,
+				"compressed": false,
+				"format": 5,
+				"height": 2048,
+				"mipmaps": true,
+				"width": 2048
+			},
+			"res://assets/characters/cast/protagonist_4.png": {
+				"bytes": 5592404,
+				"compressed": false,
+				"format": 5,
+				"height": 1024,
+				"mipmaps": true,
+				"width": 1024
+			},
+			"res://assets/characters/cast/protagonist_5.png": {
+				"bytes": 22369620,
+				"compressed": false,
+				"format": 5,
+				"height": 2048,
+				"mipmaps": true,
+				"width": 2048
+			},
+			"res://assets/characters/cast/protagonist_6.png": {
+				"bytes": 1398100,
+				"compressed": false,
+				"format": 5,
+				"height": 512,
+				"mipmaps": true,
+				"width": 512
+			},
+			"res://assets/characters/cast/protagonist_7.png": {
+				"bytes": 1398100,
+				"compressed": false,
+				"format": 5,
+				"height": 512,
+				"mipmaps": true,
+				"width": 512
+			},
+			"res://assets/characters/cast/protagonist_8.png": {
+				"bytes": 22369620,
+				"compressed": false,
+				"format": 5,
+				"height": 2048,
+				"mipmaps": true,
+				"width": 2048
+			},
+			"res://assets/characters/cast/protagonist_9.png": {
+				"bytes": 4194303,
+				"compressed": false,
+				"format": 4,
+				"height": 1024,
+				"mipmaps": true,
+				"width": 1024
+			}
+		}
+	}
+}

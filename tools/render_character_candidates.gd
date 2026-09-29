@@ -5,11 +5,15 @@ var output := "res://build/character-candidate-images"
 var source := "res://build/character-candidates"
 var extended := false
 var captures := 0
+var imported := false
+var msaa := 0
 func _initialize() -> void:
 	for argument in OS.get_cmdline_user_args():
 		if argument.begins_with("--output="): output=argument.trim_prefix("--output=")
 		if argument.begins_with("--source="): source=argument.trim_prefix("--source=")
 		if argument=="--extended": extended=true
+		if argument=="--imported": imported=true
+		if argument.begins_with("--msaa="): msaa=int(argument.trim_prefix("--msaa="))
 	DisplayServer.window_set_flag(DisplayServer.WINDOW_FLAG_NO_FOCUS,true)
 	root.hide()
 	Input.mouse_mode=Input.MOUSE_MODE_VISIBLE
@@ -20,6 +24,7 @@ func run() -> void:
 	var viewport := SubViewport.new()
 	viewport.size=Vector2i(900,1000)
 	viewport.own_world_3d=true
+	viewport.msaa_3d=msaa
 	viewport.render_target_update_mode=SubViewport.UPDATE_ALWAYS
 	root.add_child(viewport)
 	var stage := Node3D.new()
@@ -42,10 +47,14 @@ func run() -> void:
 	stage.add_child(key)
 	Shapes.box(stage,Vector3(4,0.03,4),Vector3(0,-0.025,0),Color("4c5662"))
 	for person in ["protagonist","lin_lan","a_cheng"]:
-		var document := GLTFDocument.new()
-		var state := GLTFState.new()
-		if document.append_from_file(source.path_join(person+".glb"),state)!=OK: quit(1); return
-		var model := document.generate_scene(state)
+		var model: Node3D
+		if imported:
+			model=load(source.path_join(person+".glb")).instantiate()
+		else:
+			var document := GLTFDocument.new()
+			var state := GLTFState.new()
+			if document.append_from_file(source.path_join(person+".glb"),state)!=OK: quit(1); return
+			model=document.generate_scene(state)
 		stage.add_child(model)
 		var skeleton: Skeleton3D=model.find_children("*","Skeleton3D",true,false)[0]
 		for side in ["L","R"]:

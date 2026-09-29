@@ -1,0 +1,154 @@
+{
+  "status": "import_validated_motion_and_art_acceptance_pending",
+  "recipes_sha256": "f9936f701b2848575205afe31adc5a84a0fa9331ebc281a463cda38e3af2166f",
+  "characters": [
+    {
+      "id": "protagonist",
+      "sha256": "5c6e442a04c4237d0f85ba9d3d256f44129c35d5f7d0beb45865cded6e6e1832",
+      "bytes": 22116348,
+      "bones": 163,
+      "triangles": 49436,
+      "materials": 10,
+      "expressions": [
+        "blink",
+        "brow_raise",
+        "brow_lower",
+        "mouth_open"
+      ],
+      "covered_triangles_removed": {
+        "male_casualsuit01": 0,
+        "shoes02": 220
+      },
+      "height_m": 1.7277788,
+      "recipe": {
+        "id": "protagonist",
+        "name": "主角",
+        "intent": "年轻求职者；较窄下颌，松开的工作衬衫，深短发。",
+        "shape": {
+          "macrodetails/asian-male-young.target": 1.0,
+          "head/head-oval.target": 0.16,
+          "chin/chin-width-decr.target": 0.12
+        },
+        "scale": 0.106,
+        "outfit": "male_casualsuit01",
+        "shoes": "shoes02",
+        "hair": "short01",
+        "eyebrows": "eyebrow005",
+        "eyelashes": "eyelashes01",
+        "skin": "young_lightskinned_male_diffuse3.png",
+        "hair_color": [
+          0.18,
+          0.16,
+          0.14,
+          1
+        ],
+        "clothing_color": [
+          0.8,
+          0.9,
+          1,
+          1
+        ]
+      }
+    },
+    {
+      "id": "lin_lan",
+      "sha256": "4dd4bf6cc5b5b6b8421c17711498ec48c5279089b12c77a357ac398142bd6055",
+      "bytes": 19599592,
+      "bones": 163,
+      "triangles": 41628,
+      "materials": 10,
+      "expressions": [
+        "blink",
+        "brow_raise",
+        "brow_lower",
+        "mouth_open"
+      ],
+      "covered_triangles_removed": {
+        "female_elegantsuit01": 0,
+        "shoes03": 0
+      },
+      "height_m": 1.5868942000000001,
+      "recipe": {
+        "id": "lin_lan",
+        "name": "林岚",
+        "intent": "克制、注重边界的招聘接待；长椭圆脸，束发，细条纹衬衫与及膝裙。",
+        "shape": {
+          "macrodetails/asian-female-young.target": 1.0,
+          "head/head-oval.target": 0.3,
+          "chin/chin-width-decr.target": 0.15
+        },
+        "scale": 0.106,
+        "outfit": "female_elegantsuit01",
+        "shoes": "shoes03",
+        "hair": "ponytail01",
+        "eyebrows": "eyebrow007",
+        "eyelashes": "eyelashes02",
+        "skin": "young_lightskinned_female_diffuse3.png",
+        "hair_color": [
+          0.12,
+          0.1,
+          0.09,
+          1
+        ],
+        "clothing_color": [
+          0.72,
+          0.76,
+          0.82,
+          1
+        ]
+      }
+    },
+    {
+      "id": "a_cheng",
+      "sha256": "a171e42c1cec660ae8392d8e74c01ab8a659c0641e0fdf7e8d56afffb0fc2907",
+      "bytes": 28954904,
+      "bones": 163,
+      "triangles": 36926,
+      "materials": 10,
+      "expressions": [
+        "blink",
+        "brow_raise",
+        "brow_lower",
+        "mouth_open"
+      ],
+      "covered_triangles_removed": {
+        "male_casualsuit05": 0,
+        "shoes01": 0
+      },
+      "height_m": 1.7719585000000002,
+      "recipe": {
+        "id": "a_cheng",
+        "name": "阿诚",
+        "intent": "B公司招聘接待；较宽下颌和短发，休闲外套，不沿用主角脸型。",
+        "shape": {
+          "macrodetails/asian-male-young.target": 1.0,
+          "head/head-square.target": 0.25,
+          "chin/chin-width-incr.target": 0.22,
+          "head/head-age-incr.target": 0.12
+        },
+        "scale": 0.109,
+        "outfit": "male_casualsuit05",
+        "shoes": "shoes01",
+        "hair": "short04",
+        "eyebrows": "eyebrow002",
+        "eyelashes": "eyelashes01",
+        "skin": "middleage_lightskinned_male_diffuse2.png",
+        "hair_color": [
+          0.15,
+          0.14,
+          0.13,
+          1
+        ],
+        "clothing_color": [
+          0.8,
+          0.82,
+          0.76,
+          1
+        ]
+      }
+    }
+  ],
+  "license": "CC0-1.0",
+  "source_manifest": "production/characters/cc0-2026-09-29/provenance.json",
+  "generator": "tools/build_character_cast.py"
+}

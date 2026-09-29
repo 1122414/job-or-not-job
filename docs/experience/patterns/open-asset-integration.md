@@ -18,3 +18,5 @@
 人物材质反例（2026-09-29，验证一次）：高精度MakeHuman眼球的`.mhclo`引用`../materials/brown.mhmat`，其透明声明用于外层；只拷贝纹理并默认不透明时，GLB结构检查0失败但虹膜完全被白蓝外层盖住。复制原材质、相对材质所在目录解析纹理、保留alpha语义后，三人近景恢复虹膜。新增`test_attachment_textures_resolve_from_referenced_material`与`inspect_character_candidates.gd`检查解析目录和眼alpha；旧三GLB重建逐字节一致，限定已有调用兼容。本修复只证明这套资产的遮挡原因，不证明眼睛PBR、发片或所有材质均通过。
 
 选择资源时不能从casualsuit名称推断职业衣装：首轮林岚实际是标志T恤短裤。原始缩略图和完整人体预览分别检查用途与贴合；两轮反例保存在`docs/evidence/2026-09-29-s2-character-pipeline/`。第二轮24图仍发现眉部和嘴角问题，结构检查继续通过，故明确拒绝正式接入；这些未确诊原因见`../unresolved.md`，不将“CC0+能导入”升级为品质认可。
+
+人物真实导入补记（2026-09-29，再次验证纹理机制）：三个GLB导入后的外部PNG默认仍未显存压缩，真实贴图合计469,762,007字节；修改实际PNG `.import`的VRAM压缩后86,682,936字节，mipmap保留。`tools/audit_cast_resources.gd`遍历实例材质的所有Texture2D属性，避免只查albedo遗漏法线/高光纹理；`tests/cast_resources_test.gd`检查真实压缩和每人预算。RenderingServer网格的LOD索引应逐级变少；自动LOD只减少索引，不能声称减少骨骼或全部顶点驻留。前后同位MSAA固定，8张实看图片未发现明显大块损伤，但发片/皮肤美术仍开放，不能将技术成本修复解释为写实质量达成。
