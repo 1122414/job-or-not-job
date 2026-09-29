@@ -735,4 +735,4 @@ C4a记录同步：542项资料逐字节核对一致，零冲突；每日计划/�
 
 未完成：居民外观辨识、正式坐起/翻页/对白表演与声音、整段城区美术、更多可参与场所和职业/人物后果、30—60分钟完整自由体验、分区/八区整城、双画质持续性能和独立玩家签收。G01—G06及64km²都市圈/16km²密集城区完整目标继续。后续以完整城区视听与持续游玩样板为交付单位，不以功能数量宣布品质达标。
 
-详情：[C3d验收](2026-09-29_C3d公共连廊日常生活验收.md)；复用更新经验：[活动交接](experience/patterns/activity-priority.md)、[存档恢复](experience/patterns/save-content-expansion.md)、[视觉观察时序](experience/patterns/visual-reference-scope.md)。中文提交号在实施后的记录追加。
+详情：[C3d验收](2026-09-29_C3d公共连廊日常生活验收.md)；复用更新经验：[活动交接](experience/patterns/activity-priority.md)、[存档恢复](experience/patterns/save-content-expansion.md)、[视觉观察时序](experience/patterns/visual-reference-scope.md)。中文实施提交34ccf4b，未push。
