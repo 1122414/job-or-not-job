@@ -40,6 +40,22 @@ class AssetImportSafetyTest(unittest.TestCase):
             record = checked_download(path, {'size': 5, 'md5': hashlib.md5(b'asset').hexdigest(), 'url': 'https://dl.polyhaven.org/a'})
             self.assertEqual(record['sha256'], hashlib.sha256(b'asset').hexdigest())
 
+    def test_reviewed_large_source_limit_does_not_change_default_or_checksums(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            path = Path(tmp) / 'source.bin'
+            entry = {'size': 64 * 1024 * 1024 + 1,
+                     'md5': hashlib.md5(b'asset').hexdigest(),
+                     'url': 'https://dl.polyhaven.org/source.bin'}
+            with self.assertRaises(ValueError):
+                checked_download(path, entry)
+            path.write_bytes(b'artist edit')
+            with self.assertRaises(ValueError):
+                checked_download(path, entry, max_bytes=128 * 1024 * 1024)
+            self.assertEqual(path.read_bytes(), b'artist edit')
+            for limit in (0, -1, 257 * 1024 * 1024, float('inf')):
+                with self.subTest(limit=limit), self.assertRaises(ValueError):
+                    checked_download(path, entry, max_bytes=limit)
+
 
 if __name__ == '__main__':
     unittest.main()

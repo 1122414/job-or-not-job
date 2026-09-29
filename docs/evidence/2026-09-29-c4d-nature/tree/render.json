@@ -1,0 +1,15 @@
+{
+	"normal_game_performance": false,
+	"pointer_visible": true,
+	"root_focused": false,
+	"root_minimized": true,
+	"root_unfocusable": true,
+	"triangles": {
+		"compact": 64027,
+		"islands-0": 297834,
+		"islands-1": 160239,
+		"islands-2": 100716,
+		"medium": 245964,
+		"source": 2062487
+	}
+}

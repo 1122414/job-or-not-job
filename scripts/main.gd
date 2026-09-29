@@ -136,9 +136,13 @@ func build_lighting() -> void:
 	env.environment.fog_density=.0012
 	env.environment.fog_sky_affect=.18
 	env.environment.background_color = Color("8fb4c5")
-	env.environment.ambient_light_source = Environment.AMBIENT_SOURCE_COLOR
+	env.environment.ambient_light_source = Environment.AMBIENT_SOURCE_SKY
 	env.environment.ambient_light_color = Color("c6c9cc")
 	env.environment.ambient_light_energy = 0.48
+	env.environment.ssao_enabled=true
+	env.environment.ssao_radius=.65
+	env.environment.ssao_intensity=1.15
+	env.environment.ssao_power=1.2
 	add_child(env)
 
 func add_prop(id: String, kind: String, pos: Vector3) -> void:
@@ -222,10 +226,12 @@ func objective_text() -> String:
 func update_daylight() -> void:
 	var hour := float(payroll.minute%1440)/60.0
 	var daylight := clampf(sin((hour-6.0)/12.0*PI),0,1)
-	sun.light_energy=0.04+daylight*0.65
+	sun.light_energy=0.04+daylight*0.85
+	sun.light_color=Color("ffdbb8").lerp(Color("fff8f0"),daylight)
 	sun.rotation_degrees.x=-10-daylight*55
 	environment.background_color=Color("142330").lerp(Color("91b2c2"),daylight)
-	environment.ambient_light_energy=0.18+daylight*0.23
+	environment.ambient_light_energy=0.18+daylight*0.3
+	environment.ambient_light_sky_contribution=daylight*.55
 	environment.ambient_light_color=Color("8c9bae").lerp(Color("c6c9cc"),daylight)
 	var sky: ProceduralSkyMaterial=environment.sky.sky_material
 	sky.sky_top_color=Color("080e1c").lerp(Color("548ca8"),daylight)

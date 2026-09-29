@@ -9,14 +9,13 @@ var lamps: Array[OmniLight3D]=[]
 var night_materials: Array[StandardMaterial3D]=[]
 var last_night := -1.0
 var piece_count := 0
-var leaf_mesh: ArrayMesh
-var cylinder_mesh: CylinderMesh
+var trees: Array[CityTree]=[]
 var water: ShaderMaterial
 var wave_time := 0.0
 
 func _init() -> void:
 	name="Streetscape"
-	for item in [["stone","bcb9a9"],["trim","c7bfa9"],["metal","39494a"],["glass","344e55"],["reveal","263638"],["timber","8d704e"],["roof","70746b"],["soil","6b7050"],["grass","687951"],["brick_red","805a46"],["leaf_light","72824a"],["leaf_dark","3e603d"],["leaf_mid","587642"],["bark","6e6452"],["warm_light","e5c38a"]]:
+	for item in [["stone","bcb9a9"],["trim","c7bfa9"],["metal","39494a"],["glass","344e55"],["reveal","263638"],["timber","8d704e"],["roof","70746b"],["soil","6b7050"],["grass","687951"],["brick_red","805a46"],["warm_light","e5c38a"]]:
 		materials[item[0]]=Shapes.material(Color(item[1]))
 	materials.glass.roughness=.26
 	materials.glass.metallic=.35
@@ -27,40 +26,26 @@ func _init() -> void:
 	materials.old_wall.albedo_color=Color("c1b396")
 	materials.home_wall.albedo_color=Color("b6c0b7")
 	materials.brick.albedo_color=Color("c7b49d")
-	for key in ["paving","grass"]:
+	for key in ["paving"]:
 		var surface := ShaderMaterial.new()
 		surface.shader=load("res://assets/materials/city_"+key+".gdshader")
 		materials[key]=surface
+	materials.grass=load("res://assets/materials/city_grass.tres")
+	materials.timber=load("res://assets/materials/office_wood.tres").duplicate()
+	materials.timber.albedo_color=Color("bdab8b")
+	materials.stone=load("res://assets/materials/pavement.tres").duplicate()
+	# Cast concrete uses the source's surface relief, not its floor aggregate
+	# colour: the latter reads as gravel on the gallery's vertical structure.
+	materials.stone.albedo_texture=null
+	materials.stone.albedo_color=Color("bcb9a9")
+	for entry in [["surface_color","Diffuse"],["surface_normal","nor_gl"],["surface_arm","arm"]]:
+		materials.paving.set_shader_parameter(entry[0],load("res://assets/polyhaven/concrete_floor_01/concrete_floor_01_"+entry[1]+"_2k.jpg"))
 	for key in ["warm_light","window_lit"]:
 		if key=="window_lit": materials[key]=Shapes.material(Color("766f53"))
 		materials[key].emission_enabled=true
 		materials[key].emission=Color("ffd39a")
 		materials[key].emission_energy_multiplier=0
 		night_materials.append(materials[key])
-	cylinder_mesh=CylinderMesh.new()
-	cylinder_mesh.top_radius=.5
-	cylinder_mesh.bottom_radius=.5
-	cylinder_mesh.height=1
-	cylinder_mesh.radial_segments=8
-	cylinder_mesh.rings=1
-	# A folded, double-sided leaf catches light on both sides without alpha cards.
-	leaf_mesh=ArrayMesh.new()
-	var vertices := PackedVector3Array()
-	var outline := [Vector3(0,0,-.5),Vector3(-.28,0,-.3),Vector3(-.5,0,0),Vector3(-.3,0,.3),Vector3(0,0,.5),Vector3(.3,0,.3),Vector3(.5,0,0),Vector3(.28,0,-.3)]
-	for i in range(outline.size()):
-		vertices.append(Vector3(0,.05,0))
-		vertices.append(outline[i])
-		vertices.append(outline[(i+1)%outline.size()])
-	var normals := PackedVector3Array()
-	for i in range(0,vertices.size(),3):
-		var normal := (vertices[i+1]-vertices[i]).cross(vertices[i+2]-vertices[i]).normalized()
-		for j in range(3): normals.append(normal)
-	var arrays := []
-	arrays.resize(Mesh.ARRAY_MAX)
-	arrays[Mesh.ARRAY_VERTEX]=vertices
-	arrays[Mesh.ARRAY_NORMAL]=normals
-	leaf_mesh.add_surface_from_arrays(Mesh.PRIMITIVE_TRIANGLES,arrays)
-	for key in ["leaf_light","leaf_dark","leaf_mid"]: materials[key].cull_mode=BaseMaterial3D.CULL_DISABLED
 
 func piece(kind: String,material: String,transform: Transform3D) -> void:
 	var cell := Vector2i(floori(transform.origin.x/32),floori(transform.origin.z/32))
@@ -79,13 +64,6 @@ func solid(size: Vector3,at: Vector3,material: String,yaw: float=0) -> void:
 	body.position=at
 	body.rotation.y=yaw
 	Shapes.collider(body,size)
-
-func branch(from: Vector3,to: Vector3,radius: float) -> void:
-	var axis := (to-from).normalized()
-	var side := axis.cross(Vector3.FORWARD).normalized()
-	if side.length_squared()<.1: side=Vector3.RIGHT
-	var basis := Basis(side,axis,side.cross(axis)).scaled_local(Vector3(radius*2,from.distance_to(to),radius*2))
-	piece("cylinder","bark",Transform3D(basis,(from+to)/2))
 
 func facade(point: Vector3,size: Vector3,old_town: bool) -> void:
 	var wall := "old_wall" if old_town else "home_wall"
@@ -148,26 +126,17 @@ func plaque(text: String,at: Vector3,width: float,yaw: float=0) -> void:
 func tree(at: Vector3,seed_value: int) -> void:
 	var rng := RandomNumberGenerator.new()
 	rng.seed=seed_value
-	var height := rng.randf_range(4.8,6.3)
-	branch(at,at+Vector3(.12,height*.68,0),.16)
+	var visual := CityTree.new()
+	visual.name="Tree"+str(seed_value)
+	visual.position=at
+	visual.rotation.y=rng.randf_range(0,TAU)
+	visual.scale=Vector3.ONE*rng.randf_range(1.15,1.32)
+	add_child(visual)
+	trees.append(visual)
 	var body := StaticBody3D.new()
 	add_child(body)
 	body.position=at+Vector3(0,1.5,0)
 	Shapes.collider(body,Vector3(.35,3,.35))
-	for limb in range(9):
-		var angle := limb*TAU/9+rng.randf_range(-.3,.3)
-		var end := at+Vector3(cos(angle)*1.9,height+rng.randf_range(-1.1,.5),sin(angle)*1.9)
-		var fork := at+Vector3(.1,height*.52+limb*.07,0)
-		branch(fork,end,.045)
-		for twig in range(5):
-			var tip := end+Vector3(rng.randf_range(-1,1),rng.randf_range(-.5,.8),rng.randf_range(-1,1))
-			branch(end.lerp(fork,.25),tip,.015)
-			for leaf in range(52):
-				var offset := Vector3(rng.randf_range(-1,1),rng.randf_range(-.6,.6),rng.randf_range(-1,1))
-				if offset.length()>1: offset=offset.normalized()
-				var pose := Basis.from_euler(Vector3(rng.randf_range(-1,1),rng.randf_range(0,TAU),rng.randf_range(-.8,.8)))
-				pose=pose.scaled_local(Vector3(.16,1,.32)*rng.randf_range(.7,1.2))
-				piece("leaf",["leaf_dark","leaf_mid","leaf_light"][rng.randi_range(0,2)],Transform3D(pose,tip+offset))
 
 func bench(at: Vector3,yaw: float=0,id: String="") -> StaticBody3D:
 	var rot := Basis(Vector3.UP,yaw)
@@ -218,11 +187,11 @@ func landscape() -> void:
 	for z in [111,114,117,120]: box(Vector3(212,.005,.025),Vector3(0,.017,z),"stone")
 	for z in [16,20,92,96]: box(Vector3(138,.006,.14),Vector3(0,.019,z),"trim")
 	for x in [-69,-63,63,69]: box(Vector3(.14,.006,77),Vector3(x,.019,56),"trim")
-	var trees := [Vector3(-60,0,48),Vector3(-36,0,48),Vector3(28,0,48),Vector3(52,0,48),Vector3(-60,0,70),Vector3(-36,0,70),Vector3(28,0,70),Vector3(52,0,70),Vector3(-6.5,0,29),Vector3(-6.5,0,45),Vector3(-4.5,0,70),Vector3(-4.5,0,87),Vector3(6.5,0,29),Vector3(6.5,0,45),Vector3(38,0,68)]
-	for x in [-90,-66,-42,-18,18,42,66,90]: trees.append(Vector3(x,0,122))
-	for i in range(trees.size()):
-		tree(trees[i],900+i)
-		box(Vector3(2,.022,2),trees[i]+Vector3(0,.015,0),"soil")
+	var tree_points := [Vector3(-60,0,48),Vector3(-36,0,48),Vector3(28,0,48),Vector3(52,0,48),Vector3(-60,0,70),Vector3(-36,0,70),Vector3(28,0,70),Vector3(52,0,70),Vector3(-6.5,0,29),Vector3(-6.5,0,45),Vector3(-4.5,0,70),Vector3(-4.5,0,87),Vector3(6.5,0,29),Vector3(6.5,0,45),Vector3(38,0,68)]
+	for x in [-90,-66,-42,-18,18,42,66,90]: tree_points.append(Vector3(x,0,122))
+	for i in range(tree_points.size()):
+		tree(tree_points[i],900+i)
+		box(Vector3(2,.022,2),tree_points[i]+Vector3(0,.015,0),"soil")
 	for at in [Vector3(-64,0,43),Vector3(-64,0,73),Vector3(64,0,43),Vector3(64,0,73),Vector3(-19,0,54),Vector3(21,0,54),Vector3(-48,0,118),Vector3(-12,0,118),Vector3(24,0,118),Vector3(60,0,118)]: lamp(at)
 	for at in [Vector3(-43,0,63),Vector3(-23,0,63),Vector3(32,0,49),Vector3(54,0,63)]: bench(at)
 	for x in [-36,-18,18,36]: bench(Vector3(x,0,120))
@@ -248,7 +217,7 @@ func flush() -> void:
 		var batch: Dictionary=batches[key]
 		var mesh := MultiMesh.new()
 		mesh.transform_format=MultiMesh.TRANSFORM_3D
-		mesh.mesh=leaf_mesh if batch.kind=="leaf" else cylinder_mesh if batch.kind=="cylinder" else cube
+		mesh.mesh=cube
 		mesh.instance_count=batch.transforms.size()
 		for i in range(mesh.instance_count): mesh.set_instance_transform(i,batch.transforms[i])
 		var instance := MultiMeshInstance3D.new()

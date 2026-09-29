@@ -1,0 +1,1992 @@
+{
+	"background_guard_passed": true,
+	"levels": [
+		297834,
+		160239,
+		100716
+	],
+	"normal_game_fps": false,
+	"perceptual_transition_accepted": false,
+	"samples": [
+		{
+			"direction": "out",
+			"distance": 7.0,
+			"level": 0,
+			"primitives": 297834
+		},
+		{
+			"direction": "out",
+			"distance": 7.25,
+			"level": 0,
+			"primitives": 297834
+		},
+		{
+			"direction": "out",
+			"distance": 7.5,
+			"level": 0,
+			"primitives": 297834
+		},
+		{
+			"direction": "out",
+			"distance": 7.75,
+			"level": 0,
+			"primitives": 297834
+		},
+		{
+			"direction": "out",
+			"distance": 8.0,
+			"level": 0,
+			"primitives": 297834
+		},
+		{
+			"direction": "out",
+			"distance": 8.25,
+			"level": 0,
+			"primitives": 297834
+		},
+		{
+			"direction": "out",
+			"distance": 8.5,
+			"level": 0,
+			"primitives": 297834
+		},
+		{
+			"direction": "out",
+			"distance": 8.75,
+			"level": 0,
+			"primitives": 297834
+		},
+		{
+			"direction": "out",
+			"distance": 9.0,
+			"level": 0,
+			"primitives": 297834
+		},
+		{
+			"direction": "out",
+			"distance": 9.25,
+			"level": 0,
+			"primitives": 297834
+		},
+		{
+			"direction": "out",
+			"distance": 9.5,
+			"level": 0,
+			"primitives": 297834
+		},
+		{
+			"direction": "out",
+			"distance": 9.75,
+			"level": 0,
+			"primitives": 297834
+		},
+		{
+			"direction": "out",
+			"distance": 10.0,
+			"level": 0,
+			"primitives": 297834
+		},
+		{
+			"direction": "out",
+			"distance": 10.25,
+			"level": 0,
+			"primitives": 297834
+		},
+		{
+			"direction": "out",
+			"distance": 10.5,
+			"level": 0,
+			"primitives": 297834
+		},
+		{
+			"direction": "out",
+			"distance": 10.75,
+			"level": 0,
+			"primitives": 297834
+		},
+		{
+			"direction": "out",
+			"distance": 11.0,
+			"level": 0,
+			"primitives": 297834
+		},
+		{
+			"direction": "out",
+			"distance": 11.25,
+			"level": 0,
+			"primitives": 297834
+		},
+		{
+			"direction": "out",
+			"distance": 11.5,
+			"level": 0,
+			"primitives": 297834
+		},
+		{
+			"direction": "out",
+			"distance": 11.75,
+			"level": 0,
+			"primitives": 297834
+		},
+		{
+			"direction": "out",
+			"distance": 12.0,
+			"level": 0,
+			"primitives": 297834
+		},
+		{
+			"direction": "out",
+			"distance": 12.25,
+			"level": 0,
+			"primitives": 297834
+		},
+		{
+			"direction": "out",
+			"distance": 12.5,
+			"level": 0,
+			"primitives": 297834
+		},
+		{
+			"direction": "out",
+			"distance": 12.75,
+			"level": 0,
+			"primitives": 297834
+		},
+		{
+			"direction": "out",
+			"distance": 13.0,
+			"level": 0,
+			"primitives": 297834
+		},
+		{
+			"direction": "out",
+			"distance": 13.25,
+			"level": 0,
+			"primitives": 297834
+		},
+		{
+			"direction": "out",
+			"distance": 13.5,
+			"level": 0,
+			"primitives": 297834
+		},
+		{
+			"direction": "out",
+			"distance": 13.75,
+			"level": 0,
+			"primitives": 297834
+		},
+		{
+			"direction": "out",
+			"distance": 14.0,
+			"level": 0,
+			"primitives": 297834
+		},
+		{
+			"direction": "out",
+			"distance": 14.25,
+			"level": 0,
+			"primitives": 297834
+		},
+		{
+			"direction": "out",
+			"distance": 14.5,
+			"level": 0,
+			"primitives": 297834
+		},
+		{
+			"direction": "out",
+			"distance": 14.75,
+			"level": 0,
+			"primitives": 297834
+		},
+		{
+			"direction": "out",
+			"distance": 15.0,
+			"level": 0,
+			"primitives": 297834
+		},
+		{
+			"direction": "out",
+			"distance": 15.25,
+			"level": 0,
+			"primitives": 297834
+		},
+		{
+			"direction": "out",
+			"distance": 15.5,
+			"level": 0,
+			"primitives": 297834
+		},
+		{
+			"direction": "out",
+			"distance": 15.75,
+			"level": 0,
+			"primitives": 297834
+		},
+		{
+			"direction": "out",
+			"distance": 16.0,
+			"level": 0,
+			"primitives": 297834
+		},
+		{
+			"direction": "out",
+			"distance": 16.25,
+			"level": 0,
+			"primitives": 297834
+		},
+		{
+			"direction": "out",
+			"distance": 16.5,
+			"level": 0,
+			"primitives": 297834
+		},
+		{
+			"direction": "out",
+			"distance": 16.75,
+			"level": 0,
+			"primitives": 297834
+		},
+		{
+			"direction": "out",
+			"distance": 17.0,
+			"level": 0,
+			"primitives": 297834
+		},
+		{
+			"direction": "out",
+			"distance": 17.25,
+			"level": 0,
+			"primitives": 297834
+		},
+		{
+			"direction": "out",
+			"distance": 17.5,
+			"level": 0,
+			"primitives": 297834
+		},
+		{
+			"direction": "out",
+			"distance": 17.75,
+			"level": 0,
+			"primitives": 297834
+		},
+		{
+			"direction": "out",
+			"distance": 18.0,
+			"level": 0,
+			"primitives": 297834
+		},
+		{
+			"direction": "out",
+			"distance": 18.25,
+			"level": 0,
+			"primitives": 297834
+		},
+		{
+			"direction": "out",
+			"distance": 18.5,
+			"level": 0,
+			"primitives": 297834
+		},
+		{
+			"direction": "out",
+			"distance": 18.75,
+			"level": 0,
+			"primitives": 297834
+		},
+		{
+			"direction": "out",
+			"distance": 19.0,
+			"level": 0,
+			"primitives": 297834
+		},
+		{
+			"direction": "out",
+			"distance": 19.25,
+			"level": 0,
+			"primitives": 297834
+		},
+		{
+			"direction": "out",
+			"distance": 19.5,
+			"level": 0,
+			"primitives": 297834
+		},
+		{
+			"direction": "out",
+			"distance": 19.75,
+			"level": 0,
+			"primitives": 297834
+		},
+		{
+			"direction": "out",
+			"distance": 20.0,
+			"level": 0,
+			"primitives": 297834
+		},
+		{
+			"direction": "out",
+			"distance": 20.25,
+			"level": 0,
+			"primitives": 297834
+		},
+		{
+			"direction": "out",
+			"distance": 20.5,
+			"level": 1,
+			"primitives": 160239
+		},
+		{
+			"direction": "out",
+			"distance": 20.75,
+			"level": 1,
+			"primitives": 160239
+		},
+		{
+			"direction": "out",
+			"distance": 21.0,
+			"level": 1,
+			"primitives": 160239
+		},
+		{
+			"direction": "out",
+			"distance": 21.25,
+			"level": 1,
+			"primitives": 160239
+		},
+		{
+			"direction": "out",
+			"distance": 21.5,
+			"level": 1,
+			"primitives": 160239
+		},
+		{
+			"direction": "out",
+			"distance": 21.75,
+			"level": 1,
+			"primitives": 160239
+		},
+		{
+			"direction": "out",
+			"distance": 22.0,
+			"level": 1,
+			"primitives": 160239
+		},
+		{
+			"direction": "out",
+			"distance": 22.25,
+			"level": 1,
+			"primitives": 160239
+		},
+		{
+			"direction": "out",
+			"distance": 22.5,
+			"level": 1,
+			"primitives": 160239
+		},
+		{
+			"direction": "out",
+			"distance": 22.75,
+			"level": 1,
+			"primitives": 160239
+		},
+		{
+			"direction": "out",
+			"distance": 23.0,
+			"level": 1,
+			"primitives": 160239
+		},
+		{
+			"direction": "out",
+			"distance": 23.25,
+			"level": 1,
+			"primitives": 160239
+		},
+		{
+			"direction": "out",
+			"distance": 23.5,
+			"level": 1,
+			"primitives": 160239
+		},
+		{
+			"direction": "out",
+			"distance": 23.75,
+			"level": 1,
+			"primitives": 160239
+		},
+		{
+			"direction": "out",
+			"distance": 24.0,
+			"level": 1,
+			"primitives": 160239
+		},
+		{
+			"direction": "out",
+			"distance": 24.25,
+			"level": 1,
+			"primitives": 160239
+		},
+		{
+			"direction": "out",
+			"distance": 24.5,
+			"level": 1,
+			"primitives": 160239
+		},
+		{
+			"direction": "out",
+			"distance": 24.75,
+			"level": 1,
+			"primitives": 160239
+		},
+		{
+			"direction": "out",
+			"distance": 25.0,
+			"level": 1,
+			"primitives": 160239
+		},
+		{
+			"direction": "out",
+			"distance": 25.25,
+			"level": 1,
+			"primitives": 160239
+		},
+		{
+			"direction": "out",
+			"distance": 25.5,
+			"level": 1,
+			"primitives": 160239
+		},
+		{
+			"direction": "out",
+			"distance": 25.75,
+			"level": 1,
+			"primitives": 160239
+		},
+		{
+			"direction": "out",
+			"distance": 26.0,
+			"level": 1,
+			"primitives": 160239
+		},
+		{
+			"direction": "out",
+			"distance": 26.25,
+			"level": 1,
+			"primitives": 160239
+		},
+		{
+			"direction": "out",
+			"distance": 26.5,
+			"level": 1,
+			"primitives": 160239
+		},
+		{
+			"direction": "out",
+			"distance": 26.75,
+			"level": 1,
+			"primitives": 160239
+		},
+		{
+			"direction": "out",
+			"distance": 27.0,
+			"level": 1,
+			"primitives": 160239
+		},
+		{
+			"direction": "out",
+			"distance": 27.25,
+			"level": 1,
+			"primitives": 160239
+		},
+		{
+			"direction": "out",
+			"distance": 27.5,
+			"level": 1,
+			"primitives": 160239
+		},
+		{
+			"direction": "out",
+			"distance": 27.75,
+			"level": 1,
+			"primitives": 160239
+		},
+		{
+			"direction": "out",
+			"distance": 28.0,
+			"level": 1,
+			"primitives": 160239
+		},
+		{
+			"direction": "out",
+			"distance": 28.25,
+			"level": 1,
+			"primitives": 160239
+		},
+		{
+			"direction": "out",
+			"distance": 28.5,
+			"level": 1,
+			"primitives": 160239
+		},
+		{
+			"direction": "out",
+			"distance": 28.75,
+			"level": 1,
+			"primitives": 160239
+		},
+		{
+			"direction": "out",
+			"distance": 29.0,
+			"level": 1,
+			"primitives": 160239
+		},
+		{
+			"direction": "out",
+			"distance": 29.25,
+			"level": 1,
+			"primitives": 160239
+		},
+		{
+			"direction": "out",
+			"distance": 29.5,
+			"level": 1,
+			"primitives": 160239
+		},
+		{
+			"direction": "out",
+			"distance": 29.75,
+			"level": 1,
+			"primitives": 160239
+		},
+		{
+			"direction": "out",
+			"distance": 30.0,
+			"level": 1,
+			"primitives": 160239
+		},
+		{
+			"direction": "out",
+			"distance": 30.25,
+			"level": 1,
+			"primitives": 160239
+		},
+		{
+			"direction": "out",
+			"distance": 30.5,
+			"level": 1,
+			"primitives": 160239
+		},
+		{
+			"direction": "out",
+			"distance": 30.75,
+			"level": 1,
+			"primitives": 160239
+		},
+		{
+			"direction": "out",
+			"distance": 31.0,
+			"level": 1,
+			"primitives": 160239
+		},
+		{
+			"direction": "out",
+			"distance": 31.25,
+			"level": 1,
+			"primitives": 160239
+		},
+		{
+			"direction": "out",
+			"distance": 31.5,
+			"level": 1,
+			"primitives": 160239
+		},
+		{
+			"direction": "out",
+			"distance": 31.75,
+			"level": 1,
+			"primitives": 160239
+		},
+		{
+			"direction": "out",
+			"distance": 32.0,
+			"level": 1,
+			"primitives": 160239
+		},
+		{
+			"direction": "out",
+			"distance": 32.25,
+			"level": 1,
+			"primitives": 160239
+		},
+		{
+			"direction": "out",
+			"distance": 32.5,
+			"level": 1,
+			"primitives": 160239
+		},
+		{
+			"direction": "out",
+			"distance": 32.75,
+			"level": 1,
+			"primitives": 160239
+		},
+		{
+			"direction": "out",
+			"distance": 33.0,
+			"level": 1,
+			"primitives": 160239
+		},
+		{
+			"direction": "out",
+			"distance": 33.25,
+			"level": 1,
+			"primitives": 160239
+		},
+		{
+			"direction": "out",
+			"distance": 33.5,
+			"level": 1,
+			"primitives": 160239
+		},
+		{
+			"direction": "out",
+			"distance": 33.75,
+			"level": 1,
+			"primitives": 160239
+		},
+		{
+			"direction": "out",
+			"distance": 34.0,
+			"level": 1,
+			"primitives": 160239
+		},
+		{
+			"direction": "out",
+			"distance": 34.25,
+			"level": 1,
+			"primitives": 160239
+		},
+		{
+			"direction": "out",
+			"distance": 34.5,
+			"level": 1,
+			"primitives": 160239
+		},
+		{
+			"direction": "out",
+			"distance": 34.75,
+			"level": 1,
+			"primitives": 160239
+		},
+		{
+			"direction": "out",
+			"distance": 35.0,
+			"level": 1,
+			"primitives": 160239
+		},
+		{
+			"direction": "out",
+			"distance": 35.25,
+			"level": 1,
+			"primitives": 160239
+		},
+		{
+			"direction": "out",
+			"distance": 35.5,
+			"level": 1,
+			"primitives": 160239
+		},
+		{
+			"direction": "out",
+			"distance": 35.75,
+			"level": 1,
+			"primitives": 160239
+		},
+		{
+			"direction": "out",
+			"distance": 36.0,
+			"level": 1,
+			"primitives": 160239
+		},
+		{
+			"direction": "out",
+			"distance": 36.25,
+			"level": 1,
+			"primitives": 160239
+		},
+		{
+			"direction": "out",
+			"distance": 36.5,
+			"level": 1,
+			"primitives": 160239
+		},
+		{
+			"direction": "out",
+			"distance": 36.75,
+			"level": 1,
+			"primitives": 160239
+		},
+		{
+			"direction": "out",
+			"distance": 37.0,
+			"level": 1,
+			"primitives": 160239
+		},
+		{
+			"direction": "out",
+			"distance": 37.25,
+			"level": 1,
+			"primitives": 160239
+		},
+		{
+			"direction": "out",
+			"distance": 37.5,
+			"level": 1,
+			"primitives": 160239
+		},
+		{
+			"direction": "out",
+			"distance": 37.75,
+			"level": 1,
+			"primitives": 160239
+		},
+		{
+			"direction": "out",
+			"distance": 38.0,
+			"level": 1,
+			"primitives": 160239
+		},
+		{
+			"direction": "out",
+			"distance": 38.25,
+			"level": 1,
+			"primitives": 160239
+		},
+		{
+			"direction": "out",
+			"distance": 38.5,
+			"level": 1,
+			"primitives": 160239
+		},
+		{
+			"direction": "out",
+			"distance": 38.75,
+			"level": 1,
+			"primitives": 160239
+		},
+		{
+			"direction": "out",
+			"distance": 39.0,
+			"level": 1,
+			"primitives": 160239
+		},
+		{
+			"direction": "out",
+			"distance": 39.25,
+			"level": 1,
+			"primitives": 160239
+		},
+		{
+			"direction": "out",
+			"distance": 39.5,
+			"level": 1,
+			"primitives": 160239
+		},
+		{
+			"direction": "out",
+			"distance": 39.75,
+			"level": 1,
+			"primitives": 160239
+		},
+		{
+			"direction": "out",
+			"distance": 40.0,
+			"level": 1,
+			"primitives": 160239
+		},
+		{
+			"direction": "out",
+			"distance": 40.25,
+			"level": 1,
+			"primitives": 160239
+		},
+		{
+			"direction": "out",
+			"distance": 40.5,
+			"level": 2,
+			"primitives": 100716
+		},
+		{
+			"direction": "out",
+			"distance": 40.75,
+			"level": 2,
+			"primitives": 100716
+		},
+		{
+			"direction": "out",
+			"distance": 41.0,
+			"level": 2,
+			"primitives": 100716
+		},
+		{
+			"direction": "out",
+			"distance": 41.25,
+			"level": 2,
+			"primitives": 100716
+		},
+		{
+			"direction": "out",
+			"distance": 41.5,
+			"level": 2,
+			"primitives": 100716
+		},
+		{
+			"direction": "out",
+			"distance": 41.75,
+			"level": 2,
+			"primitives": 100716
+		},
+		{
+			"direction": "out",
+			"distance": 42.0,
+			"level": 2,
+			"primitives": 100716
+		},
+		{
+			"direction": "out",
+			"distance": 42.25,
+			"level": 2,
+			"primitives": 100716
+		},
+		{
+			"direction": "out",
+			"distance": 42.5,
+			"level": 2,
+			"primitives": 100716
+		},
+		{
+			"direction": "out",
+			"distance": 42.75,
+			"level": 2,
+			"primitives": 100716
+		},
+		{
+			"direction": "out",
+			"distance": 43.0,
+			"level": 2,
+			"primitives": 100716
+		},
+		{
+			"direction": "out",
+			"distance": 43.25,
+			"level": 2,
+			"primitives": 100716
+		},
+		{
+			"direction": "out",
+			"distance": 43.5,
+			"level": 2,
+			"primitives": 100716
+		},
+		{
+			"direction": "out",
+			"distance": 43.75,
+			"level": 2,
+			"primitives": 100716
+		},
+		{
+			"direction": "out",
+			"distance": 44.0,
+			"level": 2,
+			"primitives": 100716
+		},
+		{
+			"direction": "out",
+			"distance": 44.25,
+			"level": 2,
+			"primitives": 100716
+		},
+		{
+			"direction": "out",
+			"distance": 44.5,
+			"level": 2,
+			"primitives": 100716
+		},
+		{
+			"direction": "out",
+			"distance": 44.75,
+			"level": 2,
+			"primitives": 100716
+		},
+		{
+			"direction": "out",
+			"distance": 45.0,
+			"level": 2,
+			"primitives": 100716
+		},
+		{
+			"direction": "out",
+			"distance": 45.25,
+			"level": 2,
+			"primitives": 100716
+		},
+		{
+			"direction": "out",
+			"distance": 45.5,
+			"level": 2,
+			"primitives": 100716
+		},
+		{
+			"direction": "out",
+			"distance": 45.75,
+			"level": 2,
+			"primitives": 100716
+		},
+		{
+			"direction": "out",
+			"distance": 46.0,
+			"level": 2,
+			"primitives": 100716
+		},
+		{
+			"direction": "out",
+			"distance": 46.25,
+			"level": 2,
+			"primitives": 100716
+		},
+		{
+			"direction": "out",
+			"distance": 46.5,
+			"level": 2,
+			"primitives": 100716
+		},
+		{
+			"direction": "out",
+			"distance": 46.75,
+			"level": 2,
+			"primitives": 100716
+		},
+		{
+			"direction": "out",
+			"distance": 47.0,
+			"level": 2,
+			"primitives": 100716
+		},
+		{
+			"direction": "out",
+			"distance": 47.25,
+			"level": 2,
+			"primitives": 100716
+		},
+		{
+			"direction": "out",
+			"distance": 47.5,
+			"level": 2,
+			"primitives": 100716
+		},
+		{
+			"direction": "out",
+			"distance": 47.75,
+			"level": 2,
+			"primitives": 100716
+		},
+		{
+			"direction": "out",
+			"distance": 48.0,
+			"level": 2,
+			"primitives": 100716
+		},
+		{
+			"direction": "in",
+			"distance": 48.0,
+			"level": 2,
+			"primitives": 100716
+		},
+		{
+			"direction": "in",
+			"distance": 47.75,
+			"level": 2,
+			"primitives": 100716
+		},
+		{
+			"direction": "in",
+			"distance": 47.5,
+			"level": 2,
+			"primitives": 100716
+		},
+		{
+			"direction": "in",
+			"distance": 47.25,
+			"level": 2,
+			"primitives": 100716
+		},
+		{
+			"direction": "in",
+			"distance": 47.0,
+			"level": 2,
+			"primitives": 100716
+		},
+		{
+			"direction": "in",
+			"distance": 46.75,
+			"level": 2,
+			"primitives": 100716
+		},
+		{
+			"direction": "in",
+			"distance": 46.5,
+			"level": 2,
+			"primitives": 100716
+		},
+		{
+			"direction": "in",
+			"distance": 46.25,
+			"level": 2,
+			"primitives": 100716
+		},
+		{
+			"direction": "in",
+			"distance": 46.0,
+			"level": 2,
+			"primitives": 100716
+		},
+		{
+			"direction": "in",
+			"distance": 45.75,
+			"level": 2,
+			"primitives": 100716
+		},
+		{
+			"direction": "in",
+			"distance": 45.5,
+			"level": 2,
+			"primitives": 100716
+		},
+		{
+			"direction": "in",
+			"distance": 45.25,
+			"level": 2,
+			"primitives": 100716
+		},
+		{
+			"direction": "in",
+			"distance": 45.0,
+			"level": 2,
+			"primitives": 100716
+		},
+		{
+			"direction": "in",
+			"distance": 44.75,
+			"level": 2,
+			"primitives": 100716
+		},
+		{
+			"direction": "in",
+			"distance": 44.5,
+			"level": 2,
+			"primitives": 100716
+		},
+		{
+			"direction": "in",
+			"distance": 44.25,
+			"level": 2,
+			"primitives": 100716
+		},
+		{
+			"direction": "in",
+			"distance": 44.0,
+			"level": 2,
+			"primitives": 100716
+		},
+		{
+			"direction": "in",
+			"distance": 43.75,
+			"level": 2,
+			"primitives": 100716
+		},
+		{
+			"direction": "in",
+			"distance": 43.5,
+			"level": 2,
+			"primitives": 100716
+		},
+		{
+			"direction": "in",
+			"distance": 43.25,
+			"level": 2,
+			"primitives": 100716
+		},
+		{
+			"direction": "in",
+			"distance": 43.0,
+			"level": 2,
+			"primitives": 100716
+		},
+		{
+			"direction": "in",
+			"distance": 42.75,
+			"level": 2,
+			"primitives": 100716
+		},
+		{
+			"direction": "in",
+			"distance": 42.5,
+			"level": 2,
+			"primitives": 100716
+		},
+		{
+			"direction": "in",
+			"distance": 42.25,
+			"level": 2,
+			"primitives": 100716
+		},
+		{
+			"direction": "in",
+			"distance": 42.0,
+			"level": 2,
+			"primitives": 100716
+		},
+		{
+			"direction": "in",
+			"distance": 41.75,
+			"level": 2,
+			"primitives": 100716
+		},
+		{
+			"direction": "in",
+			"distance": 41.5,
+			"level": 2,
+			"primitives": 100716
+		},
+		{
+			"direction": "in",
+			"distance": 41.25,
+			"level": 2,
+			"primitives": 100716
+		},
+		{
+			"direction": "in",
+			"distance": 41.0,
+			"level": 2,
+			"primitives": 100716
+		},
+		{
+			"direction": "in",
+			"distance": 40.75,
+			"level": 2,
+			"primitives": 100716
+		},
+		{
+			"direction": "in",
+			"distance": 40.5,
+			"level": 2,
+			"primitives": 100716
+		},
+		{
+			"direction": "in",
+			"distance": 40.25,
+			"level": 2,
+			"primitives": 100716
+		},
+		{
+			"direction": "in",
+			"distance": 40.0,
+			"level": 2,
+			"primitives": 100716
+		},
+		{
+			"direction": "in",
+			"distance": 39.75,
+			"level": 2,
+			"primitives": 100716
+		},
+		{
+			"direction": "in",
+			"distance": 39.5,
+			"level": 2,
+			"primitives": 100716
+		},
+		{
+			"direction": "in",
+			"distance": 39.25,
+			"level": 2,
+			"primitives": 100716
+		},
+		{
+			"direction": "in",
+			"distance": 39.0,
+			"level": 2,
+			"primitives": 100716
+		},
+		{
+			"direction": "in",
+			"distance": 38.75,
+			"level": 2,
+			"primitives": 100716
+		},
+		{
+			"direction": "in",
+			"distance": 38.5,
+			"level": 2,
+			"primitives": 100716
+		},
+		{
+			"direction": "in",
+			"distance": 38.25,
+			"level": 2,
+			"primitives": 100716
+		},
+		{
+			"direction": "in",
+			"distance": 38.0,
+			"level": 2,
+			"primitives": 100716
+		},
+		{
+			"direction": "in",
+			"distance": 37.75,
+			"level": 2,
+			"primitives": 100716
+		},
+		{
+			"direction": "in",
+			"distance": 37.5,
+			"level": 2,
+			"primitives": 100716
+		},
+		{
+			"direction": "in",
+			"distance": 37.25,
+			"level": 1,
+			"primitives": 160239
+		},
+		{
+			"direction": "in",
+			"distance": 37.0,
+			"level": 1,
+			"primitives": 160239
+		},
+		{
+			"direction": "in",
+			"distance": 36.75,
+			"level": 1,
+			"primitives": 160239
+		},
+		{
+			"direction": "in",
+			"distance": 36.5,
+			"level": 1,
+			"primitives": 160239
+		},
+		{
+			"direction": "in",
+			"distance": 36.25,
+			"level": 1,
+			"primitives": 160239
+		},
+		{
+			"direction": "in",
+			"distance": 36.0,
+			"level": 1,
+			"primitives": 160239
+		},
+		{
+			"direction": "in",
+			"distance": 35.75,
+			"level": 1,
+			"primitives": 160239
+		},
+		{
+			"direction": "in",
+			"distance": 35.5,
+			"level": 1,
+			"primitives": 160239
+		},
+		{
+			"direction": "in",
+			"distance": 35.25,
+			"level": 1,
+			"primitives": 160239
+		},
+		{
+			"direction": "in",
+			"distance": 35.0,
+			"level": 1,
+			"primitives": 160239
+		},
+		{
+			"direction": "in",
+			"distance": 34.75,
+			"level": 1,
+			"primitives": 160239
+		},
+		{
+			"direction": "in",
+			"distance": 34.5,
+			"level": 1,
+			"primitives": 160239
+		},
+		{
+			"direction": "in",
+			"distance": 34.25,
+			"level": 1,
+			"primitives": 160239
+		},
+		{
+			"direction": "in",
+			"distance": 34.0,
+			"level": 1,
+			"primitives": 160239
+		},
+		{
+			"direction": "in",
+			"distance": 33.75,
+			"level": 1,
+			"primitives": 160239
+		},
+		{
+			"direction": "in",
+			"distance": 33.5,
+			"level": 1,
+			"primitives": 160239
+		},
+		{
+			"direction": "in",
+			"distance": 33.25,
+			"level": 1,
+			"primitives": 160239
+		},
+		{
+			"direction": "in",
+			"distance": 33.0,
+			"level": 1,
+			"primitives": 160239
+		},
+		{
+			"direction": "in",
+			"distance": 32.75,
+			"level": 1,
+			"primitives": 160239
+		},
+		{
+			"direction": "in",
+			"distance": 32.5,
+			"level": 1,
+			"primitives": 160239
+		},
+		{
+			"direction": "in",
+			"distance": 32.25,
+			"level": 1,
+			"primitives": 160239
+		},
+		{
+			"direction": "in",
+			"distance": 32.0,
+			"level": 1,
+			"primitives": 160239
+		},
+		{
+			"direction": "in",
+			"distance": 31.75,
+			"level": 1,
+			"primitives": 160239
+		},
+		{
+			"direction": "in",
+			"distance": 31.5,
+			"level": 1,
+			"primitives": 160239
+		},
+		{
+			"direction": "in",
+			"distance": 31.25,
+			"level": 1,
+			"primitives": 160239
+		},
+		{
+			"direction": "in",
+			"distance": 31.0,
+			"level": 1,
+			"primitives": 160239
+		},
+		{
+			"direction": "in",
+			"distance": 30.75,
+			"level": 1,
+			"primitives": 160239
+		},
+		{
+			"direction": "in",
+			"distance": 30.5,
+			"level": 1,
+			"primitives": 160239
+		},
+		{
+			"direction": "in",
+			"distance": 30.25,
+			"level": 1,
+			"primitives": 160239
+		},
+		{
+			"direction": "in",
+			"distance": 30.0,
+			"level": 1,
+			"primitives": 160239
+		},
+		{
+			"direction": "in",
+			"distance": 29.75,
+			"level": 1,
+			"primitives": 160239
+		},
+		{
+			"direction": "in",
+			"distance": 29.5,
+			"level": 1,
+			"primitives": 160239
+		},
+		{
+			"direction": "in",
+			"distance": 29.25,
+			"level": 1,
+			"primitives": 160239
+		},
+		{
+			"direction": "in",
+			"distance": 29.0,
+			"level": 1,
+			"primitives": 160239
+		},
+		{
+			"direction": "in",
+			"distance": 28.75,
+			"level": 1,
+			"primitives": 160239
+		},
+		{
+			"direction": "in",
+			"distance": 28.5,
+			"level": 1,
+			"primitives": 160239
+		},
+		{
+			"direction": "in",
+			"distance": 28.25,
+			"level": 1,
+			"primitives": 160239
+		},
+		{
+			"direction": "in",
+			"distance": 28.0,
+			"level": 1,
+			"primitives": 160239
+		},
+		{
+			"direction": "in",
+			"distance": 27.75,
+			"level": 1,
+			"primitives": 160239
+		},
+		{
+			"direction": "in",
+			"distance": 27.5,
+			"level": 1,
+			"primitives": 160239
+		},
+		{
+			"direction": "in",
+			"distance": 27.25,
+			"level": 1,
+			"primitives": 160239
+		},
+		{
+			"direction": "in",
+			"distance": 27.0,
+			"level": 1,
+			"primitives": 160239
+		},
+		{
+			"direction": "in",
+			"distance": 26.75,
+			"level": 1,
+			"primitives": 160239
+		},
+		{
+			"direction": "in",
+			"distance": 26.5,
+			"level": 1,
+			"primitives": 160239
+		},
+		{
+			"direction": "in",
+			"distance": 26.25,
+			"level": 1,
+			"primitives": 160239
+		},
+		{
+			"direction": "in",
+			"distance": 26.0,
+			"level": 1,
+			"primitives": 160239
+		},
+		{
+			"direction": "in",
+			"distance": 25.75,
+			"level": 1,
+			"primitives": 160239
+		},
+		{
+			"direction": "in",
+			"distance": 25.5,
+			"level": 1,
+			"primitives": 160239
+		},
+		{
+			"direction": "in",
+			"distance": 25.25,
+			"level": 1,
+			"primitives": 160239
+		},
+		{
+			"direction": "in",
+			"distance": 25.0,
+			"level": 1,
+			"primitives": 160239
+		},
+		{
+			"direction": "in",
+			"distance": 24.75,
+			"level": 1,
+			"primitives": 160239
+		},
+		{
+			"direction": "in",
+			"distance": 24.5,
+			"level": 1,
+			"primitives": 160239
+		},
+		{
+			"direction": "in",
+			"distance": 24.25,
+			"level": 1,
+			"primitives": 160239
+		},
+		{
+			"direction": "in",
+			"distance": 24.0,
+			"level": 1,
+			"primitives": 160239
+		},
+		{
+			"direction": "in",
+			"distance": 23.75,
+			"level": 1,
+			"primitives": 160239
+		},
+		{
+			"direction": "in",
+			"distance": 23.5,
+			"level": 1,
+			"primitives": 160239
+		},
+		{
+			"direction": "in",
+			"distance": 23.25,
+			"level": 1,
+			"primitives": 160239
+		},
+		{
+			"direction": "in",
+			"distance": 23.0,
+			"level": 1,
+			"primitives": 160239
+		},
+		{
+			"direction": "in",
+			"distance": 22.75,
+			"level": 1,
+			"primitives": 160239
+		},
+		{
+			"direction": "in",
+			"distance": 22.5,
+			"level": 1,
+			"primitives": 160239
+		},
+		{
+			"direction": "in",
+			"distance": 22.25,
+			"level": 1,
+			"primitives": 160239
+		},
+		{
+			"direction": "in",
+			"distance": 22.0,
+			"level": 1,
+			"primitives": 160239
+		},
+		{
+			"direction": "in",
+			"distance": 21.75,
+			"level": 1,
+			"primitives": 160239
+		},
+		{
+			"direction": "in",
+			"distance": 21.5,
+			"level": 1,
+			"primitives": 160239
+		},
+		{
+			"direction": "in",
+			"distance": 21.25,
+			"level": 1,
+			"primitives": 160239
+		},
+		{
+			"direction": "in",
+			"distance": 21.0,
+			"level": 1,
+			"primitives": 160239
+		},
+		{
+			"direction": "in",
+			"distance": 20.75,
+			"level": 1,
+			"primitives": 160239
+		},
+		{
+			"direction": "in",
+			"distance": 20.5,
+			"level": 1,
+			"primitives": 160239
+		},
+		{
+			"direction": "in",
+			"distance": 20.25,
+			"level": 1,
+			"primitives": 160239
+		},
+		{
+			"direction": "in",
+			"distance": 20.0,
+			"level": 1,
+			"primitives": 160239
+		},
+		{
+			"direction": "in",
+			"distance": 19.75,
+			"level": 1,
+			"primitives": 160239
+		},
+		{
+			"direction": "in",
+			"distance": 19.5,
+			"level": 1,
+			"primitives": 160239
+		},
+		{
+			"direction": "in",
+			"distance": 19.25,
+			"level": 1,
+			"primitives": 160239
+		},
+		{
+			"direction": "in",
+			"distance": 19.0,
+			"level": 1,
+			"primitives": 160239
+		},
+		{
+			"direction": "in",
+			"distance": 18.75,
+			"level": 1,
+			"primitives": 160239
+		},
+		{
+			"direction": "in",
+			"distance": 18.5,
+			"level": 1,
+			"primitives": 160239
+		},
+		{
+			"direction": "in",
+			"distance": 18.25,
+			"level": 1,
+			"primitives": 160239
+		},
+		{
+			"direction": "in",
+			"distance": 18.0,
+			"level": 1,
+			"primitives": 160239
+		},
+		{
+			"direction": "in",
+			"distance": 17.75,
+			"level": 1,
+			"primitives": 160239
+		},
+		{
+			"direction": "in",
+			"distance": 17.5,
+			"level": 1,
+			"primitives": 160239
+		},
+		{
+			"direction": "in",
+			"distance": 17.25,
+			"level": 0,
+			"primitives": 297834
+		},
+		{
+			"direction": "in",
+			"distance": 17.0,
+			"level": 0,
+			"primitives": 297834
+		},
+		{
+			"direction": "in",
+			"distance": 16.75,
+			"level": 0,
+			"primitives": 297834
+		},
+		{
+			"direction": "in",
+			"distance": 16.5,
+			"level": 0,
+			"primitives": 297834
+		},
+		{
+			"direction": "in",
+			"distance": 16.25,
+			"level": 0,
+			"primitives": 297834
+		},
+		{
+			"direction": "in",
+			"distance": 16.0,
+			"level": 0,
+			"primitives": 297834
+		},
+		{
+			"direction": "in",
+			"distance": 15.75,
+			"level": 0,
+			"primitives": 297834
+		},
+		{
+			"direction": "in",
+			"distance": 15.5,
+			"level": 0,
+			"primitives": 297834
+		},
+		{
+			"direction": "in",
+			"distance": 15.25,
+			"level": 0,
+			"primitives": 297834
+		},
+		{
+			"direction": "in",
+			"distance": 15.0,
+			"level": 0,
+			"primitives": 297834
+		},
+		{
+			"direction": "in",
+			"distance": 14.75,
+			"level": 0,
+			"primitives": 297834
+		},
+		{
+			"direction": "in",
+			"distance": 14.5,
+			"level": 0,
+			"primitives": 297834
+		},
+		{
+			"direction": "in",
+			"distance": 14.25,
+			"level": 0,
+			"primitives": 297834
+		},
+		{
+			"direction": "in",
+			"distance": 14.0,
+			"level": 0,
+			"primitives": 297834
+		},
+		{
+			"direction": "in",
+			"distance": 13.75,
+			"level": 0,
+			"primitives": 297834
+		},
+		{
+			"direction": "in",
+			"distance": 13.5,
+			"level": 0,
+			"primitives": 297834
+		},
+		{
+			"direction": "in",
+			"distance": 13.25,
+			"level": 0,
+			"primitives": 297834
+		},
+		{
+			"direction": "in",
+			"distance": 13.0,
+			"level": 0,
+			"primitives": 297834
+		},
+		{
+			"direction": "in",
+			"distance": 12.75,
+			"level": 0,
+			"primitives": 297834
+		},
+		{
+			"direction": "in",
+			"distance": 12.5,
+			"level": 0,
+			"primitives": 297834
+		},
+		{
+			"direction": "in",
+			"distance": 12.25,
+			"level": 0,
+			"primitives": 297834
+		},
+		{
+			"direction": "in",
+			"distance": 12.0,
+			"level": 0,
+			"primitives": 297834
+		},
+		{
+			"direction": "in",
+			"distance": 11.75,
+			"level": 0,
+			"primitives": 297834
+		},
+		{
+			"direction": "in",
+			"distance": 11.5,
+			"level": 0,
+			"primitives": 297834
+		},
+		{
+			"direction": "in",
+			"distance": 11.25,
+			"level": 0,
+			"primitives": 297834
+		},
+		{
+			"direction": "in",
+			"distance": 11.0,
+			"level": 0,
+			"primitives": 297834
+		},
+		{
+			"direction": "in",
+			"distance": 10.75,
+			"level": 0,
+			"primitives": 297834
+		},
+		{
+			"direction": "in",
+			"distance": 10.5,
+			"level": 0,
+			"primitives": 297834
+		},
+		{
+			"direction": "in",
+			"distance": 10.25,
+			"level": 0,
+			"primitives": 297834
+		},
+		{
+			"direction": "in",
+			"distance": 10.0,
+			"level": 0,
+			"primitives": 297834
+		},
+		{
+			"direction": "in",
+			"distance": 9.75,
+			"level": 0,
+			"primitives": 297834
+		},
+		{
+			"direction": "in",
+			"distance": 9.5,
+			"level": 0,
+			"primitives": 297834
+		},
+		{
+			"direction": "in",
+			"distance": 9.25,
+			"level": 0,
+			"primitives": 297834
+		},
+		{
+			"direction": "in",
+			"distance": 9.0,
+			"level": 0,
+			"primitives": 297834
+		},
+		{
+			"direction": "in",
+			"distance": 8.75,
+			"level": 0,
+			"primitives": 297834
+		},
+		{
+			"direction": "in",
+			"distance": 8.5,
+			"level": 0,
+			"primitives": 297834
+		},
+		{
+			"direction": "in",
+			"distance": 8.25,
+			"level": 0,
+			"primitives": 297834
+		},
+		{
+			"direction": "in",
+			"distance": 8.0,
+			"level": 0,
+			"primitives": 297834
+		},
+		{
+			"direction": "in",
+			"distance": 7.75,
+			"level": 0,
+			"primitives": 297834
+		},
+		{
+			"direction": "in",
+			"distance": 7.5,
+			"level": 0,
+			"primitives": 297834
+		},
+		{
+			"direction": "in",
+			"distance": 7.25,
+			"level": 0,
+			"primitives": 297834
+		},
+		{
+			"direction": "in",
+			"distance": 7.0,
+			"level": 0,
+			"primitives": 297834
+		}
+	]
+}

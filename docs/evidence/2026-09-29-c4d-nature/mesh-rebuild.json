@@ -1,0 +1,87 @@
+{
+	"compared_geometry_with": "res://build/c4d-tree-production",
+	"levels": [
+		{
+			"geometry_sha256": "f8a2a6d2fbfbca0315bdb91deed4f5ea2cac76f396a40dc709e8a20204ce1fd8",
+			"leaves": 282927,
+			"level": 0,
+			"path": "res://build/c4d-tree-rebuild-verified/tree_lod0.res",
+			"triangles": 297834
+		},
+		{
+			"geometry_sha256": "69c6c1abe22b63e50db9c9ec7a53830739236e2442796499c193ac71a9b516c6",
+			"leaves": 152961,
+			"level": 1,
+			"path": "res://build/c4d-tree-rebuild-verified/tree_lod1.res",
+			"triangles": 160239
+		},
+		{
+			"geometry_sha256": "09e4d0b890efe7b9f145b2dd62754165795223f2728a76462921b104b03e4138",
+			"leaves": 97335,
+			"level": 2,
+			"path": "res://build/c4d-tree-rebuild-verified/tree_lod2.res",
+			"triangles": 100716
+		}
+	],
+	"preserved_islands": 30250,
+	"rejected_disconnected_lods": 1404,
+	"source": "res://production/environment/polyhaven_nature/tree_small_02/tree_small_02_2k.gltf",
+	"source_triangles": 2062487,
+	"topology_triangles": {
+		"14": [
+			107055,
+			59475,
+			35685
+		],
+		"17": [
+			48740,
+			24370,
+			14622
+		],
+		"21": [
+			3972,
+			3972,
+			3972
+		],
+		"37": [
+			5580,
+			2790,
+			2790
+		],
+		"42": [
+			7140,
+			7134,
+			7134
+		],
+		"71": [
+			24370,
+			12185,
+			7311
+		],
+		"117": [
+			13100,
+			6550,
+			3930
+		],
+		"119": [
+			6620,
+			3310,
+			1986
+		],
+		"132": [
+			4650,
+			2325,
+			1395
+		],
+		"137": [
+			4690,
+			2345,
+			1407
+		],
+		"146": [
+			57010,
+			28505,
+			17103
+		]
+	}
+}

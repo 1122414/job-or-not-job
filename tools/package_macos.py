@@ -46,6 +46,7 @@ def build():
         shutil.copy2(ROOT / 'assets' / name, resources / name)
     shutil.copy2(ROOT / 'assets/polyhaven/provenance.json', resources / 'ASSET-SOURCES.json')
     shutil.copy2(ROOT / 'assets/company_materials/provenance.json', resources / 'COMPANY-MATERIALS.json')
+    shutil.copy2(ROOT / 'assets/city_nature/provenance.json', resources / 'NATURE-SOURCES.json')
     shutil.copy2(ROOT / 'assets/animations/provenance.json', resources / 'ANIMATION-SOURCES.json')
     shutil.copy2(ROOT / 'assets/characters/cast/provenance.json', resources / 'CAST-SOURCES.json')
     shutil.copy2(ROOT / 'production/characters/cc0-2026-09-29/provenance.json', resources / 'CAST-ORIGINALS.json')

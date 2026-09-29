@@ -20,3 +20,6 @@
 选择资源时不能从casualsuit名称推断职业衣装：首轮林岚实际是标志T恤短裤。原始缩略图和完整人体预览分别检查用途与贴合；两轮反例保存在`docs/evidence/2026-09-29-s2-character-pipeline/`。第二轮24图仍发现眉部和嘴角问题，结构检查继续通过，故明确拒绝正式接入；这些未确诊原因见`../unresolved.md`，不将“CC0+能导入”升级为品质认可。
 
 人物真实导入补记（2026-09-29，再次验证纹理机制）：三个GLB导入后的外部PNG默认仍未显存压缩，真实贴图合计469,762,007字节；修改实际PNG `.import`的VRAM压缩后86,682,936字节，mipmap保留。`tools/audit_cast_resources.gd`遍历实例材质的所有Texture2D属性，避免只查albedo遗漏法线/高光纹理；`tests/cast_resources_test.gd`检查真实压缩和每人预算。RenderingServer网格的LOD索引应逐级变少；自动LOD只减少索引，不能声称减少骨骼或全部顶点驻留。前后同位MSAA固定，8张实看图片未发现明显大块损伤，但发片/皮肤美术仍开放，不能将技术成本修复解释为写实质量达成。
+
+
+2026-09-29 C4d再次验证材质语义：`tree_small_02`的glTF声明混合透明，但叶色JPEG不含透明通道，必须从同一官方资产取得独立alpha再合并。`prepare_city_nature.gd`验证来源后合并RGBA，并设置实际12张纹理的VRAM压缩与mipmap，`city_nature_test.gd`实测36,350,808字节。不能把glTF的alphaMode当作贴图已含正确alpha。Concrete Floor 01的粗骨料颜色贴到连廊立面会产生碎石观感，实际对照后仅保留其法线/粗糙度/AO，另给结构混凝土颜色；地面则降低该颜色混合比例。这个表面用途判断只针对本次场所与素材。枝叶减面另见[拓扑案例](foliage-simplification.md)。

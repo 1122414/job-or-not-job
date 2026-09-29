@@ -34,3 +34,10 @@ Adaptations: separate body/face recipes, fitted eyebrows and oral meshes, skirt 
 runtime expressions, texture import and per-body Quaternius motion baking.
 See CAST-SOURCES.json, CAST-ORIGINALS.json and CAST-MOTION-*.json for source and derived hashes.
 Source authors and asset-level notices are preserved in the production selection.
+City vegetation: Poly Haven, CC0 1.0 Universal.
+tree_small_02: Rico Cilliers. https://polyhaven.com/a/tree_small_02
+leafy_grass: Charlotte Baglioni. https://polyhaven.com/a/leafy_grass
+Adaptations: source-island-preserving offline tree meshes, three detail levels,
+leaf RGB/opacity merge, shared ground anchor and metre-scaled grass materials.
+Original production files are unchanged and excluded from the runtime pack.
+See NATURE-SOURCES.json for original and derived file hashes and processing records.

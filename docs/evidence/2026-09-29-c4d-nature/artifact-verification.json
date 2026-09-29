@@ -1,0 +1,15 @@
+{
+  "build_id": "20260929T150011077123Z-2c52c1f3-39bb7007",
+  "runtime_sha256": "39bb70074301dbd189b605c86819cbc5d5b42574cce73d8246f27607de6eaa55",
+  "zip_sha256": "571e6cba7e7ad433006f35e7b20c19d7b5f341fc1f4ef5f7d4c33f76acb2a374",
+  "zip_bytes": 347381791,
+  "crc_verified": true,
+  "signature_verified": true,
+  "manifests_match": true,
+  "runtime_dirty": true,
+  "package_probe_directories": [
+    "project",
+    "/private/tmp"
+  ],
+  "probe_save_isolation": true
+}

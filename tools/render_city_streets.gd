@@ -24,6 +24,13 @@ func fingerprint(game: Node3D) -> Dictionary:
 		result[String(node.name)]=hash(buffer)
 	return result
 
+func tree_fingerprint(game: Node3D) -> Array:
+	var result := []
+	var streets: CityStreetscape=game.get_node("ConnectedDistrict/Streetscape")
+	for tree in streets.trees:
+		result.append(var_to_str(tree.transform))
+	return result
+
 func run() -> void:
 	DirAccess.make_dir_recursive_absolute(output)
 	root.set_disable_input(true)
@@ -54,6 +61,7 @@ func run() -> void:
 		if not await capture(viewport,shot[0]): quit(1); return
 		data.views.append({"name":shot[0],"camera":SaveGame.vector(shot[1]),"target":SaveGame.vector(shot[2]),"minute":shot[3],"draw_calls":viewport.get_render_info(Viewport.RENDER_INFO_TYPE_VISIBLE,Viewport.RENDER_INFO_DRAW_CALLS_IN_FRAME),"primitives":viewport.get_render_info(Viewport.RENDER_INFO_TYPE_VISIBLE,Viewport.RENDER_INFO_PRIMITIVES_IN_FRAME)})
 	var signature := fingerprint(game)
+	var tree_signature := tree_fingerprint(game)
 	if signature.is_empty(): quit(1); return
 	game.queue_free()
 	await process_frame
@@ -69,7 +77,10 @@ func run() -> void:
 		RenderingServer.force_draw(false)
 	data.deterministic_gpu_buffers=fingerprint(rebuilt)==signature
 	data.nonempty_gpu_batches=signature.size()
+	data.deterministic_tree_transforms=tree_fingerprint(rebuilt)==tree_signature
+	data.tree_instances=tree_signature.size()
 	if not data.deterministic_gpu_buffers: push_error("Street transforms changed on fresh scene construction"); quit(1); return
+	if not data.deterministic_tree_transforms or data.tree_instances!=23: push_error("Tree placements changed on fresh scene construction"); quit(1); return
 	FileAccess.open(output.path_join("render.json"),FileAccess.WRITE).store_string(JSON.stringify(data,"\t")+"\n")
 	print("CITY_STREET_RENDER ",JSON.stringify(data))
 	viewport.queue_free()

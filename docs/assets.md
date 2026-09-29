@@ -73,3 +73,9 @@ macOS包的`ASSET-SOURCES.json`和`CREDITS.txt`保存来源；通用CC0原文随
 [CC0制作包](../production/characters/cc0-2026-09-29/README.md)保存88原件、59.9MB，包含MakeHuman官方CC0 ZIP选择集及官方Git固定提交`a8bc2d54ff0ac92e78ff71431b1023eda42bf482`的体型/表情/骨架源；逐文件来源、作者原始声明、URL/包内位置与SHA256在同目录provenance.json。原件与下载ZIP/固定Git已逐一核对，不包含应用程序代码。三配方通过`tools/build_character_cast.py`生成候选，保留原始文件；没有新增依赖或付费采购。
 
 候选结构通过但外观拒收：眼睛透明材质和衣装方向已修，眉部、张口/口腔、发边和鞋裤仍有问题。163骨骼和四表情接口不代表正式表演；未制作LOD、未测驻留显存、未替换`assets/characters`、未加入游戏包。旧三模型重建逐字节一致，完整限制见[S2复核](2026-09-29_S2人物制作管线与候选复核.md)。
+
+## 2026-09-29 城区植被制作
+
+新增Poly Haven CC0的[Tree Small 02](https://polyhaven.com/a/tree_small_02)（Rico Cilliers）与[Leafy Grass](https://polyhaven.com/a/leafy_grass)（Charlotte Baglioni）。原始2K文件及逐文件摘要保存在`production/environment/polyhaven_nature`，由`.gdignore`排除运行导入；制作说明见[植被制作源](../production/environment/polyhaven_nature/README.md)。未引入新依赖或付费素材。
+
+`CityTree`在原23处树位使用共享的三级派生网格和压缩材质。保留源30,250个独立枝叶组；叶色和官方alpha合并，采用深度裁切；枝、干保留独立法线和ARM。草地按2米尺度投影；人行铺地复用现有Concrete Floor 01材质细节，长凳复用现有木材。原始树模型不直接随游戏分发，独立包另附`NATURE-SOURCES.json`；最终品质与性能状态以阶段验收为准。

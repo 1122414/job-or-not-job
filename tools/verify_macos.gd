@@ -12,7 +12,7 @@ func run() -> void:
 		push_error("Package identity or save schema missing")
 		quit(1)
 		return
-	for excluded in ["res://tests/world_test.gd", "res://tools/package_macos.py", "res://tools/company_sources/company_a.tscn", "res://tools/company_sources/company_b.tscn", "res://docs/progress.md", "res://build/p0-source-identity.json", "res://production/quaternius/standard-2025-06-10/glTF/AnimationLibrary_Godot_Standard.gltf"]:
+	for excluded in ["res://tests/world_test.gd", "res://tools/package_macos.py", "res://tools/company_sources/company_a.tscn", "res://tools/company_sources/company_b.tscn", "res://docs/progress.md", "res://build/p0-source-identity.json", "res://production/quaternius/standard-2025-06-10/glTF/AnimationLibrary_Godot_Standard.gltf", "res://production/environment/polyhaven_nature/tree_small_02/tree_small_02_2k.gltf", "res://production/environment/polyhaven_nature/tree_small_02/tree_small_02.bin"]:
 		if FileAccess.file_exists(excluded) or ResourceLoader.exists(excluded):
 			push_error("Development files leaked into package: "+excluded)
 			quit(1)
@@ -29,10 +29,27 @@ func run() -> void:
 		quit(1)
 		return
 	var streets: CityStreetscape=game.get_node_or_null("ConnectedDistrict/Streetscape")
-	if streets==null or streets.find_children("*","MultiMeshInstance3D",true,false).is_empty() or not streets.materials.paving is ShaderMaterial or not streets.materials.grass is ShaderMaterial:
-		push_error("Packaged streetscape or ground shaders missing")
+	if streets==null or streets.find_children("*","MultiMeshInstance3D",true,false).is_empty() or not streets.materials.paving is ShaderMaterial or not streets.materials.grass is StandardMaterial3D:
+		push_error("Packaged streetscape or ground materials missing")
 		quit(1)
 		return
+	if streets.trees.size()!=23 or streets.materials.grass.uv1_scale!=Vector3(.5,.5,.5):
+		push_error("Packaged tree placement or metre-scaled grass missing"); quit(1); return
+	var nature_path := OS.get_executable_path().get_base_dir().path_join("../Resources/NATURE-SOURCES.json")
+	if FileAccess.get_file_as_string(nature_path)!=FileAccess.get_file_as_string(CityTree.ROOT+"provenance.json"):
+		push_error("Packaged nature provenance differs from runtime record"); quit(1); return
+	for tree in streets.trees:
+		if tree.lods.size()!=3 or tree.position.y!=0:
+			push_error("Packaged tree detail levels or ground anchor missing"); quit(1); return
+	var nature_materials: Array=[streets.materials.grass]
+	for surface in range(3): nature_materials.append(streets.trees[0].lods[0].mesh.surface_get_material(surface))
+	for material in nature_materials:
+		for texture in [material.albedo_texture,material.normal_texture,material.roughness_texture]:
+			if texture==null or not texture.get_image().is_compressed() or not texture.get_image().has_mipmaps():
+				push_error("Packaged nature texture compression or mipmaps missing"); quit(1); return
+	if nature_materials[2].transparency!=BaseMaterial3D.TRANSPARENCY_ALPHA_SCISSOR:
+		push_error("Packaged foliage depth cutout missing"); quit(1); return
+	print("PACKAGED_NATURE trees=23 levels=3 source_excluded=true texture_imports=verified provenance=matched")
 	streets.daylight(0)
 	for lamp in streets.lamps:
 		if lamp.light_energy<=0:

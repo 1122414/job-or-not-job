@@ -9,6 +9,9 @@ const VIEWS := [
 ]
 var completed_draws := 0
 
+func views() -> Array:
+	return VIEWS
+
 func draw_completed() -> void:
 	completed_draws+=1
 
@@ -28,9 +31,11 @@ func run() -> void:
 	var samples := 45
 	var runs := 1
 	var attribute := false
+	var nature_attribute := false
 	var identity := ""
 	for argument in OS.get_cmdline_user_args():
 		if argument=="--attribute": attribute=true
+		if argument=="--nature-attribute": nature_attribute=true
 		if argument.begins_with("--samples="): samples=int(argument.trim_prefix("--samples="))
 		if argument.begins_with("--runs="): runs=int(argument.trim_prefix("--runs="))
 		if argument.begins_with("--identity="): identity=argument.trim_prefix("--identity=")
@@ -62,8 +67,10 @@ func run() -> void:
 		buckets.company_lights.append_array(company.find_children("*","Light3D",true,false))
 	for prop in game.props: buckets.props.append(prop)
 	buckets.people=game.find_children("*","HumanVisual",true,false)
+	buckets.trees=game.get_node("ConnectedDistrict/Streetscape").trees
 	var phases := ["full"]
 	if attribute: phases.append_array(["company_geometry","props","people","company_lights","sun_shadows"])
+	if nature_attribute: phases.append_array(["trees","ssao"])
 	var rid := viewport.get_viewport_rid()
 	RenderingServer.viewport_set_measure_render_time(rid,true)
 	RenderingServer.frame_post_draw.connect(draw_completed)
@@ -71,7 +78,7 @@ func run() -> void:
 		"renderer":RenderingServer.get_current_rendering_method(),"adapter":RenderingServer.get_video_adapter_name(),"engine":Engine.get_version_info(),"debug_build":OS.is_debug_build(),
 		"resolution":[1440,900],"fov":65,"kind":"frozen_scene_offscreen_render_submission","normal_game_fps":false,"final_performance_accepted":false,"samples_per_entry":samples,"runs":runs,"entries":[]}
 	for iteration in range(runs):
-		for shot in VIEWS:
+		for shot in views():
 			game.payroll.minute=shot[3]
 			game.update_daylight()
 			camera.position=shot[1]
@@ -82,7 +89,9 @@ func run() -> void:
 					previous[node]=node.visible
 					node.visible=false
 				var shadow_before: bool=game.sun.shadow_enabled
+				var ssao_before: bool=game.environment.ssao_enabled
 				if phase=="sun_shadows": game.sun.shadow_enabled=false
+				if phase=="ssao": game.environment.ssao_enabled=false
 				for warmup in range(10):
 					await process_frame
 					RenderingServer.force_draw(false)
@@ -115,12 +124,14 @@ func run() -> void:
 					measured[key]={"available":stats.max>0,"distribution":stats,"raw":metrics[key]}
 				var entry := {"run":iteration+1,"view":shot[0],"excluded":phase if phase!="full" else "none","minute":shot[3],"camera":SaveGame.vector(shot[1]),"target":SaveGame.vector(shot[2]),"rendered_samples":rendered,"metrics":measured}
 				data.entries.append(entry)
-				if phase=="full" and iteration==0:
+				if phase in ["full","ssao"] and iteration==0:
 					var picture := viewport.get_texture().get_image()
-					if picture==null or picture.is_empty() or picture.save_png(output.path_join(shot[0]+".png"))!=OK:
+					var suffix := "-without-ssao" if phase=="ssao" else ""
+					if picture==null or picture.is_empty() or picture.save_png(output.path_join(shot[0]+suffix+".png"))!=OK:
 						push_error("Cannot save full-scene comparison image"); quit(1); return
 				for node in previous: node.visible=previous[node]
 				game.sun.shadow_enabled=shadow_before
+				game.environment.ssao_enabled=ssao_before
 				print("RENDER_SAMPLE ",shot[0]," excluded=",entry.excluded," calls=",measured.draw_calls.distribution.mean," submit_ms=",measured.force_draw_wall_ms.distribution.mean)
 	data.background_guard_passed=guard()
 	data.draw_completion_signal_count=completed_draws

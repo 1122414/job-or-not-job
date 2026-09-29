@@ -21,6 +21,7 @@ SELECTION = {
     'clean_asphalt': 'textures',
 }
 COMPANY_SELECTION = {'wood_floor': 'textures', 'brick_wall_001': 'textures'}
+NATURE_SELECTION = {'tree_small_02': 'models', 'leafy_grass': 'textures'}
 USER_AGENT = 'TodayOff-AssetReview/1.0 (local game production; Poly Haven CC0 sample)'
 
 
@@ -62,9 +63,11 @@ def metadata(endpoint):
         return json.load(response)
 
 
-def checked_download(destination, entry):
+def checked_download(destination, entry, max_bytes=64 * 1024 * 1024):
     size, md5 = entry['size'], entry['md5']
-    if not isinstance(size, int) or not 0 < size <= 64 * 1024 * 1024 or not re.fullmatch('[a-fA-F0-9]{32}', md5):
+    if not isinstance(max_bytes, int) or not 0 < max_bytes <= 256 * 1024 * 1024:
+        raise ValueError('Invalid reviewed asset size limit')
+    if not isinstance(size, int) or not 0 < size <= max_bytes or not re.fullmatch('[a-fA-F0-9]{32}', md5):
         raise ValueError('Invalid asset size or digest')
     def valid(path):
         return path.stat().st_size == size and hashlib.md5(path.read_bytes()).hexdigest() == md5
@@ -99,12 +102,19 @@ def fetch(output, selection=SELECTION):
         if kind == 'models':
             model = data['gltf']['2k']['gltf']
             files = {asset_id + '_2k.gltf': model, **model['include']}
+            if asset_id == 'tree_small_02':
+                # The glTF's JPEG leaf map omits the separate opacity channel.
+                files['textures/tree_small_02_leaves_alpha_2k.png'] = data['leaves_alpha']['2k']['png']
         else:
             files = {asset_id + '_' + channel + '_2k.jpg': data[channel]['2k']['jpg']
                      for channel in ('Diffuse', 'nor_gl', 'arm')}
         records = {}
         for relative, entry in files.items():
-            records[relative] = checked_download(safe_path(asset_dir, relative), entry)
+            # The reviewed tree source has a 90.7 MiB geometry buffer. Runtime
+            # meshes are derived offline; other downloads retain the 64 MiB cap.
+            limit = 128 if asset_id == 'tree_small_02' and relative == 'tree_small_02.bin' else 64
+            records[relative] = checked_download(safe_path(asset_dir, relative), entry,
+                                                 max_bytes=limit * 1024 * 1024)
             print('VERIFIED', asset_id, relative, flush=True)
         source = catalog[kind][asset_id]
         assets.append({'id': asset_id, 'category': kind, 'source': 'https://polyhaven.com/a/' + asset_id,
@@ -126,8 +136,15 @@ def fetch(output, selection=SELECTION):
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('--set', choices=('sample', 'company'), default='sample')
+    parser.add_argument('--set', choices=('sample', 'company', 'nature'), default='sample')
     parser.add_argument('--output', type=Path)
     options = parser.parse_args()
-    fetch(options.output or ROOT / 'assets' / ('polyhaven' if options.set == 'sample' else 'company_materials'),
-          SELECTION if options.set == 'sample' else COMPANY_SELECTION)
+    sets = {'sample': (SELECTION, ROOT / 'assets/polyhaven'),
+            'company': (COMPANY_SELECTION, ROOT / 'assets/company_materials'),
+            'nature': (NATURE_SELECTION, ROOT / 'production/environment/polyhaven_nature')}
+    selection, default_output = sets[options.set]
+    output = options.output or default_output
+    if options.set == 'nature':
+        output.mkdir(parents=True, exist_ok=True)
+        (output / '.gdignore').touch(exist_ok=True)
+    fetch(output, selection)
