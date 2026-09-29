@@ -763,4 +763,6 @@ C4a记录同步：542项资料逐字节核对一致，零冲突；每日计划/�
 
 边界：仍限当前平坦首区；图形场景时间固定18:30，非普通FPS或独立玩家30—60分钟体验。人物外观重复、夜间脸部暗、场所陈设少，正式人物/动作/声音和整体美术、更多可参与生活与长线职业后果、分区/八区整城、双画质持续性能及玩家签收尚未完成。完整64km²都市圈/16km²密集城区及G01—G06继续；下一完整交付以持续城区生活和一致视听为目标，不以功能数量替代验收。
 
-详情：[C3e验收](2026-09-30_C3e同事进入公共生活验收.md)与[证据](evidence/2026-09-30-c3e-outing/README.md)。复用更新[导航](experience/patterns/navigation-endpoints.md)、[交谈对象](experience/patterns/visit-dialogue-continuity.md)、[存档](experience/patterns/save-content-expansion.md)。中文实施提交在收尾后补记。
+详情：[C3e验收](2026-09-30_C3e同事进入公共生活验收.md)与[证据](evidence/2026-09-30-c3e-outing/README.md)。复用更新[导航](experience/patterns/navigation-endpoints.md)、[交谈对象](experience/patterns/visit-dialogue-continuity.md)、[存档](experience/patterns/save-content-expansion.md)。中文实施提交6c2a721，未push；提交后运行源码干净且与已验证包一致。
+
+C3e记录同步：741项项目资料/图片/元数据逐字节及校验和一致，零冲突；9月30日每日计划与进度已追加6c2a721和剩余目标，顶层历史计划保留。
