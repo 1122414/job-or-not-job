@@ -1,0 +1,9 @@
+{
+	"cars": 5,
+	"images": 9,
+	"pointer_visible": true,
+	"real_input": true,
+	"traffic": 3,
+	"traffic_front_speed": 0.0,
+	"traffic_rear_speed": 0.0
+}
