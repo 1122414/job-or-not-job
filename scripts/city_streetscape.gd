@@ -1,0 +1,261 @@
+class_name CityStreetscape
+extends Node3D
+
+# Authored lots share repeated geometry. Batches stay within 32 m cells so the
+# entire district does not become a single unculled render object.
+var materials := {}
+var batches := {}
+var lamps: Array[OmniLight3D]=[]
+var night_materials: Array[StandardMaterial3D]=[]
+var last_night := -1.0
+var piece_count := 0
+var leaf_mesh: ArrayMesh
+var cylinder_mesh: CylinderMesh
+
+func _init() -> void:
+	name="Streetscape"
+	for item in [["stone","bcb9a9"],["trim","c7bfa9"],["metal","39494a"],["glass","344e55"],["reveal","263638"],["timber","8d704e"],["roof","70746b"],["soil","6b7050"],["grass","687951"],["brick_red","805a46"],["leaf_light","72824a"],["leaf_dark","3e603d"],["leaf_mid","587642"],["bark","6e6452"],["warm_light","e5c38a"]]:
+		materials[item[0]]=Shapes.material(Color(item[1]))
+	materials.glass.roughness=.26
+	materials.glass.metallic=.35
+	materials.metal.metallic=.45
+	materials.metal.roughness=.5
+	for key in ["old_wall","home_wall","paving","brick"]:
+		materials[key]=load("res://assets/materials/"+({"old_wall":"painted_wall","home_wall":"painted_wall","paving":"pavement","brick":"office_brick"}[key])+".tres").duplicate()
+	materials.old_wall.albedo_color=Color("c1b396")
+	materials.home_wall.albedo_color=Color("b6c0b7")
+	materials.brick.albedo_color=Color("c7b49d")
+	for key in ["paving","grass"]:
+		var surface := ShaderMaterial.new()
+		surface.shader=load("res://assets/materials/city_"+key+".gdshader")
+		materials[key]=surface
+	for key in ["warm_light","window_lit"]:
+		if key=="window_lit": materials[key]=Shapes.material(Color("766f53"))
+		materials[key].emission_enabled=true
+		materials[key].emission=Color("ffd39a")
+		materials[key].emission_energy_multiplier=0
+		night_materials.append(materials[key])
+	cylinder_mesh=CylinderMesh.new()
+	cylinder_mesh.top_radius=.5
+	cylinder_mesh.bottom_radius=.5
+	cylinder_mesh.height=1
+	cylinder_mesh.radial_segments=8
+	cylinder_mesh.rings=1
+	# A folded, double-sided leaf catches light on both sides without alpha cards.
+	leaf_mesh=ArrayMesh.new()
+	var vertices := PackedVector3Array()
+	var outline := [Vector3(0,0,-.5),Vector3(-.28,0,-.3),Vector3(-.5,0,0),Vector3(-.3,0,.3),Vector3(0,0,.5),Vector3(.3,0,.3),Vector3(.5,0,0),Vector3(.28,0,-.3)]
+	for i in range(outline.size()):
+		vertices.append(Vector3(0,.05,0))
+		vertices.append(outline[i])
+		vertices.append(outline[(i+1)%outline.size()])
+	var normals := PackedVector3Array()
+	for i in range(0,vertices.size(),3):
+		var normal := (vertices[i+1]-vertices[i]).cross(vertices[i+2]-vertices[i]).normalized()
+		for j in range(3): normals.append(normal)
+	var arrays := []
+	arrays.resize(Mesh.ARRAY_MAX)
+	arrays[Mesh.ARRAY_VERTEX]=vertices
+	arrays[Mesh.ARRAY_NORMAL]=normals
+	leaf_mesh.add_surface_from_arrays(Mesh.PRIMITIVE_TRIANGLES,arrays)
+	for key in ["leaf_light","leaf_dark","leaf_mid"]: materials[key].cull_mode=BaseMaterial3D.CULL_DISABLED
+
+func piece(kind: String,material: String,transform: Transform3D) -> void:
+	var cell := Vector2i(floori(transform.origin.x/32),floori(transform.origin.z/32))
+	var key := "%s_%s_%d_%d" % [kind,material,cell.x,cell.y]
+	if not batches.has(key): batches[key]={"kind":kind,"material":material,"transforms":[]}
+	batches[key].transforms.append(transform)
+	piece_count+=1
+
+func box(size: Vector3,at: Vector3,material: String,yaw: float=0) -> void:
+	piece("box",material,Transform3D(Basis(Vector3.UP,yaw)*Basis.from_scale(size),at))
+
+func solid(size: Vector3,at: Vector3,material: String,yaw: float=0) -> void:
+	box(size,at,material,yaw)
+	var body := StaticBody3D.new()
+	add_child(body)
+	body.position=at
+	body.rotation.y=yaw
+	Shapes.collider(body,size)
+
+func branch(from: Vector3,to: Vector3,radius: float) -> void:
+	var axis := (to-from).normalized()
+	var side := axis.cross(Vector3.FORWARD).normalized()
+	if side.length_squared()<.1: side=Vector3.RIGHT
+	var basis := Basis(side,axis,side.cross(axis)).scaled_local(Vector3(radius*2,from.distance_to(to),radius*2))
+	piece("cylinder","bark",Transform3D(basis,(from+to)/2))
+
+func facade(point: Vector3,size: Vector3,old_town: bool) -> void:
+	var wall := "old_wall" if old_town else "home_wall"
+	solid(size,point+Vector3(0,size.y/2,0),wall)
+	box(Vector3(size.x+.3,.35,size.z+.3),point+Vector3(0,.2,0),"brick" if old_town else "stone")
+	box(Vector3(size.x+.55,.25,size.z+.55),point+Vector3(0,size.y+.06,0),"trim")
+	box(Vector3(size.x-.3,.08,size.z-.3),point+Vector3(0,size.y+.21,0),"roof")
+	for face in range(4):
+		var yaw := face*PI/2
+		var rotation_basis := Basis(Vector3.UP,yaw)
+		var width := size.x if face%2==0 else size.z
+		var depth := size.z if face%2==0 else size.x
+		var center := point+rotation_basis*Vector3(0,0,depth/2+.06)
+		box(Vector3(width+.35,.6,.18),center+Vector3(0,size.y+.45,0),wall,yaw)
+		for floor_index in range(int((size.y-1)/3)):
+			var y := 1.65+floor_index*3.0
+			box(Vector3(width+.22,.12,.16),center+Vector3(0,y+1.3,0),"trim",yaw)
+			for column in range(3):
+				var local := Vector3((column-1)*3.7,y,0)
+				var window := center+rotation_basis*local
+				box(Vector3(2.55,2.05,.1),window,"reveal",yaw)
+				var lit := (floor_index+column+face+int(absf(point.x)))%4==0
+				box(Vector3(2.3,1.8,.12),window+rotation_basis*Vector3(0,0,.035),"window_lit" if lit else "glass",yaw)
+				for dx in [-1.2,0,1.2]: box(Vector3(.065,1.92,.17),window+rotation_basis*Vector3(dx,0,.1),"trim",yaw)
+				for dy in [-.94,.94]: box(Vector3(2.5,.07,.17),window+Vector3(0,dy,0),"trim",yaw)
+				box(Vector3(2.65,.12,.4),window+rotation_basis*Vector3(0,-1.02,.12),"stone",yaw)
+				if floor_index>0 and column!=1:
+					if old_town:
+						box(Vector3(.78,.52,.43),window+rotation_basis*Vector3(1.42,-.83,.27),"stone",yaw)
+						for bar in range(4): box(Vector3(.58,.025,.04),window+rotation_basis*Vector3(1.42,-1.01+bar*.1,.51),"metal",yaw)
+					else:
+						box(Vector3(2.85,.18,1.0),window+rotation_basis*Vector3(0,-1.03,.45),"stone",yaw)
+						box(Vector3(2.7,.05,.05),window+rotation_basis*Vector3(0,-.05,.94),"metal",yaw)
+						for bar in range(10): box(Vector3(.035,.94,.035),window+rotation_basis*Vector3(-1.3+bar*.29,-.52,.94),"metal",yaw)
+		# Downpipes and pilasters break the four silhouettes, including side views.
+		for dx in [-width/2+.25,width/2-.25]: box(Vector3(.12,size.y,.12),center+rotation_basis*Vector3(dx,size.y/2,.1),"metal",yaw)
+		if face in [0,2]:
+			var doorway := center+rotation_basis*Vector3(0,1.25,.1)
+			box(Vector3(2.9,2.5,.2),doorway,"reveal",yaw)
+			box(Vector3(2.55,2.32,.25),doorway,"timber" if old_town else "glass",yaw)
+			box(Vector3(.06,2.3,.3),doorway,"metal",yaw)
+			for dx in [-.18,.18]: box(Vector3(.04,.4,.08),doorway+rotation_basis*Vector3(dx,0,.17),"trim",yaw)
+			box(Vector3(4.1,.16,1.1),center+rotation_basis*Vector3(0,2.95,.35),"timber" if old_town else "metal",yaw)
+			var address := "榕树街 %d号" % (int(absf(point.x))+int(point.z)) if old_town else "东里 · %d幢" % (int(point.x/10)+int(point.z/20))
+			plaque(address,center+rotation_basis*Vector3(0,2.65,.3),2.8,yaw)
+	for side in [-1,1]:
+		box(Vector3(2,1.2,1.4),point+Vector3(side*3,size.y+.85,-2),"stone")
+		box(Vector3(2.05,.08,1.45),point+Vector3(side*3,size.y+1.5,-2),"metal")
+		for slat in range(6): box(Vector3(1.7,.06,.04),point+Vector3(side*3,size.y+.4+slat*.16,-1.28),"metal")
+
+func plaque(text: String,at: Vector3,width: float,yaw: float=0) -> void:
+	box(Vector3(width,.38,.07),at,"metal",yaw)
+	var label := Shapes.label(self,text,at+Basis(Vector3.UP,yaw)*Vector3(0,0,.045),40)
+	label.billboard=BaseMaterial3D.BILLBOARD_DISABLED
+	label.rotation.y=yaw
+	label.pixel_size=.004
+	label.outline_size=0
+	label.modulate=Color("eadfc4")
+
+func tree(at: Vector3,seed_value: int) -> void:
+	var rng := RandomNumberGenerator.new()
+	rng.seed=seed_value
+	var height := rng.randf_range(4.8,6.3)
+	branch(at,at+Vector3(.12,height*.68,0),.16)
+	var body := StaticBody3D.new()
+	add_child(body)
+	body.position=at+Vector3(0,1.5,0)
+	Shapes.collider(body,Vector3(.35,3,.35))
+	for limb in range(9):
+		var angle := limb*TAU/9+rng.randf_range(-.3,.3)
+		var end := at+Vector3(cos(angle)*1.9,height+rng.randf_range(-1.1,.5),sin(angle)*1.9)
+		var fork := at+Vector3(.1,height*.52+limb*.07,0)
+		branch(fork,end,.045)
+		for twig in range(5):
+			var tip := end+Vector3(rng.randf_range(-1,1),rng.randf_range(-.5,.8),rng.randf_range(-1,1))
+			branch(end.lerp(fork,.25),tip,.015)
+			for leaf in range(52):
+				var offset := Vector3(rng.randf_range(-1,1),rng.randf_range(-.6,.6),rng.randf_range(-1,1))
+				if offset.length()>1: offset=offset.normalized()
+				var pose := Basis.from_euler(Vector3(rng.randf_range(-1,1),rng.randf_range(0,TAU),rng.randf_range(-.8,.8)))
+				pose=pose.scaled_local(Vector3(.16,1,.32)*rng.randf_range(.7,1.2))
+				piece("leaf",["leaf_dark","leaf_mid","leaf_light"][rng.randi_range(0,2)],Transform3D(pose,tip+offset))
+
+func bench(at: Vector3,yaw: float=0) -> void:
+	var rot := Basis(Vector3.UP,yaw)
+	for dx in [-.95,.95]: solid(Vector3(.14,.44,.6),at+rot*Vector3(dx,.22,0),"metal",yaw)
+	for slat in range(4): box(Vector3(2.4,.07,.13),at+rot*Vector3(0,.47,-.23+slat*.15),"timber",yaw)
+	var seat := StaticBody3D.new()
+	add_child(seat)
+	seat.position=at+Vector3(0,.47,0)
+	seat.rotation.y=yaw
+	Shapes.collider(seat,Vector3(2.4,.07,.6))
+	solid(Vector3(2.4,.55,.12),at+rot*Vector3(0,.8,.3),"timber",yaw)
+
+func lamp(at: Vector3) -> void:
+	solid(Vector3(.13,4.4,.13),at+Vector3(0,2.2,0),"metal")
+	box(Vector3(1.6,.12,.36),at+Vector3(.65,4.4,0),"metal")
+	box(Vector3(.8,.035,.27),at+Vector3(.85,4.32,0),"warm_light")
+	var light := OmniLight3D.new()
+	light.position=at+Vector3(.75,4.05,0)
+	light.light_color=Color("ffdcab")
+	light.omni_range=10
+	light.light_energy=0
+	light.shadow_enabled=false
+	light.distance_fade_enabled=true
+	light.distance_fade_begin=55
+	light.distance_fade_length=15
+	add_child(light)
+	lamps.append(light)
+
+func wayfinding(title: String,at: Vector3) -> void:
+	solid(Vector3(.09,2.4,.09),at+Vector3(0,1.2,0),"metal")
+	box(Vector3(2.5,.6,.09),at+Vector3(0,2.1,0),"metal")
+	plaque(title,at+Vector3(0,2.1,.055),2.4)
+
+func landscape() -> void:
+	# Thin surfaces preserve y=0 collision: the character has no step-climbing.
+	for item in [[Vector3(0,0,18),Vector3(140,.018,6)],[Vector3(0,0,94),Vector3(140,.018,6)],[Vector3(-66,0,56),Vector3(6,.018,78)],[Vector3(66,0,56),Vector3(6,.018,78)],[Vector3(-87,0,56),Vector3(8,.018,90)],[Vector3(87,0,56),Vector3(8,.018,90)],[Vector3(-47,0,52),Vector3(38,.018,17)],[Vector3(47,0,56),Vector3(38,.018,18)],[Vector3(0,0,116),Vector3(214,.018,12)]]:
+		box(item[1],item[0]+Vector3(0,.005,0),"paving")
+	for item in [[Vector3(-17,0,37),Vector3(16,.025,27)],[Vector3(17,0,37),Vector3(16,.025,27)],[Vector3(-16,0,78),Vector3(18,.025,26)],[Vector3(44,0,68),Vector3(39,.025,7)]]:
+		box(item[1]+Vector3(1,0,1),item[0]+Vector3(0,.015,0),"stone")
+		box(item[1],item[0]+Vector3(0,.02,0),"grass")
+	# Flush paving joints, spaced in metres rather than scaled over the whole map.
+	for x in range(-102,103,3): box(Vector3(.025,.005,12),Vector3(x,.017,116),"stone")
+	for z in [111,114,117,120]: box(Vector3(212,.005,.025),Vector3(0,.017,z),"stone")
+	for z in [16,20,92,96]: box(Vector3(138,.006,.14),Vector3(0,.019,z),"trim")
+	for x in [-69,-63,63,69]: box(Vector3(.14,.006,77),Vector3(x,.019,56),"trim")
+	var trees := [Vector3(-60,0,48),Vector3(-36,0,48),Vector3(28,0,48),Vector3(52,0,48),Vector3(-60,0,70),Vector3(-36,0,70),Vector3(28,0,70),Vector3(52,0,70),Vector3(-18,0,30),Vector3(-18,0,46),Vector3(-18,0,70),Vector3(-18,0,87),Vector3(18,0,29),Vector3(18,0,46),Vector3(38,0,68)]
+	for x in [-90,-66,-42,-18,18,42,66,90]: trees.append(Vector3(x,0,122))
+	for i in range(trees.size()):
+		tree(trees[i],900+i)
+		box(Vector3(2,.022,2),trees[i]+Vector3(0,.015,0),"soil")
+	for at in [Vector3(-64,0,43),Vector3(-64,0,73),Vector3(64,0,43),Vector3(64,0,73),Vector3(-19,0,54),Vector3(21,0,54),Vector3(-48,0,118),Vector3(-12,0,118),Vector3(24,0,118),Vector3(60,0,118)]: lamp(at)
+	for at in [Vector3(-43,0,63),Vector3(-23,0,63),Vector3(32,0,49),Vector3(54,0,63)]: bench(at)
+	for x in [-36,-18,18,36]: bench(Vector3(x,0,120))
+	# A continuous sea wall and repeated upright rails ground the waterfront.
+	solid(Vector3(213,.48,.45),Vector3(0,.24,125.8),"stone")
+	for x in range(-104,106,2): box(Vector3(.045,.72,.045),Vector3(x,.84,125.8),"metal")
+	box(Vector3(213,.065,.065),Vector3(0,1.2,125.8),"metal")
+	for at in [Vector3(-62,0,61),Vector3(60,0,62),Vector3(-31,0,120),Vector3(31,0,120)]:
+		solid(Vector3(.55,.9,.55),at+Vector3(0,.45,0),"metal")
+		box(Vector3(.62,.09,.62),at+Vector3(0,.94,0),"timber")
+	# The bookshop keeps its real entrance; the projecting cornice frames it.
+	box(Vector3(13.8,.23,.7),Vector3(-52,3.05,38.8),"timber")
+	for x in [-58.2,-45.8]: box(Vector3(.25,3,.35),Vector3(x,1.5,38.6),"brick")
+	plaque("社区书屋  /  街区记忆",Vector3(-52,3.5,38.84),5.7)
+	wayfinding("榕树街 · 社区书屋",Vector3(-62,0,44))
+	wayfinding("东里 · 公共花园",Vector3(55,0,50))
+	wayfinding("海风步道 · 城市与海",Vector3(8,0,120))
+
+func flush() -> void:
+	var cube := BoxMesh.new()
+	cube.size=Vector3.ONE
+	for key in batches:
+		var batch: Dictionary=batches[key]
+		var mesh := MultiMesh.new()
+		mesh.transform_format=MultiMesh.TRANSFORM_3D
+		mesh.mesh=leaf_mesh if batch.kind=="leaf" else cylinder_mesh if batch.kind=="cylinder" else cube
+		mesh.instance_count=batch.transforms.size()
+		for i in range(mesh.instance_count): mesh.set_instance_transform(i,batch.transforms[i])
+		var instance := MultiMeshInstance3D.new()
+		instance.name=key
+		instance.multimesh=mesh
+		instance.material_override=materials[batch.material]
+		add_child(instance)
+	set_meta("pieces",piece_count)
+	set_meta("batches",batches.size())
+	batches.clear()
+
+func daylight(value: float) -> void:
+	var night := 1.0-smoothstep(.04,.35,value)
+	if is_equal_approx(night,last_night): return
+	last_night=night
+	for light in lamps: light.light_energy=night*1.1
+	for material in night_materials: material.emission_energy_multiplier=night*.8

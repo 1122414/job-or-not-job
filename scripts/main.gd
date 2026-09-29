@@ -124,7 +124,12 @@ func build_lighting() -> void:
 	var env := WorldEnvironment.new()
 	env.environment = Environment.new()
 	environment=env.environment
-	env.environment.background_mode = Environment.BG_COLOR
+	env.environment.background_mode = Environment.BG_SKY
+	var sky := Sky.new()
+	sky.sky_material=ProceduralSkyMaterial.new()
+	env.environment.sky=sky
+	env.environment.fog_enabled=true
+	env.environment.fog_density=.0012
 	env.environment.background_color = Color("8fb4c5")
 	env.environment.ambient_light_source = Environment.AMBIENT_SOURCE_COLOR
 	env.environment.ambient_light_color = Color("c6c9cc")
@@ -216,6 +221,14 @@ func update_daylight() -> void:
 	environment.background_color=Color("142330").lerp(Color("91b2c2"),daylight)
 	environment.ambient_light_energy=0.18+daylight*0.23
 	environment.ambient_light_color=Color("8c9bae").lerp(Color("c6c9cc"),daylight)
+	var sky: ProceduralSkyMaterial=environment.sky.sky_material
+	sky.sky_top_color=Color("080e1c").lerp(Color("548ca8"),daylight)
+	sky.sky_horizon_color=Color("253746").lerp(Color("c8d6d5"),daylight)
+	sky.ground_horizon_color=sky.sky_horizon_color
+	sky.ground_bottom_color=Color("18201e").lerp(Color("788579"),daylight)
+	environment.fog_light_color=sky.sky_horizon_color
+	var streets: CityStreetscape=get_node_or_null("ConnectedDistrict/Streetscape")
+	if streets: streets.daylight(daylight)
 
 func in_vehicle() -> bool:
 	return transit!=null and transit.riding or driving!=null and driving.in_vehicle()

@@ -668,3 +668,16 @@ S2源码提交`807945f`后核对记录同步时，发现原工具仅复制根目
 未完成：正式握持/抬放/评估动作、人物制服和接收场所美术/声音、救护车辆、医院和后续处置、公司/公共救助统一、复杂绕行/跨区、持续城市事件和长线生活、整城分区/八区、双画质性能及独立玩家签收。下一步串联职业、公共场所和事件，形成持续自由游玩的城区样板；64km²都市圈/16km²密集城区及G01—G06完整目标继续。
 
 详情：[C3b验收](2026-09-29_C3b公共救助与现场处置验收.md)；经验：[公共导航](experience/patterns/navigation-endpoints.md)、[关联存档](experience/patterns/save-content-expansion.md)、[后台窗口](experience/patterns/background-window-state.md)。
+
+
+## 2026-09-29｜C4a 首区街景与空间层次工程阶段
+
+完成11栋楼体四面立面/门厅/设备、23棵分枝叶片树、分区石板与草地、书屋檐口/实体路牌、滨水长凳栏杆、天空与10盏昼夜路灯/窗光。重复几何61142实例按32米格分为305批；复用原CC0墙面材料，新增几何/着色器为原创，无新下载。保持原楼体占地、平齐地面碰撞、职业和物品身份。
+
+观察验证：全套67项Godot退出0、无ERROR/WARNING，24项Python通过。最终街景物理专项31链路/四站/座面/昼夜灯/JSON通过；无窗口MultiMesh空缓冲假阳性撤回，真实Compatibility后端305批非空变换两次重建一致。后补测试职责分离单独复验，运行源码未变。三书屋活动、12居民/三路口车流、公交与四条转运、后台A/B职业及拒绝/协商均通过。前后16张及2张迭代反例已逐张查看；最后重新采样8张与已看图逐字节一致。窗口最小化/不可聚焦/无焦点，鼠标可见。
+
+独立包：build/baselines/20260929T104055732329Z-dd7abea9-a960c72f/今天不上班-macOS-0.5.0.zip。实际TodayOff两目录PACKAGED_SMOKE_OK，街景/新着色器/夜灯及原游戏资源通过，persistence=false；签名/ZIP CRC/源码摘要一致。运行SHA-256 a960c72f298306bd51f1d3f5379ea84ce90a820a6b15985378e1eadac19e2e74；构建提交前dirty保留，旧包/玩家档保留，未push。中文实施提交号后续追加。
+
+成本和边界：住宅视角图元49,794→347,046、绘制调用747→788；不是普通游戏FPS。正式资产/植被LOD/人物动作/声音、水面天气、更多可进入内容、持续城区体验、分区/八区扩建、双画质性能和独立玩家/用户签收未完成；G01—G06完整目标继续。下一步连接公共场所、职业和人物长线，并继续样板正式视觉与实测性能。
+
+详情：[C4a验收](2026-09-29_C4a首区街景与空间层次验收.md)；复用及新增经验：[地面接缝](experience/patterns/floor-seams.md)、[后台窗口](experience/patterns/background-window-state.md)、[构建证据](experience/patterns/build-evidence-identity.md)、[地表过滤](experience/patterns/procedural-surface-filtering.md)。

@@ -28,6 +28,19 @@ func run() -> void:
 		push_error("Automated package probe must not capture the desktop pointer")
 		quit(1)
 		return
+	var streets: CityStreetscape=game.get_node_or_null("ConnectedDistrict/Streetscape")
+	if streets==null or streets.find_children("*","MultiMeshInstance3D",true,false).is_empty() or not streets.materials.paving is ShaderMaterial or not streets.materials.grass is ShaderMaterial:
+		push_error("Packaged streetscape or ground shaders missing")
+		quit(1)
+		return
+	streets.daylight(0)
+	for lamp in streets.lamps:
+		if lamp.light_energy<=0:
+			push_error("Packaged street lighting does not illuminate at night")
+			quit(1)
+			return
+	game.update_daylight()
+	print("PACKAGED_STREETSCAPE pieces=",streets.get_meta("pieces")," batches=",streets.get_meta("batches")," lights=",streets.lamps.size())
 	var sources_path := OS.get_executable_path().get_base_dir().path_join("../Resources/ASSET-SOURCES.json")
 	var sources: Variant=JSON.parse_string(FileAccess.get_file_as_string(sources_path))
 	if not sources is Dictionary or sources.get("assets",[]).size()!=5:

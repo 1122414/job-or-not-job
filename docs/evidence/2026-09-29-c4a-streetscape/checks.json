@@ -1,0 +1,126 @@
+{
+  "godot_suite_exit": 0,
+  "godot_test_files": 67,
+  "python_exit": 0,
+  "python_tests": 24,
+  "final_physics_exit": 0,
+  "final_gpu_exit": 0,
+  "suite_scope_note": "Runtime unchanged throughout; final streets test moved GPU identity validation out of headless, physics rerun separately.",
+  "logs": {
+    "checks": {
+      "sha256": "46963a08d94e34f445dafd453174c4e39d2ec168f537a7c506c30c25c7d721e4",
+      "errors": 0,
+      "results": [
+        "ACTION_TEST failures=0",
+        "AUTHORED_MOTION_TEST failures=0",
+        "BODY_SUPPORT_TEST failures=0 final_height=-0.01963429525495",
+        "CAREER_TEST failures=0",
+        "CAST_DEFORMATION_TEST failures=0",
+        "CAST_FACE_TEST failures=0",
+        "CAST_RESOURCES_TEST failures=0",
+        "CHAIR_SUPPORT_TEST failures=0",
+        "CHAOS_TEST failures=0 simulated_seconds=85",
+        "CITY_ACTIVITY_SAVE_TEST failures=0",
+        "CITY_BOOKSHOP_TEST failures=0 outcomes={ \"screen\": { \"wait_frames\": 6089, \"participants\": [\"resident_zhou_ning\", \"resident_lin_qiao\", \"resident_wu_fan\"], \"elapsed\": 18.0 }, \"paper\": { \"wait_frames\": 6571, \"participants\": [\"resident_zhou_ning\", \"resident_lin_qiao\", \"resident_wu_fan\"], \"elapsed\": 18.0 }, \"garden\": { \"wait_frames\": 2052, \"participants\": [\"resident_zhou_ning\", \"resident_wu_fan\"], \"elapsed\": 18.0 } }",
+        "CITY_CONTROLS_TEST failures=0",
+        "CITY_CROSSINGS_TEST failures=0 stop=true restored=true crossed=true released=true vehicle_interval=true bus_stop=true bus_release=true late_bus_clearance=true",
+        "CITY_DRIVING_TEST failures=0 acceleration_distances=[17.9998512268066, 17.9998664855957, 17.9998550415039] max_palm_error_mm=0.00786510372563",
+        "CITY_POPULATION_TEST failures=0 crossings={ \"market\": 11, \"homes\": 1, \"waterfront\": 3 } traffic_distance=[1663.82331877048, 1523.86312865677, 1403.91726474128] visited={ \"resident_zhou_ning\": [\"reading_west\", \"office\"], \"resident_chen_yu\": [\"office\", \"market\"], \"resident_liang_bo\": [\"homes\", \"reading_east\"], \"resident_lin_qiao\": [\"homes\", \"reading_west\"], \"resident_xu_hang\": [\"reading_center\", \"office\"], \"resident_song_an\": [\"office\", \"market\"], \"resident_he_yue\": [\"market\", \"homes\"], \"resident_wu_fan\": [\"homes\", \"reading_center\"], \"resident_zhao_lin\": [\"reading_east\", \"office\"], \"resident_tang_ke\": [\"office\", \"market\"], \"resident_lu_yang\": [\"market\", \"homes\"], \"resident_su_wan\": [\"homes\", \"reading_east\"] }",
+        "CITY_RESIDENTS_TEST failures=0",
+        "CITY_RESPONSE_ROUTES_TEST failures=0 routes={\"bookshop\":{\"max_step_m\":0.0300025604665279,\"received\":true,\"traffic_released\":false,\"traffic_stopped\":false,\"walked_m\":246.776760401204},\"homes\":{\"max_step_m\":0.0300027951598167,\"received\":true,\"traffic_released\":true,\"traffic_stopped\":true,\"walked_m\":201.117058817297},\"market\":{\"max_step_m\":0.0300025604665279,\"received\":true,\"traffic_released\":true,\"traffic_stopped\":true,\"walked_m\":201.626008702442},\"waterfront\":{\"max_step_m\":0.0300027877092361,\"received\":true,\"traffic_released\":true,\"traffic_stopped\":true,\"walked_m\":142.016339154914}}",
+        "CITY_RESPONSE_SAVE_TEST failures=0 invalid_cases=19 legacy_versions=15",
+        "CITY_RESPONSE_TEST failures=0 carried=true received=true max_step=0.03000342845917 queued_cases=1",
+        "CITY_STREETS_TEST failures=0 instances=61142 batches=305 lights=10 public_links=31",
+        "CITY_TRAFFIC_TEST failures=0 travelled_m=[482.519987184684, 747.356713358294, 631.185722421412] overlaps=0",
+        "CITY_TRANSIT_TEST failures=0 route_m=482.229614257812 stops=[2, 3, 0]",
+        "COMPANY_SPACES_TEST failures=0",
+        "CONSEQUENCE_TEST failures=0",
+        "DAILY_ROUTINE_TEST failures=0",
+        "DESTRUCTION_TEST failures=0",
+        "DIALOGUE_SCENE_TEST failures=0",
+        "ENVIRONMENT_ASSETS_TEST failures=0",
+        "FULL_ROUTE_TEST failures=0",
+        "GAIT_TEST failures=0",
+        "GUIDANCE_TEST failures=0",
+        "HAND_CONTACT_TEST measurements={\"a_cheng\":{\"reach_error_m\":0.000000247556670274207,\"skin_error_m\":0.0000183501797437202},\"casual\":{\"reach_error_m\":0.000000265307619429223,\"skin_error_m\":0.0000372465729014948},\"held/badge\":{\"max_support_penetration_m\":0.000319438055157661,\"skin_error_m\":0.00203399197198451},\"held/cup\":{\"max_support_penetration_m\":0.000320431590080258,\"skin_error_m\":0.00203399197198451},\"held/keyboard\":{\"max_support_penetration_m\":0.000319750979542732,\"skin_error_m\":0.00203399197198451},\"held/monitor\":{\"max_support_penetration_m\":0.000325726345181465,\"skin_error_m\":0.0020341114141047},\"interview_b/box_message\":{\"max_sample_displacement_m\":0.0160876493901014,\"skin_error_m\":0.0000237702242884552},\"interview_b/phone_reply\":{\"max_sample_displacement_m\":0.0112689230591059,\"skin_error_m\":0.0000238659849856049},\"interview_boss/phone_reply\":{\"max_sample_displacement_m\":0.0126111255958676,\"skin_error_m\":0.0000478081274195574},\"interview_lead/phone_reply\":{\"max_sample_displacement_m\":0.0126111255958676,\"skin_error_m\":0.0000478081274195574},\"lin_lan\":{\"reach_error_m\":0.000000149754811218372,\"skin_error_m\":0.0000331897826981731},\"office\":{\"reach_error_m\":0.000000265307619429223,\"skin_error_m\":0.0000372465729014948},\"office_female\":{\"reach_error_m\":0.000000265307619429223,\"skin_error_m\":0.0000372465729014948},\"protagonist\":{\"reach_error_m\":0.000000273142802598159,\"skin_error_m\":0.0000358850884367712}} failures=0",
+        "HIT_REACTION_TEST failures=0",
+        "INTAKE_TEST failures=0",
+        "INTERACTION_TEST failures=0",
+        "INTERRUPTION_TEST failures=0",
+        "INTERVIEW_CALL_TEST failures=0",
+        "INTERVIEW_CONTENT_TEST failures=0",
+        "INTERVIEW_PERFORMANCE_TEST failures=0",
+        "INTERVIEW_TEST failures=0",
+        "INVENTORY_TEST failures=0",
+        "LOCOMOTION_TEST failures=0",
+        "MOUSE_CAPTURE_TEST failures=0",
+        "NEGOTIATION_FOLLOW_TEST failures=0",
+        "NONLETHAL_CARE_TEST failures=0",
+        "NPC_LIFECYCLE_TEST failures=0",
+        "OFFICE_LIFE_TEST failures=0",
+        "ONBOARDING_TEST failures=0",
+        "PAGE_CONTROLS_TEST failures=0",
+        "PANELS_TEST failures=0",
+        "PAYROLL_TEST failures=0",
+        "PRESENTATION_TEST failures=0",
+        "PROMISES_TEST failures=0",
+        "PROPS_EXPANSION_TEST failures=0 props=114",
+        "RECRUITMENT_TEST failures=0",
+        "RELATIONSHIPS_TEST failures=0",
+        "ROOMS_TEST failures=0",
+        "SAVE_TEST failures=0",
+        "SCHEDULE_TEST failures=0",
+        "SEATING_TEST failures=0",
+        "SOCIAL_TEST failures=0",
+        "STAFFING_TEST failures=0",
+        "VERSION_IMPORT_TEST failures=0",
+        "VISUAL_TEST failures=0",
+        "WORK_PROJECTS_TEST failures=0",
+        "WORK_SCENE_TEST failures=0",
+        "WORLD_TEST failures=0"
+      ]
+    },
+    "python": {
+      "sha256": "336ec55a3fbd7bbeb3e1a0f7d873d346d0adb8483e0b1ce89edc213ef698de4f",
+      "errors": 0,
+      "results": [
+        "Ran 24 tests in 0.054s"
+      ]
+    },
+    "streets-final-physics": {
+      "sha256": "a9de9b9f0f0369c87209044866db012b4e56262f9dba058815f8fdf7d25dd122",
+      "errors": 0,
+      "results": [
+        "CITY_STREETS_TEST failures=0 instances=61142 batches=305 lights=10 public_links=31 deterministic_buffers=GPU_tool_required"
+      ]
+    },
+    "acceptance-render": {
+      "sha256": "0bd295e33d85b85b5c4bce3232681f994efbb6ebcfe9a7cb5d08e5b6898ea175",
+      "errors": 0,
+      "results": []
+    },
+    "full-route": {
+      "sha256": "f1f9f8f59e061ad95928d741c20f0a27a37dc4bd8ad1c70b58c48c74c171549d",
+      "errors": 0,
+      "results": [
+        "FULL_ROUTE_TEST failures=0"
+      ]
+    },
+    "package-project": {
+      "sha256": "fe9b9c531897f23e820056f191d5d0954c085eddb9683d9e89bee302a0fa46db",
+      "errors": 0,
+      "results": [
+        "PACKAGED_STREETSCAPE pieces=61142 batches=305 lights=10",
+        "PACKAGED_SMOKE_OK build=20260929T104055732329Z-dd7abea9-a960c72f label=v0.5.0 · dd7abea9 / a960c72f（含未提交修改） npcs=10 props=114 company_spaces=2 company_sources=2 environment_props=6 asset_sources=5 authored_clips=2 authored_characters=28 texture_imports=verified ui_mouse=verified city_stops=4 bus_ride_save=verified driving_save=verified traffic=3 public_residents=12 population_save=verified bookshop_walk_save=verified original_illustrations=3 public_response_transfer_save=verified persistence=false"
+      ]
+    },
+    "package-tmp": {
+      "sha256": "fe9b9c531897f23e820056f191d5d0954c085eddb9683d9e89bee302a0fa46db",
+      "errors": 0,
+      "results": [
+        "PACKAGED_STREETSCAPE pieces=61142 batches=305 lights=10",
+        "PACKAGED_SMOKE_OK build=20260929T104055732329Z-dd7abea9-a960c72f label=v0.5.0 · dd7abea9 / a960c72f（含未提交修改） npcs=10 props=114 company_spaces=2 company_sources=2 environment_props=6 asset_sources=5 authored_clips=2 authored_characters=28 texture_imports=verified ui_mouse=verified city_stops=4 bus_ride_save=verified driving_save=verified traffic=3 public_residents=12 population_save=verified bookshop_walk_save=verified original_illustrations=3 public_response_transfer_save=verified persistence=false"
+      ]
+    }
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "build_id": "20260929T104055732329Z-dd7abea9-a960c72f",
+  "project_launcher_exit": 0,
+  "temporary_directory_launcher_exit": 0,
+  "persistence": false,
+  "codesign_verify": true,
+  "zip_crc": true,
+  "runtime_source_matches": true,
+  "source_sha256": "a960c72f298306bd51f1d3f5379ea84ce90a820a6b15985378e1eadac19e2e74"
+}

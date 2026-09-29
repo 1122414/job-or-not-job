@@ -1,0 +1,62 @@
+{
+  "same_camera_time_resolution": true,
+  "normal_game_fps_measured": false,
+  "samples": [
+    {
+      "view": "old-street",
+      "draw_calls_before": 7027,
+      "draw_calls_after": 7170,
+      "primitives_before": 334649,
+      "primitives_after": 517487
+    },
+    {
+      "view": "bookshop",
+      "draw_calls_before": 1325,
+      "draw_calls_after": 1460,
+      "primitives_before": 39992,
+      "primitives_after": 88684
+    },
+    {
+      "view": "homes",
+      "draw_calls_before": 747,
+      "draw_calls_after": 788,
+      "primitives_before": 49794,
+      "primitives_after": 347046
+    },
+    {
+      "view": "waterfront",
+      "draw_calls_before": 537,
+      "draw_calls_after": 565,
+      "primitives_before": 74782,
+      "primitives_after": 294832
+    },
+    {
+      "view": "company-exit",
+      "draw_calls_before": 886,
+      "draw_calls_after": 1069,
+      "primitives_before": 67174,
+      "primitives_after": 222104
+    },
+    {
+      "view": "district-overview",
+      "draw_calls_before": 5377,
+      "draw_calls_after": 5510,
+      "primitives_before": 343794,
+      "primitives_after": 736802
+    },
+    {
+      "view": "old-street-night",
+      "draw_calls_before": 6660,
+      "draw_calls_after": 6832,
+      "primitives_before": 334649,
+      "primitives_after": 517487
+    },
+    {
+      "view": "waterfront-night",
+      "draw_calls_before": 539,
+      "draw_calls_after": 565,
+      "primitives_before": 74782,
+      "primitives_after": 294832
+    }
+  ]
+}

@@ -37,6 +37,8 @@ static func build(game: Node3D) -> void:
 	var district := Node3D.new()
 	district.name="ConnectedDistrict"
 	game.add_child(district)
+	var streets := CityStreetscape.new()
+	district.add_child(streets)
 	for road in [[Vector3(0,0,8),Vector3(166,0.04,12)],[Vector3(0,0,104),Vector3(166,0.04,12)],[Vector3(-76,0,56),Vector3(12,0.04,84)],[Vector3(76,0,56),Vector3(12,0.04,84)]]:
 		var mesh := Shapes.box(district,road[1],road[0]+Vector3(0,-0.02,0),Color.WHITE)
 		mesh.add_to_group("city_road_surfaces")
@@ -47,7 +49,8 @@ static func build(game: Node3D) -> void:
 		for x in [-76,76]: Shapes.box(district,Vector3(0.12,0.015,3),Vector3(x,0.012,z),Color("e4cb82"))
 	# Public paths cross the inner block; no invisible barrier gates employment.
 	for path in [[Vector3(0,0,58),Vector3(140,0.025,5)],[Vector3(0,0,56),Vector3(6,0.025,84)]]:
-		Shapes.box(district,path[1],path[0],Color("c1bcab"))
+		var surface := Shapes.box(district,path[1],path[0],Color.WHITE)
+		surface.material_override=streets.materials.paving
 	for i in range(STOPS.size()):
 		var stop: Dictionary=STOPS[i]
 		var platform: Vector3=stop.platform
@@ -70,39 +73,14 @@ static func build(game: Node3D) -> void:
 				bookshop.name="CommunityBookshop"
 				bookshop.position=Vector3(x,0,z)
 				district.add_child(bookshop)
-			else: building(district,Vector3(x,0,z),Vector3(13,7 if x!= -34 else 10,13),Color("b6a18c"))
-	for x in [-96,-52]:
+			else: streets.facade(Vector3(x,0,z),Vector3(13,7 if x!= -34 else 10,13),true)
+	for x in [-96]:
 		Shapes.box(district,Vector3(13.8,0.2,2.4),Vector3(x,3.1,40),Color("875e49"))
-	OfficeRooms.plaque(district,"榕树街  /  社区书屋",Vector3(-62,2.4,44),4)
 	for x in [36,56,96]:
-		for z in [32,82]: building(district,Vector3(x,0,z),Vector3(14,16 if x==96 else 12,14),Color("aab4b3"))
-	OfficeRooms.plaque(district,"东里社区  /  公共花园",Vector3(51,3,48),5)
-	for x in [-60,-36,28,52]:
-		for z in [48,70]: tree(district,Vector3(x,0,z))
-	for x in range(-96,100,12):
-		Shapes.solid(district,Vector3(0.12,1.15,0.12),Vector3(x,0.575,126),Color("49696c"))
-		Shapes.box(district,Vector3(12,0.06,0.06),Vector3(x+6,1.1,126),Color("49696c"))
-	Shapes.box(district,Vector3(216,0.04,5),Vector3(0,0.02,116),Color("c9c2ae"))
+		for z in [32,82]: streets.facade(Vector3(x,0,z),Vector3(14,16 if x==96 else 12,14),false)
 	Shapes.box(district,Vector3(220,0.1,70),Vector3(0,-0.5,164),Color("4c8992"))
-	OfficeRooms.plaque(district,"海风步道  /  城市与海",Vector3(18,2.8,120),5)
-	for x in [-36,-18,18,36]:
-		Shapes.solid(district,Vector3(3,0.45,0.7),Vector3(x,0.225,120),Color("ad9574"))
 	for x in [-107,107]: Shapes.solid(district,Vector3(0.4,1.2,156),Vector3(x,0.6,54),Color("657d75"))
 	for z in [-24,131]: Shapes.solid(district,Vector3(216,1.2,0.4),Vector3(0,0.6,z),Color("657d75"))
 
-static func building(parent: Node3D, point: Vector3, size: Vector3, color: Color) -> void:
-	Shapes.solid(parent,size,point+Vector3(0,size.y/2,0),color)
-	for y in range(2,int(size.y),3):
-		for x in [-4,0,4]:
-			for side in [-1,1]: Shapes.box(parent,Vector3(1.6,1.8,0.04),point+Vector3(x,y,side*(size.z/2+0.03)),Color("526976"))
-
-static func tree(parent: Node3D, point: Vector3) -> void:
-	Shapes.solid(parent,Vector3(0.3,3,0.3),point+Vector3(0,1.5,0),Color("746b54"))
-	var crown := MeshInstance3D.new()
-	var sphere := SphereMesh.new()
-	sphere.radius=2.2
-	sphere.height=4
-	crown.mesh=sphere
-	crown.material_override=Shapes.material(Color("668166"))
-	parent.add_child(crown)
-	crown.position=point+Vector3(0,4,0)
+	streets.landscape()
+	streets.flush()

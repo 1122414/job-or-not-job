@@ -15,3 +15,7 @@
 2026-09-29 S2再验证：绕过TodayOff启动器从项目目录直接执行包内Godot，会再次读到源码tests并触发排除检查；这不是PCK泄漏证据。通过实际启动器（它进入Resources）从两个目录执行才是产品启动边界。原始GLTF的Skin可能使用数字bind_bone，导入PackedScene则使用bind_name；离线蒙皮诊断必须分别解析后映射同名骨骼，遇到-1立即停止，不能把错误姿态计入前后数据。
 
 2026-09-29 C3b窗口纠正：本机启动会覆盖_initialize中的隐藏/最小化，运行中不能隐藏主窗口。改为初始化和deferred入口分别设不可聚焦、后者再次最小化，结果必须记录无焦点与鼠标可见；不要只凭root.hide调用声称隐藏。详见[后台窗口状态](background-window-state.md)。原有离屏性能边界不变。
+
+2026-09-29 C4a补充：无窗口后端的MultiMesh.buffer在本机返回空数组。两次空数组hash相等是假阳性，追加instance_count×12长度断言后610次失败，不能据此判定几何生成不稳定。确定性检查移到真实Compatibility图形后端，必须读到非空变换再比较。重建整个场景的夹具还需清理该夹具注册的InputMap动作，否则出现25个重复动作错误；只清理新建动作，保留原输入表，不扩改运行时输入行为。支持工具tools/render_city_streets.gd；最终验收状态见C4a记录，headless不再宣称验证GPU缓冲。
+
+C4a取证路径补记：full_route_test默认输出2026-09-22历史目录；本次忘传已存在的--output参数，七张旧图被本轮截图替换。因开始时旧图干净，先把新图保存在build/c4a-company-route，再逐件从HEAD恢复历史原图，无历史证据丢失。以后图形路线必须显式传-- --output=res://build/<本阶段目录>，不要重新生成历史证据身份。

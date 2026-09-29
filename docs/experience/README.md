@@ -25,3 +25,5 @@
 
 | 公共现场实际转运与路权交接 | 死亡居民不再消费跨路段；小组末段斜向地面停住 | C3b三处真实车流及书屋转运验证一次；正式服务生态开放 | [公共导航与现场路权](patterns/navigation-endpoints.md) |
 | 图形窗口启动覆盖 | 初始化隐藏/最小化后仍可见，运行中hide报错 | 本机Godot4.7.1修正后最小化/无焦点/鼠标可见验证一次 | [后台窗口状态](patterns/background-window-state.md) |
+
+| 程序化地表细节与像素足迹 | 近处砖缝正常，远处出现点线，MSAA未改善材质内部混叠 | C4a静态同位对比验证一次，移动镜头待验 | [地表过滤](patterns/procedural-surface-filtering.md) |
