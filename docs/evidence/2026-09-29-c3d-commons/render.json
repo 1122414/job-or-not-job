@@ -1,0 +1,391 @@
+{
+	"east-daily-life": {
+		"camera": [
+			20.0,
+			1.75,
+			41.0
+		],
+		"commons": {
+			"memories": {},
+			"player_slot": "",
+			"schema": 1,
+			"visits": {
+				"resident_he_yue": {
+					"seated": false,
+					"slot": "commons_west_0/1"
+				},
+				"resident_liang_bo": {
+					"seated": false,
+					"slot": "commons_east_0/0"
+				},
+				"resident_song_an": {
+					"seated": false,
+					"slot": "commons_west_1/0"
+				},
+				"resident_su_wan": {
+					"seated": false,
+					"slot": "commons_west_1/1"
+				},
+				"resident_zhao_lin": {
+					"seated": true,
+					"slot": "commons_east_0/1"
+				},
+				"resident_zhou_ning": {
+					"seated": false,
+					"slot": "commons_west_0/0"
+				}
+			}
+		},
+		"target": [
+			16.0,
+			1.0,
+			35.0
+		]
+	},
+	"guard": {
+		"captured": {
+			"east": true,
+			"north": true,
+			"pair": true,
+			"player": true,
+			"reading": true,
+			"west": true
+		},
+		"ordinary_play_performance": false,
+		"pointer_visible": true,
+		"root_focused": false,
+		"root_minimized": true,
+		"root_unfocusable": true
+	},
+	"neighbours-talking": {
+		"camera": [
+			19.5973300933838,
+			1.62044906616211,
+			38.5382423400879
+		],
+		"commons": {
+			"memories": {},
+			"player_slot": "",
+			"schema": 1,
+			"visits": {
+				"resident_he_yue": {
+					"seated": false,
+					"slot": "commons_west_0/1"
+				},
+				"resident_liang_bo": {
+					"seated": true,
+					"slot": "commons_east_0/0"
+				},
+				"resident_lu_yang": {
+					"seated": false,
+					"slot": "commons_east_1/0"
+				},
+				"resident_song_an": {
+					"seated": false,
+					"slot": "commons_west_1/0"
+				},
+				"resident_su_wan": {
+					"seated": true,
+					"slot": "commons_west_1/1"
+				},
+				"resident_zhao_lin": {
+					"seated": true,
+					"slot": "commons_east_0/1"
+				},
+				"resident_zhou_ning": {
+					"seated": true,
+					"slot": "commons_west_0/0"
+				}
+			}
+		},
+		"target": [
+			16.5973300933838,
+			0.970449030399323,
+			35.0382423400879
+		]
+	},
+	"north-daily-life": {
+		"camera": [
+			-14.0,
+			1.75,
+			84.0
+		],
+		"commons": {
+			"memories": {
+				"resident_liang_bo": {
+					"day": 0,
+					"place": "east",
+					"topic": "work"
+				}
+			},
+			"player_slot": "",
+			"schema": 1,
+			"visits": {
+				"resident_he_yue": {
+					"seated": false,
+					"slot": "commons_east_1/1"
+				},
+				"resident_lin_qiao": {
+					"seated": false,
+					"slot": "commons_west_0/0"
+				},
+				"resident_lu_yang": {
+					"seated": true,
+					"slot": "commons_north_0/0"
+				},
+				"resident_su_wan": {
+					"seated": false,
+					"slot": "commons_west_0/1"
+				},
+				"resident_tang_ke": {
+					"seated": false,
+					"slot": "commons_north_1/0"
+				},
+				"resident_wu_fan": {
+					"seated": true,
+					"slot": "commons_east_1/0"
+				},
+				"resident_zhao_lin": {
+					"seated": false,
+					"slot": "commons_north_1/1"
+				},
+				"resident_zhou_ning": {
+					"seated": false,
+					"slot": "commons_west_1/0"
+				}
+			}
+		},
+		"target": [
+			-18.0,
+			1.0,
+			78.0
+		]
+	},
+	"player-joins": {
+		"camera": [
+			19.0,
+			1.64999997615814,
+			39.0
+		],
+		"commons": {
+			"memories": {},
+			"player_slot": "commons_east_0/1",
+			"schema": 1,
+			"visits": {
+				"resident_he_yue": {
+					"seated": true,
+					"slot": "commons_west_0/1"
+				},
+				"resident_liang_bo": {
+					"seated": true,
+					"slot": "commons_east_0/0"
+				},
+				"resident_lu_yang": {
+					"seated": false,
+					"slot": "commons_east_1/0"
+				},
+				"resident_song_an": {
+					"seated": true,
+					"slot": "commons_west_1/0"
+				},
+				"resident_su_wan": {
+					"seated": true,
+					"slot": "commons_west_1/1"
+				},
+				"resident_zhou_ning": {
+					"seated": true,
+					"slot": "commons_west_0/0"
+				}
+			}
+		},
+		"target": [
+			16.0,
+			1.0,
+			35.0
+		]
+	},
+	"player-leaves": {
+		"camera": [
+			19.0,
+			1.64999997615814,
+			39.0
+		],
+		"commons": {
+			"memories": {
+				"resident_liang_bo": {
+					"day": 0,
+					"place": "east",
+					"topic": "work"
+				}
+			},
+			"player_slot": "",
+			"schema": 1,
+			"visits": {
+				"resident_he_yue": {
+					"seated": true,
+					"slot": "commons_west_0/1"
+				},
+				"resident_liang_bo": {
+					"seated": true,
+					"slot": "commons_east_0/0"
+				},
+				"resident_lu_yang": {
+					"seated": false,
+					"slot": "commons_east_1/0"
+				},
+				"resident_song_an": {
+					"seated": true,
+					"slot": "commons_west_1/0"
+				},
+				"resident_su_wan": {
+					"seated": true,
+					"slot": "commons_west_1/1"
+				},
+				"resident_zhou_ning": {
+					"seated": true,
+					"slot": "commons_west_0/0"
+				}
+			}
+		},
+		"target": [
+			16.0,
+			1.0,
+			35.0
+		]
+	},
+	"reading-contact": {
+		"camera": [
+			17.0160465240479,
+			1.22041690349579,
+			37.0258560180664
+		],
+		"commons": {
+			"memories": {},
+			"player_slot": "",
+			"schema": 1,
+			"visits": {
+				"resident_he_yue": {
+					"seated": false,
+					"slot": "commons_west_0/1"
+				},
+				"resident_liang_bo": {
+					"seated": false,
+					"slot": "commons_east_0/0"
+				},
+				"resident_song_an": {
+					"seated": false,
+					"slot": "commons_west_1/0"
+				},
+				"resident_su_wan": {
+					"seated": false,
+					"slot": "commons_west_1/1"
+				},
+				"resident_zhao_lin": {
+					"seated": true,
+					"slot": "commons_east_0/1"
+				},
+				"resident_zhou_ning": {
+					"seated": false,
+					"slot": "commons_west_0/0"
+				}
+			}
+		},
+		"target": [
+			15.4160470962524,
+			0.820416927337646,
+			35.0258560180664
+		]
+	},
+	"shared-time": {
+		"camera": [
+			19.0,
+			1.64999997615814,
+			39.0
+		],
+		"commons": {
+			"memories": {
+				"resident_liang_bo": {
+					"day": 0,
+					"place": "east",
+					"topic": "work"
+				}
+			},
+			"player_slot": "commons_east_0/1",
+			"schema": 1,
+			"visits": {
+				"resident_he_yue": {
+					"seated": true,
+					"slot": "commons_west_0/1"
+				},
+				"resident_liang_bo": {
+					"seated": true,
+					"slot": "commons_east_0/0"
+				},
+				"resident_lu_yang": {
+					"seated": false,
+					"slot": "commons_east_1/0"
+				},
+				"resident_song_an": {
+					"seated": true,
+					"slot": "commons_west_1/0"
+				},
+				"resident_su_wan": {
+					"seated": true,
+					"slot": "commons_west_1/1"
+				},
+				"resident_zhou_ning": {
+					"seated": true,
+					"slot": "commons_west_0/0"
+				}
+			}
+		},
+		"target": [
+			16.0,
+			1.0,
+			35.0
+		]
+	},
+	"west-daily-life": {
+		"camera": [
+			-16.0,
+			1.75,
+			41.0
+		],
+		"commons": {
+			"memories": {},
+			"player_slot": "",
+			"schema": 1,
+			"visits": {
+				"resident_he_yue": {
+					"seated": false,
+					"slot": "commons_west_0/1"
+				},
+				"resident_liang_bo": {
+					"seated": false,
+					"slot": "commons_east_0/0"
+				},
+				"resident_song_an": {
+					"seated": false,
+					"slot": "commons_west_1/0"
+				},
+				"resident_su_wan": {
+					"seated": false,
+					"slot": "commons_west_1/1"
+				},
+				"resident_zhao_lin": {
+					"seated": true,
+					"slot": "commons_east_0/1"
+				},
+				"resident_zhou_ning": {
+					"seated": true,
+					"slot": "commons_west_0/0"
+				}
+			}
+		},
+		"target": [
+			-20.0,
+			1.0,
+			35.0
+		]
+	}
+}

@@ -169,16 +169,21 @@ func tree(at: Vector3,seed_value: int) -> void:
 				pose=pose.scaled_local(Vector3(.16,1,.32)*rng.randf_range(.7,1.2))
 				piece("leaf",["leaf_dark","leaf_mid","leaf_light"][rng.randi_range(0,2)],Transform3D(pose,tip+offset))
 
-func bench(at: Vector3,yaw: float=0) -> void:
+func bench(at: Vector3,yaw: float=0,id: String="") -> StaticBody3D:
 	var rot := Basis(Vector3.UP,yaw)
-	for dx in [-.95,.95]: solid(Vector3(.14,.44,.6),at+rot*Vector3(dx,.22,0),"metal",yaw)
-	for slat in range(4): box(Vector3(2.4,.07,.13),at+rot*Vector3(0,.47,-.23+slat*.15),"timber",yaw)
-	var seat := StaticBody3D.new()
+	var seat: StaticBody3D=StaticBody3D.new() if id=="" else CityBench.new()
+	if seat is CityBench: seat.stable_id=id
 	add_child(seat)
-	seat.position=at+Vector3(0,.47,0)
+	seat.position=at
 	seat.rotation.y=yaw
-	Shapes.collider(seat,Vector3(2.4,.07,.6))
-	solid(Vector3(2.4,.55,.12),at+rot*Vector3(0,.8,.3),"timber",yaw)
+	for dx in [-.95,.95]:
+		box(Vector3(.14,.44,.6),at+rot*Vector3(dx,.22,0),"metal",yaw)
+		Shapes.collider(seat,Vector3(.14,.44,.6),Vector3(dx,.22,0))
+	for slat in range(4): box(Vector3(2.4,.07,.13),at+rot*Vector3(0,.47,-.23+slat*.15),"timber",yaw)
+	Shapes.collider(seat,Vector3(2.4,.07,.6),Vector3(0,.47,0))
+	box(Vector3(2.4,.55,.12),at+rot*Vector3(0,.8,.3),"timber",yaw)
+	Shapes.collider(seat,Vector3(2.4,.55,.12),Vector3(0,.8,.3))
+	return seat
 
 func lamp(at: Vector3) -> void:
 	solid(Vector3(.13,4.4,.13),at+Vector3(0,2.2,0),"metal")

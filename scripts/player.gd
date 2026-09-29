@@ -24,7 +24,7 @@ var hp := 100
 var protection := 0.0
 var dead := 0.0
 var seated := false
-var seat_body: OfficeProp
+var seat_body: PhysicsBody3D
 var body_shape: CollisionShape3D
 
 func _ready() -> void:
@@ -108,8 +108,9 @@ func _physics_process(delta: float) -> void:
 	spring.spring_length=lerpf(spring.spring_length,6.4 if game.driving.in_vehicle() else 2.15 if seated else 3.1,1.0-exp(-delta*5.0))
 	# Camera-relative controls stay unchanged; feet follow the actual travel direction.
 	var facing := atan2(-velocity.x,-velocity.z) if Vector2(velocity.x,velocity.z).length()>0.2 and swing<=0 and not seated else yaw
+	if game.commons and game.commons.player_bench(): facing=game.commons.player_bench().rotation.y
 	visual.rotation.y = lerp_angle(visual.rotation.y,facing,1.0-exp(-delta*14.0))
-	visual.pose(Vector2(velocity.x,velocity.z).length(),swing>0,dead>0,seated,game.interviews.player_seated() or game.in_vehicle())
+	visual.pose(Vector2(velocity.x,velocity.z).length(),swing>0,dead>0,seated,game.interviews.player_seated() or game.in_vehicle() or game.commons!=null and game.commons.player_bench()!=null)
 	var speaker: OfficeNPC=game.speaker if game.speaker is OfficeNPC else null
 	if speaker==null and game.interviews.player_seated():
 		var session: Dictionary=game.interviews.sessions[game.interviews.active_firm()]
@@ -234,6 +235,8 @@ func hurt(amount: int) -> void:
 	game.impact()
 
 	if hp == 0:
+		if game.commons: game.commons.player_slot=""
+		seated=false
 		game.driving.detach()
 		game.transit.detach()
 		dead = 2.0
@@ -268,6 +271,10 @@ func cycle_item() -> void:
 	game.queue_save()
 
 func respawn() -> void:
+	if seat_body: remove_collision_exception_with(seat_body)
+	seat_body=null
+	seated=false
+	if game.commons: game.commons.player_slot=""
 	game.driving.detach()
 	game.transit.detach()
 	position = game.safe_spawn(global_position)
@@ -277,18 +284,19 @@ func respawn() -> void:
 	visual.rotation.z = 0
 	game.say("已在附近复活 · 5 秒保护 · 装备与世界后果保留")
 
-func sit_at(point: Vector3) -> void:
+func sit_at(point: Vector3,seat: PhysicsBody3D=null,facing: float=0) -> void:
 	store_held()
 	if seat_body: remove_collision_exception_with(seat_body)
-	seat_body=null
-	for prop in game.props:
+	seat_body=seat
+	if seat: add_collision_exception_with(seat)
+	for prop in ([] if seat else game.props):
 		if prop.stable_id.ends_with("_seat") and Vector2(prop.position.x-point.x,prop.position.z-point.z).length()<0.5:
 			seat_body=prop
 			add_collision_exception_with(prop)
 			break
 	position=point
 	velocity=Vector3.ZERO
-	yaw=0
+	yaw=facing
 	seated=true
 
 func stand_up() -> bool:
@@ -302,14 +310,19 @@ func stand_up() -> bool:
 	query.margin=0.005
 	query.collision_mask=3
 	query.exclude=[get_rid()]
-	for offset in [Vector3(0,0,0.85),Vector3(0.85,0,0),Vector3(-0.85,0,0),Vector3(0,0,1.5)]:
-		var point: Vector3=position+offset.rotated(Vector3.UP,yaw)
+	var facing: float=game.commons.player_bench().rotation.y if game.commons and game.commons.player_bench() else yaw
+	var offsets := [Vector3(0,0,0.85),Vector3(0.85,0,0),Vector3(-0.85,0,0),Vector3(0,0,1.5)]
+	if game.commons and game.commons.player_bench(): offsets.push_front(Vector3(0,0,-.95))
+	for offset in offsets:
+		var point: Vector3=position+offset.rotated(Vector3.UP,facing)
 		query.transform.origin=point+Vector3.UP*0.94
 		if get_world_3d().direct_space_state.intersect_shape(query,1).is_empty():
 			position=point
 			seated=false
 			if seat_body: remove_collision_exception_with(seat_body)
 			seat_body=null
+			if game.commons: game.commons.player_slot=""
+			game.queue_save()
 			return true
 	game.say("起身空间被挡住了，请先挪开周围物品。")
 	return false

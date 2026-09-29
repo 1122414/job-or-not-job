@@ -67,6 +67,7 @@ func _draw() -> void:
 	if not scene_dialogue: text_at(Vector2(w-92,h-25),"H  帮助",14,Color("c7cdd0"))
 	if game.city_life and game.panels.page=="" and game.conversation.is_empty():
 		var caption: String=game.city_life.caption()
+		if caption=="" and game.commons: caption=game.commons.caption()
 		if caption!="":
 			var width := minf(780,w-340)
 			var subtitle_lines := wrap_lines(caption,width-40,19)

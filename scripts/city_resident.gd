@@ -8,6 +8,8 @@ var stable_id := ""
 var title := ""
 var visual: HumanVisual
 var body: CollisionShape3D
+var seat_body: PhysicsBody3D
+var pastime_book: Node3D
 var state := "activity"
 var destination := ""
 var from_node := ""
@@ -45,6 +47,8 @@ func _ready() -> void:
 	visual.variation=index
 	visual.personality=["friend","lead","group","hr"][index%4]
 	add_child(visual)
+	make_pastime_book()
+	visual.animation.mixer_applied.connect(sync_pastime_book)
 	activity_left=2.0+index*1.4
 	destination=from_node
 	phase=population.time_phase()
@@ -53,6 +57,7 @@ func available() -> bool:
 	return hp>0 and down<=0 and (not game.response or not game.response.carried(self))
 
 func plan(to: String) -> void:
+	if game.commons and game.commons.visits.get(stable_id,{}).get("slot","").get_slice("/",0)!=to: game.commons.release(self)
 	destination=to
 	route=population.path(position,to)
 	from_node=population.closest(position)
@@ -82,6 +87,8 @@ func _physics_process(delta: float) -> void:
 	elif game.speaker==self:
 		state="talking"
 		velocity=Vector3.ZERO
+	elif game.commons and game.commons.attend(self,delta):
+		if state=="talking": state="activity"
 	else:
 		if state=="talking": state="walking" if not route.is_empty() else "activity"
 		if state=="activity":
@@ -93,10 +100,13 @@ func _physics_process(delta: float) -> void:
 		else: velocity=Vector3.ZERO
 	var falling := state in ["fallen","dead"]
 	visual.rotation.z=move_toward(visual.rotation.z,PI/2 if falling else 0,delta*7)
-	visual.position.y=.27 if falling else 0.0
-	if velocity.length()>.1:
+	var seated: bool=game.commons!=null and game.commons.sitting(self)
+	visual.position.y=move_toward(visual.position.y,.27 if falling else visual.seated_offset.y if seated else 0.0,delta*2.5)
+	if seat_body and game.commons and game.commons.slot_bench(game.commons.visits.get(stable_id,{}).get("slot",""))==seat_body:
+		visual.rotation.y=lerp_angle(visual.rotation.y,seat_body.rotation.y,1-exp(-delta*8))
+	elif velocity.length()>.1:
 		visual.rotation.y=lerp_angle(visual.rotation.y,atan2(-velocity.x,-velocity.z),1-exp(-delta*8))
-	elif state=="talking":
+	elif state=="talking" and not seated:
 		var direction: Vector3=game.player.position-position
 		visual.rotation.y=lerp_angle(visual.rotation.y,atan2(-direction.x,-direction.z),1-exp(-delta*5))
 	var sharing: bool=game.city_life!=null and game.city_life.present(self)
@@ -104,7 +114,11 @@ func _physics_process(delta: float) -> void:
 		var look: Vector3=game.city_life.focus_position()-position
 		visual.rotation.y=lerp_angle(visual.rotation.y,atan2(-look.x,-look.z),1-exp(-delta*5))
 	var telling: bool=sharing and index==CityLife.AUDIENCE[mini(2,int(game.city_life.elapsed/6))]
-	visual.pose(Vector2(velocity.x,velocity.z).length(),false,falling,false,false,false,state=="talking" or telling)
+	if seated: visual.rotation.y=lerp_angle(visual.rotation.y,seat_body.rotation.y,1-exp(-delta*8))
+	var reading: bool=game.commons!=null and game.commons.reading(self)
+	visual.scene_action="read" if reading else ""
+	visual.pose(Vector2(velocity.x,velocity.z).length(),false,falling,seated,seated,false,state=="talking" or telling or game.commons!=null and game.commons.telling(self))
+	if not reading: pastime_book.hide()
 	visual.rotation.y=wrapf(visual.rotation.y,-PI,PI)
 	update_body()
 	if not is_on_floor(): velocity.y=-4
@@ -116,9 +130,11 @@ func _physics_process(delta: float) -> void:
 
 func update_body() -> void:
 	var falling := hp==0 or down>0
+	var seated: bool=game.commons!=null and game.commons.sitting(self)
+	body.shape.height=1.3 if seated else 1.75
 	var facing := Basis(Vector3.UP,visual.rotation.y)
 	body.basis=facing*Basis(Vector3.BACK,PI/2) if falling else Basis.IDENTITY
-	body.position=facing*Vector3(-.65,.28,0) if falling else Vector3(0,.88,0)
+	body.position=facing*Vector3(-.65,.28,0) if falling else Vector3(0,.68 if seated else .88,0)
 
 func walk(_delta: float) -> void:
 	if route.is_empty():
@@ -169,12 +185,14 @@ func walk(_delta: float) -> void:
 	velocity=direction*(2.8 if fear>0 else 1.5+index%3*.08)
 
 func avoid(threat: Vector3) -> void:
+	if game.commons: game.commons.release(self)
 	fear=20.0
 	if game.speaker==self: game.close_interaction()
 	if crossing=="" and available(): plan(population.refuge(self,threat))
 
 func hit(direction: Vector3,strength: float,action: int,dangerous: bool=true) -> void:
 	if hp==0 or action==last_hit or not dangerous and not available(): return
+	if game.commons: game.commons.release(self)
 	last_hit=action
 	hits+=1
 	apologized=false
@@ -191,7 +209,7 @@ func hit(direction: Vector3,strength: float,action: int,dangerous: bool=true) ->
 	game.queue_save()
 
 func snapshot() -> Dictionary:
-	return {"position":SaveGame.vector(position),"yaw":visual.rotation.y,"state":state,"destination":destination,"from_node":from_node,"route":route.duplicate(),"crossing":crossing,"activity_left":activity_left,"phase":phase,"journey":journey,"visits":visits.duplicate(),"hp":hp,"down":down,"fear":fear,"hits":hits,"witnessed":witnessed,"met":met,"apologized":apologized,"conversations":conversations}
+	return {"position":SaveGame.vector(position),"yaw":wrapf(visual.rotation.y,-PI,PI),"state":state,"destination":destination,"from_node":from_node,"route":route.duplicate(),"crossing":crossing,"activity_left":activity_left,"phase":phase,"journey":journey,"visits":visits.duplicate(),"hp":hp,"down":down,"fear":fear,"hits":hits,"witnessed":witnessed,"met":met,"apologized":apologized,"conversations":conversations}
 
 func valid(data: Variant) -> bool:
 	if not data is Dictionary or not SaveGame.valid_vector(data.get("position")): return false
@@ -242,3 +260,30 @@ func restore(data: Dictionary) -> void:
 	visits.assign(data.visits)
 	if state=="talking": state="walking" if not route.is_empty() else "activity"
 	update_body()
+
+func make_pastime_book() -> void:
+	pastime_book=Node3D.new()
+	add_child(pastime_book)
+	Shapes.box(pastime_book,Vector3(.36,.018,.25),Vector3.ZERO,Color("477473"))
+	Shapes.box(pastime_book,Vector3(.34,.014,.23),Vector3(0,.013,0),Color("e4d8b9"))
+	Shapes.box(pastime_book,Vector3(.004,.004,.22),Vector3(0,.023,0),Color("786c59"))
+	for side in [-1,1]:
+		for line in range(6): Shapes.box(pastime_book,Vector3(.12,.002,.004),Vector3(side*.085,.023,-.07+line*.025),Color("776e5e"))
+	pastime_book.hide()
+
+func sync_pastime_book() -> void:
+	if not pastime_book or not game.commons: return
+	if game.commons.sitting(self) and not game.commons.reading(self):
+		var other: Node3D=game.player if game.speaker==self else game.commons.companion(self)
+		if other:
+			var toward := visual.to_local(other.global_position)-visual.to_local(global_position)
+			var head := visual.skeleton.find_bone("head")
+			var turn := clampf(atan2(-toward.x,-toward.z),-.5,.5)
+			visual.skeleton.set_bone_pose_rotation(head,visual.skeleton.get_bone_pose_rotation(head)*Quaternion(Vector3.UP,turn))
+	pastime_book.visible=game.commons.reading(self) and visual.current=="read"
+	if not pastime_book.visible: return
+	pastime_book.global_transform=visual.global_transform*Transform3D(Basis(Vector3.RIGHT,.35),Vector3(0,visual.standing_height*.65,-.36))
+	for side in ["L","R"]:
+		var support := Transform3D(Basis(Vector3.RIGHT,Vector3.FORWARD,Vector3.UP),Vector3(-.13 if side=="L" else .13,-.015,0))
+		visual.contacts.reach(side,pastime_book.global_transform*support)
+		visual.contacts.fingers(side,.10)

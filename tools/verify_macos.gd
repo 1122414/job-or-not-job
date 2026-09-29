@@ -51,6 +51,20 @@ func run() -> void:
 			push_error("Packaged public gallery is obstructed")
 			quit(1)
 			return
+	if game.commons.benches.size()!=6 or SaveGame.VERSION!=18:
+		push_error("Packaged public commons missing"); quit(1); return
+	var commons_original := SaveGame.snapshot(game)
+	game.set_process(false)
+	var neighbour: CityResident=game.population.residents[0]
+	neighbour.plan(game.commons.reserve(neighbour,"commons_west_0"))
+	for i in range(12000):
+		await physics_frame
+		if game.commons.sitting(neighbour): break
+	if not game.commons.sitting(neighbour) or not SaveGame.restore(game,JSON.parse_string(JSON.stringify(SaveGame.snapshot(game)))):
+		push_error("Packaged resident cannot naturally use and restore a bench"); quit(1); return
+	print("PACKAGED_COMMONS benches=6 schema=18 natural_seating=true json_restore=true")
+	if not SaveGame.restore(game,commons_original): quit(1); return
+	game.set_process(true)
 	var urban_original := SaveGame.snapshot(game)
 	var urban_old := JSON.parse_string(JSON.stringify(urban_original)) as Dictionary
 	urban_old.player.position=[-18,0,32]
@@ -295,6 +309,8 @@ func run() -> void:
 		await physics_frame
 		if game.response.resting(patient): break
 	if not game.response.resting(patient) or patient.hp!=0 or not SaveGame.restore(game,JSON.parse_string(JSON.stringify(SaveGame.snapshot(game)))):
+		var failed := SaveGame.snapshot(game)
+		print("PACKAGED_RESPONSE_DIAG resting=",game.response.resting(patient)," hp=",patient.hp," commons_valid=",game.commons.valid(failed.city_commons,failed)," case=",game.response.cases.get(patient.stable_id)," visit=",game.commons.visits.get(patient.stable_id))
 		push_error("Packaged actual crew transfer or persistence failed"); quit(1); return
 	game.toggle_menu()
 	if DisplayServer.get_name()!="headless":

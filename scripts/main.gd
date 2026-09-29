@@ -48,6 +48,7 @@ var driving: CityDriving
 var population: CityPopulation
 var city_life: CityLife
 var response: CityResponse
+var commons: CityCommons
 
 func _ready() -> void:
 	bind_inputs()
@@ -89,6 +90,9 @@ func _ready() -> void:
 	response=CityResponse.new()
 	response.game=self
 	add_child(response)
+	commons=CityCommons.new()
+	commons.game=self
+	add_child(commons)
 	build_ui()
 	build_audio()
 	interview_audio=InterviewAudio.new()
@@ -242,7 +246,7 @@ func navigation_target() -> Node3D:
 	return transit.station_for(transit.waypoint) if transit.waypoint!="" else ObjectiveGuide.target(self)
 
 func targets() -> Array:
-	return npcs + stations + props + (driving.cars.filter(func(car): return not car.traffic) if driving else []) + (population.residents if population else []) + (city_life.points if city_life else [])
+	return npcs + stations + props + (driving.cars.filter(func(car): return not car.traffic) if driving else []) + (population.residents if population else []) + (city_life.points if city_life else []) + (commons.benches.values() if commons else [])
 
 func nearest() -> Node3D:
 	var best: Node3D
@@ -254,6 +258,7 @@ func nearest() -> Node3D:
 		offset.y = 0
 		var d := offset.length()
 		var score: float = d*(0.4 if node is WorkStation or node is CityActivityPoint else 0.55 if node is OfficeNPC else 1.0)
+		if node is CityBench: score=d*(1.15 if player.seated else .65)+(.8 if commons.player_bench()==node else 0.0)
 		var arriving: bool=node is OfficeNPC and not node.dead and not visit.is_empty() and visit.npc==node.role_id and career.facts.get("visit_state_"+visit.key,"")=="arrived"
 		if arriving: score-=1.0
 		if d<3.0 and score < distance and (arriving or (node is WorkStation and d<0.7) or offset.normalized().dot(player.forward()) > 0.2) and can_see(player,node):
@@ -263,7 +268,7 @@ func nearest() -> Node3D:
 
 func can_see(from: Node3D, to: Node3D) -> bool:
 	var start := from.global_position + Vector3.UP*1.35
-	var end := to.global_position + (Vector3.UP*1.2 if to is CharacterBody3D or to is WorkStation or to is CityActivityPoint else Vector3.ZERO)
+	var end := to.global_position + (Vector3.UP*.6 if to is CityBench else Vector3.UP*1.2 if to is CharacterBody3D or to is WorkStation or to is CityActivityPoint else Vector3.ZERO)
 	var query := PhysicsRayQueryParameters3D.create(start,end)
 	if from is CollisionObject3D: query.exclude = [from.get_rid()]
 	if to is WorkStation and to.stable_id.begins_with("desk_"):
@@ -292,6 +297,9 @@ func interact() -> void:
 		return
 	if interviews.advance(): return
 	var target := nearest()
+	if target is CityBench:
+		commons.use_bench(target)
+		return
 	if target is CityActivityPoint:
 		city_life.open_point(target)
 		return
