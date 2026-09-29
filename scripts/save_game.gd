@@ -1,7 +1,7 @@
 class_name SaveGame
 extends RefCounted
 
-const VERSION := 11
+const VERSION := 12
 const BASE_NPCS := ["a_hr","a_lead","a_boss","a_friend","a_group","a_guard","b_hr","b_friend","b_boss","b_guard"]
 const LEGACY_PROPS := ["a_keyboard","a_cup","a_table","a_chair","a_printer","b_keyboard","b_cup","b_table","b_chair","b_printer"]
 const PATH := "user://neighborhood.json"
@@ -21,6 +21,7 @@ static func fields(object: RefCounted, names: Array) -> Dictionary:
 
 static func snapshot(game: Node3D) -> Dictionary:
 	var data := {"version":VERSION,"badge_schema":1,"recruitment":game.recruitment.snapshot(),"career":fields(game.career,CAREER_FIELDS),"payroll":fields(game.payroll,PAYROLL_FIELDS),"action_counter":game.action_counter,"props":{},"npcs":{},"player":{"position":vector(game.player.position),"yaw":game.player.yaw,"pitch":game.player.pitch,"hp":game.player.hp,"protection":game.player.protection},"shake":game.shake_enabled,"staffing":game.staffing.calm.duplicate(),"interviews":game.interviews.sessions.duplicate(true),"onboarding":game.onboarding.tour.duplicate(true),"social":{"people":game.social.people.duplicate(true),"outing":game.social.outing.duplicate(true)}}
+	data.city_transit=game.transit.snapshot()
 	for prop in game.props:
 		var location := "held" if game.player.held==prop else "bag" if game.player.inventory.has(prop) else "world"
 		data.props[prop.stable_id]={"position":vector(prop.position),"rotation":vector(prop.rotation),"location":location,"damaged":prop.damaged,"durability":prop.durability,"tipped":prop.tipped}
@@ -36,7 +37,7 @@ static func valid_vector(value: Variant) -> bool:
 
 static func valid(data: Variant, game: Node3D) -> bool:
 	if not data is Dictionary: return false
-	if data.get("version")!=1 and data.get("version")!=2 and data.get("version")!=3 and data.get("version")!=4 and data.get("version")!=5 and data.get("version")!=6 and data.get("version")!=7 and data.get("version")!=8 and data.get("version")!=9 and data.get("version")!=10 and data.get("version")!=VERSION: return false
+	if data.get("version")!=1 and data.get("version")!=2 and data.get("version")!=3 and data.get("version")!=4 and data.get("version")!=5 and data.get("version")!=6 and data.get("version")!=7 and data.get("version")!=8 and data.get("version")!=9 and data.get("version")!=10 and data.get("version")!=11 and data.get("version")!=VERSION: return false
 	for field in ["career","payroll","props","npcs","player"]:
 		if not data.get(field) is Dictionary: return false
 	for field in CAREER_FIELDS:
@@ -150,6 +151,9 @@ static func valid(data: Variant, game: Node3D) -> bool:
 				if session.phase=="reply" and (session.step>=content.size() or session.reply>=content[int(session.step)][1].size()): return false
 			for answer in session.answers:
 				if not answer is String: return false
+	if data.version>=12:
+		if not game.transit.valid(data.get("city_transit")): return false
+		if data.city_transit.riding and (data.player.hp<=0 or held_count>0): return false
 	if data.version>=11 and not RecruitmentFlow.valid(data.get("recruitment")): return false
 	if data.version>=10 and not Onboarding.valid(data.get("onboarding")): return false
 	if data.version>=9 and not SocialLife.valid(data.get("social"),data.npcs): return false
@@ -193,6 +197,7 @@ static func write(game: Node3D, path: String = PATH) -> Error:
 
 static func restore(game: Node3D, data: Dictionary) -> bool:
 	if not valid(data,game): return false
+	game.transit.detach()
 	game.restore_revision+=1
 	game.close_interaction()
 	game.office.preview_station=null
@@ -320,6 +325,7 @@ static func restore(game: Node3D, data: Dictionary) -> bool:
 	game.player.velocity=Vector3.ZERO
 	game.player.visual.rotation.z=0
 	if game.player.hp==0: game.player.respawn()
+	game.transit.restore(data.get("city_transit",{}) if data.version>=12 else {})
 	for station in game.stations:
 		if station.stable_id=="backup": station.label.text="投影已恢复 · 成果已记录" if game.career.facts.has("output_two") else station.title
 	# Validate only obstructed actor positions against the current furniture/ceiling layout.

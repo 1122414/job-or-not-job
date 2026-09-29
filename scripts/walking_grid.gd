@@ -12,7 +12,7 @@ func build(game: Node3D) -> void:
 	grid.cell_size=Vector2(0.5,0.5)
 	grid.diagonal_mode=AStarGrid2D.DIAGONAL_MODE_ONLY_IF_NO_OBSTACLES
 	grid.update()
-	excluded = [game.player.get_rid()]
+	excluded = [game.player.get_rid(),game.transit.bus.get_rid()]
 	for npc in game.npcs: excluded.append(npc.get_rid())
 	for prop in game.props:
 		if prop.portable(): excluded.append(prop.get_rid())

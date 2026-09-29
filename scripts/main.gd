@@ -43,6 +43,7 @@ var audio: AudioStreamPlayer
 var interview_audio: InterviewAudio
 var shake_enabled := true
 var navigation_dirty := -1.0
+var transit: CityTransit
 
 func _ready() -> void:
 	bind_inputs()
@@ -69,6 +70,9 @@ func _ready() -> void:
 	add_station("handover","交接终端",OfficeRooms.point(self,"b","handover"))
 	add_station("rest","公交站 · 休息",Vector3(-2,0,14))
 	for firm in ["a","b"]: add_station("interview_"+firm,"01 面试室",OfficeRooms.point(self,firm,"interview_seat"))
+	transit=CityTransit.new()
+	transit.game=self
+	add_child(transit)
 	build_ui()
 	build_audio()
 	interview_audio=InterviewAudio.new()
@@ -82,7 +86,7 @@ func bind_inputs() -> void:
 		ui_button.button_index=JOY_BUTTON_A if action=="ui_accept" else JOY_BUTTON_B
 		ui_button.device=-1
 		if not InputMap.action_has_event(action,ui_button): InputMap.action_add_event(action,ui_button)
-	var keys := {"forward":KEY_W,"back":KEY_S,"left":KEY_A,"right":KEY_D,"run":KEY_SHIFT,"jump":KEY_SPACE,"interact":KEY_E,"drop":KEY_G,"cancel":KEY_ESCAPE,"bag":KEY_TAB,"store":KEY_Q,"cycle":KEY_R,"save":KEY_F5,"load":KEY_F9,"journal":KEY_J,"ledger":KEY_L,"help":KEY_H,"history":KEY_K,"dangerous":KEY_ALT,"people":KEY_P,"messages":KEY_N,"promises":KEY_O}
+	var keys := {"city":KEY_M,"forward":KEY_W,"back":KEY_S,"left":KEY_A,"right":KEY_D,"run":KEY_SHIFT,"jump":KEY_SPACE,"interact":KEY_E,"drop":KEY_G,"cancel":KEY_ESCAPE,"bag":KEY_TAB,"store":KEY_Q,"cycle":KEY_R,"save":KEY_F5,"load":KEY_F9,"journal":KEY_J,"ledger":KEY_L,"help":KEY_H,"history":KEY_K,"dangerous":KEY_ALT,"people":KEY_P,"messages":KEY_N,"promises":KEY_O}
 	for action in keys:
 		InputMap.add_action(action)
 		var event := InputEventKey.new()
@@ -164,11 +168,14 @@ func _process(delta: float) -> void:
 	player.camera.h_offset = lerpf(player.camera.h_offset,0,delta*15)
 
 func location_name() -> String:
-	if player.position.z > 2: return "下班路 · 公共街区"
+	if player.position.z>2 or absf(player.position.x)>29:
+		var region := CityLayout.region_at(player.position)
+		for entry in CityLayout.REGIONS:
+			if entry.id==region: return entry.title
 	return "规程科技" if player.position.x<0 else "自己人网络"
 
 func alert_level() -> int:
-	if player.position.z>2: return 0
+	if player.position.z>2 or absf(player.position.x)>29: return 0
 	return career.conflict.a if player.position.x<0 else career.conflict.b
 
 func clock_text() -> String:
@@ -178,6 +185,9 @@ func money_text() -> String:
 	return "¥ %.2f · 发薪 第%d天" % [payroll.balance/100.0,payroll.next_payday/1440+1]
 
 func objective_text() -> String:
+	if transit and transit.waypoint!="":
+		for stop in CityLayout.STOPS:
+			if stop.id==transit.waypoint: return "自由探索 · "+stop.title+"（M 更改目的地）"
 	return ObjectiveGuide.current(self).title
 
 func update_daylight() -> void:
@@ -232,8 +242,15 @@ func add_station(id: String, title: String, pos: Vector3) -> void:
 	add_child(station)
 
 func interact() -> void:
+	if transit.riding:
+		transit.open_stop(transit.current_stop if transit.current_stop>=0 else transit.next_stop)
+		return
 	if interviews.advance(): return
 	var target := nearest()
+	if target is WorkStation and target.stable_id.begins_with("bus_"):
+		for i in range(CityLayout.STOPS.size()):
+			if target.stable_id=="bus_"+CityLayout.STOPS[i].id: transit.open_stop(i)
+		return
 	if target is OfficeProp:
 		if target.portable(): player.collect(target)
 		else: player.pick(target)
@@ -526,6 +543,7 @@ func repair_migrated_positions(revision: int) -> void:
 	await get_tree().physics_frame
 	if revision!=restore_revision: return
 	for actor in [player]+npcs:
+		if actor==player and transit.riding: continue
 		if actor!=player and (actor.dead or actor.care_state!="awake"): continue
 		var origin: Vector3=actor.position
 		if position_clear(actor,origin): continue

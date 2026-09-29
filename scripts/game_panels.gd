@@ -57,7 +57,7 @@ func _input(event: InputEvent) -> void:
 	var key: int=event.physical_keycode if event.physical_keycode else event.keycode
 	# Once a page is open, Tab and navigation keys belong to Control focus.
 	if page!="" and key in [KEY_TAB,KEY_ENTER,KEY_KP_ENTER,KEY_SPACE,KEY_UP,KEY_DOWN,KEY_LEFT,KEY_RIGHT]: return
-	for action in ["bag","journal","ledger","help","history","people","messages","promises"]:
+	for action in ["city","bag","journal","ledger","help","history","people","messages","promises"]:
 		if event.is_action_pressed(action):
 			toggle(action)
 			get_viewport().set_input_as_handled()

@@ -78,6 +78,9 @@ func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventMouseMotion and Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
 		look(event.relative)
 	if dead > 0: return
+	if game.transit.riding:
+		if event.is_action_pressed("interact"): game.interact()
+		return
 	if event.is_action_pressed("attack"):
 		if not stand_up(): return
 		game.close_interaction()
@@ -105,7 +108,7 @@ func _physics_process(delta: float) -> void:
 	# Camera-relative controls stay unchanged; feet follow the actual travel direction.
 	var facing := atan2(-velocity.x,-velocity.z) if Vector2(velocity.x,velocity.z).length()>0.2 and swing<=0 and not seated else yaw
 	visual.rotation.y = lerp_angle(visual.rotation.y,facing,1.0-exp(-delta*14.0))
-	visual.pose(Vector2(velocity.x,velocity.z).length(),swing>0,dead>0,seated,game.interviews.player_seated())
+	visual.pose(Vector2(velocity.x,velocity.z).length(),swing>0,dead>0,seated,game.interviews.player_seated() or game.transit.riding)
 	var speaker: OfficeNPC=game.speaker if game.speaker is OfficeNPC else null
 	if speaker==null and game.interviews.player_seated():
 		var session: Dictionary=game.interviews.sessions[game.interviews.active_firm()]
@@ -119,6 +122,9 @@ func _physics_process(delta: float) -> void:
 		dead -= delta
 		visual.rotation.z = 1.4
 		if dead <= 0: respawn()
+		return
+	if game.transit.riding:
+		game.transit.sync_passenger()
 		return
 	if not is_on_floor(): velocity.y -= 22 * delta
 	var input := Input.get_vector("left","right","forward","back")
@@ -134,6 +140,7 @@ func _physics_process(delta: float) -> void:
 	if position.y < -8: hurt(100)
 
 func attack() -> void:
+	if game.transit.riding: return
 	if cooldown > 0: return
 	cooldown = 0.5 if held and held.kind == "keyboard" else 0.7
 	swing = 0.3
@@ -161,6 +168,7 @@ func attack() -> void:
 		game.impact()
 
 func pick(prop: OfficeProp) -> void:
+	if game.transit.riding: return
 	if not prop.portable():
 		if prop.tip(forward(),game.next_action()):
 			game.on_property_hit(prop,game.action_counter)
@@ -197,6 +205,7 @@ func sync_held() -> void:
 		visual.contacts.fingers("L",-0.3)
 
 func release(throwing: bool) -> void:
+	if game.transit.riding: return
 	if not held: return
 	sync_held()
 	var prop := held
@@ -221,6 +230,7 @@ func hurt(amount: int) -> void:
 	game.impact()
 
 	if hp == 0:
+		game.transit.detach()
 		dead = 2.0
 		cooldown = 0
 		swing = 0
@@ -253,6 +263,7 @@ func cycle_item() -> void:
 	game.queue_save()
 
 func respawn() -> void:
+	game.transit.detach()
 	position = game.safe_spawn(global_position)
 	velocity = Vector3.ZERO
 	hp = 100
@@ -275,6 +286,7 @@ func sit_at(point: Vector3) -> void:
 	seated=true
 
 func stand_up() -> bool:
+	if game.transit.riding: return false
 	if not seated: return true
 	var query := PhysicsShapeQueryParameters3D.new()
 	var capsule := CapsuleShape3D.new()

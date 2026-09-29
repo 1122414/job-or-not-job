@@ -11,7 +11,7 @@ func run() -> void:
 	for i in range(3): await physics_frame
 	check(Input.mouse_mode==Input.MOUSE_MODE_VISIBLE,"启动不捕获桌面鼠标")
 	check(not game.player.capture_permitted(),"自动夹具不得申请捕获")
-	for page in ["pause","bag","journal","help","computer","messages","people","history","ledger","promises"]:
+	for page in ["city","transit","pause","bag","journal","help","computer","messages","people","history","ledger","promises"]:
 		game.panels.show_page(page)
 		check(Input.mouse_mode==Input.MOUSE_MODE_VISIBLE,"打开页面释放鼠标："+page)
 		game.panels.back()

@@ -11,7 +11,11 @@ var screen_back: MeshInstance3D
 var display_device: OfficeProp
 
 func _ready() -> void:
-	if stable_id.begins_with("interview_"):
+	if stable_id.begins_with("bus_"):
+		Shapes.box(self,Vector3(0.06,2.4,0.06),Vector3(1.3,1.2,0),Color("4a575f"))
+		Shapes.box(self,Vector3(0.8,0.6,0.08),Vector3(1.3,2.3,0),Color("456e65"))
+		Shapes.label(self,"101",Vector3(1.3,2.3,0.08),24)
+	elif stable_id.begins_with("interview_"):
 		pass
 	elif stable_id.begins_with("desk_"):
 		# The first workstations reuse existing desks; the second group has a new place.

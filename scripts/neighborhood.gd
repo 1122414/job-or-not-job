@@ -2,14 +2,11 @@ class_name Neighborhood
 extends RefCounted
 
 static func build(game: Node3D) -> void:
-	var ground := Shapes.solid(game,Vector3(80,0.4,60),Vector3(0,-0.2,0),Color("858984"))
+	var ground := Shapes.solid(game,Vector3(216,0.4,156),Vector3(0,-0.2,54),Color("858984"))
+	ground.name="DistrictGround"
 	# Keep collision seamless, but separate the rendered surface from road/floor tops.
 	ground.get_child(0).position.y=-0.04
 	ground.get_child(0).material_override=preload("res://assets/materials/pavement.tres")
-	var road := Shapes.solid(game,Vector3(64,0.08,8),Vector3(0,-0.04,8),Color.WHITE)
-	road.get_child(0).material_override=preload("res://assets/materials/asphalt.tres")
-	for x in range(-30,31,5):
-		Shapes.box(game,Vector3(2,0.02,0.12),Vector3(x,0.01,8),Color("e4cb82"))
 	for firm in ["a","b"]:
 		var company: Node3D=load("res://scenes/companies/company_"+firm+".tscn").instantiate()
 		company.name="Company"+firm.to_upper()
@@ -30,11 +27,4 @@ static func build(game: Node3D) -> void:
 	for x in [-30,0,30]:
 		Shapes.solid(game,Vector3(0.3,4,0.3),Vector3(x,2,4),Color("3d5056"))
 		Shapes.box(game,Vector3(1.2,0.2,0.5),Vector3(x,4,4),Color("eedcaa"))
-	# The finite neighborhood has visible boundaries, unrelated to career progress.
-	for z in [-22,23]: Shapes.solid(game,Vector3(72,2,0.5),Vector3(0,1,z),Color("536c68"))
-	for x in [-36,36]: Shapes.solid(game,Vector3(0.5,2,45),Vector3(x,1,0),Color("536c68"))
-	# Context across the street remains a separate neighborhood layer.
-	for x in [-30,-18,-6,6,18,30]:
-		Shapes.box(game,Vector3(10,12,5),Vector3(x,6,27),Color("778087"))
-		for y in [2,5,8,11]:
-			for dx in [-3,0,3]: Shapes.box(game,Vector3(1.6,1.8,0.03),Vector3(x+dx,y,24.45),Color("495d68"))
+	CityLayout.build(game)

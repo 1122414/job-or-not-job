@@ -27,22 +27,24 @@ func _draw() -> void:
 	var center := Vector2(112,h-135)
 	draw_circle(center,83,Color(0.02,0.03,0.04,0.85))
 	draw_circle(center,77,Color("586469"))
-	# North-up street map; player marker rotates with camera heading.
-	draw_line(center+Vector2(-72,25),center+Vector2(72,25),Color("a8acaa"),17)
-	for x in [-1,1]:
-		draw_rect(Rect2(center+Vector2(x*35-26,-48),Vector2(52,56)),Color("849697") if x<0 else Color("a6927c"))
-	text_at(center+Vector2(-42,-14),"A",18)
-	text_at(center+Vector2(29,-14),"B",18)
-	for npc in game.npcs:
-		var point := center + Vector2(npc.position.x,npc.position.z)*2.05
-		if npc.visible and point.distance_to(center)<71: draw_circle(point,3.0 if npc.role_id in SocialLife.CORE else 2.3,Color("e8d9b8"))
-	var destination := ObjectiveGuide.target(game)
+	# A north-up overview uses the connected district coordinates, including transit.
+	var map_scale := 0.5
+	var map_origin := Vector2(0,54)
+	var route := PackedVector2Array()
+	for point in game.transit.curve.get_baked_points(): route.append(center+(Vector2(point.x,point.z)-map_origin)*map_scale)
+	draw_polyline(route,Color("a8acaa"),5,true)
+	for x in [-14,14]:
+		var point := center+(Vector2(x,-4)-map_origin)*map_scale
+		draw_rect(Rect2(point-Vector2(5,4),Vector2(10,8)),Color("a6927c"))
+	for stop in CityLayout.STOPS:
+		draw_circle(center+(Vector2(stop.point.x,stop.point.z)-map_origin)*map_scale,3,Color("e4be70"))
+	draw_circle(center+(Vector2(game.transit.bus.position.x,game.transit.bus.position.z)-map_origin)*map_scale,3,Color("e09267"))
+	var destination: Node3D=game.transit.station_for(game.transit.waypoint) if game.transit.waypoint!="" else ObjectiveGuide.target(game)
 	if destination:
-		var point := center+Vector2(destination.position.x,destination.position.z)*2.05
-		draw_circle(point,5,Color("e4be70"))
-		draw_arc(point,8,0,TAU,24,Color("e4be70"),1.5)
-	var marker := center+Vector2(p.position.x,p.position.z)*2.05
-	marker = center+(marker-center).limit_length(71)
+		var point := center+(Vector2(destination.position.x,destination.position.z)-map_origin)*map_scale
+		draw_arc(point,6,0,TAU,24,Color("e4be70"),1.5)
+	var marker := center+(Vector2(p.position.x,p.position.z)-map_origin)*map_scale
+	marker=center+(marker-center).limit_length(71)
 	var points := PackedVector2Array()
 	for point in [Vector2(0,-8),Vector2(-5,6),Vector2(0,3),Vector2(5,6)]: points.append(marker+point.rotated(-p.yaw))
 	draw_colored_polygon(points,Color("63d6ef"))
@@ -57,13 +59,15 @@ func _draw() -> void:
 		var goal: String=game.objective_text()
 		var lines := wrap_lines(goal,480,17)
 		for i in range(mini(2,lines.size())): text_at(Vector2(32,38+i*24),lines[i],17,Color("f0e6d3"))
-		text_at(Vector2(32,92),"J  目标与公司    P  人物    TAB  背包",13,Color("c7cdd0"))
+		text_at(Vector2(32,92),"J  安排    M  城区与出行    P  人物    TAB  背包",13,Color("c7cdd0"))
 		if game==get_tree().current_scene and Input.mouse_mode!=Input.MOUSE_MODE_CAPTURED:
 			text_at(Vector2(32,118),"点击画面控制视角 · Esc 释放鼠标",15,Color("e4be70"))
 		if destination:
 			text_at(Vector2(35,h-64),"目的地  %dm" % int(p.position.distance_to(destination.position)),14,Color("e4be70"))
 	if not scene_dialogue: text_at(Vector2(w-92,h-25),"H  帮助",14,Color("c7cdd0"))
-	var target: Node3D = game.focus_target
+	if game.transit.riding and game.panels.page=="":
+		text_at(Vector2(w*0.35,h-52),"101 · "+("已到站 · E 下车" if game.transit.current_stop>=0 else "E 请求下车 · 下一站 "+CityLayout.STOPS[game.transit.next_stop].title),18,Color("e4be70"))
+	var target: Node3D = null if game.transit.riding else game.focus_target
 	if target and game.panels.page=="" and game.conversation.is_empty():
 		var verb := "交谈" if target is OfficeNPC else "使用"
 		if target is OfficeProp: verb="收进背包" if target.portable() else "查看固定支架" if target.kind in ["panel","side_panel"] else "推掀"

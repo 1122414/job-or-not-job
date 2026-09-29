@@ -1,7 +1,7 @@
 class_name GamePageView
 extends Control
 
-const TITLES := {"journal":"今天的安排","messages":"招聘消息","computer":"工作台","people":"认识的人","promises":"谈过的约定","bag":"随身物品","history":"经历与成果","ledger":"工资到账明细","help":"操作说明"}
+const TITLES := {"city":"城区与出行","transit":"101 · 城区环线","journal":"今天的安排","messages":"招聘消息","computer":"工作台","people":"认识的人","promises":"谈过的约定","bag":"随身物品","history":"经历与成果","ledger":"工资到账明细","help":"操作说明"}
 const ACCENT := Color("e6c785")
 const MUTED := Color("afc0c8")
 var game: Node3D
@@ -134,6 +134,8 @@ func refresh() -> void:
 	feedback.visible=page=="computer"
 	feedback.text=""
 	match page:
+		"city": city_page()
+		"transit": transit_page()
 		"journal": journal()
 		"help": help_page()
 		"bag": bag()
@@ -154,6 +156,7 @@ func restore_focus(page: String,id: String,old_scroll: int) -> void:
 	else: back_button.grab_focus()
 
 func journal() -> void:
+	action("city-map","城区与公交 · M",func(): game.panels.open_child("city"))
 	paragraph("当前目标",ACCENT)
 	paragraph(game.objective_text())
 	if game.career.employer=="":
@@ -295,3 +298,46 @@ func ledger() -> void:
 	if game.payroll.payments.is_empty(): paragraph("暂无到账记录。",MUTED)
 	for entry in game.payroll.payments:
 		paragraph("第%d天 · %s · 到账 ¥%.2f\n编号 %s" % [int(entry.minute)/1440+1,"规程科技" if entry.company=="a" else "自己人网络",entry.cents/100.0,entry.id])
+
+func city_page() -> void:
+	paragraph("当前位置："+game.location_name())
+	var map := CityMapView.new()
+	map.game=game
+	map.custom_minimum_size.y=290
+	body.add_child(map)
+	paragraph("101 环线：下班路 → 榕树街 → 海风步道 → 东里社区 → 下班路。步行可达全部站点；在站牌旁按 E 乘车，也可主动跳过等车。",MUTED)
+	for stop in CityLayout.STOPS:
+		var id: String=stop.id
+		var distance: float=game.player.position.distance_to(stop.platform)
+		action("city-"+id,stop.title+" · %dm" % distance+(" · 已到访" if id in game.transit.visited else ""),func():
+			game.transit.waypoint=id
+			game.queue_save()
+			game.panels.show_page(""))
+	action("city-clear","返回职业目标",func():
+		game.transit.waypoint=""
+		game.queue_save()
+		game.panels.show_page(""))
+
+func transit_page() -> void:
+	var t: CityTransit=game.transit
+	if t.riding:
+		paragraph("当前到站："+CityLayout.STOPS[t.current_stop].title if t.current_stop>=0 else "前往："+CityLayout.STOPS[t.next_stop].title)
+		if t.current_stop>=0:
+			action("bus-leave","下车 · 继续自由探索",func():
+				if not t.leave(): paragraph("站台被挡住了，请稍后再下车。",ACCENT))
+		else: action("bus-request","请求下一站下车",func(): t.request_stop())
+		action("bus-continue","继续乘坐",func():
+			t.requested=false
+			game.panels.show_page(""))
+	else:
+		var index: int=t.selected_stop
+		paragraph(CityLayout.STOPS[index].title)
+		paragraph("101 城区环线 · 免费乘坐 · 到站后主动上车，行驶中可看风景或请求下一站下车。",MUTED)
+		if t.current_stop==index:
+			action("bus-board","上车",func(): t.board(index),not t.at_platform(index))
+		else:
+			paragraph("车辆正在前往："+CityLayout.STOPS[t.next_stop].title)
+			action("bus-wait","跳过等车时间",func():
+				if not t.wait_for_bus(index): paragraph("当前位置或站点车道不允许跳过等车。",ACCENT),not t.at_platform(index) or t.blocked)
+		action("bus-observe","留在站台等车",func(): game.panels.show_page(""))
+	action("bus-map","查看城区",func(): game.panels.open_child("city"))

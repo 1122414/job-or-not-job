@@ -126,6 +126,38 @@ func run() -> void:
 		push_error("Closing a page recaptured the pointer")
 		quit(1)
 		return
+	if game.transit==null or CityLayout.STOPS.size()!=4 or game.get_node_or_null("ConnectedDistrict")==null:
+		push_error("Packaged connected district or bus missing")
+		quit(1)
+		return
+	game.player.position=CityLayout.STOPS[0].platform
+	for i in range(3): await physics_frame
+	if not game.transit.board(0):
+		push_error("Packaged bus cannot be boarded")
+		quit(1)
+		return
+	game.transit.set_physics_process(false)
+	game.transit.dwell=0
+	for i in range(90):
+		game.transit.tick(0.1)
+		await physics_frame
+	var riding_save := SaveGame.snapshot(game)
+	if game.transit.distance<20 or not SaveGame.restore(game,riding_save):
+		push_error("Packaged moving bus or rider save failed")
+		quit(1)
+		return
+	for i in range(4): await physics_frame
+	if not game.transit.riding or game.player.position.distance_to(game.transit.bus.to_global(Vector3(.65,.4,-.4)))>0.01:
+		push_error("Packaged rider detached during restore")
+		quit(1)
+		return
+	game.panels.show_page("city")
+	if not game.panels.view.buttons.has("city-waterfront"):
+		push_error("Packaged city navigation missing")
+		quit(1)
+		return
+	game.panels.show_page("")
+	game.transit.detach()
 	game.toggle_menu()
 	if DisplayServer.get_name()!="headless":
 		for i in range(6): await process_frame
@@ -134,7 +166,7 @@ func run() -> void:
 			if argument.begins_with("--screenshot="):
 				var error := root.get_texture().get_image().save_png(argument.trim_prefix("--screenshot="))
 				if error!=OK: quit(1); return
-	print("PACKAGED_SMOKE_OK build=",build.build_id," label=",BuildInfo.label()," npcs=",game.npcs.size()," props=",game.props.size()," company_spaces=2 company_sources=2 environment_props=6 asset_sources=5 authored_clips=2 authored_characters=11 texture_imports=verified ui_mouse=verified persistence=",game.persistence_enabled)
+	print("PACKAGED_SMOKE_OK build=",build.build_id," label=",BuildInfo.label()," npcs=",game.npcs.size()," props=",game.props.size()," company_spaces=2 company_sources=2 environment_props=6 asset_sources=5 authored_clips=2 authored_characters=11 texture_imports=verified ui_mouse=verified city_stops=4 bus_ride_save=verified persistence=",game.persistence_enabled)
 	paused=false
 	game.queue_free()
 	await process_frame
