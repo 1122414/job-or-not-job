@@ -65,9 +65,11 @@ func kind_name(kind: String) -> String:
 	return {"tea":"茶水间聊聊","lunch":"一起吃午饭","walk":"下班同行"}.get(kind,"稍后再约")
 
 func destination(npc: OfficeNPC,kind: String) -> Vector3:
-	if kind=="walk" and outing.get("person")==npc.stable_id and outing.has("venue"): return CityOuting.VENUES[outing.venue][1]
+	if kind=="walk" and outing.get("person")==npc.stable_id and outing.has("venue"): return CityOuting.place_position(npc,outing.venue)
 	if kind=="tea": return OfficeRooms.point(game,npc.company,"tea")
-	return Vector3(9,0,12.3) if kind=="lunch" else Vector3(-5,0,12.8)
+	# Both original meeting places now adjoin the city road. Meet on the public
+	# sidewalk behind the stall/shelter, not at their former roadside coordinates.
+	return Vector3(10,0,18) if kind=="lunch" else Vector3(-6,0,18)
 
 func options(npc: OfficeNPC) -> Dictionary:
 	var p := state(npc)
@@ -78,11 +80,13 @@ func options(npc: OfficeNPC) -> Dictionary:
 			var arrived: bool=npc.position.distance_to(destination(npc,outing.kind))<0.7 and npc.position.distance_to(game.player.position)<3
 			return {"text":"到了。我们聊几句？" if arrived else "我在前面等你。想先忙自己的事也可以。","choices":[["聊聊最近的生活" if arrived else "继续同行","people_share" if arrived else "people_continue"],["先忙别的，稍后再约","people_pause"],["先说工作上的事","people_work"]]}
 	var choices: Array=[["聊聊近况","people_chat"]]
+	if CityEvening.at_place(npc)!="" and willing(npc): choices.push_front(["在这里一起歇一会儿","people_evening_join"])
 	var kind := kind_now()
 	if kind!="": choices.append([kind_name(kind),"people_invite_"+kind])
 	if p.fear>0 or p.trust<0: choices.append(["为之前动手认真道歉","people_apologize"])
 	choices.append(["回到工作话题","people_work"])
-	return {"text":npc.title.split(" · ")[0]+" · "+describe(npc),"choices":choices}
+	var greeting := CityEvening.greeting(npc)
+	return {"text":greeting if greeting!="" else npc.title.split(" · ")[0]+" · "+describe(npc),"choices":choices}
 
 func npc_target(npc: OfficeNPC) -> Variant:
 	if outing.get("person")!=npc.stable_id or not npc.available(): return null
@@ -187,6 +191,7 @@ func tick(delta: float) -> void:
 	if not npc or work_following(npc) or not willing(npc) or not state(npc).met or game.office.visit_target(npc)!=null: return
 	if npc.position.distance_to(game.player.position)>3: return
 	var key := "invite_"+str(day)+"_"+kind_now()
+	if state(npc).days.has("outing_"+str(day)): return
 	if state(npc).days.has(key): return
 	state(npc).days[key]=day
 	outing={"person":npc.stable_id,"kind":kind_now(),"stage":"offered","elapsed":0.0}

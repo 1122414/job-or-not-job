@@ -156,7 +156,9 @@ func run() -> void:
 	check(Vector2(game.player.position.x-standing_player.x,game.player.position.z-standing_player.z).length()<.02,"绕行不移动或推走玩家")
 	var old_walk := initial.duplicate(true); old_walk.version=18
 	old_walk.social.outing={"person":npc.stable_id,"kind":"walk","stage":"walking","elapsed":12.0}
-	check(SaveGame.restore(game,JSON.parse_string(JSON.stringify(old_walk))) and game.social.destination(npc,"walk")==Vector3(-5,0,12.8),"旧同行保留已约定的公交站目的地")
+	check(SaveGame.restore(game,JSON.parse_string(JSON.stringify(old_walk))) and not game.social.outing.has("venue"),"旧同行保留公交站约定，不改成新地点活动")
+	var legacy_meeting: Vector3=game.social.destination(npc,"walk")
+	check(legacy_meeting.distance_to(CityLayout.STOPS[0].platform)<6 and legacy_meeting.z>=17,"旧同行在原公交站的安全步道会合")
 	finish()
 func finish() -> void:
 	game.queue_free(); await process_frame

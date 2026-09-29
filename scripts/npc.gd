@@ -160,7 +160,7 @@ func _physics_process(delta: float) -> void:
 		visual.rotation.z = lerpf(visual.rotation.z, 0, delta * 10)
 		var target := home
 		if game.payroll.after_work() and role_id in ["a_friend","a_group","b_friend"]:
-			target={"a_friend":Vector3(-8,0,12),"a_group":Vector3(-4,0,12),"b_friend":Vector3(8,0,12)}[role_id]
+			target=CityEvening.destination(self)
 		if role_id=="b_friend" and (not game.payroll.after_work() or game.career.b_event=="negotiating"):
 			match game.career.b_event:
 				"refused", "helping": target=Vector3(21,0,-4)
@@ -229,6 +229,8 @@ func _physics_process(delta: float) -> void:
 		visual.rotation.y=lerp_angle(visual.rotation.y,atan2(-velocity.x,-velocity.z),delta*8)
 	elif down<=0 and not dead:
 		var facing: Vector3 = game.player.global_position-global_position if distance<5 else Vector3(0,0,1)
+		var public_focus: Variant=CityEvening.facing(self)
+		if public_focus!=null: facing=public_focus-global_position
 		visual.rotation.y=lerp_angle(visual.rotation.y,atan2(-facing.x,-facing.z),delta*4)
 	update_body_pose()
 	visual.blocking=block_time>0 and available()

@@ -1,0 +1,69 @@
+{
+  "source": "build/c3g/encounters.json, actual input + disk restore; sanitized excerpt",
+  "minute": 1140,
+  "people": {
+    "a_friend": {
+      "city": {
+        "bookshop": {
+          "day": 0,
+          "reply": "listen"
+        }
+      },
+      "days": {
+        "city_bookshop_0": 0,
+        "meet": 0,
+        "outing_0": 0
+      },
+      "fear": 0,
+      "memories": [
+        "第1天 · 你们第一次正式交谈。",
+        "第1天 · 你们在社区书屋认真听完对方的打算。",
+        "第1天 · 你们下班后在街区相处，保留了各自的安排。"
+      ],
+      "met": true,
+      "trust": 6
+    },
+    "a_group": {
+      "city": {
+        "garden": {
+          "day": 0,
+          "reply": "boundary"
+        }
+      },
+      "days": {
+        "city_garden_0": 0,
+        "meet": 0,
+        "outing_0": 0
+      },
+      "fear": 0,
+      "memories": [
+        "第1天 · 你们第一次正式交谈。",
+        "第1天 · 你们在社区花园说清自己的时间与边界。",
+        "第1天 · 你们下班后在街区相处，保留了各自的安排。"
+      ],
+      "met": true,
+      "trust": 6
+    },
+    "b_friend": {
+      "city": {
+        "waterfront": {
+          "day": 0,
+          "reply": "quiet"
+        }
+      },
+      "days": {
+        "city_waterfront_0": 0,
+        "meet": 0,
+        "outing_0": 0
+      },
+      "fear": 0,
+      "memories": [
+        "第1天 · 你们第一次正式交谈。",
+        "第1天 · 你们在海风步道一起安静待了一会儿。",
+        "第1天 · 你们下班后在街区相处，保留了各自的安排。"
+      ],
+      "met": true,
+      "trust": 6
+    }
+  }
+}

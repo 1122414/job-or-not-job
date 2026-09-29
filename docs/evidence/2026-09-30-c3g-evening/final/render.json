@@ -1,0 +1,28 @@
+{
+	"actual_arrival_saves": true,
+	"encounters": [
+		{
+			"person": "a_friend",
+			"reply": "listen",
+			"venue": "bookshop"
+		},
+		{
+			"person": "a_group",
+			"reply": "boundary",
+			"venue": "garden"
+		},
+		{
+			"person": "b_friend",
+			"reply": "quiet",
+			"venue": "waterfront"
+		}
+	],
+	"images": 11,
+	"independent_player_acceptance": false,
+	"normal_fps_measured": false,
+	"player_nearby_fixtures": true,
+	"pointer_visible": true,
+	"root_focused": false,
+	"root_minimized": true,
+	"root_unfocusable": true
+}

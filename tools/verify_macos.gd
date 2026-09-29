@@ -80,7 +80,7 @@ func run() -> void:
 			push_error("Packaged public gallery is obstructed")
 			quit(1)
 			return
-	if game.commons.benches.size()!=6 or SaveGame.VERSION!=19:
+	if game.commons.benches.size()!=6 or SaveGame.VERSION!=20:
 		push_error("Packaged public commons missing"); quit(1); return
 	var commons_original := SaveGame.snapshot(game)
 	game.set_process(false)
@@ -91,8 +91,9 @@ func run() -> void:
 		if game.commons.sitting(neighbour): break
 	if not game.commons.sitting(neighbour) or not SaveGame.restore(game,JSON.parse_string(JSON.stringify(SaveGame.snapshot(game)))):
 		push_error("Packaged resident cannot naturally use and restore a bench"); quit(1); return
-	print("PACKAGED_COMMONS benches=6 schema=19 natural_seating=true json_restore=true")
+	print("PACKAGED_COMMONS benches=6 schema=20 natural_seating=true json_restore=true")
 	if not SaveGame.restore(game,commons_original): quit(1); return
+	if not await verify_city_evening(game): quit(1); return
 	if not await verify_city_outing(game): quit(1); return
 	game.set_process(true)
 	var urban_original := SaveGame.snapshot(game)
@@ -450,4 +451,43 @@ func verify_city_outing(game: Node3D) -> bool:
 	if not SaveGame.restore(game,JSON.parse_string(JSON.stringify(SaveGame.snapshot(game)))):
 		push_error("Packaged public outing JSON failed"); return false
 	print("PACKAGED_OUTING actual_garden_walk=true distinct_memory=true schema=19 json_restore=true")
+	return SaveGame.restore(game,original)
+
+func verify_city_evening(game: Node3D) -> bool:
+	var original := SaveGame.snapshot(game)
+	game.set_process(false)
+	game.payroll.minute=1140
+	var crossed := false
+	for frame in range(14000):
+		await physics_frame
+		var ready := true
+		for id in CityEvening.PLANS:
+			var npc: OfficeNPC=game.npc_for_role(id)
+			crossed=crossed or CityFootRoutes.crossing_at(npc.position)=="office"
+			if CityEvening.at_place(npc)=="": ready=false
+		if ready: break
+	for id in CityEvening.PLANS:
+		if CityEvening.at_place(game.npc_for_role(id))=="":
+			push_error("Packaged autonomous evening arrival failed: "+id); return false
+	if not crossed or not SaveGame.restore(game,JSON.parse_string(JSON.stringify(SaveGame.snapshot(game)))):
+		push_error("Packaged evening crossing or JSON restore failed"); return false
+	var npc: OfficeNPC=game.npc_for_role("a_friend")
+	game.player.position=npc.position+Vector3(0,0,1.7)
+	game.player.yaw=0
+	for i in range(8): await physics_frame
+	game.interact()
+	game.social.handle("people_evening_join",npc)
+	game.social.handle("people_share",npc)
+	game.social.handle("people_listen",npc)
+	if not game.social.outing.is_empty() or not game.social.state(npc).get("city",{}).has("bookshop"):
+		push_error("Packaged public encounter failed"); return false
+	var legacy := original.duplicate(true)
+	legacy.version=19; legacy.city_population.crossings.erase("office")
+	if not SaveGame.restore(game,JSON.parse_string(JSON.stringify(legacy))):
+		push_error("Packaged v19 crossing migration failed"); return false
+	for kind in ["lunch","walk"]:
+		var place: Vector3=game.social.destination(npc,kind)
+		if place.z<17 or not game.walking.clear_segment(place,place+Vector3(0,0,.5)):
+			push_error("Packaged legacy meeting point is not on the sidewalk"); return false
+	print("PACKAGED_EVENING autonomous_arrivals=3 office_crossing=true actual_encounter=true json_restore=true legacy_v19=true legacy_meeting_spots=true schema=20")
 	return SaveGame.restore(game,original)

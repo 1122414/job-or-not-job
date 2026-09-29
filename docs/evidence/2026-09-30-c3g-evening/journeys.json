@@ -1,0 +1,106 @@
+[
+	{
+		"max_step": 0.0383421964943409,
+		"metres": 180.587055064738,
+		"overlaps": 0,
+		"person": "a_friend",
+		"road_frames": 388,
+		"stage": "first"
+	},
+	{
+		"max_step": 0.0383421592414379,
+		"metres": 131.336309511214,
+		"overlaps": 0,
+		"person": "a_group",
+		"road_frames": 367,
+		"stage": "first"
+	},
+	{
+		"max_step": 0.0383358150720596,
+		"metres": 166.863276556134,
+		"overlaps": 0,
+		"person": "b_friend",
+		"road_frames": 757,
+		"stage": "first"
+	},
+	{
+		"max_step": 0.0383361503481865,
+		"metres": 177.505802743137,
+		"overlaps": 0,
+		"person": "a_friend",
+		"road_frames": 415,
+		"stage": "second"
+	},
+	{
+		"max_step": 0.0383363142609596,
+		"metres": 120.671851355582,
+		"overlaps": 0,
+		"person": "a_group",
+		"road_frames": 408,
+		"stage": "second"
+	},
+	{
+		"max_step": 0.0383361279964447,
+		"metres": 129.030368156731,
+		"overlaps": 0,
+		"person": "b_friend",
+		"road_frames": 395,
+		"stage": "second"
+	},
+	{
+		"max_step": 0.0383362993597984,
+		"metres": 132.021283704787,
+		"overlaps": 0,
+		"person": "a_friend",
+		"road_frames": 441,
+		"stage": "return"
+	},
+	{
+		"max_step": 0.0383370965719223,
+		"metres": 126.460077386349,
+		"overlaps": 0,
+		"person": "a_group",
+		"road_frames": 407,
+		"stage": "return"
+	},
+	{
+		"max_step": 0.038335245102644,
+		"metres": 89.9685739502311,
+		"overlaps": 0,
+		"person": "b_friend",
+		"road_frames": 0,
+		"stage": "return"
+	},
+	{
+		"max_step": 0.0383337214589119,
+		"metres": 78.3149168863893,
+		"overlaps": 0,
+		"person": "a_friend",
+		"road_frames": 335,
+		"stage": "work"
+	},
+	{
+		"max_step": 0.0383338071405888,
+		"metres": 49.9099806584418,
+		"overlaps": 0,
+		"person": "a_group",
+		"road_frames": 335,
+		"stage": "work"
+	},
+	{
+		"max_step": 0.0383338034152985,
+		"metres": 40.1349939405918,
+		"overlaps": 0,
+		"person": "b_friend",
+		"road_frames": 335,
+		"stage": "work"
+	},
+	{
+		"max_step": 0.0383367501199245,
+		"metres": 156.360077600926,
+		"overlaps": 0,
+		"person": "b_friend",
+		"road_frames": 726,
+		"stage": "work-follow"
+	}
+]

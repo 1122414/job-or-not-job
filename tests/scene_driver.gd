@@ -1,5 +1,17 @@
 extends RefCounted
 
+static func steer_around_people(game: Node3D,direction: Vector3) -> Vector3:
+	direction.y=0
+	direction=direction.normalized()
+	for other in game.npcs+game.population.residents:
+		var away: Vector3=game.player.position-other.position
+		away.y=0
+		if away.length()<1.05 and away.length()>.01 and direction.dot(-away.normalized())>.1:
+			var side := Vector3(-direction.z,0,direction.x)
+			if away.dot(side)<0: side=-side
+			direction=(direction+side*clampf((1.05-away.length())*4.0,0,2.0)).normalized()
+	return direction
+
 static func walk(tree: SceneTree,game: Node3D,destination: Vector3) -> bool:
 	game.player.stand_up()
 	var route: PackedVector3Array=game.walking.route(game.player.position,destination)
@@ -64,7 +76,7 @@ static func follow(tree: SceneTree,game: Node3D,npc: OfficeNPC,destination: Vect
 		if frame%30==0: path=game.walking.route(game.player.position,npc.position,null,game.player)
 		while not path.is_empty() and game.player.position.distance_to(path[0])<0.15: path.remove_at(0)
 		if distance>1.65 and not path.is_empty():
-			var offset: Vector3=path[0]-game.player.position
+			var offset := steer_around_people(game,path[0]-game.player.position)
 			game.player.yaw=atan2(-offset.x,-offset.z)
 			Input.action_press("forward")
 		else: Input.action_release("forward")

@@ -1,0 +1,27 @@
+{
+	"clock_advanced_normally": true,
+	"end_minute": 1310,
+	"independent_player_acceptance": false,
+	"max_step": 0.0383421964943409,
+	"metres": 1250.73656972125,
+	"normal_fps_measured": false,
+	"observed": {
+		"a_friend": {
+			"bookshop": 1177,
+			"returned": 1288,
+			"waterfront": 1242
+		},
+		"a_group": {
+			"garden": 1166,
+			"returned": 1287,
+			"waterfront": 1226
+		},
+		"b_friend": {
+			"garden": 1229,
+			"returned": 1279,
+			"waterfront": 1175
+		}
+	},
+	"start_minute": 1138,
+	"vehicle_overlap_samples": 0
+}

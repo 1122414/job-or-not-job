@@ -2,6 +2,7 @@ class_name CityPopulation
 extends Node3D
 
 const POINTS := {
+	"office_out":Vector3(3,0,5),"office_in":Vector3(3,0,18),"office_east":Vector3(24,0,18),
 	"office":Vector3(-24,0,18),"south":Vector3(0,0,18),"center":Vector3(0,0,58),
 	"west_path":Vector3(-64,0,58),"shop_walk":Vector3(-56,0,52),"bookshop":Vector3(-58,0,44),
 	"west_in":Vector3(-68,0,58),"west_out":Vector3(-84,0,58),"market":Vector3(-94,0,58),
@@ -20,8 +21,8 @@ const POINTS := {
 	"commons_north_0":Vector3(-18,0,79.35),"commons_north_1":Vector3(-14,0,79.35),
 	"service_entry":Vector3(16,0,72),"service_hall":Vector3(16,0,76)
 }
-const LINKS := [["office","south"],["south","center"],["center","west_path"],["west_path","shop_walk"],["shop_walk","bookshop"],["west_path","west_in"],["west_in","west_out"],["west_out","market"],["center","homes"],["center","garden"],["garden","homes"],["homes","east_in"],["east_in","east_out"],["east_out","east_garden"],["center","north_in"],["north_in","north_out"],["north_out","sea_west"],["north_out","sea_east"],["bookshop","bookshop_entry"],["bookshop_entry","bookshop_room"],["bookshop_room","reading_west"],["bookshop_room","reading_center"],["bookshop_room","reading_east"],["bookshop_room","paper_west"],["bookshop_room","paper_center"],["bookshop_room","paper_east"],["garden","garden_west"],["garden","garden_center"],["garden","garden_east"],["south","commons_south"],["commons_south","center"],["center","commons_north"],["commons_north","north_in"],["commons_south","commons_west_hub"],["commons_south","commons_east_hub"],["commons_north","commons_north_hub"],["commons_west_hub","commons_west_0"],["commons_west_hub","commons_west_1"],["commons_east_hub","commons_east_0"],["commons_east_hub","commons_east_1"],["commons_north_hub","commons_north_0"],["commons_north_hub","commons_north_1"]]
-const CROSSINGS := {"market":["west_in","west_out"],"homes":["east_in","east_out"],"waterfront":["north_in","north_out"]}
+const LINKS := [["office_out","office_in"],["office_in","south"],["office_in","office_east"],["south","office_east"],["office","south"],["south","center"],["center","west_path"],["west_path","shop_walk"],["shop_walk","bookshop"],["west_path","west_in"],["west_in","west_out"],["west_out","market"],["center","homes"],["center","garden"],["garden","homes"],["homes","east_in"],["east_in","east_out"],["east_out","east_garden"],["center","north_in"],["north_in","north_out"],["north_out","sea_west"],["north_out","sea_east"],["bookshop","bookshop_entry"],["bookshop_entry","bookshop_room"],["bookshop_room","reading_west"],["bookshop_room","reading_center"],["bookshop_room","reading_east"],["bookshop_room","paper_west"],["bookshop_room","paper_center"],["bookshop_room","paper_east"],["garden","garden_west"],["garden","garden_center"],["garden","garden_east"],["south","commons_south"],["commons_south","center"],["center","commons_north"],["commons_north","north_in"],["commons_south","commons_west_hub"],["commons_south","commons_east_hub"],["commons_north","commons_north_hub"],["commons_west_hub","commons_west_0"],["commons_west_hub","commons_west_1"],["commons_east_hub","commons_east_0"],["commons_east_hub","commons_east_1"],["commons_north_hub","commons_north_0"],["commons_north_hub","commons_north_1"]]
+const CROSSINGS := {"market":["west_in","west_out"],"homes":["east_in","east_out"],"waterfront":["north_in","north_out"],"office":["office_out","office_in"]}
 const TITLES := {"office":"下班路","bookshop":"社区书屋门口","market":"榕树街广场","homes":"东里社区","garden":"社区花园","east_garden":"东里东街","sea_west":"海风步道西段","sea_east":"海风步道东段","reading_west":"书屋阅览区","reading_center":"书屋阅览区","reading_east":"书屋阅览区"}
 const PROFILES := [
 	["zhou_ning","周宁","casual","homes"],["chen_yu","陈雨","office_female","garden"],
@@ -51,9 +52,10 @@ func _ready() -> void:
 		var middle: Vector3=(POINTS[ends[0]]+POINTS[ends[1]])/2
 		crossing_offsets[id]=game.transit.curve.get_closest_offset(middle)
 		crossings[id]={"people":false,"remaining":0.0,"opened":false}
+		var across_x: bool=absf(POINTS[ends[1]].x-POINTS[ends[0]].x)>1
 		for i in range(10):
-			var pos: Vector3=middle+Vector3((i-4.5)*1.2,0.022,0) if id!="waterfront" else middle+Vector3(0,0.022,(i-4.5)*1.2)
-			Shapes.box(self,Vector3(.65,.015,3) if id!="waterfront" else Vector3(3,.015,.65),pos,Color("dddacb"))
+			var pos: Vector3=middle+Vector3((i-4.5)*1.2,0.022,0) if across_x else middle+Vector3(0,0.022,(i-4.5)*1.2)
+			Shapes.box(self,Vector3(.65,.015,3) if across_x else Vector3(3,.015,.65),pos,Color("dddacb"))
 	for i in range(PROFILES.size()):
 		var person := CityResident.new()
 		person.population=self
@@ -224,12 +226,16 @@ func snapshot() -> Dictionary:
 	for person in residents: people[person.stable_id]=person.snapshot()
 	return {"schema":1,"people":people,"crossings":crossings.duplicate(true)}
 
-func valid(data: Variant) -> bool:
+func valid(data: Variant,version: int=SaveGame.VERSION) -> bool:
 	if not data is Dictionary or data.get("schema")!=1 or not data.get("people") is Dictionary or not data.get("crossings") is Dictionary: return false
-	if data.people.size()!=residents.size() or data.crossings.size()!=crossings.size(): return false
+	if data.people.size()!=residents.size(): return false
+	for id in data.crossings:
+		if not CROSSINGS.has(id): return false
 	for person in residents:
 		if not person.valid(data.people.get(person.stable_id)): return false
 	for id in crossings:
+		# v19 and earlier have only the three outer crossings.
+		if id=="office" and version<20 and not data.crossings.has(id): continue
 		var gate: Variant=data.crossings.get(id)
 		if not gate is Dictionary or not gate.get("people") is bool or not gate.get("opened") is bool: return false
 		if not number(gate.get("remaining"),0,7) or gate.opened and not gate.people: return false

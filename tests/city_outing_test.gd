@@ -38,7 +38,7 @@ func follow(npc: OfficeNPC,target: Vector3,label: String) -> bool:
 		if frame%30==0: path=game.walking.route(game.player.position,npc.position,null,game.player)
 		while not path.is_empty() and game.player.position.distance_to(path[0])<.15: path.remove_at(0)
 		if distance>1.65 and not path.is_empty():
-			var offset: Vector3=path[0]-game.player.position
+			var offset := Driver.steer_around_people(game,path[0]-game.player.position)
 			game.player.yaw=atan2(-offset.x,-offset.z)
 			Input.action_press("forward")
 		else: Input.action_release("forward")
@@ -66,7 +66,7 @@ func run() -> void:
 		game.payroll.minute=1110
 		await frames(8)
 		var npc: OfficeNPC=game.npc_for_role(item[0])
-		var foyer := Vector3(-8,0,12) if npc.company=="a" else Vector3(8,0,12)
+		var foyer: Vector3=CityEvening.FOYERS[npc.role_id]
 		check(await Driver.walk(self,game,foyer+Vector3(-1.5,0,0)),"玩家实际走到下班会合处 "+item[0]+" player="+str(game.player.position)+" npc="+str(npc.position))
 		for i in range(1800):
 			if npc.position.distance_to(foyer)<.7: break

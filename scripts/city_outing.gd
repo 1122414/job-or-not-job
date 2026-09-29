@@ -4,6 +4,11 @@ extends RefCounted
 const VENUES := {"bookshop":["社区书屋",Vector3(-50.5,0,35)],"garden":["社区花园",Vector3(42,0,54)],"waterfront":["海风步道",Vector3(28,0,116)]}
 const REPLIES := {"listen":"认真听完对方的打算","boundary":"说清自己的时间与边界","quiet":"一起安静待了一会儿"}
 
+static func place_position(npc: OfficeNPC,venue: String) -> Vector3:
+	var point: Vector3=VENUES[venue][1]
+	if npc.role_id=="a_group" and venue=="waterfront": return point+Vector3(-2.5,0,0)
+	return point+Vector3(-1.2,0,0) if npc.role_id=="a_group" and venue=="garden" else point
+
 static func menu(social: SocialLife,npc: OfficeNPC) -> void:
 	var game: Node3D=social.game
 	game.speaker=npc
@@ -36,7 +41,7 @@ static func status(social: SocialLife) -> String:
 static func at_place(social: SocialLife,npc: OfficeNPC) -> bool:
 	var game: Node3D=social.game
 	var o: Dictionary=social.outing
-	return o.get("person")==npc.stable_id and o.get("venue") in VENUES and o.get("stage") in ["walking","sharing"] and social.willing(npc) and not social.work_following(npc) and game.office.visit_target(npc)==null and game.player.hp>0 and not game.in_vehicle() and npc.position.distance_to(VENUES[o.venue][1])<.7 and game.player.position.distance_to(npc.position)<3 and game.can_see(game.player,npc) and (o.venue!="bookshop" or game.city_life.is_open())
+	return o.get("person")==npc.stable_id and o.get("venue") in VENUES and o.get("stage") in ["walking","sharing"] and social.willing(npc) and not social.work_following(npc) and game.office.visit_target(npc)==null and game.player.hp>0 and not game.in_vehicle() and npc.position.distance_to(place_position(npc,o.venue))<.7 and game.player.position.distance_to(npc.position)<3 and game.can_see(game.player,npc) and (o.venue!="bookshop" or game.city_life.is_open())
 
 static func options(social: SocialLife,npc: OfficeNPC) -> Dictionary:
 	var o: Dictionary=social.outing
@@ -68,6 +73,14 @@ static func memory_line(social: SocialLife,npc: OfficeNPC) -> String:
 static func handle(social: SocialLife,npc: OfficeNPC,action: String) -> bool:
 	var game: Node3D=social.game
 	var o: Dictionary=social.outing
+	if action=="people_evening_join":
+		var venue := CityEvening.at_place(npc)
+		if venue=="" or not social.willing(npc) or game.speaker!=npc or game.player.hp<=0 or game.in_vehicle() or game.player.position.distance_to(npc.position)>3 or not game.can_see(game.player,npc): return true
+		# Accept a shared pause where both people actually are; no remote arrival.
+		social.outing={"person":npc.stable_id,"kind":"walk","stage":"walking","elapsed":0.0,"venue":venue}
+		npc.route_clock=0
+		game.conversation=options(social,npc)
+		game.queue_save(); return true
 	if action=="people_city_menu": menu(social,npc); return true
 	if action.begins_with("people_city_go_"):
 		var venue := action.trim_prefix("people_city_go_")

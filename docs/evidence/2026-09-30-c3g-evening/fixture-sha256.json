@@ -1,0 +1,18 @@
+{
+  "office-crossing.json": {
+    "sha256": "d07fb0a3046c72d83aa463e0ad964c6cef965be6ae2583b9d92ae78fafff861a",
+    "origin": "city_evening_test actual physics, no route teleport"
+  },
+  "first-arrived.json": {
+    "sha256": "2147fb124f1da8f47120a722d157b7e909dcc63515cad08189efa0ef7719d504",
+    "origin": "city_evening_test actual physics, no route teleport"
+  },
+  "second-arrived.json": {
+    "sha256": "8e433ffca2b81839a73606f9117075bea37a0ebb1b4120ab7091ba6ce098e30e",
+    "origin": "city_evening_test actual physics, no route teleport"
+  },
+  "encounters.json": {
+    "sha256": "143ee4f7c6202da2333f2f2f5158cf794e46a01dbff1be60137d89f1920678f6",
+    "origin": "city_evening_test actual physics, no route teleport"
+  }
+}

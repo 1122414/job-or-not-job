@@ -3,10 +3,10 @@ extends RefCounted
 
 # Connect the detailed office grid to the public walking graph. The latter stays
 # sparse: extending the city must not multiply the office's half-metre grid.
-const PORTAL := Vector3(0,0,18)
+const PORTAL := Vector3(3,0,5)
 
 static func in_office(point: Vector3) -> bool:
-	return absf(point.x)<=35 and point.z>=-21 and point.z<=18
+	return absf(point.x)<=35 and point.z>=-21 and point.z<=PORTAL.z+.01
 
 static func route(walking: WalkingGrid,from: Vector3,to: Vector3,seat: CollisionObject3D,actor: Node3D) -> PackedVector3Array:
 	var start := PORTAL if in_office(from) else Vector3(from.x,0,from.z)
@@ -61,6 +61,10 @@ static func public_route(walking: WalkingGrid,from: Vector3,to: Vector3) -> Pack
 			for i in range(1,candidate.size()): cost+=candidate[i-1].distance_to(candidate[i])
 			if cost<best:
 				best=cost; result=candidate
+	# An endpoint projection can coincide with the graph node. Remove duplicates
+	# before deciding whether to skip the nearby projection on a later replan.
+	for i in range(result.size()-1,0,-1):
+		if result[i].distance_to(result[i-1])<.01: result.remove_at(i)
 	# A nearby projection is an entry aid, not a mandatory stop. Returning to it
 	# at every replan can trap an actor orbiting somebody standing on the path.
 	if result.size()>1 and from.distance_to(result[0])<1.4 and walking.clear_segment(from,result[1]):

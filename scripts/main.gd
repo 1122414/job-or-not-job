@@ -351,7 +351,8 @@ func interact() -> void:
 			conversation={"text":"保安：需要时可以帮你清理被堵的通路。", "choices":[["请挪开走道上的大件","clear_path"]]}
 		if target is OfficeNPC:
 			conversation=office.visit_choices(target,conversation)
-			if social.outing.get("person")==target.stable_id and social.outing.get("stage") in ["walking","sharing","paused"]: conversation=social.options(target)
+			if CityEvening.at_place(target)!="" and social.willing(target): conversation=social.options(target)
+			elif social.outing.get("person")==target.stable_id and social.outing.get("stage") in ["walking","sharing","paused"]: conversation=social.options(target)
 			elif conversation.choices.size()<4: conversation.choices.append(["回应私人邀约" if social.outing.get("person")==target.stable_id else "聊聊近况与相处","people_menu"])
 			var introduction: Dictionary=onboarding.options(target)
 			if not introduction.is_empty(): conversation=introduction
