@@ -1,0 +1,68 @@
+{
+	"images": 16,
+	"independent_player_acceptance": false,
+	"normal_game_fps": false,
+	"player_placement": "near-point fixtures; ordinary camera captured separately",
+	"pointer_visible": true,
+	"pose_clock": "fixed to labelled times for diagnostic captures",
+	"records": [
+		{
+			"caption": "周宁分享图册中的记录：梁伯留下的手绘图册：这里以前是货运站，大家沿铁轨走去海边。",
+			"method": "screen",
+			"narrator": "resident_zhou_ning",
+			"time": 1.4
+		},
+		{
+			"caption": "周宁分享图册中的记录：梁伯留下的手绘图册：这里以前是货运站，大家沿铁轨走去海边。",
+			"method": "screen",
+			"narrator": "resident_zhou_ning",
+			"time": 5.6
+		},
+		{
+			"caption": "林巧分享图册中的记录：林巧的图册背面：书屋开张那天，邻居各带来一本旧书。",
+			"method": "screen",
+			"narrator": "resident_lin_qiao",
+			"time": 7.4
+		},
+		{
+			"caption": "周宁读起图册：梁伯留下的手绘图册：这里以前是货运站，大家沿铁轨走去海边。",
+			"method": "paper",
+			"narrator": "resident_zhou_ning",
+			"time": 1.4
+		},
+		{
+			"caption": "周宁读起图册：梁伯留下的手绘图册：这里以前是货运站，大家沿铁轨走去海边。",
+			"method": "paper",
+			"narrator": "resident_zhou_ning",
+			"time": 5.6
+		},
+		{
+			"caption": "林巧读起图册：林巧的图册背面：书屋开张那天，邻居各带来一本旧书。",
+			"method": "paper",
+			"narrator": "resident_lin_qiao",
+			"time": 7.4
+		},
+		{
+			"caption": "周宁分享图册中的记录：梁伯留下的手绘图册：这里以前是货运站，大家沿铁轨走去海边。",
+			"method": "garden",
+			"narrator": "resident_zhou_ning",
+			"time": 1.4
+		},
+		{
+			"caption": "周宁分享图册中的记录：梁伯留下的手绘图册：这里以前是货运站，大家沿铁轨走去海边。",
+			"method": "garden",
+			"narrator": "resident_zhou_ning",
+			"time": 5.6
+		},
+		{
+			"caption": "林巧分享图册中的记录：林巧的图册背面：书屋开张那天，邻居各带来一本旧书。",
+			"method": "garden",
+			"narrator": "resident_lin_qiao",
+			"time": 7.4
+		}
+	],
+	"residents_arrive_naturally": true,
+	"root_focused": false,
+	"root_minimized": true,
+	"root_unfocusable": true
+}

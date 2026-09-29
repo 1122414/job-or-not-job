@@ -28,6 +28,10 @@ var participants: Array[String]=[]
 var guide := ""
 var joined := false
 var walk: CityStoryWalk
+var performance: CitySharePerformance
+var reading_page := -1
+var reading_from := -1
+var reading_turn := 0.0
 
 func _ready() -> void:
 	name="CityLife"
@@ -54,6 +58,9 @@ func _ready() -> void:
 	walk=CityStoryWalk.new()
 	walk.game=game
 	add_child(walk)
+	performance=CitySharePerformance.new()
+	performance.life=self
+	add_child(performance)
 	sync_scene()
 
 func is_open() -> bool:
@@ -96,7 +103,9 @@ func caption() -> String:
 	var count := 0
 	for person in game.population.residents:
 		if present(person): count+=1
-	return STORIES[mini(2,int(elapsed/6))] if count>=2 else "分享暂时中断，等居民回到现场后继续。"
+	if count<2: return "分享暂时中断，等居民回到现场后继续。"
+	var narrator := performance.narrator()
+	return narrator.title.split(" · ")[0]+"读起图册："+STORIES[mini(2,int(elapsed/6))] if method=="paper" else narrator.title.split(" · ")[0]+"分享图册中的记录："+STORIES[mini(2,int(elapsed/6))]
 
 func player_at_event() -> bool:
 	var position: Vector3=game.player.position
@@ -105,6 +114,9 @@ func player_at_event() -> bool:
 	return position.x> -58.25 and position.x< -45.75 and position.z>25.75 and position.z<38.25 and absf(position.y)<2
 
 func _physics_process(delta: float) -> void:
+	if reading_from>=0:
+		reading_turn=minf(1,reading_turn+delta/.8)
+		if reading_turn>=1: reading_from=-1
 	var attending: Array[String]=[]
 	if active():
 		for person in game.population.residents:
@@ -128,6 +140,14 @@ func sync_scene() -> void:
 	for lamp in room.lamps: lamp.light_energy=.65 if is_open() else .12
 	room.album.visible=true
 	room.album.rotation.y=.35 if prepared and method=="paper" else 0.0
+	var browsing: bool=reading_page>=0 and game.speaker==point_for("paper") and game.conversation.get("choices",[]).any(func(choice): return choice[1]=="city_page")
+	if not browsing:
+		reading_page=-1; reading_from=-1; reading_turn=0
+	if browsing:
+		room.album.show_story(reading_from if reading_from>=0 else reading_page,reading_turn if reading_from>=0 else 0,reading_page)
+	else:
+		room.album.show_story(mini(2,int(elapsed/6)) if prepared and method=="paper" else 0,clampf((fposmod(elapsed,6)-5.2)/.8,0,1) if prepared and method=="paper" else 0.0)
+	if performance: performance.sync()
 	room.projection.visible=prepared and method=="screen"
 	room.projection.texture=CityBookshop.IMAGES[mini(2,int(elapsed/6))]
 	for picture in garden_pictures: picture.visible=prepared and method=="garden"
@@ -147,7 +167,9 @@ func status_text() -> String:
 	if not is_open(): return "书屋已闭馆（09:00—20:00）；准备进度保留，可明天继续。"
 	if method=="": return "榕树街书屋开放中：自由阅览，或协助街区记忆分享。"
 	if not prepared: return "街区记忆分享 · "+METHODS[method]+"："+{"screen":"去播放台检查故障并启用本地图册。","paper":"去阅览台展开纸本图画。","garden":"去花园展示架布置图画。"}[method]
-	return "街区记忆分享 · "+METHODS[method]+"：等待居民到场，在现场听完分享（%d/18秒）。" % int(elapsed)
+	if performance.attending().size()<2: return "街区记忆分享 · "+METHODS[method]+"：等待邻居回到现场，已有进度保留。"
+	if not player_at_event(): return "街区记忆分享 · "+METHODS[method]+"：邻居已到场，随时可以加入。"
+	return "街区记忆分享 · "+METHODS[method]+"："+performance.narrator().title.split(" · ")[0]+"正在分享第%d段记录，可随时离开。"%(mini(2,int(elapsed/6))+1)
 
 func open_point(point: CityActivityPoint) -> void:
 	if point.stable_id=="walk" or point.stable_id=="notice" and result!="": walk.open_board(point); return
@@ -171,8 +193,12 @@ func answer(point: CityActivityPoint,action: String) -> void:
 	if action.begins_with("walk_"): walk.answer(point,action); return
 	if action=="city_leave": game.close_interaction(); return
 	if not is_open(): open_point(point); return
-	if action=="city_read":
-		game.conversation={"text":"图册背面的手写记录：\n"+"\n".join(PackedStringArray(STORIES)),"choices":[["合上图册","city_leave"]]}
+	if action in ["city_read","city_page"] and point.stable_id=="paper":
+		reading_from=reading_page if action=="city_page" else -1
+		reading_turn=0
+		reading_page=(reading_page+1)%3 if action=="city_page" else 0
+		game.conversation={"text":"图册背面的手写记录：\n第%d页 / 共3页\n"%(reading_page+1)+STORIES[reading_page],"choices":[["合上图册","city_leave"],["回到第一幅" if reading_page==2 else "翻到下一幅","city_page"]]}
+		sync_scene()
 		return
 	if result!="": open_point(point); return
 	if action.begins_with("city_plan_") and point.stable_id=="notice":
@@ -232,6 +258,8 @@ func valid(data: Variant) -> bool:
 	return (data.result=="" and data.elapsed<18) or (data.result==data.method and data.result!="" and data.elapsed==18 and data.prepared)
 
 func restore(data: Dictionary) -> void:
+	reading_page=-1
+	reading_from=-1; reading_turn=0
 	method=data.get("method",""); checked=data.get("checked",false); prepared=data.get("prepared",false)
 	elapsed=data.get("elapsed",0); result=data.get("result",""); guide=data.get("guide",""); joined=data.get("joined",false)
 	participants.assign(data.get("participants",[]))

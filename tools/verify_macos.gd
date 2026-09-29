@@ -328,6 +328,7 @@ func run() -> void:
 		return
 	var walk: CityStoryWalk=life.walk
 	var before_walk := SaveGame.snapshot(game)
+	if not await verify_city_share(game): quit(1); return
 	life.method="paper"; life.prepared=true; life.joined=true; life.elapsed=18; life.result="paper"
 	life.participants.assign(["resident_zhou_ning","resident_lin_qiao"])
 	if not walk.start(CityStoryWalk.GUIDES[1]): push_error("Packaged story invitation failed"); quit(1); return
@@ -386,6 +387,37 @@ func run() -> void:
 	game.queue_free()
 	await process_frame
 	quit()
+
+func verify_city_share(game: Node3D) -> bool:
+	var original: Dictionary=SaveGame.snapshot(game)
+	var life: CityLife=game.city_life
+	life.method="paper"; life.prepared=true
+	game.player.position=life.center()+Vector3(0,0,3)
+	for i in range(3):
+		var person: CityResident=game.population.residents[CityLife.AUDIENCE[i]]
+		game.commons.release(person)
+		person.position=CityPopulation.POINTS[CityLife.PAPER[i]]
+		person.route.clear(); person.destination=CityLife.PAPER[i]; person.state="activity"; person.fear=0
+	for i in range(85): await physics_frame
+	if not life.performance.running() or life.performance.books.size()!=3:
+		push_error("Packaged live bookshop performance missing"); return false
+	for person in life.performance.attending():
+		var book: CityStoryAlbum=life.performance.books[person.stable_id]
+		if not book.visible or person.visual.current!="story_read" or book.right_page.texture.get_width()!=800:
+			push_error("Packaged standing reading or original page texture missing"); return false
+	var point: CityActivityPoint=life.point_for("paper")
+	life.open_point(point); life.answer(point,"city_read"); life.answer(point,"city_page")
+	for i in range(24): await physics_frame
+	if not life.room.album.turning_page.visible:
+		push_error("Packaged physical page turn missing"); return false
+	for i in range(32): await physics_frame
+	if life.room.album.page!=1 or life.reading_page!=1:
+		push_error("Packaged reading text/page mismatch"); return false
+	game.close_interaction()
+	if not SaveGame.restore(game,original):
+		push_error("Packaged performance fixture cleanup failed"); return false
+	print("PACKAGED_SHARE real_books=3 standing_reading=true page_turn=true restored=true")
+	return true
 
 func verify_city_outing(game: Node3D) -> bool:
 	var original := SaveGame.snapshot(game)

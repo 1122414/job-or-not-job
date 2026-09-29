@@ -5,7 +5,7 @@ const IMAGES := [preload("res://assets/city_story/railway.svg"),preload("res://a
 
 var screen: Label3D
 var announcement: Label3D
-var album: Node3D
+var album: CityStoryAlbum
 var projection: Sprite3D
 var lamps: Array[OmniLight3D]=[]
 var furnishings: CityStreetscape
@@ -14,14 +14,9 @@ func _ready() -> void:
 	build_room()
 	furnishings.solid(Vector3(3,.12,1.25),Vector3(-3.5,.78,-3.8),"timber")
 	for x in [-4.6,-2.4]: furnishings.solid(Vector3(.1,.75,1),Vector3(x,.375,-3.8),"metal")
-	album=Node3D.new()
+	album=CityStoryAlbum.new()
 	add_child(album)
 	album.position=Vector3(-3.5,.86,-3.8)
-	for x in [-.25,.25]:
-		Shapes.box(album,Vector3(.48,.018,.55),Vector3(x,0,0),Color("ddd8c9"))
-		Shapes.box(album,Vector3(.36,.003,.28),Vector3(x,.012,0),Color("668584"))
-		var page := picture(album,IMAGES[0 if x<0 else 1],Vector3(x,.023,0),.0005)
-		page.rotation.x=-PI/2
 	Shapes.box(self,Vector3(5,2.35,.06),Vector3(0,2.05,-6.29),Color("293c3d"))
 	projection=picture(self,IMAGES[0],Vector3(0,2.15,-6.23),.0042)
 	projection.visible=false

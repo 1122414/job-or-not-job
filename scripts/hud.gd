@@ -65,6 +65,7 @@ func _draw() -> void:
 		if destination:
 			text_at(Vector2(35,h-64),"目的地  %dm" % int(p.position.distance_to(destination.position)),14,Color("e4be70"))
 	if not scene_dialogue: text_at(Vector2(w-92,h-25),"H  帮助",14,Color("c7cdd0"))
+	var subtitle_top := h-92.0
 	if game.city_life and game.panels.page=="" and game.conversation.is_empty():
 		var caption: String=game.city_life.caption()
 		if caption=="" and game.commons: caption=game.commons.caption()
@@ -73,6 +74,7 @@ func _draw() -> void:
 			var subtitle_lines := wrap_lines(caption,width-40,19)
 			var height := 34+subtitle_lines.size()*27
 			var at := Vector2((w-width)/2,h-height-85)
+			subtitle_top=at.y
 			draw_style_box(dialogue_style(),Rect2(at,Vector2(width,height)))
 			for i in range(subtitle_lines.size()): text_at(at+Vector2(20,27+i*27),subtitle_lines[i],19)
 	if game.transit.riding and game.panels.page=="":
@@ -96,8 +98,9 @@ func _draw() -> void:
 		var width := minf(620,w-300)
 		var lines := wrap_lines(toast,width-36,17)
 		var height := mini(3,lines.size())*25+24
-		draw_style_box(panel_style(),Rect2((w-width)/2,h-104-height,width,height))
-		for i in range(mini(lines.size(),3)): text_at(Vector2((w-width)/2+18,h-104-height+29+i*25),lines[i],17,Color("e1e5e6"))
+		var top := minf(h-104,subtitle_top-12)-height
+		draw_style_box(panel_style(),Rect2((w-width)/2,top,width,height))
+		for i in range(mini(lines.size(),3)): text_at(Vector2((w-width)/2+18,top+29+i*25),lines[i],17,Color("e1e5e6"))
 	if p.dead>0:
 		draw_rect(Rect2(0,h*0.4,w,100),Color(0.15,0,0,0.75))
 		text_at(Vector2(w*0.38,h*0.4+60),"今天，先躺一下。",34,Color("e27670"))

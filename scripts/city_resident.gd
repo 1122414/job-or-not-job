@@ -111,19 +111,21 @@ func _physics_process(delta: float) -> void:
 		visual.rotation.y=lerp_angle(visual.rotation.y,atan2(-direction.x,-direction.z),1-exp(-delta*5))
 	var sharing: bool=game.city_life!=null and game.city_life.present(self)
 	if sharing:
-		var look: Vector3=game.city_life.focus_position()-position
+		var look: Vector3=game.city_life.performance.facing(self)-position
 		visual.rotation.y=lerp_angle(visual.rotation.y,atan2(-look.x,-look.z),1-exp(-delta*5))
-	var telling: bool=sharing and index==CityLife.AUDIENCE[mini(2,int(game.city_life.elapsed/6))]
 	if seated: visual.rotation.y=lerp_angle(visual.rotation.y,seat_body.rotation.y,1-exp(-delta*8))
 	var reading: bool=game.commons!=null and game.commons.reading(self)
-	visual.scene_action="read" if reading else ""
-	visual.pose(Vector2(velocity.x,velocity.z).length(),false,falling,seated,seated,false,state=="talking" or telling or game.commons!=null and game.commons.telling(self))
+	visual.scene_action="read" if reading else game.city_life.performance.action(self) if game.city_life else ""
+	visual.pose(Vector2(velocity.x,velocity.z).length(),false,falling,seated,seated,false,state=="talking" or game.commons!=null and game.commons.telling(self))
 	if not reading: pastime_book.hide()
 	visual.rotation.y=wrapf(visual.rotation.y,-PI,PI)
 	update_body()
 	if not is_on_floor(): velocity.y=-4
 	var before := position
 	move_and_slide()
+	# Character-root rotation/motion may run between mixer evaluations.
+	# Reapply scene-owned props so the palms and book use the same frame.
+	if game.city_life and game.city_life.performance: game.city_life.performance.apply(self)
 	if not falling and velocity.length()>.4 and position.distance_to(before)<delta*.15: stuck+=delta
 	else: stuck=0
 	if stuck>2: velocity=Vector3.ZERO
@@ -272,6 +274,7 @@ func make_pastime_book() -> void:
 	pastime_book.hide()
 
 func sync_pastime_book() -> void:
+	if game.city_life and game.city_life.performance: game.city_life.performance.apply(self)
 	if not pastime_book or not game.commons: return
 	if game.commons.sitting(self) and not game.commons.reading(self):
 		var other: Node3D=game.player if game.speaker==self else game.commons.companion(self)

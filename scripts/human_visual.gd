@@ -47,7 +47,7 @@ func _ready() -> void:
 	animation=AnimationPlayer.new()
 	add_child(animation)
 	var library := AnimationLibrary.new()
-	for clip in ["idle","walk","run","strike","work","sit","fallen","recoil","talk","sit_talk","carry","carry_idle","block","read","write","message","pause","beckon","move_box","phone_reply","box_message"]: library.add_animation(clip,make_clip(clip))
+	for clip in ["idle","walk","run","strike","work","sit","fallen","recoil","talk","sit_talk","carry","carry_idle","block","read","write","message","pause","beckon","move_box","phone_reply","box_message","story_read","story_listen","story_present"]: library.add_animation(clip,make_clip(clip))
 	if use_authored_motion:
 		var path := "res://assets/animations/quaternius_upper_body.res" if cast_id.is_empty() else "res://assets/animations/cast/"+cast_id+".res"
 		var authored: AnimationLibrary=load(path)
@@ -112,7 +112,7 @@ func update_face(delta: float) -> void:
 
 func make_clip(clip: String) -> Animation:
 	var anim := Animation.new()
-	anim.length=4.0 if clip=="box_message" else 3.2 if clip=="phone_reply" else 1.8 if clip=="beckon" else 1.4 if clip=="move_box" else 0.32 if clip=="recoil" else 0.45 if clip=="strike" else 4.0 if clip in ["idle","sit","talk","sit_talk"] else 1.0
+	anim.length=4.0 if clip=="box_message" else 3.2 if clip=="phone_reply" else 1.8 if clip=="beckon" else 1.4 if clip=="move_box" else 0.32 if clip=="recoil" else 0.45 if clip=="strike" else 4.0 if clip in ["idle","sit","talk","sit_talk","story_read","story_listen","story_present"] else 1.0
 	anim.loop_mode=Animation.LOOP_NONE if clip in ["strike","recoil","beckon","move_box","phone_reply","box_message"] else Animation.LOOP_LINEAR
 	var bones := ["upperarm01.L","upperarm01.R","lowerarm01.L","lowerarm01.R","upperleg01.L","upperleg01.R","lowerleg01.L","lowerleg01.R","spine02","head","wrist.L","wrist.R","foot.L","foot.R"]
 	# Every clip owns the same bones so an interrupted authored gesture cannot linger.
@@ -166,6 +166,15 @@ func make_clip(clip: String) -> Animation:
 				if clip in ["sit","sit_talk"]:
 					if bone.begins_with("upperarm"): euler.x=-0.4
 					if bone.begins_with("lowerarm"): euler.x=-0.3
+			elif clip in ["story_read","story_listen","story_present"]:
+				if bone=="spine02": euler=Vector3(.015+wave*.008,wave*.018,0)
+				if bone=="head": euler.x=.15 if clip=="story_read" else sin(phase*TAU*2)*.025
+				if clip=="story_read":
+					if bone.begins_with("upperarm"): euler=Vector3(-.65,0,-.3 if bone.ends_with("L") else .3)
+					if bone.begins_with("lowerarm"): euler.x=-.7
+				elif clip=="story_present":
+					if bone=="upperarm01.L": euler.x=-.3-wave*.12
+					if bone=="lowerarm01.L": euler.x=-.4-wave*.1
 			elif clip=="recoil":
 				var flinch := sin(phase*PI)
 				if bone=="spine02": euler.x=-0.18*flinch
@@ -303,6 +312,7 @@ func pose(speed: float, attacking: bool, fallen: bool, working: bool = false, ta
 		return
 	var next := ("carry" if speed>0.2 else "carry_idle") if carrying else "recoil" if stunned else "block" if blocking else ("sit_talk" if conversing else "sit") if talking else "talk" if conversing and speed<0.2 else "work" if working else "strike" if attacking else "run" if speed>3.2 else "walk" if speed>0.2 else "idle"
 	if talking and not stunned and not blocking and not attacking and speed<0.2 and scene_action!="": next=scene_action
+	if not talking and not working and not carrying and not stunned and not blocking and not attacking and speed<.2 and scene_action in ["story_read","story_listen","story_present"]: next=scene_action
 	if next!=current:
 		animation.play(next,0.04 if stunned else 0.20)
 		if next in ["idle","work"]: animation.seek(float(variation%11)/11.0,true)

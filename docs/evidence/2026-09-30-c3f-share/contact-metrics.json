@@ -1,0 +1,113 @@
+{
+	"garden": {
+		"max_hand_step_m": 0.0,
+		"palm_error_m": 0.0,
+		"skin_depth_m": 0.0,
+		"turns": [
+			{
+				"narrator": "resident_zhou_ning",
+				"page": 0,
+				"time": 1.4,
+				"turn": 0.0
+			},
+			{
+				"narrator": "resident_zhou_ning",
+				"page": 0,
+				"time": 5.6,
+				"turn": 0.0
+			},
+			{
+				"narrator": "resident_lin_qiao",
+				"page": 0,
+				"time": 7.4,
+				"turn": 0.0
+			},
+			{
+				"narrator": "resident_lin_qiao",
+				"page": 0,
+				"time": 11.6,
+				"turn": 0.0
+			},
+			{
+				"narrator": "resident_wu_fan",
+				"page": 0,
+				"time": 13.4,
+				"turn": 0.0
+			}
+		]
+	},
+	"paper": {
+		"max_hand_step_m": 0.0299817435443401,
+		"palm_error_m": 0.00000762939453125,
+		"skin_depth_m": 0.000953841805458069,
+		"turns": [
+			{
+				"narrator": "resident_zhou_ning",
+				"page": 0,
+				"time": 1.4,
+				"turn": 0.0
+			},
+			{
+				"narrator": "resident_zhou_ning",
+				"page": 0,
+				"time": 5.6,
+				"turn": 0.499999999999999
+			},
+			{
+				"narrator": "resident_lin_qiao",
+				"page": 1,
+				"time": 7.4,
+				"turn": 0.0
+			},
+			{
+				"narrator": "resident_lin_qiao",
+				"page": 1,
+				"time": 11.6,
+				"turn": 0.499999999999999
+			},
+			{
+				"narrator": "resident_wu_fan",
+				"page": 2,
+				"time": 13.4,
+				"turn": 0.0
+			}
+		]
+	},
+	"screen": {
+		"max_hand_step_m": 0.0,
+		"palm_error_m": 0.0,
+		"skin_depth_m": 0.0,
+		"turns": [
+			{
+				"narrator": "resident_zhou_ning",
+				"page": 0,
+				"time": 1.4,
+				"turn": 0.0
+			},
+			{
+				"narrator": "resident_zhou_ning",
+				"page": 0,
+				"time": 5.6,
+				"turn": 0.0
+			},
+			{
+				"narrator": "resident_lin_qiao",
+				"page": 0,
+				"time": 7.4,
+				"turn": 0.0
+			},
+			{
+				"narrator": "resident_lin_qiao",
+				"page": 0,
+				"time": 11.6,
+				"turn": 0.0
+			},
+			{
+				"narrator": "resident_wu_fan",
+				"page": 0,
+				"time": 13.4,
+				"turn": 0.0
+			}
+		]
+	}
+}
