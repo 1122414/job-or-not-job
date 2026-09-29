@@ -12,7 +12,8 @@ const POINTS := {
 	"bookshop_entry":Vector3(-52,0,41),"bookshop_room":Vector3(-52,0,35),
 	"reading_west":Vector3(-54,0,31),"reading_center":Vector3(-52,0,31),"reading_east":Vector3(-49.5,0,31),
 	"paper_west":Vector3(-56.5,0,30.5),"paper_center":Vector3(-54.3,0,30),"paper_east":Vector3(-52.9,0,28.6),
-	"garden_west":Vector3(36,0,56),"garden_center":Vector3(38,0,58),"garden_east":Vector3(40,0,56)
+	"garden_west":Vector3(36,0,56),"garden_center":Vector3(38,0,58),"garden_east":Vector3(40,0,56),
+	"service_entry":Vector3(16,0,72),"service_hall":Vector3(16,0,76)
 }
 const LINKS := [["office","south"],["south","center"],["center","west_path"],["west_path","shop_walk"],["shop_walk","bookshop"],["west_path","west_in"],["west_in","west_out"],["west_out","market"],["center","homes"],["center","garden"],["garden","homes"],["homes","east_in"],["east_in","east_out"],["east_out","east_garden"],["center","north_in"],["north_in","north_out"],["north_out","sea_west"],["north_out","sea_east"],["bookshop","bookshop_entry"],["bookshop_entry","bookshop_room"],["bookshop_room","reading_west"],["bookshop_room","reading_center"],["bookshop_room","reading_east"],["bookshop_room","paper_west"],["bookshop_room","paper_center"],["bookshop_room","paper_east"],["garden","garden_west"],["garden","garden_center"],["garden","garden_east"]]
 const CROSSINGS := {"market":["west_in","west_out"],"homes":["east_in","east_out"],"waterfront":["north_in","north_out"]}
@@ -38,6 +39,8 @@ func _ready() -> void:
 	point_ids=POINTS.keys()
 	for i in range(point_ids.size()): graph.add_point(i,POINTS[point_ids[i]])
 	for link in LINKS: graph.connect_points(point_ids.find(link[0]),point_ids.find(link[1]))
+	graph.connect_points(point_ids.find("center"),point_ids.find("service_entry"))
+	graph.connect_points(point_ids.find("service_entry"),point_ids.find("service_hall"))
 	for id in CROSSINGS:
 		var ends: Array=CROSSINGS[id]
 		var middle: Vector3=(POINTS[ends[0]]+POINTS[ends[1]])/2
@@ -84,11 +87,13 @@ func crossing_for(from: String,to: String) -> String:
 	return ""
 
 func waiting(id: String) -> bool:
+	if game.response and (game.response.requests(id) or game.response.closed(id)): return true
 	for person in residents:
 		if person.available() and person.crossing=="" and person.requested_crossing()==id: return true
 	return false
 
 func occupied(id: String) -> bool:
+	if game.response and (game.response.occupied(id) or game.response.closed(id)): return true
 	for person in residents:
 		if person.crossing==id: return true
 	return false
@@ -110,6 +115,7 @@ func _physics_process(delta: float) -> void:
 			gate.remaining=7.0
 
 func may_cross(id: String) -> bool:
+	if game.response and game.response.closed(id): return false
 	var gate: Dictionary=crossings[id]
 	return gate.people and gate.opened and gate.remaining>0 and safe_to_cross(id)
 
@@ -168,7 +174,7 @@ func refuge(person: CityResident,threat: Vector3) -> String:
 	return best
 
 func talk(person: CityResident) -> void:
-	if not person.available(): game.say("对方已死亡。" if person.hp==0 else "对方受伤倒地，暂时无法交谈。"); return
+	if not person.available(): game.response.open_person(person); return
 	if person.crossing!="": game.say("先让对方走到路边。"); return
 	if person.fear>0: game.say("对方正在避开危险。"); return
 	game.close_interaction()
@@ -176,6 +182,7 @@ func talk(person: CityResident) -> void:
 	person.state="talking"
 	person.met=true
 	var text := person.title.split(" · ")[0]+"："+("又见面了。" if person.conversations>0 else "你好。")
+	if game.response.cases.get(person.stable_id,{}).get("reporter")=="player": text+="我记得你叫来了街区救助。"
 	if person.hits>0: text+="上次你动过手，我还记得。" if not person.apologized else "道歉我听到了，让我缓一缓。"
 	elif person.witnessed>0: text+="刚才那场冲突让我有点担心。"
 	else: text+="我准备去"+TITLES.get(person.destination,"街口")+"。"
@@ -184,6 +191,7 @@ func talk(person: CityResident) -> void:
 	game.queue_save()
 
 func answer(person: CityResident,action: String) -> void:
+	if action.begins_with("response_"): game.response.answer(person,action); return
 	if not person.available(): game.close_interaction(); return
 	person.conversations+=1
 	if action=="resident_places":

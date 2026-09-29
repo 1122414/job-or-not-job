@@ -15,3 +15,5 @@
 反例边界：接触点近零误差并不表示指尖包覆自然；掌面距包围盒0只说明点在盒内，可能穿透；托底也不等于杯柄抓握。现有纸张约40cm、纸箱后半段约38—70cm偏差仍开放，见验收与 unresolved，不把通用IK接口当作对应动作已修。
 
 证据：`tests/hand_contact_test.gd`、`tests/interview_performance_test.gd`、`tools/render_hand_contacts.gd`、`docs/2026-09-29_S4手机取放与持物接触验收.md`。图形夹具必须隐藏 NO_FOCUS 根窗口并明确将 SubViewport 设为 UPDATE_ALWAYS；初次缺少后者只得到黑图，不能作为画面通过证据。当前仅离屏查看，不等于用户试玩。
+
+C3b补充窗口边界：在当前Godot4.7.1中仅root.hide不足以证明后台状态，更新流程见[后台窗口状态](background-window-state.md)；不改写上述历史接触测量，但后续取证必须验证最小化/无焦点/鼠标可见。

@@ -42,7 +42,7 @@ func run() -> void:
 		quit(1)
 		return
 	var humans: Array=game.find_children("*","Node3D",true,false).filter(func(node): return node is HumanVisual)
-	if humans.size()!=26:
+	if humans.size()!=28:
 		push_error("Packaged character visuals missing")
 		quit(1)
 		return
@@ -226,6 +226,17 @@ func run() -> void:
 		push_error("Packaged activity scene preparation or JSON restore failed")
 		quit(1)
 		return
+	var patient: CityResident=game.population.residents[0]
+	patient.position=Vector3(16,0,68)
+	patient.hp=0; patient.state="dead"; patient.route.clear(); patient.crossing=""
+	game.player.position=Vector3(-18,0,18)
+	if not game.response.report(patient,"player"):
+		push_error("Packaged public response report failed"); quit(1); return
+	for i in range(1200):
+		await physics_frame
+		if game.response.resting(patient): break
+	if not game.response.resting(patient) or patient.hp!=0 or not SaveGame.restore(game,JSON.parse_string(JSON.stringify(SaveGame.snapshot(game)))):
+		push_error("Packaged actual crew transfer or persistence failed"); quit(1); return
 	game.toggle_menu()
 	if DisplayServer.get_name()!="headless":
 		for i in range(6): await process_frame
@@ -234,7 +245,7 @@ func run() -> void:
 			if argument.begins_with("--screenshot="):
 				var error := root.get_texture().get_image().save_png(argument.trim_prefix("--screenshot="))
 				if error!=OK: quit(1); return
-	print("PACKAGED_SMOKE_OK build=",build.build_id," label=",BuildInfo.label()," npcs=",game.npcs.size()," props=",game.props.size()," company_spaces=2 company_sources=2 environment_props=6 asset_sources=5 authored_clips=2 authored_characters=26 texture_imports=verified ui_mouse=verified city_stops=4 bus_ride_save=verified driving_save=verified traffic=3 public_residents=12 population_save=verified bookshop_walk_save=verified original_illustrations=3 persistence=",game.persistence_enabled)
+	print("PACKAGED_SMOKE_OK build=",build.build_id," label=",BuildInfo.label()," npcs=",game.npcs.size()," props=",game.props.size()," company_spaces=2 company_sources=2 environment_props=6 asset_sources=5 authored_clips=2 authored_characters=28 texture_imports=verified ui_mouse=verified city_stops=4 bus_ride_save=verified driving_save=verified traffic=3 public_residents=12 population_save=verified bookshop_walk_save=verified original_illustrations=3 public_response_transfer_save=verified persistence=",game.persistence_enabled)
 	paused=false
 	game.queue_free()
 	await process_frame

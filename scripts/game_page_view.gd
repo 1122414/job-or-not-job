@@ -304,6 +304,7 @@ func ledger() -> void:
 func city_page() -> void:
 	paragraph("当前位置："+game.location_name())
 	paragraph(game.city_life.status_text())
+	paragraph(game.response.status_text(),MUTED)
 	action("city-bookshop","前往社区书屋 · 自由阅览与手绘图册分享",func():
 		game.city_life.guide="notice"
 		game.driving.guide_car=""

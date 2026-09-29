@@ -1,6 +1,6 @@
 extends SceneTree
 
-# Isolated GPU rendering: hidden unfocusable window, no game scene or pointer lock.
+# Isolated GPU rendering: minimized unfocusable root, no desktop pointer lock.
 var output := "res://build/character-candidate-images"
 var source := "res://build/character-candidates"
 var extended := false
@@ -17,9 +17,15 @@ func _initialize() -> void:
 		if argument=="--motion": motion=true
 		if argument.begins_with("--msaa="): msaa=int(argument.trim_prefix("--msaa="))
 	DisplayServer.window_set_flag(DisplayServer.WINDOW_FLAG_NO_FOCUS,true)
-	root.hide()
+	root.set_flag(Window.FLAG_NO_FOCUS,true)
+	root.mode=Window.MODE_MINIMIZED
 	Input.mouse_mode=Input.MOUSE_MODE_VISIBLE
-	call_deferred("run")
+	call_deferred("background_run")
+
+func background_run() -> void:
+	root.set_flag(Window.FLAG_NO_FOCUS,true)
+	root.mode=Window.MODE_MINIMIZED
+	await run()
 
 func run() -> void:
 	DirAccess.make_dir_recursive_absolute(output)

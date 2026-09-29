@@ -50,7 +50,7 @@ func _ready() -> void:
 	phase=population.time_phase()
 
 func available() -> bool:
-	return hp>0 and down<=0
+	return hp>0 and down<=0 and (not game.response or not game.response.carried(self))
 
 func plan(to: String) -> void:
 	destination=to
@@ -64,6 +64,9 @@ func requested_crossing() -> String:
 	return population.crossing_for(from_node,route[0]) if not route.is_empty() else ""
 
 func _physics_process(delta: float) -> void:
+	if game.response and (game.response.carried(self) or game.response.resting(self)):
+		game.response.sync_person(self)
+		return
 	fear=maxf(0,fear-delta)
 	down=maxf(0,down-delta)
 	if game.city_life: game.city_life.redirect(self)
@@ -179,6 +182,7 @@ func hit(direction: Vector3,strength: float,action: int,dangerous: bool=true) ->
 		game.career.record("death_"+stable_id,title.split(" · ")[0]+"在街区冲突中死亡，原居民不会复活。")
 	else: avoid(position-direction*3)
 	population.alarm(self,action)
+	if game.response: game.response.alarm(self)
 	game.say(title.split(" · ")[0]+("已死亡。" if hp==0 else "受伤倒地。" if down>0 else "：停手！"))
 	game.queue_save()
 

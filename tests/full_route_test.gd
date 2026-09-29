@@ -6,7 +6,8 @@ var capture_viewport: Viewport
 func _initialize() -> void:
 	if DisplayServer.get_name()!="headless":
 		DisplayServer.window_set_flag(DisplayServer.WINDOW_FLAG_NO_FOCUS,true)
-		root.hide()
+		root.set_flag(Window.FLAG_NO_FOCUS,true)
+		root.mode=Window.MODE_MINIMIZED
 	Input.mouse_mode=Input.MOUSE_MODE_VISIBLE
 	call_deferred("run")
 func perform(game: Node3D,id: String,action: String) -> bool:
@@ -70,6 +71,9 @@ func perform(game: Node3D,id: String,action: String) -> bool:
 	push_error("完整路线选项缺失："+id+" / "+action+" "+str(game.conversation))
 	return false
 func run() -> void:
+	if DisplayServer.get_name()!="headless":
+		root.set_flag(Window.FLAG_NO_FOCUS,true)
+		root.mode=Window.MODE_MINIMIZED
 	for argument in OS.get_cmdline_user_args():
 		if argument.begins_with("--output="): evidence_dir=argument.trim_prefix("--output=")
 	var game=load("res://scenes/main.tscn").instantiate()
@@ -88,6 +92,10 @@ func run() -> void:
 	root.set_disable_input(true)
 	Input.mouse_mode=Input.MOUSE_MODE_VISIBLE
 	for i in range(10): await physics_frame
+	if DisplayServer.get_name()!="headless":
+		if root.mode!=Window.MODE_MINIMIZED or not root.get_flag(Window.FLAG_NO_FOCUS) or root.has_focus() or Input.mouse_mode!=Input.MOUSE_MODE_VISIBLE:
+			push_error("Graphical route must remain minimized, unfocusable and pointer-free"); quit(1); return
+		print("GRAPHICAL_BACKGROUND minimized=true unfocusable=true focused=false pointer_visible=true")
 	var route := [["a_hr","interview_hr"],["a_lead","interview_lead"],["a_boss","interview_boss"],["a_hr","join_a"],["a_hr","tour_begin"],["a_hr","tour_greet"],["a_hr","tour_settle"],["desk_a","desk_open"],["a_hr","service_account"],["a_lead","brief"],["archive","data"],["desk_a","prepare"],["a_friend","shortcut"],["demo","submit"],["a_lead","no_hc"],["a_group","transfer"],["desk_a2","desk_open"],["backup","backup"],["a_boss","defend"],["a_hr","resign"],["b_hr","interview_b"],["b_hr","join_b"],["b_friend","tour_begin"],["b_friend","tour_greet"],["b_friend","tour_settle"],["desk_b","desk_open"],["b_hr","service_account"],["b_friend","help"],["handover","handover"]]
 	var b_snapshot: Dictionary={}
 	for step in route:

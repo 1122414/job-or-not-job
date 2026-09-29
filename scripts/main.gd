@@ -47,6 +47,7 @@ var transit: CityTransit
 var driving: CityDriving
 var population: CityPopulation
 var city_life: CityLife
+var response: CityResponse
 
 func _ready() -> void:
 	bind_inputs()
@@ -85,6 +86,9 @@ func _ready() -> void:
 	city_life=CityLife.new()
 	city_life.game=self
 	add_child(city_life)
+	response=CityResponse.new()
+	response.game=self
+	add_child(response)
 	build_ui()
 	build_audio()
 	interview_audio=InterviewAudio.new()
