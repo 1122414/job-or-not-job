@@ -28,6 +28,7 @@ func run() -> void:
 	check(SaveGame.restore(game,saved) and game.player.seated and commons.sitting(person),"写盘后恢复实际占用")
 	await frames(15)
 	check(game.player.is_on_floor() and person.is_on_floor(),"读档后双方持续受地面支撑")
+	check(commons.sitting(person),"场景迁移恢复不能挪走仍有效落座的居民")
 	game.player.look(Vector2(230,0))
 	var camera_yaw: float=game.player.yaw
 	game.player.pick(game.props[0])

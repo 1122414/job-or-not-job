@@ -291,6 +291,37 @@ func run() -> void:
 		quit(1)
 		return
 	var life: CityLife=game.city_life
+	if life.room.furnishings==null or life.room.announcement.double_sided or life.room.lamps.size()!=4:
+		push_error("Packaged authored bookshop or single-sided window signage missing"); quit(1); return
+	for x in [-55.9,-46.9]:
+		var ray := PhysicsRayQueryParameters3D.create(Vector3(x,1.9,40),Vector3(x,1.9,37),1)
+		var hit: Dictionary=game.get_world_3d().direct_space_state.intersect_ray(ray)
+		if hit.is_empty() or absf(hit.position.z-38.5)>.2:
+			push_error("Packaged window collision missing"); quit(1); return
+		var panes: Array=hit.collider.find_children("*","MeshInstance3D",true,false)
+		if panes.is_empty() or panes[0].material_override.transparency!=BaseMaterial3D.TRANSPARENCY_ALPHA:
+			push_error("Packaged storefront is not transparent"); quit(1); return
+	for link in CityPopulation.LINKS:
+		if not game.walking.clear_segment(CityPopulation.POINTS[link[0]],CityPopulation.POINTS[link[1]]):
+			push_error("Packaged furnishings obstruct public activity route "+str(link)); quit(1); return
+	var place_original := SaveGame.snapshot(game)
+	var place_saved := JSON.parse_string(JSON.stringify(place_original)) as Dictionary
+	var place_person: CityResident=game.population.residents[5]
+	var person_data: Dictionary=place_saved.city_population.people[place_person.stable_id]
+	var old_point: Vector3=life.room.to_global(Vector3(5.94,0,-2.5))
+	person_data.position=SaveGame.vector(old_point)
+	person_data.state="activity"; person_data.destination="reading_east"; person_data.from_node="reading_east"
+	person_data.route=[]; person_data.crossing=""; person_data.activity_left=40; person_data.phase=game.population.time_phase()
+	game.set_process(false)
+	if not SaveGame.restore(game,place_saved):
+		push_error("Packaged old resident position rejected"); quit(1); return
+	for i in range(70): await physics_frame
+	if not game.position_clear(place_person,place_person.position) or not place_person.is_on_floor() or place_person.position.y<-.05 or place_person.position.distance_to(old_point)>3.5 or place_person.hp!=person_data.hp or place_person.destination!=person_data.destination:
+		push_error("Packaged resident is trapped by new furniture or lost state"); quit(1); return
+	if not SaveGame.restore(game,place_original):
+		push_error("Packaged place fixture cleanup failed"); quit(1); return
+	game.set_process(true)
+	print("PACKAGED_PLACES actual_glazing=2 public_routes=clear fixtures=batched lamps=4 signage=single_sided resident_old_position=restored")
 	if life.points.size()!=5 or CityBookshop.IMAGES.size()!=3 or CityBookshop.IMAGES[0].get_width()!=800 or not life.valid(life.snapshot()) or not life.walk.valid(life.walk.snapshot(),life.snapshot(),game.payroll.minute):
 		push_error("Packaged bookshop activity or original illustrations missing")
 		quit(1)

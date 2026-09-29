@@ -631,9 +631,13 @@ func repair_migrated_positions(revision: int) -> void:
 	await get_tree().physics_frame
 	await get_tree().physics_frame
 	if revision!=restore_revision: return
-	for actor in [player]+npcs:
+	for actor in [player]+npcs+population.residents:
 		if actor==player and in_vehicle(): continue
-		if actor!=player and (actor.dead or actor.care_state!="awake"): continue
+		if actor is CityResident:
+			# Seats and rescue services own their occupants' positions. Only
+			# free-standing residents need the same scenery migration as staff.
+			if not actor.available() or response.resting(actor) or commons.sitting(actor): continue
+		elif actor!=player and (actor.dead or actor.care_state!="awake"): continue
 		var origin: Vector3=actor.position
 		# Before this deferred repair runs, physics can push an actor embedded in
 		# new scenery below the flat district floor. Query and assign the same

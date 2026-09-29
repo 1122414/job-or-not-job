@@ -28,6 +28,9 @@ func _init() -> void:
 	materials.old_wall.albedo_color=Color("c1b396")
 	materials.home_wall.albedo_color=Color("b6c0b7")
 	materials.brick.albedo_color=Color("c7b49d")
+	for entry in [["old_ochre","b89b77"],["old_rose","b68c7b"],["home_chalk","d0c9b6"],["home_sage","a6b3a8"],["curtain","c3bda6"],["awning","466b60"]]:
+		materials[entry[0]]=materials.old_wall.duplicate()
+		materials[entry[0]].albedo_color=Color(entry[1])
 	for key in ["paving"]:
 		var surface := ShaderMaterial.new()
 		surface.shader=load("res://assets/materials/city_"+key+".gdshader")
@@ -68,53 +71,77 @@ func solid(size: Vector3,at: Vector3,material: String,yaw: float=0) -> void:
 	Shapes.collider(body,size)
 
 func facade(point: Vector3,size: Vector3,old_town: bool) -> void:
-	var wall := "old_wall" if old_town else "home_wall"
+	var variant := (int(absf(point.x))+int(point.z))%3
+	var wall: String=["old_wall","old_ochre","old_rose"][variant] if old_town else ["home_wall","home_chalk","home_sage"][variant]
 	solid(size,point+Vector3(0,size.y/2,0),wall)
-	box(Vector3(size.x+.3,.35,size.z+.3),point+Vector3(0,.2,0),"brick" if old_town else "stone")
-	box(Vector3(size.x+.55,.25,size.z+.55),point+Vector3(0,size.y+.06,0),"trim")
-	box(Vector3(size.x-.3,.08,size.z-.3),point+Vector3(0,size.y+.21,0),"roof")
+	box(Vector3(size.x+.18,.85,size.z+.18),point+Vector3(0,.425,0),"brick" if old_town else "stone")
+	box(Vector3(size.x+.3,.16,size.z+.3),point+Vector3(0,size.y+.04,0),"trim")
+	box(Vector3(size.x-.3,.08,size.z-.3),point+Vector3(0,size.y+.15,0),"roof")
 	for face in range(4):
 		var yaw := face*PI/2
-		var rotation_basis := Basis(Vector3.UP,yaw)
+		var rot := Basis(Vector3.UP,yaw)
 		var width := size.x if face%2==0 else size.z
 		var depth := size.z if face%2==0 else size.x
-		var center := point+rotation_basis*Vector3(0,0,depth/2+.06)
-		box(Vector3(width+.35,.6,.18),center+Vector3(0,size.y+.45,0),wall,yaw)
+		var center := point+rot*Vector3(0,0,depth/2+.06)
+		box(Vector3(width+.18,.5,.18),center+Vector3(0,size.y+.36,0),wall,yaw)
+		var columns := 3 if old_town or variant==1 else 4
+		var spacing := (width-1.8)/columns
+		var window_width := spacing*.68
 		for floor_index in range(int((size.y-1)/3)):
-			var y := 1.65+floor_index*3.0
-			box(Vector3(width+.22,.12,.16),center+Vector3(0,y+1.3,0),"trim",yaw)
-			for column in range(3):
-				var local := Vector3((column-1)*3.7,y,0)
-				var window := center+rotation_basis*local
-				box(Vector3(2.55,2.05,.1),window,"reveal",yaw)
-				var lit := (floor_index+column+face+int(absf(point.x)))%4==0
-				box(Vector3(2.3,1.8,.12),window+rotation_basis*Vector3(0,0,.035),"window_lit" if lit else "glass",yaw)
-				for dx in [-1.2,0,1.2]: box(Vector3(.065,1.92,.17),window+rotation_basis*Vector3(dx,0,.1),"trim",yaw)
-				for dy in [-.94,.94]: box(Vector3(2.5,.07,.17),window+Vector3(0,dy,0),"trim",yaw)
-				box(Vector3(2.65,.12,.4),window+rotation_basis*Vector3(0,-1.02,.12),"stone",yaw)
-				if floor_index>0 and column!=1:
+			var y := 1.72+floor_index*3.0
+			if old_town: box(Vector3(width+.22,.09,.18),center+Vector3(0,y+1.27,0),"trim",yaw)
+			for column in range(columns):
+				# Leave the actual ground-floor entrance readable, without a window
+				# protruding through its lintel or handles.
+				if floor_index==0 and face in [0,2] and (column==floori(columns*.5) or columns==4 and column==1): continue
+				var window := center+rot*Vector3((column-(columns-1)*.5)*spacing,y,0)
+				box(Vector3(window_width+.22,2.02,.12),window,"reveal",yaw)
+				var lit := (floor_index*3+column+face+variant)%5==1
+				box(Vector3(window_width,1.8,.1),window+rot*Vector3(0,0,.045),"window_lit" if lit else "glass",yaw)
+				var blind := (column*3+face+floor_index+variant)%4
+				if blind==0:
+					for slat in range(7): box(Vector3(window_width-.06,.07,.018),window+rot*Vector3(0,.77-slat*.105,.106),"curtain",yaw)
+				elif blind==1:
+					for side in [-1,1]: box(Vector3(window_width*.18,1.7,.018),window+rot*Vector3(side*window_width*.37,0,.106),"curtain",yaw)
+				for dx in [-window_width/2,0,window_width/2]: box(Vector3(.055,1.93,.22),window+rot*Vector3(dx,0,.12),"timber" if old_town else "metal",yaw)
+				for dy in [-.94,.94]: box(Vector3(window_width+.12,.07,.22),window+rot*Vector3(0,dy,.12),"trim",yaw)
+				box(Vector3(window_width+.3,.12,.42),window+rot*Vector3(0,-1.02,.12),"stone",yaw)
+				if floor_index>0:
 					if old_town:
-						box(Vector3(.78,.52,.43),window+rotation_basis*Vector3(1.42,-.83,.27),"stone",yaw)
-						for bar in range(4): box(Vector3(.58,.025,.04),window+rotation_basis*Vector3(1.42,-1.01+bar*.1,.51),"metal",yaw)
-					else:
-						box(Vector3(2.85,.18,1.0),window+rotation_basis*Vector3(0,-1.03,.45),"stone",yaw)
-						box(Vector3(2.7,.05,.05),window+rotation_basis*Vector3(0,-.05,.94),"metal",yaw)
-						for bar in range(10): box(Vector3(.035,.94,.035),window+rotation_basis*Vector3(-1.3+bar*.29,-.52,.94),"metal",yaw)
-		# Downpipes and pilasters break the four silhouettes, including side views.
-		for dx in [-width/2+.25,width/2-.25]: box(Vector3(.12,size.y,.12),center+rotation_basis*Vector3(dx,size.y/2,.1),"metal",yaw)
+						if (column+face)%2==0:
+							box(Vector3(.72,.48,.39),window+rot*Vector3(window_width/2+.6,-.79,.25),"stone",yaw)
+							for bar in range(4): box(Vector3(.55,.025,.04),window+rot*Vector3(window_width/2+.6,-.94+bar*.09,.47),"metal",yaw)
+						if variant==1: box(Vector3(window_width+.4,.09,.72),window+rot*Vector3(0,1.02,.29),"awning",yaw)
+					elif (column+variant)%2==0:
+						box(Vector3(window_width+.5,.16,1),window+rot*Vector3(0,-1.03,.45),"stone",yaw)
+						box(Vector3(window_width+.38,.06,.065),window+rot*Vector3(0,-.05,.94),"metal",yaw)
+						for bar in range(8): box(Vector3(.035,.94,.035),window+rot*Vector3(-window_width/2+bar*window_width/7,-.52,.94),"metal",yaw)
+						# A planter sits on the balcony slab, inside the rail.
+						if (floor_index+face+column)%3==0:
+							box(Vector3(.65,.25,.27),window+rot*Vector3(.25,-.82,.66),"brick_red",yaw)
+							for stem in range(5): box(Vector3(.11,.16+stem%2*.08,.16),window+rot*Vector3(.02+stem*.11,-.63,.66),"awning",yaw)
+		for dx in [-width/2+.25,width/2-.25]: box(Vector3(.1,size.y,.1),center+rot*Vector3(dx,size.y/2,.12),"metal",yaw)
+		if not old_town:
+			box(Vector3(.55,size.y,.12),center+rot*Vector3(0,size.y/2,.11),"brick",yaw)
 		if face in [0,2]:
-			var doorway := center+rotation_basis*Vector3(0,1.25,.1)
+			var doorway := center+rot*Vector3(0,1.25,.1)
 			box(Vector3(2.9,2.5,.2),doorway,"reveal",yaw)
 			box(Vector3(2.55,2.32,.25),doorway,"timber" if old_town else "glass",yaw)
 			box(Vector3(.06,2.3,.3),doorway,"metal",yaw)
-			for dx in [-.18,.18]: box(Vector3(.04,.4,.08),doorway+rotation_basis*Vector3(dx,0,.17),"trim",yaw)
-			box(Vector3(4.1,.16,1.1),center+rotation_basis*Vector3(0,2.95,.35),"timber" if old_town else "metal",yaw)
-			var address := "榕树街 %d号" % (int(absf(point.x))+int(point.z)) if old_town else "东里 · %d幢" % (int(point.x/10)+int(point.z/20))
-			plaque(address,center+rotation_basis*Vector3(0,2.65,.3),2.8,yaw)
+			for dx in [-.18,.18]: box(Vector3(.04,.4,.08),doorway+rot*Vector3(dx,0,.17),"trim",yaw)
+			box(Vector3(3.6,.13,1.0),center+rot*Vector3(0,2.95,.35),"awning" if old_town else "metal",yaw)
+			var address := "榕树街 %d号 · 住户入口" % (int(absf(point.x))+int(point.z)) if old_town else "东里 · %d幢" % (int(point.x/10)+int(point.z/20))
+			plaque(address,center+rot*Vector3(0,2.65,.3),3.1,yaw)
+			if not old_town:
+				for row in range(3):
+					for column in range(3): box(Vector3(.29,.22,.16),center+rot*Vector3(2.05+column*.32,.65+row*.26,.18),"metal",yaw)
+	# Low parapets, stair access and equipment differ by use; no new floor
+	# becomes a traversable destination just because it has a facade.
+	box(Vector3(3.5,1.8,3),point+Vector3(-2,size.y+.95,-2),wall)
+	box(Vector3(3.85,.15,3.3),point+Vector3(-2,size.y+1.9,-2),"roof")
 	for side in [-1,1]:
-		box(Vector3(2,1.2,1.4),point+Vector3(side*3,size.y+.85,-2),"stone")
-		box(Vector3(2.05,.08,1.45),point+Vector3(side*3,size.y+1.5,-2),"metal")
-		for slat in range(6): box(Vector3(1.7,.06,.04),point+Vector3(side*3,size.y+.4+slat*.16,-1.28),"metal")
+		box(Vector3(1.5,.85,1.3),point+Vector3(3,size.y+.6,side*2),"stone")
+		for slat in range(5): box(Vector3(1.27,.05,.04),point+Vector3(3,size.y+.28+slat*.14,side*2+.68),"metal")
 
 func plaque(text: String,at: Vector3,width: float,yaw: float=0) -> void:
 	box(Vector3(width,.38,.07),at,"metal",yaw)
@@ -204,10 +231,6 @@ func landscape() -> void:
 	for at in [Vector3(-62,0,61),Vector3(60,0,62),Vector3(-31,0,120),Vector3(31,0,120)]:
 		solid(Vector3(.55,.9,.55),at+Vector3(0,.45,0),"metal")
 		box(Vector3(.62,.09,.62),at+Vector3(0,.94,0),"timber")
-	# The bookshop keeps its real entrance; the projecting cornice frames it.
-	box(Vector3(13.8,.23,.7),Vector3(-52,3.05,38.8),"timber")
-	for x in [-58.2,-45.8]: box(Vector3(.25,3,.35),Vector3(x,1.5,38.6),"brick")
-	plaque("社区书屋  /  街区记忆",Vector3(-52,3.5,38.84),5.7)
 	wayfinding("榕树街 · 社区书屋",Vector3(-62,0,44))
 	wayfinding("东里 · 公共花园",Vector3(55,0,50))
 	wayfinding("海风步道 · 城市与海",Vector3(8,0,120))
