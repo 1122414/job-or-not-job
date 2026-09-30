@@ -1,0 +1,68 @@
+[
+  {
+    "image": "bookshop-day.png",
+    "production_sha256": "baf1461b5c1dbef47e8db90f12608a5ea0e02135ec748236714af060b995c6f9",
+    "loaded_sha256": "baf1461b5c1dbef47e8db90f12608a5ea0e02135ec748236714af060b995c6f9",
+    "byte_identical": true
+  },
+  {
+    "image": "bookshop-night.png",
+    "production_sha256": "6fd6acb998eafe77120a4ab62bdc1b622ed8e8b4c6ee26d86fb22b7e07bb4c57",
+    "loaded_sha256": "6fd6acb998eafe77120a4ab62bdc1b622ed8e8b4c6ee26d86fb22b7e07bb4c57",
+    "byte_identical": true
+  },
+  {
+    "image": "central-walk.png",
+    "production_sha256": "531af939b22a9c2b2345dab037497db540720c9320da67efb5d2dd6c49fad2ed",
+    "loaded_sha256": "531af939b22a9c2b2345dab037497db540720c9320da67efb5d2dd6c49fad2ed",
+    "byte_identical": true
+  },
+  {
+    "image": "company-a-night.png",
+    "production_sha256": "eeb375c791d9b4939619b3cb7a18fcda8764f2efac900c9249dfed06866a626e",
+    "loaded_sha256": "eeb375c791d9b4939619b3cb7a18fcda8764f2efac900c9249dfed06866a626e",
+    "byte_identical": true
+  },
+  {
+    "image": "company-a.png",
+    "production_sha256": "4c4ce850c36912590483de20f8326a63a1fda86b4e56c3847e353ad2a70afce9",
+    "loaded_sha256": "4c4ce850c36912590483de20f8326a63a1fda86b4e56c3847e353ad2a70afce9",
+    "byte_identical": true
+  },
+  {
+    "image": "company-b-night.png",
+    "production_sha256": "934206b645b70305164d65bc17b24c6d953e9d4a0a6a718d2deba6b7f9c0c5a1",
+    "loaded_sha256": "934206b645b70305164d65bc17b24c6d953e9d4a0a6a718d2deba6b7f9c0c5a1",
+    "byte_identical": true
+  },
+  {
+    "image": "company-b.png",
+    "production_sha256": "0c68e42f71cc3ea0fde0625a6bcb90292e25ebec4b355e13daea8ca48554ffe5",
+    "loaded_sha256": "0c68e42f71cc3ea0fde0625a6bcb90292e25ebec4b355e13daea8ca48554ffe5",
+    "byte_identical": true
+  },
+  {
+    "image": "home-day.png",
+    "production_sha256": "071d22fbe5044a8bd835b0aaba5bfa2e1a306abaca0eb55407c9241757a47393",
+    "loaded_sha256": "071d22fbe5044a8bd835b0aaba5bfa2e1a306abaca0eb55407c9241757a47393",
+    "byte_identical": true
+  },
+  {
+    "image": "home-night.png",
+    "production_sha256": "9513f26044a52a7426774d2cb6b48f6c3cdc77a5e71fdfeca1e72178f1428232",
+    "loaded_sha256": "9513f26044a52a7426774d2cb6b48f6c3cdc77a5e71fdfeca1e72178f1428232",
+    "byte_identical": true
+  },
+  {
+    "image": "old-street.png",
+    "production_sha256": "48bad004294dbe2ad0841a9bd812da5441c922ada05a903eef71727efddc25ae",
+    "loaded_sha256": "48bad004294dbe2ad0841a9bd812da5441c922ada05a903eef71727efddc25ae",
+    "byte_identical": true
+  },
+  {
+    "image": "waterfront-night.png",
+    "production_sha256": "9c58be60bf801557eb7897243f171fc5ece6737fa0e07c9294ad00fe4e87518d",
+    "loaded_sha256": "9c58be60bf801557eb7897243f171fc5ece6737fa0e07c9294ad00fe4e87518d",
+    "byte_identical": true
+  }
+]

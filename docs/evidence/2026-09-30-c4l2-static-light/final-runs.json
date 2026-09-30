@@ -1,0 +1,204 @@
+[
+  {
+    "name": "final-loaded",
+    "command": [
+      "/Applications/Godot.app/Contents/MacOS/Godot",
+      "--path",
+      "/Users/geminchen/My-Item/job-or-not-job",
+      "--fixed-fps",
+      "60",
+      "--audio-driver",
+      "Dummy",
+      "--disable-render-loop",
+      "--script",
+      "tools/profile_city_baked_light.gd",
+      "--",
+      "--output=/Users/geminchen/My-Item/job-or-not-job/build/c4l2/final-loaded",
+      "--no-mouse-capture",
+      "--mode=baseline",
+      "--load-baked=/Users/geminchen/My-Item/job-or-not-job/build/c4l2/final-baked",
+      "--samples=30",
+      "--runs=1",
+      "--identity=/Users/geminchen/My-Item/job-or-not-job/build/c4l2/source-before.json"
+    ],
+    "exit_code": 0,
+    "seconds": 22.11190390586853,
+    "success_marker": true,
+    "errors": [],
+    "warnings": [
+      "WARNING: 7 RIDs of type \"Texture\" were leaked."
+    ],
+    "log_sha256": "d37130ef9c4092d9d2bfe04ee77751b6a11e42fdc9f83bdb89ace0079777081c"
+  },
+  {
+    "name": "final-zero-reflection",
+    "command": [
+      "/Applications/Godot.app/Contents/MacOS/Godot",
+      "--path",
+      "/Users/geminchen/My-Item/job-or-not-job",
+      "--fixed-fps",
+      "60",
+      "--audio-driver",
+      "Dummy",
+      "--disable-render-loop",
+      "--script",
+      "tools/profile_city_baked_light.gd",
+      "--",
+      "--output=/Users/geminchen/My-Item/job-or-not-job/build/c4l2/final-zero-reflection",
+      "--no-mouse-capture",
+      "--mode=baseline",
+      "--load-baked=/Users/geminchen/My-Item/job-or-not-job/build/c4l2/final-baked",
+      "--reflection-strength=0",
+      "--samples=30",
+      "--runs=1",
+      "--identity=/Users/geminchen/My-Item/job-or-not-job/build/c4l2/source-before.json"
+    ],
+    "exit_code": 0,
+    "seconds": 21.448081970214844,
+    "success_marker": true,
+    "errors": [],
+    "warnings": [
+      "WARNING: 7 RIDs of type \"Texture\" were leaked."
+    ],
+    "log_sha256": "d787de42ebf1be5354c8882867659350eabee9453e304439873782a46f0d6c5e"
+  },
+  {
+    "name": "final-no-reflection",
+    "command": [
+      "/Applications/Godot.app/Contents/MacOS/Godot",
+      "--path",
+      "/Users/geminchen/My-Item/job-or-not-job",
+      "--fixed-fps",
+      "60",
+      "--audio-driver",
+      "Dummy",
+      "--disable-render-loop",
+      "--script",
+      "tools/profile_city_baked_light.gd",
+      "--",
+      "--output=/Users/geminchen/My-Item/job-or-not-job/build/c4l2/final-no-reflection",
+      "--no-mouse-capture",
+      "--mode=baseline",
+      "--load-baked=/Users/geminchen/My-Item/job-or-not-job/build/c4l2/final-baked",
+      "--without-reflections",
+      "--samples=30",
+      "--runs=1",
+      "--identity=/Users/geminchen/My-Item/job-or-not-job/build/c4l2/source-before.json"
+    ],
+    "exit_code": 0,
+    "seconds": 21.85282826423645,
+    "success_marker": true,
+    "errors": [],
+    "warnings": [],
+    "log_sha256": "3ad0a4c559220f2216bfe907eb07d95934bd7ae8389b1d940859a21c4eb04d4f"
+  },
+  {
+    "name": "final-baseline",
+    "command": [
+      "/Applications/Godot.app/Contents/MacOS/Godot",
+      "--path",
+      "/Users/geminchen/My-Item/job-or-not-job",
+      "--fixed-fps",
+      "60",
+      "--audio-driver",
+      "Dummy",
+      "--disable-render-loop",
+      "--script",
+      "tools/profile_city_indirect.gd",
+      "--",
+      "--output=/Users/geminchen/My-Item/job-or-not-job/build/c4l2/final-baseline",
+      "--no-mouse-capture",
+      "--mode=baseline",
+      "--samples=30",
+      "--runs=1",
+      "--identity=/Users/geminchen/My-Item/job-or-not-job/build/c4l2/source-before.json"
+    ],
+    "exit_code": 0,
+    "seconds": 20.12051820755005,
+    "success_marker": true,
+    "errors": [],
+    "warnings": [],
+    "log_sha256": "21097af71620ff6c571a28238d009d7c98db76af3f1a7f071077ceb9f380918f"
+  },
+  {
+    "name": "control-metal-zero",
+    "command": [
+      "/Applications/Godot.app/Contents/MacOS/Godot",
+      "--path",
+      "/Users/geminchen/My-Item/job-or-not-job",
+      "--fixed-fps",
+      "60",
+      "--audio-driver",
+      "Dummy",
+      "--disable-render-loop",
+      "--script",
+      "tools/probe_local_reflections.gd",
+      "--",
+      "--output=/Users/geminchen/My-Item/job-or-not-job/build/c4l2/control-metal-zero",
+      "--no-mouse-capture",
+      "--zero-ambient"
+    ],
+    "exit_code": 0,
+    "seconds": 1.2868139743804932,
+    "success_marker": true,
+    "errors": [],
+    "warnings": [
+      "WARNING: 7 RIDs of type \"Texture\" were leaked."
+    ],
+    "log_sha256": "c6a0d54c0a74a5e41e6288575101c6253b702876c3a201e37a36f2a5e1313402"
+  },
+  {
+    "name": "control-metal-lit",
+    "command": [
+      "/Applications/Godot.app/Contents/MacOS/Godot",
+      "--path",
+      "/Users/geminchen/My-Item/job-or-not-job",
+      "--fixed-fps",
+      "60",
+      "--audio-driver",
+      "Dummy",
+      "--disable-render-loop",
+      "--script",
+      "tools/probe_local_reflections.gd",
+      "--",
+      "--output=/Users/geminchen/My-Item/job-or-not-job/build/c4l2/control-metal-lit",
+      "--no-mouse-capture"
+    ],
+    "exit_code": 0,
+    "seconds": 1.2581300735473633,
+    "success_marker": true,
+    "errors": [],
+    "warnings": [
+      "WARNING: 7 RIDs of type \"Texture\" were leaked."
+    ],
+    "log_sha256": "0ad258434f7e2357e5799d200831853223fbb1b4572354c255722fffa7b0a060"
+  },
+  {
+    "name": "control-vulkan-lit",
+    "command": [
+      "/Applications/Godot.app/Contents/MacOS/Godot",
+      "--path",
+      "/Users/geminchen/My-Item/job-or-not-job",
+      "--fixed-fps",
+      "60",
+      "--audio-driver",
+      "Dummy",
+      "--disable-render-loop",
+      "--rendering-driver",
+      "vulkan",
+      "--script",
+      "tools/probe_local_reflections.gd",
+      "--",
+      "--output=/Users/geminchen/My-Item/job-or-not-job/build/c4l2/control-vulkan-lit",
+      "--no-mouse-capture"
+    ],
+    "exit_code": 0,
+    "seconds": 1.4182472229003906,
+    "success_marker": true,
+    "errors": [],
+    "warnings": [
+      "WARNING: 7 RIDs of type \"Texture\" were leaked."
+    ],
+    "log_sha256": "56f627bfd0e2991173a4697e0eb4e40156ecc3a8d31290ea31bcef26f05920bb"
+  }
+]

@@ -15,6 +15,9 @@ func views() -> Array:
 func prepare_scene(_game: Node3D) -> void:
 	pass
 
+func prepare_view(_game: Node3D, _shot: Array) -> void:
+	pass
+
 func warmup_frames() -> int:
 	return 10
 
@@ -87,6 +90,7 @@ func run() -> void:
 		"candidate_indirect_multiplier":game.get_meta("candidate_indirect_multiplier",1.0),
 		"candidate_mode":game.get_meta("candidate_mode","runtime"),
 		"candidate_voxel_bias":game.get_meta("candidate_voxel_bias",[]),
+		"candidate_reflection_strength":game.get_meta("candidate_reflection_strength",-1.0),
 		"resolution":[1440,900],"fov":65,"kind":"frozen_scene_offscreen_render_submission","normal_game_fps":false,"final_performance_accepted":false,"samples_per_entry":samples,"runs":runs,"entries":[]}
 	for iteration in range(runs):
 		for shot in views():
@@ -94,6 +98,7 @@ func run() -> void:
 			game.update_daylight()
 			camera.position=shot[1]
 			camera.look_at(shot[2])
+			prepare_view(game,shot)
 			for phase in phases:
 				var previous := {}
 				for node in buckets.get(phase,[]):
@@ -148,5 +153,9 @@ func run() -> void:
 	data.draw_completion_signal_count=completed_draws
 	data.engine_frames_drawn=Engine.get_frames_drawn()
 	FileAccess.open(output.path_join("profile.json"),FileAccess.WRITE).store_string(JSON.stringify(data,"\t")+"\n")
+	viewport.queue_free()
+	for cleanup in range(3):
+		await process_frame
+		RenderingServer.force_draw(false)
 	print("DISTRICT_RENDER_PROFILE_OK entries=",data.entries.size()," normal_game_fps=false pointer_visible=",Input.mouse_mode==Input.MOUSE_MODE_VISIBLE)
 	quit()

@@ -1,0 +1,65 @@
+{
+  "tools": {
+    "tools/city_lighting_bake.gd": "3984392eb99f89eb877185adc664f3513e82f68a4520b624868b8a3e81215e04",
+    "tools/profile_city_baked_light.gd": "5ccb8836434b47d3a94711be2837e31cc98b460e1b59772b83c2fce07805e505",
+    "tools/profile_city_reflections.gd": "30ea88dbd2e553b5ba5c4de91cd52d652354c31bf9789b9df4846ca846b14c2d",
+    "tools/profile_city_indirect.gd": "c8ff3b35fa776ad1c68023e33955b44fb3684f7a6d80eb72f44d90980eb73b20",
+    "tools/profile_district_render.gd": "42ee9c882a587765febc67de8da6b9a9c1dbf20710e12ae17edba89e768a8bf0",
+    "tools/probe_local_reflections.gd": "acd123b7b7b0a348156ed5983ebf6abc1b0debfc62c00352acfaf11077da2878",
+    "tools/probe_indirect_lighting.gd": "6ca47250107c9d385af14208f373ba3b4fbdc0abbc3a3492dbdbd37a2cf255af",
+    "tools/render_character_candidates.gd": "591147b9975ea50dcb5572672e985285bbe42d07b29166dbc22212ae89d7a389",
+    "tests/city_lighting_bake_test.gd": "9b8af7054ad43d0a4e39226ede95973fa1d17f74716680ffbd1beab6deca8311"
+  },
+  "resources": {
+    "baked/home.res": "9aabbcb70323ef07cf75d076362f9f4b075ef19741f6fa51eac283c6ec63f88a",
+    "baked/bookshop.res": "9b8b271150f9d52e5ae089bc23d12632e5c72be4f91f42733b78d694740e89a8",
+    "baked/office-b.res": "0962c7bd90a7443458a53a5bebde6d93e0538cf6a52cde3c09e7248276292141",
+    "baked/office-a.res": "8c07b255fa23656df3368b8ab483be85bfbb22b3c8d8a8db8227bb3cf538c130"
+  },
+  "resource_bytes": 8551325,
+  "headless_targeted_test": "CITY_LIGHTING_BAKE_TEST failures=0 proxies=2089 exclusions=7 live_static_dynamic_meshes=826",
+  "python_tests": 32,
+  "full_game_suite_rerun": false,
+  "new_game_package": false,
+  "runtime_integration": false,
+  "reflection_warning_unresolved": true,
+  "logs": {
+    "import-final": {
+      "sha256": "699c5d44509c2c84e51fa41d38938e6d7b335b18354014bfbdeae9c11eedaa8a",
+      "errors": [],
+      "warnings": []
+    },
+    "bake-test-final": {
+      "sha256": "2a5d376da616dd36a4d58a4ab5e831cf3e713931e75c48b18c5f756346ec21e3",
+      "errors": [],
+      "warnings": []
+    },
+    "final-baked": {
+      "sha256": "c20223231bf14339832513e497d833e8528c88c93ba17664ef62a96333981a0f",
+      "errors": [],
+      "warnings": [
+        "WARNING: 7 RIDs of type \"Texture\" were leaked."
+      ]
+    },
+    "python-tests": {
+      "sha256": "9a5447db1eeb8f8f7f4515063ad9a888bafaa3a39a779d763a2d03c766e7735a",
+      "errors": [],
+      "warnings": []
+    },
+    "original-profiler": {
+      "sha256": "f9ae8c77389b4063b741c3180e1203bcb315adda914d0a9b288d0c0ab1ca0fd4",
+      "errors": [],
+      "warnings": []
+    }
+  },
+  "production_load": {
+    "directory": "production/lighting/2026-09-30-room-gi",
+    "exit_code": 0,
+    "identical_images": 11,
+    "log_sha256": "618c1e39f2643abfe09e7e65e1bf2cad6380e99da98fc8849d0a7fd1b7541a95",
+    "warnings": [
+      "WARNING: 7 RIDs of type \"Texture\" were leaked."
+    ]
+  },
+  "runtime_unchanged": true
+}

@@ -1,0 +1,100 @@
+[
+  {
+    "name": "bake-test-final",
+    "command": [
+      "/Applications/Godot.app/Contents/MacOS/Godot",
+      "--path",
+      "/Users/geminchen/My-Item/job-or-not-job",
+      "--fixed-fps",
+      "60",
+      "--audio-driver",
+      "Dummy",
+      "--headless",
+      "--script",
+      "tests/city_lighting_bake_test.gd"
+    ],
+    "exit_code": 0,
+    "marker": "CITY_LIGHTING_BAKE_TEST failures=0",
+    "passed": true,
+    "log_sha256": "2a5d376da616dd36a4d58a4ab5e831cf3e713931e75c48b18c5f756346ec21e3"
+  },
+  {
+    "name": "original-profiler",
+    "command": [
+      "/Applications/Godot.app/Contents/MacOS/Godot",
+      "--path",
+      "/Users/geminchen/My-Item/job-or-not-job",
+      "--fixed-fps",
+      "60",
+      "--audio-driver",
+      "Dummy",
+      "--disable-render-loop",
+      "--script",
+      "tools/profile_district_lighting.gd",
+      "--",
+      "--samples=10",
+      "--runs=1",
+      "--identity=/Users/geminchen/My-Item/job-or-not-job/build/c4l2/source-before.json",
+      "--output=/Users/geminchen/My-Item/job-or-not-job/build/c4l2/original-profiler",
+      "--no-mouse-capture"
+    ],
+    "exit_code": 0,
+    "marker": "DISTRICT_RENDER_PROFILE_OK",
+    "passed": true,
+    "log_sha256": "f9ae8c77389b4063b741c3180e1203bcb315adda914d0a9b288d0c0ab1ca0fd4"
+  },
+  {
+    "name": "reject-source",
+    "command": [
+      "/Applications/Godot.app/Contents/MacOS/Godot",
+      "--path",
+      "/Users/geminchen/My-Item/job-or-not-job",
+      "--fixed-fps",
+      "60",
+      "--audio-driver",
+      "Dummy",
+      "--disable-render-loop",
+      "--script",
+      "tools/profile_city_baked_light.gd",
+      "--",
+      "--mode=baseline",
+      "--samples=10",
+      "--runs=1",
+      "--identity=/Users/geminchen/My-Item/job-or-not-job/build/c4l2/source-before.json",
+      "--load-baked=/Users/geminchen/My-Item/job-or-not-job/build/c4l2/reject-source",
+      "--output=/Users/geminchen/My-Item/job-or-not-job/build/c4l2/reject-source-output",
+      "--no-mouse-capture"
+    ],
+    "exit_code": 1,
+    "expected_rejection": "Baked resources do not match source/engine",
+    "passed": true,
+    "log_sha256": "f66355acc229cc191465be347222b27ae03fd37d5d801dd1cebf7696f882d2c5"
+  },
+  {
+    "name": "reject-resource",
+    "command": [
+      "/Applications/Godot.app/Contents/MacOS/Godot",
+      "--path",
+      "/Users/geminchen/My-Item/job-or-not-job",
+      "--fixed-fps",
+      "60",
+      "--audio-driver",
+      "Dummy",
+      "--disable-render-loop",
+      "--script",
+      "tools/profile_city_baked_light.gd",
+      "--",
+      "--mode=baseline",
+      "--samples=10",
+      "--runs=1",
+      "--identity=/Users/geminchen/My-Item/job-or-not-job/build/c4l2/source-before.json",
+      "--load-baked=/Users/geminchen/My-Item/job-or-not-job/build/c4l2/reject-resource",
+      "--output=/Users/geminchen/My-Item/job-or-not-job/build/c4l2/reject-resource-output",
+      "--no-mouse-capture"
+    ],
+    "exit_code": 1,
+    "expected_rejection": "Baked resource checksum mismatch",
+    "passed": true,
+    "log_sha256": "63f606d36d583c0769f00c22ae5798bb9df76a32a693313aef41a85c9008c965"
+  }
+]
