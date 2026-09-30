@@ -1,0 +1,158 @@
+{
+  "scope": "C4i-C; first-district horizontal routes and four crossings",
+  "final_runtime_sha256": "70e136e23377917213839926f545208540957a54ee92bb40f661f109f790620c",
+  "normal_fps": false,
+  "records": {
+    "junction-before": {
+      "path": "build/c4i/junction-before.log",
+      "sha256": "e1dce324e313b157c0b8161c968c33cdb200d916874df25505d3916d0d977f18",
+      "modified_utc": "2026-09-30T00:32:45.380875+00:00",
+      "observed": [
+        "OUTING_STANDING_PLAYER distance=19.5370750427246 contacts=14 max_step=0.03833553567529 npc=(22.71242, 0.00094, 55.4506) player=(40.57299, -0.004785, 54.13592)",
+        "ERROR: 投影和紧邻路口都不应成为重复返回点",
+        "ERROR: 投影和紧邻路口都不应成为重复返回点",
+        "ERROR: 投影和紧邻路口都不应成为重复返回点",
+        "ERROR: 投影和紧邻路口都不应成为重复返回点",
+        "ERROR: 投影和紧邻路口都不应成为重复返回点",
+        "ERROR: 投影和紧邻路口都不应成为重复返回点",
+        "ERROR: 投影和紧邻路口都不应成为重复返回点",
+        "ERROR: 投影和紧邻路口都不应成为重复返回点",
+        "ERROR: 投影和紧邻路口都不应成为重复返回点",
+        "ERROR: 投影和紧邻路口都不应成为重复返回点",
+        "ERROR: 投影和紧邻路口都不应成为重复返回点",
+        "ERROR: 投影和紧邻路口都不应成为重复返回点",
+        "ERROR: 投影和紧邻路口都不应成为重复返回点",
+        "ERROR: 投影和紧邻路口都不应成为重复返回点",
+        "ERROR: 投影和紧邻路口都不应成为重复返回点",
+        "ERROR: 投影和紧邻路口都不应成为重复返回点",
+        "ERROR: 投影和紧邻路口都不应成为重复返回点",
+        "ERROR: 投影和紧邻路口都不应成为重复返回点",
+        "ERROR: 投影和紧邻路口都不应成为重复返回点",
+        "ERROR: 投影和紧邻路口都不应成为重复返回点",
+        "OUTING_JUNCTION_PLAYER distance=0.31339088082314 max_step=0.03833395987749 player_xz=0.0",
+        "ERROR: 同伴绕开站立玩家离开中心路口而非反复返回",
+        "CITY_OUTING_SAVE_TEST failures=21"
+      ]
+    },
+    "junction-after": {
+      "path": "build/c4i/junction-after.log",
+      "sha256": "14d0b499842c96f53ee2ab67f57906124bfece938c720c3de0935ca85933b318",
+      "modified_utc": "2026-09-30T00:34:01.181937+00:00",
+      "observed": [
+        "OUTING_STANDING_PLAYER distance=19.5370750427246 contacts=14 max_step=0.03833553567529 npc=(22.71242, 0.00094, 55.4506) player=(40.57299, -0.004785, 54.13592)",
+        "OUTING_JUNCTION_PLAYER distance=0.59278130531311 max_step=0.03833513334394 player_xz=0.0",
+        "ERROR: 同伴绕开站立玩家离开中心路口而非反复返回",
+        "CITY_OUTING_SAVE_TEST failures=1"
+      ]
+    },
+    "junction-trace": {
+      "path": "build/c4i/junction-trace.log",
+      "sha256": "e70e9d22a39e2adce700ecdc6f1deba77310d9a764c28dd363a5f9b064782639",
+      "modified_utc": "2026-09-30T00:42:24.743387+00:00",
+      "observed": []
+    },
+    "junction-corridor": {
+      "path": "build/c4i/junction-corridor.log",
+      "sha256": "75f55b2f9fd2f450128bbdc83494af2dff2dac377a0b421df3230cd6ffeabea6",
+      "modified_utc": "2026-09-30T00:43:32.202013+00:00",
+      "observed": [
+        "OUTING_STANDING_PLAYER distance=19.5370750427246 contacts=14 max_step=0.03833553567529 npc=(22.71242, 0.00094, 55.4506) player=(40.57299, -0.004785, 54.13592)",
+        "OUTING_JUNCTION_PLAYER distance=6.28338527679443 max_step=0.03833471611142 player_xz=0.0 npc=(6.20281, 0.0, 58.11457) route=[] target=(6.20281, 0.0, 58.11457)",
+        "CITY_OUTING_SAVE_TEST failures=0"
+      ]
+    },
+    "outing-corridor": {
+      "path": "build/c4i/outing-corridor.log",
+      "sha256": "63ce13df052a4e22b4825f193baf34348699357b536779882149b5a6a34a5e3d",
+      "modified_utc": "2026-09-30T00:44:18.172641+00:00",
+      "observed": [
+        "OUTING_ROUTE { \"route\": \"a_friend-bookshop\", \"metres\": 138.765767991543, \"max_step\": 0.03833505883813, \"road_frames\": 0, \"request_frames\": 0, \"vehicle_overlap_samples\": 0 }",
+        "OUTING_ROUTE { \"route\": \"a_friend-bookshop-return\", \"metres\": 137.349200200289, \"max_step\": 0.03833542764187, \"road_frames\": 0, \"request_frames\": 0, \"vehicle_overlap_samples\": 0 }",
+        "OUTING_ROUTE { \"route\": \"b_friend-garden\", \"metres\": 96.0634461902082, \"max_step\": 0.03833523020148, \"road_frames\": 107, \"request_frames\": 0, \"vehicle_overlap_samples\": 0 }",
+        "OUTING_ROUTE { \"route\": \"b_friend-garden-return\", \"metres\": 91.2184969186783, \"max_step\": 0.0383356846869, \"road_frames\": 0, \"request_frames\": 0, \"vehicle_overlap_samples\": 0 }",
+        "OUTING_ROUTE { \"route\": \"a_friend-waterfront\", \"metres\": 129.491207886487, \"max_step\": 0.03833685442805, \"road_frames\": 420, \"request_frames\": 464, \"vehicle_overlap_samples\": 0 }",
+        "OUTING_ROUTE { \"route\": \"a_friend-waterfront-return\", \"metres\": 130.330197662115, \"max_step\": 0.03833628818393, \"road_frames\": 386, \"request_frames\": 338, \"vehicle_overlap_samples\": 0 }",
+        "CITY_OUTING_TEST failures=0"
+      ]
+    },
+    "evening-diagnosis": {
+      "path": "build/c4i/evening-diagnosis.log",
+      "sha256": "09582912e3eb1ee22094a8f499251c50cb1561f7755538379002aa354913754d",
+      "modified_utc": "2026-09-30T00:51:58.397558+00:00",
+      "observed": [
+        "ERROR: 自然时钟内实际返程 a_group position=(-0.000025, 0.0, 112.5) route=[(0.0, 0.0, 97.0), (0.0, 0.0, 58.0), (0.0, 0.0, 18.0), (-4.0, 0.0, 18.0)] target=(-4.0, 0.0, 18.0)",
+        "CITY_EVENING_CYCLE_TEST failures=1 data={\"clock_advanced_normally\":true,\"end_minute\":1310,\"independent_player_acceptance\":false,\"max_step\":0.0383396819233894,\"metres\":1127.95645812526,\"normal_fps_measured\":false,\"observed\":{\"a_friend\":{\"bookshop\":1176,\"returned\":1288,\"waterfront\":1237},\"a_group\":{\"garden\":1165,\"waterfront\":1226},\"b_friend\":{\"garden\":1228,\"returned\":1279,\"waterfront\":1174}},\"start_minute\":1138,\"vehicle_overlap_samples\":0}"
+      ]
+    },
+    "evening-traffic": {
+      "path": "build/c4i/evening-traffic.log",
+      "sha256": "125a0779ab1944745ef69714271e19244acc9ca45c9e8073227a14c8f27f7400",
+      "modified_utc": "2026-09-30T00:54:40.866405+00:00",
+      "observed": [
+        "CROSSING_GATES { \"market\": { \"people\": false, \"remaining\": 0.0, \"opened\": false }, \"homes\": { \"people\": true, \"remaining\": 2.18333333333334, \"opened\": true }, \"waterfront\": { \"people\": true, \"remaining\": 0.0, \"opened\": true }, \"office\": { \"people\": false, \"remaining\": 0.0, \"opened\": false } }",
+        "VEHICLE Bus101 position=(-6.03332, 0.0, 104.0) speed=0.0 route=229.08138060681",
+        "RESIDENT resident_he_yue position=(-0.220699, -0.004059, 103.8243) crossing=waterfront route=[\"north_out\", \"sea_east\"] from=north_in",
+        "RESIDENT resident_wu_fan position=(0.280007, -0.004059, 104.0059) crossing=waterfront route=[\"north_in\", \"commons_north\", \"commons_north_hub\", \"commons_north_1\"] from=north_out",
+        "ERROR: 自然时钟内实际返程 a_group position=(-0.000025, 0.0, 112.5) route=[(0.0, 0.0, 97.0), (0.0, 0.0, 58.0), (0.0, 0.0, 18.0), (-4.0, 0.0, 18.0)] target=(-4.0, 0.0, 18.0)",
+        "CITY_EVENING_CYCLE_TEST failures=1 data={\"clock_advanced_normally\":true,\"end_minute\":1310,\"independent_player_acceptance\":false,\"max_step\":0.0383396819233894,\"metres\":1127.95645812526,\"normal_fps_measured\":false,\"observed\":{\"a_friend\":{\"bookshop\":1176,\"returned\":1288,\"waterfront\":1237},\"a_group\":{\"garden\":1165,\"waterfront\":1226},\"b_friend\":{\"garden\":1228,\"returned\":1279,\"waterfront\":1174}},\"start_minute\":1138,\"vehicle_overlap_samples\":0}"
+      ]
+    },
+    "crossing-flow-before": {
+      "path": "build/c4i/crossing-flow-before.log",
+      "sha256": "1003c5e56c475454b6051b95db1adf8c887c8ef06f46dcc78b721f7e880e60fe",
+      "modified_utc": "2026-09-30T00:56:41.330106+00:00",
+      "observed": [
+        "ERROR: 双向行人走完且实际车流恢复：market",
+        "ERROR: 过街分侧不瞬移、不穿人、不穿车：market",
+        "ERROR: 双向行人走完且实际车流恢复：homes",
+        "ERROR: 过街分侧不瞬移、不穿人、不穿车：homes",
+        "ERROR: 双向行人走完且实际车流恢复：waterfront",
+        "ERROR: 过街分侧不瞬移、不穿人、不穿车：waterfront",
+        "ERROR: 双向行人走完且实际车流恢复：office",
+        "ERROR: 过街分侧不瞬移、不穿人、不穿车：office",
+        "CITY_CROSSING_FLOW_TEST failures=8 data={\"homes\":{\"both_cleared\":false,\"max_step\":0.0267678517848253,\"minimum_separation\":0.517745971679688,\"traffic_released\":false,\"vehicle_overlap_samples\":0},\"market\":{\"both_cleared\":false,\"max_step\":0.0267678517848253,\"minimum_separation\":0.517745971679688,\"traffic_released\":false,\"vehicle_overlap_samples\":0},\"office\":{\"both_cleared\":false,\"max_step\":0.0267650373280048,\"minimum_separation\":0.517284393310547,\"traffic_released\":false,\"vehicle_overlap_samples\":0},\"waterfront\":{\"both_cleared\":false,\"max_step\":0.0267678517848253,\"minimum_separation\":0.517745971679688,\"traffic_released\":false,\"vehicle_overlap_samples\":0}}"
+      ]
+    },
+    "crossing-flow-after": {
+      "path": "build/c4i/crossing-flow-after.log",
+      "sha256": "8a0b3a4eea4008acd1c399a064a22875564e9e977137a0620c5d2768ad483f0c",
+      "modified_utc": "2026-09-30T00:57:36.183063+00:00",
+      "observed": [
+        "ERROR: 双向行人走完且实际车流恢复：market",
+        "ERROR: 过街分侧不瞬移、不穿人、不穿车：market",
+        "ERROR: 双向行人走完且实际车流恢复：homes",
+        "ERROR: 过街分侧不瞬移、不穿人、不穿车：homes",
+        "ERROR: 双向行人走完且实际车流恢复：waterfront",
+        "ERROR: 过街分侧不瞬移、不穿人、不穿车：waterfront",
+        "ERROR: 双向行人走完且实际车流恢复：office",
+        "ERROR: 过街分侧不瞬移、不穿人、不穿车：office",
+        "CITY_CROSSING_FLOW_TEST failures=8 data={\"homes\":{\"both_cleared\":false,\"max_step\":0.0267634615302086,\"minimum_separation\":0.516977965831757,\"traffic_released\":false,\"vehicle_overlap_samples\":0},\"market\":{\"both_cleared\":false,\"max_step\":0.0267634615302086,\"minimum_separation\":0.516977965831757,\"traffic_released\":false,\"vehicle_overlap_samples\":0},\"office\":{\"both_cleared\":false,\"max_step\":0.0267642717808485,\"minimum_separation\":0.519543170928955,\"traffic_released\":false,\"vehicle_overlap_samples\":0},\"waterfront\":{\"both_cleared\":false,\"max_step\":0.0267664641141891,\"minimum_separation\":0.517712414264679,\"traffic_released\":false,\"vehicle_overlap_samples\":0}}"
+      ]
+    },
+    "crossing-flow-lanes": {
+      "path": "build/c4i/crossing-flow-lanes.log",
+      "sha256": "f86cc9b7fd24c77df20509b5efd5010d95a3c5e62ec4be2992c631193439318e",
+      "modified_utc": "2026-09-30T00:58:40.718091+00:00",
+      "observed": [
+        "ERROR: 双向行人走完且实际车流恢复：office",
+        "CITY_CROSSING_FLOW_TEST failures=1 data={\"homes\":{\"both_cleared\":true,\"max_step\":0.026765912771225,\"minimum_separation\":0.753563106060028,\"traffic_released\":true,\"vehicle_overlap_samples\":0},\"market\":{\"both_cleared\":true,\"max_step\":0.026765912771225,\"minimum_separation\":0.753563106060028,\"traffic_released\":true,\"vehicle_overlap_samples\":0},\"office\":{\"both_cleared\":true,\"max_step\":0.0267645865678787,\"minimum_separation\":0.753569781780243,\"traffic_released\":false,\"vehicle_overlap_samples\":0},\"waterfront\":{\"both_cleared\":true,\"max_step\":0.0267665721476078,\"minimum_separation\":0.753571271896362,\"traffic_released\":true,\"vehicle_overlap_samples\":0}}"
+      ]
+    },
+    "crossing-flow-final": {
+      "path": "build/c4i/crossing-flow-final.log",
+      "sha256": "86d8acb1bf16024d88bbe8c52c11f141398830b962143d62bbdcbe4307f45a42",
+      "modified_utc": "2026-09-30T01:00:12.290277+00:00",
+      "observed": [
+        "CITY_CROSSING_FLOW_TEST failures=0 data={\"homes\":{\"both_cleared\":true,\"max_step\":0.026765912771225,\"minimum_separation\":0.753563106060028,\"traffic_released\":true,\"vehicle_overlap_samples\":0},\"market\":{\"both_cleared\":true,\"max_step\":0.026765912771225,\"minimum_separation\":0.753563106060028,\"traffic_released\":true,\"vehicle_overlap_samples\":0},\"office\":{\"both_cleared\":true,\"max_step\":0.0267645865678787,\"minimum_separation\":0.753569781780243,\"traffic_released\":true,\"vehicle_overlap_samples\":0},\"waterfront\":{\"both_cleared\":true,\"max_step\":0.0267665721476078,\"minimum_separation\":0.753571271896362,\"traffic_released\":true,\"vehicle_overlap_samples\":0}}"
+      ]
+    },
+    "evening-cycle-final": {
+      "path": "build/c4i/evening-cycle-final.log",
+      "sha256": "d6bd92169941227205ebe1abbedb8aa3b0f16a2fded6957f6355e3acf76a43e3",
+      "modified_utc": "2026-09-30T01:01:05.276111+00:00",
+      "observed": [
+        "CITY_EVENING_CYCLE_TEST failures=0 data={\"clock_advanced_normally\":true,\"end_minute\":1310,\"independent_player_acceptance\":false,\"max_step\":0.0383396819233894,\"metres\":1224.01666994765,\"normal_fps_measured\":false,\"observed\":{\"a_friend\":{\"bookshop\":1176,\"returned\":1288,\"waterfront\":1242},\"a_group\":{\"garden\":1165,\"returned\":1287,\"waterfront\":1226},\"b_friend\":{\"garden\":1228,\"returned\":1279,\"waterfront\":1174}},\"start_minute\":1138,\"vehicle_overlap_samples\":0}"
+      ]
+    }
+  }
+}

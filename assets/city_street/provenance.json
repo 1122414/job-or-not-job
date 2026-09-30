@@ -1,0 +1,396 @@
+{
+	"derived_files": {
+		"industrial_wall_lamp.res": "0f7884246756fd5708054e39de29b60670b37b006dc8fbcf6ff2b4354200a420",
+		"plastic_crate_01.res": "236b97587a1d39324e740f73566aacf8f7fd6fca74b01d03be92f537e40dc6d7",
+		"potted_plant_02.res": "aec1bbd927497924159195d9bcda5980656e013f484dff8cef374214eddbf767",
+		"rollershutter_door.res": "ac769867f789be85b584575238c6b7ecb06f4b514eecc16d014b88ddc7cc1b6d",
+		"textures/industrial_wall_lamp_arm_1k.png": "5ec81db6ec033455d17b71e4dfba8659fc375186fe982f5e2d34ed5818468054",
+		"textures/industrial_wall_lamp_diff_1k.png": "c21aece5b01519fac9d87d06d9ed425c390b713ffdeecb9dc3650bbbd6cb02f6",
+		"textures/industrial_wall_lamp_emissive_1k.png": "23b247ab021f002a658d3ca42507a5665fac218599eef8279ccd44ff6a9d8eba",
+		"textures/industrial_wall_lamp_glass_arm_1k.png": "04dd81d21769e9c483ff1bd10dd155bd28ab4cd40363f394d9b7f7b48b114e2c",
+		"textures/industrial_wall_lamp_glass_nor_gl_1k.png": "7958f4031288b7896d3fe4e66442eb3745ce8af54738ccc55bec7ed0901ea629",
+		"textures/industrial_wall_lamp_glass_rgba_1k.png": "e744639277a9af523bdb54a8d046d874d93b335b0e8baa1727bba8a81b0786b8",
+		"textures/industrial_wall_lamp_nor_gl_1k.png": "9ae0f06d7f8fe0c27f3bf70e24d8e8eeb2a87a9d57f454e1b05f02d689f6dc14",
+		"textures/plastic_crate_01_arm_1k.png": "ad46c823c2a56cf330750b2829c5523357c5bdc732bc7dc8120e63d53e661c9e",
+		"textures/plastic_crate_01_diff_1k.png": "71ad2ff63717bd5ca65ceb237331ad0fc6290230c5ca0606b0430cc91ffa78c8",
+		"textures/plastic_crate_01_nor_gl_1k.png": "d9a7a6c7291a10d819ba90b29a1e6551ca9651c975e4748eef935d9dab592928",
+		"textures/potted_plant_02_leaves_nor_gl_1k.png": "8e93844d09382299326fd50bf520c6a39b9be0adc2eb072ed48ae15d32faa569",
+		"textures/potted_plant_02_leaves_rgba_1k.png": "7af40c4de7e2b063f847d3e451511d637fb9c817c8f8d4ed99e7cb4e3632f26d",
+		"textures/potted_plant_02_leaves_rough_1k.png": "359e7b00d54c34a8f64de01561bc2a9574ddf4220b576f117df0d31a26028735",
+		"textures/potted_plant_02_pot_diff_1k.png": "e9ebe5507d7d549f0cd0a9fca9bc35e453d5114617d7c1379bf1a85e6234c6a9",
+		"textures/potted_plant_02_pot_nor_gl_1k.png": "4d0acc00ce89659856eaf63d74ea9227126147335504587b479a641ad82b93bb",
+		"textures/potted_plant_02_pot_rough_1k.png": "d8c45d418faa7d5b53944a3ce30563a3e1a86c3313e6c5985508c7cf0d868925",
+		"textures/rollershutter_door_arm_2k.png": "9ae1b8a4b8059e54add36110107478b973b91cbd839dd6c973eff0487cebdbcd",
+		"textures/rollershutter_door_diff_2k.png": "2c62d566f33dfa936a38f3b335d20f86a1086894c37287cd633a91e8ee80114e",
+		"textures/rollershutter_door_nor_gl_2k.png": "f441b41574dbaabfa97860487ddc49c79d91b713d7776486dbd93aabedaceab1"
+	},
+	"metres_per_unit": 1,
+	"models": {
+		"industrial_wall_lamp": {
+			"aabb": "AABB(-0.13672422, -0.2149533, 1.7029556e-08, 0.2734608, 0.4299066, 0.14037845)",
+			"parts": [
+				{
+					"node": "industrial_wall_lamp",
+					"runtime_triangles": 3698,
+					"source_triangles": 3698,
+					"surface": 0,
+					"translation": [
+						0.0,
+						0.0,
+						0.0
+					]
+				},
+				{
+					"node": "industrial_wall_lamp",
+					"runtime_triangles": 748,
+					"source_triangles": 748,
+					"surface": 1,
+					"translation": [
+						0.0,
+						0.0,
+						0.0
+					]
+				}
+			],
+			"surfaces": 2
+		},
+		"plastic_crate_01": {
+			"aabb": "AABB(-0.14900032, 0, -0.20400207, 0.29800063, 0.26416942, 0.40800413)",
+			"parts": [
+				{
+					"node": "plastic_crate_01",
+					"runtime_triangles": 10206,
+					"source_triangles": 18320,
+					"surface": 0,
+					"translation": [
+						0.0,
+						0.0,
+						0.0
+					]
+				}
+			],
+			"surfaces": 1
+		},
+		"potted_plant_02": {
+			"aabb": "AABB(-0.39666003, 5.2964628e-05, -0.4203126, 0.70115703, 0.8411787, 0.65738654)",
+			"parts": [
+				{
+					"node": "potted_plant_02_pot",
+					"runtime_triangles": 1296,
+					"source_triangles": 5184,
+					"surface": 0,
+					"translation": [
+						0.0,
+						0.0,
+						0.0
+					]
+				},
+				{
+					"node": "potted_plant_02_leaves",
+					"runtime_triangles": 10692,
+					"source_triangles": 10692,
+					"surface": 0,
+					"translation": [
+						-0.00290382839739323,
+						0.305289685726166,
+						0.000685910868924111
+					]
+				},
+				{
+					"node": "potted_plant_02_dirt",
+					"runtime_triangles": 420,
+					"source_triangles": 53930,
+					"surface": 0,
+					"translation": [
+						-0.128620311617851,
+						0.317528039216995,
+						-0.133558049798012
+					]
+				}
+			],
+			"surfaces": 3
+		},
+		"rollershutter_door": {
+			"aabb": "AABB(-0.54, 2.2873278e-06, -0.0010000002, 1.08, 2.3999734, 0.3000857)",
+			"parts": [
+				{
+					"node": "rollershutter_door",
+					"runtime_triangles": 552,
+					"source_triangles": 552,
+					"surface": 0,
+					"translation": [
+						0.0,
+						0.0,
+						0.0
+					]
+				}
+			],
+			"surfaces": 1
+		}
+	},
+	"processing": "prepare_city_street.gd --textures; Godot import; prepare_city_street.gd. Selected plain shutter; authored plant offsets retained; source alpha merged; prop textures 1K, doorway 2K; crate/pot/soil reduced with source LODs; runtime LODs generated.",
+	"source_provenance": {
+		"assets": [
+			{
+				"authors": {
+					"MP": "All"
+				},
+				"category": "models",
+				"files": {
+					"rollershutter_door.bin": {
+						"bytes": 46192.0,
+						"sha256": "155cd44e199d4edd19769503c7ed22b0b4007869166d0193a7e2d5e3134dc38d",
+						"upstream_md5": "9df2ea3372b84dca7959d81cd5818d29",
+						"url": "https://dl.polyhaven.org/file/ph-assets/Models/gltf/8k/rollershutter_door/rollershutter_door.bin"
+					},
+					"rollershutter_door_2k.gltf": {
+						"bytes": 5378.0,
+						"sha256": "2e577ec6e0cd3535a49039f3ce5dd50e5358fe7475d77b64104a1addb886a673",
+						"upstream_md5": "0b4c5a09d0abfcb2249b3eaa8f7ddaf9",
+						"url": "https://dl.polyhaven.org/file/ph-assets/Models/gltf/2k/rollershutter_door/rollershutter_door_2k.gltf"
+					},
+					"textures/rollershutter_door_arm_2k.jpg": {
+						"bytes": 2284955.0,
+						"sha256": "10bdbc409d48981b3acb6616303c0479d10243cedb1890ef8dbe8e1d36afde18",
+						"upstream_md5": "da0f9ec575f447db858c311fa3c5ec6d",
+						"url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/2k/rollershutter_door/rollershutter_door_arm_2k.jpg"
+					},
+					"textures/rollershutter_door_diff_2k.jpg": {
+						"bytes": 2321049.0,
+						"sha256": "1e7c6f6caf3d3cdcdcb3c7ae589ee536cf015c2fc6acfa34a2a08d3f9902dda4",
+						"upstream_md5": "6c85c2341fdf020e36c5b2ca07846bc0",
+						"url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/2k/rollershutter_door/rollershutter_door_diff_2k.jpg"
+					},
+					"textures/rollershutter_door_graffiti_diff_2k.jpg": {
+						"bytes": 2536479.0,
+						"sha256": "1639d5c3a620d8557195168900c4e5bdbcea80a047e2f637b4ca072c139b59d3",
+						"upstream_md5": "78d7e5798da1e8e62d13084e4dda2962",
+						"url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/2k/rollershutter_door/rollershutter_door_graffiti_diff_2k.jpg"
+					},
+					"textures/rollershutter_door_nor_gl_2k.jpg": {
+						"bytes": 1471465.0,
+						"sha256": "77ad1ba5b657f0d76422dd820eb32301059f00c27087d172d451338d3b6791bc",
+						"upstream_md5": "b56d9639a89f08c93cf0096371613fc5",
+						"url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/2k/rollershutter_door/rollershutter_door_nor_gl_2k.jpg"
+					}
+				},
+				"id": "rollershutter_door",
+				"license": "CC0-1.0",
+				"license_text_url": "https://creativecommons.org/publicdomain/zero/1.0/legalcode.en",
+				"license_url": "https://polyhaven.com/license",
+				"resolution": "2k",
+				"source": "https://polyhaven.com/a/rollershutter_door",
+				"source_dimensions_mm": [
+					3079.9999833107,
+					300.08570663631,
+					2399.97348934457
+				]
+			},
+			{
+				"authors": {
+					"PierreB3D": "All"
+				},
+				"category": "models",
+				"files": {
+					"plastic_crate_01.bin": {
+						"bytes": 789920.0,
+						"sha256": "59b307238a27f304739aeef0b1c9622d1e4efb31a96d805d2cfc0c461f9bb06d",
+						"upstream_md5": "68c6e126a29ad4b72c21aa85f89a48c1",
+						"url": "https://dl.polyhaven.org/file/ph-assets/Models/gltf/4k/plastic_crate_01/plastic_crate_01.bin"
+					},
+					"plastic_crate_01_2k.gltf": {
+						"bytes": 2793.0,
+						"sha256": "6025a560093a2513720e98d39bdc4e4a1477c630fb5f36c4fc24f89443cde2fc",
+						"upstream_md5": "68117e141cc61c552a19deee797d0ed7",
+						"url": "https://dl.polyhaven.org/file/ph-assets/Models/gltf/2k/plastic_crate_01/plastic_crate_01_2k.gltf"
+					},
+					"textures/plastic_crate_01_arm_2k.jpg": {
+						"bytes": 3549816.0,
+						"sha256": "5eacb0a5d7facfc2dfd9ad4dda7f14f1bf314f3804c173d6790f6e0369a4b6be",
+						"upstream_md5": "59049fdd4af51eebbf3afcb474ea9088",
+						"url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/2k/plastic_crate_01/plastic_crate_01_arm_2k.jpg"
+					},
+					"textures/plastic_crate_01_diff_2k.jpg": {
+						"bytes": 1941465.0,
+						"sha256": "3fa112fc8c4e0ca811330496bddab8825503b9eaccbcca5b2963fb9ff459b0ab",
+						"upstream_md5": "fd945e63df11fe2bd7b6dedd0bfd4779",
+						"url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/2k/plastic_crate_01/plastic_crate_01_diff_2k.jpg"
+					},
+					"textures/plastic_crate_01_nor_gl_2k.jpg": {
+						"bytes": 2739010.0,
+						"sha256": "336070f8a5df854defcd5dee12e501af0d0d4320749db3e828bea05e352f5d90",
+						"upstream_md5": "7494b36054241116f3a9c26f3e163a13",
+						"url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/2k/plastic_crate_01/plastic_crate_01_nor_gl_2k.jpg"
+					}
+				},
+				"id": "plastic_crate_01",
+				"license": "CC0-1.0",
+				"license_text_url": "https://creativecommons.org/publicdomain/zero/1.0/legalcode.en",
+				"license_url": "https://polyhaven.com/license",
+				"resolution": "2k",
+				"source": "https://polyhaven.com/a/plastic_crate_01",
+				"source_dimensions_mm": [
+					298.000633716583,
+					408.004134893417,
+					264.169424772263
+				]
+			},
+			{
+				"authors": {
+					"Rico Cilliers": "All"
+				},
+				"category": "models",
+				"files": {
+					"potted_plant_02.bin": {
+						"bytes": 1852244.0,
+						"sha256": "9c9812482c78a59789ed32fa842b4cbd9365e09c900c31ebb998e5efe627fe97",
+						"upstream_md5": "cdbd4619b2596c9c469ad34676085fa8",
+						"url": "https://dl.polyhaven.org/file/ph-assets/Models/gltf/8k/potted_plant_02/potted_plant_02.bin"
+					},
+					"potted_plant_02_2k.gltf": {
+						"bytes": 6653.0,
+						"sha256": "80ab49cb61737244f50b805ddde3dd64e461b2a244817f8882e95a97c916d158",
+						"upstream_md5": "9161f84da94065f5b3888347c0f275ce",
+						"url": "https://dl.polyhaven.org/file/ph-assets/Models/gltf/2k/potted_plant_02/potted_plant_02_2k.gltf"
+					},
+					"textures/potted_plant_02_leaves_alpha_2k.png": {
+						"bytes": 229028.0,
+						"sha256": "487f86c1fc838dcd24bf67f9bd99706e3415271cecd34ce2ddaca9021707c781",
+						"upstream_md5": "80acd843660a7ae5d23808fd9db2ae11",
+						"url": "https://dl.polyhaven.org/file/ph-assets/Models/png/2k/potted_plant_02/potted_plant_02_leaves_alpha_2k.png"
+					},
+					"textures/potted_plant_02_leaves_diff_2k.jpg": {
+						"bytes": 584084.0,
+						"sha256": "f70de9a4b735b740e79d4e7720a47eae5e2bb4a289880cdae5905d156223bd7d",
+						"upstream_md5": "96aa3bba976e762eedced66d9832c2a5",
+						"url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/2k/potted_plant_02/potted_plant_02_leaves_diff_2k.jpg"
+					},
+					"textures/potted_plant_02_leaves_nor_gl_2k.jpg": {
+						"bytes": 481780.0,
+						"sha256": "2ae648b12ea457fb720f9adc6f8dc9feb8d5409e43f3b9f2ce7f089b3eef12f6",
+						"upstream_md5": "c187345d2875a28be93e61db4dd61558",
+						"url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/2k/potted_plant_02/potted_plant_02_leaves_nor_gl_2k.jpg"
+					},
+					"textures/potted_plant_02_leaves_rough_2k.jpg": {
+						"bytes": 435284.0,
+						"sha256": "399e61a82069b3e344cece76c128f84a664dd44719331450877b671906e01e27",
+						"upstream_md5": "0b1e1d0c38da3a5d73dc1274fc739fa0",
+						"url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/2k/potted_plant_02/potted_plant_02_leaves_rough_2k.jpg"
+					},
+					"textures/potted_plant_02_pot_diff_2k.jpg": {
+						"bytes": 596006.0,
+						"sha256": "21672040b5de49e7dae07452431b4fe5cf401494f5ab5157b5f54a146cc68383",
+						"upstream_md5": "d7c6055680866af21f73e14a57bbd7d3",
+						"url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/2k/potted_plant_02/potted_plant_02_pot_diff_2k.jpg"
+					},
+					"textures/potted_plant_02_pot_nor_gl_2k.jpg": {
+						"bytes": 494387.0,
+						"sha256": "8e8c2e96de90e793712a9db8a6cea7a38f7fd5ec489b8134b586a42ebbbfcb11",
+						"upstream_md5": "0b333cfc921defac311dc9232f2f01b9",
+						"url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/2k/potted_plant_02/potted_plant_02_pot_nor_gl_2k.jpg"
+					},
+					"textures/potted_plant_02_pot_rough_2k.jpg": {
+						"bytes": 426559.0,
+						"sha256": "c1f341bfa5e610dab2fd31aad4068fa20cf957b098912da5949bca996d7649bf",
+						"upstream_md5": "08a89ef59d4fd0b19a925cc4d2c512af",
+						"url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/2k/potted_plant_02/potted_plant_02_pot_rough_2k.jpg"
+					}
+				},
+				"id": "potted_plant_02",
+				"license": "CC0-1.0",
+				"license_text_url": "https://creativecommons.org/publicdomain/zero/1.0/legalcode.en",
+				"license_url": "https://polyhaven.com/license",
+				"resolution": "2k",
+				"source": "https://polyhaven.com/a/potted_plant_02",
+				"source_dimensions_mm": [
+					701.157033443451,
+					657.386586070061,
+					841.178739130555
+				]
+			},
+			{
+				"authors": {
+					"Kuutti Siitonen": "All"
+				},
+				"category": "models",
+				"files": {
+					"industrial_wall_lamp.bin": {
+						"bytes": 141492.0,
+						"sha256": "d0a6a08b5e2e83ff8d6eb61bb5daa74654b4ff8d9c634348c87f83dbda4837a2",
+						"upstream_md5": "86407c4250e46ad39c5a86e1dc1034f9",
+						"url": "https://dl.polyhaven.org/file/ph-assets/Models/gltf/4k/industrial_wall_lamp/industrial_wall_lamp.bin"
+					},
+					"industrial_wall_lamp_2k.gltf": {
+						"bytes": 5800.0,
+						"sha256": "8cddb3fdef56cfe8cdaa0d727933ca92b8084d2a53fc05941099e3654b5bd742",
+						"upstream_md5": "fad803ed23fad9b363d58c51639d971a",
+						"url": "https://dl.polyhaven.org/file/ph-assets/Models/gltf/2k/industrial_wall_lamp/industrial_wall_lamp_2k.gltf"
+					},
+					"textures/industrial_wall_lamp_arm_2k.jpg": {
+						"bytes": 2665794.0,
+						"sha256": "425fac478959a6c749826faca4e3aaabe9638a6c3af478383596f4a11df4cdf2",
+						"upstream_md5": "d73af1d098c23678b330e57685343a8d",
+						"url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/2k/industrial_wall_lamp/industrial_wall_lamp_arm_2k.jpg"
+					},
+					"textures/industrial_wall_lamp_diff_2k.jpg": {
+						"bytes": 2516823.0,
+						"sha256": "96021a7cfe4c1f575ea2fa94049ee0e88d21565353a75895e73cd569c940ea49",
+						"upstream_md5": "a5e4d50f7f00d7d2fe71a8b228e560a4",
+						"url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/2k/industrial_wall_lamp/industrial_wall_lamp_diff_2k.jpg"
+					},
+					"textures/industrial_wall_lamp_emissive_2k.jpg": {
+						"bytes": 228464.0,
+						"sha256": "3fa68f08cd29367d4075c7fd52679d36a9f104bd49072cd4731214e85e246846",
+						"upstream_md5": "c21e303803f101df54de47c5d58ad497",
+						"url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/2k/industrial_wall_lamp/industrial_wall_lamp_emissive_2k.jpg"
+					},
+					"textures/industrial_wall_lamp_glass_alpha_2k.png": {
+						"bytes": 2613021.0,
+						"sha256": "18b2c2dd0d0fbfb7048dc833c42fe61033b7b6d5130b478325f141cf858864c9",
+						"upstream_md5": "0b1feea8a9668f8fb0d2bcd10f49a98c",
+						"url": "https://dl.polyhaven.org/file/ph-assets/Models/png/2k/industrial_wall_lamp/industrial_wall_lamp_glass_alpha_2k.png"
+					},
+					"textures/industrial_wall_lamp_glass_arm_2k.jpg": {
+						"bytes": 1961739.0,
+						"sha256": "917155e113d6669ef2c3a17763230016a5ac7c03372eb7c8cd3be7de19d674c2",
+						"upstream_md5": "16cfe811d379b8731a0e026bd7b15a6d",
+						"url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/2k/industrial_wall_lamp/industrial_wall_lamp_glass_arm_2k.jpg"
+					},
+					"textures/industrial_wall_lamp_glass_diff_2k.jpg": {
+						"bytes": 1117269.0,
+						"sha256": "7a3684b068b597ecca9ef006db0063ce7011ffaed4c4b01636be688abbd4c183",
+						"upstream_md5": "a4c9d7c8240d4c9ffcbf6ee45046e4a5",
+						"url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/2k/industrial_wall_lamp/industrial_wall_lamp_glass_diff_2k.jpg"
+					},
+					"textures/industrial_wall_lamp_glass_nor_gl_2k.jpg": {
+						"bytes": 2498155.0,
+						"sha256": "4ea7997403abcf2ad389eb3aa87cb5fac94a0c5378aada47a4b5184071b2064f",
+						"upstream_md5": "da81e99ff94ed70607f227cec5d2a6be",
+						"url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/2k/industrial_wall_lamp/industrial_wall_lamp_glass_nor_gl_2k.jpg"
+					},
+					"textures/industrial_wall_lamp_nor_gl_2k.jpg": {
+						"bytes": 2829435.0,
+						"sha256": "6e720b06e39bc5bb307322146f68f775f8020140fa94f59e7d954d414ac3c3ad",
+						"upstream_md5": "f9659431eeb6494326df29f62d6097c6",
+						"url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/2k/industrial_wall_lamp/industrial_wall_lamp_nor_gl_2k.jpg"
+					}
+				},
+				"id": "industrial_wall_lamp",
+				"license": "CC0-1.0",
+				"license_text_url": "https://creativecommons.org/publicdomain/zero/1.0/legalcode.en",
+				"license_url": "https://polyhaven.com/license",
+				"resolution": "2k",
+				"source": "https://polyhaven.com/a/industrial_wall_lamp",
+				"source_dimensions_mm": [
+					273.460820317268,
+					140.378443258491,
+					429.906606674194
+				]
+			}
+		],
+		"credit": "Powered by Poly Haven",
+		"provider": "Poly Haven",
+		"retrieved_date": "2026-09-30",
+		"schema_version": 1.0
+	}
+}

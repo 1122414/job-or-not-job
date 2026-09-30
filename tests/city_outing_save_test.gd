@@ -154,6 +154,26 @@ func run() -> void:
 	print("OUTING_STANDING_PLAYER distance=",return_distance," contacts=",player_collisions," max_step=",maximum_step," npc=",colleague.position," player=",game.player.position)
 	check(return_distance>5 and maximum_step<.1,"同事实际绕开站立玩家继续返程，无瞬移")
 	check(Vector2(game.player.position.x-standing_player.x,game.player.position.z-standing_player.z).length()<.02,"绕行不移动或推走玩家")
+	check(SaveGame.restore(game,initial),"中心路口连续近点绕行从独立状态开始")
+	await frames(4)
+	game.payroll.minute=1110
+	var junction_start := Vector3(-.073976,0,58.40247)
+	var garden: Vector3=CityOuting.VENUES.garden[1]
+	for i in range(20):
+		var point := junction_start+Vector3(i*.12,0,i*.025)
+		check(game.walking.clear_segment(point,garden),"中心至花园不存在静态障碍")
+		var path: PackedVector3Array=game.walking.route(point,garden)
+		check(not path.is_empty() and path[0].distance_to(garden)<.01,"投影和紧邻路口都不应成为重复返回点")
+	colleague.position=junction_start;colleague.route.clear();colleague.route_clock=0
+	game.player.position=Vector3(.19251,0,57.87218)
+	standing_player=game.player.position;previous=colleague.position;maximum_step=0
+	game.social.outing={"person":colleague.stable_id,"kind":"walk","venue":"garden","stage":"walking","elapsed":8.0}
+	for i in range(600):
+		await physics_frame
+		maximum_step=maxf(maximum_step,colleague.position.distance_to(previous));previous=colleague.position
+	print("OUTING_JUNCTION_PLAYER distance=",colleague.position.distance_to(junction_start)," max_step=",maximum_step," player_xz=",Vector2(game.player.position.x-standing_player.x,game.player.position.z-standing_player.z).length()," npc=",colleague.position," route=",colleague.route," target=",game.social.npc_target(colleague))
+	check(colleague.position.distance_to(junction_start)>3 and maximum_step<.1,"同伴绕开站立玩家离开中心路口而非反复返回")
+	check(Vector2(game.player.position.x-standing_player.x,game.player.position.z-standing_player.z).length()<.02,"中心绕行不推走玩家")
 	var old_walk := initial.duplicate(true); old_walk.version=18
 	old_walk.social.outing={"person":npc.stable_id,"kind":"walk","stage":"walking","elapsed":12.0}
 	check(SaveGame.restore(game,JSON.parse_string(JSON.stringify(old_walk))) and not game.social.outing.has("venue"),"旧同行保留公交站约定，不改成新地点活动")

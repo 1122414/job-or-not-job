@@ -85,3 +85,8 @@ macOS包的`ASSET-SOURCES.json`和`CREDITS.txt`保存来源；通用CC0原文随
 新增Poly Haven CC0的[Modular Urban Apartments Facade](https://polyhaven.com/a/modular_urban_apartments_facade)，作者James Ray Cock。完整原始库和独立玻璃alpha在[制作源](../production/environment/polyhaven_architecture/README.md)，运行时只加载三种选定窗墙开间、十张2K压缩贴图及网格LOD。`CityArchitecture`将真实模块装配到三处中心连廊上方；上层碰撞、首层通路、六张长凳及原物品身份保留。
 
 玻璃使用原始独立alpha，窗后有退进的房间背墙和部分窗帘；这属于外观深度，没有新增可进入房间或可玩面积。单套实际压缩贴图含mipmap合计30,758,376字节，独立包附`ARCHITECTURE-SOURCES.json`。重建顺序、源节点展示偏移和运行导出范围见制作说明。正式环境品质、人物/演出、整城内容和持续性能继续按完整目标验收。
+
+
+## 2026-09-30 街道首层设施
+
+新增四项 Poly Haven CC0 街道资源：MP 的素色卷帘门、PierreB3D 的周转箱、Rico Cilliers 的盆栽和 Kuutti Siitonen 的壁灯。原页与重建步骤见[制作源记录](../production/environment/polyhaven_street/README.md)，全部原件有作者、许可及摘要。运行资源四网格/十九贴图，源alpha、植物分部位置及安装基准分别检查；十处现有建筑首层和三连廊背面使用，未新增商店营业或可玩城区面积。正式整区艺术签收仍开放。

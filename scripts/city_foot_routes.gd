@@ -65,9 +65,12 @@ static func public_route(walking: WalkingGrid,from: Vector3,to: Vector3) -> Pack
 	# before deciding whether to skip the nearby projection on a later replan.
 	for i in range(result.size()-1,0,-1):
 		if result[i].distance_to(result[i-1])<.01: result.remove_at(i)
-	# A nearby projection is an entry aid, not a mandatory stop. Returning to it
-	# at every replan can trap an actor orbiting somebody standing on the path.
-	if result.size()>1 and from.distance_to(result[0])<1.4 and walking.clear_segment(from,result[1]):
+	# Local avoidance may put the actor alongside the outgoing leg, beyond the
+	# entry node's radius. Follow that corridor instead of returning to the node.
+	# Check each segment separately so corners and physical obstacles stay valid.
+	while result.size()>1:
+		var nearest := Geometry3D.get_closest_point_to_segment(from,result[0],result[1])
+		if from.distance_to(nearest)>=1.4 or not walking.clear_segment(from,result[1]): break
 		result.remove_at(0)
 	return result
 

@@ -1,0 +1,68 @@
+{
+  "normal_game_fps": false,
+  "resolution": [
+    1440,
+    900
+  ],
+  "before_batches": 606,
+  "after_batches": 660,
+  "views": [
+    {
+      "view": "old-lane",
+      "draw_calls_before": 2237,
+      "draw_calls_after": 2295,
+      "primitives_before": 1741877,
+      "primitives_after": 1770983
+    },
+    {
+      "view": "old-front",
+      "draw_calls_before": 1658,
+      "draw_calls_after": 1681,
+      "primitives_before": 336285,
+      "primitives_after": 371043
+    },
+    {
+      "view": "old-service",
+      "draw_calls_before": 125,
+      "draw_calls_after": 145,
+      "primitives_before": 34250,
+      "primitives_after": 62414
+    },
+    {
+      "view": "home-street",
+      "draw_calls_before": 323,
+      "draw_calls_after": 370,
+      "primitives_before": 237393,
+      "primitives_after": 246553
+    },
+    {
+      "view": "home-entrance",
+      "draw_calls_before": 227,
+      "draw_calls_after": 251,
+      "primitives_before": 1354749,
+      "primitives_after": 1366427
+    },
+    {
+      "view": "gallery-service",
+      "draw_calls_before": 692,
+      "draw_calls_after": 811,
+      "primitives_before": 1854090,
+      "primitives_after": 1881336
+    },
+    {
+      "view": "old-lane-night",
+      "draw_calls_before": 2237,
+      "draw_calls_after": 2295,
+      "primitives_before": 1741877,
+      "primitives_after": 1770983
+    },
+    {
+      "view": "home-street-night",
+      "draw_calls_before": 323,
+      "draw_calls_after": 370,
+      "primitives_before": 237393,
+      "primitives_after": 246553
+    }
+  ],
+  "coverage": "Viewport visible-pass counters in frozen views; excludes a full accounting of shadow work, GPU duration and normal gameplay frame time."
+}

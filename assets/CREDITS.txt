@@ -52,3 +52,12 @@ https://polyhaven.com/a/modular_urban_apartments_facade
 Adaptations: three selected 3m facade bays, normalized placement, original glass alpha,
 compressed textures and generated mesh LODs. Source library excluded from runtime.
 See ARCHITECTURE-SOURCES.json for original and derived hashes. Powered by Poly Haven.
+
+Street facilities: Poly Haven, CC0 1.0 Universal.
+rollershutter_door: MP. https://polyhaven.com/a/rollershutter_door
+plastic_crate_01: PierreB3D. https://polyhaven.com/a/plastic_crate_01
+potted_plant_02: Rico Cilliers. https://polyhaven.com/a/potted_plant_02
+industrial_wall_lamp: Kuutti Siitonen. https://polyhaven.com/a/industrial_wall_lamp
+Adaptations: selected plain door, source plant offsets, leaf/glass alpha merge,
+1K prop and 2K door textures, reduced crate/pot/soil and generated mesh LODs.
+Original files unchanged and excluded from runtime. See STREET-SOURCES.json.

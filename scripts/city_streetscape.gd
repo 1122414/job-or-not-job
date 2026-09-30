@@ -74,8 +74,9 @@ func facade(point: Vector3,size: Vector3,old_town: bool,open_ground: bool=false)
 	var variant := (int(absf(point.x))+int(point.z))%3
 	var wall: String=["old_wall","old_ochre","old_rose"][variant] if old_town else ["home_wall","home_chalk","home_sage"][variant]
 	var base := 3.4 if open_ground else 0.0
-	solid(Vector3(size.x,size.y-base,size.z),point+Vector3(0,(size.y+base)/2,0),wall)
-	if not open_ground: box(Vector3(size.x+.18,.85,size.z+.18),point+Vector3(0,.425,0),"brick" if old_town else "stone")
+	var street_face := CityStreetFront.face_for(point)
+	if open_ground:solid(Vector3(size.x,size.y-base,size.z),point+Vector3(0,(size.y+base)/2,0),wall)
+	else:CityStreetFront.shell(self,point,size,wall)
 	box(Vector3(size.x+.3,.16,size.z+.3),point+Vector3(0,size.y+.04,0),"trim")
 	box(Vector3(size.x-.3,.08,size.z-.3),point+Vector3(0,size.y+.15,0),"roof")
 	for face in range(4):
@@ -84,12 +85,13 @@ func facade(point: Vector3,size: Vector3,old_town: bool,open_ground: bool=false)
 		var width := size.x if face%2==0 else size.z
 		var depth := size.z if face%2==0 else size.x
 		var center := point+rot*Vector3(0,0,depth/2+.06)
+		if not open_ground and face!=street_face:box(Vector3(width,.85,.18),center+Vector3(0,.425,0),"brick" if old_town else "stone",yaw)
 		box(Vector3(width+.18,.5,.18),center+Vector3(0,size.y+.36,0),wall,yaw)
 		var columns := 3 if old_town or variant==1 else 4
 		var spacing := (width-1.8)/columns
 		var window_width := spacing*.68
 		for floor_index in range(int((size.y-1)/3)):
-			if open_ground and floor_index==0: continue
+			if floor_index==0 and (open_ground or face==street_face):continue
 			var y := 1.72+floor_index*3.0
 			if old_town: box(Vector3(width+.22,.09,.18),center+Vector3(0,y+1.27,0),"trim",yaw)
 			for column in range(columns):
@@ -124,8 +126,9 @@ func facade(point: Vector3,size: Vector3,old_town: bool,open_ground: bool=false)
 							for stem in range(5): box(Vector3(.11,.16+stem%2*.08,.16),window+rot*Vector3(.02+stem*.11,-.63,.66),"awning",yaw)
 		for dx in [-width/2+.25,width/2-.25]: box(Vector3(.1,size.y,.1),center+rot*Vector3(dx,size.y/2,.12),"metal",yaw)
 		if not old_town:
-			box(Vector3(.55,size.y-base,.12),center+rot*Vector3(0,(size.y+base)/2,.11),"brick",yaw)
-		if face in [0,2] and not open_ground:
+			var strip_base := 3.4 if face==street_face else base
+			box(Vector3(.55,size.y-strip_base,.12),center+rot*Vector3(0,(size.y+strip_base)/2,.11),"brick",yaw)
+		if face in [0,2] and not open_ground and face!=street_face:
 			var doorway := center+rot*Vector3(0,1.25,.1)
 			box(Vector3(2.9,2.5,.2),doorway,"reveal",yaw)
 			box(Vector3(2.55,2.32,.25),doorway,"timber" if old_town else "glass",yaw)
@@ -144,6 +147,7 @@ func facade(point: Vector3,size: Vector3,old_town: bool,open_ground: bool=false)
 	for side in [-1,1]:
 		box(Vector3(1.5,.85,1.3),point+Vector3(3,size.y+.6,side*2),"stone")
 		for slat in range(5): box(Vector3(1.27,.05,.04),point+Vector3(3,size.y+.28+slat*.14,side*2+.68),"metal")
+	if not open_ground:CityStreetFront.build(self,point,size,old_town)
 
 func plaque(text: String,at: Vector3,width: float,yaw: float=0) -> void:
 	box(Vector3(width,.38,.07),at,"metal",yaw)
@@ -247,13 +251,16 @@ func flush() -> void:
 		var batch: Dictionary=batches[key]
 		var mesh := MultiMesh.new()
 		mesh.transform_format=MultiMesh.TRANSFORM_3D
-		mesh.mesh=cube
+		mesh.mesh=cube if batch.kind=="box" else load(batch.kind)
 		mesh.instance_count=batch.transforms.size()
 		for i in range(mesh.instance_count): mesh.set_instance_transform(i,batch.transforms[i])
 		var instance := MultiMeshInstance3D.new()
 		instance.name=key
 		instance.multimesh=mesh
-		instance.material_override=materials[batch.material]
+		if batch.material!="":instance.material_override=materials[batch.material]
+		if batch.kind!="box":
+			instance.visibility_range_end=70
+			instance.visibility_range_end_margin=8
 		add_child(instance)
 	set_meta("pieces",piece_count)
 	set_meta("batches",batches.size())

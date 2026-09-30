@@ -36,7 +36,8 @@ func run() -> void:
 		if game.payroll.minute>=1310: break
 	for id in observed:
 		for place in CityEvening.PLANS[id]: check(observed[id].has(place),"自然时钟内实际到达 "+id+"/"+place+" seen="+str(observed[id]))
-		check(observed[id].has("returned"),"自然时钟内实际返程 "+id)
+		var npc: OfficeNPC=game.npc_for_role(id)
+		check(observed[id].has("returned"),"自然时钟内实际返程 "+id+" position="+str(npc.position)+" route="+str(npc.route)+" target="+str(CityEvening.destination(npc)))
 	check(maximum<.1 and overlaps==0,"自然时间行程无传送或车流重叠")
 	check(game.social.outing.is_empty(),"不靠玩家发起或后台自动代答")
 	check(Input.mouse_mode==Input.MOUSE_MODE_VISIBLE and not game.persistence_enabled,"不捕获鼠标或写玩家档")

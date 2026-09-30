@@ -51,8 +51,8 @@ func run() -> void:
 	if root.mode!=Window.MODE_MINIMIZED or not root.get_flag(Window.FLAG_NO_FOCUS) or root.has_focus() or Input.mouse_mode!=Input.MOUSE_MODE_VISIBLE:
 		push_error("Street capture must remain minimized, unfocusable, without focus or mouse capture"); quit(1); return
 	game.set_process(false)
-	game.process_mode=Node.PROCESS_MODE_DISABLED
 	prepare_scene(game)
+	game.process_mode=Node.PROCESS_MODE_DISABLED
 	var camera := Camera3D.new()
 	game.add_child(camera)
 	camera.make_current()

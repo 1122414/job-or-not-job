@@ -166,7 +166,15 @@ func walk(_delta: float) -> void:
 	direction.y=0
 	direction=direction.normalized()
 	var side := Vector3(-direction.z,0,direction.x)
-	if crossing=="":
+	if crossing!="":
+		# Opposing walkers retain separate lanes inside the crossing. Aiming both
+		# at its centreline can lock their capsules together and hold all traffic.
+		var start: Vector3=CityPopulation.POINTS[from_node]
+		var axis := (target-start).normalized()
+		var lane_side := Vector3(-axis.z,0,axis.x)
+		var lateral := (position-start).dot(lane_side)
+		direction=(axis+lane_side*clampf((.4-lateral)*2.8,-1,1)).normalized()
+	else:
 		# Keep to one side of shared paths and steer around actual nearby bodies.
 		var lane_target := target+side*.4
 		direction=(lane_target-position).normalized()

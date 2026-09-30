@@ -1,0 +1,210 @@
+{
+  "career/defend.png": {
+    "sha256": "20fb92e71453098cd1c45eb94f9b0b53a1b5b0659e76942e31f632a4e831320f",
+    "reviewed": false
+  },
+  "career/interview_hr.png": {
+    "sha256": "dcc2c9959873b6dab4e9aa0eaba846dab6f779909d89af2f2679e7665e6a4a72",
+    "reviewed": true
+  },
+  "career/handover.png": {
+    "sha256": "475c2bb808e117c5ef492f5bc219dc18cef5dcd400826d99ab98e0d5e179b93d",
+    "reviewed": true
+  },
+  "career/prepare.png": {
+    "sha256": "a7c59d97a4c30ce031644d166d8255eaf0d5c4c8aaabf587f15152aed21b38c1",
+    "reviewed": false
+  },
+  "career/backup.png": {
+    "sha256": "a6b90842b0b6a7a2d838703bfe8d0363e729dca78d5514e1d585c4e1f69d5ee7",
+    "reviewed": false
+  },
+  "career/submit.png": {
+    "sha256": "e1298472a9e3e0b29ba70251cc2afc9fdc88300638bfff3eee11336be3a1a6a6",
+    "reviewed": false
+  },
+  "career/join_a.png": {
+    "sha256": "b91d5be73308533694d72479e2cb2e8ada0cb22b9a16dbdbe6631e69b93e0133",
+    "reviewed": false
+  },
+  "walk/old-north.png": {
+    "sha256": "e1bd416f8d45b4016b62c54d52c9ef6a8c4e6bf0d6757bc24313650f0b15b4a3",
+    "reviewed": true
+  },
+  "walk/home-entry.png": {
+    "sha256": "13a14c9b7f286684ec3453f90acf05f39fe99c226b9c4fe174bcbb4825ebbd5d",
+    "reviewed": true
+  },
+  "walk/home-front.png": {
+    "sha256": "b3b18083a4e08b6201e547627b615bc6272dc267713c91cc439bd724f52e5bc4",
+    "reviewed": true
+  },
+  "walk/old-side.png": {
+    "sha256": "a202cf0518e7ba60dbd89c08365ff928298c6b5d8a78aa16fd7364b252421d3d",
+    "reviewed": true
+  },
+  "walk/home-north.png": {
+    "sha256": "de7c4309491648455fa6b89862044fc0ac52f476ef9c2dcca063e83d4014dbec",
+    "reviewed": true
+  },
+  "walk/gallery-back.png": {
+    "sha256": "dfc965870cd4569cc5cf911521477f94a818eff22d9621d49a027577a133650c",
+    "reviewed": true
+  },
+  "walk/home-side.png": {
+    "sha256": "e6539983f1747d910469cfd91d3f92db74045741162ee55be80dd26a42c8ccf9",
+    "reviewed": true
+  },
+  "walk/old-front.png": {
+    "sha256": "625fa8dd8dbd5da97ed1e61f85ef941f91ce72a0479cd58b55c247023233962d",
+    "reviewed": true
+  },
+  "before/home-entrance.png": {
+    "sha256": "63cd4ecdee20beccaf5266d1c18a8d1f8b4ff19289e2fcbe95764db706a1e601",
+    "reviewed": false
+  },
+  "before/old-lane-night.png": {
+    "sha256": "675673addf6f71797854c36e1c6ede0e9295dcf073050c677ba38d6eb27d20b2",
+    "reviewed": false
+  },
+  "before/gallery-service.png": {
+    "sha256": "23c34261e4c6b99d7fa2df71ac9ebaf5af89d8f2a475aa31d1a5a42c2b57b513",
+    "reviewed": false
+  },
+  "before/home-street-night.png": {
+    "sha256": "68b14392d48d1caf867be774e2a4526c9d31eda861e2897a10342c89babf5940",
+    "reviewed": false
+  },
+  "before/old-service.png": {
+    "sha256": "b89a74658129c8d768bdcb7ab7ebc582d3972a96f698ea5726992630fb2ed2cc",
+    "reviewed": false
+  },
+  "before/old-lane.png": {
+    "sha256": "05c0f4151aeef29849876eb6ed8fb71618b15739dd2cb2c0d151cc8407996c9e",
+    "reviewed": false
+  },
+  "before/old-front.png": {
+    "sha256": "8760b2f2e377224869ec4c230d65ce3b62ba39639215a4b9df796ef9fae1e9c7",
+    "reviewed": true
+  },
+  "before/home-street.png": {
+    "sha256": "52417bb760961f916d47ec941a0d0a452d3c9f7e349c13ffdbef070d5d1ab7a4",
+    "reviewed": true
+  },
+  "after/home-entrance.png": {
+    "sha256": "58dbed853c960880593bfe0d736bcb8f92cd549eb2c154e86eebc2f189401a56",
+    "reviewed": true
+  },
+  "after/old-lane-night.png": {
+    "sha256": "f75dddab56c96c2dd8965048e79f6d95140918014e4203480e1443e5750d6614",
+    "reviewed": true
+  },
+  "after/gallery-service.png": {
+    "sha256": "38b39a29307a8fd234f9d77656cfebc787813a07fb4a980f190adee017b396b6",
+    "reviewed": true
+  },
+  "after/home-street-night.png": {
+    "sha256": "0f676735795707765bafa9393ef12b497cd7ef38443023284da97b9d3ac14d51",
+    "reviewed": true
+  },
+  "after/old-service.png": {
+    "sha256": "2c8e1dfacc53a86e19711e81012dae91b56be538b06fad484275d903bb916e7b",
+    "reviewed": true
+  },
+  "after/old-lane.png": {
+    "sha256": "527f00c7b5fda8b86e92db02e272a4c430a0bb26758a0e470a8b41f91f951eb7",
+    "reviewed": true
+  },
+  "after/old-front.png": {
+    "sha256": "b48a23fdf39a42acb909f48b6fec922920c85962774e2b2e5ac9efaa3e23b4c9",
+    "reviewed": true
+  },
+  "after/home-street.png": {
+    "sha256": "da85d95c2b4c489afd8f9b64b5fb9b669a400a291500dcf4d03da609ceb91d26",
+    "reviewed": true
+  },
+  "iteration/old-front.png": {
+    "sha256": "a56f5bb649705441c64a8646afee666567b4055682a818508798eb677ccc06d4",
+    "reviewed": false
+  },
+  "iteration/home-street.png": {
+    "sha256": "658ac995ee31361c3556808bf1be894267d02a6014e15d23c28150d7dc1c6427",
+    "reviewed": false
+  },
+  "assets/plastic_crate_01-front.png": {
+    "sha256": "4f21e8876bea3f909e1e74673a670901c4f85b36efe839e1146927b423c0a5cf",
+    "reviewed": true
+  },
+  "assets/industrial_wall_lamp-oblique.png": {
+    "sha256": "d67c29d81eafc81aac7cae7444476b7b71b110abed9156ef026f96900724a02e",
+    "reviewed": true
+  },
+  "assets/plastic_crate_01-oblique.png": {
+    "sha256": "db7656a33f81981b4e77714ddbe233e9aef98039bab1419092fa6b2a92943801",
+    "reviewed": true
+  },
+  "assets/potted_plant_02-oblique.png": {
+    "sha256": "3c6590cb8a7ec03ef06633db2f3ed9b62b2bcbc3e1ebafe285a85791b862749b",
+    "reviewed": true
+  },
+  "assets/industrial_wall_lamp-front.png": {
+    "sha256": "bbef7c0d26dc57cc48fe3b67b4e0a9379c3bfeccfd4a40b9e501da57ec806e63",
+    "reviewed": true
+  },
+  "assets/potted_plant_02-front.png": {
+    "sha256": "b30aa6435b696f6e850ec512cad410533839976353081c6f6348a85d177c51f1",
+    "reviewed": true
+  },
+  "assets/rollershutter_door-oblique.png": {
+    "sha256": "602823cb9d34e94533e6437fcc54bff6eb61a6634fb4274c73c6b4b6beacd859",
+    "reviewed": true
+  },
+  "assets/rollershutter_door-front.png": {
+    "sha256": "978228a48b25d335b7d5f0bea6fb29fa599fc66317f9db5b8200102e80d398f8",
+    "reviewed": true
+  },
+  "lamp-lod-comparison/industrial_wall_lamp-oblique.png": {
+    "sha256": "d67c29d81eafc81aac7cae7444476b7b71b110abed9156ef026f96900724a02e",
+    "reviewed": false
+  },
+  "lamp-lod-comparison/industrial_wall_lamp-front.png": {
+    "sha256": "bbef7c0d26dc57cc48fe3b67b4e0a9379c3bfeccfd4a40b9e501da57ec806e63",
+    "reviewed": false
+  },
+  "package/home-night.png": {
+    "sha256": "579c121b3479c4018a7d3a2c07c818297db73e93a8bb9d5b9314a98ed34dbc00",
+    "reviewed": true
+  },
+  "package/old-day.png": {
+    "sha256": "b48a23fdf39a42acb909f48b6fec922920c85962774e2b2e5ac9efaa3e23b4c9",
+    "reviewed": true
+  },
+  "package/old-night.png": {
+    "sha256": "050db3e32ea82accdd62634ac03d478794f47f88e00ff8ceaf4ca25030ffed8f",
+    "reviewed": true
+  },
+  "iteration/e093-package/home-night.png": {
+    "sha256": "579c121b3479c4018a7d3a2c07c818297db73e93a8bb9d5b9314a98ed34dbc00",
+    "reviewed": false
+  },
+  "iteration/e093-package/old-day.png": {
+    "sha256": "b48a23fdf39a42acb909f48b6fec922920c85962774e2b2e5ac9efaa3e23b4c9",
+    "reviewed": false
+  },
+  "iteration/e093-package/old-night.png": {
+    "sha256": "050db3e32ea82accdd62634ac03d478794f47f88e00ff8ceaf4ca25030ffed8f",
+    "reviewed": false
+  },
+  "iteration/intermediate-package/home-night.png": {
+    "sha256": "579c121b3479c4018a7d3a2c07c818297db73e93a8bb9d5b9314a98ed34dbc00",
+    "reviewed": false
+  },
+  "iteration/intermediate-package/old-day.png": {
+    "sha256": "b48a23fdf39a42acb909f48b6fec922920c85962774e2b2e5ac9efaa3e23b4c9",
+    "reviewed": false
+  },
+  "iteration/intermediate-package/old-night.png": {
+    "sha256": "a248cbe29653c32e8361f812fa1ca38ad3fbfc87acaa614ab12ef8f20ea63430",
+    "reviewed": false
+  }
+}

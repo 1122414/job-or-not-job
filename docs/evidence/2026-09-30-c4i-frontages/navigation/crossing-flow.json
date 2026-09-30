@@ -1,0 +1,30 @@
+{
+  "homes": {
+    "both_cleared": true,
+    "max_step": 0.026765912771225,
+    "minimum_separation": 0.753563106060028,
+    "traffic_released": true,
+    "vehicle_overlap_samples": 0
+  },
+  "market": {
+    "both_cleared": true,
+    "max_step": 0.026765912771225,
+    "minimum_separation": 0.753563106060028,
+    "traffic_released": true,
+    "vehicle_overlap_samples": 0
+  },
+  "office": {
+    "both_cleared": true,
+    "max_step": 0.0267645865678787,
+    "minimum_separation": 0.753569781780243,
+    "traffic_released": true,
+    "vehicle_overlap_samples": 0
+  },
+  "waterfront": {
+    "both_cleared": true,
+    "max_step": 0.0267665721476078,
+    "minimum_separation": 0.753571271896362,
+    "traffic_released": true,
+    "vehicle_overlap_samples": 0
+  }
+}

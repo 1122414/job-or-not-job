@@ -1,0 +1,17 @@
+{
+	"adapter": "Apple M5 Pro (Apple9)",
+	"background_guard": true,
+	"build_id": "20260930T010408092625Z-428fddad-70e136e2",
+	"frontages": 10,
+	"images": [
+		"old-day",
+		"old-night",
+		"home-night"
+	],
+	"mounted_fixtures": 26,
+	"normal_game_fps": false,
+	"persistence": false,
+	"renderer": "forward_plus",
+	"source_sha256": "70e136e23377917213839926f545208540957a54ee92bb40f661f109f790620c",
+	"views_are_fixtures": true
+}

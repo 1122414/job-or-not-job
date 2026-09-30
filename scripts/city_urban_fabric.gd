@@ -31,9 +31,7 @@ static func arcade(s: CityStreetscape,lot: Dictionary) -> void:
 	# Seating stays against the core, away from the through passage at z=+7.
 	s.bench(at+Vector3(-2,0,0),PI,"commons_"+lot.id+"_0")
 	s.bench(at+Vector3(2,0,0),PI,"commons_"+lot.id+"_1")
-	for dx in [-2.4,-1.2,0,1.2,2.4]:
-		s.box(Vector3(1,.85,.12),at+Vector3(dx,1.35,-5.08),"metal")
-		for row in range(3): s.box(Vector3(.85,.015,.02),at+Vector3(dx,1.1+row*.25,-5.16),"trim")
+	CityStreetFront.gallery(s,lot)
 
 static func background(s: CityStreetscape) -> void:
 	# Scenery only: outside the playable bounds, without destinations, collision,

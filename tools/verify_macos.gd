@@ -59,6 +59,18 @@ func run() -> void:
 	var streets: CityStreetscape=game.get_node_or_null("ConnectedDistrict/Streetscape")
 	if streets==null:
 		push_error("Packaged streetscape missing");quit(1);return
+	var street_sources := OS.get_executable_path().get_base_dir().path_join("../Resources/STREET-SOURCES.json")
+	if FileAccess.get_file_as_string(street_sources)!=FileAccess.get_file_as_string(CityStreetFront.ROOT+"provenance.json") or streets.get_meta("street_frontages",0)!=10:
+		push_error("Packaged ground frontages or street sources missing");quit(1);return
+	for id in CityStreetFront.MODELS:
+		var original: String="res://production/environment/polyhaven_street/"+id+"/"+id+"_2k.gltf"
+		if FileAccess.file_exists(original) or ResourceLoader.exists(original):push_error("Original street model leaked into package");quit(1);return
+		var model: ArrayMesh=load(CityStreetFront.ROOT+id+".res")
+		for surface in range(model.get_surface_count()):
+			var material: StandardMaterial3D=model.surface_get_material(surface)
+			for texture in [material.albedo_texture,material.normal_texture,material.roughness_texture]:
+				if not texture.get_image().is_compressed() or not texture.get_image().has_mipmaps():push_error("Street runtime compression missing");quit(1);return
+	print("PACKAGED_FRONTAGES fronts=10 models=4 source_excluded=true compressed_mipmaps=true")
 	var architecture_sources := OS.get_executable_path().get_base_dir().path_join("../Resources/ARCHITECTURE-SOURCES.json")
 	if FileAccess.get_file_as_string(architecture_sources)!=FileAccess.get_file_as_string(CityArchitecture.ROOT+"provenance.json"):
 		push_error("Packaged architecture provenance mismatch");quit(1);return

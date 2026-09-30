@@ -1,0 +1,94 @@
+{
+	"background_guard": true,
+	"clock_from": 1110,
+	"clock_to": 1173,
+	"images": 8,
+	"independent_player_acceptance": false,
+	"normal_game_fps": false,
+	"normal_player_camera": true,
+	"persistence": false,
+	"visits": [
+		{
+			"image": "old-front",
+			"minute": 1114,
+			"outing": {},
+			"player": [
+				-34.0064392089844,
+				-0.00415941374376416,
+				38.6727714538574
+			]
+		},
+		{
+			"image": "old-side",
+			"minute": 1124,
+			"outing": {},
+			"player": [
+				-88.7457885742188,
+				-0.00415941374376416,
+				32.0054550170898
+			]
+		},
+		{
+			"image": "old-north",
+			"minute": 1134,
+			"outing": {},
+			"player": [
+				-34.0015830993652,
+				-0.00415941374376416,
+				74.7513427734375
+			]
+		},
+		{
+			"image": "gallery-back",
+			"minute": 1140,
+			"outing": {},
+			"player": [
+				-18.1691780090332,
+				-0.00415941374376416,
+				28.0032157897949
+			]
+		},
+		{
+			"image": "home-front",
+			"minute": 1152,
+			"outing": {},
+			"player": [
+				35.9985008239746,
+				-0.00415941374376416,
+				39.667350769043
+			]
+		},
+		{
+			"image": "home-north",
+			"minute": 1156,
+			"outing": {},
+			"player": [
+				35.9999961853027,
+				-0.00415941374376416,
+				74.3339614868164
+			]
+		},
+		{
+			"image": "home-side",
+			"minute": 1165,
+			"outing": {},
+			"player": [
+				88.3269958496094,
+				-0.00415941374376416,
+				32.0115928649902
+			]
+		},
+		{
+			"image": "home-entry",
+			"minute": 1173,
+			"outing": {},
+			"player": [
+				56.0039138793945,
+				-0.00415941374376416,
+				37.1484870910645
+			]
+		}
+	],
+	"walking_max_step": 0.0834693387150764,
+	"walking_metres": 630.35996152088
+}

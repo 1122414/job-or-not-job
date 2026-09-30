@@ -1,0 +1,50 @@
+[
+	{
+		"max_step": 0.0383355021476746,
+		"metres": 138.765621565282,
+		"request_frames": 0,
+		"road_frames": 0,
+		"route": "a_friend-bookshop",
+		"vehicle_overlap_samples": 0
+	},
+	{
+		"max_step": 0.0383357405662537,
+		"metres": 137.349262017757,
+		"request_frames": 0,
+		"road_frames": 0,
+		"route": "a_friend-bookshop-return",
+		"vehicle_overlap_samples": 0
+	},
+	{
+		"max_step": 0.0383352339267731,
+		"metres": 96.0637943074107,
+		"request_frames": 0,
+		"road_frames": 107,
+		"route": "b_friend-garden",
+		"vehicle_overlap_samples": 0
+	},
+	{
+		"max_step": 0.038335595279932,
+		"metres": 91.2191265262663,
+		"request_frames": 0,
+		"road_frames": 0,
+		"route": "b_friend-garden-return",
+		"vehicle_overlap_samples": 0
+	},
+	{
+		"max_step": 0.0383364707231522,
+		"metres": 129.068816669285,
+		"request_frames": 476,
+		"road_frames": 410,
+		"route": "a_friend-waterfront",
+		"vehicle_overlap_samples": 0
+	},
+	{
+		"max_step": 0.0383362025022507,
+		"metres": 132.32426020503,
+		"request_frames": 286,
+		"road_frames": 386,
+		"route": "a_friend-waterfront-return",
+		"vehicle_overlap_samples": 0
+	}
+]

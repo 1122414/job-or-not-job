@@ -1,0 +1,149 @@
+{
+	"adapter": "Apple M5 Pro (Apple9)",
+	"deterministic_gpu_buffers": true,
+	"deterministic_tree_transforms": true,
+	"final_visual_acceptance": false,
+	"fov": 65,
+	"nonempty_gpu_batches": 606,
+	"normal_game_performance": false,
+	"pointer_visible": true,
+	"renderer": "forward_plus",
+	"resolution": [
+		1440,
+		900
+	],
+	"root_focused": false,
+	"root_minimized": true,
+	"root_unfocusable": true,
+	"tree_instances": 23,
+	"views": [
+		{
+			"camera": [
+				-64.0,
+				1.75,
+				54.0
+			],
+			"draw_calls": 2237,
+			"minute": 540,
+			"name": "old-lane",
+			"primitives": 1741877,
+			"target": [
+				-40.0,
+				1.89999997615814,
+				35.0
+			]
+		},
+		{
+			"camera": [
+				-35.0,
+				1.75,
+				44.0
+			],
+			"draw_calls": 1658,
+			"minute": 540,
+			"name": "old-front",
+			"primitives": 336285,
+			"target": [
+				-34.0,
+				1.70000004768372,
+				37.0
+			]
+		},
+		{
+			"camera": [
+				-84.0,
+				1.75,
+				41.0
+			],
+			"draw_calls": 125,
+			"minute": 540,
+			"name": "old-service",
+			"primitives": 34250,
+			"target": [
+				-91.0,
+				1.60000002384186,
+				32.0
+			]
+		},
+		{
+			"camera": [
+				32.0,
+				1.75,
+				53.0
+			],
+			"draw_calls": 323,
+			"minute": 540,
+			"name": "home-street",
+			"primitives": 237393,
+			"target": [
+				49.0,
+				2.0,
+				33.0
+			]
+		},
+		{
+			"camera": [
+				40.0,
+				1.75,
+				69.0
+			],
+			"draw_calls": 227,
+			"minute": 540,
+			"name": "home-entrance",
+			"primitives": 1354749,
+			"target": [
+				36.0,
+				1.70000004768372,
+				76.0
+			]
+		},
+		{
+			"camera": [
+				-25.0,
+				1.75,
+				25.0
+			],
+			"draw_calls": 692,
+			"minute": 540,
+			"name": "gallery-service",
+			"primitives": 1854090,
+			"target": [
+				-18.0,
+				1.5,
+				30.0
+			]
+		},
+		{
+			"camera": [
+				-64.0,
+				1.75,
+				54.0
+			],
+			"draw_calls": 2237,
+			"minute": 1230,
+			"name": "old-lane-night",
+			"primitives": 1741877,
+			"target": [
+				-40.0,
+				1.89999997615814,
+				35.0
+			]
+		},
+		{
+			"camera": [
+				32.0,
+				1.75,
+				53.0
+			],
+			"draw_calls": 323,
+			"minute": 1230,
+			"name": "home-street-night",
+			"primitives": 237393,
+			"target": [
+				49.0,
+				2.0,
+				33.0
+			]
+		}
+	]
+}

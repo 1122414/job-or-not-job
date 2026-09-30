@@ -23,6 +23,8 @@ SELECTION = {
 COMPANY_SELECTION = {'wood_floor': 'textures', 'brick_wall_001': 'textures'}
 NATURE_SELECTION = {'tree_small_02': 'models', 'leafy_grass': 'textures'}
 ARCHITECTURE_SELECTION = {'modular_urban_apartments_facade': 'models'}
+STREET_SELECTION = {asset: 'models' for asset in (
+    'rollershutter_door', 'plastic_crate_01', 'potted_plant_02', 'industrial_wall_lamp')}
 USER_AGENT = 'TodayOff-AssetReview/1.0 (local game production; Poly Haven CC0 sample)'
 
 
@@ -109,6 +111,9 @@ def fetch(output, selection=SELECTION):
             if asset_id == 'modular_urban_apartments_facade':
                 # Window glass shares the opaque object's JPEG RGB atlas.
                 files['textures/modular_urban_apartments_facade_objects_alpha_2k.png'] = data['objects_alpha']['2k']['png']
+            if asset_id in ('potted_plant_02', 'industrial_wall_lamp'):
+                channel = 'leaves_alpha' if asset_id == 'potted_plant_02' else 'glass_alpha'
+                files[f'textures/{asset_id}_{channel}_2k.png'] = data[channel]['2k']['png']
         else:
             files = {asset_id + '_' + channel + '_2k.jpg': data[channel]['2k']['jpg']
                      for channel in ('Diffuse', 'nor_gl', 'arm')}
@@ -140,16 +145,17 @@ def fetch(output, selection=SELECTION):
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('--set', choices=('sample', 'company', 'nature', 'architecture'), default='sample')
+    parser.add_argument('--set', choices=('sample', 'company', 'nature', 'architecture', 'street'), default='sample')
     parser.add_argument('--output', type=Path)
     options = parser.parse_args()
     sets = {'sample': (SELECTION, ROOT / 'assets/polyhaven'),
             'company': (COMPANY_SELECTION, ROOT / 'assets/company_materials'),
             'nature': (NATURE_SELECTION, ROOT / 'production/environment/polyhaven_nature'),
-            'architecture': (ARCHITECTURE_SELECTION, ROOT / 'production/environment/polyhaven_architecture')}
+            'architecture': (ARCHITECTURE_SELECTION, ROOT / 'production/environment/polyhaven_architecture'),
+            'street': (STREET_SELECTION, ROOT / 'production/environment/polyhaven_street')}
     selection, default_output = sets[options.set]
     output = options.output or default_output
-    if options.set in ('nature', 'architecture'):
+    if options.set in ('nature', 'architecture', 'street'):
         output.mkdir(parents=True, exist_ok=True)
         (output / '.gdignore').touch(exist_ok=True)
     fetch(output, selection)
