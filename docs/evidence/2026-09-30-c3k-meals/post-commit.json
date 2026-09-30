@@ -1,0 +1,23 @@
+{
+  "checked_utc": "2026-09-30T08:42:20.128401+00:00",
+  "implementation_commit": "455e8cb6078aec27351d5db2f103db241747c70d",
+  "runtime_clean": true,
+  "runtime_source_sha256": "b58fe7c6700caf2179c8c2af711681061495f2efa3cd1d9924b3f8c9ece0de5c",
+  "same_inputs_as_verified_package": true,
+  "evidence_manifest_items": 64,
+  "godot_test_records": 102,
+  "integration_log_records": 23,
+  "verification_scope": "Post-commit hashes and source identity only; gameplay tests not rerun for document closure.",
+  "document_sync": {
+    "checked_utc": "2026-09-30T08:43:13.633744+00:00",
+    "mirror_count": 1576,
+    "byte_and_checksum_mismatches": [],
+    "history_preserved": {
+      "进度文档.md": true,
+      "每日开发计划/2026-09-30_完整城区生活与品质样板开发.md": true,
+      "项目记录索引.md": true,
+      "2026-09-21_MVP方案_v0.2.md": true,
+      "2026-09-21_MVP分阶段实施计划.md": true
+    }
+  }
+}
