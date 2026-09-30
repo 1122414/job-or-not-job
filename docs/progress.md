@@ -927,4 +927,6 @@ C3i记录同步：1121项项目文档、原始设计、图片与元数据逐字�
 
 边界：箱10,206三角形且无额外自动LOD；主画面可见调用老城2237→2295、住宅323→370、维护面692→811，未计完整阴影和GPU耗时，不代表持续FPS。灯罩正式透射未等价实现，斜视灰块关闭LOD仍相同，已列待制作验证。完整城区人物/动作/声音与统一视听、活动及职业/关系深度、30—60分钟独立自由体验、跨区/八类城区/64km²都市圈与16km²密集城区、1440p30/1080p60持续性能和用户签收继续开放，G01—G06未关闭。
 
-详情：[C4i验收](2026-09-30_C4i街道首层与生活设施验收.md)、[逐项证据](evidence/2026-09-30-c4i-frontages/README.md)。复用更新[动态导航](experience/patterns/navigation-endpoints.md)、[资产安装与材质](experience/patterns/open-asset-integration.md)。中文实施提交在收尾记录补记。
+详情：[C4i验收](2026-09-30_C4i街道首层与生活设施验收.md)、[逐项证据](evidence/2026-09-30-c4i-frontages/README.md)。复用更新[动态导航](experience/patterns/navigation-endpoints.md)、[资产安装与材质](experience/patterns/open-asset-integration.md)。中文实施提交c036c41，未push；提交前再次核对90项测试源码/日志、8份附加检查日志、52张图片、ZIP CRC/签名及源码/PCK摘要一致。完整城区与G01—G06继续。
+
+C4i记录同步：1196项项目文档、原始设计、图片与元数据逐字节及校验和一致，零冲突；Obsidian进度、9月30日每日计划和索引已更新，顶层历史计划保持。完整城区及G01—G06继续。
