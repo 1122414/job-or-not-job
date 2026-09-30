@@ -1,0 +1,156 @@
+[
+  {
+    "path": "before/first-public-passengers.png",
+    "sha256": "f82bbc29df6749988e2bdaac432ca633a5ec6396f7b521018592386cb106061d",
+    "directly_viewed_this_turn": false,
+    "identical_to_viewed": "",
+    "scope": "prototype integration; not final art acceptance"
+  },
+  {
+    "path": "career/backup.png",
+    "sha256": "b108feda44019fb3432e34181bcf07d9470aa9850f20358757d26eade9a8b236",
+    "directly_viewed_this_turn": false,
+    "identical_to_viewed": "",
+    "scope": "prototype integration; not final art acceptance"
+  },
+  {
+    "path": "career/defend.png",
+    "sha256": "4a1f5408a9158fa405df477801e9718b9541f46fddbeb7d32b58434d62690764",
+    "directly_viewed_this_turn": false,
+    "identical_to_viewed": "",
+    "scope": "prototype integration; not final art acceptance"
+  },
+  {
+    "path": "career/handover.png",
+    "sha256": "2e36acdc6c7100cbc2b0cb766f36a0c5fbbc58c98f7f05c0a2cc30d0d7f87ee1",
+    "directly_viewed_this_turn": true,
+    "identical_to_viewed": "",
+    "scope": "prototype integration; not final art acceptance"
+  },
+  {
+    "path": "career/interview_hr.png",
+    "sha256": "f1a36c6254779cc6aa86aab45f7cacf23ef6a62b80b5e709e8871adc13dbf39c",
+    "directly_viewed_this_turn": true,
+    "identical_to_viewed": "",
+    "scope": "prototype integration; not final art acceptance"
+  },
+  {
+    "path": "career/join_a.png",
+    "sha256": "29efafcdad61758ed9f24e7f855a8ece06c80454713b36cfc9d24e211b2788b0",
+    "directly_viewed_this_turn": false,
+    "identical_to_viewed": "",
+    "scope": "prototype integration; not final art acceptance"
+  },
+  {
+    "path": "career/prepare.png",
+    "sha256": "9e86382c119cc039401a212d838291c7421e228bc61fd8e5bc15d1d0e0a46928",
+    "directly_viewed_this_turn": false,
+    "identical_to_viewed": "",
+    "scope": "prototype integration; not final art acceptance"
+  },
+  {
+    "path": "career/submit.png",
+    "sha256": "73700894506093084c7f9cc4d8ca70a71ead017b32411131525870e9596a5dca",
+    "directly_viewed_this_turn": false,
+    "identical_to_viewed": "",
+    "scope": "prototype integration; not final art acceptance"
+  },
+  {
+    "path": "package-ride/bus-board-control.png",
+    "sha256": "b917098ac7ba6a4c18985b62f10b7e8bc1f8f66c00701d219e41a0702bb3f97c",
+    "directly_viewed_this_turn": false,
+    "identical_to_viewed": "source-ride/bus-board-control.png",
+    "scope": "prototype integration; not final art acceptance"
+  },
+  {
+    "path": "package-ride/first-public-passengers.png",
+    "sha256": "c1509bd568583e6a83345cf27878b9d2a24dc3fc8d373d486a3d762058e2d314",
+    "directly_viewed_this_turn": false,
+    "identical_to_viewed": "source-ride/first-public-passengers.png",
+    "scope": "prototype integration; not final art acceptance"
+  },
+  {
+    "path": "package-ride/platform-before-boarding.png",
+    "sha256": "9008b33d88b2bac0ac6e90088cce6d106f66e5a9d0765f00de10c53984de4049",
+    "directly_viewed_this_turn": false,
+    "identical_to_viewed": "source-ride/platform-before-boarding.png",
+    "scope": "prototype integration; not final art acceptance"
+  },
+  {
+    "path": "package-ride/player-market-platform.png",
+    "sha256": "cc2fcfd1813412077022747a9382b57d9bd0f3f3196508f36099e9fb7ee5a3cb",
+    "directly_viewed_this_turn": false,
+    "identical_to_viewed": "source-ride/player-market-platform.png",
+    "scope": "prototype integration; not final art acceptance"
+  },
+  {
+    "path": "package-ride/resident-resumes-destination.png",
+    "sha256": "f7380429ca6a6ed7210441eebabb0c169ebcc410ec4a68f9f7a427c77692bf42",
+    "directly_viewed_this_turn": false,
+    "identical_to_viewed": "source-ride/resident-resumes-destination.png",
+    "scope": "prototype integration; not final art acceptance"
+  },
+  {
+    "path": "package-ride/seat-contact-diagnostic.png",
+    "sha256": "e7005cc8b836e19cc02a573671bb6129b179eea31de2d404c30b1002ce4f353c",
+    "directly_viewed_this_turn": false,
+    "identical_to_viewed": "source-ride/seat-contact-diagnostic.png",
+    "scope": "prototype integration; not final art acceptance"
+  },
+  {
+    "path": "package-ride/shared-ride-player-camera.png",
+    "sha256": "bcc11a351070a99176dff82aa3bfd605077e48fb5b29f5e5df45f1365c032e15",
+    "directly_viewed_this_turn": false,
+    "identical_to_viewed": "source-ride/shared-ride-player-camera.png",
+    "scope": "prototype integration; not final art acceptance"
+  },
+  {
+    "path": "source-ride/bus-board-control.png",
+    "sha256": "b917098ac7ba6a4c18985b62f10b7e8bc1f8f66c00701d219e41a0702bb3f97c",
+    "directly_viewed_this_turn": true,
+    "identical_to_viewed": "",
+    "scope": "prototype integration; not final art acceptance"
+  },
+  {
+    "path": "source-ride/first-public-passengers.png",
+    "sha256": "c1509bd568583e6a83345cf27878b9d2a24dc3fc8d373d486a3d762058e2d314",
+    "directly_viewed_this_turn": true,
+    "identical_to_viewed": "",
+    "scope": "prototype integration; not final art acceptance"
+  },
+  {
+    "path": "source-ride/platform-before-boarding.png",
+    "sha256": "9008b33d88b2bac0ac6e90088cce6d106f66e5a9d0765f00de10c53984de4049",
+    "directly_viewed_this_turn": true,
+    "identical_to_viewed": "",
+    "scope": "prototype integration; not final art acceptance"
+  },
+  {
+    "path": "source-ride/player-market-platform.png",
+    "sha256": "cc2fcfd1813412077022747a9382b57d9bd0f3f3196508f36099e9fb7ee5a3cb",
+    "directly_viewed_this_turn": true,
+    "identical_to_viewed": "",
+    "scope": "prototype integration; not final art acceptance"
+  },
+  {
+    "path": "source-ride/resident-resumes-destination.png",
+    "sha256": "f7380429ca6a6ed7210441eebabb0c169ebcc410ec4a68f9f7a427c77692bf42",
+    "directly_viewed_this_turn": true,
+    "identical_to_viewed": "",
+    "scope": "prototype integration; not final art acceptance"
+  },
+  {
+    "path": "source-ride/seat-contact-diagnostic.png",
+    "sha256": "e7005cc8b836e19cc02a573671bb6129b179eea31de2d404c30b1002ce4f353c",
+    "directly_viewed_this_turn": true,
+    "identical_to_viewed": "",
+    "scope": "prototype integration; not final art acceptance"
+  },
+  {
+    "path": "source-ride/shared-ride-player-camera.png",
+    "sha256": "bcc11a351070a99176dff82aa3bfd605077e48fb5b29f5e5df45f1365c032e15",
+    "directly_viewed_this_turn": true,
+    "identical_to_viewed": "",
+    "scope": "prototype integration; not final art acceptance"
+  }
+]

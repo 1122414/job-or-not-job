@@ -1,5 +1,39 @@
 extends "res://tests/city_bookshop_test.gd"
 
+var prior_positions := {}
+var prior_riding := {}
+var walking_distance := 0.0
+var walking_max_step := 0.0
+var bus_transfers := 0
+
+func observe_movement(person: CityResident) -> void:
+	var riding: bool=game.passengers.aboard(person)
+	if prior_positions.has(person.stable_id):
+		if riding!=prior_riding[person.stable_id]:
+			bus_transfers+=1
+			check(game.transit.current_stop>=0,"居民只在实际停站交接上下车")
+			if not riding:check(person.position.distance_to(CityLayout.STOPS[game.transit.current_stop].platform)<3,"下车位移只限该站落脚区域")
+		elif not riding:
+			var old: Vector3=prior_positions[person.stable_id]
+			var step := Vector2(person.position.x-old.x,person.position.z-old.z).length()
+			walking_distance+=step;walking_max_step=maxf(walking_max_step,step)
+		if riding:
+			var trip: Dictionary=game.passengers.trips[person.stable_id]
+			check(person.position.distance_to(game.transit.bus.to_global(CityPassengers.SEATS[int(trip.seat)]))<.08,"乘车移动必须保持实际座位关联")
+	prior_positions[person.stable_id]=person.position;prior_riding[person.stable_id]=riding
+
+func reading_contact(person: CityResident) -> float:
+	var error := 0.0
+	check(game.commons.reading(person) and person.pastime_book.visible,"实际独坐阅读动作及书本可见 "+person.visual.outfit)
+	for side in ["L","R"]:
+		var support: Vector3=person.pastime_book.to_global(Vector3(-.13 if side=="L" else .13,-.015,0))
+		error=maxf(error,person.visual.contacts.palm(side).origin.distance_to(support))
+	var skeleton: Skeleton3D=person.visual.skeleton
+	var hip: Vector3=skeleton.to_global(skeleton.get_bone_global_pose(skeleton.find_bone("upperleg01.L")).origin)
+	var foot: Vector3=skeleton.to_global(skeleton.get_bone_global_pose(skeleton.find_bone("foot.L")).origin)
+	check(absf(hip.y-.505)<.04 and foot.y>0 and foot.y<.15,"实际坐姿骨架与座面/地面相符 "+person.visual.outfit)
+	return error
+
 func run() -> void:
 	game=load("res://scenes/main.tscn").instantiate()
 	root.add_child(game)
@@ -12,17 +46,11 @@ func run() -> void:
 		check(game.walking.clear_segment(CityPopulation.POINTS[link[0]],CityPopulation.POINTS[link[1]]),"公共路段仍可实际扫掠 "+str(link))
 	var seated_seen := {}
 	var departure_seen := {}
-	var before := {}
-	var distance := 0.0
-	var max_step := 0.0
 	var first: CityResident
 	for i in range(18000):
 		await physics_frame
 		for person in game.population.residents:
-			if before.has(person.stable_id):
-				var step: float=Vector2(person.position.x-before[person.stable_id].x,person.position.z-before[person.stable_id].z).length()
-				distance+=step; max_step=maxf(max_step,step)
-			before[person.stable_id]=person.position
+			observe_movement(person)
 			if commons.sitting(person):
 				seated_seen[person.stable_id]=true
 				check(person.seat_body!=null and is_equal_approx(person.body.shape.height,1.3),"落座同步身体碰撞")
@@ -89,7 +117,8 @@ func run() -> void:
 	check(not game.player.seated and commons.player_slot=="","真实移动起身释放座位")
 	check(Input.mouse_mode==Input.MOUSE_MODE_VISIBLE,"全程不接管鼠标")
 	# Let the same autonomous visit finish, then exercise different time-of-day plans.
-	for person in game.population.residents: before[person.stable_id]=person.position
+	for person in game.population.residents:
+		prior_positions[person.stable_id]=person.position;prior_riding[person.stable_id]=game.passengers.aboard(person)
 	var used_benches := {}
 	var pair_seen := false
 	var read_seen := false
@@ -100,21 +129,14 @@ func run() -> void:
 		for i in range(12000):
 			await physics_frame
 			for person in game.population.residents:
-				var step: float=Vector2(person.position.x-before[person.stable_id].x,person.position.z-before[person.stable_id].z).length()
-				distance+=step; max_step=maxf(max_step,step); before[person.stable_id]=person.position
+				observe_movement(person)
 				if commons.sitting(person):
 					seated_seen[person.stable_id]=true
 					used_benches[person.seat_body.stable_id]=true
 					pair_seen=pair_seen or commons.companion(person)!=null
 					read_seen=read_seen or person.pastime_book.visible
 					if person.pastime_book.visible and person.activity_left<39 and not contacts.has(person.visual.outfit):
-						for side in ["L","R"]:
-							var support: Vector3=person.pastime_book.to_global(Vector3(-.13 if side=="L" else .13,-.015,0))
-							max_contact=maxf(max_contact,person.visual.contacts.palm(side).origin.distance_to(support))
-						var skeleton: Skeleton3D=person.visual.skeleton
-						var hip: Vector3=skeleton.to_global(skeleton.get_bone_global_pose(skeleton.find_bone("upperleg01.L")).origin)
-						var foot: Vector3=skeleton.to_global(skeleton.get_bone_global_pose(skeleton.find_bone("foot.L")).origin)
-						check(absf(hip.y-.505)<.04 and foot.y>0 and foot.y<.15,"实际坐姿骨架与座面/地面相符 "+person.visual.outfit)
+						max_contact=maxf(max_contact,reading_contact(person))
 						contacts[person.visual.outfit]=true
 				elif seated_seen.has(person.stable_id): departure_seen[person.stable_id]=true
 			if i%120==0:
@@ -122,10 +144,30 @@ func run() -> void:
 				if not SaveGame.valid(current,game):
 					check(false,"自然运行全档关联有效"); quit(1); return
 	check(used_benches.size()==6,"六张长凳均被自然使用 "+str(used_benches))
+	var natural_contacts := contacts.keys()
+	# Transit changes who meets on a bench: a body type may only be observed
+	# talking in this finite route. Check any missing type in an explicitly
+	# isolated seated-reading fixture, retaining the same physical/contact limits.
+	for actor in game.population.residents:actor.set_physics_process(false)
+	for index in [0,2,6]:
+		var person: CityResident=game.population.residents[index]
+		if contacts.has(person.visual.outfit):continue
+		game.commons.visits.clear();game.passengers.reset()
+		var place: String=game.commons.reserve(person,"commons_west_0")
+		check(place!="center","体型接触夹具有实际空座")
+		if place=="center":continue
+		person.destination=place;person.from_node=place;person.route.clear();person.crossing=""
+		person.state="activity";person.phase=game.population.time_phase()
+		person.position=game.commons.point(game.commons.visits[person.stable_id].slot)
+		person.set_physics_process(true)
+		await frames(60)
+		max_contact=maxf(max_contact,reading_contact(person))
+		contacts[person.visual.outfit]=true
+		person.set_physics_process(false)
 	check(contacts.size()==3 and max_contact<.003,"三套居民身体双掌实际接触书本 "+str(contacts)+" error="+str(max_contact))
 	check(pair_seen and read_seen,"自然出现邻座交谈和实体阅读")
-	check(departure_seen.size()>=4 and max_step<.065,"居民自然离开且无传送 max="+str(max_step))
-	print("CITY_COMMONS_TEST failures=",failures," benches=",used_benches," seated=",seated_seen.size()," left=",departure_seen.size()," distance=",distance," max_step=",max_step," reading=",read_seen," pairs=",pair_seen," contacts=",contacts," palm_error=",max_contact)
+	check(departure_seen.size()>=4 and walking_max_step<.065,"居民自然离开且步行无传送 max="+str(walking_max_step))
+	print("CITY_COMMONS_TEST failures=",failures," benches=",used_benches," seated=",seated_seen.size()," left=",departure_seen.size()," walking_distance=",walking_distance," max_walking_step=",walking_max_step," bus_transfers=",bus_transfers," reading=",read_seen," pairs=",pair_seen," natural_contacts=",natural_contacts," contacts=",contacts," palm_error=",max_contact)
 	game.queue_free()
 	await process_frame
 	quit(failures)

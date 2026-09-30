@@ -1,0 +1,337 @@
+{
+	"actual_E_and_mouse_controls": true,
+	"adapter": "Apple M5 Pro (Apple9)",
+	"background_guard": true,
+	"bounded_seat_platform_transfers": true,
+	"build_id": "source",
+	"clock": 606,
+	"images": [
+		"platform-before-boarding",
+		"bus-board-control",
+		"first-public-passengers",
+		"shared-ride-player-camera",
+		"seat-contact-diagnostic",
+		"resident-resumes-destination",
+		"player-market-platform"
+	],
+	"independent_player_acceptance": false,
+	"maximum_walk_step": 0.0834703743457794,
+	"minimum_same_frame_exit_spacing": 1.07841861248016,
+	"natural_resident_journey": true,
+	"normal_game_fps": false,
+	"persistence": false,
+	"renderer": "forward_plus",
+	"resident_destination": "market",
+	"source_sha256": "",
+	"transitions": [
+		{
+			"bus_stop": 0,
+			"frame": 1,
+			"position": [
+				58.6500015258789,
+				-0.00455729197710752,
+				58.5999984741211
+			],
+			"resident": "resident_zhou_ning",
+			"stage": "activity"
+		},
+		{
+			"bus_stop": 0,
+			"frame": 1,
+			"position": [
+				41.3499984741211,
+				-0.00455729197710752,
+				54.5999984741211
+			],
+			"resident": "resident_chen_yu",
+			"stage": "activity"
+		},
+		{
+			"bus_stop": 0,
+			"frame": 1,
+			"position": [
+				-93.3499984741211,
+				-0.00455729197710752,
+				58.5999984741211
+			],
+			"resident": "resident_liang_bo",
+			"stage": "activity"
+		},
+		{
+			"bus_stop": 0,
+			"frame": 1,
+			"position": [
+				-58.6500015258789,
+				-0.00454183900728822,
+				44.5999984741211
+			],
+			"resident": "resident_lin_qiao",
+			"stage": "activity"
+		},
+		{
+			"bus_stop": 0,
+			"frame": 1,
+			"position": [
+				-23.3500003814697,
+				-0.00455729197710752,
+				18.6000003814697
+			],
+			"resident": "resident_xu_hang",
+			"stage": "activity"
+		},
+		{
+			"bus_stop": 0,
+			"frame": 1,
+			"position": [
+				-28.6499996185303,
+				-0.00455729197710752,
+				116.599998474121
+			],
+			"resident": "resident_song_an",
+			"stage": "activity"
+		},
+		{
+			"bus_stop": 0,
+			"frame": 1,
+			"position": [
+				28.6499996185303,
+				-0.00455729197710752,
+				116.599998474121
+			],
+			"resident": "resident_he_yue",
+			"stage": "activity"
+		},
+		{
+			"bus_stop": 0,
+			"frame": 1,
+			"position": [
+				85.3499984741211,
+				-0.00455729197710752,
+				68.5999984741211
+			],
+			"resident": "resident_wu_fan",
+			"stage": "activity"
+		},
+		{
+			"bus_stop": 0,
+			"frame": 1,
+			"position": [
+				0.649999976158142,
+				-0.00455729197710752,
+				18.6000003814697
+			],
+			"resident": "resident_zhao_lin",
+			"stage": "activity"
+		},
+		{
+			"bus_stop": 0,
+			"frame": 1,
+			"position": [
+				-56.6500015258789,
+				-0.00455729197710752,
+				52.5999984741211
+			],
+			"resident": "resident_tang_ke",
+			"stage": "activity"
+		},
+		{
+			"bus_stop": 0,
+			"frame": 1,
+			"position": [
+				-63.3499984741211,
+				-0.00455729197710752,
+				58.5999984741211
+			],
+			"resident": "resident_lu_yang",
+			"stage": "activity"
+		},
+		{
+			"bus_stop": 0,
+			"frame": 1,
+			"position": [
+				-0.649999976158142,
+				-0.00455729197710752,
+				112.599998474121
+			],
+			"resident": "resident_su_wan",
+			"stage": "activity"
+		},
+		{
+			"bus_stop": 0,
+			"frame": 464,
+			"position": [
+				-23.3602733612061,
+				-0.00443366821855307,
+				18.5757522583008
+			],
+			"resident": "resident_xu_hang",
+			"stage": "walking"
+		},
+		{
+			"bus_stop": -1,
+			"frame": 547,
+			"position": [
+				-28.623743057251,
+				-0.00442740926519036,
+				116.591278076172
+			],
+			"resident": "resident_song_an",
+			"stage": "walking"
+		},
+		{
+			"bus_stop": -1,
+			"frame": 631,
+			"position": [
+				28.6402473449707,
+				-0.00443992717191577,
+				116.57698059082
+			],
+			"resident": "resident_he_yue",
+			"stage": "walking"
+		},
+		{
+			"bus_stop": -1,
+			"frame": 1051,
+			"position": [
+				-0.623742640018463,
+				-0.00442740926519036,
+				112.591278076172
+			],
+			"resident": "resident_su_wan",
+			"stage": "walking"
+		},
+		{
+			"bus_stop": 1,
+			"frame": 1620,
+			"position": [
+				-4.97067260742188,
+				-0.0040616150945425,
+				15.3110570907593
+			],
+			"resident": "resident_xu_hang",
+			"stage": "waiting"
+		},
+		{
+			"bus_stop": 1,
+			"frame": 1909,
+			"position": [
+				-5.65898895263672,
+				-0.00400506751611829,
+				96.4266357421875
+			],
+			"resident": "resident_su_wan",
+			"stage": "waiting"
+		},
+		{
+			"bus_stop": -1,
+			"frame": 2906,
+			"position": [
+				-3.53330707550049,
+				-0.00405698828399181,
+				96.3086166381836
+			],
+			"resident": "resident_song_an",
+			"stage": "waiting"
+		},
+		{
+			"bus_stop": -1,
+			"frame": 2917,
+			"position": [
+				-4.7917103767395,
+				-0.00416013831272721,
+				96.1654815673828
+			],
+			"resident": "resident_he_yue",
+			"stage": "waiting"
+		},
+		{
+			"bus_stop": 2,
+			"frame": 3055,
+			"position": [
+				-5.60001134872437,
+				0.400000005960464,
+				103.349998474121
+			],
+			"resident": "resident_song_an",
+			"stage": "riding"
+		},
+		{
+			"bus_stop": 2,
+			"frame": 3055,
+			"position": [
+				-7.0000114440918,
+				0.400000005960464,
+				103.349998474121
+			],
+			"resident": "resident_he_yue",
+			"stage": "riding"
+		},
+		{
+			"bus_stop": 2,
+			"frame": 3055,
+			"position": [
+				-7.0000114440918,
+				0.400000005960464,
+				104.650001525879
+			],
+			"resident": "resident_su_wan",
+			"stage": "riding"
+		},
+		{
+			"bus_stop": 0,
+			"frame": 6286,
+			"position": [
+				-3.59999990463257,
+				0.400000005960464,
+				8.64999961853027
+			],
+			"resident": "resident_xu_hang",
+			"stage": "riding"
+		},
+		{
+			"bus_stop": 0,
+			"frame": 6286,
+			"position": [
+				-6.0,
+				-0.00478515634313226,
+				12.5
+			],
+			"resident": "resident_song_an",
+			"stage": "activity"
+		},
+		{
+			"bus_stop": 0,
+			"frame": 6286,
+			"position": [
+				-4.91962432861328,
+				-0.00478515634313226,
+				12.4845113754272
+			],
+			"resident": "resident_he_yue",
+			"stage": "activity"
+		},
+		{
+			"bus_stop": 0,
+			"frame": 6286,
+			"position": [
+				-7.07828235626221,
+				-0.00478515634313226,
+				12.5171403884888
+			],
+			"resident": "resident_su_wan",
+			"stage": "activity"
+		},
+		{
+			"bus_stop": 1,
+			"frame": 7841,
+			"position": [
+				-71.4816360473633,
+				0.0,
+				58.018871307373
+			],
+			"resident": "resident_xu_hang",
+			"stage": "activity"
+		}
+	],
+	"walking_metres": 21.5108314454556
+}

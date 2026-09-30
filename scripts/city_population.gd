@@ -19,9 +19,14 @@ const POINTS := {
 	"commons_west_0":Vector3(-20,0,36.35),"commons_west_1":Vector3(-16,0,36.35),
 	"commons_east_0":Vector3(16,0,36.35),"commons_east_1":Vector3(20,0,36.35),
 	"commons_north_0":Vector3(-18,0,79.35),"commons_north_1":Vector3(-14,0,79.35),
-	"service_entry":Vector3(16,0,72),"service_hall":Vector3(16,0,76)
+	"service_entry":Vector3(16,0,72),"service_hall":Vector3(16,0,76),
+	"bus_office_exit":Vector3(-6,0,12.5),"bus_office_clear":Vector3(-2.5,0,12.5),"bus_office_walk":Vector3(-2.5,0,15.5),
+	"bus_office_0":Vector3(-5,0,14.7),"bus_office_1":Vector3(-6.2,0,14.7),"bus_office_2":Vector3(-7.4,0,14.7),
+	"bus_market_0":Vector3(-69,0,60),"bus_market_1":Vector3(-69,0,61.1),"bus_market_2":Vector3(-69,0,62.2),
+	"bus_waterfront_0":Vector3(-4,0,96.7),"bus_waterfront_1":Vector3(-5.1,0,96.7),"bus_waterfront_2":Vector3(-6.2,0,96.7),
+	"bus_homes_0":Vector3(69,0,56),"bus_homes_1":Vector3(69,0,54.9),"bus_homes_2":Vector3(69,0,53.8)
 }
-const LINKS := [["office_out","office_in"],["office_in","south"],["office_in","office_east"],["south","office_east"],["office","south"],["south","center"],["center","west_path"],["west_path","shop_walk"],["shop_walk","bookshop"],["west_path","west_in"],["west_in","west_out"],["west_out","market"],["center","homes"],["center","garden"],["garden","homes"],["homes","east_in"],["east_in","east_out"],["east_out","east_garden"],["center","north_in"],["north_in","north_out"],["north_out","sea_west"],["north_out","sea_east"],["bookshop","bookshop_entry"],["bookshop_entry","bookshop_room"],["bookshop_room","reading_west"],["bookshop_room","reading_center"],["bookshop_room","reading_east"],["bookshop_room","paper_west"],["bookshop_room","paper_center"],["bookshop_room","paper_east"],["garden","garden_west"],["garden","garden_center"],["garden","garden_east"],["south","commons_south"],["commons_south","center"],["center","commons_north"],["commons_north","north_in"],["commons_south","commons_west_hub"],["commons_south","commons_east_hub"],["commons_north","commons_north_hub"],["commons_west_hub","commons_west_0"],["commons_west_hub","commons_west_1"],["commons_east_hub","commons_east_0"],["commons_east_hub","commons_east_1"],["commons_north_hub","commons_north_0"],["commons_north_hub","commons_north_1"]]
+const LINKS := [["office_out","office_in"],["office_in","south"],["office_in","office_east"],["south","office_east"],["office","south"],["south","center"],["center","west_path"],["west_path","shop_walk"],["shop_walk","bookshop"],["west_path","west_in"],["west_in","west_out"],["west_out","market"],["center","homes"],["center","garden"],["garden","homes"],["homes","east_in"],["east_in","east_out"],["east_out","east_garden"],["center","north_in"],["north_in","north_out"],["north_out","sea_west"],["north_out","sea_east"],["bookshop","bookshop_entry"],["bookshop_entry","bookshop_room"],["bookshop_room","reading_west"],["bookshop_room","reading_center"],["bookshop_room","reading_east"],["bookshop_room","paper_west"],["bookshop_room","paper_center"],["bookshop_room","paper_east"],["garden","garden_west"],["garden","garden_center"],["garden","garden_east"],["south","commons_south"],["commons_south","center"],["center","commons_north"],["commons_north","north_in"],["commons_south","commons_west_hub"],["commons_south","commons_east_hub"],["commons_north","commons_north_hub"],["commons_west_hub","commons_west_0"],["commons_west_hub","commons_west_1"],["commons_east_hub","commons_east_0"],["commons_east_hub","commons_east_1"],["commons_north_hub","commons_north_0"],["commons_north_hub","commons_north_1"],["bus_office_exit","bus_office_clear"],["bus_office_clear","bus_office_walk"],["bus_office_walk","south"]]
 const CROSSINGS := {"market":["west_in","west_out"],"homes":["east_in","east_out"],"waterfront":["north_in","north_out"],"office":["office_out","office_in"]}
 const TITLES := {"office":"下班路","bookshop":"社区书屋门口","market":"榕树街广场","homes":"东里社区","garden":"社区花园","east_garden":"东里东街","sea_west":"海风步道西段","sea_east":"海风步道东段","reading_west":"书屋阅览区","reading_center":"书屋阅览区","reading_east":"书屋阅览区"}
 const PROFILES := [
@@ -47,6 +52,8 @@ func _ready() -> void:
 	for link in LINKS: graph.connect_points(point_ids.find(link[0]),point_ids.find(link[1]))
 	graph.connect_points(point_ids.find("center"),point_ids.find("service_entry"))
 	graph.connect_points(point_ids.find("service_entry"),point_ids.find("service_hall"))
+	for stop in range(4):
+		for slot in range(3): graph.connect_points(point_ids.find(["south","west_in","north_in","east_in"][stop]),point_ids.find(CityPassengers.wait_node(stop,slot)))
 	for id in CROSSINGS:
 		var ends: Array=CROSSINGS[id]
 		var middle: Vector3=(POINTS[ends[0]]+POINTS[ends[1]])/2
@@ -78,7 +85,7 @@ func destination(person: CityResident) -> String:
 	if next==person.destination: next=choices[(person.index+person.journey+1)%choices.size()]
 	if next=="bookshop" and game.city_life and game.city_life.is_open(): next=CityLife.INDOOR[person.index%3]
 	if next.begins_with("commons_") and game.commons: next=game.commons.reserve(person,next)
-	return next
+	return game.passengers.prepare(person,next) if game.passengers else next
 
 func closest(point: Vector3) -> String:
 	return point_ids[graph.get_closest_point(point)]
@@ -197,6 +204,7 @@ func talk(person: CityResident) -> void:
 	if game.response.cases.get(person.stable_id,{}).get("reporter")=="player": text+="我记得你叫来了街区救助。"
 	if person.hits>0: text+="上次你动过手，我还记得。" if not person.apologized else "道歉我听到了，让我缓一缓。"
 	elif person.witnessed>0: text+="刚才那场冲突让我有点担心。"
+	elif game.passengers and game.passengers.trips.has(person.stable_id): text+=game.passengers.description(person)
 	else: text+="我常在这里歇一会儿。" if game.commons.sitting(person) else "我准备去"+TITLES.get(person.destination,"街口")+"。"
 	game.conversation={"text":text,"choices":[["附近有什么地方可以走走？","resident_places"],["那你先忙，回头见","resident_bye"]]}
 	if person.hits>0 and not person.apologized: game.conversation.choices.push_front(["为之前动手道歉","resident_apology"])
@@ -224,15 +232,20 @@ func answer(person: CityResident,action: String) -> void:
 func snapshot() -> Dictionary:
 	var people := {}
 	for person in residents: people[person.stable_id]=person.snapshot()
-	return {"schema":1,"people":people,"crossings":crossings.duplicate(true)}
+	return {"schema":2,"people":people,"crossings":crossings.duplicate(true),"passengers":game.passengers.snapshot()}
 
-func valid(data: Variant,version: int=SaveGame.VERSION) -> bool:
-	if not data is Dictionary or data.get("schema")!=1 or not data.get("people") is Dictionary or not data.get("crossings") is Dictionary: return false
+func valid(data: Variant,version: int=SaveGame.VERSION,transit: Dictionary={}) -> bool:
+	if not data is Dictionary or (data.get("schema")!=2 and (version>=23 or data.get("schema")!=1)) or not data.get("people") is Dictionary or not data.get("crossings") is Dictionary: return false
 	if data.people.size()!=residents.size(): return false
 	for id in data.crossings:
 		if not CROSSINGS.has(id): return false
+	var passenger_data: Variant=data.get("passengers",{}) if version>=23 else {"schema":1,"trips":{}}
+	if not passenger_data is Dictionary or not passenger_data.get("trips") is Dictionary: return false
 	for person in residents:
-		if not person.valid(data.people.get(person.stable_id)): return false
+		var trip: Variant=passenger_data.trips.get(person.stable_id,{})
+		if not trip is Dictionary: return false
+		if not person.valid(data.people.get(person.stable_id),trip.get("stage")=="riding"): return false
+	if not game.passengers.valid(passenger_data,data.people,game.transit.snapshot() if transit.is_empty() else transit): return false
 	for id in crossings:
 		# v19 and earlier have only the three outer crossings.
 		if id=="office" and version<20 and not data.crossings.has(id): continue

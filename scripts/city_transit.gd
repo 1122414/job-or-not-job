@@ -31,16 +31,22 @@ func _ready() -> void:
 	bus.collision_mask=3
 	add_child(bus)
 	Shapes.collider(bus,Vector3(2.6,2.8,7),Vector3(0,1.6,0))
-	Shapes.box(bus,Vector3(2.5,0.5,7),Vector3(0,0.65,0),Color("e6dfcb"))
+	# The seated roots are 0.4 m above the street. Keep the cabin floor at that
+	# height; a solid chassis reaching the cushions hides passengers' lower legs.
+	var floor := Shapes.box(bus,Vector3(2.5,0.16,7),Vector3(0,0.32,0),Color("e6dfcb"))
+	floor.name="CabinFloor"
 	Shapes.box(bus,Vector3(2.6,0.16,7.1),Vector3(0,2.98,0),Color("456c68"))
 	for x in [-1.22,1.22]:
+		Shapes.box(bus,Vector3(0.08,0.55,7),Vector3(x,0.675,0),Color("e6dfcb"))
 		Shapes.box(bus,Vector3(0.08,0.5,7),Vector3(x,1.15,0),Color("456c68"))
 		for z in [-3.35,-1.6,0.3,2,3.35]: Shapes.box(bus,Vector3(0.08,1.9,0.12),Vector3(x,2,z),Color("e6dfcb"))
 	for z in [-3.48,3.48]:
+		Shapes.box(bus,Vector3(2.45,0.55,0.1),Vector3(0,0.675,z),Color("e6dfcb"))
 		Shapes.box(bus,Vector3(2.45,0.4,0.1),Vector3(0,1.1,z),Color("456c68"))
 		for x in [-0.9,0.9]: Shapes.box(bus,Vector3(0.28,0.16,0.12),Vector3(x,0.9,z),Color("efdbad") if z<0 else Color("bb554d"))
 	for x in [-0.65,0.65]:
 		for z in [-0.4,1.0,2.4]:
+			Shapes.box(bus,Vector3(0.15,0.4,0.2),Vector3(x,0.6,z),Color("456c68"))
 			Shapes.box(bus,Vector3(0.65,0.15,0.6),Vector3(x,0.86,z),Color("6d8983"))
 			Shapes.box(bus,Vector3(0.65,0.65,0.12),Vector3(x,1.18,z+0.26),Color("6d8983"))
 	for x in [-1.24,1.24]:
@@ -82,6 +88,7 @@ func sync_vehicle() -> void:
 	door.visible=current_stop<0
 	sign.text="101  "+CityLayout.STOPS[next_stop].title.split(" · ")[0]
 	sync_passenger()
+	if game.passengers: game.passengers.sync_all()
 
 func sync_passenger() -> void:
 	if not riding: return
@@ -94,7 +101,7 @@ func tick(delta: float) -> void:
 	if delta<=0: return
 	blocked=false
 	if current_stop>=0:
-		if riding and requested: return
+		if riding and requested or game.passengers and game.passengers.holds_departure(): return
 		dwell=maxf(0,dwell-delta)
 		if dwell>0: return
 		current_stop=-1
@@ -184,22 +191,37 @@ func wait_for_bus(index: int) -> bool:
 		seconds+=DWELL
 		stop=(stop+1)%CityLayout.STOPS.size()
 	seconds+=dwell if current_stop>=0 else 0.0
-	var target := vehicle_transform(stop_offsets[index])
+	var stops: Array[int]=[]
+	if current_stop>=0: stops.append(current_stop)
+	var passing := next_stop
+	while passing!=index:
+		stops.append(passing);passing=(passing+1)%4
+	stops.append(index)
+	var exits: Variant=game.passengers.skipped_exits(stops) if game.passengers else {}
+	if exits==null:
+		game.say("途中站台被挡住了，等乘客能安全下车后再跳过等车。")
+		return false
 	var query := PhysicsShapeQueryParameters3D.new()
 	query.shape=bus.get_child(0).shape
-	query.transform=target*Transform3D(Basis.IDENTITY,Vector3(0,1.6,0))
 	query.collision_mask=3
-	query.exclude=[bus.get_rid()]
-	if not get_world_3d().direct_space_state.intersect_shape(query,1).is_empty():
-		game.say("站点车道被挡住了，暂时无法跳过等车。")
-		return false
+	var excluded: Array[RID]=[bus.get_rid()]
+	if game.passengers:
+		for person in game.population.residents:
+			if game.passengers.aboard(person): excluded.append(person.get_rid())
+	query.exclude=excluded
+	for passed in stops:
+		query.transform=vehicle_transform(stop_offsets[passed])*Transform3D(Basis.IDENTITY,Vector3(0,1.6,0))
+		if not get_world_3d().direct_space_state.intersect_shape(query,1).is_empty():
+			game.say("站点车道被挡住了，暂时无法跳过等车。")
+			return false
 	game.advance_time(seconds*Payroll.GAME_MINUTES_PER_SECOND)
-	distance=stop_offsets[index]
-	current_stop=index
-	next_stop=(index+1)%CityLayout.STOPS.size()
-	dwell=DWELL
-	speed=0
-	sync_vehicle()
+	for passed in stops:
+		distance=stop_offsets[passed];current_stop=passed;next_stop=(passed+1)%4
+		dwell=DWELL;speed=0;sync_vehicle()
+		for id in exits:
+			if exits[id].stop==passed:
+				var person: CityResident=game.response.person_for(id)
+				game.passengers.finish_exit(person,game.passengers.trips[id],exits[id].point)
 	game.queue_save()
 	game.panels.view.refresh()
 	return true

@@ -1,0 +1,21 @@
+{
+  "source_sha256": "7e5c5f917f8d9a06fd2cb8551c488d6b80ec8a4520a83c32ad442f4cb6477599",
+  "checks": [
+    {
+      "log": "build/c2c/boundaries-egress-final.log",
+      "sha256": "19451f9819d484d833e67a216c0be7a9d23f82d83669ed19bf33ef5e54dcff93",
+      "observed_exit_code": 0,
+      "markers": [
+        "CITY_PASSENGERS_SAVE_TEST failures=0 public_seats=5 bad_cases=17 legacy_versions=22 platforms=4 floor_top=0.3999999910593 minimum_foot_bone_clearance=0.07746221125126"
+      ]
+    },
+    {
+      "log": "build/c2c/population-egress-final.log",
+      "sha256": "ea12d7cd05dd9945f7f8dff07085dcede83598ea0ff50c3db1eca3d60f2ed9db",
+      "observed_exit_code": 0,
+      "markers": [
+        "CITY_POPULATION_TEST failures=0 crossings={ \"market\": 10, \"homes\": 1, \"waterfront\": 3 } traffic_distance=[1673.64772636369, 1537.34308708665, 1421.21024009313] visited={ \"resident_zhou_ning\": [\"commons_west_0\", \"reading_west\"], \"resident_chen_yu\": [\"reading_center\", \"commons_west_0\"], \"resident_liang_bo\": [\"commons_east_0\", \"office\"], \"resident_lin_qiao\": [\"office\", \"market\"], \"resident_xu_hang\": [\"bus_office_0\", \"market\", \"commons_east_1\"], \"resident_song_an\": [\"bus_waterfront_0\", \"commons_west_1\", \"commons_west_0\"], \"resident_he_yue\": [\"bus_waterfront_1\", \"commons_west_0\", \"reading_west\"], \"resident_wu_fan\": [\"reading_center\", \"commons_east_0\"], \"resident_zhao_lin\": [\"commons_east_0\", \"office\", \"market\"], \"resident_tang_ke\": [\"office\", \"market\"], \"resident_lu_yang\": [\"market\", \"commons_west_1\"], \"resident_su_wan\": [\"bus_waterfront_2\", \"commons_east_0\", \"commons_west_1\"] }"
+      ]
+    }
+  ]
+}

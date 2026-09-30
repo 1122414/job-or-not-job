@@ -1,0 +1,44 @@
+[
+  {
+    "save": "build/c2c/final/source-ride/shared-ride.json",
+    "save_sha256": "6b0b5391e558468da62822745626079feee515cc1c881478da403214704c1b4f",
+    "log": "build/c2c/final/source-ride-shared-ride-restore.log",
+    "exit": 0,
+    "passed": true
+  },
+  {
+    "save": "build/c2c/final/source-ride/after-ride.json",
+    "save_sha256": "53eecfc6955e01f3d560e7b799979b89a71fa5fe651d3a0311e99f4fbd15afb0",
+    "log": "build/c2c/final/source-ride-after-ride-restore.log",
+    "exit": 0,
+    "passed": true
+  },
+  {
+    "save": "build/c2c/final/package-ride/shared-ride.json",
+    "save_sha256": "6b0b5391e558468da62822745626079feee515cc1c881478da403214704c1b4f",
+    "log": "build/c2c/final/package-ride-shared-ride-restore.log",
+    "exit": 0,
+    "passed": true
+  },
+  {
+    "save": "build/c2c/final/package-ride/after-ride.json",
+    "save_sha256": "53eecfc6955e01f3d560e7b799979b89a71fa5fe651d3a0311e99f4fbd15afb0",
+    "log": "build/c2c/final/package-ride-after-ride-restore.log",
+    "exit": 0,
+    "passed": true
+  },
+  {
+    "save": "build/c2c/waiting.json",
+    "save_sha256": "31f4e5be0b68e817285bd53fcad0425e78bfbe50f4110d46a1f11c2f73de0616",
+    "log": "build/c2c/final/natural-waiting-restore.log",
+    "exit": 0,
+    "passed": true
+  },
+  {
+    "save": "build/c2c/riding.json",
+    "save_sha256": "222ec58cfb38a570190f3ea2bacc4b67df52deff5a4f806865bf9d6789c1bd27",
+    "log": "build/c2c/final/natural-riding-restore.log",
+    "exit": 0,
+    "passed": true
+  }
+]

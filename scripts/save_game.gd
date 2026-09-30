@@ -1,7 +1,7 @@
 class_name SaveGame
 extends RefCounted
 
-const VERSION := 22
+const VERSION := 23
 const BASE_NPCS := ["a_hr","a_lead","a_boss","a_friend","a_group","a_guard","b_hr","b_friend","b_boss","b_guard"]
 const LEGACY_PROPS := ["a_keyboard","a_cup","a_table","a_chair","a_printer","b_keyboard","b_cup","b_table","b_chair","b_printer"]
 const PATH := "user://neighborhood.json"
@@ -44,7 +44,7 @@ static func valid_vector(value: Variant) -> bool:
 
 static func valid(data: Variant, game: Node3D) -> bool:
 	if not data is Dictionary: return false
-	if data.get("version")!=1 and data.get("version")!=2 and data.get("version")!=3 and data.get("version")!=4 and data.get("version")!=5 and data.get("version")!=6 and data.get("version")!=7 and data.get("version")!=8 and data.get("version")!=9 and data.get("version")!=10 and data.get("version")!=11 and data.get("version")!=12 and data.get("version")!=13 and data.get("version")!=14 and data.get("version")!=15 and data.get("version")!=16 and data.get("version")!=17 and data.get("version")!=18 and data.get("version")!=19 and data.get("version")!=20 and data.get("version")!=21 and data.get("version")!=VERSION: return false
+	if data.get("version")!=1 and data.get("version")!=2 and data.get("version")!=3 and data.get("version")!=4 and data.get("version")!=5 and data.get("version")!=6 and data.get("version")!=7 and data.get("version")!=8 and data.get("version")!=9 and data.get("version")!=10 and data.get("version")!=11 and data.get("version")!=12 and data.get("version")!=13 and data.get("version")!=14 and data.get("version")!=15 and data.get("version")!=16 and data.get("version")!=17 and data.get("version")!=18 and data.get("version")!=19 and data.get("version")!=20 and data.get("version")!=21 and data.get("version")!=22 and data.get("version")!=VERSION: return false
 	for field in ["career","payroll","props","npcs","player"]:
 		if not data.get(field) is Dictionary: return false
 	for field in CAREER_FIELDS:
@@ -160,17 +160,20 @@ static func valid(data: Variant, game: Node3D) -> bool:
 				if not answer is String: return false
 	if data.version>=15 and not game.city_life.valid(data.get("city_life")): return false
 	if data.version>=17 and not game.city_life.walk.valid(data.get("city_walk"),data.city_life,p.minute): return false
-	if data.version>=14 and not game.population.valid(data.get("city_population"),int(data.version)): return false
+	if data.version>=12 and not game.transit.valid(data.get("city_transit")): return false
+	if data.version>=14 and not game.population.valid(data.get("city_population"),int(data.version),data.get("city_transit",{})): return false
 	if data.version>=16 and not game.response.valid(data.get("city_response"),data.city_population.people): return false
 	if data.version>=13:
 		if not game.driving.valid(data.get("city_driving")): return false
 		if data.city_driving.active!="" and (data.player.hp<=0 or held_count>0): return false
 	if data.version>=12:
-		if not game.transit.valid(data.get("city_transit")): return false
 		if data.city_transit.riding and (data.player.hp<=0 or held_count>0): return false
 		if data.version>=13 and data.city_transit.riding and data.city_driving.active!="": return false
 	if data.version>=18 and not game.commons.valid(data.get("city_commons"),data): return false
 	if data.version>=22 and not game.home.valid(data.get("city_home"),data): return false
+	if data.version>=23:
+		for id in data.city_population.passengers.trips:
+			if data.city_commons.visits.has(id) or data.city_response.cases.get(id,{}).get("phase","") in ["queued","approaching","assessing","transporting","received"]: return false
 	if data.version>=11 and not RecruitmentFlow.valid(data.get("recruitment")): return false
 	if data.version>=10 and not Onboarding.valid(data.get("onboarding")): return false
 	if data.version>=9 and not SocialLife.valid(data.get("social"),data.npcs,data.version>=21): return false
@@ -344,6 +347,7 @@ static func restore(game: Node3D, data: Dictionary) -> bool:
 	game.player.velocity=Vector3.ZERO
 	game.player.visual.rotation.z=0
 	if game.player.hp==0: game.player.respawn()
+	game.passengers.reset()
 	game.transit.restore(data.get("city_transit",{}) if data.version>=12 else {})
 	game.driving.restore(data.get("city_driving",{}) if data.version>=13 else {})
 	game.population.restore(data.get("city_population",{}) if data.version>=14 else {})
@@ -352,6 +356,7 @@ static func restore(game: Node3D, data: Dictionary) -> bool:
 	game.response.restore(data.get("city_response",{}) if data.version>=16 else {})
 	game.commons.restore(data.get("city_commons",{}) if data.version>=18 else {})
 	game.home.restore(data.get("city_home",{}) if data.version>=22 else {})
+	game.passengers.restore(data.get("city_population",{}).get("passengers",{}) if data.version>=23 else {})
 	# Restore the visible time immediately, including when loading while paused.
 	game.update_daylight()
 	for station in game.stations:

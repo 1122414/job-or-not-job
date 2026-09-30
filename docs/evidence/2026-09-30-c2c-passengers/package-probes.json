@@ -1,0 +1,14 @@
+[
+  {
+    "cwd": "/Users/geminchen/My-Item/job-or-not-job",
+    "exit": 0,
+    "marker": "PACKAGED_SMOKE_OK",
+    "errors_and_warnings": false
+  },
+  {
+    "cwd": "/private/tmp",
+    "exit": 0,
+    "marker": "PACKAGED_SMOKE_OK",
+    "errors_and_warnings": false
+  }
+]

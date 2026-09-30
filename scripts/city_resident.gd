@@ -57,6 +57,7 @@ func available() -> bool:
 	return hp>0 and down<=0 and (not game.response or not game.response.carried(self))
 
 func plan(to: String) -> void:
+	if game.passengers and trips_to_other_stop(to): game.passengers.cancel_wait(self)
 	if game.commons and game.commons.visits.get(stable_id,{}).get("slot","").get_slice("/",0)!=to: game.commons.release(self)
 	destination=to
 	route=population.path(position,to)
@@ -65,6 +66,10 @@ func plan(to: String) -> void:
 	state="walking"
 	stuck=0
 
+func trips_to_other_stop(to: String) -> bool:
+	var trip: Dictionary=game.passengers.trips.get(stable_id,{})
+	return not trip.is_empty() and to!=CityPassengers.wait_node(trip.origin,trip.queue)
+
 func requested_crossing() -> String:
 	return population.crossing_for(from_node,route[0]) if not route.is_empty() else ""
 
@@ -72,6 +77,7 @@ func _physics_process(delta: float) -> void:
 	if game.response and (game.response.carried(self) or game.response.resting(self)):
 		game.response.sync_person(self)
 		return
+	if game.passengers and game.passengers.attend(self,delta): return
 	fear=maxf(0,fear-delta)
 	down=maxf(0,down-delta)
 	if game.city_life: game.city_life.redirect(self)
@@ -198,11 +204,17 @@ func avoid(threat: Vector3) -> void:
 	if game.commons: game.commons.release(self)
 	fear=20.0
 	if game.speaker==self: game.close_interaction()
+	if game.passengers:
+		if game.passengers.aboard(self): game.passengers.trips[stable_id].early_exit=true;return
+		game.passengers.cancel_wait(self)
 	if crossing=="" and available(): plan(population.refuge(self,threat))
 
 func hit(direction: Vector3,strength: float,action: int,dangerous: bool=true) -> void:
 	if hp==0 or action==last_hit or not dangerous and not available(): return
 	if game.commons: game.commons.release(self)
+	if game.passengers:
+		if game.passengers.aboard(self): game.passengers.trips[stable_id].early_exit=true
+		else: game.passengers.cancel_wait(self)
 	last_hit=action
 	hits+=1
 	apologized=false
@@ -221,11 +233,11 @@ func hit(direction: Vector3,strength: float,action: int,dangerous: bool=true) ->
 func snapshot() -> Dictionary:
 	return {"position":SaveGame.vector(position),"yaw":wrapf(visual.rotation.y,-PI,PI),"state":state,"destination":destination,"from_node":from_node,"route":route.duplicate(),"crossing":crossing,"activity_left":activity_left,"phase":phase,"journey":journey,"visits":visits.duplicate(),"hp":hp,"down":down,"fear":fear,"hits":hits,"witnessed":witnessed,"met":met,"apologized":apologized,"conversations":conversations}
 
-func valid(data: Variant) -> bool:
+func valid(data: Variant,on_bus: bool=false) -> bool:
 	if not data is Dictionary or not SaveGame.valid_vector(data.get("position")): return false
 	var point := SaveGame.unvector(data.position)
-	if not CityLayout.BOUNDS.has_point(Vector2(point.x,point.z)) or absf(point.y)>.1: return false
-	if not data.get("state") in ["activity","walking","waiting","talking","fallen","dead"]: return false
+	if not CityLayout.BOUNDS.has_point(Vector2(point.x,point.z)) or absf(point.y-(.4 if on_bus else 0.0))>.1: return false
+	if not data.get("state") in ["activity","walking","waiting","talking","fallen","dead","riding"]: return false
 	if not data.get("destination") in CityPopulation.POINTS or not data.get("from_node") in CityPopulation.POINTS: return false
 	if not data.get("route") is Array or data.route.size()>CityPopulation.POINTS.size() or not data.get("visits") is Array or data.visits.size()>CityPopulation.POINTS.size(): return false
 	var previous: String=data.from_node

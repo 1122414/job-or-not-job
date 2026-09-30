@@ -1,0 +1,57 @@
+{
+  "same_frame_exit_baseline": {
+    "observed": true,
+    "source_manifest": "source-before-exits.json",
+    "actors": [
+      {
+        "bus_stop": 0,
+        "frame": 6286,
+        "position": [
+          -6.02578496932983,
+          -0.00478515634313226,
+          12.5100288391113
+        ],
+        "resident": "resident_song_an",
+        "stage": "activity"
+      },
+      {
+        "bus_stop": 0,
+        "frame": 6286,
+        "position": [
+          -6.02262258529663,
+          -0.00478515634313226,
+          12.5106410980225
+        ],
+        "resident": "resident_he_yue",
+        "stage": "activity"
+      },
+      {
+        "bus_stop": 0,
+        "frame": 6286,
+        "position": [
+          -6.02746677398682,
+          -0.00478515634313226,
+          12.5033187866211
+        ],
+        "resident": "resident_su_wan",
+        "stage": "activity"
+      }
+    ],
+    "minimum_metres": 0.003221107534340542
+  },
+  "floor_baseline": {
+    "source_manifest": "source-before-floor.json",
+    "floor_top": 0.9,
+    "seat_cushion_top": 0.935,
+    "image": "before/first-public-passengers.png",
+    "observed_lower_leg_occlusion": true
+  },
+  "excluded_runs": [
+    "Initial numeric schema membership rejected JSON float values",
+    "Disabled process mode removed physical bodies from boundary fixture",
+    "Frozen traffic occupied intermediate bus stop",
+    "Commons natural sample missed one solo-reading body type; original contact thresholds retained in isolated fixture",
+    "Interrupted runs are not counted as complete"
+  ],
+  "scope": "C2c prototype passenger integration; not complete city or final artistic acceptance"
+}

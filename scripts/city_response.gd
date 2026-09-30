@@ -82,7 +82,7 @@ func resting(person: CityResident) -> bool:
 	return person.hp==0 and cases.get(person.stable_id,{}).get("phase","")=="received"
 
 func report(person: CityResident,reporter: String) -> bool:
-	if person.available() or pending(person) or resting(person): return false
+	if person.available() or pending(person) or resting(person) or game.passengers and game.passengers.aboard(person): return false
 	if reporter!="player" and person_for(reporter)==null: return false
 	if game.commons: game.commons.release(person)
 	sequence+=1

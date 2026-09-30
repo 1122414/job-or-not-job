@@ -1,0 +1,23 @@
+{
+	"arrived_original_goal": true,
+	"clock": 618,
+	"failures": 0,
+	"final": [
+		-93.5076675415039,
+		-0.00415945611894131,
+		57.6267166137695
+	],
+	"invalid_json_samples": 0,
+	"max_ground_y_step": 0.0666086082346737,
+	"max_walk_xz_step": 0.026336744427681,
+	"riding_saved": true,
+	"states": [
+		"activity",
+		"walking",
+		"waiting",
+		"riding",
+		"activity"
+	],
+	"waiting_saved": true,
+	"walked_metres": 29.4144229721278
+}

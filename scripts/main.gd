@@ -50,6 +50,7 @@ var population: CityPopulation
 var city_life: CityLife
 var response: CityResponse
 var commons: CityCommons
+var passengers: CityPassengers
 var home: CityHome
 
 func _ready() -> void:
@@ -95,6 +96,9 @@ func _ready() -> void:
 	commons=CityCommons.new()
 	commons.game=self
 	add_child(commons)
+	passengers=CityPassengers.new()
+	passengers.game=self
+	add_child(passengers)
 	home=CityHome.new()
 	home.game=self
 	add_child(home)
@@ -651,7 +655,7 @@ func repair_migrated_positions(revision: int) -> void:
 		if actor is CityResident:
 			# Seats and rescue services own their occupants' positions. Only
 			# free-standing residents need the same scenery migration as staff.
-			if not actor.available() or response.resting(actor) or commons.sitting(actor): continue
+			if not actor.available() or response.resting(actor) or commons.sitting(actor) or passengers.aboard(actor): continue
 		elif actor!=player and (actor.dead or actor.care_state!="awake"): continue
 		var origin: Vector3=actor.position
 		# Before this deferred repair runs, physics can push an actor embedded in

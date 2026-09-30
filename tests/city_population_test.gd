@@ -67,7 +67,7 @@ func run() -> void:
 	person.phase=0
 	game.payroll.minute=18*60
 	await frames(5)
-	check(person.destination=="commons_west_0" and person.state=="walking" and game.commons.visits.has(person.stable_id),"共享时钟变化使居民改去晚间活动点")
+	check(person.destination=="commons_west_0" and person.state=="walking" and game.commons.visits.has(person.stable_id),"共享时钟变化使居民改去晚间活动点 actual="+person.destination+" state="+person.state+" phase="+str(person.phase)+" reservation="+str(game.commons.visits.get(person.stable_id,{})))
 	print("CITY_POPULATION_TEST failures=",failures," crossings=",entries," traffic_distance=",distance," visited=",reached)
 	game.queue_free()
 	await process_frame
