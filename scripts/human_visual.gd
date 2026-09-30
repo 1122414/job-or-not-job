@@ -314,7 +314,10 @@ func pose(speed: float, attacking: bool, fallen: bool, working: bool = false, ta
 	if talking and not stunned and not blocking and not attacking and speed<0.2 and scene_action!="": next=scene_action
 	if not talking and not working and not carrying and not stunned and not blocking and not attacking and speed<.2 and scene_action in ["story_read","story_listen","story_present"]: next=scene_action
 	if next!=current:
+		var moving_change := next in ["walk","run","carry"] and current in ["walk","run","carry"]
+		var phase := fposmod(animation.current_animation_position/animation.current_animation_length,1.0) if moving_change else 0.0
 		animation.play(next,0.04 if stunned else 0.20)
+		if moving_change:animation.seek(phase*animation.get_animation(next).length,false)
 		if next in ["idle","work"]: animation.seek(float(variation%11)/11.0,true)
 		current=next
 	animation.speed_scale=speed/3.44 if next=="run" else speed/1.48 if next in ["walk","carry"] else 0.85+float(variation%5)*0.06

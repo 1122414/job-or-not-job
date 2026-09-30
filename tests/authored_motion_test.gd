@@ -37,6 +37,25 @@ func run() -> void:
 		reference.animation.callback_mode_process=AnimationMixer.ANIMATION_CALLBACK_MODE_PROCESS_MANUAL
 		var expected := paths(human.animation.get_animation("idle"))
 		for clip in human.animation.get_animation_list(): check(paths(human.animation.get_animation(clip))==expected,"All clips reset shared tracks: "+clip)
+		for clip in ["walk","run"]:
+			var procedural := human.make_clip(clip)
+			reference.animation.get_animation_library("").add_animation("support_"+clip,procedural)
+			var maximum_support_error := 0.0
+			var shoulder_motion := 0.0
+			var initial_shoulder := Quaternion.IDENTITY
+			for frame in range(67):
+				var time := float(frame)/66.0
+				sample(human,clip,time);sample(reference,"support_"+clip,time)
+				for side in ["L","R"]:
+					for joint in ["upperleg01.","lowerleg01.","foot."]:
+						var bone := human.skeleton.find_bone(joint+side)
+						maximum_support_error=maxf(maximum_support_error,human.skeleton.get_bone_global_pose(bone).origin.distance_to(reference.skeleton.get_bone_global_pose(bone).origin))
+				var shoulder := human.skeleton.get_bone_pose_rotation(human.skeleton.find_bone("clavicle.R"))
+				if frame==0:initial_shoulder=shoulder
+				shoulder_motion=maxf(shoulder_motion,shoulder.angle_to(initial_shoulder))
+			check(maximum_support_error<.0001,"Authored upper body retains physical leg support: "+outfit+clip)
+			check(shoulder_motion>.01,"Walking/running includes authored shoulder coordination: "+outfit+clip)
+			print("AUTHORED_GAIT ",outfit," ",clip," support_error_m=",maximum_support_error," shoulder_motion_rad=",shoulder_motion)
 		for clip in ["idle","talk"]:
 			var duration := human.animation.get_animation(clip).length
 			var max_foot_drift := 0.0

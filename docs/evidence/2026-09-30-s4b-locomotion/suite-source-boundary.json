@@ -1,0 +1,8 @@
+{
+  "suite_started_source": "7a52b74cd605f6cd04e955c380bcc7e31742af3d8600f5f1be2ca5094e574aa8",
+  "packaged_source": "3aea07fa76ec69ae9177ffcbb1f373d078a7f460b4e8b9d999cb701feac500c3",
+  "changed_during_suite": [
+    "assets/CREDITS.txt"
+  ],
+  "change": "Attribution text expands idle/talk to include phase-aligned walk/run; gameplay code, animation libraries and all other runtime inputs unchanged."
+}

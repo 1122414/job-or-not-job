@@ -31,8 +31,6 @@ func run() -> void:
 	human.use_authored_motion=false
 	root.add_child(human)
 	human.animation.callback_mode_process=AnimationMixer.ANIMATION_CALLBACK_MODE_PROCESS_MANUAL
-	var base := human.make_clip("idle")
-	human.animation.get_animation_library("").add_animation("bake_base",base)
 	var adapter := Adapter.new()
 	check(adapter.setup(source,human.skeleton)==OK,"Complete bone mapping")
 	if failures: scene.queue_free(); human.queue_free(); await process_frame; quit(1); return
@@ -48,11 +46,19 @@ func run() -> void:
 		model.queue_free()
 	if failures: scene.queue_free(); human.queue_free(); await process_frame; quit(1); return
 	var library := AnimationLibrary.new()
-	var metadata := {"author":"Quaternius","license":"CC0-1.0","source_commit":provenance.mirror_commit,"scope":"Upper body only; existing planted legs, root and specialized interactions retained","sample_rate_hz":60,"clips":[],"source_files":provenance.files,"target_files":{}}
+	var metadata := {"author":"Quaternius","license":"CC0-1.0","source_commit":provenance.mirror_commit,"scope":"Authored idle, talk and phase-aligned walking/running upper body; proportion-correct planted legs, root and specialized interactions retained","sample_rate_hz":60,"clips":[],"source_files":provenance.files,"target_files":{}}
 	for outfit in (["casual","office","office_female"] if cast_id.is_empty() else ["cast/"+cast_id]): metadata.target_files[outfit]=FileAccess.get_sha256("res://assets/characters/"+outfit+".glb")
-	for pair in [["idle","Idle_Loop"],["talk","Idle_Talking_Loop"]]:
+	for pair in [["idle","Idle_Loop"],["talk","Idle_Talking_Loop"],["walk","Walk_Loop"],["run","Jog_Fwd_Loop"]]:
+		var locomotion: bool=pair[0] in ["walk","run"]
+		var base := human.make_clip(pair[0] if locomotion else "idle")
+		var base_name: String="bake_"+pair[0]
+		human.animation.get_animation_library("").add_animation(base_name,base)
+		var source_duration := player.get_animation(pair[1]).length
+		# Both target gaits start at left heel strike. Align the source's forward
+		# left foot to that event, rather than pairing unrelated arm/leg phases.
+		var source_phase := forward_left_phase(source,player,pair[1]) if locomotion else 0.0
 		var clip := Animation.new()
-		clip.length=player.get_animation(pair[1]).length
+		clip.length=1.0 if locomotion else source_duration
 		clip.loop_mode=Animation.LOOP_LINEAR
 		var track_bones: Array[int]=[]
 		for entry in adapter.mapping:
@@ -64,20 +70,23 @@ func run() -> void:
 		# Include all base tracks so transitions out of a pose cannot leave old legs/root.
 		for track in range(base.get_track_count()):
 			if clip.find_track(base.track_get_path(track),base.track_get_type(track))<0: base.copy_track(track,clip)
-		# Replace base timing with the source duration, retaining the exact planted pose.
-		for track in range(track_bones.size(),clip.get_track_count()):
-			var value: Variant=clip.track_get_key_value(track,0)
-			while clip.track_get_key_count(track)>0: clip.track_remove_key(track,0)
-			clip.track_insert_key(track,0,value)
-			clip.track_insert_key(track,clip.length,value)
+		# Standing clips retain a constant planted base. Moving clips keep every
+		# original support key and the one-second cycle used by speed/footsteps.
+		if not locomotion:
+			for track in range(track_bones.size(),clip.get_track_count()):
+				var value: Variant=clip.track_get_key_value(track,0)
+				while clip.track_get_key_count(track)>0: clip.track_remove_key(track,0)
+				clip.track_insert_key(track,0,value)
+				clip.track_insert_key(track,clip.length,value)
 		var frame_count := ceili(clip.length*60)
 		var first_rotations: Array[Quaternion]=[]
 		var seam := 0.0
 		for frame in range(frame_count+1):
 			var time := clip.length*float(frame)/frame_count
-			player.stop(); source.reset_bone_poses(); player.play(pair[1]); player.seek(time,true); player.advance(0)
+			var source_time := fposmod(time/clip.length+source_phase,1.0)*source_duration if locomotion else time
+			player.stop(); source.reset_bone_poses(); player.play(pair[1]); player.seek(source_time,true); player.advance(0)
 			human.animation.stop(); human.skeleton.reset_bone_poses()
-			human.animation.play("bake_base"); human.animation.seek(0,true); human.animation.advance(0)
+			human.animation.play(base_name); human.animation.seek(time if locomotion else 0.0,true); human.animation.advance(0)
 			adapter.apply_pose(true)
 			for track in range(track_bones.size()):
 				var q := human.skeleton.get_bone_pose_rotation(track_bones[track])
@@ -87,7 +96,7 @@ func run() -> void:
 				clip.rotation_track_insert_key(track,time,q)
 		check(seam<0.02,"Source loop seam below 0.02 radians: "+pair[0]+str(seam))
 		library.add_animation(pair[0],clip)
-		metadata.clips.append({"name":pair[0],"source":pair[1],"seconds":clip.length,"frames":frame_count+1,"tracks":clip.get_track_count(),"max_loop_seam_radians":seam})
+		metadata.clips.append({"name":pair[0],"source":pair[1],"seconds":clip.length,"source_seconds":source_duration,"source_phase":source_phase,"frames":frame_count+1,"tracks":clip.get_track_count(),"max_loop_seam_radians":seam})
 	if failures==0:
 		DirAccess.make_dir_recursive_absolute(output)
 		var resource_name := "quaternius_upper_body" if cast_id.is_empty() else cast_id
@@ -99,3 +108,16 @@ func run() -> void:
 	await process_frame
 	print("BAKE_CHARACTER_ANIMATIONS failures=",failures," clips=",metadata.clips)
 	quit(failures)
+
+func forward_left_phase(source: Skeleton3D,player: AnimationPlayer,clip: String) -> float:
+	var foot := source.find_bone("DEF-foot.L")
+	var hip := source.find_bone("DEF-hips")
+	var duration := player.get_animation(clip).length
+	var furthest := -INF
+	var phase := 0.0
+	for sample in range(240):
+		player.stop();source.reset_bone_poses();player.play(clip)
+		player.seek(duration*sample/240.0,true);player.advance(0)
+		var forward := source.get_bone_global_pose(foot).origin.z-source.get_bone_global_pose(hip).origin.z
+		if forward>furthest:furthest=forward;phase=sample/240.0
+	return phase

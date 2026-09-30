@@ -1,0 +1,158 @@
+{
+  "career/defend.png": {
+    "sha256": "10767f5fc437a0f6cda7c660a64092469021df36af203fd0e3bf8b2ef11f4815",
+    "viewed_or_matches_viewed": false
+  },
+  "career/interview_hr.png": {
+    "sha256": "f1a36c6254779cc6aa86aab45f7cacf23ef6a62b80b5e709e8871adc13dbf39c",
+    "viewed_or_matches_viewed": true
+  },
+  "career/handover.png": {
+    "sha256": "44c6119e5688c45c1a2be850f487ab69a14a5818002f530fa2934ea5457dff71",
+    "viewed_or_matches_viewed": true
+  },
+  "career/prepare.png": {
+    "sha256": "781292207cf461a3072928c3239310d1542fa95741663386ad330225b66b7874",
+    "viewed_or_matches_viewed": false
+  },
+  "career/backup.png": {
+    "sha256": "d12c62a26908878daed963ba418ac099daa845e83e5a750d0dd5ec9db1191087",
+    "viewed_or_matches_viewed": false
+  },
+  "career/submit.png": {
+    "sha256": "74dd70b75144f43742f342e196c1c3be1c8229a4c53fb138fe0cbcfc1c7481aa",
+    "viewed_or_matches_viewed": false
+  },
+  "career/join_a.png": {
+    "sha256": "93c944a5563829185cc1472f50da8625c89e7d7d566ba6dc06009e48550fe71f",
+    "viewed_or_matches_viewed": false
+  },
+  "route/stop.png": {
+    "sha256": "88a81c640f2b0ee5f2f8bd373ab2ba8df6d80a06c97584c4390d86edeb485a8d",
+    "viewed_or_matches_viewed": true
+  },
+  "route/fast-out.png": {
+    "sha256": "8067f992a38ff8647793eb904fd0a455c05734b82655430085b55cf024dd7536",
+    "viewed_or_matches_viewed": true
+  },
+  "route/run-return.png": {
+    "sha256": "f39b66e30048f699858e997f4deb434dedde1b10fd91b2fb2da5a4b1460e417f",
+    "viewed_or_matches_viewed": true
+  },
+  "route/walk-out.png": {
+    "sha256": "a9bbe3f0ca9a8e670c0f6ecb8562f84d79486c6c8e5604e25c972cd9d4b80bb3",
+    "viewed_or_matches_viewed": true
+  },
+  "route/walk-return.png": {
+    "sha256": "57ca04deb61231b4d27f6ccc5f12d2ad4c912adf21ac95fe895470ac3341911a",
+    "viewed_or_matches_viewed": true
+  },
+  "route/run-out.png": {
+    "sha256": "dccd6988e0f8f0b1845983b9a5f06e1590d7b475cf4cbad02a31ef8ba4dac5e4",
+    "viewed_or_matches_viewed": true
+  },
+  "before/a_cheng-walk.png": {
+    "sha256": "62bf57d15dd3a742b2aeab4af3fa3b217a770ac4ec8fa2e87cc0634a003f740e",
+    "viewed_or_matches_viewed": false
+  },
+  "before/a_cheng-run.png": {
+    "sha256": "d52826d3f42edb362139d869ec8034a79112fbaf0bfc98f2d4edac56f1c4266f",
+    "viewed_or_matches_viewed": false
+  },
+  "before/lin_lan-walk.png": {
+    "sha256": "ab868ac9edaf7b83d55832433cf6f3880675d72498d9b72bcff6f24f6154a59e",
+    "viewed_or_matches_viewed": true
+  },
+  "before/lin_lan-run.png": {
+    "sha256": "79cd1ef5a976ace7a7c83d7e4ab658bc359b7eb27ed9f7adbb5c9768f68665cd",
+    "viewed_or_matches_viewed": true
+  },
+  "before/protagonist-walk.png": {
+    "sha256": "4ef90a81c0044c2ef4f123e77df8e188b338de35ecccf27ed20354ec12a4eca0",
+    "viewed_or_matches_viewed": true
+  },
+  "before/casual-run.png": {
+    "sha256": "32d11cdc44bfb1ceac758f2a38c76ff71af5604d710a89eb72dee4ca09b82e7c",
+    "viewed_or_matches_viewed": false
+  },
+  "before/office_female-run.png": {
+    "sha256": "3d2cbd139c5054074aa83f426e8b3a8c4ff051ea7382b8371e898f260b96b423",
+    "viewed_or_matches_viewed": false
+  },
+  "before/office_female-walk.png": {
+    "sha256": "dc41e85aae0814b497d7f4eebc7b2ed62412fb49ebe4861725c4c09e7a902a84",
+    "viewed_or_matches_viewed": true
+  },
+  "before/protagonist-run.png": {
+    "sha256": "f528b024c3b46c03de3e61598af75054758e042cffc26df2fd038ac73fff9375",
+    "viewed_or_matches_viewed": false
+  },
+  "before/casual-walk.png": {
+    "sha256": "494ae61ac5330e80a55a5155d3a30432f7941d98714a4e2077ee07dda5ac039e",
+    "viewed_or_matches_viewed": false
+  },
+  "after/a_cheng-walk.png": {
+    "sha256": "057251e9946d05f9701a891751a3f7ae826277669f8cbd1c972a7f874174289c",
+    "viewed_or_matches_viewed": true
+  },
+  "after/a_cheng-run.png": {
+    "sha256": "bd3cec8a58c3199bc040005ae9faa4b0fb37bcf61fd9e00706c2e86bd2977bea",
+    "viewed_or_matches_viewed": true
+  },
+  "after/lin_lan-walk.png": {
+    "sha256": "9f611dc7fa5c11728a7356086711ed22d1c9e066bc5306812bf77f0b21b079a6",
+    "viewed_or_matches_viewed": true
+  },
+  "after/lin_lan-run.png": {
+    "sha256": "04e0146bed3005211a47c67282494b2e0bec6f9bd4ea2c01b6c0f0af7d9a038f",
+    "viewed_or_matches_viewed": true
+  },
+  "after/protagonist-walk.png": {
+    "sha256": "b2aade3ab680e2c9d54b32f223fdc2bdd6461efd23916d08bd31f12e723036a2",
+    "viewed_or_matches_viewed": true
+  },
+  "after/casual-run.png": {
+    "sha256": "7f23d692957aaef511e1d6eada620800f2667d9516cf4b0e94d8349ed7364c08",
+    "viewed_or_matches_viewed": true
+  },
+  "after/office_female-run.png": {
+    "sha256": "284c72f7bb54a08c1b57cd455cece523da28d6b9c7cf5f572e4dec60e157b44f",
+    "viewed_or_matches_viewed": true
+  },
+  "after/office_female-walk.png": {
+    "sha256": "21f4194d9c10594edad1241752202d88ead544aa4e6102a9a316d80a6f2807c8",
+    "viewed_or_matches_viewed": true
+  },
+  "after/protagonist-run.png": {
+    "sha256": "38c54d2de0e9407382518bb86da9090492e6956b765dfb0380139af7998036b5",
+    "viewed_or_matches_viewed": true
+  },
+  "after/casual-walk.png": {
+    "sha256": "b11e1732cbfc4df1b880a315fb1fa68c7ad3b983327e74cf20b67573124114a3",
+    "viewed_or_matches_viewed": true
+  },
+  "package/stop.png": {
+    "sha256": "88a81c640f2b0ee5f2f8bd373ab2ba8df6d80a06c97584c4390d86edeb485a8d",
+    "viewed_or_matches_viewed": true
+  },
+  "package/fast-out.png": {
+    "sha256": "8067f992a38ff8647793eb904fd0a455c05734b82655430085b55cf024dd7536",
+    "viewed_or_matches_viewed": true
+  },
+  "package/run-return.png": {
+    "sha256": "f39b66e30048f699858e997f4deb434dedde1b10fd91b2fb2da5a4b1460e417f",
+    "viewed_or_matches_viewed": true
+  },
+  "package/walk-out.png": {
+    "sha256": "a9bbe3f0ca9a8e670c0f6ecb8562f84d79486c6c8e5604e25c972cd9d4b80bb3",
+    "viewed_or_matches_viewed": true
+  },
+  "package/walk-return.png": {
+    "sha256": "57ca04deb61231b4d27f6ccc5f12d2ad4c912adf21ac95fe895470ac3341911a",
+    "viewed_or_matches_viewed": true
+  },
+  "package/run-out.png": {
+    "sha256": "dccd6988e0f8f0b1845983b9a5f06e1590d7b475cf4cbad02a31ef8ba4dac5e4",
+    "viewed_or_matches_viewed": true
+  }
+}

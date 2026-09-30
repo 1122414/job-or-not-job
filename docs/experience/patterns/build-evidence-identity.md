@@ -30,3 +30,5 @@ C4a取证路径补记：full_route_test默认输出2026-09-22历史目录；本�
 2026-09-30 C4g平台覆盖：项目基础renderer仍为GL，macOS feature override为Forward+。包生成器若只正则读取基础值，会写错目标配置（代码预测，在最终打包前修正）。`configured_renderer`先读取目标平台覆盖，Python用macOS覆盖和web回退两种结果验证；实际后端不能仅看配置，`verify_packaged_lighting.gd`通过TodayOff在项目外真实绘制并读取RenderingServer，确认本机默认Metal/Forward+。包清单保留配置身份，实际后端由外部验收记录；headless不能充当图形后端验证。本机一次验证，不外推其他Mac硬件或驱动回退。
 
 C4g完成信号边界：同一工具GL总frame_post_draw为1080，Metal为2159；每个被计时样本内均实际增加1，差异位于采样区间外。汇总曾错误要求所有后端总数都等于GL结果，核查原始27条/810样本和工具逐样本断言后纠正。总信号数不是正常帧率或重复绘制归因；保持原始总数，不把Metal数据改写为1080。详见C4g四组profile JSON及验收限制。
+
+2026-09-30 S4b再次验证外部工具入口：误用`--script res://tools/verify_macos.gd`时，发布包已按export_presets排除tools，日志明确File not found；无窗口进程仍退出0。Python的check=True单独不足以验收。改为传入仓库中独立验证脚本的绝对路径，脚本的res://场景/角色继续从实际TodayOff加载的PCK读取；图形探针也须独立，不能继承被排除的res://tools或tests。两目录必须同时满足成功标记与无错误日志，之后同一包资源探针和默认Metal连续移动实际通过，不修改包来塞入开发工具。该失败仅属于验证入口，未计作产品通过；与C4f解析错误共同说明本机退出码需要日志证据补充。

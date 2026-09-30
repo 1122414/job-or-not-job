@@ -183,10 +183,12 @@ func run() -> void:
 	var motion_path := OS.get_executable_path().get_base_dir().path_join("../Resources/ANIMATION-SOURCES.json")
 	var motion: Variant=JSON.parse_string(FileAccess.get_file_as_string(motion_path))
 	var authored: AnimationLibrary=load("res://assets/animations/quaternius_upper_body.res")
-	if not motion is Dictionary or motion.get("clips",[]).size()!=2 or not authored.has_animation("talk") or not authored.has_animation("idle"):
+	if not motion is Dictionary or motion.get("clips",[]).size()!=4:
 		push_error("Packaged authored motion or provenance missing")
 		quit(1)
 		return
+	for clip in ["idle","talk","walk","run"]:
+		if not authored.has_animation(clip):push_error("Packaged authored clip missing: "+clip);quit(1);return
 	var humans: Array=game.find_children("*","Node3D",true,false).filter(func(node): return node is HumanVisual)
 	if humans.size()!=28:
 		push_error("Packaged character visuals missing")
@@ -194,10 +196,11 @@ func run() -> void:
 		return
 	for human in humans:
 		var expected: AnimationLibrary=authored if human.cast_id.is_empty() else load("res://assets/animations/cast/"+human.cast_id+".res")
-		if human.animation.get_animation("talk")!=expected.get_animation("talk") or human.animation.get_animation("idle")!=expected.get_animation("idle"):
-			push_error("Packaged character does not use authored motion")
-			quit(1)
-			return
+		for clip in ["idle","talk","walk","run"]:
+			if human.animation.get_animation(clip)!=expected.get_animation(clip):
+				push_error("Packaged character does not use authored motion: "+clip)
+				quit(1)
+				return
 		if not human.cast_id.is_empty():
 			if human.face_meshes.is_empty() or human.skeleton.find_bone("eye.L")<0 or human.skeleton.find_bone("eye.R")<0:
 				push_error("Packaged cast facial resources missing")
@@ -449,7 +452,7 @@ func run() -> void:
 			if argument.begins_with("--screenshot="):
 				var error := root.get_texture().get_image().save_png(argument.trim_prefix("--screenshot="))
 				if error!=OK: quit(1); return
-	print("PACKAGED_SMOKE_OK build=",build.build_id," label=",BuildInfo.label()," npcs=",game.npcs.size()," props=",game.props.size()," company_spaces=2 company_sources=2 environment_props=6 asset_sources=5 authored_clips=2 authored_characters=28 texture_imports=verified ui_mouse=verified city_stops=4 bus_ride_save=verified driving_save=verified traffic=3 public_residents=12 population_save=verified bookshop_walk_save=verified original_illustrations=3 public_response_transfer_save=verified persistence=",game.persistence_enabled)
+	print("PACKAGED_SMOKE_OK build=",build.build_id," label=",BuildInfo.label()," npcs=",game.npcs.size()," props=",game.props.size()," company_spaces=2 company_sources=2 environment_props=6 asset_sources=5 authored_clips=4 authored_characters=28 texture_imports=verified ui_mouse=verified city_stops=4 bus_ride_save=verified driving_save=verified traffic=3 public_residents=12 population_save=verified bookshop_walk_save=verified original_illustrations=3 public_response_transfer_save=verified persistence=",game.persistence_enabled)
 	paused=false
 	game.queue_free()
 	await process_frame

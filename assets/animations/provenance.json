@@ -7,6 +7,8 @@
 			"name": "idle",
 			"seconds": 2.5,
 			"source": "Idle_Loop",
+			"source_phase": 0.0,
+			"source_seconds": 2.5,
 			"tracks": 51
 		},
 		{
@@ -15,13 +17,35 @@
 			"name": "talk",
 			"seconds": 2.91666674613953,
 			"source": "Idle_Talking_Loop",
+			"source_phase": 0.0,
+			"source_seconds": 2.91666674613953,
+			"tracks": 51
+		},
+		{
+			"frames": 61,
+			"max_loop_seam_radians": 0.000690533954184502,
+			"name": "walk",
+			"seconds": 1.0,
+			"source": "Walk_Loop",
+			"source_phase": 0.0,
+			"source_seconds": 1.33333337306976,
+			"tracks": 51
+		},
+		{
+			"frames": 61,
+			"max_loop_seam_radians": 0.000690533954184502,
+			"name": "run",
+			"seconds": 1.0,
+			"source": "Jog_Fwd_Loop",
+			"source_phase": 0.970833333333333,
+			"source_seconds": 0.916666686534882,
 			"tracks": 51
 		}
 	],
-	"library_sha256": "536c3347de12469b54515ee8dbb82d8bc280ecff0247c488d9e8d032150833d7",
+	"library_sha256": "92b5df0c1b74d3b42a1a9a2fa52627e363e3c6716c1fbf268f348e11ef3c6e36",
 	"license": "CC0-1.0",
 	"sample_rate_hz": 60,
-	"scope": "Upper body only; existing planted legs, root and specialized interactions retained",
+	"scope": "Authored idle, talk and phase-aligned walking/running upper body; proportion-correct planted legs, root and specialized interactions retained",
 	"source_commit": "e24c23cf2a1323488a3faa226ea7ea21f644b73e",
 	"source_files": {
 		"LICENSE": {
