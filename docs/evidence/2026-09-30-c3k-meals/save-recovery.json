@@ -1,0 +1,606 @@
+{
+  "count": 12,
+  "independent_actual_package_processes": 12,
+  "results": [
+    {
+      "all_meal_fields_equal": true,
+      "balance": 1200.0,
+      "orders": {
+        "orders": {
+          "player": {
+            "cents": 1200.0,
+            "cooked": 8.0,
+            "eaten": 0.0,
+            "item": "soup",
+            "slot": 4.0,
+            "stage": "carrying",
+            "window": 0.0
+          },
+          "resident_chen_yu": {
+            "cents": 0.0,
+            "cooked": 8.0,
+            "eaten": 13.0333333333336,
+            "item": "noodles",
+            "slot": 0.0,
+            "stage": "eating",
+            "window": 0.0
+          },
+          "resident_xu_hang": {
+            "cents": 0.0,
+            "cooked": 8.0,
+            "eaten": 5.64999999999999,
+            "item": "soup",
+            "slot": 1.0,
+            "stage": "eating",
+            "window": 0.0
+          },
+          "resident_zhao_lin": {
+            "cents": 0.0,
+            "cooked": 8.0,
+            "eaten": 3.56666666666666,
+            "item": "soup",
+            "slot": 2.0,
+            "stage": "eating",
+            "window": 0.0
+          }
+        },
+        "queue": [],
+        "served": {
+          "resident_chen_yu": 0.0,
+          "resident_xu_hang": 0.0,
+          "resident_zhao_lin": 0.0
+        }
+      },
+      "paused": true,
+      "persistence": false,
+      "source": "/Users/geminchen/My-Item/job-or-not-job/build/c3k/accepted-source-route/carrying-save.json",
+      "version": 25.0,
+      "world_valid": true
+    },
+    {
+      "all_meal_fields_equal": true,
+      "balance": 1200.0,
+      "orders": {
+        "orders": {
+          "player": {
+            "cents": 1200.0,
+            "cooked": 8.0,
+            "eaten": 1.88333333333333,
+            "item": "soup",
+            "slot": 4.0,
+            "stage": "eating",
+            "window": 0.0
+          },
+          "resident_chen_yu": {
+            "cents": 0.0,
+            "cooked": 8.0,
+            "eaten": 17.6166666666669,
+            "item": "noodles",
+            "slot": 0.0,
+            "stage": "eating",
+            "window": 0.0
+          },
+          "resident_xu_hang": {
+            "cents": 0.0,
+            "cooked": 8.0,
+            "eaten": 10.2333333333334,
+            "item": "soup",
+            "slot": 1.0,
+            "stage": "eating",
+            "window": 0.0
+          },
+          "resident_zhao_lin": {
+            "cents": 0.0,
+            "cooked": 8.0,
+            "eaten": 8.14999999999998,
+            "item": "soup",
+            "slot": 2.0,
+            "stage": "eating",
+            "window": 0.0
+          }
+        },
+        "queue": [],
+        "served": {
+          "resident_chen_yu": 0.0,
+          "resident_xu_hang": 0.0,
+          "resident_zhao_lin": 0.0
+        }
+      },
+      "paused": true,
+      "persistence": false,
+      "source": "/Users/geminchen/My-Item/job-or-not-job/build/c3k/accepted-source-route/eating-save.json",
+      "version": 25.0,
+      "world_valid": true
+    },
+    {
+      "all_meal_fields_equal": true,
+      "balance": 1200.0,
+      "orders": {
+        "orders": {},
+        "queue": [],
+        "served": {
+          "resident_chen_yu": 0.0,
+          "resident_xu_hang": 0.0,
+          "resident_zhao_lin": 0.0
+        }
+      },
+      "paused": true,
+      "persistence": false,
+      "source": "/Users/geminchen/My-Item/job-or-not-job/build/c3k/accepted-source-route/finished-save.json",
+      "version": 25.0,
+      "world_valid": true
+    },
+    {
+      "all_meal_fields_equal": true,
+      "balance": 1200.0,
+      "orders": {
+        "orders": {
+          "player": {
+            "cents": 1200.0,
+            "cooked": 8.0,
+            "eaten": 1.88333333333333,
+            "item": "soup",
+            "slot": 4.0,
+            "stage": "carrying",
+            "window": 0.0
+          },
+          "resident_chen_yu": {
+            "cents": 0.0,
+            "cooked": 8.0,
+            "eaten": 20.6666666666668,
+            "item": "noodles",
+            "slot": 0.0,
+            "stage": "eating",
+            "window": 0.0
+          },
+          "resident_xu_hang": {
+            "cents": 0.0,
+            "cooked": 8.0,
+            "eaten": 13.2833333333336,
+            "item": "soup",
+            "slot": 1.0,
+            "stage": "eating",
+            "window": 0.0
+          },
+          "resident_zhao_lin": {
+            "cents": 0.0,
+            "cooked": 8.0,
+            "eaten": 11.2000000000001,
+            "item": "soup",
+            "slot": 2.0,
+            "stage": "eating",
+            "window": 0.0
+          }
+        },
+        "queue": [],
+        "served": {
+          "resident_chen_yu": 0.0,
+          "resident_xu_hang": 0.0,
+          "resident_zhao_lin": 0.0
+        }
+      },
+      "paused": true,
+      "persistence": false,
+      "source": "/Users/geminchen/My-Item/job-or-not-job/build/c3k/accepted-source-route/meal-interrupted-save.json",
+      "version": 25.0,
+      "world_valid": true
+    },
+    {
+      "all_meal_fields_equal": true,
+      "balance": 1200.0,
+      "orders": {
+        "orders": {
+          "player": {
+            "cents": 1200.0,
+            "cooked": 0.0,
+            "eaten": 0.0,
+            "item": "soup",
+            "slot": 4.0,
+            "stage": "queued",
+            "window": 0.0
+          },
+          "resident_chen_yu": {
+            "cents": 0.0,
+            "cooked": 0.15,
+            "eaten": 0.0,
+            "item": "noodles",
+            "slot": 0.0,
+            "stage": "queued",
+            "window": 0.0
+          },
+          "resident_xu_hang": {
+            "cents": 0.0,
+            "cooked": 0.0,
+            "eaten": 0.0,
+            "item": "soup",
+            "slot": 1.0,
+            "stage": "queued",
+            "window": 0.0
+          },
+          "resident_zhao_lin": {
+            "cents": 0.0,
+            "cooked": 0.0,
+            "eaten": 0.0,
+            "item": "soup",
+            "slot": 2.0,
+            "stage": "queued",
+            "window": 0.0
+          }
+        },
+        "queue": [
+          "resident_chen_yu",
+          "resident_xu_hang",
+          "resident_zhao_lin",
+          "player"
+        ],
+        "served": {
+          "resident_chen_yu": 0.0,
+          "resident_xu_hang": 0.0,
+          "resident_zhao_lin": 0.0
+        }
+      },
+      "paused": true,
+      "persistence": false,
+      "source": "/Users/geminchen/My-Item/job-or-not-job/build/c3k/accepted-source-route/queued-save.json",
+      "version": 25.0,
+      "world_valid": true
+    },
+    {
+      "all_meal_fields_equal": true,
+      "balance": 1200.0,
+      "orders": {
+        "orders": {
+          "player": {
+            "cents": 1200.0,
+            "cooked": 8.0,
+            "eaten": 0.0,
+            "item": "soup",
+            "slot": 4.0,
+            "stage": "ready",
+            "window": 0.0
+          },
+          "resident_chen_yu": {
+            "cents": 0.0,
+            "cooked": 8.0,
+            "eaten": 11.3333333333335,
+            "item": "noodles",
+            "slot": 0.0,
+            "stage": "eating",
+            "window": 0.0
+          },
+          "resident_xu_hang": {
+            "cents": 0.0,
+            "cooked": 8.0,
+            "eaten": 3.94999999999999,
+            "item": "soup",
+            "slot": 1.0,
+            "stage": "eating",
+            "window": 0.0
+          },
+          "resident_zhao_lin": {
+            "cents": 0.0,
+            "cooked": 8.0,
+            "eaten": 1.86666666666666,
+            "item": "soup",
+            "slot": 2.0,
+            "stage": "eating",
+            "window": 0.0
+          }
+        },
+        "queue": [
+          "player"
+        ],
+        "served": {
+          "resident_chen_yu": 0.0,
+          "resident_xu_hang": 0.0,
+          "resident_zhao_lin": 0.0
+        }
+      },
+      "paused": true,
+      "persistence": false,
+      "source": "/Users/geminchen/My-Item/job-or-not-job/build/c3k/accepted-source-route/ready-while-away-save.json",
+      "version": 25.0,
+      "world_valid": true
+    },
+    {
+      "all_meal_fields_equal": true,
+      "balance": 1200.0,
+      "orders": {
+        "orders": {
+          "player": {
+            "cents": 1200.0,
+            "cooked": 8.0,
+            "eaten": 0.0,
+            "item": "soup",
+            "slot": 4.0,
+            "stage": "carrying",
+            "window": 0.0
+          },
+          "resident_chen_yu": {
+            "cents": 0.0,
+            "cooked": 8.0,
+            "eaten": 13.0333333333336,
+            "item": "noodles",
+            "slot": 0.0,
+            "stage": "eating",
+            "window": 0.0
+          },
+          "resident_xu_hang": {
+            "cents": 0.0,
+            "cooked": 8.0,
+            "eaten": 5.64999999999999,
+            "item": "soup",
+            "slot": 1.0,
+            "stage": "eating",
+            "window": 0.0
+          },
+          "resident_zhao_lin": {
+            "cents": 0.0,
+            "cooked": 8.0,
+            "eaten": 3.56666666666666,
+            "item": "soup",
+            "slot": 2.0,
+            "stage": "eating",
+            "window": 0.0
+          }
+        },
+        "queue": [],
+        "served": {
+          "resident_chen_yu": 0.0,
+          "resident_xu_hang": 0.0,
+          "resident_zhao_lin": 0.0
+        }
+      },
+      "paused": true,
+      "persistence": false,
+      "source": "/Users/geminchen/My-Item/job-or-not-job/build/c3k/accepted-package-route/carrying-save.json",
+      "version": 25.0,
+      "world_valid": true
+    },
+    {
+      "all_meal_fields_equal": true,
+      "balance": 1200.0,
+      "orders": {
+        "orders": {
+          "player": {
+            "cents": 1200.0,
+            "cooked": 8.0,
+            "eaten": 1.88333333333333,
+            "item": "soup",
+            "slot": 4.0,
+            "stage": "eating",
+            "window": 0.0
+          },
+          "resident_chen_yu": {
+            "cents": 0.0,
+            "cooked": 8.0,
+            "eaten": 17.6166666666669,
+            "item": "noodles",
+            "slot": 0.0,
+            "stage": "eating",
+            "window": 0.0
+          },
+          "resident_xu_hang": {
+            "cents": 0.0,
+            "cooked": 8.0,
+            "eaten": 10.2333333333334,
+            "item": "soup",
+            "slot": 1.0,
+            "stage": "eating",
+            "window": 0.0
+          },
+          "resident_zhao_lin": {
+            "cents": 0.0,
+            "cooked": 8.0,
+            "eaten": 8.14999999999998,
+            "item": "soup",
+            "slot": 2.0,
+            "stage": "eating",
+            "window": 0.0
+          }
+        },
+        "queue": [],
+        "served": {
+          "resident_chen_yu": 0.0,
+          "resident_xu_hang": 0.0,
+          "resident_zhao_lin": 0.0
+        }
+      },
+      "paused": true,
+      "persistence": false,
+      "source": "/Users/geminchen/My-Item/job-or-not-job/build/c3k/accepted-package-route/eating-save.json",
+      "version": 25.0,
+      "world_valid": true
+    },
+    {
+      "all_meal_fields_equal": true,
+      "balance": 1200.0,
+      "orders": {
+        "orders": {},
+        "queue": [],
+        "served": {
+          "resident_chen_yu": 0.0,
+          "resident_xu_hang": 0.0,
+          "resident_zhao_lin": 0.0
+        }
+      },
+      "paused": true,
+      "persistence": false,
+      "source": "/Users/geminchen/My-Item/job-or-not-job/build/c3k/accepted-package-route/finished-save.json",
+      "version": 25.0,
+      "world_valid": true
+    },
+    {
+      "all_meal_fields_equal": true,
+      "balance": 1200.0,
+      "orders": {
+        "orders": {
+          "player": {
+            "cents": 1200.0,
+            "cooked": 8.0,
+            "eaten": 1.88333333333333,
+            "item": "soup",
+            "slot": 4.0,
+            "stage": "carrying",
+            "window": 0.0
+          },
+          "resident_chen_yu": {
+            "cents": 0.0,
+            "cooked": 8.0,
+            "eaten": 20.6666666666668,
+            "item": "noodles",
+            "slot": 0.0,
+            "stage": "eating",
+            "window": 0.0
+          },
+          "resident_xu_hang": {
+            "cents": 0.0,
+            "cooked": 8.0,
+            "eaten": 13.2833333333336,
+            "item": "soup",
+            "slot": 1.0,
+            "stage": "eating",
+            "window": 0.0
+          },
+          "resident_zhao_lin": {
+            "cents": 0.0,
+            "cooked": 8.0,
+            "eaten": 11.2000000000001,
+            "item": "soup",
+            "slot": 2.0,
+            "stage": "eating",
+            "window": 0.0
+          }
+        },
+        "queue": [],
+        "served": {
+          "resident_chen_yu": 0.0,
+          "resident_xu_hang": 0.0,
+          "resident_zhao_lin": 0.0
+        }
+      },
+      "paused": true,
+      "persistence": false,
+      "source": "/Users/geminchen/My-Item/job-or-not-job/build/c3k/accepted-package-route/meal-interrupted-save.json",
+      "version": 25.0,
+      "world_valid": true
+    },
+    {
+      "all_meal_fields_equal": true,
+      "balance": 1200.0,
+      "orders": {
+        "orders": {
+          "player": {
+            "cents": 1200.0,
+            "cooked": 0.0,
+            "eaten": 0.0,
+            "item": "soup",
+            "slot": 4.0,
+            "stage": "queued",
+            "window": 0.0
+          },
+          "resident_chen_yu": {
+            "cents": 0.0,
+            "cooked": 0.15,
+            "eaten": 0.0,
+            "item": "noodles",
+            "slot": 0.0,
+            "stage": "queued",
+            "window": 0.0
+          },
+          "resident_xu_hang": {
+            "cents": 0.0,
+            "cooked": 0.0,
+            "eaten": 0.0,
+            "item": "soup",
+            "slot": 1.0,
+            "stage": "queued",
+            "window": 0.0
+          },
+          "resident_zhao_lin": {
+            "cents": 0.0,
+            "cooked": 0.0,
+            "eaten": 0.0,
+            "item": "soup",
+            "slot": 2.0,
+            "stage": "queued",
+            "window": 0.0
+          }
+        },
+        "queue": [
+          "resident_chen_yu",
+          "resident_xu_hang",
+          "resident_zhao_lin",
+          "player"
+        ],
+        "served": {
+          "resident_chen_yu": 0.0,
+          "resident_xu_hang": 0.0,
+          "resident_zhao_lin": 0.0
+        }
+      },
+      "paused": true,
+      "persistence": false,
+      "source": "/Users/geminchen/My-Item/job-or-not-job/build/c3k/accepted-package-route/queued-save.json",
+      "version": 25.0,
+      "world_valid": true
+    },
+    {
+      "all_meal_fields_equal": true,
+      "balance": 1200.0,
+      "orders": {
+        "orders": {
+          "player": {
+            "cents": 1200.0,
+            "cooked": 8.0,
+            "eaten": 0.0,
+            "item": "soup",
+            "slot": 4.0,
+            "stage": "ready",
+            "window": 0.0
+          },
+          "resident_chen_yu": {
+            "cents": 0.0,
+            "cooked": 8.0,
+            "eaten": 11.3333333333335,
+            "item": "noodles",
+            "slot": 0.0,
+            "stage": "eating",
+            "window": 0.0
+          },
+          "resident_xu_hang": {
+            "cents": 0.0,
+            "cooked": 8.0,
+            "eaten": 3.94999999999999,
+            "item": "soup",
+            "slot": 1.0,
+            "stage": "eating",
+            "window": 0.0
+          },
+          "resident_zhao_lin": {
+            "cents": 0.0,
+            "cooked": 8.0,
+            "eaten": 1.86666666666666,
+            "item": "soup",
+            "slot": 2.0,
+            "stage": "eating",
+            "window": 0.0
+          }
+        },
+        "queue": [
+          "player"
+        ],
+        "served": {
+          "resident_chen_yu": 0.0,
+          "resident_xu_hang": 0.0,
+          "resident_zhao_lin": 0.0
+        }
+      },
+      "paused": true,
+      "persistence": false,
+      "source": "/Users/geminchen/My-Item/job-or-not-job/build/c3k/accepted-package-route/ready-while-away-save.json",
+      "version": 25.0,
+      "world_valid": true
+    }
+  ]
+}

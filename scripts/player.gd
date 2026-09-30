@@ -110,6 +110,9 @@ func _physics_process(delta: float) -> void:
 	var facing := atan2(-velocity.x,-velocity.z) if Vector2(velocity.x,velocity.z).length()>0.2 and swing<=0 and not seated else yaw
 	if game.commons and game.commons.player_bench(): facing=game.commons.player_bench().rotation.y
 	if game.home and game.home.sitting(): facing=0.0
+	if game.meals:
+		var meal_facing: Variant=game.meals.facing(self)
+		if meal_facing!=null: facing=PI
 	visual.rotation.y = lerp_angle(visual.rotation.y,facing,1.0-exp(-delta*14.0))
 	visual.pose(Vector2(velocity.x,velocity.z).length(),swing>0,dead>0,seated,game.interviews.player_seated() or game.in_vehicle() or game.commons!=null and game.commons.player_bench()!=null or game.home!=null and game.home.sitting())
 	var speaker: OfficeNPC=game.speaker if game.speaker is OfficeNPC else null
@@ -193,6 +196,7 @@ func pick(prop: OfficeProp) -> void:
 	game.queue_save()
 
 func sync_held() -> void:
+	if game.meals: game.meals.scene.apply(self)
 	if game.driving and game.driving.active: game.driving.active.pose_driver(visual)
 	if not is_instance_valid(held): return
 	if swing<=0 and dead<=0:

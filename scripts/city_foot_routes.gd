@@ -28,14 +28,21 @@ static func anchor(walking: WalkingGrid,point: Vector3) -> Dictionary:
 	var best := INF
 	var selected := {}
 	var population: CityPopulation=walking.world.population
-	for link in CityPopulation.LINKS:
+	for link in CityPopulation.LINKS+CityPopulation.MEAL_LINKS:
 		var a: Vector3=CityPopulation.POINTS[link[0]]
 		var b: Vector3=CityPopulation.POINTS[link[1]]
 		var projection := Geometry3D.get_closest_point_to_segment(point,a,b)
 		var distance := point.distance_to(projection)
-		if distance>=best or not walking.clear_segment(point,projection): continue
+		if distance>best+.001 or not walking.clear_segment(point,projection): continue
+		# A new shop/table spur can subdivide an existing long footpath. Equal
+		# projections belong to both graph edges; retaining only the first edge
+		# sends replanning walkers back to its distant endpoint on every update.
+		if not selected.is_empty() and absf(distance-best)<.001 and projection.distance_to(selected.point)<.001:
+			for id in link:
+				if not id in selected.nodes: selected.nodes.append(id)
+			continue
 		best=distance
-		selected={"point":projection,"ends":link,"graph":population.graph}
+		selected={"point":projection,"ends":link,"nodes":link.duplicate(),"graph":population.graph}
 	return selected
 
 static func public_route(walking: WalkingGrid,from: Vector3,to: Vector3) -> PackedVector3Array:
@@ -50,8 +57,8 @@ static func public_route(walking: WalkingGrid,from: Vector3,to: Vector3) -> Pack
 	if (start.ends==end.ends or on_link(start.point,end.ends) or on_link(end.point,start.ends)) and walking.clear_segment(start.point,end.point):
 		result=PackedVector3Array([start.point,end.point,to])
 		best=from.distance_to(start.point)+start.point.distance_to(end.point)+end.point.distance_to(to)
-	for a in start.ends:
-		for b in end.ends:
+	for a in start.nodes:
+		for b in end.nodes:
 			var ids := population.graph.get_id_path(population.point_ids.find(a),population.point_ids.find(b))
 			if ids.is_empty(): continue
 			var candidate := PackedVector3Array([start.point])

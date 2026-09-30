@@ -1,0 +1,84 @@
+{
+	"background_guard": true,
+	"fixture": {
+		"initial_balance_cents": 2400,
+		"initial_minute": 690
+	},
+	"images": [
+		{
+			"draw_calls": 753,
+			"name": "approach-stall"
+		},
+		{
+			"draw_calls": 1313,
+			"name": "open-menu"
+		},
+		{
+			"draw_calls": 1313,
+			"name": "queued"
+		},
+		{
+			"draw_calls": 1585,
+			"name": "ready-while-away"
+		},
+		{
+			"draw_calls": 1404,
+			"name": "carrying"
+		},
+		{
+			"draw_calls": 1228,
+			"name": "eating"
+		},
+		{
+			"draw_calls": 551,
+			"name": "meal-interrupted"
+		},
+		{
+			"draw_calls": 547,
+			"name": "finished"
+		}
+	],
+	"independent_player_acceptance": false,
+	"maximum_step": 0.083334319293499,
+	"metres": 94.8333556577563,
+	"minute": 764,
+	"normal_game_fps": false,
+	"normal_player_camera": true,
+	"observed_stages": {
+		"player": [
+			"queued",
+			"ready",
+			"carrying",
+			"eating"
+		],
+		"resident_chen_yu": [
+			"queued",
+			"ready",
+			"carrying",
+			"eating"
+		],
+		"resident_xu_hang": [
+			"queued",
+			"ready",
+			"carrying",
+			"eating"
+		],
+		"resident_zhao_lin": [
+			"queued",
+			"ready",
+			"carrying",
+			"eating"
+		]
+	},
+	"persistence": false,
+	"real_keyboard_controls": true,
+	"saves": [
+		"/Users/geminchen/My-Item/job-or-not-job/build/c3k/accepted-package-route/queued-save.json",
+		"/Users/geminchen/My-Item/job-or-not-job/build/c3k/accepted-package-route/ready-while-away-save.json",
+		"/Users/geminchen/My-Item/job-or-not-job/build/c3k/accepted-package-route/carrying-save.json",
+		"/Users/geminchen/My-Item/job-or-not-job/build/c3k/accepted-package-route/eating-save.json",
+		"/Users/geminchen/My-Item/job-or-not-job/build/c3k/accepted-package-route/meal-interrupted-save.json",
+		"/Users/geminchen/My-Item/job-or-not-job/build/c3k/accepted-package-route/finished-save.json"
+	],
+	"travel_teleports": false
+}

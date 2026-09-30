@@ -1,0 +1,14 @@
+{
+  "files": {
+    "build/c3k/package-probes/scene_driver.gd": "794f4ef8814d793bc60cc71f5bcf23dc60f68284338a913c1c334cfc0093cc53",
+    "build/c3k/package-probes/render_city_bus.gd": "e6c213e683b954f8d69952fe225b67021e61f73008a4efc3389f67c64f7f2f1d",
+    "build/c3k/package-probes/render_street_meals.gd": "b6f4020138cfb2a248cd2bb57602c10942063f2b5affe8e9333c8ccd344e4d52"
+  },
+  "adaptation": "Only resource paths of external inherited scripts replaced with absolute paths; runtime PCK unchanged.",
+  "authoritative_scripts": {
+    "tools/render_street_meals.gd": "4760e81628b8b2db8dcc19f072230cc5d4c76a0e072e18cc42a0918c7f180b7a",
+    "tools/render_city_bus.gd": "e6c213e683b954f8d69952fe225b67021e61f73008a4efc3389f67c64f7f2f1d",
+    "tests/scene_driver.gd": "794f4ef8814d793bc60cc71f5bcf23dc60f68284338a913c1c334cfc0093cc53",
+    "tools/verify_street_meal_save.gd": "e59b59688c86e089043a6d6326bf54afca5d39501d2c7a23966b54a3750fbee0"
+  }
+}

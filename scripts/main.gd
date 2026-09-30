@@ -53,6 +53,7 @@ var response: CityResponse
 var commons: CityCommons
 var passengers: CityPassengers
 var home: CityHome
+var meals: CityMeals
 
 func _ready() -> void:
 	bind_inputs()
@@ -104,6 +105,9 @@ func _ready() -> void:
 	home=CityHome.new()
 	home.game=self
 	add_child(home)
+	meals=CityMeals.new()
+	meals.game=self
+	add_child(meals)
 	soundscape=CitySoundscape.new()
 	soundscape.game=self
 	add_child(soundscape)
@@ -220,6 +224,7 @@ func advance_time(minutes: float, skipped: bool=true) -> void:
 	payroll.tick(seconds,career.employer)
 	if skipped and payroll.minute!=before: care.tick(0)
 	social.time_changed(before,seconds if skipped else 0.0)
+	if meals: meals.time_changed()
 	recruitment.tick()
 	update_daylight()
 	if payroll.minute!=before: city_life.sync_scene()
@@ -282,7 +287,7 @@ func navigation_target() -> Node3D:
 	return companion if companion else ObjectiveGuide.target(self)
 
 func targets() -> Array:
-	return npcs + stations + props + (driving.cars.filter(func(car): return not car.traffic) if driving else []) + (population.residents if population else []) + (city_life.points if city_life else []) + (commons.benches.values() if commons else []) + (home.points if home else [])
+	return npcs + stations + props + (driving.cars.filter(func(car): return not car.traffic) if driving else []) + (population.residents if population else []) + (city_life.points if city_life else []) + (commons.benches.values() if commons else []) + (home.points if home else []) + (meals.points if meals else [])
 
 func nearest() -> Node3D:
 	var best: Node3D
@@ -296,6 +301,7 @@ func nearest() -> Node3D:
 		var d := offset.length()
 		var score: float = d*(0.4 if node is WorkStation or node is CityActivityPoint or node is CityHomePoint else 0.55 if node is OfficeNPC else 1.0)
 		if node is CityBench: score=d*(1.15 if player.seated else .65)+(.8 if commons.player_bench()==node else 0.0)
+		if node is CityMealPoint: score=d*.65
 		var arriving: bool=node is OfficeNPC and not node.dead and not visit.is_empty() and visit.npc==node.role_id and career.facts.get("visit_state_"+visit.key,"")=="arrived"
 		if arriving: score-=1.0
 		# Keep a deliberately faced companion selectable when pedestrians pass by.
@@ -307,7 +313,7 @@ func nearest() -> Node3D:
 
 func can_see(from: Node3D, to: Node3D) -> bool:
 	var start := from.global_position + Vector3.UP*1.35
-	var end := to.global_position + (Vector3.UP*.6 if to is CityBench else Vector3.UP*1.2 if to is CharacterBody3D or to is WorkStation or to is CityActivityPoint or to is CityHomePoint else Vector3.ZERO)
+	var end := to.global_position + (Vector3.UP*.6 if to is CityBench else Vector3.UP*1.2 if to is CharacterBody3D or to is WorkStation or to is CityActivityPoint or to is CityHomePoint or to is CityMealPoint else Vector3.ZERO)
 	var query := PhysicsRayQueryParameters3D.create(start,end)
 	if from is CollisionObject3D: query.exclude = [from.get_rid()]
 	if to is WorkStation and to.stable_id.begins_with("desk_"):
@@ -336,6 +342,9 @@ func interact() -> void:
 		return
 	if interviews.advance(): return
 	var target := nearest()
+	if target is CityMealPoint:
+		meals.open_point(target)
+		return
 	if target is CityHomePoint:
 		home.open_point(target)
 		return
@@ -396,6 +405,9 @@ func choose(index: int) -> void:
 	var choices: Array = conversation.choices
 	if index>=choices.size(): return
 	var action: String = choices[index][1]
+	if speaker is CityMealPoint:
+		meals.answer(speaker,action)
+		return
 	if speaker is CityHomePoint:
 		home.answer(speaker,action)
 		return

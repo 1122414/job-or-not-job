@@ -1,7 +1,7 @@
 class_name SaveGame
 extends RefCounted
 
-const VERSION := 24
+const VERSION := 25
 const BASE_NPCS := ["a_hr","a_lead","a_boss","a_friend","a_group","a_guard","b_hr","b_friend","b_boss","b_guard"]
 const LEGACY_PROPS := ["a_keyboard","a_cup","a_table","a_chair","a_printer","b_keyboard","b_cup","b_table","b_chair","b_printer"]
 const PATH := "user://neighborhood.json"
@@ -30,6 +30,7 @@ static func snapshot(game: Node3D) -> Dictionary:
 	data.city_commons=game.commons.snapshot()
 	data.city_home=game.home.snapshot()
 	data.work_handover=game.handover.data.duplicate(true)
+	data.city_meals=game.meals.snapshot()
 	for prop in game.props:
 		var location := "held" if game.player.held==prop else "bag" if game.player.inventory.has(prop) else "world"
 		data.props[prop.stable_id]={"position":vector(prop.position),"rotation":vector(prop.rotation),"location":location,"damaged":prop.damaged,"durability":prop.durability,"tipped":prop.tipped}
@@ -45,7 +46,7 @@ static func valid_vector(value: Variant) -> bool:
 
 static func valid(data: Variant, game: Node3D) -> bool:
 	if not data is Dictionary: return false
-	if data.get("version")!=1 and data.get("version")!=2 and data.get("version")!=3 and data.get("version")!=4 and data.get("version")!=5 and data.get("version")!=6 and data.get("version")!=7 and data.get("version")!=8 and data.get("version")!=9 and data.get("version")!=10 and data.get("version")!=11 and data.get("version")!=12 and data.get("version")!=13 and data.get("version")!=14 and data.get("version")!=15 and data.get("version")!=16 and data.get("version")!=17 and data.get("version")!=18 and data.get("version")!=19 and data.get("version")!=20 and data.get("version")!=21 and data.get("version")!=22 and data.get("version")!=23 and data.get("version")!=VERSION: return false
+	if data.get("version")!=1 and data.get("version")!=2 and data.get("version")!=3 and data.get("version")!=4 and data.get("version")!=5 and data.get("version")!=6 and data.get("version")!=7 and data.get("version")!=8 and data.get("version")!=9 and data.get("version")!=10 and data.get("version")!=11 and data.get("version")!=12 and data.get("version")!=13 and data.get("version")!=14 and data.get("version")!=15 and data.get("version")!=16 and data.get("version")!=17 and data.get("version")!=18 and data.get("version")!=19 and data.get("version")!=20 and data.get("version")!=21 and data.get("version")!=22 and data.get("version")!=23 and data.get("version")!=24 and data.get("version")!=VERSION: return false
 	for field in ["career","payroll","props","npcs","player"]:
 		if not data.get(field) is Dictionary: return false
 	for field in CAREER_FIELDS:
@@ -179,6 +180,7 @@ static func valid(data: Variant, game: Node3D) -> bool:
 	if data.version>=24 and not WorkHandover.valid(data.get("work_handover"),data): return false
 	if data.version>=10 and not Onboarding.valid(data.get("onboarding")): return false
 	if data.version>=9 and not SocialLife.valid(data.get("social"),data.npcs,data.version>=21): return false
+	if data.version>=25 and not game.meals.valid(data.get("city_meals"),data): return false
 	var occupied := {}
 	for id in data.npcs:
 		var entry: Dictionary=data.npcs[id]
@@ -360,6 +362,7 @@ static func restore(game: Node3D, data: Dictionary) -> bool:
 	game.commons.restore(data.get("city_commons",{}) if data.version>=18 else {})
 	game.home.restore(data.get("city_home",{}) if data.version>=22 else {})
 	game.passengers.restore(data.get("city_population",{}).get("passengers",{}) if data.version>=23 else {})
+	game.meals.restore(data.get("city_meals",{}) if data.version>=25 else {})
 	# Restore the visible time immediately, including when loading while paused.
 	game.update_daylight()
 	for station in game.stations:

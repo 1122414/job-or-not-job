@@ -34,7 +34,9 @@ func hurt(npc: OfficeNPC,action: int) -> void:
 	meet(npc)
 	state(npc).days["peace"]=game.payroll.minute/1440
 	remember(npc,"hurt_"+str(action),"你动手伤害了对方；这件事没有因返岗而消失。",0,-20,25)
-	if outing.get("person")==npc.stable_id: outing.clear()
+	if outing.get("person")==npc.stable_id:
+		if game.meals: game.meals.cancel(npc.stable_id)
+		outing.clear()
 
 func describe(npc: OfficeNPC) -> String:
 	var p := state(npc)
@@ -67,6 +69,7 @@ func kind_name(kind: String) -> String:
 func destination(npc: OfficeNPC,kind: String) -> Vector3:
 	if kind=="walk" and outing.get("person")==npc.stable_id and outing.has("venue"): return CityOuting.place_position(npc,outing.venue)
 	if kind=="tea": return OfficeRooms.point(game,npc.company,"tea")
+	if kind=="lunch" and game.meals and game.meals.orders.get(npc.stable_id,{}).get("stage") in ["carrying","eating"]: return CityMeals.TABLES[3]
 	# Both original meeting places now adjoin the city road. Meet on the public
 	# sidewalk behind the stall/shelter, not at their former roadside coordinates.
 	return Vector3(10,0,18) if kind=="lunch" else Vector3(-6,0,18)
@@ -130,6 +133,7 @@ func handle(action: String,npc: OfficeNPC) -> bool:
 		game.say("我听到了。但我现在还不放心，先让彼此有些距离。" if repaired else "道歉我已经听过了，之后怎么相处更重要。")
 		return true
 	if action in ["people_pause","people_decline"]:
+		if game.meals: game.meals.cancel(npc.stable_id)
 		outing.clear()
 		game.close_interaction()
 		game.say("好，你先忙。拒绝邀约不会扣关系。")
@@ -148,12 +152,13 @@ func handle(action: String,npc: OfficeNPC) -> bool:
 		return true
 	if action=="people_share":
 		if outing.get("person")!=npc.stable_id or npc.position.distance_to(destination(npc,outing.kind))>0.7: return true
-		var line: String={"tea":"接杯水，歇一会儿。", "lunch":"先吃点东西吧。", "walk":"一起走到公交站吧。"}[outing.kind]+PROFILES.get(npc.role_id,["","","","工作以外，我也想留点时间给自己的生活。"])[3]
+		var line: String={"tea":"接杯水，歇一会儿。", "lunch":game.meals.lunch_line(npc) if game.meals else "在这里歇一会儿吧。", "walk":"一起走到公交站吧。"}[outing.kind]+PROFILES.get(npc.role_id,["","","","工作以外，我也想留点时间给自己的生活。"])[3]
 		game.conversation={"text":npc.title.split(" · ")[0]+"："+line,"choices":[["听他说完，尊重他的安排","people_listen"],["说说自己的边界和困扰","people_boundary"],["今天先聊到这里","people_pause"]]}
 		return true
 	if action in ["people_listen","people_boundary"]:
 		if outing.get("person")!=npc.stable_id: return true
 		remember(npc,"outing_"+day,"你们"+kind_name(outing.kind)+"，认真听了彼此的安排。",6,6,-3)
+		if game.meals: game.meals.cancel(npc.stable_id)
 		outing.clear()
 		game.close_interaction()
 		game.say("谢谢你愿意听。之后有事也可以来找我。")
@@ -195,6 +200,7 @@ func expire_offer() -> void:
 
 func pause_outing(message: String) -> void:
 	if outing.is_empty() or outing.stage=="paused": return
+	if game.meals: game.meals.cancel(outing.person)
 	outing.stage="paused"
 	for npc in game.npcs:
 		if npc.stable_id==outing.person: npc.route_clock=0

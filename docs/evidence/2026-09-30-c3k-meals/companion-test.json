@@ -1,0 +1,46 @@
+{
+	"failures": 0,
+	"maximum_step": 0.0383371226489544,
+	"metres": 72.5649431534111,
+	"npc_position": [
+		9.3894510269165,
+		0.0,
+		18.0718631744385
+	],
+	"orders": {
+		"orders": {
+			"resident_chen_yu": {
+				"cents": 0,
+				"cooked": 0.0,
+				"eaten": 0.0,
+				"item": "noodles",
+				"slot": 0,
+				"stage": "queued",
+				"window": 0
+			}
+		},
+		"queue": [
+			"resident_chen_yu"
+		],
+		"served": {
+			"a_friend": 0,
+			"resident_chen_yu": 0,
+			"resident_zhao_lin": 0
+		}
+	},
+	"player_paid": 0,
+	"player_position": [
+		10.0588121414185,
+		-0.0047222264111042,
+		18.3322811126709
+	],
+	"route": "[(10.0, 0.0, 18.0)]",
+	"stages": [
+		"queued",
+		"ready",
+		"carrying",
+		"eating"
+	],
+	"target": "<null>",
+	"velocity": "(0.757037, 0.0, -2.171841)"
+}

@@ -93,6 +93,8 @@ func _physics_process(delta: float) -> void:
 	elif game.speaker==self:
 		state="talking"
 		velocity=Vector3.ZERO
+	elif game.meals and game.meals.attend(self,delta):
+		pass
 	elif game.commons and game.commons.attend(self,delta):
 		if state=="talking": state="activity"
 	else:
@@ -120,6 +122,11 @@ func _physics_process(delta: float) -> void:
 		var look: Vector3=game.city_life.performance.facing(self)-position
 		visual.rotation.y=lerp_angle(visual.rotation.y,atan2(-look.x,-look.z),1-exp(-delta*5))
 	if seated: visual.rotation.y=lerp_angle(visual.rotation.y,seat_body.rotation.y,1-exp(-delta*8))
+	if game.meals:
+		var meal_facing: Variant=game.meals.facing(self)
+		if meal_facing!=null:
+			var direction: Vector3=meal_facing-position
+			visual.rotation.y=lerp_angle(visual.rotation.y,atan2(-direction.x,-direction.z),1-exp(-delta*8))
 	var reading: bool=game.commons!=null and game.commons.reading(self)
 	visual.scene_action="read" if reading else game.city_life.performance.action(self) if game.city_life else ""
 	visual.pose(Vector2(velocity.x,velocity.z).length(),false,falling,seated,seated,false,state=="talking" or game.commons!=null and game.commons.telling(self))
@@ -132,6 +139,7 @@ func _physics_process(delta: float) -> void:
 	# Character-root rotation/motion may run between mixer evaluations.
 	# Reapply scene-owned props so the palms and book use the same frame.
 	if game.city_life and game.city_life.performance: game.city_life.performance.apply(self)
+	if game.meals: game.meals.scene.apply(self)
 	if not falling and velocity.length()>.4 and position.distance_to(before)<delta*.15: stuck+=delta
 	else: stuck=0
 	if stuck>2: velocity=Vector3.ZERO
@@ -201,6 +209,7 @@ func walk(_delta: float) -> void:
 	velocity=direction*(2.8 if fear>0 else 1.5+index%3*.08)
 
 func avoid(threat: Vector3) -> void:
+	if game.meals: game.meals.cancel(stable_id)
 	if game.commons: game.commons.release(self)
 	fear=20.0
 	if game.speaker==self: game.close_interaction()
@@ -211,6 +220,7 @@ func avoid(threat: Vector3) -> void:
 
 func hit(direction: Vector3,strength: float,action: int,dangerous: bool=true) -> void:
 	if hp==0 or action==last_hit or not dangerous and not available(): return
+	if game.meals: game.meals.cancel(stable_id)
 	if game.commons: game.commons.release(self)
 	if game.passengers:
 		if game.passengers.aboard(self): game.passengers.trips[stable_id].early_exit=true
@@ -295,6 +305,7 @@ func make_pastime_book() -> void:
 
 func sync_pastime_book() -> void:
 	if game.city_life and game.city_life.performance: game.city_life.performance.apply(self)
+	if game.meals: game.meals.scene.apply(self)
 	if not pastime_book or not game.commons: return
 	if game.commons.sitting(self) and not game.commons.reading(self):
 		var other: Node3D=game.player if game.speaker==self else game.commons.companion(self)

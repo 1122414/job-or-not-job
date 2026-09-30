@@ -1,0 +1,45 @@
+{
+	"failures": 0,
+	"max_resident_step": 0.0721794739365578,
+	"meal_metres": {
+		"resident_chen_yu": 124.915393800475,
+		"resident_tang_ke": 130.181720311288,
+		"resident_xu_hang": 69.0102600958198,
+		"resident_zhao_lin": 32.7732874616049
+	},
+	"real_keys": true,
+	"resident_metres": {
+		"resident_chen_yu": 140.866890818346,
+		"resident_he_yue": 362.156945183408,
+		"resident_liang_bo": 137.636214519385,
+		"resident_lin_qiao": 149.974191103131,
+		"resident_lu_yang": 114.438061929774,
+		"resident_song_an": 365.830059581902,
+		"resident_su_wan": 344.325482029933,
+		"resident_tang_ke": 130.181720311288,
+		"resident_wu_fan": 197.642244507093,
+		"resident_xu_hang": 73.0144528248347,
+		"resident_zhao_lin": 32.7732874616049,
+		"resident_zhou_ning": 143.777876748238
+	},
+	"resident_stages": {
+		"resident_chen_yu": [
+			"queued",
+			"ready",
+			"carrying",
+			"eating"
+		],
+		"resident_xu_hang": [
+			"queued",
+			"ready",
+			"carrying",
+			"eating"
+		],
+		"resident_zhao_lin": [
+			"queued",
+			"ready",
+			"carrying",
+			"eating"
+		]
+	}
+}

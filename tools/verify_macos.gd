@@ -177,7 +177,7 @@ func run() -> void:
 			push_error("Packaged public gallery is obstructed")
 			quit(1)
 			return
-	if game.commons.benches.size()!=6 or SaveGame.VERSION!=24 or game.passengers==null or game.handover==null:
+	if game.commons.benches.size()!=6 or SaveGame.VERSION!=25 or game.passengers==null or game.handover==null or game.meals==null or game.meals.points.size()!=2:
 		push_error("Packaged public commons missing"); quit(1); return
 	var commons_original := SaveGame.snapshot(game)
 	game.set_process(false)

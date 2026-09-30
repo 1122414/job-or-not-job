@@ -1,0 +1,222 @@
+{
+  "logs": [
+    {
+      "log": "logs/c3k-full-check.log",
+      "sha256": "5559f2de43cf8b9400aa83c6a5d0579c03fed4ec194a81aa2293a6b878cfbdf4",
+      "mtime": 1790757158.1366262,
+      "summary": [
+        "WORK_PROJECTS_TEST failures=0",
+        "WORK_SCENE_TEST failures=0",
+        "WORLD_TEST failures=0"
+      ],
+      "error_warning_count": 0
+    },
+    {
+      "log": "logs/c3k-prefix-check.log",
+      "sha256": "1d5f76bb574a56da23d66de551ab4ceb001a30b69ab4cc92877d4ec533bdd9a4",
+      "mtime": 1790756835.488901,
+      "summary": [
+        "CITY_EVENING_SAVE_TEST failures=0 legacy=19 current=25 invalid_crossings=6",
+        "CITY_EVENING_TEST failures=0 routes=13",
+        "FINAL_PREFIX_CHECK_OK 26 b58fe7c6700caf2179c8c2af711681061495f2efa3cd1d9924b3f8c9ece0de5c"
+      ],
+      "error_warning_count": 0
+    },
+    {
+      "log": "logs/c3k-final-import.log",
+      "sha256": "e377d58b31f94e0b70ac4276fcc989d93df143b0bacf9760b918145a54c71fd0",
+      "mtime": 1790756281.0503006,
+      "summary": [
+        "[  16% ] loading_editor_layout | 正在加载停靠面板……",
+        "[ DONE ] loading_editor_layout",
+        ""
+      ],
+      "error_warning_count": 0
+    },
+    {
+      "log": "logs/c3k-final-smoke.log",
+      "sha256": "1f4aefb7bdaa3aac5c3ea38b8d505eb0d072d02dfef33d1c42767bcd075bbb24",
+      "mtime": 1790756281.7960615,
+      "summary": [
+        "Godot Engine v4.7.1.stable.official.a13da4feb - https://godotengine.org",
+        ""
+      ],
+      "error_warning_count": 0
+    },
+    {
+      "log": "logs/c3k-python.log",
+      "sha256": "50e6967e46fef7b8f34c813ff06a6650ecd22a0b4e7ee6062366587535d1a991",
+      "mtime": 1790755801.2487257,
+      "summary": [
+        "Ran 32 tests in 1.489s",
+        "OK"
+      ],
+      "error_warning_count": 0
+    },
+    {
+      "log": "logs/c3k-career-final.log",
+      "sha256": "328fc112a2b665c1193b4f5b3f93c7dad8d34a3ab081b45096be0a9d94034bd4",
+      "mtime": 1790756584.1153607,
+      "summary": [
+        "FULL_ROUTE_TEST failures=0"
+      ],
+      "error_warning_count": 0
+    },
+    {
+      "log": "logs/c3k-package-project.log",
+      "sha256": "f157faf9e65f4d87087838fd5e84227233d62a0eb013fd443d0400b0155818db",
+      "mtime": 1790756342.3185906,
+      "summary": [
+        "PACKAGED_SMOKE_OK build=20260930T081633230268Z-f5ad5886-b58fe7c6 label=v0.5.0 · f5ad5886 / b58fe7c6（含未提交修改） npcs=10 props=114 company_spaces=2 company_sources=2 environment_props=6 asset_sources=5 authored_clips=4 authored_characters=29 texture_imports=verified ui_mouse=verified city_stops=4 authored_bus=verified bus_ride_save=verified driving_save=verified traffic=3 public_residents=12 population_save=verified bookshop_walk_save=verified original_illustrations=3 public_response_transfer_save=verified persistence=false"
+      ],
+      "error_warning_count": 0
+    },
+    {
+      "log": "logs/c3k-package-outside.log",
+      "sha256": "f157faf9e65f4d87087838fd5e84227233d62a0eb013fd443d0400b0155818db",
+      "mtime": 1790756532.855402,
+      "summary": [
+        "PACKAGED_SMOKE_OK build=20260930T081633230268Z-f5ad5886-b58fe7c6 label=v0.5.0 · f5ad5886 / b58fe7c6（含未提交修改） npcs=10 props=114 company_spaces=2 company_sources=2 environment_props=6 asset_sources=5 authored_clips=4 authored_characters=29 texture_imports=verified ui_mouse=verified city_stops=4 authored_bus=verified bus_ride_save=verified driving_save=verified traffic=3 public_residents=12 population_save=verified bookshop_walk_save=verified original_illustrations=3 public_response_transfer_save=verified persistence=false"
+      ],
+      "error_warning_count": 0
+    },
+    {
+      "log": "logs/c3k-source-route-accepted.log",
+      "sha256": "1374d89f02e75d56206291e3bcd55f1c55450bf2f9e385e44cfde0bca8dcfa21",
+      "mtime": 1790757197.4374847,
+      "summary": [
+        "STREET_MEALS_ROUTE_OK {\"background_guard\":true,\"fixture\":{\"initial_balance_cents\":2400,\"initial_minute\":690},\"images\":[{\"draw_calls\":753,\"name\":\"approach-stall\"},{\"draw_calls\":1313,\"name\":\"open-menu\"},{\"draw_calls\":1313,\"name\":\"queued\"},{\"draw_calls\":1585,\"name\":\"ready-while-away\"},{\"draw_calls\":1404,\"name\":\"carrying\"},{\"draw_calls\":1228,\"name\":\"eating\"},{\"draw_calls\":551,\"name\":\"meal-interrupted\"},{\"draw_calls\":547,\"name\":\"finished\"}],\"independent_player_acceptance\":false,\"maximum_step\":0.083334319293499,\"metres\":94.8333556577563,\"minute\":764,\"normal_game_fps\":false,\"normal_player_camera\":true,\"observed_stages\":{\"player\":[\"queued\",\"ready\",\"carrying\",\"eating\"],\"resident_chen_yu\":[\"queued\",\"ready\",\"carrying\",\"eating\"],\"resident_xu_hang\":[\"queued\",\"ready\",\"carrying\",\"eating\"],\"resident_zhao_lin\":[\"queued\",\"ready\",\"carrying\",\"eating\"]},\"persistence\":false,\"real_keyboard_controls\":true,\"saves\":[\"res://build/c3k/accepted-source-route/queued-save.json\",\"res://build/c3k/accepted-source-route/ready-while-away-save.json\",\"res://build/c3k/accepted-source-route/carrying-save.json\",\"res://build/c3k/accepted-source-route/eating-save.json\",\"res://build/c3k/accepted-source-route/meal-interrupted-save.json\",\"res://build/c3k/accepted-source-route/finished-save.json\"],\"travel_teleports\":false}"
+      ],
+      "error_warning_count": 0
+    },
+    {
+      "log": "logs/c3k-package-route-accepted.log",
+      "sha256": "f3fbed981f1a9c67a0a569821f7f40a527ca0fd1689d64a1bbbaa6e58cab3632",
+      "mtime": 1790757198.4883835,
+      "summary": [
+        "STREET_MEALS_ROUTE_OK {\"background_guard\":true,\"fixture\":{\"initial_balance_cents\":2400,\"initial_minute\":690},\"images\":[{\"draw_calls\":753,\"name\":\"approach-stall\"},{\"draw_calls\":1313,\"name\":\"open-menu\"},{\"draw_calls\":1313,\"name\":\"queued\"},{\"draw_calls\":1585,\"name\":\"ready-while-away\"},{\"draw_calls\":1404,\"name\":\"carrying\"},{\"draw_calls\":1228,\"name\":\"eating\"},{\"draw_calls\":551,\"name\":\"meal-interrupted\"},{\"draw_calls\":547,\"name\":\"finished\"}],\"independent_player_acceptance\":false,\"maximum_step\":0.083334319293499,\"metres\":94.8333556577563,\"minute\":764,\"normal_game_fps\":false,\"normal_player_camera\":true,\"observed_stages\":{\"player\":[\"queued\",\"ready\",\"carrying\",\"eating\"],\"resident_chen_yu\":[\"queued\",\"ready\",\"carrying\",\"eating\"],\"resident_xu_hang\":[\"queued\",\"ready\",\"carrying\",\"eating\"],\"resident_zhao_lin\":[\"queued\",\"ready\",\"carrying\",\"eating\"]},\"persistence\":false,\"real_keyboard_controls\":true,\"saves\":[\"/Users/geminchen/My-Item/job-or-not-job/build/c3k/accepted-package-route/queued-save.json\",\"/Users/geminchen/My-Item/job-or-not-job/build/c3k/accepted-package-route/ready-while-away-save.json\",\"/Users/geminchen/My-Item/job-or-not-job/build/c3k/accepted-package-route/carrying-save.json\",\"/Users/geminchen/My-Item/job-or-not-job/build/c3k/accepted-package-route/eating-save.json\",\"/Users/geminchen/My-Item/job-or-not-job/build/c3k/accepted-package-route/meal-interrupted-save.json\",\"/Users/geminchen/My-Item/job-or-not-job/build/c3k/accepted-package-route/finished-save.json\"],\"travel_teleports\":false}"
+      ],
+      "error_warning_count": 0
+    },
+    {
+      "log": "logs/c3k-save-recovery-accepted.log",
+      "sha256": "0e133d549271300a1481b59c54c0a183cc1389194138a3917b717bd49e841cca",
+      "mtime": 1790757310.3581603,
+      "summary": [
+        "STREET_MEAL_SAVE_RECOVERY_OK /Users/geminchen/My-Item/job-or-not-job/build/c3k/accepted-package-route/queued-save.json",
+        "STREET_MEAL_SAVE_RECOVERY_OK /Users/geminchen/My-Item/job-or-not-job/build/c3k/accepted-package-route/ready-while-away-save.json",
+        "ALL_MEAL_RECOVERY_OK 12"
+      ],
+      "error_warning_count": 0
+    },
+    {
+      "log": "logs/c3k-recover-accepted-package-route-carrying-save.log",
+      "sha256": "a69c2ba8db38427192108265c72b6377229ffea94ec4b99063a17e58b475cd18",
+      "mtime": 1790757296.4352279,
+      "summary": [
+        "STREET_MEAL_SAVE_RECOVERY_OK /Users/geminchen/My-Item/job-or-not-job/build/c3k/accepted-package-route/carrying-save.json"
+      ],
+      "error_warning_count": 0
+    },
+    {
+      "log": "logs/c3k-recover-accepted-package-route-eating-save.log",
+      "sha256": "f8c7d2f948482339c9e0417c6c70064b0cc02a76893cd8b9729d22584d7653b9",
+      "mtime": 1790757299.2158825,
+      "summary": [
+        "STREET_MEAL_SAVE_RECOVERY_OK /Users/geminchen/My-Item/job-or-not-job/build/c3k/accepted-package-route/eating-save.json"
+      ],
+      "error_warning_count": 0
+    },
+    {
+      "log": "logs/c3k-recover-accepted-package-route-finished-save.log",
+      "sha256": "28d92c8d8477da45394f9feab8ec16e536cc41cfa6321421169a682d406a2a8a",
+      "mtime": 1790757301.9994993,
+      "summary": [
+        "STREET_MEAL_SAVE_RECOVERY_OK /Users/geminchen/My-Item/job-or-not-job/build/c3k/accepted-package-route/finished-save.json"
+      ],
+      "error_warning_count": 0
+    },
+    {
+      "log": "logs/c3k-recover-accepted-package-route-meal-interrupted-save.log",
+      "sha256": "2fcf47512269f918763c6f60c079ee3943a4e9a390f2b42df1f2dac8b5e3cd0b",
+      "mtime": 1790757304.6528952,
+      "summary": [
+        "STREET_MEAL_SAVE_RECOVERY_OK /Users/geminchen/My-Item/job-or-not-job/build/c3k/accepted-package-route/meal-interrupted-save.json"
+      ],
+      "error_warning_count": 0
+    },
+    {
+      "log": "logs/c3k-recover-accepted-package-route-queued-save.log",
+      "sha256": "b54804f90ef9afb55455f45dc12248cacc1f98296187853a8069df4a625a0145",
+      "mtime": 1790757307.4576838,
+      "summary": [
+        "STREET_MEAL_SAVE_RECOVERY_OK /Users/geminchen/My-Item/job-or-not-job/build/c3k/accepted-package-route/queued-save.json"
+      ],
+      "error_warning_count": 0
+    },
+    {
+      "log": "logs/c3k-recover-accepted-package-route-ready-while-away-save.log",
+      "sha256": "df0eb0342e2a8a029e4c1138c9d2f024acf36a4d839cde2771ad6aa242d718c7",
+      "mtime": 1790757310.285681,
+      "summary": [
+        "STREET_MEAL_SAVE_RECOVERY_OK /Users/geminchen/My-Item/job-or-not-job/build/c3k/accepted-package-route/ready-while-away-save.json"
+      ],
+      "error_warning_count": 0
+    },
+    {
+      "log": "logs/c3k-recover-accepted-source-route-carrying-save.log",
+      "sha256": "80d6da5c1701a13f5f89a87f00f3223e47cf87fc4cd9c084d6fe83f36ab4f993",
+      "mtime": 1790757279.7613442,
+      "summary": [
+        "STREET_MEAL_SAVE_RECOVERY_OK /Users/geminchen/My-Item/job-or-not-job/build/c3k/accepted-source-route/carrying-save.json"
+      ],
+      "error_warning_count": 0
+    },
+    {
+      "log": "logs/c3k-recover-accepted-source-route-eating-save.log",
+      "sha256": "d7d381d644c8452d4e52f83a36f33900b0abf4ba60c2d5161fbfb5f9876d4540",
+      "mtime": 1790757282.4325137,
+      "summary": [
+        "STREET_MEAL_SAVE_RECOVERY_OK /Users/geminchen/My-Item/job-or-not-job/build/c3k/accepted-source-route/eating-save.json"
+      ],
+      "error_warning_count": 0
+    },
+    {
+      "log": "logs/c3k-recover-accepted-source-route-finished-save.log",
+      "sha256": "0a9568137f10429aca7debce5de1aef480eb0f9f8de576b163373f63b1665b0c",
+      "mtime": 1790757285.3587594,
+      "summary": [
+        "STREET_MEAL_SAVE_RECOVERY_OK /Users/geminchen/My-Item/job-or-not-job/build/c3k/accepted-source-route/finished-save.json"
+      ],
+      "error_warning_count": 0
+    },
+    {
+      "log": "logs/c3k-recover-accepted-source-route-meal-interrupted-save.log",
+      "sha256": "8646605a7884a41ae27bbde4dc13447ad881baa036db36d6c25ed9d0628920a9",
+      "mtime": 1790757288.098522,
+      "summary": [
+        "STREET_MEAL_SAVE_RECOVERY_OK /Users/geminchen/My-Item/job-or-not-job/build/c3k/accepted-source-route/meal-interrupted-save.json"
+      ],
+      "error_warning_count": 0
+    },
+    {
+      "log": "logs/c3k-recover-accepted-source-route-queued-save.log",
+      "sha256": "026618ee23705c4c26d26906914fb840ad24e84225996671253423f905e615a6",
+      "mtime": 1790757290.8038018,
+      "summary": [
+        "STREET_MEAL_SAVE_RECOVERY_OK /Users/geminchen/My-Item/job-or-not-job/build/c3k/accepted-source-route/queued-save.json"
+      ],
+      "error_warning_count": 0
+    },
+    {
+      "log": "logs/c3k-recover-accepted-source-route-ready-while-away-save.log",
+      "sha256": "0c120a3abcb27eaf3e8d1ac12cb829f24443b37b23e141106eb7113ead3c35a7",
+      "mtime": 1790757293.6471665,
+      "summary": [
+        "STREET_MEAL_SAVE_RECOVERY_OK /Users/geminchen/My-Item/job-or-not-job/build/c3k/accepted-source-route/ready-while-away-save.json"
+      ],
+      "error_warning_count": 0
+    }
+  ],
+  "scope": "Observed successful tool process exits plus log markers; import/smoke identified by terminal exit and no errors. Python tools/tests unchanged during stage."
+}

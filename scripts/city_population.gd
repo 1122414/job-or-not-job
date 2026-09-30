@@ -2,6 +2,11 @@ class_name CityPopulation
 extends Node3D
 
 const POINTS := {
+	"meal_vendor":Vector3(10,0,15.35),"meal_vendor_path":Vector3(7,0,15.9),"meal_vendor_entry":Vector3(7,0,18),
+	"meal_entry":Vector3(20,0,18),"meal_queue_path":Vector3(20,0,15.7),"meal_pickup":Vector3(12.7,0,15.7),
+	"meal_queue_0":Vector3(14,0,15.7),"meal_queue_1":Vector3(15.6,0,15.7),"meal_queue_2":Vector3(17.2,0,15.7),"meal_queue_3":Vector3(18.8,0,15.7),
+	"meal_table_0":Vector3(4,0,20),"meal_table_1":Vector3(6.2,0,20),"meal_table_2":Vector3(16,0,20),"meal_table_3":Vector3(10,0,20),
+	"meal_walk_0":Vector3(4,0,18),"meal_walk_1":Vector3(6.2,0,18),"meal_walk_2":Vector3(16,0,18),"meal_walk_3":Vector3(10,0,18),
 	"office_out":Vector3(3,0,5),"office_in":Vector3(3,0,18),"office_east":Vector3(24,0,18),
 	"office":Vector3(-24,0,18),"south":Vector3(0,0,18),"center":Vector3(0,0,58),
 	"west_path":Vector3(-64,0,58),"shop_walk":Vector3(-56,0,52),"bookshop":Vector3(-58,0,44),
@@ -28,6 +33,7 @@ const POINTS := {
 }
 const LINKS := [["office_out","office_in"],["office_in","south"],["office_in","office_east"],["south","office_east"],["office","south"],["south","center"],["center","west_path"],["west_path","shop_walk"],["shop_walk","bookshop"],["west_path","west_in"],["west_in","west_out"],["west_out","market"],["center","homes"],["center","garden"],["garden","homes"],["homes","east_in"],["east_in","east_out"],["east_out","east_garden"],["center","north_in"],["north_in","north_out"],["north_out","sea_west"],["north_out","sea_east"],["bookshop","bookshop_entry"],["bookshop_entry","bookshop_room"],["bookshop_room","reading_west"],["bookshop_room","reading_center"],["bookshop_room","reading_east"],["bookshop_room","paper_west"],["bookshop_room","paper_center"],["bookshop_room","paper_east"],["garden","garden_west"],["garden","garden_center"],["garden","garden_east"],["south","commons_south"],["commons_south","center"],["center","commons_north"],["commons_north","north_in"],["commons_south","commons_west_hub"],["commons_south","commons_east_hub"],["commons_north","commons_north_hub"],["commons_west_hub","commons_west_0"],["commons_west_hub","commons_west_1"],["commons_east_hub","commons_east_0"],["commons_east_hub","commons_east_1"],["commons_north_hub","commons_north_0"],["commons_north_hub","commons_north_1"],["bus_office_exit","bus_office_clear"],["bus_office_clear","bus_office_walk"],["bus_office_walk","south"]]
 const CROSSINGS := {"market":["west_in","west_out"],"homes":["east_in","east_out"],"waterfront":["north_in","north_out"],"office":["office_out","office_in"]}
+const MEAL_LINKS := [["south","meal_walk_0"],["meal_walk_0","meal_walk_1"],["meal_walk_1","meal_vendor_entry"],["meal_vendor_entry","meal_walk_3"],["meal_walk_3","meal_walk_2"],["meal_walk_2","meal_entry"],["meal_entry","office_east"],["meal_vendor_entry","meal_vendor_path"],["meal_vendor_path","meal_vendor"],["meal_entry","meal_queue_path"],["meal_queue_path","meal_queue_3"],["meal_queue_3","meal_queue_2"],["meal_queue_2","meal_queue_1"],["meal_queue_1","meal_queue_0"],["meal_queue_0","meal_pickup"],["meal_pickup","meal_walk_2"], ["meal_walk_0","meal_table_0"],["meal_walk_1","meal_table_1"],["meal_walk_2","meal_table_2"],["meal_walk_3","meal_table_3"]]
 const TITLES := {"office":"下班路","bookshop":"社区书屋门口","market":"榕树街广场","homes":"东里社区","garden":"社区花园","east_garden":"东里东街","sea_west":"海风步道西段","sea_east":"海风步道东段","reading_west":"书屋阅览区","reading_center":"书屋阅览区","reading_east":"书屋阅览区"}
 const PROFILES := [
 	["zhou_ning","周宁","casual","homes"],["chen_yu","陈雨","office_female","garden"],
@@ -50,6 +56,7 @@ func _ready() -> void:
 	point_ids=POINTS.keys()
 	for i in range(point_ids.size()): graph.add_point(i,POINTS[point_ids[i]])
 	for link in LINKS: graph.connect_points(point_ids.find(link[0]),point_ids.find(link[1]))
+	for link in MEAL_LINKS: graph.connect_points(point_ids.find(link[0]),point_ids.find(link[1]))
 	graph.connect_points(point_ids.find("center"),point_ids.find("service_entry"))
 	graph.connect_points(point_ids.find("service_entry"),point_ids.find("service_hall"))
 	for stop in range(4):

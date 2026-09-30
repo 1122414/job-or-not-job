@@ -1,0 +1,932 @@
+{
+  "source_sha256": "b58fe7c6700caf2179c8c2af711681061495f2efa3cd1d9924b3f8c9ece0de5c",
+  "full_suite_exit_code": 0,
+  "suite_log": "logs/c3k-full-check.log",
+  "final_prefix_exit_code": 0,
+  "final_prefix_count": 26,
+  "godot_test_count": 102,
+  "scope": "Original full suite began before the last source edits. Prefix through city_evening_test.gd rerun after source freeze; remaining suffix ran on frozen source. No runtime edits after freeze.",
+  "frozen_manifest_created_utc": "2026-09-30T08:15:18.941393+00:00",
+  "all_logs_after_frozen_manifest": true,
+  "all_tests_unchanged_since_execution": true,
+  "tests": [
+    {
+      "test": "tests/action_test.gd",
+      "test_sha256": "6ef3c125872314ec835d750ff68d9a1edbd26301af5180c15b0fa9c5c0c31841",
+      "log": "logs/action_test.gd.log",
+      "log_sha256": "12364bc87701d451c66fdd7a528a8a9b9a6384253fd85a5e7729a09931d2689d",
+      "log_mtime_utc": "2026-09-30T08:18:09.091587+00:00",
+      "phase": "final_prefix_rerun",
+      "summary": "ACTION_TEST failures=0"
+    },
+    {
+      "test": "tests/authored_motion_test.gd",
+      "test_sha256": "a39f254066c6937cf4d9fe2646d072302ac215dbc4b40ea2f38670b8cfefad84",
+      "log": "logs/authored_motion_test.gd.log",
+      "log_sha256": "e8be55eb27d20599e21c83e6f4bfc1654ae56558d02da226bdb4534f0ec38ecf",
+      "log_mtime_utc": "2026-09-30T08:18:11.231708+00:00",
+      "phase": "final_prefix_rerun",
+      "summary": "AUTHORED_MOTION_TEST failures=0"
+    },
+    {
+      "test": "tests/body_support_test.gd",
+      "test_sha256": "bdad5dbab3d079de42b8bfe06d23bdd79979c2df950dae32b59b637af28ad2c5",
+      "log": "logs/body_support_test.gd.log",
+      "log_sha256": "9be00f244b4d21d7e87d2c1244dea7b9cd1c863d1fdcf8856c907bdb4c6d108c",
+      "log_mtime_utc": "2026-09-30T08:18:16.291850+00:00",
+      "phase": "final_prefix_rerun",
+      "summary": "BODY_SUPPORT_TEST failures=0 final_height=-0.01963429525495"
+    },
+    {
+      "test": "tests/career_test.gd",
+      "test_sha256": "b1016b0a9c955786d7470c32460e7fbda6a1a262ca9dc0482a7650115080db99",
+      "log": "logs/career_test.gd.log",
+      "log_sha256": "9db453e383c2b7665ef9a3f239bbd1c0898fbe091ac5bbbb6f0ac7aabced046b",
+      "log_mtime_utc": "2026-09-30T08:18:16.550273+00:00",
+      "phase": "final_prefix_rerun",
+      "summary": "CAREER_TEST failures=0"
+    },
+    {
+      "test": "tests/cast_deformation_test.gd",
+      "test_sha256": "7b4784bcd8f326ef929e3a7264db36bdb7a441be807f65c941d0cdeed52fe49f",
+      "log": "logs/cast_deformation_test.gd.log",
+      "log_sha256": "ae7a23b16e070d2649848b302c42f67327fa610dff5be8751eaa0afa54bd3764",
+      "log_mtime_utc": "2026-09-30T08:18:22.954176+00:00",
+      "phase": "final_prefix_rerun",
+      "summary": "CAST_DEFORMATION_TEST failures=0"
+    },
+    {
+      "test": "tests/cast_face_test.gd",
+      "test_sha256": "d79b0ac952860a14193d3ec31289f0c2b046707a170d1ef6a2f27ac2fda78f1b",
+      "log": "logs/cast_face_test.gd.log",
+      "log_sha256": "661bd358d319a3420b03c2d58e19bd0a3a7f038022d1bb9a2822d89225fed766",
+      "log_mtime_utc": "2026-09-30T08:18:23.588511+00:00",
+      "phase": "final_prefix_rerun",
+      "summary": "CAST_FACE_TEST failures=0"
+    },
+    {
+      "test": "tests/cast_resources_test.gd",
+      "test_sha256": "2bb76b94231993a2e0a9f30d5242df26cd1acc0611445b088bb68ab95af748f8",
+      "log": "logs/cast_resources_test.gd.log",
+      "log_sha256": "a98d8c3a23a0f4d1fd59eae305ee29d7563d273157329aeaea734e40f7bcf9ad",
+      "log_mtime_utc": "2026-09-30T08:18:23.998578+00:00",
+      "phase": "final_prefix_rerun",
+      "summary": "CAST_RESOURCES_TEST failures=0"
+    },
+    {
+      "test": "tests/chair_support_test.gd",
+      "test_sha256": "b4c4727c3e14025d4a3b12a55828800cad51c9c42866e3a2e9986380623e6eef",
+      "log": "logs/chair_support_test.gd.log",
+      "log_sha256": "505e60516b0f38a61b038afeb691313a7219570822795f611d0e3ae0844ca557",
+      "log_mtime_utc": "2026-09-30T08:18:28.842110+00:00",
+      "phase": "final_prefix_rerun",
+      "summary": "CHAIR_SUPPORT_TEST failures=0"
+    },
+    {
+      "test": "tests/chaos_test.gd",
+      "test_sha256": "77941b0cddf0f8f64b923af7af9bef242d7ee0095deefd07bb8468b0d406fc02",
+      "log": "logs/chaos_test.gd.log",
+      "log_sha256": "0e7382f037f20d0698a8445e47a62497f50614733e8016822ad2ef6de3a75e7c",
+      "log_mtime_utc": "2026-09-30T08:18:51.353894+00:00",
+      "phase": "final_prefix_rerun",
+      "summary": "CHAOS_TEST failures=0 simulated_seconds=85"
+    },
+    {
+      "test": "tests/city_activity_save_test.gd",
+      "test_sha256": "6ed3d048794b15b2c4dd168f98921a0f84b9f55dcd66eeb1fa17b2b6dee67976",
+      "log": "logs/city_activity_save_test.gd.log",
+      "log_sha256": "94a8955f333cffdb43f7c27b91f70f02a420a89714c28a0de219c36593642ba6",
+      "log_mtime_utc": "2026-09-30T08:18:54.864081+00:00",
+      "phase": "final_prefix_rerun",
+      "summary": "CITY_ACTIVITY_SAVE_TEST failures=0"
+    },
+    {
+      "test": "tests/city_architecture_test.gd",
+      "test_sha256": "ae6017527e59d44de7fe6f86fe29e701d9363bf1bd1e82bd859c16f05dd1784b",
+      "log": "logs/city_architecture_test.gd.log",
+      "log_sha256": "348e25852459c20211925b7d32a148b591a005939fe283ccd59b437028505f10",
+      "log_mtime_utc": "2026-09-30T08:18:58.042686+00:00",
+      "phase": "final_prefix_rerun",
+      "summary": "CITY_ARCHITECTURE_TEST failures=0 window_bays=226 textures=10 texture_bytes=30758376"
+    },
+    {
+      "test": "tests/city_bookshop_test.gd",
+      "test_sha256": "cd9dd4c852a44711ca9335bd26665d8fc4372163c4d03a7f35b921a5ed5d4395",
+      "log": "logs/city_bookshop_test.gd.log",
+      "log_sha256": "26a6f5aee9a9f5347eb5dd70caaa30d5bbe5420b1328c782283c3867914c2fa8",
+      "log_mtime_utc": "2026-09-30T08:22:00.078454+00:00",
+      "phase": "final_prefix_rerun",
+      "summary": "CITY_BOOKSHOP_TEST failures=0 outcomes={ \"screen\": { \"wait_frames\": 6411, \"participants\": [\"resident_zhou_ning\", \"resident_lin_qiao\", \"resident_wu_fan\"], \"elapsed\": 18.0 }, \"paper\": { \"wait_frames\": 6481, \"participants\": [\"resident_zhou_ning\", \"resident_lin_qiao\", \"resident_wu_fan\"], \"elapsed\": 18.0 }, \"garden\": { \"wait_frames\": 2050, \"participants\": [\"resident_zhou_ning\", \"resident_wu_fan\"], \"elapsed\": 18.0 } }"
+    },
+    {
+      "test": "tests/city_bus_seating_test.gd",
+      "test_sha256": "31022476cfca7bc87ca80f6322ea8784011f471cfd435f0d118b38e972da117f",
+      "log": "logs/city_bus_seating_test.gd.log",
+      "log_sha256": "d8fc7e16da7ea28fac06053ae29bd88733c005db89e8a7bbcb3fa900eab64f20",
+      "log_mtime_utc": "2026-09-30T08:22:06.080604+00:00",
+      "phase": "final_prefix_rerun",
+      "summary": "CITY_BUS_SEATING_TEST failures=0 {\"casual\":[{\"penetration_m\":0.0,\"phase\":0.0,\"seat_triangles\":2068,\"support_gap_m\":0.0273639559745789,\"vertices\":21362,\"worst_mesh\":\"\",\"worst_point\":[0.0,0.0,0.0]},{\"penetration_m\":0.0,\"phase\":0.4,\"seat_triangles\":2068,\"support_gap_m\":0.0273639559745789,\"vertices\":21362,\"worst_mesh\":\"\",\"worst_point\":[0.0,0.0,0.0]},{\"penetration_m\":0.0,\"phase\":2.0,\"seat_triangles\":2068,\"support_gap_m\":0.0273639559745789,\"vertices\":21362,\"worst_mesh\":\"\",\"worst_point\":[0.0,0.0,0.0]},{\"penetration_m\":0.0,\"phase\":3.8,\"seat_triangles\":2068,\"support_gap_m\":0.0273639559745789,\"vertices\":21362,\"worst_mesh\":\"\",\"worst_point\":[0.0,0.0,0.0]}],\"office\":[{\"penetration_m\":0.0,\"phase\":0.0,\"seat_triangles\":2068,\"support_gap_m\":0.00687271356582642,\"vertices\":20902,\"worst_mesh\":\"\",\"worst_point\":[0.0,0.0,0.0]},{\"penetration_m\":0.0,\"phase\":0.4,\"seat_triangles\":2068,\"support_gap_m\":0.00687283277511597,\"vertices\":20902,\"worst_mesh\":\"\",\"worst_point\":[0.0,0.0,0.0]},{\"penetration_m\":0.0,\"phase\":2.0,\"seat_triangles\":2068,\"support_gap_m\":0.00687271356582642,\"vertices\":20902,\"worst_mesh\":\"\",\"worst_point\":[0.0,0.0,0.0]},{\"penetration_m\":0.0,\"phase\":3.8,\"seat_triangles\":2068,\"support_gap_m\":0.00687283277511597,\"vertices\":20902,\"worst_mesh\":\"\",\"worst_point\":[0.0,0.0,0.0]}],\"office_female\":[{\"penetration_m\":0.0,\"phase\":0.0,\"seat_triangles\":2068,\"support_gap_m\":0.000725209712982178,\"vertices\":19621,\"worst_mesh\":\"\",\"worst_point\":[0.0,0.0,0.0]},{\"penetration_m\":0.0,\"phase\":0.4,\"seat_triangles\":2068,\"support_gap_m\":0.000725269317626953,\"vertices\":19621,\"worst_mesh\":\"\",\"worst_point\":[0.0,0.0,0.0]},{\"penetration_m\":0.0,\"phase\":2.0,\"seat_triangles\":2068,\"support_gap_m\":0.000725209712982178,\"vertices\":19621,\"worst_mesh\":\"\",\"worst_point\":[0.0,0.0,0.0]},{\"penetration_m\":0.0,\"phase\":3.8,\"seat_triangles\":2068,\"support_gap_m\":0.000725269317626953,\"vertices\":19621,\"worst_mesh\":\"\",\"worst_point\":[0.0,0.0,0.0]}]}"
+    },
+    {
+      "test": "tests/city_bus_visual_test.gd",
+      "test_sha256": "f321fcd6e505c6b8ff7d4f4c103883b5a3d10753c9ed3b19af6231513ffb00df",
+      "log": "logs/city_bus_visual_test.gd.log",
+      "log_sha256": "976c17d9622be796b29fab0acdafab8bc37af74e694937aa2a5cd1a8ef3ecd8c",
+      "log_mtime_utc": "2026-09-30T08:22:10.278503+00:00",
+      "phase": "final_prefix_rerun",
+      "summary": "CITY_BUS_VISUAL_TEST {\"bad_normals\":0,\"baked_triangles\":70052,\"degenerate\":0,\"failures\":0,\"lods\":95,\"maximum_driver_palm_error\":0.000000961096020546393,\"vehicle_triangles\":74160,\"wheel_cover_rays\":28}"
+    },
+    {
+      "test": "tests/city_car_visual_test.gd",
+      "test_sha256": "12a8531b9dae055593126a30d171a202fbc57f6b8ce0861a2f9463524098b732",
+      "log": "logs/city_car_visual_test.gd.log",
+      "log_sha256": "224f61602b4432dba6a03d293ba26e20609b988e665e29096e20de88adacdebf",
+      "log_mtime_utc": "2026-09-30T08:22:15.529708+00:00",
+      "phase": "final_prefix_rerun",
+      "summary": "CITY_CAR_VISUAL_TEST {\"bad_normals\":0,\"baked_triangles\":78040,\"degenerate\":0,\"driver_leg_difference_m\":0.0,\"failures\":0,\"inward_triangles\":0,\"lods\":82,\"maximum_driver_palm_error_m\":0.00000786781311035156,\"natural_blend_leg_difference_m\":0.0,\"seating\":{\"casual\":{\"lowest_foot_m\":0.123613491654396,\"penetration_m\":0.0,\"seat_triangles\":2172,\"support_gap_m\":0.002372145652771,\"vertices\":21362,\"worst_point\":[0.0,0.0,0.0]},\"protagonist\":{\"lowest_foot_m\":0.113939210772514,\"penetration_m\":0.0,\"seat_triangles\":2172,\"support_gap_m\":0.0215502977371216,\"vertices\":28993,\"worst_point\":[0.0,0.0,0.0]}},\"wheel_cover_rays\":24}"
+    },
+    {
+      "test": "tests/city_commons_save_test.gd",
+      "test_sha256": "3ef6aab95d90c3c5d6ac34284a51a9233dca5f6b7fe2b07fea303d41d788d47b",
+      "log": "logs/city_commons_save_test.gd.log",
+      "log_sha256": "45413cf5dc8fc1d32a23de6162598448757701fb0cf1e65d0e7ff52d56011db9",
+      "log_mtime_utc": "2026-09-30T08:22:19.653657+00:00",
+      "phase": "final_prefix_rerun",
+      "summary": "CITY_COMMONS_SAVE_TEST failures=0 corruptions=17 legacy_versions=17"
+    },
+    {
+      "test": "tests/city_commons_test.gd",
+      "test_sha256": "f65e1fb20b2c2e6a3802276957960b2f716abf5b480ad31880d93e913ec7e054",
+      "log": "logs/city_commons_test.gd.log",
+      "log_sha256": "a5eb598348f7393062ff1777de3114aba9eeb8fb6ee212598495670a55e7f9b6",
+      "log_mtime_utc": "2026-09-30T08:24:12.110998+00:00",
+      "phase": "final_prefix_rerun",
+      "summary": "CITY_COMMONS_TEST failures=0 benches={ \"commons_west_0\": true, \"commons_east_0\": true, \"commons_west_1\": true, \"commons_east_1\": true, \"commons_north_0\": true, \"commons_north_1\": true } seated=11 left=11 walking_distance=7406.8103773538 max_walking_step=0.02767585963011 bus_transfers=15 reading=true pairs=true natural_contacts=[\"casual\", \"office_female\", \"office\"] contacts={ \"casual\": true, \"office_female\": true, \"office\": true } palm_error=0.00000095553514"
+    },
+    {
+      "test": "tests/city_controls_test.gd",
+      "test_sha256": "26bc4f6807390bd422f85d51f89b2d0ad0671c4be04c539a39851ef8ace132e3",
+      "log": "logs/city_controls_test.gd.log",
+      "log_sha256": "a946a7b91b93e4c729c044e9c1dc171cf100bd61ca214adf1ad418a416d1d9f1",
+      "log_mtime_utc": "2026-09-30T08:24:16.128551+00:00",
+      "phase": "final_prefix_rerun",
+      "summary": "CITY_CONTROLS_TEST failures=0"
+    },
+    {
+      "test": "tests/city_crossing_flow_test.gd",
+      "test_sha256": "5f04c72cc75b2eae43041c7877a8ed7c8611ccfac431753f4a296e85c8d0c06a",
+      "log": "logs/city_crossing_flow_test.gd.log",
+      "log_sha256": "86d8acb1bf16024d88bbe8c52c11f141398830b962143d62bbdcbe4307f45a42",
+      "log_mtime_utc": "2026-09-30T08:24:21.576847+00:00",
+      "phase": "final_prefix_rerun",
+      "summary": "CITY_CROSSING_FLOW_TEST failures=0 data={\"homes\":{\"both_cleared\":true,\"max_step\":0.026765912771225,\"minimum_separation\":0.753563106060028,\"traffic_released\":true,\"vehicle_overlap_samples\":0},\"market\":{\"both_cleared\":true,\"max_step\":0.026765912771225,\"minimum_separation\":0.753563106060028,\"traffic_released\":true,\"vehicle_overlap_samples\":0},\"office\":{\"both_cleared\":true,\"max_step\":0.0267645865678787,\"minimum_separation\":0.753569781780243,\"traffic_released\":true,\"vehicle_overlap_samples\":0},\"waterfront\":{\"both_cleared\":true,\"max_step\":0.0267665721476078,\"minimum_separation\":0.753571271896362,\"traffic_released\":true,\"vehicle_overlap_samples\":0}}"
+    },
+    {
+      "test": "tests/city_crossings_test.gd",
+      "test_sha256": "0f34383972643f915dee634604e1f5dc2a46da04cdf15e1ef84446d400b74f76",
+      "log": "logs/city_crossings_test.gd.log",
+      "log_sha256": "a9a8b53676358edbbaa837b0d7e4b7b81d833786c5ab9ad4815378c1dd46ecb1",
+      "log_mtime_utc": "2026-09-30T08:24:32.801144+00:00",
+      "phase": "final_prefix_rerun",
+      "summary": "CITY_CROSSINGS_TEST failures=0 stop=true restored=true crossed=true released=true vehicle_interval=true bus_stop=true bus_release=true late_bus_clearance=true"
+    },
+    {
+      "test": "tests/city_day_cycle_test.gd",
+      "test_sha256": "e44e60bf293c54ec62542bed69575c92a0fc07beadbfba2893df6c96445634f1",
+      "log": "logs/city_day_cycle_test.gd.log",
+      "log_sha256": "6741b6c63b8863973c04642c05bb26a2c01a96f3e52fa1b3e5852927d5083821",
+      "log_mtime_utc": "2026-09-30T08:24:36.445917+00:00",
+      "phase": "final_prefix_rerun",
+      "summary": "CITY_DAY_CYCLE_TEST failures=0 rest_cases=7 legacy_versions=20 malformed_cases=5"
+    },
+    {
+      "test": "tests/city_daylight_test.gd",
+      "test_sha256": "bfa3417e2d6956f855e02b786d790ba84f62d1f614d1e66cf116ce97a4c33652",
+      "log": "logs/city_daylight_test.gd.log",
+      "log_sha256": "59276986d42a4b915729cb94456181c8d05aabf8274b6b0e5c5b8be44f560fe2",
+      "log_mtime_utc": "2026-09-30T08:24:39.970700+00:00",
+      "phase": "final_prefix_rerun",
+      "summary": "CITY_DAYLIGHT_TEST failures=0 minute_samples=1440 pause_restore_cases=9 max_sun_step=0.01349499821663 max_sky_step=0.01718075200915 visual_acceptance=separate"
+    },
+    {
+      "test": "tests/city_driving_test.gd",
+      "test_sha256": "9239411f6753764eeed122b78b537cb972993ecd3d52918a51647783ade32b03",
+      "log": "logs/city_driving_test.gd.log",
+      "log_sha256": "a40f81b47d6e3d2c0f9b0f832406eacb0a1d999ba945b71f21eb81fc99c23ee8",
+      "log_mtime_utc": "2026-09-30T08:24:45.162531+00:00",
+      "phase": "final_prefix_rerun",
+      "summary": "CITY_DRIVING_TEST failures=0 acceleration_distances=[17.9998512268066, 17.9998664855957, 17.9998550415039] max_palm_error_mm=0.00786510372563"
+    },
+    {
+      "test": "tests/city_evening_cycle_test.gd",
+      "test_sha256": "89435c35bad18f54199c6cd6bed9d7fb4a31e03370342cb01caf194109b55220",
+      "log": "logs/city_evening_cycle_test.gd.log",
+      "log_sha256": "2fbc02667973c81405085d4b8e285df3c0b869718881765892526cccbf46d7df",
+      "log_mtime_utc": "2026-09-30T08:25:55.569436+00:00",
+      "phase": "final_prefix_rerun",
+      "summary": "CITY_EVENING_CYCLE_TEST failures=0 data={\"clock_advanced_normally\":true,\"end_minute\":1310,\"independent_player_acceptance\":false,\"max_step\":0.0383396819233894,\"metres\":1229.40861144289,\"normal_fps_measured\":false,\"observed\":{\"a_friend\":{\"bookshop\":1176,\"returned\":1288,\"waterfront\":1242},\"a_group\":{\"garden\":1165,\"returned\":1287,\"waterfront\":1226},\"b_friend\":{\"garden\":1226,\"returned\":1279,\"waterfront\":1174}},\"start_minute\":1138,\"vehicle_overlap_samples\":0}"
+    },
+    {
+      "test": "tests/city_evening_save_test.gd",
+      "test_sha256": "2f1837facf2509295d4c4b103ef5cefd670217dfdb0a13e78ad4f1d52a842ce9",
+      "log": "logs/city_evening_save_test.gd.log",
+      "log_sha256": "63ba59509ae3dc74544faf680a30c4feeddfa61f0a48798caa76326f981ab7eb",
+      "log_mtime_utc": "2026-09-30T08:25:58.678617+00:00",
+      "phase": "final_prefix_rerun",
+      "summary": "CITY_EVENING_SAVE_TEST failures=0 legacy=19 current=25 invalid_crossings=6"
+    },
+    {
+      "test": "tests/city_evening_test.gd",
+      "test_sha256": "4057af66d745a8c6271f79bb99abbce6551f224cd2a8c4f4496d7bc7a1ef0065",
+      "log": "logs/city_evening_test.gd.log",
+      "log_sha256": "dd712c1f2f8d4973509b5a66e322cf20a3ddfbd0fc5e150379b0b82a13e3daf8",
+      "log_mtime_utc": "2026-09-30T08:27:15.096529+00:00",
+      "phase": "final_prefix_rerun",
+      "summary": "CITY_EVENING_TEST failures=0 routes=13"
+    },
+    {
+      "test": "tests/city_frontages_test.gd",
+      "test_sha256": "5d2990da88139645c6db8f7d748972fde15090c2919e60dad8411d122e56bc73",
+      "log": "logs/city_frontages_test.gd.log",
+      "log_sha256": "13670682e5db02b606ac484b6f88bac3576b2cca16dc78ec5857a12b88ed1d42",
+      "log_mtime_utc": "2026-09-30T08:16:53.531795+00:00",
+      "phase": "full_suite_suffix",
+      "summary": "CITY_FRONTAGES_TEST failures=0 textures=19 texture_bytes=20971800 models={\"industrial_wall_lamp\":{\"lod_surfaces\":10,\"triangles\":4446},\"plastic_crate_01\":{\"lod_surfaces\":0,\"triangles\":10206},\"potted_plant_02\":{\"lod_surfaces\":12,\"triangles\":12408},\"rollershutter_door\":{\"lod_surfaces\":3,\"triangles\":552}} old_positions=3 actors=2"
+    },
+    {
+      "test": "tests/city_home_save_test.gd",
+      "test_sha256": "860425a5ed2258a9694172f5c1d7c79941e9819ec4956c0fa2ed0fc23d8f5a54",
+      "log": "logs/city_home_save_test.gd.log",
+      "log_sha256": "0eb232a5e4e38311797dc569fed3df59f88aa3774dcf0a29ae779110aa47ef12",
+      "log_mtime_utc": "2026-09-30T08:16:58.284974+00:00",
+      "phase": "full_suite_suffix",
+      "summary": "CITY_HOME_SAVE_TEST failures=0"
+    },
+    {
+      "test": "tests/city_home_seating_test.gd",
+      "test_sha256": "8527dd648de1509bff81795745a051133efb6d7e6d640315c07b56508468b6b8",
+      "log": "logs/city_home_seating_test.gd.log",
+      "log_sha256": "b0e966a93874fe21610ad0354e53071861c477d7db57c31e57b94eb8261689cc",
+      "log_mtime_utc": "2026-09-30T08:17:02.662015+00:00",
+      "phase": "full_suite_suffix",
+      "summary": "CITY_HOME_SEATING_TEST failures=0"
+    },
+    {
+      "test": "tests/city_home_test.gd",
+      "test_sha256": "e9d7fc5c9a4a2831ee91e129e52bcb7d28130b6ab21315be0f608517c9d6ecdc",
+      "log": "logs/city_home_test.gd.log",
+      "log_sha256": "3535c357d407b4433948a899312044ed8c8aecce81a81a9d2f2725ba41b88b1b",
+      "log_mtime_utc": "2026-09-30T08:17:09.277865+00:00",
+      "phase": "full_suite_suffix",
+      "summary": "CITY_HOME_TEST failures=0"
+    },
+    {
+      "test": "tests/city_meal_contact_test.gd",
+      "test_sha256": "446a8357e123b78a1377290d48956b7b4ff8e58cff78e1c4ec31fcc22ea3f5b9",
+      "log": "logs/city_meal_contact_test.gd.log",
+      "log_sha256": "185fc223d1f23bbf9974fe044676e52bf6da99d3360d07c73237364d0f7f489a",
+      "log_mtime_utc": "2026-09-30T08:17:12.769547+00:00",
+      "phase": "full_suite_suffix",
+      "summary": "CITY_MEAL_CONTACT_TEST failures=0 {\"a_friend\":{\"contact_error\":0.00000191107028513215,\"skin_error\":0.0000496002321597189,\"worst\":{\"face\":[0.0122709274291992,1.67182004451752,-0.0660667419433594],\"frame\":70,\"palm\":[0.0210561752319336,1.38100063800812,-0.245277404785156],\"side\":\"R\",\"target\":[0.0210561752319336,1.38100051879883,-0.245279312133789]}},\"player\":{\"contact_error\":0.00000192219204109279,\"skin_error\":0.0000477313769806642,\"worst\":{\"face\":[0.0219640731811523,1.61535251140594,-0.0869941711425781],\"frame\":83,\"palm\":[0.0129222869873047,1.44015789031982,-0.303306579589844],\"side\":\"R\",\"target\":[0.0129222869873047,1.44015765190125,-0.303304672241211]}},\"resident_chen_yu\":{\"contact_error\":0.00000192219204109279,\"skin_error\":0.0000495916392537765,\"worst\":{\"face\":[0.0122709274291992,1.67182004451752,-0.0660667419433594],\"frame\":70,\"palm\":[0.0210564136505127,1.38100075721741,-0.245277404785156],\"side\":\"R\",\"target\":[0.0210564136505127,1.38100051879883,-0.245279312133789]}},\"resident_xu_hang\":{\"contact_error\":0.00000196604992197535,\"skin_error\":0.0000495841850352008,\"worst\":{\"face\":[0.00926542282104492,1.67471194267273,-0.0533256530761719],\"frame\":171,\"palm\":[0.000438213348388672,1.47926914691925,-0.275104522705078],\"side\":\"R\",\"target\":[0.000438690185546875,1.47926914691925,-0.275102615356445]}},\"resident_zhao_lin\":{\"contact_error\":0.00000213248063118954,\"skin_error\":0.0000496002321597189,\"worst\":{\"face\":[0.0127735137939453,1.67275714874268,-0.0681610107421875],\"frame\":182,\"palm\":[0.0212373733520508,1.38134038448334,-0.246036529541016],\"side\":\"R\",\"target\":[0.0212383270263672,1.38134038448334,-0.246038436889648]}},\"vendor\":{\"contact_error\":0.00000136961045882344,\"outside_pot_frames\":0}}"
+    },
+    {
+      "test": "tests/city_meals_save_test.gd",
+      "test_sha256": "946aeb6337702fe2c77be1fd3231e3a8b556276b88819fa7cfeab403586a0945",
+      "log": "logs/city_meals_save_test.gd.log",
+      "log_sha256": "dc487d71700d089c09a6862dabb8966e45f303a5d5b4085d807610106491ca40",
+      "log_mtime_utc": "2026-09-30T08:17:16.411557+00:00",
+      "phase": "full_suite_suffix",
+      "summary": "CITY_MEALS_SAVE_TEST failures=0"
+    },
+    {
+      "test": "tests/city_meals_social_test.gd",
+      "test_sha256": "7dbe95da838687ee68692d97ec7148c8511f66183187278fc7898b018f813ede",
+      "log": "logs/city_meals_social_test.gd.log",
+      "log_sha256": "b742d71e2489d545375feb63c2a38ae8ab6f1fdc2496037621317c7f8f40dc0e",
+      "log_mtime_utc": "2026-09-30T08:17:49.901639+00:00",
+      "phase": "full_suite_suffix",
+      "summary": "CITY_MEALS_SOCIAL_TEST failures=0 metres=72.5649431534111 maximum=0.03833712264895 stages=[\"queued\", \"ready\", \"carrying\", \"eating\"]"
+    },
+    {
+      "test": "tests/city_meals_test.gd",
+      "test_sha256": "c29673bde75e5c0fd211cd3b7715b6f75599efe31aa3840f5c045682c3194327",
+      "log": "logs/city_meals_test.gd.log",
+      "log_sha256": "32b5f17c60a57ba0d624f630a6ae8889940691eb9f7846fdf59c26ffa2e4fc3b",
+      "log_mtime_utc": "2026-09-30T08:18:17.427488+00:00",
+      "phase": "full_suite_suffix",
+      "summary": "CITY_MEALS_TEST failures=0"
+    },
+    {
+      "test": "tests/city_nature_test.gd",
+      "test_sha256": "74879a342053a3e89e833e91af2974cb38a4063d9a4e109a1a7d679dbe549757",
+      "log": "logs/city_nature_test.gd.log",
+      "log_sha256": "0d801438f335b792d0c73ab9c757127d5c7c8ac648e56169d40df82ee9b52ae1",
+      "log_mtime_utc": "2026-09-30T08:18:21.590856+00:00",
+      "phase": "full_suite_suffix",
+      "summary": "CITY_NATURE_TEST failures=0 triangles=[297834, 160239, 100716] texture_bytes=36350808 textures=12"
+    },
+    {
+      "test": "tests/city_outing_save_test.gd",
+      "test_sha256": "fbd787ba130c33841512819b964f0837fdbfb16b8e974f3cc10658a9a1d87001",
+      "log": "logs/city_outing_save_test.gd.log",
+      "log_sha256": "75f55b2f9fd2f450128bbdc83494af2dff2dac377a0b421df3230cd6ffeabea6",
+      "log_mtime_utc": "2026-09-30T08:18:28.999962+00:00",
+      "phase": "full_suite_suffix",
+      "summary": "CITY_OUTING_SAVE_TEST failures=0"
+    },
+    {
+      "test": "tests/city_outing_test.gd",
+      "test_sha256": "3f9095a87c17d6e0552b7121876b1a5044e0f776d6b7ded82c8cc6b3398e0d0a",
+      "log": "logs/city_outing_test.gd.log",
+      "log_sha256": "ce26e0faf3b87d40d680a70c3d296dc3f4661fda2d1144da011f0055cf1e59da",
+      "log_mtime_utc": "2026-09-30T08:20:25.667809+00:00",
+      "phase": "full_suite_suffix",
+      "summary": "CITY_OUTING_TEST failures=0"
+    },
+    {
+      "test": "tests/city_passengers_save_test.gd",
+      "test_sha256": "b19e71c44e74c10dbfdf0b1b60a55183a7a6889b9261d1958d9f9f1cfd63b3de",
+      "log": "logs/city_passengers_save_test.gd.log",
+      "log_sha256": "19451f9819d484d833e67a216c0be7a9d23f82d83669ed19bf33ef5e54dcff93",
+      "log_mtime_utc": "2026-09-30T08:20:31.693482+00:00",
+      "phase": "full_suite_suffix",
+      "summary": "CITY_PASSENGERS_SAVE_TEST failures=0 public_seats=5 bad_cases=17 legacy_versions=22 platforms=4 floor_top=0.3999999910593 minimum_foot_bone_clearance=0.07746221125126"
+    },
+    {
+      "test": "tests/city_passengers_test.gd",
+      "test_sha256": "fb51a12e0616ee1c986952dc5b9103bea81aab1601179c19a2a3dd00283e9c96",
+      "log": "logs/city_passengers_test.gd.log",
+      "log_sha256": "bce774e704833d3fa381f75c854cee7a7196b0e0417a846ed67b47d14ac45c8d",
+      "log_mtime_utc": "2026-09-30T08:21:41.868352+00:00",
+      "phase": "full_suite_suffix",
+      "summary": "CITY_PASSENGERS_TEST {\"arrived_original_goal\":true,\"clock\":620,\"failures\":0,\"final\":[-93.5076675415039,-0.00415945611894131,57.6267166137695],\"invalid_json_samples\":0,\"max_ground_y_step\":0.0666086082346737,\"max_walk_xz_step\":0.026336744427681,\"riding_saved\":true,\"states\":[\"activity\",\"walking\",\"waiting\",\"riding\",\"activity\"],\"waiting_saved\":true,\"walked_metres\":29.4144229721278}"
+    },
+    {
+      "test": "tests/city_places_test.gd",
+      "test_sha256": "8d40eb8cbccd9b57ac95652a00dcdf34750a6f47b7b0e8eed28ce5c3b9b127b5",
+      "log": "logs/city_places_test.gd.log",
+      "log_sha256": "24489447cdcd8e9235482ab9072cfc9a46cd995595e8114273c03b71c9f443cc",
+      "log_mtime_utc": "2026-09-30T08:21:54.670680+00:00",
+      "phase": "full_suite_suffix",
+      "summary": "CITY_PLACES_TEST failures=0"
+    },
+    {
+      "test": "tests/city_population_test.gd",
+      "test_sha256": "0f5cb37b9a046f58ddf37d21327ea5890bb7a1d5cb96b9cf0920aab53e64f583",
+      "log": "logs/city_population_test.gd.log",
+      "log_sha256": "ece27a8cd08ccd6f7bfc53fc1d427a8de9f96ad84bdef9359f89415d379b063e",
+      "log_mtime_utc": "2026-09-30T08:22:57.433851+00:00",
+      "phase": "full_suite_suffix",
+      "summary": "CITY_POPULATION_TEST failures=0 crossings={ \"market\": 10, \"homes\": 1, \"waterfront\": 3 } traffic_distance=[1663.83385591605, 1523.87011345062, 1403.91702623233] visited={ \"resident_zhou_ning\": [\"commons_west_0\", \"reading_west\"], \"resident_chen_yu\": [\"reading_center\", \"commons_west_0\"], \"resident_liang_bo\": [\"commons_east_0\", \"office\"], \"resident_lin_qiao\": [\"office\", \"market\"], \"resident_xu_hang\": [\"bus_office_0\", \"market\", \"commons_east_1\"], \"resident_song_an\": [\"bus_waterfront_0\", \"commons_west_1\", \"commons_west_0\"], \"resident_he_yue\": [\"bus_waterfront_1\", \"commons_west_0\", \"reading_west\"], \"resident_wu_fan\": [\"reading_center\", \"commons_east_0\"], \"resident_zhao_lin\": [\"commons_east_0\", \"office\", \"market\"], \"resident_tang_ke\": [\"office\", \"market\"], \"resident_lu_yang\": [\"market\", \"commons_west_1\"], \"resident_su_wan\": [\"bus_waterfront_2\", \"commons_east_0\", \"commons_west_1\"] }"
+    },
+    {
+      "test": "tests/city_residents_test.gd",
+      "test_sha256": "5000b74d35a0c981a9a125113359ee13093cf243a6264b597eb337d72dff5c6a",
+      "log": "logs/city_residents_test.gd.log",
+      "log_sha256": "d5863edd540389a0ed3d8f4fc34c385701d31a30526bfd30fa5016a93590df94",
+      "log_mtime_utc": "2026-09-30T08:23:02.469762+00:00",
+      "phase": "full_suite_suffix",
+      "summary": "CITY_RESIDENTS_TEST failures=0"
+    },
+    {
+      "test": "tests/city_response_routes_test.gd",
+      "test_sha256": "acb111dbe325746e1fd92d70246ce784ab2c2b9f25d27221f15c709338798543",
+      "log": "logs/city_response_routes_test.gd.log",
+      "log_sha256": "2b7fa090c4671b223e7b22f4d6aa1e5f9af0b560345ead5b67f32a59fb3c201a",
+      "log_mtime_utc": "2026-09-30T08:23:56.511652+00:00",
+      "phase": "full_suite_suffix",
+      "summary": "CITY_RESPONSE_ROUTES_TEST failures=0 routes={\"bookshop\":{\"max_step_m\":0.0300025604665279,\"received\":true,\"traffic_released\":false,\"traffic_stopped\":false,\"walked_m\":246.776760401204},\"homes\":{\"max_step_m\":0.0300036501139402,\"received\":true,\"traffic_released\":true,\"traffic_stopped\":true,\"walked_m\":203.518516339362},\"market\":{\"max_step_m\":0.0300025623291731,\"received\":true,\"traffic_released\":true,\"traffic_stopped\":true,\"walked_m\":204.116560708731},\"waterfront\":{\"max_step_m\":0.0300027877092361,\"received\":true,\"traffic_released\":true,\"traffic_stopped\":true,\"walked_m\":142.016339154914}}"
+    },
+    {
+      "test": "tests/city_response_save_test.gd",
+      "test_sha256": "4c31e19daae513b45559f5a98a2d9174c91e13444dccb71b0c37f457f64c9de2",
+      "log": "logs/city_response_save_test.gd.log",
+      "log_sha256": "bef4684eb1c9ab47d94eb1b8310d4180412d17af454d1724b79d561429491235",
+      "log_mtime_utc": "2026-09-30T08:23:59.815300+00:00",
+      "phase": "full_suite_suffix",
+      "summary": "CITY_RESPONSE_SAVE_TEST failures=0 invalid_cases=19 legacy_versions=15"
+    },
+    {
+      "test": "tests/city_response_test.gd",
+      "test_sha256": "cdda8f33d690a8eff1c1da8c591f881dd02eacc92b1a9a4d1993b150ec17b1bc",
+      "log": "logs/city_response_test.gd.log",
+      "log_sha256": "d2d63a6d32e64e91a84b21ea6d1791ec39ee8830816165ec68541f6ad5d2c31c",
+      "log_mtime_utc": "2026-09-30T08:24:16.138447+00:00",
+      "phase": "full_suite_suffix",
+      "summary": "CITY_RESPONSE_TEST failures=0 carried=true received=true max_step=0.03000256232917 queued_cases=1"
+    },
+    {
+      "test": "tests/city_share_performance_test.gd",
+      "test_sha256": "5ff373b82c082f2da0297c7c44de64da709ee9c8a647b4ec2781e9547ff3a926",
+      "log": "logs/city_share_performance_test.gd.log",
+      "log_sha256": "33492d11ecd0a58999edf0aa27d725c632606587374e5b0f0602aa44b57a4c62",
+      "log_mtime_utc": "2026-09-30T08:25:20.015641+00:00",
+      "phase": "full_suite_suffix",
+      "summary": "CITY_SHARE_PERFORMANCE_TEST failures=0 metrics={\"garden\":{\"max_hand_step_m\":0.0,\"palm_error_m\":0.0,\"skin_depth_m\":0.0,\"turns\":[{\"narrator\":\"resident_zhou_ning\",\"page\":0,\"time\":1.4,\"turn\":0.0},{\"narrator\":\"resident_zhou_ning\",\"page\":0,\"time\":5.6,\"turn\":0.0},{\"narrator\":\"resident_lin_qiao\",\"page\":0,\"time\":7.4,\"turn\":0.0},{\"narrator\":\"resident_lin_qiao\",\"page\":0,\"time\":11.6,\"turn\":0.0},{\"narrator\":\"resident_wu_fan\",\"page\":0,\"time\":13.4,\"turn\":0.0}]},\"paper\":{\"max_hand_step_m\":0.0299831982702017,\"palm_error_m\":0.00000853075562190497,\"skin_depth_m\":0.000953295305371284,\"turns\":[{\"narrator\":\"resident_zhou_ning\",\"page\":0,\"time\":1.4,\"turn\":0.0},{\"narrator\":\"resident_zhou_ning\",\"page\":0,\"time\":5.6,\"turn\":0.499999999999999},{\"narrator\":\"resident_lin_qiao\",\"page\":1,\"time\":7.4,\"turn\":0.0},{\"narrator\":\"resident_lin_qiao\",\"page\":1,\"time\":11.6,\"turn\":0.499999999999999},{\"narrator\":\"resident_wu_fan\",\"page\":2,\"time\":13.4,\"turn\":0.0}]},\"screen\":{\"max_hand_step_m\":0.0,\"palm_error_m\":0.0,\"skin_depth_m\":0.0,\"turns\":[{\"narrator\":\"resident_zhou_ning\",\"page\":0,\"time\":1.4,\"turn\":0.0},{\"narrator\":\"resident_zhou_ning\",\"page\":0,\"time\":5.6,\"turn\":0.0},{\"narrator\":\"resident_lin_qiao\",\"page\":0,\"time\":7.4,\"turn\":0.0},{\"narrator\":\"resident_lin_qiao\",\"page\":0,\"time\":11.6,\"turn\":0.0},{\"narrator\":\"resident_wu_fan\",\"page\":0,\"time\":13.4,\"turn\":0.0}]}}"
+    },
+    {
+      "test": "tests/city_soundscape_test.gd",
+      "test_sha256": "cb93d1e5c9f323f83b47d3d855f2cc19fd0975e0cb4a68f8bbaee313ffec8042",
+      "log": "logs/city_soundscape_test.gd.log",
+      "log_sha256": "3c57209a876ef60685cecc5ddf970b511a074cb6612800dca4235bbed6520a1f",
+      "log_mtime_utc": "2026-09-30T08:25:24.640753+00:00",
+      "phase": "full_suite_suffix",
+      "summary": "CITY_SOUND_SCENE steps={ \"stone\": 2, \"carpet\": 2, \"wood\": 2, \"grass\": 2 } failures=0"
+    },
+    {
+      "test": "tests/city_story_save_test.gd",
+      "test_sha256": "df5f33642464afa6d49f5e0d11288ab82c503ffbb64fb55ed1b977748f01126c",
+      "log": "logs/city_story_save_test.gd.log",
+      "log_sha256": "29e34ca245c5c242e0934f84028e8d8475c60fef44563b776aa398506c56501a",
+      "log_mtime_utc": "2026-09-30T08:25:27.820305+00:00",
+      "phase": "full_suite_suffix",
+      "summary": "CITY_STORY_SAVE_TEST failures=0"
+    },
+    {
+      "test": "tests/city_story_walk_test.gd",
+      "test_sha256": "b6f2f5c63ddde4f822f84fccb67fce794cc3b1381ae3fbe4c71915d85d6c8c20",
+      "log": "logs/city_story_walk_test.gd.log",
+      "log_sha256": "c9e79c9e13341c01ceeaaa2d48e5302e9b2e1d30c4ab67f99a81f1ce57ca46ba",
+      "log_mtime_utc": "2026-09-30T08:26:20.316906+00:00",
+      "phase": "full_suite_suffix",
+      "summary": "CITY_STORY_WALK_TEST failures=0"
+    },
+    {
+      "test": "tests/city_streets_test.gd",
+      "test_sha256": "1a72986ed639615337e19d0478a67f98c88b8175b48ea1d664d489263ae295ed",
+      "log": "logs/city_streets_test.gd.log",
+      "log_sha256": "41121b3ccb911b77f03dce98d3b08ce4a5d6c3aef62727dfe9ea14411df79041",
+      "log_mtime_utc": "2026-09-30T08:26:23.445326+00:00",
+      "phase": "full_suite_suffix",
+      "summary": "CITY_STREETS_TEST failures=0 instances=15976 batches=660 lights=27 public_links=51 deterministic_buffers=GPU_tool_required"
+    },
+    {
+      "test": "tests/city_traffic_test.gd",
+      "test_sha256": "953c6dbfbc212d0c05eaa7a4c1125691750862ffb1b9f18faa6836a094a9018c",
+      "log": "logs/city_traffic_test.gd.log",
+      "log_sha256": "cdbd12956aa923279c2dde2484cbfd3b4cf6204a3d6ffbf8c0075ad0d918e825",
+      "log_mtime_utc": "2026-09-30T08:26:29.672642+00:00",
+      "phase": "full_suite_suffix",
+      "summary": "CITY_TRAFFIC_TEST failures=0 travelled_m=[482.519987184684, 726.356713358293, 610.185722421411] overlaps=0"
+    },
+    {
+      "test": "tests/city_transit_test.gd",
+      "test_sha256": "c389115714bac31fff2424dda97876201aeb3926d659f5a4c391c640d51acbb0",
+      "log": "logs/city_transit_test.gd.log",
+      "log_sha256": "c3a528b799281752486be43835525e80b22ee7826b8dabc19533d0189dbe0a49",
+      "log_mtime_utc": "2026-09-30T08:26:39.366376+00:00",
+      "phase": "full_suite_suffix",
+      "summary": "CITY_TRANSIT_TEST failures=0 route_m=482.229614257812 stops=[2, 3, 0]"
+    },
+    {
+      "test": "tests/city_urban_test.gd",
+      "test_sha256": "515c1ffab58959e058f847446f63e6bf416ae120c45bdd221ae5248c3be28e58",
+      "log": "logs/city_urban_test.gd.log",
+      "log_sha256": "ceddcabad493bac72995eef94dc9ee73737a9e84021e74ff16148535bd21dbb1",
+      "log_mtime_utc": "2026-09-30T08:26:46.845779+00:00",
+      "phase": "full_suite_suffix",
+      "summary": "CITY_URBAN_TEST failures=0"
+    },
+    {
+      "test": "tests/company_batches_test.gd",
+      "test_sha256": "62795688ffbfecc54a596e9aca52a7c81a8c19b91bfde89b1ce4897dcc9653b0",
+      "log": "logs/company_batches_test.gd.log",
+      "log_sha256": "e822b802ae572b72b7e688fd707bfd64ae038f530c6e0dbdfa4269984b98c3ea",
+      "log_mtime_utc": "2026-09-30T08:26:47.196413+00:00",
+      "phase": "full_suite_suffix",
+      "summary": "COMPANY_BATCHES_TEST failures=0"
+    },
+    {
+      "test": "tests/company_spaces_test.gd",
+      "test_sha256": "7b749596d1b882668f38239539cfba5fb0fd785e55472ad9b100eb135d35afa9",
+      "log": "logs/company_spaces_test.gd.log",
+      "log_sha256": "24886ca6960c831bdbc9fcaa4bd15991ff1b0efd1f4313c16ebb6626a074638b",
+      "log_mtime_utc": "2026-09-30T08:26:50.192340+00:00",
+      "phase": "full_suite_suffix",
+      "summary": "COMPANY_SPACES_TEST failures=0"
+    },
+    {
+      "test": "tests/consequence_test.gd",
+      "test_sha256": "e7c4989127bcf965850d957c3056cc2e55b6f3fb82ee8b2954bad4f87abc6ca0",
+      "log": "logs/consequence_test.gd.log",
+      "log_sha256": "35821e61af45604a56853ae65f918f9b72fef1392a9d66f49f8fe100211b0ab0",
+      "log_mtime_utc": "2026-09-30T08:26:50.445546+00:00",
+      "phase": "full_suite_suffix",
+      "summary": "CONSEQUENCE_TEST failures=0"
+    },
+    {
+      "test": "tests/daily_routine_test.gd",
+      "test_sha256": "20a8dce98c80b5b7ee4377017f03decbe981a88cc84ceb16c7938af03ed4b62b",
+      "log": "logs/daily_routine_test.gd.log",
+      "log_sha256": "ab1e92166eb0f777cea86a469574756c63c491546d6e3eea1e2c34f778767c62",
+      "log_mtime_utc": "2026-09-30T08:27:09.244950+00:00",
+      "phase": "full_suite_suffix",
+      "summary": "DAILY_ROUTINE_TEST failures=0"
+    },
+    {
+      "test": "tests/destruction_test.gd",
+      "test_sha256": "4295ef1c5089dfd4d2f2ded71da268683cf7cb2d4ba1c128aa4b851c906ea8f4",
+      "log": "logs/destruction_test.gd.log",
+      "log_sha256": "1d301494a5aca318b38a445b2328c67bd66d369517bf64314a4857af915e541d",
+      "log_mtime_utc": "2026-09-30T08:27:12.541802+00:00",
+      "phase": "full_suite_suffix",
+      "summary": "DESTRUCTION_TEST failures=0"
+    },
+    {
+      "test": "tests/dialogue_scene_test.gd",
+      "test_sha256": "0095832ec50baa7853836dcc3ee255463c2682e9960647445dcfbe056dada13d",
+      "log": "logs/dialogue_scene_test.gd.log",
+      "log_sha256": "10e757a171e71407bb83ee4c6d32c21b1c92b22584ca368ebd19a954c7f261c1",
+      "log_mtime_utc": "2026-09-30T08:27:15.625913+00:00",
+      "phase": "full_suite_suffix",
+      "summary": "DIALOGUE_SCENE_TEST failures=0"
+    },
+    {
+      "test": "tests/environment_assets_test.gd",
+      "test_sha256": "15369186ac35c08ce70e69af24b551bc56164c54ae79ad9463d88bac47c5a1d8",
+      "log": "logs/environment_assets_test.gd.log",
+      "log_sha256": "c8d927a7a20783958b112e21c9d1859b71070568f9d71b19f26f6514bb6d1c1c",
+      "log_mtime_utc": "2026-09-30T08:27:18.679843+00:00",
+      "phase": "full_suite_suffix",
+      "summary": "ENVIRONMENT_ASSETS_TEST failures=0"
+    },
+    {
+      "test": "tests/full_route_test.gd",
+      "test_sha256": "a66101b71427b355d45096ce75a31704a15734da20116cb45180767c2a6d11f5",
+      "log": "logs/full_route_test.gd.log",
+      "log_sha256": "570bf22a506d1ab3ceab54e165f82bd5eeb77605421748f0a201722c3de5ffc9",
+      "log_mtime_utc": "2026-09-30T08:28:10.817828+00:00",
+      "phase": "full_suite_suffix",
+      "summary": "FULL_ROUTE_TEST failures=0"
+    },
+    {
+      "test": "tests/gait_test.gd",
+      "test_sha256": "b30d787f055940f5df05873877a1ab0c20cb556416b875a3c6342261b6ac3fcb",
+      "log": "logs/gait_test.gd.log",
+      "log_sha256": "d78fd4994b471c24e156f9b49e73fed8c64e1db86c4a2d57d30f90ada20469fb",
+      "log_mtime_utc": "2026-09-30T08:28:12.065370+00:00",
+      "phase": "full_suite_suffix",
+      "summary": "GAIT_TEST failures=0"
+    },
+    {
+      "test": "tests/guidance_test.gd",
+      "test_sha256": "2336e8f6f588c1fe729906742c7ea6656f7d8052e9cfa9a3d842dcb23c28a305",
+      "log": "logs/guidance_test.gd.log",
+      "log_sha256": "0a671c122fdd19adf5dff8db65e8edf58d9b972b7a83985571aa6d559920a99e",
+      "log_mtime_utc": "2026-09-30T08:28:15.111910+00:00",
+      "phase": "full_suite_suffix",
+      "summary": "GUIDANCE_TEST failures=0"
+    },
+    {
+      "test": "tests/hand_contact_test.gd",
+      "test_sha256": "3f77fe06a7b478109ab386019f91d50e9b6d9f8e8aca418b53022d3c7e809be8",
+      "log": "logs/hand_contact_test.gd.log",
+      "log_sha256": "731a67c0bfae2df72fed944f3d9504f34ce9eb54cb761b0456aef067fd8bde99",
+      "log_mtime_utc": "2026-09-30T08:28:19.136281+00:00",
+      "phase": "full_suite_suffix",
+      "summary": "HAND_CONTACT_TEST measurements={\"a_cheng\":{\"reach_error_m\":0.000000256369276030455,\"skin_error_m\":0.0000183501797437202},\"casual\":{\"reach_error_m\":0.000000359176709707754,\"skin_error_m\":0.0000372489703295287},\"held/badge\":{\"max_support_penetration_m\":0.0,\"skin_error_m\":0.00203399197198451},\"held/cup\":{\"max_support_penetration_m\":0.0,\"skin_error_m\":0.00203399197198451},\"held/keyboard\":{\"max_support_penetration_m\":0.0,\"skin_error_m\":0.00203399197198451},\"held/monitor\":{\"max_support_penetration_m\":0.0,\"skin_error_m\":0.0020341114141047},\"interview_b/box_message\":{\"max_sample_displacement_m\":0.0160876493901014,\"skin_error_m\":0.0000237702242884552},\"interview_b/phone_reply\":{\"max_sample_displacement_m\":0.0112689230591059,\"skin_error_m\":0.0000238659849856049},\"interview_boss/phone_reply\":{\"max_sample_displacement_m\":0.0126111255958676,\"skin_error_m\":0.0000478081274195574},\"interview_lead/phone_reply\":{\"max_sample_displacement_m\":0.0126111255958676,\"skin_error_m\":0.0000478081274195574},\"lin_lan\":{\"reach_error_m\":0.000000184317187290617,\"skin_error_m\":0.0000331870651280042},\"office\":{\"reach_error_m\":0.000000359176709707754,\"skin_error_m\":0.0000372489703295287},\"office_female\":{\"reach_error_m\":0.000000359176709707754,\"skin_error_m\":0.0000372489703295287},\"protagonist\":{\"reach_error_m\":0.0000003698370960592,\"skin_error_m\":0.0000358850884367712}} failures=0"
+    },
+    {
+      "test": "tests/hit_reaction_test.gd",
+      "test_sha256": "9251eded9d0ad9ce638c751d62e0d80acfe94e753a2ad4c68431d428b9ba4d36",
+      "log": "logs/hit_reaction_test.gd.log",
+      "log_sha256": "8a60a8ba25d677a908cce004c02da3447899dcb462d77e3f177163059c731678",
+      "log_mtime_utc": "2026-09-30T08:28:22.302914+00:00",
+      "phase": "full_suite_suffix",
+      "summary": "HIT_REACTION_TEST failures=0"
+    },
+    {
+      "test": "tests/intake_test.gd",
+      "test_sha256": "75078e3c99f7deb92a56bbfcb3794fbc37a7e7cc79476728e9aad7d1496d0a3b",
+      "log": "logs/intake_test.gd.log",
+      "log_sha256": "0facc7d1a1580d7be1463424bedf2da3fb6988f2352009e37c1cc753fc615b31",
+      "log_mtime_utc": "2026-09-30T08:28:25.305223+00:00",
+      "phase": "full_suite_suffix",
+      "summary": "INTAKE_TEST failures=0"
+    },
+    {
+      "test": "tests/interaction_test.gd",
+      "test_sha256": "76e57bd8622abd1d8cdff7bcfb8c130a45e196d48c0ddc7cea24c14863890805",
+      "log": "logs/interaction_test.gd.log",
+      "log_sha256": "1ea188f6d4d7bb425deebe16ce07c65b22cf8eb52b00d951cbc226347047208d",
+      "log_mtime_utc": "2026-09-30T08:28:39.090226+00:00",
+      "phase": "full_suite_suffix",
+      "summary": "INTERACTION_TEST failures=0"
+    },
+    {
+      "test": "tests/interruption_test.gd",
+      "test_sha256": "367a260d168c738c371ec95d5a4b385686119fb8bcb1f53ad83244e924ae7f58",
+      "log": "logs/interruption_test.gd.log",
+      "log_sha256": "7c90414fb76c7b698a592b093251248b087184042332bc3c60cf38751dac3132",
+      "log_mtime_utc": "2026-09-30T08:28:42.458980+00:00",
+      "phase": "full_suite_suffix",
+      "summary": "INTERRUPTION_TEST failures=0"
+    },
+    {
+      "test": "tests/interview_call_test.gd",
+      "test_sha256": "49be849fa1f534eb259e8a72799909840fb22a5fb055002903c6b0014aa257f9",
+      "log": "logs/interview_call_test.gd.log",
+      "log_sha256": "2573114de9a59324a831f12dd506d8b7d151da632596a20f57a463badf886293",
+      "log_mtime_utc": "2026-09-30T08:28:50.257366+00:00",
+      "phase": "full_suite_suffix",
+      "summary": "INTERVIEW_CALL_TEST failures=0"
+    },
+    {
+      "test": "tests/interview_content_test.gd",
+      "test_sha256": "e825e63907d8c921194aa34fa9430fdff97f6df043bf4c251f0c2c6cc0a0d5fc",
+      "log": "logs/interview_content_test.gd.log",
+      "log_sha256": "36657e952b8bd7957a73c637cdb44c6cc3bf6a3f698cd972818df0c7d504fc79",
+      "log_mtime_utc": "2026-09-30T08:28:53.321911+00:00",
+      "phase": "full_suite_suffix",
+      "summary": "INTERVIEW_CONTENT_TEST failures=0"
+    },
+    {
+      "test": "tests/interview_performance_test.gd",
+      "test_sha256": "2e1c877f02636b84dea9d9d502549e30a76bcdbb54427cdbb142b054eb476482",
+      "log": "logs/interview_performance_test.gd.log",
+      "log_sha256": "e628ef1592da29d90722c01b4ba00d865819f65000e0e248cccf1f2dcfeb3e5c",
+      "log_mtime_utc": "2026-09-30T08:28:57.583611+00:00",
+      "phase": "full_suite_suffix",
+      "summary": "INTERVIEW_PERFORMANCE_TEST failures=0"
+    },
+    {
+      "test": "tests/interview_test.gd",
+      "test_sha256": "bee0e298478b6c765f87c534bcc5d955062b53d20b98a5998bb4f06404dee73a",
+      "log": "logs/interview_test.gd.log",
+      "log_sha256": "13ff858dfe646f8d83f7a8c929ce42906d4dba11bf1496487350b23855b65485",
+      "log_mtime_utc": "2026-09-30T08:29:10.638220+00:00",
+      "phase": "full_suite_suffix",
+      "summary": "INTERVIEW_TEST failures=0"
+    },
+    {
+      "test": "tests/inventory_test.gd",
+      "test_sha256": "c50cb8242da9087905ca5f82336da3e8d40cf9dd9b60d2a07ca5d0b5968c2c24",
+      "log": "logs/inventory_test.gd.log",
+      "log_sha256": "78e6219071603cd2988f963d33255d00c74977e00fe0193ad72d8f644039fa4c",
+      "log_mtime_utc": "2026-09-30T08:29:14.517922+00:00",
+      "phase": "full_suite_suffix",
+      "summary": "INVENTORY_TEST failures=0"
+    },
+    {
+      "test": "tests/locomotion_blend_test.gd",
+      "test_sha256": "c3ccfffffe0c736b225afcef652bd58793f59ce6640c8d1aa14c54768361faed",
+      "log": "logs/locomotion_blend_test.gd.log",
+      "log_sha256": "4e19e98841af388f91055157211dc0dac27e43297d19ae43b9f100f124fecbb1",
+      "log_mtime_utc": "2026-09-30T08:29:15.810803+00:00",
+      "phase": "full_suite_suffix",
+      "summary": "LOCOMOTION_BLEND_TEST failures=0 transitions=120 max_phase_error=0.0"
+    },
+    {
+      "test": "tests/locomotion_test.gd",
+      "test_sha256": "21cc55a012a5b15a53f8cdca80a9ecf06b73f9c0447d7a2cedf6b8889b8e35d8",
+      "log": "logs/locomotion_test.gd.log",
+      "log_sha256": "b7e6220e9f5240048ad12e42f32c4441fd39c00dfa3e61d0b51f2d0d95c068c0",
+      "log_mtime_utc": "2026-09-30T08:29:19.299596+00:00",
+      "phase": "full_suite_suffix",
+      "summary": "LOCOMOTION_TEST failures=0"
+    },
+    {
+      "test": "tests/mouse_capture_test.gd",
+      "test_sha256": "16007065a736814cd6edd70e51cb57289278ff4dd4f327083a3c8e6bbf4238ba",
+      "log": "logs/mouse_capture_test.gd.log",
+      "log_sha256": "2c873323ddbc0e7ac49f2dfa6c941a8988c0476441cf8708fc8ee3b4b0731c96",
+      "log_mtime_utc": "2026-09-30T08:29:22.273197+00:00",
+      "phase": "full_suite_suffix",
+      "summary": "MOUSE_CAPTURE_TEST failures=0"
+    },
+    {
+      "test": "tests/negotiation_follow_test.gd",
+      "test_sha256": "e7a85999c62a399a09d2c3f6ebd5174c7ca4ccf39c8029ab0a5e3cc2817cfc9a",
+      "log": "logs/negotiation_follow_test.gd.log",
+      "log_sha256": "ec8e49e07dea967c078688500051520bab6736432ff709ec42533a15cb0ad492",
+      "log_mtime_utc": "2026-09-30T08:29:26.040392+00:00",
+      "phase": "full_suite_suffix",
+      "summary": "NEGOTIATION_FOLLOW_TEST failures=0"
+    },
+    {
+      "test": "tests/nonlethal_care_test.gd",
+      "test_sha256": "afc9cf46813225caa5ac3e3b6cc85e7359002cbc2fbdf947c9d2737951269d26",
+      "log": "logs/nonlethal_care_test.gd.log",
+      "log_sha256": "6c1175567839867fcb903f96ae597f59aa2f0940fb635df957102789483a1335",
+      "log_mtime_utc": "2026-09-30T08:29:30.714977+00:00",
+      "phase": "full_suite_suffix",
+      "summary": "NONLETHAL_CARE_TEST failures=0"
+    },
+    {
+      "test": "tests/npc_lifecycle_test.gd",
+      "test_sha256": "87181ed26116f0b0462f38c9de68eb62409fc3ac99636c1de6fa08c31791aa5f",
+      "log": "logs/npc_lifecycle_test.gd.log",
+      "log_sha256": "f87c8caf8318e2927e57487bcf0f1a1e7f29189e19506b46774eb42a64e91720",
+      "log_mtime_utc": "2026-09-30T08:29:40.607037+00:00",
+      "phase": "full_suite_suffix",
+      "summary": "NPC_LIFECYCLE_TEST failures=0"
+    },
+    {
+      "test": "tests/office_life_test.gd",
+      "test_sha256": "c166e71554de8b723e645e368c07925c509c8059f02a29e9842a1e639475f921",
+      "log": "logs/office_life_test.gd.log",
+      "log_sha256": "b9098d0e2b013de78ae335f77f314c481b95bcede3b2a0e1d151fb14db41721f",
+      "log_mtime_utc": "2026-09-30T08:29:50.118858+00:00",
+      "phase": "full_suite_suffix",
+      "summary": "OFFICE_LIFE_TEST failures=0"
+    },
+    {
+      "test": "tests/onboarding_test.gd",
+      "test_sha256": "5bef00d218bc1fd839ad29a5c99c172c8f339f6012a8aaa3f32a53b7770e9c98",
+      "log": "logs/onboarding_test.gd.log",
+      "log_sha256": "11bb3f6720ca4835eb305c58dbed02ee6e554b9c225a6183748affce6100589b",
+      "log_mtime_utc": "2026-09-30T08:29:55.719090+00:00",
+      "phase": "full_suite_suffix",
+      "summary": "ONBOARDING_TEST failures=0"
+    },
+    {
+      "test": "tests/page_controls_test.gd",
+      "test_sha256": "18edb6ef979d28818895c321967d6fa603fcbe23b905a04886d2e3b8bd34c336",
+      "log": "logs/page_controls_test.gd.log",
+      "log_sha256": "344313ad03dbf0141919810dfbd43a0e34889a9767371d0e4b59e5771109c1e1",
+      "log_mtime_utc": "2026-09-30T08:29:59.110059+00:00",
+      "phase": "full_suite_suffix",
+      "summary": "PAGE_CONTROLS_TEST failures=0"
+    },
+    {
+      "test": "tests/panels_test.gd",
+      "test_sha256": "2c4843b3285658286b68c29d8d88df42c49bf71fefb4676288be37121e55a90e",
+      "log": "logs/panels_test.gd.log",
+      "log_sha256": "0aaa8a855ece811441f12b549284c65ee030fe134fe7772aca96fe798f6aa2d3",
+      "log_mtime_utc": "2026-09-30T08:30:02.395096+00:00",
+      "phase": "full_suite_suffix",
+      "summary": "PANELS_TEST failures=0"
+    },
+    {
+      "test": "tests/payroll_test.gd",
+      "test_sha256": "38db8989d9fb26b62f5baaafeb1e67a5f4ee3c99fee17c4d0a35386cc14e4757",
+      "log": "logs/payroll_test.gd.log",
+      "log_sha256": "e0bb3bc85780df88a1b3f69faff1daa5797bc6a7f2f5012a0de09867694d0200",
+      "log_mtime_utc": "2026-09-30T08:30:02.635284+00:00",
+      "phase": "full_suite_suffix",
+      "summary": "PAYROLL_TEST failures=0"
+    },
+    {
+      "test": "tests/presentation_test.gd",
+      "test_sha256": "b2414b5de3796eca531be70c6d0aa956aac89f0139225fcf3ef4248af48fd651",
+      "log": "logs/presentation_test.gd.log",
+      "log_sha256": "17260a12eff7e57252a29eac508385c16e6846b96a9817f1bdef521711a2fd3b",
+      "log_mtime_utc": "2026-09-30T08:30:06.687343+00:00",
+      "phase": "full_suite_suffix",
+      "summary": "PRESENTATION_TEST failures=0"
+    },
+    {
+      "test": "tests/promises_test.gd",
+      "test_sha256": "2ff5636ddeac69a86db11ba8c902da3eba6418e7910c726507b3917b4221f56c",
+      "log": "logs/promises_test.gd.log",
+      "log_sha256": "02a4447b184a00f150b1d5d277eda8e30c0d3027af18db6854a14ace369c3223",
+      "log_mtime_utc": "2026-09-30T08:30:09.875174+00:00",
+      "phase": "full_suite_suffix",
+      "summary": "PROMISES_TEST failures=0"
+    },
+    {
+      "test": "tests/props_expansion_test.gd",
+      "test_sha256": "9e072dd3116cdec0799c023aa47c7a12d2b5f427515e1b0a9fc1ecb86c5a7c13",
+      "log": "logs/props_expansion_test.gd.log",
+      "log_sha256": "416c051081baf6e650eee613fd5286250deed39f4c6912f4dfe014cf4a8f58cf",
+      "log_mtime_utc": "2026-09-30T08:30:12.939000+00:00",
+      "phase": "full_suite_suffix",
+      "summary": "PROPS_EXPANSION_TEST failures=0 props=114"
+    },
+    {
+      "test": "tests/recruitment_test.gd",
+      "test_sha256": "d5471d8381fc2d9b8a3025ecdac2b25a057aaefa47011a82343b90557ee78135",
+      "log": "logs/recruitment_test.gd.log",
+      "log_sha256": "b806d9f1f6180857ece0059a90fd806b462593305250441e4bacd2ef4076f554",
+      "log_mtime_utc": "2026-09-30T08:30:16.002054+00:00",
+      "phase": "full_suite_suffix",
+      "summary": "RECRUITMENT_TEST failures=0"
+    },
+    {
+      "test": "tests/relationships_test.gd",
+      "test_sha256": "eb6531c5cee8251c71f775e20c808d2470a692a6ef5b235dc2a81e1b2d3828d3",
+      "log": "logs/relationships_test.gd.log",
+      "log_sha256": "819e97ceaf9e24909764ddfcc4c6ae60bdef91b25ca8239a229bb020c90fe9e6",
+      "log_mtime_utc": "2026-09-30T08:30:19.224809+00:00",
+      "phase": "full_suite_suffix",
+      "summary": "RELATIONSHIPS_TEST failures=0"
+    },
+    {
+      "test": "tests/rooms_test.gd",
+      "test_sha256": "c606a72ce69cc64a4a71e94c68fa728e0ee70600730373cefa1830a315aea3cc",
+      "log": "logs/rooms_test.gd.log",
+      "log_sha256": "e8451b8c7a140dfc71e35878832d0084337eda6628a0a7e6676858bb6b5d4036",
+      "log_mtime_utc": "2026-09-30T08:30:28.910522+00:00",
+      "phase": "full_suite_suffix",
+      "summary": "ROOMS_TEST failures=0"
+    },
+    {
+      "test": "tests/save_test.gd",
+      "test_sha256": "bf531c611ce8525c0d732ccb2b9f9b78e9a7c4595c4c17096a53b6cea2ef3926",
+      "log": "logs/save_test.gd.log",
+      "log_sha256": "c0338e61ea3b0515d35c74d3e8ab867ca738cdf807fe27a1c86e97e8d3391f0a",
+      "log_mtime_utc": "2026-09-30T08:30:32.318517+00:00",
+      "phase": "full_suite_suffix",
+      "summary": "SAVE_TEST failures=0"
+    },
+    {
+      "test": "tests/schedule_test.gd",
+      "test_sha256": "1e4264d0c27eb121cb2053895ec2b459aed627935f6c50a19b60c7a48994f04c",
+      "log": "logs/schedule_test.gd.log",
+      "log_sha256": "fc125fdff08986f1b45d7a8440cb42bede150f0add4e8d15566b61dc9ef7787d",
+      "log_mtime_utc": "2026-09-30T08:30:39.472247+00:00",
+      "phase": "full_suite_suffix",
+      "summary": "SCHEDULE_TEST failures=0"
+    },
+    {
+      "test": "tests/seating_test.gd",
+      "test_sha256": "4d080f53208be65dae16fdf2a15bbfff75fabddcfe895caa087b75c5fd727e8d",
+      "log": "logs/seating_test.gd.log",
+      "log_sha256": "5bdbc92906a8044c4fd973c4e80c4ee612ea589a740b9bcdac74e7410cf76fdb",
+      "log_mtime_utc": "2026-09-30T08:30:42.871509+00:00",
+      "phase": "full_suite_suffix",
+      "summary": "SEATING_TEST failures=0"
+    },
+    {
+      "test": "tests/social_test.gd",
+      "test_sha256": "d5990a5ee7caa52ab72a055230291b5b3d36bfcf5d8375559157dccfe8bf2e33",
+      "log": "logs/social_test.gd.log",
+      "log_sha256": "3995670760b96ce71a26765f6eb8b6cd4bce3a4923f339e79f5e81e8fb9632f0",
+      "log_mtime_utc": "2026-09-30T08:30:45.862021+00:00",
+      "phase": "full_suite_suffix",
+      "summary": "SOCIAL_TEST failures=0"
+    },
+    {
+      "test": "tests/staffing_test.gd",
+      "test_sha256": "bc86dfc5c2bdca00328331c911bf2036ec16c65a18bb93e43a1eead135179c93",
+      "log": "logs/staffing_test.gd.log",
+      "log_sha256": "9f77c5dce4c2112e7be607a6c966b70fc663b5a3dadc2bde48aa533a600407be",
+      "log_mtime_utc": "2026-09-30T08:30:48.829368+00:00",
+      "phase": "full_suite_suffix",
+      "summary": "STAFFING_TEST failures=0"
+    },
+    {
+      "test": "tests/version_import_test.gd",
+      "test_sha256": "79bf2ae371abfa4127335208889f56e6e0251b813bca84c84674369e60a2ff3e",
+      "log": "logs/version_import_test.gd.log",
+      "log_sha256": "17c3da53a584cde1401a8b7ff286595a354b0ce0f2d1b702ddfae9042fe8c172",
+      "log_mtime_utc": "2026-09-30T08:30:51.794111+00:00",
+      "phase": "full_suite_suffix",
+      "summary": "VERSION_IMPORT_TEST failures=0"
+    },
+    {
+      "test": "tests/visual_test.gd",
+      "test_sha256": "5e0f95119a26cba39b53316a0ba2f32bd7bcc2975e7df78e097ca427693005b9",
+      "log": "logs/visual_test.gd.log",
+      "log_sha256": "95c79851cfc41419e0c1fcd4552ec37d10bdf663c288d2d4bae1af4352276446",
+      "log_mtime_utc": "2026-09-30T08:30:52.718961+00:00",
+      "phase": "full_suite_suffix",
+      "summary": "VISUAL_TEST failures=0"
+    },
+    {
+      "test": "tests/work_handover_save_test.gd",
+      "test_sha256": "ce45c5616a3fcf3bc2af5f8614394eea48d5872fcb9a52398e245f22adedfb17",
+      "log": "logs/work_handover_save_test.gd.log",
+      "log_sha256": "fbbcdcda05d4f2fee6ea3338283592be818fe32011f07e036a3a111934016cba",
+      "log_mtime_utc": "2026-09-30T08:31:04.820085+00:00",
+      "phase": "full_suite_suffix",
+      "summary": "WORK_HANDOVER_SAVE_TEST failures=0 invalid_cases=24 legacy_versions=23 legacy_work_branches=3"
+    },
+    {
+      "test": "tests/work_handover_test.gd",
+      "test_sha256": "08bd0e35cc0b972d7401afd8353ecff6a4a6f7f803773d81f9d2cddf4536a469",
+      "log": "logs/work_handover_test.gd.log",
+      "log_sha256": "1db203ae251c018c8bea135e4b7010b761e99c039947fb68e863a775e82d681f",
+      "log_mtime_utc": "2026-09-30T08:32:22.736175+00:00",
+      "phase": "full_suite_suffix",
+      "summary": "WORK_HANDOVER_TEST failures=0 metres=254.13368845731 max_step=0.03834230080247 palm_error=0.01635194942355 contact_samples=7020"
+    },
+    {
+      "test": "tests/work_projects_test.gd",
+      "test_sha256": "20396a499f85a5f563726514e83a6b71ba1a3b85e5daeadcdd69e96f60399667",
+      "log": "logs/work_projects_test.gd.log",
+      "log_sha256": "e9d415c5a318727ca40db6d4207ec209a506535f06b62dbca46e9a780419439b",
+      "log_mtime_utc": "2026-09-30T08:32:27.192029+00:00",
+      "phase": "full_suite_suffix",
+      "summary": "WORK_PROJECTS_TEST failures=0"
+    },
+    {
+      "test": "tests/work_scene_test.gd",
+      "test_sha256": "23123d3ec763a5563e8c1635bd9c627107dc50a91e4be0c959aded90fb4b4240",
+      "log": "logs/work_scene_test.gd.log",
+      "log_sha256": "bbe6b4a2b4afd6e05e6ecccf32e60418022fbf3d58ef4284e78fbf90f1afd6a0",
+      "log_mtime_utc": "2026-09-30T08:32:32.224553+00:00",
+      "phase": "full_suite_suffix",
+      "summary": "WORK_SCENE_TEST failures=0"
+    },
+    {
+      "test": "tests/world_test.gd",
+      "test_sha256": "6653b5fce15caf60fcacf497da372feded9dc9c896fbdc95968dea4fdd8d4a98",
+      "log": "logs/world_test.gd.log",
+      "log_sha256": "72d156abb66718df9d3f87e879728bb751b4601ca5405031b00d564075d5ef6a",
+      "log_mtime_utc": "2026-09-30T08:32:38.136647+00:00",
+      "phase": "full_suite_suffix",
+      "summary": "WORLD_TEST failures=0"
+    }
+  ]
+}

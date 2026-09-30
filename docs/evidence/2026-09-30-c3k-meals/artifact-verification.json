@@ -1,0 +1,23 @@
+{
+  "checked_utc": "2026-09-30T08:32:20.437711+00:00",
+  "checks": {
+    "source_inputs_equal": true,
+    "source_sha_equal": true,
+    "inner_outer_manifest_equal": true,
+    "pck_hash_equal": true,
+    "signed_engine_hash_equal": true,
+    "zip_hash_equal": true,
+    "zip_crc_valid": true,
+    "signature_valid": true
+  },
+  "build": "build/baselines/20260930T081633230268Z-f5ad5886-b58fe7c6",
+  "zip": "build/baselines/20260930T081633230268Z-f5ad5886-b58fe7c6/今天不上班-macOS-0.5.0.zip",
+  "zip_sha256": "adf9e17b82b4535322993dc71a699fdee824d11bab7a9127e796c4a50456f71e",
+  "runtime_source_sha256": "b58fe7c6700caf2179c8c2af711681061495f2efa3cd1d9924b3f8c9ece0de5c",
+  "packaged_runtime_sha256": "5178630803cd070e6dd8aced511b5958e105fcd10b726a6c48880c76fe9593e7",
+  "codesign_stdout": "",
+  "codesign_stderr": "",
+  "manifest_original_runtime_dirty": true,
+  "manifest_original_validation": "not_yet_verified",
+  "scope": "artifact identity and integrity, not player experience or sustained performance"
+}

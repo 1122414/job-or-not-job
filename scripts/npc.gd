@@ -65,6 +65,8 @@ func _ready() -> void:
 	add_child(visual)
 	visual.animation.mixer_applied.connect(func(): game.interviews.update_phone_contact(self))
 	visual.animation.mixer_applied.connect(func(): game.handover.contact(self))
+	visual.animation.mixer_applied.connect(func():
+		if game.meals: game.meals.scene.apply(self))
 	if not visual.cast_id.is_empty():
 		capsule.height=visual.standing_height
 		body_shape.position.y=capsule.height*0.5
@@ -173,6 +175,9 @@ func _physics_process(delta: float) -> void:
 		elif (visit_wait>0 or game.speaker==self) and not (role_id=="b_friend" and game.career.b_event=="negotiating"): target=position
 		var social_target: Variant=game.social.npc_target(self)
 		if social_target!=null: target=social_target
+		if game.meals:
+			var meal_target: Variant=game.meals.npc_target(self)
+			if meal_target!=null: target=meal_target
 		var introduction: Variant=game.onboarding.npc_target(self)
 		if introduction!=null: target=introduction
 		var meeting: Variant=game.interviews.host_target(self)
@@ -234,6 +239,9 @@ func _physics_process(delta: float) -> void:
 		var facing: Vector3 = game.player.global_position-global_position if distance<5 else Vector3(0,0,1)
 		var public_focus: Variant=CityEvening.facing(self)
 		if public_focus!=null: facing=public_focus-global_position
+		if game.meals:
+			var meal_facing: Variant=game.meals.facing(self)
+			if meal_facing!=null: facing=meal_facing-global_position
 		if game.handover.owns(self) and game.speaker!=self: facing=game.handover.station().position-global_position
 		visual.rotation.y=lerp_angle(visual.rotation.y,atan2(-facing.x,-facing.z),delta*4)
 	update_body_pose()

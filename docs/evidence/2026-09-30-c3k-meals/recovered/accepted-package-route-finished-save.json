@@ -1,0 +1,18 @@
+{
+	"all_meal_fields_equal": true,
+	"balance": 1200.0,
+	"orders": {
+		"orders": {},
+		"queue": [],
+		"served": {
+			"resident_chen_yu": 0.0,
+			"resident_xu_hang": 0.0,
+			"resident_zhao_lin": 0.0
+		}
+	},
+	"paused": true,
+	"persistence": false,
+	"source": "/Users/geminchen/My-Item/job-or-not-job/build/c3k/accepted-package-route/finished-save.json",
+	"version": 25.0,
+	"world_valid": true
+}

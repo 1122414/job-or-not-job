@@ -85,6 +85,7 @@ func report(person: CityResident,reporter: String) -> bool:
 	if person.available() or pending(person) or resting(person) or game.passengers and game.passengers.aboard(person): return false
 	if reporter!="player" and person_for(reporter)==null: return false
 	if game.commons: game.commons.release(person)
+	if game.meals: game.meals.cancel(person.stable_id)
 	sequence+=1
 	cases[person.stable_id]={"phase":"queued","reporter":reporter,"order":sequence,"helped":reporter=="player"}
 	game.career.record("public_help_"+person.stable_id+"_"+str(sequence),person.title.split(" · ")[0]+"的街区现场已报告，救助人员将沿路到场。")

@@ -1,0 +1,169 @@
+{
+	"actors": {
+		"resident_chen_yu": {
+			"activity_left": 0.0,
+			"apologized": false,
+			"conversations": 0,
+			"crossing": "",
+			"destination": "office",
+			"down": 0.0,
+			"fear": 0.0,
+			"from_node": "south",
+			"hits": 0,
+			"hp": 100,
+			"journey": 2,
+			"met": false,
+			"phase": 0,
+			"position": [
+				-9.00863075256348,
+				-0.00410831067711115,
+				17.6819324493408
+			],
+			"route": [
+				"office"
+			],
+			"state": "walking",
+			"visits": [
+				"meal_queue_0",
+				"meal_table_0"
+			],
+			"witnessed": 0,
+			"yaw": 1.56534039974213
+		},
+		"resident_tang_ke": {
+			"activity_left": 2.0,
+			"apologized": false,
+			"conversations": 0,
+			"crossing": "",
+			"destination": "meal_vendor",
+			"down": 0.0,
+			"fear": 0.0,
+			"from_node": "meal_vendor",
+			"hits": 0,
+			"hp": 100,
+			"journey": 1,
+			"met": false,
+			"phase": 0,
+			"position": [
+				9.96362209320068,
+				-0.00488931639119983,
+				15.3966941833496
+			],
+			"route": [],
+			"state": "activity",
+			"visits": [
+				"meal_vendor"
+			],
+			"witnessed": 0,
+			"yaw": -0.0260398406535387
+		},
+		"resident_xu_hang": {
+			"activity_left": 0.0,
+			"apologized": false,
+			"conversations": 0,
+			"crossing": "",
+			"destination": "commons_west_0",
+			"down": 0.0,
+			"fear": 0.0,
+			"from_node": "meal_walk_1",
+			"hits": 0,
+			"hp": 100,
+			"journey": 2,
+			"met": false,
+			"phase": 0,
+			"position": [
+				5.0852484703064,
+				-0.0708065330982208,
+				17.9416465759277
+			],
+			"route": [
+				"meal_walk_0",
+				"south",
+				"commons_south",
+				"commons_west_hub",
+				"commons_west_0"
+			],
+			"state": "walking",
+			"visits": [
+				"meal_queue_1",
+				"meal_table_1"
+			],
+			"witnessed": 0,
+			"yaw": 1.17363667488098
+		},
+		"resident_zhao_lin": {
+			"activity_left": 0.0,
+			"apologized": false,
+			"conversations": 0,
+			"crossing": "",
+			"destination": "meal_table_2",
+			"down": 0.0,
+			"fear": 0.0,
+			"from_node": "meal_table_2",
+			"hits": 0,
+			"hp": 100,
+			"journey": 2,
+			"met": false,
+			"phase": 0,
+			"position": [
+				15.9652652740479,
+				-0.00460813893005252,
+				19.9631996154785
+			],
+			"route": [],
+			"state": "activity",
+			"visits": [
+				"meal_queue_2",
+				"meal_table_2"
+			],
+			"witnessed": 0,
+			"yaw": -3.10810256004333
+		}
+	},
+	"events": {
+		"resident_chen_yu": [
+			"queued",
+			"ready",
+			"carrying",
+			"eating"
+		],
+		"resident_xu_hang": [
+			"queued",
+			"ready",
+			"carrying",
+			"eating"
+		],
+		"resident_zhao_lin": [
+			"queued",
+			"ready",
+			"carrying",
+			"eating"
+		]
+	},
+	"largest": {
+		"from": "(14.76262, -0.004038, 15.37427)",
+		"id": "resident_zhao_lin",
+		"order": {
+			"cents": 0,
+			"cooked": 8.0,
+			"eaten": 0.0,
+			"item": "soup",
+			"slot": 2,
+			"stage": "ready",
+			"window": 0
+		},
+		"state": "walking",
+		"step": 0.0721794739365578,
+		"to": "(14.73498, -0.070705, 15.37301)",
+		"trip": {}
+	},
+	"orders": {
+		"orders": {},
+		"queue": [],
+		"served": {
+			"resident_chen_yu": 0,
+			"resident_xu_hang": 0,
+			"resident_zhao_lin": 0
+		}
+	}
+}

@@ -1,0 +1,53 @@
+{
+  "route_fields_equal_except_save_directory": true,
+  "image_pairs": [
+    {
+      "name": "approach-stall.png",
+      "source_sha256": "ec2884123542e7049ed799c01fb0072fdef1bc9c5d7f91116341f28ac3f5239b",
+      "package_sha256": "ec2884123542e7049ed799c01fb0072fdef1bc9c5d7f91116341f28ac3f5239b",
+      "same_bytes": true
+    },
+    {
+      "name": "carrying.png",
+      "source_sha256": "ccbec3481389ff0e0760132193545647e6fd665451d4c639e436f0be03a04cf9",
+      "package_sha256": "ccbec3481389ff0e0760132193545647e6fd665451d4c639e436f0be03a04cf9",
+      "same_bytes": true
+    },
+    {
+      "name": "eating.png",
+      "source_sha256": "4c7808fe1675062e3810b1683dba44131d8fa064de661c319b7d4a0cbb881fc0",
+      "package_sha256": "4c7808fe1675062e3810b1683dba44131d8fa064de661c319b7d4a0cbb881fc0",
+      "same_bytes": true
+    },
+    {
+      "name": "finished.png",
+      "source_sha256": "b76c3e1925e1d8a7adca23820f641e3da6a08044237ee9027e35cde17d4a8379",
+      "package_sha256": "b76c3e1925e1d8a7adca23820f641e3da6a08044237ee9027e35cde17d4a8379",
+      "same_bytes": true
+    },
+    {
+      "name": "meal-interrupted.png",
+      "source_sha256": "f36670942167f6dc83e1932ded56f4ccd0e07502c9de56d875fe6541f0c3d432",
+      "package_sha256": "f36670942167f6dc83e1932ded56f4ccd0e07502c9de56d875fe6541f0c3d432",
+      "same_bytes": true
+    },
+    {
+      "name": "open-menu.png",
+      "source_sha256": "470f63e59dfb8e0593457833ca469232e8bcd04fc579b76ae77b04c9cf7dc7bd",
+      "package_sha256": "470f63e59dfb8e0593457833ca469232e8bcd04fc579b76ae77b04c9cf7dc7bd",
+      "same_bytes": true
+    },
+    {
+      "name": "queued.png",
+      "source_sha256": "aa7f630825614caf820a9f1ac5314b08cee609734a720261f83b4c4c2f820f1a",
+      "package_sha256": "aa7f630825614caf820a9f1ac5314b08cee609734a720261f83b4c4c2f820f1a",
+      "same_bytes": true
+    },
+    {
+      "name": "ready-while-away.png",
+      "source_sha256": "f45b78013812bb4902d048967c8c8387419e7bca33825c63fd428daa328b2be8",
+      "package_sha256": "f45b78013812bb4902d048967c8c8387419e7bca33825c63fd428daa328b2be8",
+      "same_bytes": true
+    }
+  ]
+}

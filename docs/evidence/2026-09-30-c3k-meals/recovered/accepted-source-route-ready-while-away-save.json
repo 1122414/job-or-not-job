@@ -1,0 +1,57 @@
+{
+	"all_meal_fields_equal": true,
+	"balance": 1200.0,
+	"orders": {
+		"orders": {
+			"player": {
+				"cents": 1200.0,
+				"cooked": 8.0,
+				"eaten": 0.0,
+				"item": "soup",
+				"slot": 4.0,
+				"stage": "ready",
+				"window": 0.0
+			},
+			"resident_chen_yu": {
+				"cents": 0.0,
+				"cooked": 8.0,
+				"eaten": 11.3333333333335,
+				"item": "noodles",
+				"slot": 0.0,
+				"stage": "eating",
+				"window": 0.0
+			},
+			"resident_xu_hang": {
+				"cents": 0.0,
+				"cooked": 8.0,
+				"eaten": 3.94999999999999,
+				"item": "soup",
+				"slot": 1.0,
+				"stage": "eating",
+				"window": 0.0
+			},
+			"resident_zhao_lin": {
+				"cents": 0.0,
+				"cooked": 8.0,
+				"eaten": 1.86666666666666,
+				"item": "soup",
+				"slot": 2.0,
+				"stage": "eating",
+				"window": 0.0
+			}
+		},
+		"queue": [
+			"player"
+		],
+		"served": {
+			"resident_chen_yu": 0.0,
+			"resident_xu_hang": 0.0,
+			"resident_zhao_lin": 0.0
+		}
+	},
+	"paused": true,
+	"persistence": false,
+	"source": "/Users/geminchen/My-Item/job-or-not-job/build/c3k/accepted-source-route/ready-while-away-save.json",
+	"version": 25.0,
+	"world_valid": true
+}
