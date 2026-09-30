@@ -1,0 +1,27 @@
+{
+	"completed_draws": 184,
+	"driver": "metal",
+	"entries": [
+		{
+			"active_texture_bytes": 519453312,
+			"cycle": 0,
+			"released_texture_bytes": -236698404224
+		},
+		{
+			"active_texture_bytes": -236182537600,
+			"cycle": 1,
+			"released_texture_bytes": -473400395136
+		},
+		{
+			"active_texture_bytes": -472884528512,
+			"cycle": 2,
+			"released_texture_bytes": -710102386048
+		},
+		{
+			"active_texture_bytes": -709586519424,
+			"cycle": 3,
+			"released_texture_bytes": -946804376960
+		}
+	],
+	"guard": true
+}

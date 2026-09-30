@@ -1,0 +1,33 @@
+{
+  "actual_lamp_and_menu_input": true,
+  "draws": 1901,
+  "end_minute": 1081,
+  "force_draw_wall_ms": {
+    "max": 24.77,
+    "p95": 8.223
+  },
+  "guard": true,
+  "images": [
+    "approach",
+    "threshold",
+    "inside",
+    "living",
+    "switch",
+    "lights-off",
+    "lights-on",
+    "graphics-setting",
+    "restored-lights-off",
+    "return-inside",
+    "return-threshold",
+    "street-again"
+  ],
+  "independent_player_acceptance": false,
+  "max_step": 0.0833349749445915,
+  "metres": 20.7498745471239,
+  "normal_game_fps": false,
+  "paused_json_restore": true,
+  "player_persistence": false,
+  "refresh_requests": 17,
+  "start_minute": 1078,
+  "build": {}
+}

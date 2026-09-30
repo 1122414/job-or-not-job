@@ -62,6 +62,14 @@ func _ready() -> void:
 	for scale in [100,125,150]: font_size.add_item("信息页面字号：%d%%" % scale)
 	font_size.item_selected.connect(func(index: int): game.panels.view.set_font_scale([1.0,1.25,1.5][index]))
 	list.add_child(font_size)
+	var lighting := CheckButton.new()
+	lighting.name="RoomLighting"
+	lighting.text="室内间接光与反射"
+	lighting.button_pressed=game.room_lighting.enabled
+	lighting.disabled=not game.room_lighting.available
+	lighting.tooltip_text="增强室内明暗层次；关闭可减少图形负担。" if game.room_lighting.available else "当前渲染模式不支持此项。"
+	lighting.toggled.connect(game.room_lighting.set_enabled)
+	list.add_child(lighting)
 	for bus in CitySoundscape.LABELS:
 		var sound_label := Label.new()
 		list.add_child(sound_label)
@@ -78,6 +86,7 @@ func _ready() -> void:
 		list.add_child(volume); audio_sliders[bus]=volume
 	visibility_changed.connect(func():
 		if visible:
+			lighting.set_pressed_no_signal(game.room_lighting.enabled)
 			for bus in audio_sliders: audio_sliders[bus].value=game.soundscape.levels[bus]*100)
 	var help := Label.new()
 	help.text="Esc 释放鼠标 / 返回 · H 操作说明\n关闭菜单后，点击游戏画面才开始控制视角。"

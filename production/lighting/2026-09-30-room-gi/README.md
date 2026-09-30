@@ -16,3 +16,6 @@ python3 tools/build_manifest.py --output build/room-light-identity.json
 移除`--load-baked`并选择新的输出目录可重新制作。`--without-reflections`提供无局部反射对照，`--reflection-strength=0`保留探针但关闭其反射强度。工具只创建隔离的后台场景，不接管鼠标、不读写玩家存档。真实图形需要正常本机权限；headless不能验证画面。
 
 局部反射仍有退出时7个Texture RID释放警告，固定机位验证不代表普通移动或持续性能通过。详见[验收边界](../../../docs/2026-09-30_C4l2a静态光照制作管线验收.md)。
+
+
+C4l.2b补记：四数据已以相同字节复制到assets/lighting/rooms供运行加载，production目录仍排除于包。上述旧制作加载命令会严格检查原b58fe7c6输入；当前新运行输入不能冒充原输入。预览当前运行使用tools/profile_runtime_room_light.gd与新build_manifest身份；结构变化仍须以新目录重烘。7个Texture RID警告仍开放。

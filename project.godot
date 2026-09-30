@@ -25,6 +25,7 @@ window/stretch/aspect="expand"
 
 [rendering]
 anti_aliasing/quality/msaa_3d=1
+reflections/reflection_atlas/reflection_count=4
 renderer/rendering_method="gl_compatibility"
 renderer/rendering_method.mobile="gl_compatibility"
 renderer/rendering_method.macos="forward_plus"

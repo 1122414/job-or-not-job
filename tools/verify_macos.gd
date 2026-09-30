@@ -20,6 +20,14 @@ func run() -> void:
 	var game=load("res://scenes/main.tscn").instantiate()
 	root.add_child(game)
 	for i in range(10): await physics_frame
+	var lighting_record: Dictionary=JSON.parse_string(FileAccess.get_file_as_string("res://assets/lighting/rooms/provenance.json"))
+	if lighting_record.get("resources",{}).size()!=4 or ResourceLoader.exists("res://production/lighting/2026-09-30-room-gi/baked/home.res"):
+		push_error("Packaged room lighting provenance or source exclusion failed");quit(1);return
+	for room in lighting_record.resources:
+		var lighting_path: String="res://assets/lighting/rooms/"+room+".res"
+		if FileAccess.get_sha256(lighting_path)!=lighting_record.resources[room] or not load(lighting_path) is VoxelGIData:
+			push_error("Packaged room light differs from baked resource");quit(1);return
+	print("PACKAGED_ROOM_LIGHTING resources=4 hashes_match=true production_excluded=true")
 	var bus_record: Dictionary=JSON.parse_string(FileAccess.get_file_as_string(CityBusVisual.ROOT+"production.json"))
 	var package_resources := OS.get_executable_path().get_base_dir().path_join("../Resources")
 	if FileAccess.get_file_as_string(package_resources.path_join("BUS-PRODUCTION.json"))!=FileAccess.get_file_as_string(CityBusVisual.ROOT+"production.json") or FileAccess.get_file_as_string(package_resources.path_join("RESIDENT-SKIRT-SOURCES.json"))!=FileAccess.get_file_as_string("res://assets/characters/resident_skirt_provenance.json") or FileAccess.file_exists("res://production/characters/resident-skirt-2026-09-30/office_female.glb") or ResourceLoader.exists("res://production/characters/resident-skirt-2026-09-30/office_female.glb"):

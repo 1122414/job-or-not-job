@@ -4,6 +4,8 @@ func warmup_frames() -> int:
 	return 128
 
 func prepare_scene(game: Node3D) -> void:
+	# Compare candidates without stacking them over the normal room lighting.
+	if game.room_lighting: game.room_lighting.set_enabled(false)
 	var mode := "baseline"
 	var indirect := 1.0
 	var voxel_bias := 1.5

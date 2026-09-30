@@ -1,0 +1,14 @@
+{
+	"completed_draws": 686,
+	"driver": "metal",
+	"entries": [
+		{
+			"active_texture_bytes": 36125312,
+			"cycle": 0,
+			"released_texture_bytes": -967378304
+		}
+	],
+	"guard": true,
+	"refreshes_per_world": 40,
+	"texture_counter_valid": false
+}

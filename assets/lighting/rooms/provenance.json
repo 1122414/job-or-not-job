@@ -1,0 +1,14 @@
+{
+  "baker_sha256": "3984392eb99f89eb877185adc664f3513e82f68a4520b624868b8a3e81215e04",
+  "engine_hash": "a13da4feb8d8aefc283c3763d33a2f170a18d541",
+  "loaded_from": "",
+  "resources": {
+    "bookshop": "9b8b271150f9d52e5ae089bc23d12632e5c72be4f91f42733b78d694740e89a8",
+    "home": "9aabbcb70323ef07cf75d076362f9f4b075ef19741f6fa51eac283c6ec63f88a",
+    "office-a": "8c07b255fa23656df3368b8ab483be85bfbb22b3c8d8a8db8227bb3cf538c130",
+    "office-b": "0962c7bd90a7443458a53a5bebde6d93e0538cf6a52cde3c09e7248276292141"
+  },
+  "source_sha256": "b58fe7c6700caf2179c8c2af711681061495f2efa3cd1d9924b3f8c9ece0de5c",
+  "subdivision": 2,
+  "production_source": "production/lighting/2026-09-30-room-gi"
+}

@@ -1,0 +1,47 @@
+{
+  "actual_lamp_and_menu_input": true,
+  "draws": 1901,
+  "end_minute": 1081,
+  "force_draw_wall_ms": {
+    "max": 25.025,
+    "p95": 7.709
+  },
+  "guard": true,
+  "images": [
+    "approach",
+    "threshold",
+    "inside",
+    "living",
+    "switch",
+    "lights-off",
+    "lights-on",
+    "graphics-setting",
+    "restored-lights-off",
+    "return-inside",
+    "return-threshold",
+    "street-again"
+  ],
+  "independent_player_acceptance": false,
+  "max_step": 0.0833349749445915,
+  "metres": 20.7498745471239,
+  "normal_game_fps": false,
+  "paused_json_restore": true,
+  "player_persistence": false,
+  "refresh_requests": 17,
+  "start_minute": 1078,
+  "build": {
+    "app_version": "0.5.0",
+    "build_id": "20260930T102445326293Z-0600e6ae-e18b8820",
+    "created_utc": "2026-09-30T10:24:45.105000+00:00",
+    "engine_source_sha256": "ecc8da2d60100102cfca6e833d3860d7436b46ae062fa072ce89a6c95d664a3f",
+    "engine_version": "4.7.1.stable.official.a13da4feb",
+    "manifest_version": 1.0,
+    "pck_sha256": "790e20f75402ae2d6d0087c39cd3788715694683f1d849ad6d26168f05c42cf9",
+    "renderer": "forward_plus",
+    "runtime_dirty": true,
+    "save_schema": 25.0,
+    "source_commit": "0600e6ae7238f95d6a3c57f76a18fe79f11507c5",
+    "source_sha256": "e18b88200b88dbec3d5b95adf1a80f398a387eab4a6bb133188b5d4a2b39e805",
+    "validation": "not_yet_verified"
+  }
+}

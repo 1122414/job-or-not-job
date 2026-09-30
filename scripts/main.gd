@@ -54,6 +54,7 @@ var commons: CityCommons
 var passengers: CityPassengers
 var home: CityHome
 var meals: CityMeals
+var room_lighting: CityRoomLighting
 
 func _ready() -> void:
 	bind_inputs()
@@ -111,6 +112,9 @@ func _ready() -> void:
 	soundscape=CitySoundscape.new()
 	soundscape.game=self
 	add_child(soundscape)
+	room_lighting=CityRoomLighting.new()
+	room_lighting.game=self
+	add_child(room_lighting)
 	build_ui()
 	build_audio()
 	interview_audio=InterviewAudio.new()
@@ -273,6 +277,7 @@ func update_daylight() -> void:
 	if transit and transit.visual: transit.visual.set_night(local_minute<6*60 or local_minute>=18*60)
 	if driving:
 		for car in driving.cars: car.update_lights()
+	if room_lighting: room_lighting.sync_lights()
 
 func in_vehicle() -> bool:
 	return transit!=null and transit.riding or driving!=null and driving.in_vehicle()
@@ -611,6 +616,7 @@ func startup() -> void:
 	persistence_enabled=get_tree().current_scene==self
 	soundscape.start_settings()
 	if persistence_enabled:
+		room_lighting.read_settings(CityRoomLighting.SETTINGS_PATH)
 		if FileAccess.file_exists(save_path): load_game()
 		else: import_previous(OS.get_user_data_dir().get_base_dir().path_join("今天不上班/neighborhood.json"))
 
