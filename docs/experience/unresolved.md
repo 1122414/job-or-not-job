@@ -1,5 +1,13 @@
 # 未解决的体验问题
 
+## 2026-09-30 C4l：间接光候选正式接入
+
+- **事实（G05-C4l-C）**：Metal VoxelGI在独立零/非零光源对照中生效；四局部体积真实城区中，公司窗面反射呈块状，bias=0/normal_bias=2未全面消除，顶面与家具接触亦改变。工具尚未接入游戏，源输入b58fe7c6保持。见`docs/2026-09-30_C4l城区间接光技术验证.md`与`docs/evidence/2026-09-30-c4l-indirect/city/`。
+- **假设**：体素精度、薄面、自反射及烘焙材质/UV处理可能共同参与；尚未分离根因，不宣称提高细分即可解决。
+- **下一检查**：逐材质与几何定位，比较精度/局部反射方案；处理后走普通镜头跨体积边界，并测试动态家具、昼夜/暂停恢复和离线资源身份，再接入运行时。
+- **事实（G06-C4l-D）**：同引擎Vulkan探索出现`VK_INCOMPLETE: Error writing pipeline cache data: Failed to write 4 bytes to output stream! Wrote 0`，仍完成图形采样。缓存根因未定位；不能把完成标记当作正式后端验收，默认Metal保持。
+- **已确认并转入经验**：本机Metal SDFGI无灯光回弹的正负对照见[后端贡献](patterns/indirect-light-backend-validation.md)，不再作为未经验证的猜测。仅确认本机版本，未修复引擎。
+
 ## 2026-09-22：页面状态与来访完成时机
 
 事实：本轮 Tab→J→H→Esc 出现多层面板。暂停菜单标注 H，但按键未打开帮助；main.gd 普通处理节点与 pause_menu.gd 暂停处理职责分离。HR 欢迎出现后未及时交谈，来访即已记账，office_life.gd 停留为 10 秒。

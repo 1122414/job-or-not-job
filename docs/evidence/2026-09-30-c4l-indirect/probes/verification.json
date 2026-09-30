@@ -1,0 +1,490 @@
+[
+  {
+    "case": "metal-baseline-1",
+    "command": [
+      "/Applications/Godot.app/Contents/MacOS/Godot",
+      "--path",
+      "/Users/geminchen/My-Item/job-or-not-job",
+      "--script",
+      "tools/probe_indirect_lighting.gd",
+      "--rendering-driver",
+      "metal",
+      "--rendering-method",
+      "forward_plus",
+      "--disable-render-loop",
+      "--fixed-fps",
+      "60",
+      "--audio-driver",
+      "Dummy",
+      "--",
+      "--no-mouse-capture",
+      "--output=/Users/geminchen/My-Item/job-or-not-job/build/c4l/final-probes/metal-baseline-1",
+      "--mode=baseline",
+      "--indirect=1"
+    ],
+    "tool_inputs": {
+      "tools/probe_indirect_lighting.gd": "6ca47250107c9d385af14208f373ba3b4fbdc0abbc3a3492dbdbd37a2cf255af",
+      "tools/render_character_candidates.gd": "591147b9975ea50dcb5572672e985285bbe42d07b29166dbc22212ae89d7a389",
+      "project.godot": "9a7546ba0207f353cbebdce1b13c936fd411444369dab4a59bb58b28e83397c3"
+    },
+    "returncode": 0,
+    "png_sha256": "57d00c66601b878503416b02d851276f1ee2fb9c868ba5ba1891d2c538b88fbd",
+    "log_sha256": "87a1eb5a3d96ec546ee7456f6f5b7f966b21557b30c863c9c13a803c1f872f03",
+    "regions": {
+      "cube_shadow": {
+        "mean_rgb": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "rect": [
+          455,
+          310,
+          30,
+          30
+        ]
+      },
+      "wall_shadow": {
+        "mean_rgb": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "rect": [
+          180,
+          180,
+          60,
+          50
+        ]
+      }
+    },
+    "guard": true
+  },
+  {
+    "case": "metal-sdfgi-0",
+    "command": [
+      "/Applications/Godot.app/Contents/MacOS/Godot",
+      "--path",
+      "/Users/geminchen/My-Item/job-or-not-job",
+      "--script",
+      "tools/probe_indirect_lighting.gd",
+      "--rendering-driver",
+      "metal",
+      "--rendering-method",
+      "forward_plus",
+      "--disable-render-loop",
+      "--fixed-fps",
+      "60",
+      "--audio-driver",
+      "Dummy",
+      "--",
+      "--no-mouse-capture",
+      "--output=/Users/geminchen/My-Item/job-or-not-job/build/c4l/final-probes/metal-sdfgi-0",
+      "--mode=sdfgi",
+      "--indirect=0"
+    ],
+    "tool_inputs": {
+      "tools/probe_indirect_lighting.gd": "6ca47250107c9d385af14208f373ba3b4fbdc0abbc3a3492dbdbd37a2cf255af",
+      "tools/render_character_candidates.gd": "591147b9975ea50dcb5572672e985285bbe42d07b29166dbc22212ae89d7a389",
+      "project.godot": "9a7546ba0207f353cbebdce1b13c936fd411444369dab4a59bb58b28e83397c3"
+    },
+    "returncode": 0,
+    "png_sha256": "57d00c66601b878503416b02d851276f1ee2fb9c868ba5ba1891d2c538b88fbd",
+    "log_sha256": "52e2fb0669fa723f583d362d232831d0169400e58aeb855cab81fdd66ce25ead",
+    "regions": {
+      "cube_shadow": {
+        "mean_rgb": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "rect": [
+          455,
+          310,
+          30,
+          30
+        ]
+      },
+      "wall_shadow": {
+        "mean_rgb": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "rect": [
+          180,
+          180,
+          60,
+          50
+        ]
+      }
+    },
+    "guard": true
+  },
+  {
+    "case": "metal-sdfgi-1",
+    "command": [
+      "/Applications/Godot.app/Contents/MacOS/Godot",
+      "--path",
+      "/Users/geminchen/My-Item/job-or-not-job",
+      "--script",
+      "tools/probe_indirect_lighting.gd",
+      "--rendering-driver",
+      "metal",
+      "--rendering-method",
+      "forward_plus",
+      "--disable-render-loop",
+      "--fixed-fps",
+      "60",
+      "--audio-driver",
+      "Dummy",
+      "--",
+      "--no-mouse-capture",
+      "--output=/Users/geminchen/My-Item/job-or-not-job/build/c4l/final-probes/metal-sdfgi-1",
+      "--mode=sdfgi",
+      "--indirect=1"
+    ],
+    "tool_inputs": {
+      "tools/probe_indirect_lighting.gd": "6ca47250107c9d385af14208f373ba3b4fbdc0abbc3a3492dbdbd37a2cf255af",
+      "tools/render_character_candidates.gd": "591147b9975ea50dcb5572672e985285bbe42d07b29166dbc22212ae89d7a389",
+      "project.godot": "9a7546ba0207f353cbebdce1b13c936fd411444369dab4a59bb58b28e83397c3"
+    },
+    "returncode": 0,
+    "png_sha256": "57d00c66601b878503416b02d851276f1ee2fb9c868ba5ba1891d2c538b88fbd",
+    "log_sha256": "3de4810b4ff20b46fbe635fd1e059683578cb30e3f38ae24e979a87d5b39a656",
+    "regions": {
+      "cube_shadow": {
+        "mean_rgb": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "rect": [
+          455,
+          310,
+          30,
+          30
+        ]
+      },
+      "wall_shadow": {
+        "mean_rgb": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "rect": [
+          180,
+          180,
+          60,
+          50
+        ]
+      }
+    },
+    "guard": true
+  },
+  {
+    "case": "vulkan-sdfgi-0",
+    "command": [
+      "/Applications/Godot.app/Contents/MacOS/Godot",
+      "--path",
+      "/Users/geminchen/My-Item/job-or-not-job",
+      "--script",
+      "tools/probe_indirect_lighting.gd",
+      "--rendering-driver",
+      "vulkan",
+      "--rendering-method",
+      "forward_plus",
+      "--disable-render-loop",
+      "--fixed-fps",
+      "60",
+      "--audio-driver",
+      "Dummy",
+      "--",
+      "--no-mouse-capture",
+      "--output=/Users/geminchen/My-Item/job-or-not-job/build/c4l/final-probes/vulkan-sdfgi-0",
+      "--mode=sdfgi",
+      "--indirect=0"
+    ],
+    "tool_inputs": {
+      "tools/probe_indirect_lighting.gd": "6ca47250107c9d385af14208f373ba3b4fbdc0abbc3a3492dbdbd37a2cf255af",
+      "tools/render_character_candidates.gd": "591147b9975ea50dcb5572672e985285bbe42d07b29166dbc22212ae89d7a389",
+      "project.godot": "9a7546ba0207f353cbebdce1b13c936fd411444369dab4a59bb58b28e83397c3"
+    },
+    "returncode": 0,
+    "png_sha256": "57d00c66601b878503416b02d851276f1ee2fb9c868ba5ba1891d2c538b88fbd",
+    "log_sha256": "b6755cfa56a1a0f333d7cc6fc26c7ac4f7590c43a6ac46a842d9dbd96817ba40",
+    "regions": {
+      "cube_shadow": {
+        "mean_rgb": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "rect": [
+          455,
+          310,
+          30,
+          30
+        ]
+      },
+      "wall_shadow": {
+        "mean_rgb": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "rect": [
+          180,
+          180,
+          60,
+          50
+        ]
+      }
+    },
+    "guard": true
+  },
+  {
+    "case": "vulkan-sdfgi-1",
+    "command": [
+      "/Applications/Godot.app/Contents/MacOS/Godot",
+      "--path",
+      "/Users/geminchen/My-Item/job-or-not-job",
+      "--script",
+      "tools/probe_indirect_lighting.gd",
+      "--rendering-driver",
+      "vulkan",
+      "--rendering-method",
+      "forward_plus",
+      "--disable-render-loop",
+      "--fixed-fps",
+      "60",
+      "--audio-driver",
+      "Dummy",
+      "--",
+      "--no-mouse-capture",
+      "--output=/Users/geminchen/My-Item/job-or-not-job/build/c4l/final-probes/vulkan-sdfgi-1",
+      "--mode=sdfgi",
+      "--indirect=1"
+    ],
+    "tool_inputs": {
+      "tools/probe_indirect_lighting.gd": "6ca47250107c9d385af14208f373ba3b4fbdc0abbc3a3492dbdbd37a2cf255af",
+      "tools/render_character_candidates.gd": "591147b9975ea50dcb5572672e985285bbe42d07b29166dbc22212ae89d7a389",
+      "project.godot": "9a7546ba0207f353cbebdce1b13c936fd411444369dab4a59bb58b28e83397c3"
+    },
+    "returncode": 0,
+    "png_sha256": "2b2c9d427801a9a2758458f914bb6a166d8d33bf71a32cd1de0a3bd7a8099f84",
+    "log_sha256": "a60e03fb36bebca8af05a77ab6cda88cfd30063666b3c22a8c86cb2e0977179b",
+    "regions": {
+      "cube_shadow": {
+        "mean_rgb": [
+          0.511152267456055,
+          0.511086821556091,
+          0.511082470417023
+        ],
+        "rect": [
+          455,
+          310,
+          30,
+          30
+        ]
+      },
+      "wall_shadow": {
+        "mean_rgb": [
+          0.356999546289444,
+          0.0,
+          0.0306544844061136
+        ],
+        "rect": [
+          180,
+          180,
+          60,
+          50
+        ]
+      }
+    },
+    "guard": true
+  },
+  {
+    "case": "metal-ssil-1",
+    "command": [
+      "/Applications/Godot.app/Contents/MacOS/Godot",
+      "--path",
+      "/Users/geminchen/My-Item/job-or-not-job",
+      "--script",
+      "tools/probe_indirect_lighting.gd",
+      "--rendering-driver",
+      "metal",
+      "--rendering-method",
+      "forward_plus",
+      "--disable-render-loop",
+      "--fixed-fps",
+      "60",
+      "--audio-driver",
+      "Dummy",
+      "--",
+      "--no-mouse-capture",
+      "--output=/Users/geminchen/My-Item/job-or-not-job/build/c4l/final-probes/metal-ssil-1",
+      "--mode=ssil",
+      "--indirect=1"
+    ],
+    "tool_inputs": {
+      "tools/probe_indirect_lighting.gd": "6ca47250107c9d385af14208f373ba3b4fbdc0abbc3a3492dbdbd37a2cf255af",
+      "tools/render_character_candidates.gd": "591147b9975ea50dcb5572672e985285bbe42d07b29166dbc22212ae89d7a389",
+      "project.godot": "9a7546ba0207f353cbebdce1b13c936fd411444369dab4a59bb58b28e83397c3"
+    },
+    "returncode": 0,
+    "png_sha256": "d4bbdd81ab3b184f54a16ce008b5a8a773aa8fcfec6c023f9b2e79cf22f76dfe",
+    "log_sha256": "9b6e6a609357d2174b5285fab5731242274792f59247be28396b384a0dbd60d8",
+    "regions": {
+      "cube_shadow": {
+        "mean_rgb": [
+          0.104526475071907,
+          0.104526475071907,
+          0.104526475071907
+        ],
+        "rect": [
+          455,
+          310,
+          30,
+          30
+        ]
+      },
+      "wall_shadow": {
+        "mean_rgb": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "rect": [
+          180,
+          180,
+          60,
+          50
+        ]
+      }
+    },
+    "guard": true
+  },
+  {
+    "case": "metal-voxel-0",
+    "command": [
+      "/Applications/Godot.app/Contents/MacOS/Godot",
+      "--path",
+      "/Users/geminchen/My-Item/job-or-not-job",
+      "--script",
+      "tools/probe_indirect_lighting.gd",
+      "--rendering-driver",
+      "metal",
+      "--rendering-method",
+      "forward_plus",
+      "--disable-render-loop",
+      "--fixed-fps",
+      "60",
+      "--audio-driver",
+      "Dummy",
+      "--",
+      "--no-mouse-capture",
+      "--output=/Users/geminchen/My-Item/job-or-not-job/build/c4l/final-probes/metal-voxel-0",
+      "--mode=voxel",
+      "--indirect=0"
+    ],
+    "tool_inputs": {
+      "tools/probe_indirect_lighting.gd": "6ca47250107c9d385af14208f373ba3b4fbdc0abbc3a3492dbdbd37a2cf255af",
+      "tools/render_character_candidates.gd": "591147b9975ea50dcb5572672e985285bbe42d07b29166dbc22212ae89d7a389",
+      "project.godot": "9a7546ba0207f353cbebdce1b13c936fd411444369dab4a59bb58b28e83397c3"
+    },
+    "returncode": 0,
+    "png_sha256": "57d00c66601b878503416b02d851276f1ee2fb9c868ba5ba1891d2c538b88fbd",
+    "log_sha256": "0e3f7a913320777c5ae524fa82799c22dd9155ad96ed561de25bcabb18597e3e",
+    "regions": {
+      "cube_shadow": {
+        "mean_rgb": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "rect": [
+          455,
+          310,
+          30,
+          30
+        ]
+      },
+      "wall_shadow": {
+        "mean_rgb": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "rect": [
+          180,
+          180,
+          60,
+          50
+        ]
+      }
+    },
+    "guard": true
+  },
+  {
+    "case": "metal-voxel-1",
+    "command": [
+      "/Applications/Godot.app/Contents/MacOS/Godot",
+      "--path",
+      "/Users/geminchen/My-Item/job-or-not-job",
+      "--script",
+      "tools/probe_indirect_lighting.gd",
+      "--rendering-driver",
+      "metal",
+      "--rendering-method",
+      "forward_plus",
+      "--disable-render-loop",
+      "--fixed-fps",
+      "60",
+      "--audio-driver",
+      "Dummy",
+      "--",
+      "--no-mouse-capture",
+      "--output=/Users/geminchen/My-Item/job-or-not-job/build/c4l/final-probes/metal-voxel-1",
+      "--mode=voxel",
+      "--indirect=1"
+    ],
+    "tool_inputs": {
+      "tools/probe_indirect_lighting.gd": "6ca47250107c9d385af14208f373ba3b4fbdc0abbc3a3492dbdbd37a2cf255af",
+      "tools/render_character_candidates.gd": "591147b9975ea50dcb5572672e985285bbe42d07b29166dbc22212ae89d7a389",
+      "project.godot": "9a7546ba0207f353cbebdce1b13c936fd411444369dab4a59bb58b28e83397c3"
+    },
+    "returncode": 0,
+    "png_sha256": "6164808c02f438b24bec353c08280b62bc49256e877dc2c918d96fc9544184ba",
+    "log_sha256": "e40a5cb1a82196676287b16005ac04c291c3c1afa230d0855bc5707ea7c1ab89",
+    "regions": {
+      "cube_shadow": {
+        "mean_rgb": [
+          0.315501868724823,
+          0.300578147172928,
+          0.300582498311996
+        ],
+        "rect": [
+          455,
+          310,
+          30,
+          30
+        ]
+      },
+      "wall_shadow": {
+        "mean_rgb": [
+          0.23349766433239,
+          0.0,
+          0.0
+        ],
+        "rect": [
+          180,
+          180,
+          60,
+          50
+        ]
+      }
+    },
+    "guard": true
+  }
+]

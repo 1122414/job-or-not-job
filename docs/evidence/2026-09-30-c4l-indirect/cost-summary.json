@@ -1,0 +1,173 @@
+{
+  "voxel-biased": {
+    "old-street": {
+      "samples": 90,
+      "mean_ms": 8.942955555555555,
+      "p95_ms": 10.596
+    },
+    "company-a": {
+      "samples": 90,
+      "mean_ms": 3.8821333333333334,
+      "p95_ms": 4.206
+    },
+    "company-b": {
+      "samples": 90,
+      "mean_ms": 2.897622222222222,
+      "p95_ms": 3.164
+    },
+    "waterfront-night": {
+      "samples": 90,
+      "mean_ms": 2.7395111111111112,
+      "p95_ms": 3.014
+    },
+    "bookshop-day": {
+      "samples": 90,
+      "mean_ms": 3.0899,
+      "p95_ms": 3.247
+    },
+    "bookshop-night": {
+      "samples": 90,
+      "mean_ms": 2.527677777777778,
+      "p95_ms": 2.769
+    },
+    "company-a-night": {
+      "samples": 90,
+      "mean_ms": 2.736211111111111,
+      "p95_ms": 3.092
+    },
+    "company-b-night": {
+      "samples": 90,
+      "mean_ms": 2.359088888888889,
+      "p95_ms": 2.475
+    },
+    "home-day": {
+      "samples": 90,
+      "mean_ms": 2.9254444444444445,
+      "p95_ms": 3.199
+    },
+    "home-night": {
+      "samples": 90,
+      "mean_ms": 2.3281555555555555,
+      "p95_ms": 2.583
+    },
+    "central-walk": {
+      "samples": 90,
+      "mean_ms": 7.076244444444445,
+      "p95_ms": 8.504
+    }
+  },
+  "baseline": {
+    "old-street": {
+      "samples": 90,
+      "mean_ms": 8.776244444444444,
+      "p95_ms": 9.932
+    },
+    "company-a": {
+      "samples": 90,
+      "mean_ms": 2.7333,
+      "p95_ms": 2.944
+    },
+    "company-b": {
+      "samples": 90,
+      "mean_ms": 1.8444555555555555,
+      "p95_ms": 2.109
+    },
+    "waterfront-night": {
+      "samples": 90,
+      "mean_ms": 2.731866666666667,
+      "p95_ms": 2.93
+    },
+    "bookshop-day": {
+      "samples": 90,
+      "mean_ms": 2.2463333333333333,
+      "p95_ms": 2.553
+    },
+    "bookshop-night": {
+      "samples": 90,
+      "mean_ms": 2.0311666666666666,
+      "p95_ms": 2.306
+    },
+    "company-a-night": {
+      "samples": 90,
+      "mean_ms": 2.2634444444444446,
+      "p95_ms": 2.523
+    },
+    "company-b-night": {
+      "samples": 90,
+      "mean_ms": 1.4587777777777777,
+      "p95_ms": 1.766
+    },
+    "home-day": {
+      "samples": 90,
+      "mean_ms": 1.9436222222222221,
+      "p95_ms": 2.083
+    },
+    "home-night": {
+      "samples": 90,
+      "mean_ms": 1.4067666666666667,
+      "p95_ms": 1.574
+    },
+    "central-walk": {
+      "samples": 90,
+      "mean_ms": 6.852277777777778,
+      "p95_ms": 8.17
+    }
+  },
+  "voxel": {
+    "old-street": {
+      "samples": 90,
+      "mean_ms": 8.813766666666666,
+      "p95_ms": 9.673
+    },
+    "company-a": {
+      "samples": 90,
+      "mean_ms": 3.7217000000000002,
+      "p95_ms": 3.975
+    },
+    "company-b": {
+      "samples": 90,
+      "mean_ms": 2.7964555555555557,
+      "p95_ms": 3.011
+    },
+    "waterfront-night": {
+      "samples": 90,
+      "mean_ms": 2.773888888888889,
+      "p95_ms": 3.058
+    },
+    "bookshop-day": {
+      "samples": 90,
+      "mean_ms": 3.080188888888889,
+      "p95_ms": 3.478
+    },
+    "bookshop-night": {
+      "samples": 90,
+      "mean_ms": 2.4913555555555558,
+      "p95_ms": 2.772
+    },
+    "company-a-night": {
+      "samples": 90,
+      "mean_ms": 2.6498333333333335,
+      "p95_ms": 2.907
+    },
+    "company-b-night": {
+      "samples": 90,
+      "mean_ms": 2.3621333333333334,
+      "p95_ms": 2.618
+    },
+    "home-day": {
+      "samples": 90,
+      "mean_ms": 2.7910333333333335,
+      "p95_ms": 2.931
+    },
+    "home-night": {
+      "samples": 90,
+      "mean_ms": 2.2451,
+      "p95_ms": 2.509
+    },
+    "central-walk": {
+      "samples": 90,
+      "mean_ms": 6.8715222222222225,
+      "p95_ms": 8.203
+    }
+  }
+}

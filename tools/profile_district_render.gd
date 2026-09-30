@@ -12,6 +12,12 @@ var completed_draws := 0
 func views() -> Array:
 	return VIEWS
 
+func prepare_scene(_game: Node3D) -> void:
+	pass
+
+func warmup_frames() -> int:
+	return 10
+
 func draw_completed() -> void:
 	completed_draws+=1
 
@@ -57,6 +63,7 @@ func run() -> void:
 	for i in range(10): await physics_frame
 	if not guard(): push_error("Background window protection failed"); quit(1); return
 	game.process_mode=Node.PROCESS_MODE_DISABLED
+	await prepare_scene(game)
 	var camera := Camera3D.new()
 	game.add_child(camera)
 	camera.fov=65
@@ -75,7 +82,11 @@ func run() -> void:
 	RenderingServer.viewport_set_measure_render_time(rid,true)
 	RenderingServer.frame_post_draw.connect(draw_completed)
 	var data := {"schema":1,"source_commit":provenance.source_commit,"source_sha256":provenance.source_sha256,"runtime_dirty":provenance.runtime_dirty,
-		"renderer":RenderingServer.get_current_rendering_method(),"adapter":RenderingServer.get_video_adapter_name(),"engine":Engine.get_version_info(),"debug_build":OS.is_debug_build(),
+		"renderer":RenderingServer.get_current_rendering_method(),"driver":RenderingServer.get_current_rendering_driver_name(),"adapter":RenderingServer.get_video_adapter_name(),"engine":Engine.get_version_info(),"debug_build":OS.is_debug_build(),
+		"environment":{"sdfgi":game.environment.sdfgi_enabled,"ssil":game.environment.ssil_enabled,"static_gi_instances":game.get_meta("static_gi_instances",0)},"warmup_frames":warmup_frames(),
+		"candidate_indirect_multiplier":game.get_meta("candidate_indirect_multiplier",1.0),
+		"candidate_mode":game.get_meta("candidate_mode","runtime"),
+		"candidate_voxel_bias":game.get_meta("candidate_voxel_bias",[]),
 		"resolution":[1440,900],"fov":65,"kind":"frozen_scene_offscreen_render_submission","normal_game_fps":false,"final_performance_accepted":false,"samples_per_entry":samples,"runs":runs,"entries":[]}
 	for iteration in range(runs):
 		for shot in views():
@@ -92,7 +103,7 @@ func run() -> void:
 				var ssao_before: bool=game.environment.ssao_enabled
 				if phase=="sun_shadows": game.sun.shadow_enabled=false
 				if phase=="ssao": game.environment.ssao_enabled=false
-				for warmup in range(10):
+				for warmup in range(warmup_frames()):
 					await process_frame
 					RenderingServer.force_draw(false)
 				var metrics := {"force_draw_wall_ms":[],"render_cpu_ms":[],"render_setup_cpu_ms":[],"render_gpu_ms":[],"draw_calls":[],"primitives":[]}

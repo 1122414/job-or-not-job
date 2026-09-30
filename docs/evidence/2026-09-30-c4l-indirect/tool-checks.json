@@ -1,0 +1,21 @@
+{
+  "checks": [
+    {
+      "log": "build/c4l/import-normal-host.log",
+      "sha256": "e377d58b31f94e0b70ac4276fcc989d93df143b0bacf9760b918145a54c71fd0",
+      "marker": "DONE",
+      "no_errors_or_warnings": true
+    },
+    {
+      "log": "build/c4l/original-profiler-regression.log",
+      "sha256": "e44e05ecb6c23d008076f700f28dae2893b5c36ff4d6044b47ca3694e380e536",
+      "marker": "DISTRICT_RENDER_PROFILE_OK",
+      "no_errors_or_warnings": true
+    }
+  ],
+  "default_profiler_warmup": 10,
+  "default_profiler_entries": 9,
+  "runtime_unchanged": true,
+  "full_game_suite_rerun": false,
+  "package_created": false
+}

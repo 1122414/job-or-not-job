@@ -1,0 +1,87 @@
+{
+	"adapter": "Apple M5 Pro (Apple9)",
+	"draws": 161,
+	"driver": "metal",
+	"engine": {
+		"build": "official",
+		"hash": "a13da4feb8d8aefc283c3763d33a2f170a18d541",
+		"hex": 263937,
+		"major": 4,
+		"minor": 7,
+		"patch": 1,
+		"status": "stable",
+		"string": "4.7.1-stable (official)",
+		"timestamp": 0
+	},
+	"force_draw_wall_ms": [
+		0.314,
+		0.308,
+		0.3,
+		0.31,
+		0.311,
+		0.315,
+		0.308,
+		0.425,
+		0.319,
+		0.369,
+		0.305,
+		0.307,
+		0.311,
+		0.325,
+		0.32,
+		0.32,
+		0.307,
+		0.327,
+		0.307,
+		0.314,
+		0.32,
+		0.306,
+		1.102,
+		0.309,
+		0.313,
+		0.301,
+		0.324,
+		0.313,
+		0.303,
+		0.316,
+		0.311,
+		0.327
+	],
+	"gpu_ms": 0.0,
+	"guard": true,
+	"indirect_energy": 1.0,
+	"mode": "ssil",
+	"normal_game_fps": false,
+	"regions": {
+		"cube_shadow": {
+			"mean_rgb": [
+				0.104526475071907,
+				0.104526475071907,
+				0.104526475071907
+			],
+			"rect": [
+				455,
+				310,
+				30,
+				30
+			]
+		},
+		"wall_shadow": {
+			"mean_rgb": [
+				0.0,
+				0.0,
+				0.0
+			],
+			"rect": [
+				180,
+				180,
+				60,
+				50
+			]
+		}
+	},
+	"render_cpu_ms": 0.0329999998211861,
+	"renderer": "forward_plus",
+	"samples": 32,
+	"warmup": 128
+}

@@ -1,0 +1,99 @@
+[
+  {
+    "case": "baseline",
+    "command": [
+      "/Applications/Godot.app/Contents/MacOS/Godot",
+      "--path",
+      "/Users/geminchen/My-Item/job-or-not-job",
+      "--script",
+      "tools/profile_city_indirect.gd",
+      "--disable-render-loop",
+      "--fixed-fps",
+      "60",
+      "--audio-driver",
+      "Dummy",
+      "--",
+      "--no-mouse-capture",
+      "--output=/Users/geminchen/My-Item/job-or-not-job/build/c4l/final-city/baseline",
+      "--mode=baseline",
+      "--identity=res://build/c4l/source-before.json",
+      "--samples=30",
+      "--runs=3"
+    ],
+    "tool_inputs": {
+      "tools/profile_city_indirect.gd": "c8ff3b35fa776ad1c68023e33955b44fb3684f7a6d80eb72f44d90980eb73b20",
+      "tools/profile_district_render.gd": "6ab47cd67805b6d4a95f11e4f441f91f9b83ea1e48d3a1d59e9a075ab6318f63",
+      "tools/render_character_candidates.gd": "591147b9975ea50dcb5572672e985285bbe42d07b29166dbc22212ae89d7a389"
+    },
+    "returncode": 0,
+    "log_sha256": "26bcd87f9b7c74eb21187fd1785da4016c99b8c31ad824ceb63729c5f4dbf45c",
+    "profile_sha256": "005e19e413398b49876e6f0d2c0e8759945395505de2f58a8325e0adb023bb92",
+    "entries": 33
+  },
+  {
+    "case": "voxel",
+    "command": [
+      "/Applications/Godot.app/Contents/MacOS/Godot",
+      "--path",
+      "/Users/geminchen/My-Item/job-or-not-job",
+      "--script",
+      "tools/profile_city_indirect.gd",
+      "--disable-render-loop",
+      "--fixed-fps",
+      "60",
+      "--audio-driver",
+      "Dummy",
+      "--",
+      "--no-mouse-capture",
+      "--output=/Users/geminchen/My-Item/job-or-not-job/build/c4l/final-city/voxel",
+      "--mode=voxel",
+      "--identity=res://build/c4l/source-before.json",
+      "--samples=30",
+      "--runs=3",
+      "--voxel-bias=1.5",
+      "--voxel-normal-bias=0"
+    ],
+    "tool_inputs": {
+      "tools/profile_city_indirect.gd": "c8ff3b35fa776ad1c68023e33955b44fb3684f7a6d80eb72f44d90980eb73b20",
+      "tools/profile_district_render.gd": "6ab47cd67805b6d4a95f11e4f441f91f9b83ea1e48d3a1d59e9a075ab6318f63",
+      "tools/render_character_candidates.gd": "591147b9975ea50dcb5572672e985285bbe42d07b29166dbc22212ae89d7a389"
+    },
+    "returncode": 0,
+    "log_sha256": "2d9652deaec8f668311e74f4d4058986428fdf3db8d825563f0d7452e460e5f6",
+    "profile_sha256": "86b1e9899916403e28f9307e6589a4c9e3c79f3dabfa529a9728aed03b9ba673",
+    "entries": 33
+  },
+  {
+    "case": "voxel-biased",
+    "command": [
+      "/Applications/Godot.app/Contents/MacOS/Godot",
+      "--path",
+      "/Users/geminchen/My-Item/job-or-not-job",
+      "--script",
+      "tools/profile_city_indirect.gd",
+      "--disable-render-loop",
+      "--fixed-fps",
+      "60",
+      "--audio-driver",
+      "Dummy",
+      "--",
+      "--no-mouse-capture",
+      "--output=/Users/geminchen/My-Item/job-or-not-job/build/c4l/final-city/voxel-biased",
+      "--mode=voxel",
+      "--identity=res://build/c4l/source-before.json",
+      "--samples=30",
+      "--runs=3",
+      "--voxel-bias=0",
+      "--voxel-normal-bias=2"
+    ],
+    "tool_inputs": {
+      "tools/profile_city_indirect.gd": "c8ff3b35fa776ad1c68023e33955b44fb3684f7a6d80eb72f44d90980eb73b20",
+      "tools/profile_district_render.gd": "6ab47cd67805b6d4a95f11e4f441f91f9b83ea1e48d3a1d59e9a075ab6318f63",
+      "tools/render_character_candidates.gd": "591147b9975ea50dcb5572672e985285bbe42d07b29166dbc22212ae89d7a389"
+    },
+    "returncode": 0,
+    "log_sha256": "48ae2f311c6ef1ba0bee9e6acab9f61fe1a06fa5f0876263dd4974fc3753a89d",
+    "profile_sha256": "43671ca10a1f903ae209a9c815659c914eb1c05aeb878fc68126ff1193d6bd34",
+    "entries": 33
+  }
+]
