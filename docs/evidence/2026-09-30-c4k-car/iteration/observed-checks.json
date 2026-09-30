@@ -1,0 +1,180 @@
+{
+  "c4k-visual-first": {
+    "data": [
+      {
+        "bad_normals": 0,
+        "baked_triangles": 77864,
+        "degenerate": 0,
+        "driver_leg_difference_m": 0.0,
+        "failures": 22,
+        "inward_triangles": 0,
+        "lods": 83,
+        "maximum_driver_palm_error_m": 7.86781311035156e-06,
+        "seating": {
+          "casual": {
+            "lowest_foot_m": 0.123613491654396,
+            "penetration_m": 0.0,
+            "seat_triangles": 2088,
+            "support_gap_m": 0.0223721861839294,
+            "vertices": 21362,
+            "worst_point": [
+              0.0,
+              0.0,
+              0.0
+            ]
+          },
+          "protagonist": {
+            "lowest_foot_m": 0.113939210772514,
+            "penetration_m": 0.0,
+            "seat_triangles": 2088,
+            "support_gap_m": 0.04155033826828,
+            "vertices": 28993,
+            "worst_point": [
+              0.0,
+              0.0,
+              0.0
+            ]
+          }
+        }
+      }
+    ],
+    "errors": [
+      "ERROR: 轮胎落在实际地面",
+      "ERROR: 轮胎落在实际地面",
+      "ERROR: 轮胎落在实际地面",
+      "ERROR: 轮胎落在实际地面",
+      "ERROR: 轮胎落在实际地面",
+      "ERROR: 轮胎落在实际地面",
+      "ERROR: 轮胎落在实际地面",
+      "ERROR: 轮胎落在实际地面",
+      "ERROR: 轮胎落在实际地面",
+      "ERROR: 轮胎落在实际地面",
+      "ERROR: 轮胎落在实际地面",
+      "ERROR: 轮胎落在实际地面",
+      "ERROR: 轮胎落在实际地面",
+      "ERROR: 轮胎落在实际地面",
+      "ERROR: 轮胎落在实际地面",
+      "ERROR: 轮胎落在实际地面",
+      "ERROR: 轮胎落在实际地面",
+      "ERROR: 轮胎落在实际地面",
+      "ERROR: 轮胎落在实际地面",
+      "ERROR: 轮胎落在实际地面",
+      "ERROR: 驾驶座支撑且不明显穿透 protagonist {\"lowest_foot_m\":0.113939210772514,\"penetration_m\":0.0,\"seat_triangles\":2088,\"support_gap_m\":0.04155033826828,\"vertices\":28993,\"worst_point\":[0.0,0.0,0.0]}",
+      "ERROR: 驾驶者双脚支撑在实际地板 protagonist {\"lowest_foot_m\":0.113939210772514,\"penetration_m\":0.0,\"seat_triangles\":2088,\"support_gap_m\":0.04155033826828,\"vertices\":28993,\"worst_point\":[0.0,0.0,0.0]}"
+    ],
+    "log_sha256": "e3ada697b0810db56b3937d1437b5e38dda0f95f42c075ee015ff859b3321e64"
+  },
+  "c4k-wheel-cover-before": {
+    "data": [
+      {
+        "bad_normals": 0,
+        "baked_triangles": 77864,
+        "degenerate": 0,
+        "driver_leg_difference_m": 0.0,
+        "failures": 24,
+        "inward_triangles": 0,
+        "lods": 83,
+        "maximum_driver_palm_error_m": 7.86781311035156e-06,
+        "natural_blend_leg_difference_m": 0.0,
+        "seating": {
+          "casual": {
+            "lowest_foot_m": 0.123613491654396,
+            "penetration_m": 0.0,
+            "seat_triangles": 2172,
+            "support_gap_m": 0.002372145652771,
+            "vertices": 21362,
+            "worst_point": [
+              0.0,
+              0.0,
+              0.0
+            ]
+          },
+          "protagonist": {
+            "lowest_foot_m": 0.113939210772514,
+            "penetration_m": 0.0,
+            "seat_triangles": 2172,
+            "support_gap_m": 0.0215502977371216,
+            "vertices": 28993,
+            "worst_point": [
+              0.0,
+              0.0,
+              0.0
+            ]
+          }
+        },
+        "wheel_cover_rays": 24
+      }
+    ],
+    "errors": [
+      "ERROR: 轮拱内盖从外侧可见并覆盖轮后空间 [-1, -1.38, 0.2, -0.2]",
+      "ERROR: 轮拱内盖从外侧可见并覆盖轮后空间 [-1, -1.38, 0.2, 0.2]",
+      "ERROR: 轮拱内盖从外侧可见并覆盖轮后空间 [-1, -1.38, 0.4, -0.2]",
+      "ERROR: 轮拱内盖从外侧可见并覆盖轮后空间 [-1, -1.38, 0.4, 0.2]",
+      "ERROR: 轮拱内盖从外侧可见并覆盖轮后空间 [-1, -1.38, 0.65, -0.2]",
+      "ERROR: 轮拱内盖从外侧可见并覆盖轮后空间 [-1, -1.38, 0.65, 0.2]",
+      "ERROR: 轮拱内盖从外侧可见并覆盖轮后空间 [-1, 1.27, 0.2, -0.2]",
+      "ERROR: 轮拱内盖从外侧可见并覆盖轮后空间 [-1, 1.27, 0.2, 0.2]",
+      "ERROR: 轮拱内盖从外侧可见并覆盖轮后空间 [-1, 1.27, 0.4, -0.2]",
+      "ERROR: 轮拱内盖从外侧可见并覆盖轮后空间 [-1, 1.27, 0.4, 0.2]",
+      "ERROR: 轮拱内盖从外侧可见并覆盖轮后空间 [-1, 1.27, 0.65, -0.2]",
+      "ERROR: 轮拱内盖从外侧可见并覆盖轮后空间 [-1, 1.27, 0.65, 0.2]",
+      "ERROR: 轮拱内盖从外侧可见并覆盖轮后空间 [1, -1.38, 0.2, -0.2]",
+      "ERROR: 轮拱内盖从外侧可见并覆盖轮后空间 [1, -1.38, 0.2, 0.2]",
+      "ERROR: 轮拱内盖从外侧可见并覆盖轮后空间 [1, -1.38, 0.4, -0.2]",
+      "ERROR: 轮拱内盖从外侧可见并覆盖轮后空间 [1, -1.38, 0.4, 0.2]",
+      "ERROR: 轮拱内盖从外侧可见并覆盖轮后空间 [1, -1.38, 0.65, -0.2]",
+      "ERROR: 轮拱内盖从外侧可见并覆盖轮后空间 [1, -1.38, 0.65, 0.2]",
+      "ERROR: 轮拱内盖从外侧可见并覆盖轮后空间 [1, 1.27, 0.2, -0.2]",
+      "ERROR: 轮拱内盖从外侧可见并覆盖轮后空间 [1, 1.27, 0.2, 0.2]",
+      "ERROR: 轮拱内盖从外侧可见并覆盖轮后空间 [1, 1.27, 0.4, -0.2]",
+      "ERROR: 轮拱内盖从外侧可见并覆盖轮后空间 [1, 1.27, 0.4, 0.2]",
+      "ERROR: 轮拱内盖从外侧可见并覆盖轮后空间 [1, 1.27, 0.65, -0.2]",
+      "ERROR: 轮拱内盖从外侧可见并覆盖轮后空间 [1, 1.27, 0.65, 0.2]"
+    ],
+    "log_sha256": "b3895d8cd012d55d5658c835e468d4c69dbb7d29fe41af931b7bbe3541137099"
+  },
+  "c4k-wheel-cover-final": {
+    "data": [
+      {
+        "bad_normals": 0,
+        "baked_triangles": 78040,
+        "degenerate": 0,
+        "driver_leg_difference_m": 0.0,
+        "failures": 0,
+        "inward_triangles": 0,
+        "lods": 82,
+        "maximum_driver_palm_error_m": 7.86781311035156e-06,
+        "natural_blend_leg_difference_m": 0.0,
+        "seating": {
+          "casual": {
+            "lowest_foot_m": 0.123613491654396,
+            "penetration_m": 0.0,
+            "seat_triangles": 2172,
+            "support_gap_m": 0.002372145652771,
+            "vertices": 21362,
+            "worst_point": [
+              0.0,
+              0.0,
+              0.0
+            ]
+          },
+          "protagonist": {
+            "lowest_foot_m": 0.113939210772514,
+            "penetration_m": 0.0,
+            "seat_triangles": 2172,
+            "support_gap_m": 0.0215502977371216,
+            "vertices": 28993,
+            "worst_point": [
+              0.0,
+              0.0,
+              0.0
+            ]
+          }
+        },
+        "wheel_cover_rays": 24
+      }
+    ],
+    "errors": [],
+    "log_sha256": "224f61602b4432dba6a03d293ba26e20609b988e665e29096e20de88adacdebf"
+  }
+}

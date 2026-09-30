@@ -1,0 +1,102 @@
+{
+	"background_guard": true,
+	"current_driver_joints": {
+		"foot.L": [
+			0.232797190546989,
+			0.464759737253189,
+			0.418411195278168
+		],
+		"head": [
+			0.0,
+			1.60475528240204,
+			0.0480917915701866
+		],
+		"lowerleg01.L": [
+			0.167601898312569,
+			0.862580418586731,
+			0.453322291374207
+		],
+		"upperleg01.L": [
+			0.116986900568008,
+			0.917297542095184,
+			0.0130326934158802
+		]
+	},
+	"driver_max_joint_difference": 0.00927281100302935,
+	"fixture_cameras": true,
+	"images": [
+		{
+			"draw_calls": 1771,
+			"name": "front"
+		},
+		{
+			"draw_calls": 487,
+			"name": "rear"
+		},
+		{
+			"draw_calls": 845,
+			"name": "side"
+		},
+		{
+			"draw_calls": 479,
+			"name": "cabin"
+		},
+		{
+			"draw_calls": 1549,
+			"name": "front-wheel"
+		},
+		{
+			"draw_calls": 194,
+			"name": "traffic-driver-current"
+		},
+		{
+			"draw_calls": 194,
+			"name": "traffic-driver-settled-diagnostic"
+		},
+		{
+			"draw_calls": 1774,
+			"name": "night-front"
+		},
+		{
+			"draw_calls": 505,
+			"name": "night-brake"
+		},
+		{
+			"draw_calls": 368,
+			"name": "traffic-night-position"
+		},
+		{
+			"draw_calls": 368,
+			"name": "traffic-night-brake"
+		},
+		{
+			"draw_calls": 201,
+			"name": "traffic-night-headlights"
+		}
+	],
+	"normal_game_fps": false,
+	"persistence": false,
+	"renderer": "forward_plus",
+	"settled_driver_joints": {
+		"foot.L": [
+			0.232797190546989,
+			0.464759737253189,
+			0.418411195278168
+		],
+		"head": [
+			0.0,
+			1.60508918762207,
+			0.0388249941170216
+		],
+		"lowerleg01.L": [
+			0.167601898312569,
+			0.862580418586731,
+			0.453322291374207
+		],
+		"upperleg01.L": [
+			0.116986900568008,
+			0.917297542095184,
+			0.0130326934158802
+		]
+	}
+}

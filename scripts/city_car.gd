@@ -20,85 +20,31 @@ var front_wheels: Array[Node3D]=[]
 var brake_lights: Array[MeshInstance3D]=[]
 var driver: HumanVisual
 var steering_wheel: MeshInstance3D
+var visual: CityCarVisual
+var braking_now := false
 
 func _ready() -> void:
 	name=stable_id
 	collision_mask=3
 	motion_mode=CharacterBody3D.MOTION_MODE_FLOATING
 	Shapes.collider(self,Vector3(1.86,1.3,4.25),Vector3(0,0.86,0))
-	var body := Shapes.box(self,Vector3(1.8,0.50,4.15),Vector3(0,0.64,0),paint)
-	body.material_override.roughness=0.3
-	body.material_override.metallic=0.45
-	Shapes.box(self,Vector3(1.72,0.12,1.22),Vector3(0,0.90,-1.45),paint)
-	Shapes.box(self,Vector3(1.72,0.12,0.75),Vector3(0,0.90,1.67),paint)
-	Shapes.box(self,Vector3(1.54,0.09,1.65),Vector3(0,1.61,0.14),paint)
-	for x in [-0.76,0.76]:
-		for z in [-0.72,0.16,0.96]: Shapes.box(self,Vector3(0.065,0.72,0.07),Vector3(x,1.23,z),paint)
-		Shapes.box(self,Vector3(0.08,0.05,0.26),Vector3(x*1.21,0.96,0.48),Color("aeb8ba"))
-		Shapes.box(self,Vector3(0.23,0.14,0.28),Vector3(x*1.32,1.14,-0.7),paint)
-	var glass := Shapes.material(Color(0.30,0.47,0.52,0.28))
-	glass.transparency=BaseMaterial3D.TRANSPARENCY_ALPHA
-	glass.cull_mode=BaseMaterial3D.CULL_DISABLED
-	glass.roughness=0.12
-	for x in [-0.76,0.76]:
-		var window := Shapes.box(self,Vector3(0.015,0.58,1.57),Vector3(x,1.25,0.14),Color.WHITE)
-		window.material_override=glass
-	for z in [-0.78,1.00]:
-		var window := Shapes.box(self,Vector3(1.45,0.65,0.025),Vector3(0,1.24,z),Color.WHITE)
-		window.rotation.x=-0.20 if z<0 else 0.20
-		window.material_override=glass
-	for x in [-0.43,0.43]:
-		Shapes.box(self,Vector3(0.64,0.16,0.60),Vector3(x,0.65,0.10),Color("303c42"))
-		Shapes.box(self,Vector3(0.64,0.64,0.14),Vector3(x,0.95,0.40),Color("303c42"))
-	Shapes.box(self,Vector3(1.5,0.22,0.34),Vector3(0,0.99,-0.64),Color("303c42"))
-	var wheel := MeshInstance3D.new()
-	var torus := TorusMesh.new()
-	torus.inner_radius=0.16
-	torus.outer_radius=0.20
-	wheel.mesh=torus
-	wheel.material_override=Shapes.material(Color("273137"))
-	add_child(wheel)
-	wheel.position=Vector3(-0.43,1.05,-0.22)
-	wheel.rotation.x=1.05
-	steering_wheel=wheel
-	for x in [-0.88,0.88]:
-		for z in [-1.38,1.27]:
-			var pivot := Node3D.new()
-			add_child(pivot)
-			pivot.position=Vector3(x,0.34,z)
-			if z<0: front_wheels.append(pivot)
-			var tire := MeshInstance3D.new()
-			var cylinder := CylinderMesh.new()
-			cylinder.top_radius=0.34
-			cylinder.bottom_radius=0.34
-			cylinder.height=0.22
-			cylinder.radial_segments=24
-			tire.mesh=cylinder
-			tire.material_override=Shapes.material(Color("242d31"))
-			pivot.add_child(tire)
-			tire.rotation.z=PI/2
-			wheels.append(tire)
-	for z in [-2.09,2.09]:
-		Shapes.box(self,Vector3(1.72,0.12,0.08),Vector3(0,0.41,z),Color("333e43"))
-		for x in [-0.65,0.65]:
-			var light := Shapes.box(self,Vector3(0.32,0.16,0.06),Vector3(x,0.80,z),Color("e1d8b6") if z<0 else Color("904b48"))
-			if z>0: brake_lights.append(light)
-	if traffic:
-		driver=HumanVisual.new()
-		driver.outfit="casual"
-		add_child(driver)
-		driver.position=SEAT+driver.seated_offset
-		driver.pose(0,false,false,true)
-		driver.animation.advance(0.4)
-		driver.animation.pause()
-		pose_driver(driver)
+	visual=CityCarVisual.new();visual.car=self;add_child(visual)
+	wheels=visual.wheels;front_wheels=visual.front_axles
+	steering_wheel=visual.steering_wheel;driver=visual.driver
+	brake_lights.append(visual.taillights)
+	if driver:pose_driver(driver)
+
+func update_lights() -> void:
+	var city: Node3D=get_parent().game
+	var minute: int=city.payroll.minute%Payroll.DAY
+	visual.set_lighting(minute<360 or minute>=1080,traffic or get_parent().active==self,braking_now)
 
 func animate_wheels(delta: float, braking: bool) -> void:
-	for tire in wheels: tire.rotation.y+=speed*delta/0.34
-	for pivot in front_wheels: pivot.rotation.y=-steering
+	for tire in wheels:tire.rotation.x=fposmod(tire.rotation.x-speed*delta/.34,TAU)
+	for pivot in front_wheels:pivot.rotation.y=-steering
 	steering_wheel.basis=Basis(Vector3.RIGHT,1.05)*Basis(Vector3.UP,-steering*2.5)
-	for light in brake_lights: light.material_override.albedo_color=Color("ef5750") if braking else Color("904b48")
-	if driver: pose_driver(driver)
+	braking_now=braking;update_lights()
+	if driver:pose_driver(driver)
 
 func palm_target(side: String) -> Transform3D:
 	var sign_value := -1.0 if side=="L" else 1.0

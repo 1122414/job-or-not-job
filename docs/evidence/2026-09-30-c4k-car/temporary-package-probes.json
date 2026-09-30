@@ -1,0 +1,8 @@
+{
+  "purpose": "External tools adapt source inheritance to read runtime resources from the actual PCK; temporary copies removed after successful runs.",
+  "files": {
+    "render_car_journey.gd": "7f7a686a34a2abb1ca9bfa7018e5544948019756c63d61d067261e40880f04d4",
+    "render_city_bus.gd": "e6c213e683b954f8d69952fe225b67021e61f73008a4efc3389f67c64f7f2f1d",
+    "render_city_car.gd": "c4b62870f3955a2ba5562cc139cda0fb1718ef55cfb3ba6d17c242d7a04ce674"
+  }
+}

@@ -266,6 +266,8 @@ func update_daylight() -> void:
 	if streets: streets.daylight(daylight)
 	var local_minute := payroll.minute % Payroll.DAY
 	if transit and transit.visual: transit.visual.set_night(local_minute<6*60 or local_minute>=18*60)
+	if driving:
+		for car in driving.cars: car.update_lights()
 
 func in_vehicle() -> bool:
 	return transit!=null and transit.riding or driving!=null and driving.in_vehicle()

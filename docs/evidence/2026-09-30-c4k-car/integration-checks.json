@@ -1,0 +1,179 @@
+[
+  {
+    "log": "c4k-check-final-v2.log",
+    "sha256": "d619471a9748cc2d610716c6e739f029ff76864000d608bab7e5a86f697f8495",
+    "errors": 0,
+    "warnings": 0,
+    "markers": [
+      "FULL_ROUTE_TEST failures=0"
+    ]
+  },
+  {
+    "log": "c4k-python-v2.log",
+    "sha256": "85398c28f5617af22c6b675a12e15d9141a57ec9aa5f71d08b56cb703476e793",
+    "errors": 0,
+    "warnings": 0,
+    "markers": [
+      "Ran 32 tests in 1.260s",
+      "OK"
+    ]
+  },
+  {
+    "log": "c4k-full-route-v2.log",
+    "sha256": "328fc112a2b665c1193b4f5b3f93c7dad8d34a3ab081b45096be0a9d94034bd4",
+    "errors": 0,
+    "warnings": 0,
+    "markers": [
+      "FULL_ROUTE_TEST failures=0"
+    ]
+  },
+  {
+    "log": "c4k-render-final.log",
+    "sha256": "093a6ec987add04acda45b0f798d896e93125151c0bdc3a370d659d6a94db693",
+    "errors": 0,
+    "warnings": 0,
+    "markers": [
+      "CITY_CAR_RENDER_OK"
+    ]
+  },
+  {
+    "log": "c4k-journey-final-v2.log",
+    "sha256": "361bfba63264e45d17974f156a7c70d1225fe82f145f5d36c090e253a7f81f50",
+    "errors": 0,
+    "warnings": 0,
+    "markers": [
+      "CAR_JOURNEY_OK metres=323.868992973323 maximum_step=0.09258612990379 blocked_frames=0 minute=1103 guard=true"
+    ]
+  },
+  {
+    "log": "c4k-package-final-v2.log",
+    "sha256": "0a5c613b80de75bbb7930f33a2799fa9ae9d800d37acedb0b33b5bb284da75ea",
+    "errors": 0,
+    "warnings": 0,
+    "markers": []
+  },
+  {
+    "log": "c4k-package-project-v2.log",
+    "sha256": "b9ff3eae0a19008f69734d00cff951c8aae71303dfd7d73208de49577b8dbefb",
+    "errors": 0,
+    "warnings": 0,
+    "markers": [
+      "PACKAGED_CAR authored_parts=6 wheels=4 drivers=3 night_lights=true sources_excluded=true",
+      "PACKAGED_SMOKE_OK build=20260930T065815183215Z-f64360ab-7548c009 label=v0.5.0 · f64360ab / 7548c009（含未提交修改） npcs=10 props=114 company_spaces=2 company_sources=2 environment_props=6 asset_sources=5 authored_clips=4 authored_characters=29 texture_imports=verified ui_mouse=verified city_stops=4 authored_bus=verified bus_ride_save=verified driving_save=verified traffic=3 public_residents=12 population_save=verified bookshop_walk_save=verified original_illustrations=3 public_response_transfer_save=verified persistence=false"
+    ]
+  },
+  {
+    "log": "c4k-package-external-v2.log",
+    "sha256": "b9ff3eae0a19008f69734d00cff951c8aae71303dfd7d73208de49577b8dbefb",
+    "errors": 0,
+    "warnings": 0,
+    "markers": [
+      "PACKAGED_CAR authored_parts=6 wheels=4 drivers=3 night_lights=true sources_excluded=true",
+      "PACKAGED_SMOKE_OK build=20260930T065815183215Z-f64360ab-7548c009 label=v0.5.0 · f64360ab / 7548c009（含未提交修改） npcs=10 props=114 company_spaces=2 company_sources=2 environment_props=6 asset_sources=5 authored_clips=4 authored_characters=29 texture_imports=verified ui_mouse=verified city_stops=4 authored_bus=verified bus_ride_save=verified driving_save=verified traffic=3 public_residents=12 population_save=verified bookshop_walk_save=verified original_illustrations=3 public_response_transfer_save=verified persistence=false"
+    ]
+  },
+  {
+    "log": "c4k-package-visual-v2.log",
+    "sha256": "093a6ec987add04acda45b0f798d896e93125151c0bdc3a370d659d6a94db693",
+    "errors": 0,
+    "warnings": 0,
+    "markers": [
+      "CITY_CAR_RENDER_OK"
+    ]
+  },
+  {
+    "log": "c4k-package-journey-v2.log",
+    "sha256": "361bfba63264e45d17974f156a7c70d1225fe82f145f5d36c090e253a7f81f50",
+    "errors": 0,
+    "warnings": 0,
+    "markers": [
+      "CAR_JOURNEY_OK metres=323.868992973323 maximum_step=0.09258612990379 blocked_frames=0 minute=1103 guard=true"
+    ]
+  },
+  {
+    "log": "c4k-restore-journey-final-v2-east-street.log",
+    "sha256": "dd61035ae7a0c5816eda14b5965fe96ea4cc8bb7d19e5f85b4abc1f7e026fab3",
+    "errors": 0,
+    "warnings": 0,
+    "markers": [
+      "CAR_JOURNEY_SAVE_OK {\"active\":\"car_office\",\"all_vehicle_fields_restored\":true,\"build_id\":\"20260930T065815183215Z-f64360ab-7548c009\",\"minute\":1098.0,\"paused_lights\":true,\"persistence\":false,\"resume_brakes_without_input\":true,\"runtime_source_sha256\":\"7548c00925247863693d343d9f02903bb36c33c20a68305082d42fb56889e10e\",\"source_sha256\":\"1eb40b7ed8551ff2b64e295bc85f09784d3c91d977d3f4afb1c7a87cf608e3cd\",\"vehicles\":5}"
+    ]
+  },
+  {
+    "log": "c4k-restore-journey-final-v2-parked.log",
+    "sha256": "057e0249568d4fa42218e276b73bebb21fc26c54a3b51069f23cffa0dc49d1a7",
+    "errors": 0,
+    "warnings": 0,
+    "markers": [
+      "CAR_JOURNEY_SAVE_OK {\"active\":\"\",\"all_vehicle_fields_restored\":true,\"build_id\":\"20260930T065815183215Z-f64360ab-7548c009\",\"minute\":1103.0,\"paused_lights\":true,\"persistence\":false,\"resume_brakes_without_input\":true,\"runtime_source_sha256\":\"7548c00925247863693d343d9f02903bb36c33c20a68305082d42fb56889e10e\",\"source_sha256\":\"9471eddf0febc6a0a77e71be5cd2832270bde14d6f30338069ca61419cf7c77c\",\"vehicles\":5}"
+    ]
+  },
+  {
+    "log": "c4k-restore-journey-final-v2-waterfront.log",
+    "sha256": "214c3759de1a6aa954371a57cf4564a52470d7579a5595d0bb3104891409fdcb",
+    "errors": 0,
+    "warnings": 0,
+    "markers": [
+      "CAR_JOURNEY_SAVE_OK {\"active\":\"car_office\",\"all_vehicle_fields_restored\":true,\"build_id\":\"20260930T065815183215Z-f64360ab-7548c009\",\"minute\":1085.0,\"paused_lights\":true,\"persistence\":false,\"resume_brakes_without_input\":true,\"runtime_source_sha256\":\"7548c00925247863693d343d9f02903bb36c33c20a68305082d42fb56889e10e\",\"source_sha256\":\"4001f3d13c524f2378bd664bbe8303d61ee0c2c39f9712ec943c1da898711961\",\"vehicles\":5}"
+    ]
+  },
+  {
+    "log": "c4k-restore-journey-final-v2-west-street.log",
+    "sha256": "3dc939ac6f6234e99b5bcf35bc7ddf8a229dc7eeacb7dce12b62a3f5cd4f3f5c",
+    "errors": 0,
+    "warnings": 0,
+    "markers": [
+      "CAR_JOURNEY_SAVE_OK {\"active\":\"car_office\",\"all_vehicle_fields_restored\":true,\"build_id\":\"20260930T065815183215Z-f64360ab-7548c009\",\"minute\":1073.0,\"paused_lights\":true,\"persistence\":false,\"resume_brakes_without_input\":true,\"runtime_source_sha256\":\"7548c00925247863693d343d9f02903bb36c33c20a68305082d42fb56889e10e\",\"source_sha256\":\"6708ebf11878bccd15b1f9c75ce1264b0fd41c779c32f491c435db6f060eb4c8\",\"vehicles\":5}"
+    ]
+  },
+  {
+    "log": "c4k-restore-package-journey-v2-east-street.log",
+    "sha256": "dd61035ae7a0c5816eda14b5965fe96ea4cc8bb7d19e5f85b4abc1f7e026fab3",
+    "errors": 0,
+    "warnings": 0,
+    "markers": [
+      "CAR_JOURNEY_SAVE_OK {\"active\":\"car_office\",\"all_vehicle_fields_restored\":true,\"build_id\":\"20260930T065815183215Z-f64360ab-7548c009\",\"minute\":1098.0,\"paused_lights\":true,\"persistence\":false,\"resume_brakes_without_input\":true,\"runtime_source_sha256\":\"7548c00925247863693d343d9f02903bb36c33c20a68305082d42fb56889e10e\",\"source_sha256\":\"1eb40b7ed8551ff2b64e295bc85f09784d3c91d977d3f4afb1c7a87cf608e3cd\",\"vehicles\":5}"
+    ]
+  },
+  {
+    "log": "c4k-restore-package-journey-v2-parked.log",
+    "sha256": "057e0249568d4fa42218e276b73bebb21fc26c54a3b51069f23cffa0dc49d1a7",
+    "errors": 0,
+    "warnings": 0,
+    "markers": [
+      "CAR_JOURNEY_SAVE_OK {\"active\":\"\",\"all_vehicle_fields_restored\":true,\"build_id\":\"20260930T065815183215Z-f64360ab-7548c009\",\"minute\":1103.0,\"paused_lights\":true,\"persistence\":false,\"resume_brakes_without_input\":true,\"runtime_source_sha256\":\"7548c00925247863693d343d9f02903bb36c33c20a68305082d42fb56889e10e\",\"source_sha256\":\"9471eddf0febc6a0a77e71be5cd2832270bde14d6f30338069ca61419cf7c77c\",\"vehicles\":5}"
+    ]
+  },
+  {
+    "log": "c4k-restore-package-journey-v2-waterfront.log",
+    "sha256": "214c3759de1a6aa954371a57cf4564a52470d7579a5595d0bb3104891409fdcb",
+    "errors": 0,
+    "warnings": 0,
+    "markers": [
+      "CAR_JOURNEY_SAVE_OK {\"active\":\"car_office\",\"all_vehicle_fields_restored\":true,\"build_id\":\"20260930T065815183215Z-f64360ab-7548c009\",\"minute\":1085.0,\"paused_lights\":true,\"persistence\":false,\"resume_brakes_without_input\":true,\"runtime_source_sha256\":\"7548c00925247863693d343d9f02903bb36c33c20a68305082d42fb56889e10e\",\"source_sha256\":\"4001f3d13c524f2378bd664bbe8303d61ee0c2c39f9712ec943c1da898711961\",\"vehicles\":5}"
+    ]
+  },
+  {
+    "log": "c4k-restore-package-journey-v2-west-street.log",
+    "sha256": "3dc939ac6f6234e99b5bcf35bc7ddf8a229dc7eeacb7dce12b62a3f5cd4f3f5c",
+    "errors": 0,
+    "warnings": 0,
+    "markers": [
+      "CAR_JOURNEY_SAVE_OK {\"active\":\"car_office\",\"all_vehicle_fields_restored\":true,\"build_id\":\"20260930T065815183215Z-f64360ab-7548c009\",\"minute\":1073.0,\"paused_lights\":true,\"persistence\":false,\"resume_brakes_without_input\":true,\"runtime_source_sha256\":\"7548c00925247863693d343d9f02903bb36c33c20a68305082d42fb56889e10e\",\"source_sha256\":\"6708ebf11878bccd15b1f9c75ce1264b0fd41c779c32f491c435db6f060eb4c8\",\"vehicles\":5}"
+    ]
+  },
+  {
+    "log": "import.log",
+    "sha256": "a0a060bfc09796ece809572fc6c706a5e5affb6f74a039a89b6bd2061937e153",
+    "errors": 0,
+    "warnings": 0,
+    "mtime_after_final_manifest": true
+  },
+  {
+    "log": "smoke.log",
+    "sha256": "1f4aefb7bdaa3aac5c3ea38b8d505eb0d072d02dfef33d1c42767bcd075bbb24",
+    "errors": 0,
+    "warnings": 0,
+    "mtime_after_final_manifest": true
+  }
+]

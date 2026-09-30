@@ -1,0 +1,45 @@
+{
+	"collision": "unchanged 1.86 x 1.3 x 4.25 m",
+	"derived_files": {
+		"body.res": "ea8b7176de51bcbdb912780796df64592a974f1d2d50419bbc650f9a47686ee5",
+		"cabin.res": "59a93bf8f6b65f5d07568f72a958d9bc49ceb44f6b817fb0b6273cf6eec3048b",
+		"glass.res": "88892bfc7dfa0e5a292da89a72716137ef29439efae06c10735c1f0aab3e9585",
+		"headlights.res": "58fad3603b3ce7efdc43a0ace2fbbdc6a89dc0e68cb69610ffbbb43a35ad3768",
+		"taillights.res": "f2c9e1b3835c062e367a5342c49fff1e232ff8d858eed3ca731ada8cac39bccb",
+		"wheel.res": "4497f0b46512c44dfe34b3e4b5bcb5e93a643e6bb86c4f6a4d82189e8b9cbb3a"
+	},
+	"driver_root": "unchanged CityCar.SEAT",
+	"floor_top_m": 0.112,
+	"geometry": {
+		"body": {
+			"surfaces": 6,
+			"triangles": 28700
+		},
+		"cabin": {
+			"surfaces": 7,
+			"triangles": 17568
+		},
+		"glass": {
+			"surfaces": 1,
+			"triangles": 12
+		},
+		"headlights": {
+			"surfaces": 1,
+			"triangles": 1176
+		},
+		"taillights": {
+			"surfaces": 1,
+			"triangles": 1176
+		},
+		"wheel": {
+			"surfaces": 5,
+			"triangles": 7352
+		}
+	},
+	"origin": "Original project compact sedan; no third-party vehicle input",
+	"sources": {
+		"tools/prepare_city_bus.gd": "5c7029f9fb4d700842f646848b3cf09be502f1dbe1ab10a41a8a6c9413f88525",
+		"tools/prepare_city_car.gd": "01573ef5d91c57e7c7c1b64804b630c9ebfcfc864fd88aab7fc7096e9fa85f08"
+	},
+	"wheel_radius_m": 0.34
+}

@@ -134,6 +134,7 @@ func leave() -> bool:
 func detach() -> void:
 	if active:
 		active.speed=0
+		active.visual.set_lighting(false,false,false)
 		active.remove_collision_exception_with(game.player)
 		game.player.remove_collision_exception_with(active)
 		game.player.spring.remove_excluded_object(active.get_rid())

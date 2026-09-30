@@ -1,0 +1,27 @@
+{
+  "directly_reviewed_final_images": [
+    "package-visual/cabin.png",
+    "package-visual/front-wheel.png",
+    "package-visual/front.png",
+    "package-visual/night-brake.png",
+    "package-visual/night-front.png",
+    "package-visual/rear.png",
+    "package-visual/side.png",
+    "package-visual/traffic-driver-current.png",
+    "package-visual/traffic-driver-settled-diagnostic.png",
+    "package-visual/traffic-night-brake.png",
+    "package-visual/traffic-night-headlights.png",
+    "package-visual/traffic-night-position.png",
+    "package-route/seated-player-camera.png",
+    "package-route/waterfront.png",
+    "package-route/parked-player-camera.png",
+    "package-route/exit-at-homes.png"
+  ],
+  "additional_source_images_reviewed": [
+    "source-visual/front.png",
+    "source-visual/side.png",
+    "source-visual/front-wheel.png"
+  ],
+  "scope": "Geometry, driver posture, lighting, normal player camera continuity. Prototype quality remains; no full independent player or sustained FPS acceptance.",
+  "retained_png_count": 53
+}

@@ -97,3 +97,9 @@ macOS包的`ASSET-SOURCES.json`和`CREDITS.txt`保存来源；通用CC0原文随
 101公交使用[原创离线制作源](../tools/prepare_city_bus.gd)，运行加载五种共享网格，车门和四轮独立运动。无第三方车辆下载、无新增依赖。制作清单记录源摘要、生成面数和派生摘要，独立包附BUS-PRODUCTION.json；车辆自身含运行方向盘和地板74,160三角形，司机按独立人物计。材质、驾驶员与上下客完整表演仍非最终写实品质，见[车辆制作说明](../assets/vehicles/city_bus/README.md)。
 
 旧office_female居民源已按原SHA保留在[制作目录](../production/characters/resident-skirt-2026-09-30/README.md)，仍为既有MakeHuman CC0资产。重绑只改独立短裙420个导出顶点的JOINTS_0/WEIGHTS_0，不改位置、UV、拓扑、材质、纹理、骨架或其他网格。原件排除运行包，派生和配方摘要在resident_skirt_provenance.json及独立包RESIDENT-SKIRT-SOURCES.json；走跑布料伸缩仍有局限。
+
+## 2026-09-30 城区汽车制作
+
+五辆汽车共用[原创汽车运行资产](../assets/vehicles/city_car/README.md)。`tools/prepare_city_car.gd`复用公交的离线几何辅助方法，六份网格按材质合批，烘焙整车78,040三角形、82条实际LOD，人物及运行方向盘另计。内外轮罩、透明车窗、座舱、转向轮组与头尾灯分别制作；没有第三方汽车源、付费采购或新增依赖。
+
+`production.json`记录汽车及公交辅助制作源、六份网格摘要和座位/碰撞合同。实际包附`CAR-PRODUCTION.json`且排除制作脚本。原型材质、正式上下车/握姿、悬架与车损仍待制作，不能将资源和工程通过当作写实车辆验收。

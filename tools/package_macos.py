@@ -54,6 +54,7 @@ def build():
     shutil.copy2(ROOT / 'assets/characters/cast/provenance.json', resources / 'CAST-SOURCES.json')
     shutil.copy2(ROOT / 'assets/characters/resident_skirt_provenance.json', resources / 'RESIDENT-SKIRT-SOURCES.json')
     shutil.copy2(ROOT / 'assets/vehicles/city_bus/production.json', resources / 'BUS-PRODUCTION.json')
+    shutil.copy2(ROOT / 'assets/vehicles/city_car/production.json', resources / 'CAR-PRODUCTION.json')
     shutil.copy2(ROOT / 'production/characters/cc0-2026-09-29/provenance.json', resources / 'CAST-ORIGINALS.json')
     for person in ('protagonist', 'lin_lan', 'a_cheng'):
         shutil.copy2(ROOT / f'assets/animations/cast/{person}-provenance.json',

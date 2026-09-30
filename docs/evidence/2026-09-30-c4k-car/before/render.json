@@ -1,0 +1,90 @@
+{
+	"background_guard": true,
+	"current_driver_joints": {
+		"foot.L": [
+			0.232797190546989,
+			0.0762935280799866,
+			-0.000964608043432236
+		],
+		"head": [
+			-0.00911470875144005,
+			1.59477317333221,
+			0.0526888519525528
+		],
+		"lowerleg01.L": [
+			0.167601898312569,
+			0.474114179611206,
+			0.0339464917778969
+		],
+		"upperleg01.L": [
+			0.116986900568008,
+			0.917297542095184,
+			0.0130326934158802
+		]
+	},
+	"driver_max_joint_difference": 0.57164853811264,
+	"fixture_cameras": true,
+	"images": [
+		{
+			"draw_calls": 1790,
+			"name": "front"
+		},
+		{
+			"draw_calls": 506,
+			"name": "rear"
+		},
+		{
+			"draw_calls": 851,
+			"name": "side"
+		},
+		{
+			"draw_calls": 492,
+			"name": "cabin"
+		},
+		{
+			"draw_calls": 1555,
+			"name": "front-wheel"
+		},
+		{
+			"draw_calls": 199,
+			"name": "traffic-driver-current"
+		},
+		{
+			"draw_calls": 199,
+			"name": "traffic-driver-settled-diagnostic"
+		},
+		{
+			"draw_calls": 1793,
+			"name": "night-front"
+		},
+		{
+			"draw_calls": 524,
+			"name": "night-brake"
+		}
+	],
+	"normal_game_fps": false,
+	"persistence": false,
+	"renderer": "forward_plus",
+	"settled_driver_joints": {
+		"foot.L": [
+			0.232797190546989,
+			0.464759737253189,
+			0.418411195278168
+		],
+		"head": [
+			0.0,
+			1.60508918762207,
+			0.0388249941170216
+		],
+		"lowerleg01.L": [
+			0.167601898312569,
+			0.862580418586731,
+			0.453322291374207
+		],
+		"upperleg01.L": [
+			0.116986900568008,
+			0.917297542095184,
+			0.0130326934158802
+		]
+	}
+}

@@ -1,0 +1,98 @@
+{
+  "package-journey-v2-waterfront.json": {
+    "active": "car_office",
+    "all_vehicle_fields_restored": true,
+    "build_id": "20260930T065815183215Z-f64360ab-7548c009",
+    "minute": 1085.0,
+    "paused_lights": true,
+    "persistence": false,
+    "resume_brakes_without_input": true,
+    "runtime_source_sha256": "7548c00925247863693d343d9f02903bb36c33c20a68305082d42fb56889e10e",
+    "source_sha256": "4001f3d13c524f2378bd664bbe8303d61ee0c2c39f9712ec943c1da898711961",
+    "vehicles": 5
+  },
+  "journey-final-v2-parked.json": {
+    "active": "",
+    "all_vehicle_fields_restored": true,
+    "build_id": "20260930T065815183215Z-f64360ab-7548c009",
+    "minute": 1103.0,
+    "paused_lights": true,
+    "persistence": false,
+    "resume_brakes_without_input": true,
+    "runtime_source_sha256": "7548c00925247863693d343d9f02903bb36c33c20a68305082d42fb56889e10e",
+    "source_sha256": "9471eddf0febc6a0a77e71be5cd2832270bde14d6f30338069ca61419cf7c77c",
+    "vehicles": 5
+  },
+  "journey-final-v2-waterfront.json": {
+    "active": "car_office",
+    "all_vehicle_fields_restored": true,
+    "build_id": "20260930T065815183215Z-f64360ab-7548c009",
+    "minute": 1085.0,
+    "paused_lights": true,
+    "persistence": false,
+    "resume_brakes_without_input": true,
+    "runtime_source_sha256": "7548c00925247863693d343d9f02903bb36c33c20a68305082d42fb56889e10e",
+    "source_sha256": "4001f3d13c524f2378bd664bbe8303d61ee0c2c39f9712ec943c1da898711961",
+    "vehicles": 5
+  },
+  "package-journey-v2-parked.json": {
+    "active": "",
+    "all_vehicle_fields_restored": true,
+    "build_id": "20260930T065815183215Z-f64360ab-7548c009",
+    "minute": 1103.0,
+    "paused_lights": true,
+    "persistence": false,
+    "resume_brakes_without_input": true,
+    "runtime_source_sha256": "7548c00925247863693d343d9f02903bb36c33c20a68305082d42fb56889e10e",
+    "source_sha256": "9471eddf0febc6a0a77e71be5cd2832270bde14d6f30338069ca61419cf7c77c",
+    "vehicles": 5
+  },
+  "journey-final-v2-west-street.json": {
+    "active": "car_office",
+    "all_vehicle_fields_restored": true,
+    "build_id": "20260930T065815183215Z-f64360ab-7548c009",
+    "minute": 1073.0,
+    "paused_lights": true,
+    "persistence": false,
+    "resume_brakes_without_input": true,
+    "runtime_source_sha256": "7548c00925247863693d343d9f02903bb36c33c20a68305082d42fb56889e10e",
+    "source_sha256": "6708ebf11878bccd15b1f9c75ce1264b0fd41c779c32f491c435db6f060eb4c8",
+    "vehicles": 5
+  },
+  "package-journey-v2-west-street.json": {
+    "active": "car_office",
+    "all_vehicle_fields_restored": true,
+    "build_id": "20260930T065815183215Z-f64360ab-7548c009",
+    "minute": 1073.0,
+    "paused_lights": true,
+    "persistence": false,
+    "resume_brakes_without_input": true,
+    "runtime_source_sha256": "7548c00925247863693d343d9f02903bb36c33c20a68305082d42fb56889e10e",
+    "source_sha256": "6708ebf11878bccd15b1f9c75ce1264b0fd41c779c32f491c435db6f060eb4c8",
+    "vehicles": 5
+  },
+  "journey-final-v2-east-street.json": {
+    "active": "car_office",
+    "all_vehicle_fields_restored": true,
+    "build_id": "20260930T065815183215Z-f64360ab-7548c009",
+    "minute": 1098.0,
+    "paused_lights": true,
+    "persistence": false,
+    "resume_brakes_without_input": true,
+    "runtime_source_sha256": "7548c00925247863693d343d9f02903bb36c33c20a68305082d42fb56889e10e",
+    "source_sha256": "1eb40b7ed8551ff2b64e295bc85f09784d3c91d977d3f4afb1c7a87cf608e3cd",
+    "vehicles": 5
+  },
+  "package-journey-v2-east-street.json": {
+    "active": "car_office",
+    "all_vehicle_fields_restored": true,
+    "build_id": "20260930T065815183215Z-f64360ab-7548c009",
+    "minute": 1098.0,
+    "paused_lights": true,
+    "persistence": false,
+    "resume_brakes_without_input": true,
+    "runtime_source_sha256": "7548c00925247863693d343d9f02903bb36c33c20a68305082d42fb56889e10e",
+    "source_sha256": "1eb40b7ed8551ff2b64e295bc85f09784d3c91d977d3f4afb1c7a87cf608e3cd",
+    "vehicles": 5
+  }
+}

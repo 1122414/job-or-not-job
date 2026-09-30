@@ -1,0 +1,19 @@
+{
+  "build_id": "20260930T064849541322Z-f64360ab-a1832a7f",
+  "source_sha256": "a1832a7f6f9b3b92c6fc3093859a64bd3284e125891e53c443e65a7836e637f8",
+  "source_matches": true,
+  "all_runtime_inputs_match": true,
+  "inner_outer_manifest_match": true,
+  "pck_matches": true,
+  "packaged_engine_matches": true,
+  "zip_matches": true,
+  "schema": 24,
+  "zip_sha256": "f386febd06606d534c2eda05a376ed4892bae06fc645375e8983db283beb9505",
+  "original_validation_field": "not_yet_verified",
+  "original_runtime_dirty": true,
+  "car_provenance_matches": true,
+  "codesign_valid": true,
+  "zip_crc_valid": true,
+  "zip_game.pck_matches": true,
+  "zip_Godot_matches": true
+}
