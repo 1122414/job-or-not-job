@@ -10,7 +10,7 @@ import prepare_resident_skirt as recipe
 
 
 class ResidentSkirtTest(unittest.TestCase):
-    def test_rebuild_preserves_geometry_and_non_skirt_data(self):
+    def test_rebuild_preserves_geometry_and_valid_non_skirt_data(self):
         original = recipe.SOURCE.read_bytes()
         result, metrics = recipe.prepare(original)
         self.assertEqual(result, recipe.TARGET.read_bytes())
@@ -29,6 +29,9 @@ class ResidentSkirtTest(unittest.TestCase):
                 offset = start + i * view.get('byteStride', size)
                 allowed.update(range(offset, offset + size))
         changes = {i for i, (a, b) in enumerate(zip(original, result)) if a != b}
+        self.assertEqual(metrics['skin_repair']['negative_values_removed'], 230)
+        for row in metrics['skin_repair']['rows']:
+            allowed.update(range(row['offset'], row['offset'] + 16))
         self.assertTrue(changes)
         self.assertFalse(changes - allowed)
         record = json.loads(recipe.RECORD.read_text())

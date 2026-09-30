@@ -1,0 +1,3515 @@
+{
+  "scope": "Only invalid WEIGHTS_0 rows; geometry, skeleton, materials, morphs and valid rows unchanged",
+  "license": "CC0-1.0",
+  "source_project_commit": "6afdb4e",
+  "recipe": "tools/repair_character_skin.py",
+  "characters": {
+    "casual": {
+      "source_sha256": "534333416a2948c3ad3227fe0c7bd55aaec03c2f4bd0ee599ca261fd7d2ce577",
+      "derived_sha256": "224e09dc16ff3bb2d4962d76a72b876204d7ef4335453e88d4e2f465c917ed54",
+      "negative_values_removed": 212,
+      "rows": [
+        {
+          "mesh": "male_casualsuit01",
+          "vertex": 1199,
+          "offset": 10189212,
+          "original_hex": "efcf733f41fadb3c09a4b93c4ac2f9ba"
+        },
+        {
+          "mesh": "male_casualsuit01",
+          "vertex": 4253,
+          "offset": 10238076,
+          "original_hex": "a213563f81b5273e402f81b700000000"
+        },
+        {
+          "mesh": "male_casualsuit01",
+          "vertex": 7096,
+          "offset": 10283564,
+          "original_hex": "2ce6013f29b5f73e2e461e3c606367ba"
+        },
+        {
+          "mesh": "male_casualsuit01",
+          "vertex": 7139,
+          "offset": 10284252,
+          "original_hex": "26523e3fa166823e40ed013bc671ecb8"
+        },
+        {
+          "mesh": "male_casualsuit01",
+          "vertex": 7144,
+          "offset": 10284332,
+          "original_hex": "773a563f3932273e09a5e0b800000000"
+        },
+        {
+          "mesh": "male_casualsuit01",
+          "vertex": 7506,
+          "offset": 10290124,
+          "original_hex": "8a2c803f8326b2ba0000000000000000"
+        },
+        {
+          "mesh": "male_casualsuit01",
+          "vertex": 7815,
+          "offset": 10295068,
+          "original_hex": "bd720b3f836aa73e1067033eb855e1b7"
+        },
+        {
+          "mesh": "male_casualsuit01",
+          "vertex": 8304,
+          "offset": 10302892,
+          "original_hex": "e3b77b3fb61a8a3c648b0bb900000000"
+        },
+        {
+          "mesh": "male_casualsuit01",
+          "vertex": 8335,
+          "offset": 10303388,
+          "original_hex": "4538803fac13e1ba0000000000000000"
+        },
+        {
+          "mesh": "male_casualsuit01",
+          "vertex": 8509,
+          "offset": 10306172,
+          "original_hex": "ff5e313f73519d3e2208f7b800000000"
+        },
+        {
+          "mesh": "male_casualsuit01",
+          "vertex": 8696,
+          "offset": 10309164,
+          "original_hex": "7666cd3e54fcb83efa41733e29bdf1b7"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 120,
+          "offset": 11927688,
+          "original_hex": "e9097f3f05a2033c3da0efbadda020bb"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 121,
+          "offset": 11927704,
+          "original_hex": "24ea693f9fd4ae3dd275f13ba4d1d3bb"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 122,
+          "offset": 11927720,
+          "original_hex": "8ea16c3f730e9c3dab43f43bf0f802bc"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 123,
+          "offset": 11927736,
+          "original_hex": "7315803f2c37043c0d4674bb6ebea3bb"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 128,
+          "offset": 11927816,
+          "original_hex": "55a4663f61edc53dfd14ee3b61159fbb"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 240,
+          "offset": 11929608,
+          "original_hex": "126f023f2a0ff93e33a4863be3d67bb8"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 241,
+          "offset": 11929624,
+          "original_hex": "bcac1e3f835ec03e15cba33b334e0eba"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 267,
+          "offset": 11930040,
+          "original_hex": "9b191d3fe1d5c83ef32aa23b823832bc"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 268,
+          "offset": 11930056,
+          "original_hex": "0aa0033ff0d9fb3edffc813bee3e24bc"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 269,
+          "offset": 11930072,
+          "original_hex": "f296013f334b003f1bc5853be96b3bbc"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 270,
+          "offset": 11930088,
+          "original_hex": "11a8203fd762c23ec7d6a53b8d4a49bc"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 271,
+          "offset": 11930104,
+          "original_hex": "5f0f3b3f0ffb8c3e2018c13bd2c543bc"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 272,
+          "offset": 11930120,
+          "original_hex": "98ac373f6317933e6399bd3b1edf2cbc"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 273,
+          "offset": 11930136,
+          "original_hex": "4612343f7a8d993e51e1b93b7a3113bc"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 274,
+          "offset": 11930152,
+          "original_hex": "2e71193f2f68cf3e50649e3b828318bc"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 275,
+          "offset": 11930168,
+          "original_hex": "16ef063f9685f43edd687c3b65920bbc"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 276,
+          "offset": 11930184,
+          "original_hex": "7675513fecd53c3e2f37d83bccd716bc"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 277,
+          "offset": 11930200,
+          "original_hex": "04b4543fd131313e8890db3b42e62dbc"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 278,
+          "offset": 11930216,
+          "original_hex": "f2da4d3faecd493ee97ed43b8fadfbbb"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 331,
+          "offset": 11931064,
+          "original_hex": "66a72a3fb536aa3eab28b03ba58891bb"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 332,
+          "offset": 11931080,
+          "original_hex": "c281083f6230ee3e0ae98c3b3bc533bb"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 336,
+          "offset": 11931144,
+          "original_hex": "5ada473fdd505f3ec04cce3b3595a5bb"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 337,
+          "offset": 11931160,
+          "original_hex": "31cf643f7c4dd43db730ec3b27a198bb"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 419,
+          "offset": 11932472,
+          "original_hex": "1c23723fd51f603dab5ae739ac0884ba"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 420,
+          "offset": 11932488,
+          "original_hex": "d38a6e3f6d0d903d05b3143a00ad31bb"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 421,
+          "offset": 11932504,
+          "original_hex": "b5c94f3f8b7b453e5edacb3a4542c7bb"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 422,
+          "offset": 11932520,
+          "original_hex": "a32d533fc07f363ed762bc3a6ae295bb"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 423,
+          "offset": 11932536,
+          "original_hex": "f79f563f4946273ea6abac3a10df47bb"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 425,
+          "offset": 11932568,
+          "original_hex": "a3532b3f7ceeab3e4f7a313bbe2dfebb"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 426,
+          "offset": 11932584,
+          "original_hex": "21f6273ff654b33ee51d393b906e16bc"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 427,
+          "offset": 11932600,
+          "original_hex": "3eb42e3fb37ea43e1ccd293b66b2cebb"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 627,
+          "offset": 11935800,
+          "original_hex": "6518583f2963193eed10df3b3b453dba"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 628,
+          "offset": 11935816,
+          "original_hex": "fbb75f3fba9ff93d77efe63b77d139bb"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 651,
+          "offset": 11936184,
+          "original_hex": "8ccc2e3f50e8a23e9c29283b0cdd68bb"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 652,
+          "offset": 11936200,
+          "original_hex": "a42f543f80412e3e84e0b33a6fa5cfb9"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 656,
+          "offset": 11936264,
+          "original_hex": "41db2e3f4d5aa13ec38e263b2ed93bba"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 657,
+          "offset": 11936280,
+          "original_hex": "91f70b3fcab4e73e3c2e6f3bf52341bb"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 658,
+          "offset": 11936296,
+          "original_hex": "f996133f4e90d73e71845e3bb69176ba"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 665,
+          "offset": 11936408,
+          "original_hex": "7073093fff26ee3eadd5753bbb62bebb"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 691,
+          "offset": 11936824,
+          "original_hex": "96c13d3f5e4f823e9be0c33be40ce2ba"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 692,
+          "offset": 11936840,
+          "original_hex": "a3af233fda3bb73e5ef7a83bb87e1fbb"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 693,
+          "offset": 11936856,
+          "original_hex": "3dd6293fe589ab3ec450af3ba3d179bb"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 694,
+          "offset": 11936872,
+          "original_hex": "604b413f49b5773e9d87c73bddc147bb"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 695,
+          "offset": 11936888,
+          "original_hex": "a8d3473f4bd15f3ed745ce3b2143b2bb"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 696,
+          "offset": 11936904,
+          "original_hex": "f2182f3f1d4fa23eeabeb43b51ffd4bb"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 697,
+          "offset": 11936920,
+          "original_hex": "6518583f2963193eed10df3b3b453dba"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 699,
+          "offset": 11936952,
+          "original_hex": "7611093f14caec3e617d8d3b377b11bb"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 700,
+          "offset": 11936968,
+          "original_hex": "aabc103f392dde3ee967953bfa157ebb"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 701,
+          "offset": 11936984,
+          "original_hex": "5e35153f729bd63e8a059a3b2d91dbbb"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 702,
+          "offset": 11937000,
+          "original_hex": "fbb75f3fba9ff93d77efe63b77d139bb"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 762,
+          "offset": 11937960,
+          "original_hex": "21f6273ff654b33ee51d393b906e16bc"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 763,
+          "offset": 11937976,
+          "original_hex": "b5c94f3f8b7b453e5edacb3a4542c7bb"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 766,
+          "offset": 11938024,
+          "original_hex": "d38a6e3f6d0d903d05b3143a00ad31bb"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 768,
+          "offset": 11938056,
+          "original_hex": "f296013f334b003f1bc5853be96b3bbc"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 785,
+          "offset": 11938328,
+          "original_hex": "04b4543fd131313e8890db3b42e62dbc"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 786,
+          "offset": 11938344,
+          "original_hex": "5f0f3b3f0ffb8c3e2018c13bd2c543bc"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 792,
+          "offset": 11938440,
+          "original_hex": "11a8203fd762c23ec7d6a53b8d4a49bc"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 793,
+          "offset": 11938456,
+          "original_hex": "7315803f2c37043c0d4674bb6ebea3bb"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 794,
+          "offset": 11938472,
+          "original_hex": "8ea16c3f730e9c3dab43f43bf0f802bc"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 918,
+          "offset": 11940456,
+          "original_hex": "e9097f3f05a2033c3da0efbadda020bb"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 919,
+          "offset": 11940472,
+          "original_hex": "7315803f2c37043c0d4674bb6ebea3bb"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 920,
+          "offset": 11940488,
+          "original_hex": "8ea16c3f730e9c3dab43f43bf0f802bc"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 921,
+          "offset": 11940504,
+          "original_hex": "24ea693f9fd4ae3dd275f13ba4d1d3bb"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 926,
+          "offset": 11940584,
+          "original_hex": "55a4663f61edc53dfd14ee3b61159fbb"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 1036,
+          "offset": 11942344,
+          "original_hex": "126f023f2a0ff93e33a4863be3d67bb8"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 1040,
+          "offset": 11942408,
+          "original_hex": "bcac1e3f835ec03e15cba33b334e0eba"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 1065,
+          "offset": 11942808,
+          "original_hex": "9b191d3fe1d5c83ef32aa23b823832bc"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 1066,
+          "offset": 11942824,
+          "original_hex": "11a8203fd762c23ec7d6a53b8d4a49bc"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 1067,
+          "offset": 11942840,
+          "original_hex": "f296013f334b003f1bc5853be96b3bbc"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 1068,
+          "offset": 11942856,
+          "original_hex": "0aa0033ff0d9fb3edffc813bee3e24bc"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 1069,
+          "offset": 11942872,
+          "original_hex": "98ac373f6317933e6399bd3b1edf2cbc"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 1070,
+          "offset": 11942888,
+          "original_hex": "5f0f3b3f0ffb8c3e2018c13bd2c543bc"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 1071,
+          "offset": 11942904,
+          "original_hex": "2e71193f2f68cf3e50649e3b828318bc"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 1072,
+          "offset": 11942920,
+          "original_hex": "4612343f7a8d993e51e1b93b7a3113bc"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 1073,
+          "offset": 11942936,
+          "original_hex": "16ef063f9685f43edd687c3b65920bbc"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 1074,
+          "offset": 11942952,
+          "original_hex": "7675513fecd53c3e2f37d83bccd716bc"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 1075,
+          "offset": 11942968,
+          "original_hex": "04b4543fd131313e8890db3b42e62dbc"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 1076,
+          "offset": 11942984,
+          "original_hex": "f2da4d3faecd493ee97ed43b8fadfbbb"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 1129,
+          "offset": 11943832,
+          "original_hex": "66a72a3fb536aa3eab28b03ba58891bb"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 1132,
+          "offset": 11943880,
+          "original_hex": "c281083f6230ee3e0ae98c3b3bc533bb"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 1133,
+          "offset": 11943896,
+          "original_hex": "5ada473fdd505f3ec04cce3b3595a5bb"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 1135,
+          "offset": 11943928,
+          "original_hex": "31cf643f7c4dd43db730ec3b27a198bb"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 1217,
+          "offset": 11945240,
+          "original_hex": "1c23723fd51f603dab5ae739ac0884ba"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 1218,
+          "offset": 11945256,
+          "original_hex": "d38a6e3f6d0d903d05b3143a00ad31bb"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 1219,
+          "offset": 11945272,
+          "original_hex": "a32d533fc07f363ed762bc3a6ae295bb"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 1220,
+          "offset": 11945288,
+          "original_hex": "b5c94f3f8b7b453e5edacb3a4542c7bb"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 1222,
+          "offset": 11945320,
+          "original_hex": "f79f563f4946273ea6abac3a10df47bb"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 1223,
+          "offset": 11945336,
+          "original_hex": "a3532b3f7ceeab3e4f7a313bbe2dfebb"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 1224,
+          "offset": 11945352,
+          "original_hex": "21f6273ff654b33ee51d393b906e16bc"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 1225,
+          "offset": 11945368,
+          "original_hex": "3eb42e3fb37ea43e1ccd293b66b2cebb"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 1425,
+          "offset": 11948568,
+          "original_hex": "fbb75f3fba9ff93d77efe63b77d139bb"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 1426,
+          "offset": 11948584,
+          "original_hex": "6518583f2963193eed10df3b3b453dba"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 1449,
+          "offset": 11948952,
+          "original_hex": "8ccc2e3f50e8a23e9c29283b0cdd68bb"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 1450,
+          "offset": 11948968,
+          "original_hex": "a42f543f80412e3e84e0b33a6fa5cfb9"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 1452,
+          "offset": 11949000,
+          "original_hex": "41db2e3f4d5aa13ec38e263b2ed93bba"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 1455,
+          "offset": 11949048,
+          "original_hex": "f996133f4e90d73e71845e3bb69176ba"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 1456,
+          "offset": 11949064,
+          "original_hex": "91f70b3fcab4e73e3c2e6f3bf52341bb"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 1463,
+          "offset": 11949176,
+          "original_hex": "7073093fff26ee3eadd5753bbb62bebb"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 1489,
+          "offset": 11949592,
+          "original_hex": "96c13d3f5e4f823e9be0c33be40ce2ba"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 1490,
+          "offset": 11949608,
+          "original_hex": "604b413f49b5773e9d87c73bddc147bb"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 1491,
+          "offset": 11949624,
+          "original_hex": "3dd6293fe589ab3ec450af3ba3d179bb"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 1492,
+          "offset": 11949640,
+          "original_hex": "a3af233fda3bb73e5ef7a83bb87e1fbb"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 1493,
+          "offset": 11949656,
+          "original_hex": "a8d3473f4bd15f3ed745ce3b2143b2bb"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 1494,
+          "offset": 11949672,
+          "original_hex": "f2182f3f1d4fa23eeabeb43b51ffd4bb"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 1496,
+          "offset": 11949704,
+          "original_hex": "6518583f2963193eed10df3b3b453dba"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 1497,
+          "offset": 11949720,
+          "original_hex": "7611093f14caec3e617d8d3b377b11bb"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 1498,
+          "offset": 11949736,
+          "original_hex": "aabc103f392dde3ee967953bfa157ebb"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 1499,
+          "offset": 11949752,
+          "original_hex": "5e35153f729bd63e8a059a3b2d91dbbb"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 1500,
+          "offset": 11949768,
+          "original_hex": "fbb75f3fba9ff93d77efe63b77d139bb"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 1560,
+          "offset": 11950728,
+          "original_hex": "b5c94f3f8b7b453e5edacb3a4542c7bb"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 1561,
+          "offset": 11950744,
+          "original_hex": "21f6273ff654b33ee51d393b906e16bc"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 1564,
+          "offset": 11950792,
+          "original_hex": "d38a6e3f6d0d903d05b3143a00ad31bb"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 1566,
+          "offset": 11950824,
+          "original_hex": "f296013f334b003f1bc5853be96b3bbc"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 1583,
+          "offset": 11951096,
+          "original_hex": "5f0f3b3f0ffb8c3e2018c13bd2c543bc"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 1584,
+          "offset": 11951112,
+          "original_hex": "04b4543fd131313e8890db3b42e62dbc"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 1590,
+          "offset": 11951208,
+          "original_hex": "11a8203fd762c23ec7d6a53b8d4a49bc"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 1591,
+          "offset": 11951224,
+          "original_hex": "7315803f2c37043c0d4674bb6ebea3bb"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 1592,
+          "offset": 11951240,
+          "original_hex": "8ea16c3f730e9c3dab43f43bf0f802bc"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 1664,
+          "offset": 11952392,
+          "original_hex": "c676733fb0b08b3d7b9b9dbc00000000"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 1666,
+          "offset": 11952424,
+          "original_hex": "8e92663f7f65f03dc6e793bc00000000"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 1669,
+          "offset": 11952472,
+          "original_hex": "2c53803f5925a63c41f0babc00000000"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 1675,
+          "offset": 11952568,
+          "original_hex": "da2a713f7ed57b3dad3168bb00000000"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 1731,
+          "offset": 11953464,
+          "original_hex": "eb0e8f3f48d5743daaac35be00000000"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 1732,
+          "offset": 11953480,
+          "original_hex": "eaf6953f3c74b43cd44546be00000000"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 1733,
+          "offset": 11953496,
+          "original_hex": "ce5e943fa84363bd0c4bd4bd00000000"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 1734,
+          "offset": 11953512,
+          "original_hex": "0645923f18f359bdcd56b7bd00000000"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 1736,
+          "offset": 11953544,
+          "original_hex": "de79763f641b3e3d18e516bc00000000"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 1737,
+          "offset": 11953560,
+          "original_hex": "7768903fb782cd3d14056abe00000000"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 1738,
+          "offset": 11953576,
+          "original_hex": "9f2e803fd8954a3c62e561bc00000000"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 1739,
+          "offset": 11953592,
+          "original_hex": "db4c763fbe33213e57cef4bd00000000"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 1740,
+          "offset": 11953608,
+          "original_hex": "0dd09f3f1ea298bd5c2f32be00000000"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 1741,
+          "offset": 11953624,
+          "original_hex": "9c76853fd48ef4bba54110bd00000000"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 1742,
+          "offset": 11953640,
+          "original_hex": "24e8893f683408bd0ed034bd00000000"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 1743,
+          "offset": 11953656,
+          "original_hex": "ba3e933f864e7abd57c4b6bd00000000"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 1744,
+          "offset": 11953672,
+          "original_hex": "8478913f38a42fbd1eb6bfbd00000000"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 1745,
+          "offset": 11953688,
+          "original_hex": "c512953f5ce26bbd253bdbbd00000000"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 1746,
+          "offset": 11953704,
+          "original_hex": "8478913f38a42fbd1eb6bfbd00000000"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 1747,
+          "offset": 11953720,
+          "original_hex": "7956813f6d9d1e3e385129be00000000"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 1748,
+          "offset": 11953736,
+          "original_hex": "aed68c3f3fd216bc9a90babd00000000"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 1749,
+          "offset": 11953752,
+          "original_hex": "52108d3fd5fb28bd6f0e79bd00000000"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 1818,
+          "offset": 11954856,
+          "original_hex": "c676733fb0b08b3d7b9b9dbc00000000"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 1820,
+          "offset": 11954888,
+          "original_hex": "8e92663f7f65f03dc6e793bc00000000"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 1823,
+          "offset": 11954936,
+          "original_hex": "2c53803f5925a63c41f0babc00000000"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 1829,
+          "offset": 11955032,
+          "original_hex": "da2a713f7ed57b3dad3168bb00000000"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 1885,
+          "offset": 11955928,
+          "original_hex": "eaf6953f3c74b43cd44546be00000000"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 1886,
+          "offset": 11955944,
+          "original_hex": "eb0e8f3f48d5743daaac35be00000000"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 1887,
+          "offset": 11955960,
+          "original_hex": "0645923f18f359bdcd56b7bd00000000"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 1888,
+          "offset": 11955976,
+          "original_hex": "ce5e943fa84363bd0c4bd4bd00000000"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 1889,
+          "offset": 11955992,
+          "original_hex": "de79763f641b3e3d18e516bc00000000"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 1891,
+          "offset": 11956024,
+          "original_hex": "7768903fb782cd3d14056abe00000000"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 1892,
+          "offset": 11956040,
+          "original_hex": "9f2e803fd8954a3c62e561bc00000000"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 1893,
+          "offset": 11956056,
+          "original_hex": "db4c763fbe33213e57cef4bd00000000"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 1894,
+          "offset": 11956072,
+          "original_hex": "9c76853fd48ef4bba54110bd00000000"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 1895,
+          "offset": 11956088,
+          "original_hex": "0dd09f3f1ea298bd5c2f32be00000000"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 1896,
+          "offset": 11956104,
+          "original_hex": "ba3e933f864e7abd57c4b6bd00000000"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 1897,
+          "offset": 11956120,
+          "original_hex": "24e8893f683408bd0ed034bd00000000"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 1898,
+          "offset": 11956136,
+          "original_hex": "8478913f38a42fbd1eb6bfbd00000000"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 1899,
+          "offset": 11956152,
+          "original_hex": "c512953f5ce26bbd253bdbbd00000000"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 1900,
+          "offset": 11956168,
+          "original_hex": "8478913f38a42fbd1eb6bfbd00000000"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 1901,
+          "offset": 11956184,
+          "original_hex": "7956813f6d9d1e3e385129be00000000"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 1902,
+          "offset": 11956200,
+          "original_hex": "aed68c3f3fd216bc9a90babd00000000"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 1903,
+          "offset": 11956216,
+          "original_hex": "52108d3fd5fb28bd6f0e79bd00000000"
+        },
+        {
+          "mesh": "short02",
+          "vertex": 240,
+          "offset": 15635896,
+          "original_hex": "ed07803f3e9dfdb83e9dfdb800000000"
+        },
+        {
+          "mesh": "short02",
+          "vertex": 241,
+          "offset": 15635912,
+          "original_hex": "7307803fac58eeb8ac58eeb800000000"
+        },
+        {
+          "mesh": "short02",
+          "vertex": 562,
+          "offset": 15641048,
+          "original_hex": "1785793fed6db83ca708393b9aa5c7b7"
+        },
+        {
+          "mesh": "short02",
+          "vertex": 1186,
+          "offset": 15651032,
+          "original_hex": "7307803fac58eeb8ac58eeb800000000"
+        },
+        {
+          "mesh": "short02",
+          "vertex": 1505,
+          "offset": 15656136,
+          "original_hex": "f373793ffc4aba3ce6a93a3be5f174b7"
+        },
+        {
+          "mesh": "short02",
+          "vertex": 1592,
+          "offset": 15657528,
+          "original_hex": "652f7e3f9d0cd43b12b1733ad350a3b9"
+        },
+        {
+          "mesh": "short02",
+          "vertex": 1667,
+          "offset": 15658728,
+          "original_hex": "b6f17e3f6438873ba7591ab600000000"
+        },
+        {
+          "mesh": "short02",
+          "vertex": 1681,
+          "offset": 15658952,
+          "original_hex": "f96c783fda13f33c27edb2b800000000"
+        }
+      ]
+    },
+    "office": {
+      "source_sha256": "b5de9614956871431899d337711902f198fb7056a7e6f3cf6c0b942f447a19a1",
+      "derived_sha256": "06f051b17b89fd52f8c8c5f20cc6a08ea47a1e33860f8cba6e6d6ee37a8c6926",
+      "negative_values_removed": 245,
+      "rows": [
+        {
+          "mesh": "male_elegantsuit01",
+          "vertex": 150,
+          "offset": 6566656,
+          "original_hex": "7f07553f39742c3e733712ba00000000"
+        },
+        {
+          "mesh": "male_elegantsuit01",
+          "vertex": 353,
+          "offset": 6569904,
+          "original_hex": "9780523f000a3c3e488bc1bb00000000"
+        },
+        {
+          "mesh": "male_elegantsuit01",
+          "vertex": 1070,
+          "offset": 6581376,
+          "original_hex": "9d47513f234e3e3e9e255bbb00000000"
+        },
+        {
+          "mesh": "male_elegantsuit01",
+          "vertex": 1077,
+          "offset": 6581488,
+          "original_hex": "882d933f2693a33dd5356bbe00000000"
+        },
+        {
+          "mesh": "male_elegantsuit01",
+          "vertex": 1143,
+          "offset": 6582544,
+          "original_hex": "5502fd3e40efe43e3abb753d51fca8ba"
+        },
+        {
+          "mesh": "male_elegantsuit01",
+          "vertex": 1328,
+          "offset": 6585504,
+          "original_hex": "148d173fc11ab93e0f813e3dc06621b8"
+        },
+        {
+          "mesh": "male_elegantsuit01",
+          "vertex": 1343,
+          "offset": 6585744,
+          "original_hex": "f548803ff9ea11bb0000000000000000"
+        },
+        {
+          "mesh": "male_elegantsuit01",
+          "vertex": 1355,
+          "offset": 6585936,
+          "original_hex": "303d563fe4f0273ecca465ba00000000"
+        },
+        {
+          "mesh": "male_elegantsuit01",
+          "vertex": 1363,
+          "offset": 6586064,
+          "original_hex": "5876893f271d15bce0c184bd00000000"
+        },
+        {
+          "mesh": "male_elegantsuit01",
+          "vertex": 1364,
+          "offset": 6586080,
+          "original_hex": "319c803f027b0ebb45e729bb00000000"
+        },
+        {
+          "mesh": "male_elegantsuit01",
+          "vertex": 1403,
+          "offset": 6586704,
+          "original_hex": "daf3823fa68f04bc475d75bc00000000"
+        },
+        {
+          "mesh": "male_elegantsuit01",
+          "vertex": 1405,
+          "offset": 6586736,
+          "original_hex": "c357803fc200613ab3c567bb00000000"
+        },
+        {
+          "mesh": "male_elegantsuit01",
+          "vertex": 1458,
+          "offset": 6587584,
+          "original_hex": "30407c3ff1d2833c828ebdba00000000"
+        },
+        {
+          "mesh": "male_elegantsuit01",
+          "vertex": 1498,
+          "offset": 6588224,
+          "original_hex": "35177a3f49edc53ce53d8dba00000000"
+        },
+        {
+          "mesh": "male_elegantsuit01",
+          "vertex": 1505,
+          "offset": 6588336,
+          "original_hex": "5e35813f771446bb2054d2bb00000000"
+        },
+        {
+          "mesh": "male_elegantsuit01",
+          "vertex": 1506,
+          "offset": 6588352,
+          "original_hex": "aa82833f05a9b1bb2440b4bc00000000"
+        },
+        {
+          "mesh": "male_elegantsuit01",
+          "vertex": 1516,
+          "offset": 6588512,
+          "original_hex": "c7c07b3f3d8c973cf751faba00000000"
+        },
+        {
+          "mesh": "male_elegantsuit01",
+          "vertex": 4241,
+          "offset": 6632112,
+          "original_hex": "035b143f6bb1bc3e46c6543d3ce1e1b5"
+        },
+        {
+          "mesh": "male_elegantsuit01",
+          "vertex": 5062,
+          "offset": 6645248,
+          "original_hex": "12e8583f44f91c3eb08d19ba00000000"
+        },
+        {
+          "mesh": "male_elegantsuit01",
+          "vertex": 5089,
+          "offset": 6645680,
+          "original_hex": "13136d3f1879973d0d840db800000000"
+        },
+        {
+          "mesh": "male_elegantsuit01",
+          "vertex": 6225,
+          "offset": 6663856,
+          "original_hex": "236b6a3f064cad3d6b20a5b900000000"
+        },
+        {
+          "mesh": "male_elegantsuit01",
+          "vertex": 6713,
+          "offset": 6671664,
+          "original_hex": "2fb21e3f2ff7cc3eccb8a5bc00000000"
+        },
+        {
+          "mesh": "male_elegantsuit01",
+          "vertex": 6802,
+          "offset": 6673088,
+          "original_hex": "2fb21e3f2ff7cc3eccb8a5bc00000000"
+        },
+        {
+          "mesh": "male_elegantsuit01",
+          "vertex": 6881,
+          "offset": 6674352,
+          "original_hex": "0b65d53e7dfcc13e95c6513e16a309ba"
+        },
+        {
+          "mesh": "male_elegantsuit01",
+          "vertex": 7170,
+          "offset": 6678976,
+          "original_hex": "f6ea193f14bcbe3e957bd83c43c44db9"
+        },
+        {
+          "mesh": "male_elegantsuit01",
+          "vertex": 7290,
+          "offset": 6680896,
+          "original_hex": "f6ea193f14bcbe3e957bd83c43c44db9"
+        },
+        {
+          "mesh": "male_elegantsuit01",
+          "vertex": 7396,
+          "offset": 6682592,
+          "original_hex": "3cc70f3ff636b43ea2e8b13dd85bfeb9"
+        },
+        {
+          "mesh": "male_elegantsuit01",
+          "vertex": 7403,
+          "offset": 6682704,
+          "original_hex": "c1cc103fee55c83e8887393d273010bb"
+        },
+        {
+          "mesh": "male_elegantsuit01",
+          "vertex": 7419,
+          "offset": 6682960,
+          "original_hex": "44770f3fd223b33e36b0b83dd89af9b9"
+        },
+        {
+          "mesh": "male_elegantsuit01",
+          "vertex": 7428,
+          "offset": 6683104,
+          "original_hex": "738f103fb08ac73e3fb2433d91ee0fbb"
+        },
+        {
+          "mesh": "male_elegantsuit01",
+          "vertex": 7448,
+          "offset": 6683424,
+          "original_hex": "e43e0f3f0b68b23e3a60bd3d6689f7b9"
+        },
+        {
+          "mesh": "male_elegantsuit01",
+          "vertex": 7514,
+          "offset": 6684480,
+          "original_hex": "644a393fb08b8d3e1bdd81b900000000"
+        },
+        {
+          "mesh": "male_elegantsuit01",
+          "vertex": 7529,
+          "offset": 6684720,
+          "original_hex": "b104283fbd21b63ed66345bc00000000"
+        },
+        {
+          "mesh": "male_elegantsuit01",
+          "vertex": 7551,
+          "offset": 6685072,
+          "original_hex": "b446283fb799b53ed9e344bc00000000"
+        },
+        {
+          "mesh": "male_elegantsuit01",
+          "vertex": 7556,
+          "offset": 6685152,
+          "original_hex": "6222393f30d78d3e65a65fb900000000"
+        },
+        {
+          "mesh": "male_elegantsuit01",
+          "vertex": 7572,
+          "offset": 6685408,
+          "original_hex": "10283b3fb1e2893e8741cbb900000000"
+        },
+        {
+          "mesh": "male_elegantsuit01",
+          "vertex": 7592,
+          "offset": 6685728,
+          "original_hex": "92a8343f80b1963ed61ca9b700000000"
+        },
+        {
+          "mesh": "male_elegantsuit01",
+          "vertex": 7989,
+          "offset": 6692080,
+          "original_hex": "a829d43e6a5fc23e8d9e533ebcb030ba"
+        },
+        {
+          "mesh": "male_elegantsuit01",
+          "vertex": 8101,
+          "offset": 6693872,
+          "original_hex": "e760033f00e0ae3e1bff143ed16b85b9"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 120,
+          "offset": 8293932,
+          "original_hex": "e9097f3f05a2033c3da0efbadda020bb"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 121,
+          "offset": 8293948,
+          "original_hex": "24ea693f9fd4ae3dd275f13ba4d1d3bb"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 122,
+          "offset": 8293964,
+          "original_hex": "8ea16c3f730e9c3dab43f43bf0f802bc"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 123,
+          "offset": 8293980,
+          "original_hex": "7315803f2c37043c0d4674bb6ebea3bb"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 128,
+          "offset": 8294060,
+          "original_hex": "55a4663f61edc53dfd14ee3b61159fbb"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 240,
+          "offset": 8295852,
+          "original_hex": "126f023f2a0ff93e33a4863be3d67bb8"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 241,
+          "offset": 8295868,
+          "original_hex": "bcac1e3f835ec03e15cba33b334e0eba"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 267,
+          "offset": 8296284,
+          "original_hex": "9b191d3fe1d5c83ef32aa23b823832bc"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 268,
+          "offset": 8296300,
+          "original_hex": "0aa0033ff0d9fb3edffc813bee3e24bc"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 269,
+          "offset": 8296316,
+          "original_hex": "f296013f334b003f1bc5853be96b3bbc"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 270,
+          "offset": 8296332,
+          "original_hex": "11a8203fd762c23ec7d6a53b8d4a49bc"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 271,
+          "offset": 8296348,
+          "original_hex": "5f0f3b3f0ffb8c3e2018c13bd2c543bc"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 272,
+          "offset": 8296364,
+          "original_hex": "98ac373f6317933e6399bd3b1edf2cbc"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 273,
+          "offset": 8296380,
+          "original_hex": "4612343f7a8d993e51e1b93b7a3113bc"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 274,
+          "offset": 8296396,
+          "original_hex": "2e71193f2f68cf3e50649e3b828318bc"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 275,
+          "offset": 8296412,
+          "original_hex": "16ef063f9685f43edd687c3b65920bbc"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 276,
+          "offset": 8296428,
+          "original_hex": "7675513fecd53c3e2f37d83bccd716bc"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 277,
+          "offset": 8296444,
+          "original_hex": "04b4543fd131313e8890db3b42e62dbc"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 278,
+          "offset": 8296460,
+          "original_hex": "f2da4d3faecd493ee97ed43b8fadfbbb"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 331,
+          "offset": 8297308,
+          "original_hex": "66a72a3fb536aa3eab28b03ba58891bb"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 332,
+          "offset": 8297324,
+          "original_hex": "c281083f6230ee3e0ae98c3b3bc533bb"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 336,
+          "offset": 8297388,
+          "original_hex": "5ada473fdd505f3ec04cce3b3595a5bb"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 337,
+          "offset": 8297404,
+          "original_hex": "31cf643f7c4dd43db730ec3b27a198bb"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 419,
+          "offset": 8298716,
+          "original_hex": "1c23723fd51f603dab5ae739ac0884ba"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 420,
+          "offset": 8298732,
+          "original_hex": "d38a6e3f6d0d903d05b3143a00ad31bb"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 421,
+          "offset": 8298748,
+          "original_hex": "b5c94f3f8b7b453e5edacb3a4542c7bb"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 422,
+          "offset": 8298764,
+          "original_hex": "a32d533fc07f363ed762bc3a6ae295bb"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 423,
+          "offset": 8298780,
+          "original_hex": "f79f563f4946273ea6abac3a10df47bb"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 425,
+          "offset": 8298812,
+          "original_hex": "a3532b3f7ceeab3e4f7a313bbe2dfebb"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 426,
+          "offset": 8298828,
+          "original_hex": "21f6273ff654b33ee51d393b906e16bc"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 427,
+          "offset": 8298844,
+          "original_hex": "3eb42e3fb37ea43e1ccd293b66b2cebb"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 627,
+          "offset": 8302044,
+          "original_hex": "6518583f2963193eed10df3b3b453dba"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 628,
+          "offset": 8302060,
+          "original_hex": "fbb75f3fba9ff93d77efe63b77d139bb"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 651,
+          "offset": 8302428,
+          "original_hex": "8ccc2e3f50e8a23e9c29283b0cdd68bb"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 652,
+          "offset": 8302444,
+          "original_hex": "a42f543f80412e3e84e0b33a6fa5cfb9"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 656,
+          "offset": 8302508,
+          "original_hex": "41db2e3f4d5aa13ec38e263b2ed93bba"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 657,
+          "offset": 8302524,
+          "original_hex": "91f70b3fcab4e73e3c2e6f3bf52341bb"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 658,
+          "offset": 8302540,
+          "original_hex": "f996133f4e90d73e71845e3bb69176ba"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 665,
+          "offset": 8302652,
+          "original_hex": "7073093fff26ee3eadd5753bbb62bebb"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 691,
+          "offset": 8303068,
+          "original_hex": "96c13d3f5e4f823e9be0c33be40ce2ba"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 692,
+          "offset": 8303084,
+          "original_hex": "a3af233fda3bb73e5ef7a83bb87e1fbb"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 693,
+          "offset": 8303100,
+          "original_hex": "3dd6293fe589ab3ec450af3ba3d179bb"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 694,
+          "offset": 8303116,
+          "original_hex": "604b413f49b5773e9d87c73bddc147bb"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 695,
+          "offset": 8303132,
+          "original_hex": "a8d3473f4bd15f3ed745ce3b2143b2bb"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 696,
+          "offset": 8303148,
+          "original_hex": "f2182f3f1d4fa23eeabeb43b51ffd4bb"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 697,
+          "offset": 8303164,
+          "original_hex": "6518583f2963193eed10df3b3b453dba"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 699,
+          "offset": 8303196,
+          "original_hex": "7611093f14caec3e617d8d3b377b11bb"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 700,
+          "offset": 8303212,
+          "original_hex": "aabc103f392dde3ee967953bfa157ebb"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 701,
+          "offset": 8303228,
+          "original_hex": "5e35153f729bd63e8a059a3b2d91dbbb"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 702,
+          "offset": 8303244,
+          "original_hex": "fbb75f3fba9ff93d77efe63b77d139bb"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 762,
+          "offset": 8304204,
+          "original_hex": "21f6273ff654b33ee51d393b906e16bc"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 763,
+          "offset": 8304220,
+          "original_hex": "b5c94f3f8b7b453e5edacb3a4542c7bb"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 766,
+          "offset": 8304268,
+          "original_hex": "d38a6e3f6d0d903d05b3143a00ad31bb"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 768,
+          "offset": 8304300,
+          "original_hex": "f296013f334b003f1bc5853be96b3bbc"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 785,
+          "offset": 8304572,
+          "original_hex": "04b4543fd131313e8890db3b42e62dbc"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 786,
+          "offset": 8304588,
+          "original_hex": "5f0f3b3f0ffb8c3e2018c13bd2c543bc"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 792,
+          "offset": 8304684,
+          "original_hex": "11a8203fd762c23ec7d6a53b8d4a49bc"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 793,
+          "offset": 8304700,
+          "original_hex": "7315803f2c37043c0d4674bb6ebea3bb"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 794,
+          "offset": 8304716,
+          "original_hex": "8ea16c3f730e9c3dab43f43bf0f802bc"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 918,
+          "offset": 8306700,
+          "original_hex": "e9097f3f05a2033c3da0efbadda020bb"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 919,
+          "offset": 8306716,
+          "original_hex": "7315803f2c37043c0d4674bb6ebea3bb"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 920,
+          "offset": 8306732,
+          "original_hex": "8ea16c3f730e9c3dab43f43bf0f802bc"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 921,
+          "offset": 8306748,
+          "original_hex": "24ea693f9fd4ae3dd275f13ba4d1d3bb"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 926,
+          "offset": 8306828,
+          "original_hex": "55a4663f61edc53dfd14ee3b61159fbb"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 1036,
+          "offset": 8308588,
+          "original_hex": "126f023f2a0ff93e33a4863be3d67bb8"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 1040,
+          "offset": 8308652,
+          "original_hex": "bcac1e3f835ec03e15cba33b334e0eba"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 1065,
+          "offset": 8309052,
+          "original_hex": "9b191d3fe1d5c83ef32aa23b823832bc"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 1066,
+          "offset": 8309068,
+          "original_hex": "11a8203fd762c23ec7d6a53b8d4a49bc"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 1067,
+          "offset": 8309084,
+          "original_hex": "f296013f334b003f1bc5853be96b3bbc"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 1068,
+          "offset": 8309100,
+          "original_hex": "0aa0033ff0d9fb3edffc813bee3e24bc"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 1069,
+          "offset": 8309116,
+          "original_hex": "98ac373f6317933e6399bd3b1edf2cbc"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 1070,
+          "offset": 8309132,
+          "original_hex": "5f0f3b3f0ffb8c3e2018c13bd2c543bc"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 1071,
+          "offset": 8309148,
+          "original_hex": "2e71193f2f68cf3e50649e3b828318bc"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 1072,
+          "offset": 8309164,
+          "original_hex": "4612343f7a8d993e51e1b93b7a3113bc"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 1073,
+          "offset": 8309180,
+          "original_hex": "16ef063f9685f43edd687c3b65920bbc"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 1074,
+          "offset": 8309196,
+          "original_hex": "7675513fecd53c3e2f37d83bccd716bc"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 1075,
+          "offset": 8309212,
+          "original_hex": "04b4543fd131313e8890db3b42e62dbc"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 1076,
+          "offset": 8309228,
+          "original_hex": "f2da4d3faecd493ee97ed43b8fadfbbb"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 1129,
+          "offset": 8310076,
+          "original_hex": "66a72a3fb536aa3eab28b03ba58891bb"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 1132,
+          "offset": 8310124,
+          "original_hex": "c281083f6230ee3e0ae98c3b3bc533bb"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 1133,
+          "offset": 8310140,
+          "original_hex": "5ada473fdd505f3ec04cce3b3595a5bb"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 1135,
+          "offset": 8310172,
+          "original_hex": "31cf643f7c4dd43db730ec3b27a198bb"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 1217,
+          "offset": 8311484,
+          "original_hex": "1c23723fd51f603dab5ae739ac0884ba"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 1218,
+          "offset": 8311500,
+          "original_hex": "d38a6e3f6d0d903d05b3143a00ad31bb"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 1219,
+          "offset": 8311516,
+          "original_hex": "a32d533fc07f363ed762bc3a6ae295bb"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 1220,
+          "offset": 8311532,
+          "original_hex": "b5c94f3f8b7b453e5edacb3a4542c7bb"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 1222,
+          "offset": 8311564,
+          "original_hex": "f79f563f4946273ea6abac3a10df47bb"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 1223,
+          "offset": 8311580,
+          "original_hex": "a3532b3f7ceeab3e4f7a313bbe2dfebb"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 1224,
+          "offset": 8311596,
+          "original_hex": "21f6273ff654b33ee51d393b906e16bc"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 1225,
+          "offset": 8311612,
+          "original_hex": "3eb42e3fb37ea43e1ccd293b66b2cebb"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 1425,
+          "offset": 8314812,
+          "original_hex": "fbb75f3fba9ff93d77efe63b77d139bb"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 1426,
+          "offset": 8314828,
+          "original_hex": "6518583f2963193eed10df3b3b453dba"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 1449,
+          "offset": 8315196,
+          "original_hex": "8ccc2e3f50e8a23e9c29283b0cdd68bb"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 1450,
+          "offset": 8315212,
+          "original_hex": "a42f543f80412e3e84e0b33a6fa5cfb9"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 1452,
+          "offset": 8315244,
+          "original_hex": "41db2e3f4d5aa13ec38e263b2ed93bba"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 1455,
+          "offset": 8315292,
+          "original_hex": "f996133f4e90d73e71845e3bb69176ba"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 1456,
+          "offset": 8315308,
+          "original_hex": "91f70b3fcab4e73e3c2e6f3bf52341bb"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 1463,
+          "offset": 8315420,
+          "original_hex": "7073093fff26ee3eadd5753bbb62bebb"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 1489,
+          "offset": 8315836,
+          "original_hex": "96c13d3f5e4f823e9be0c33be40ce2ba"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 1490,
+          "offset": 8315852,
+          "original_hex": "604b413f49b5773e9d87c73bddc147bb"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 1491,
+          "offset": 8315868,
+          "original_hex": "3dd6293fe589ab3ec450af3ba3d179bb"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 1492,
+          "offset": 8315884,
+          "original_hex": "a3af233fda3bb73e5ef7a83bb87e1fbb"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 1493,
+          "offset": 8315900,
+          "original_hex": "a8d3473f4bd15f3ed745ce3b2143b2bb"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 1494,
+          "offset": 8315916,
+          "original_hex": "f2182f3f1d4fa23eeabeb43b51ffd4bb"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 1496,
+          "offset": 8315948,
+          "original_hex": "6518583f2963193eed10df3b3b453dba"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 1497,
+          "offset": 8315964,
+          "original_hex": "7611093f14caec3e617d8d3b377b11bb"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 1498,
+          "offset": 8315980,
+          "original_hex": "aabc103f392dde3ee967953bfa157ebb"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 1499,
+          "offset": 8315996,
+          "original_hex": "5e35153f729bd63e8a059a3b2d91dbbb"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 1500,
+          "offset": 8316012,
+          "original_hex": "fbb75f3fba9ff93d77efe63b77d139bb"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 1560,
+          "offset": 8316972,
+          "original_hex": "b5c94f3f8b7b453e5edacb3a4542c7bb"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 1561,
+          "offset": 8316988,
+          "original_hex": "21f6273ff654b33ee51d393b906e16bc"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 1564,
+          "offset": 8317036,
+          "original_hex": "d38a6e3f6d0d903d05b3143a00ad31bb"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 1566,
+          "offset": 8317068,
+          "original_hex": "f296013f334b003f1bc5853be96b3bbc"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 1583,
+          "offset": 8317340,
+          "original_hex": "5f0f3b3f0ffb8c3e2018c13bd2c543bc"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 1584,
+          "offset": 8317356,
+          "original_hex": "04b4543fd131313e8890db3b42e62dbc"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 1590,
+          "offset": 8317452,
+          "original_hex": "11a8203fd762c23ec7d6a53b8d4a49bc"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 1591,
+          "offset": 8317468,
+          "original_hex": "7315803f2c37043c0d4674bb6ebea3bb"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 1592,
+          "offset": 8317484,
+          "original_hex": "8ea16c3f730e9c3dab43f43bf0f802bc"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 1664,
+          "offset": 8318636,
+          "original_hex": "c676733fb0b08b3d7b9b9dbc00000000"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 1666,
+          "offset": 8318668,
+          "original_hex": "8e92663f7f65f03dc6e793bc00000000"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 1669,
+          "offset": 8318716,
+          "original_hex": "2c53803f5925a63c41f0babc00000000"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 1675,
+          "offset": 8318812,
+          "original_hex": "da2a713f7ed57b3dad3168bb00000000"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 1731,
+          "offset": 8319708,
+          "original_hex": "eb0e8f3f48d5743daaac35be00000000"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 1732,
+          "offset": 8319724,
+          "original_hex": "eaf6953f3c74b43cd44546be00000000"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 1733,
+          "offset": 8319740,
+          "original_hex": "ce5e943fa84363bd0c4bd4bd00000000"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 1734,
+          "offset": 8319756,
+          "original_hex": "0645923f18f359bdcd56b7bd00000000"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 1736,
+          "offset": 8319788,
+          "original_hex": "de79763f641b3e3d18e516bc00000000"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 1737,
+          "offset": 8319804,
+          "original_hex": "7768903fb782cd3d14056abe00000000"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 1738,
+          "offset": 8319820,
+          "original_hex": "9f2e803fd8954a3c62e561bc00000000"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 1739,
+          "offset": 8319836,
+          "original_hex": "db4c763fbe33213e57cef4bd00000000"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 1740,
+          "offset": 8319852,
+          "original_hex": "0dd09f3f1ea298bd5c2f32be00000000"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 1741,
+          "offset": 8319868,
+          "original_hex": "9c76853fd48ef4bba54110bd00000000"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 1742,
+          "offset": 8319884,
+          "original_hex": "24e8893f683408bd0ed034bd00000000"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 1743,
+          "offset": 8319900,
+          "original_hex": "ba3e933f864e7abd57c4b6bd00000000"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 1744,
+          "offset": 8319916,
+          "original_hex": "8478913f38a42fbd1eb6bfbd00000000"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 1745,
+          "offset": 8319932,
+          "original_hex": "c512953f5ce26bbd253bdbbd00000000"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 1746,
+          "offset": 8319948,
+          "original_hex": "8478913f38a42fbd1eb6bfbd00000000"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 1747,
+          "offset": 8319964,
+          "original_hex": "7956813f6d9d1e3e385129be00000000"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 1748,
+          "offset": 8319980,
+          "original_hex": "aed68c3f3fd216bc9a90babd00000000"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 1749,
+          "offset": 8319996,
+          "original_hex": "52108d3fd5fb28bd6f0e79bd00000000"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 1818,
+          "offset": 8321100,
+          "original_hex": "c676733fb0b08b3d7b9b9dbc00000000"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 1820,
+          "offset": 8321132,
+          "original_hex": "8e92663f7f65f03dc6e793bc00000000"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 1823,
+          "offset": 8321180,
+          "original_hex": "2c53803f5925a63c41f0babc00000000"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 1829,
+          "offset": 8321276,
+          "original_hex": "da2a713f7ed57b3dad3168bb00000000"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 1885,
+          "offset": 8322172,
+          "original_hex": "eaf6953f3c74b43cd44546be00000000"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 1886,
+          "offset": 8322188,
+          "original_hex": "eb0e8f3f48d5743daaac35be00000000"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 1887,
+          "offset": 8322204,
+          "original_hex": "0645923f18f359bdcd56b7bd00000000"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 1888,
+          "offset": 8322220,
+          "original_hex": "ce5e943fa84363bd0c4bd4bd00000000"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 1889,
+          "offset": 8322236,
+          "original_hex": "de79763f641b3e3d18e516bc00000000"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 1891,
+          "offset": 8322268,
+          "original_hex": "7768903fb782cd3d14056abe00000000"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 1892,
+          "offset": 8322284,
+          "original_hex": "9f2e803fd8954a3c62e561bc00000000"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 1893,
+          "offset": 8322300,
+          "original_hex": "db4c763fbe33213e57cef4bd00000000"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 1894,
+          "offset": 8322316,
+          "original_hex": "9c76853fd48ef4bba54110bd00000000"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 1895,
+          "offset": 8322332,
+          "original_hex": "0dd09f3f1ea298bd5c2f32be00000000"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 1896,
+          "offset": 8322348,
+          "original_hex": "ba3e933f864e7abd57c4b6bd00000000"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 1897,
+          "offset": 8322364,
+          "original_hex": "24e8893f683408bd0ed034bd00000000"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 1898,
+          "offset": 8322380,
+          "original_hex": "8478913f38a42fbd1eb6bfbd00000000"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 1899,
+          "offset": 8322396,
+          "original_hex": "c512953f5ce26bbd253bdbbd00000000"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 1900,
+          "offset": 8322412,
+          "original_hex": "8478913f38a42fbd1eb6bfbd00000000"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 1901,
+          "offset": 8322428,
+          "original_hex": "7956813f6d9d1e3e385129be00000000"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 1902,
+          "offset": 8322444,
+          "original_hex": "aed68c3f3fd216bc9a90babd00000000"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 1903,
+          "offset": 8322460,
+          "original_hex": "52108d3fd5fb28bd6f0e79bd00000000"
+        },
+        {
+          "mesh": "short02",
+          "vertex": 240,
+          "offset": 12002140,
+          "original_hex": "ed07803f3e9dfdb83e9dfdb800000000"
+        },
+        {
+          "mesh": "short02",
+          "vertex": 241,
+          "offset": 12002156,
+          "original_hex": "7307803fac58eeb8ac58eeb800000000"
+        },
+        {
+          "mesh": "short02",
+          "vertex": 562,
+          "offset": 12007292,
+          "original_hex": "1785793fed6db83ca708393b9aa5c7b7"
+        },
+        {
+          "mesh": "short02",
+          "vertex": 1186,
+          "offset": 12017276,
+          "original_hex": "7307803fac58eeb8ac58eeb800000000"
+        },
+        {
+          "mesh": "short02",
+          "vertex": 1505,
+          "offset": 12022380,
+          "original_hex": "f373793ffc4aba3ce6a93a3be5f174b7"
+        },
+        {
+          "mesh": "short02",
+          "vertex": 1592,
+          "offset": 12023772,
+          "original_hex": "652f7e3f9d0cd43b12b1733ad350a3b9"
+        },
+        {
+          "mesh": "short02",
+          "vertex": 1667,
+          "offset": 12024972,
+          "original_hex": "b6f17e3f6438873ba7591ab600000000"
+        },
+        {
+          "mesh": "short02",
+          "vertex": 1681,
+          "offset": 12025196,
+          "original_hex": "f96c783fda13f33c27edb2b800000000"
+        }
+      ]
+    },
+    "office_female": {
+      "source_sha256": "4d6cfa47c63f10e6ed07a644efa0efcfe381f5934d926251992c59900e81243d",
+      "derived_sha256": "c42c1a35a3821b071ac32bc6b0be0b71f00c3fe5d058567ff4143272b0d53cca",
+      "negative_values_removed": 230,
+      "rows": [
+        {
+          "mesh": "shoes01",
+          "vertex": 120,
+          "offset": 8236584,
+          "original_hex": "e9097f3f05a2033c3da0efbadda020bb"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 121,
+          "offset": 8236600,
+          "original_hex": "24ea693f9fd4ae3dd275f13ba4d1d3bb"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 122,
+          "offset": 8236616,
+          "original_hex": "8ea16c3f730e9c3dab43f43bf0f802bc"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 123,
+          "offset": 8236632,
+          "original_hex": "7315803f2c37043c0d4674bb6ebea3bb"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 128,
+          "offset": 8236712,
+          "original_hex": "55a4663f61edc53dfd14ee3b61159fbb"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 240,
+          "offset": 8238504,
+          "original_hex": "126f023f2a0ff93e33a4863be3d67bb8"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 241,
+          "offset": 8238520,
+          "original_hex": "bcac1e3f835ec03e15cba33b334e0eba"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 267,
+          "offset": 8238936,
+          "original_hex": "9b191d3fe1d5c83ef32aa23b823832bc"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 268,
+          "offset": 8238952,
+          "original_hex": "0aa0033ff0d9fb3edffc813bee3e24bc"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 269,
+          "offset": 8238968,
+          "original_hex": "f296013f334b003f1bc5853be96b3bbc"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 270,
+          "offset": 8238984,
+          "original_hex": "11a8203fd762c23ec7d6a53b8d4a49bc"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 271,
+          "offset": 8239000,
+          "original_hex": "5f0f3b3f0ffb8c3e2018c13bd2c543bc"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 272,
+          "offset": 8239016,
+          "original_hex": "98ac373f6317933e6399bd3b1edf2cbc"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 273,
+          "offset": 8239032,
+          "original_hex": "4612343f7a8d993e51e1b93b7a3113bc"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 274,
+          "offset": 8239048,
+          "original_hex": "2e71193f2f68cf3e50649e3b828318bc"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 275,
+          "offset": 8239064,
+          "original_hex": "16ef063f9685f43edd687c3b65920bbc"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 276,
+          "offset": 8239080,
+          "original_hex": "7675513fecd53c3e2f37d83bccd716bc"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 277,
+          "offset": 8239096,
+          "original_hex": "04b4543fd131313e8890db3b42e62dbc"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 278,
+          "offset": 8239112,
+          "original_hex": "f2da4d3faecd493ee97ed43b8fadfbbb"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 331,
+          "offset": 8239960,
+          "original_hex": "66a72a3fb536aa3eab28b03ba58891bb"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 332,
+          "offset": 8239976,
+          "original_hex": "c281083f6230ee3e0ae98c3b3bc533bb"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 336,
+          "offset": 8240040,
+          "original_hex": "5ada473fdd505f3ec04cce3b3595a5bb"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 337,
+          "offset": 8240056,
+          "original_hex": "31cf643f7c4dd43db730ec3b27a198bb"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 419,
+          "offset": 8241368,
+          "original_hex": "1c23723fd51f603dab5ae739ac0884ba"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 420,
+          "offset": 8241384,
+          "original_hex": "d38a6e3f6d0d903d05b3143a00ad31bb"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 421,
+          "offset": 8241400,
+          "original_hex": "b5c94f3f8b7b453e5edacb3a4542c7bb"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 422,
+          "offset": 8241416,
+          "original_hex": "a32d533fc07f363ed762bc3a6ae295bb"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 423,
+          "offset": 8241432,
+          "original_hex": "f79f563f4946273ea6abac3a10df47bb"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 425,
+          "offset": 8241464,
+          "original_hex": "a3532b3f7ceeab3e4f7a313bbe2dfebb"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 426,
+          "offset": 8241480,
+          "original_hex": "21f6273ff654b33ee51d393b906e16bc"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 427,
+          "offset": 8241496,
+          "original_hex": "3eb42e3fb37ea43e1ccd293b66b2cebb"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 627,
+          "offset": 8244696,
+          "original_hex": "6518583f2963193eed10df3b3b453dba"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 628,
+          "offset": 8244712,
+          "original_hex": "fbb75f3fba9ff93d77efe63b77d139bb"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 651,
+          "offset": 8245080,
+          "original_hex": "8ccc2e3f50e8a23e9c29283b0cdd68bb"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 652,
+          "offset": 8245096,
+          "original_hex": "a42f543f80412e3e84e0b33a6fa5cfb9"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 656,
+          "offset": 8245160,
+          "original_hex": "41db2e3f4d5aa13ec38e263b2ed93bba"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 657,
+          "offset": 8245176,
+          "original_hex": "91f70b3fcab4e73e3c2e6f3bf52341bb"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 658,
+          "offset": 8245192,
+          "original_hex": "f996133f4e90d73e71845e3bb69176ba"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 665,
+          "offset": 8245304,
+          "original_hex": "7073093fff26ee3eadd5753bbb62bebb"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 691,
+          "offset": 8245720,
+          "original_hex": "96c13d3f5e4f823e9be0c33be40ce2ba"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 692,
+          "offset": 8245736,
+          "original_hex": "a3af233fda3bb73e5ef7a83bb87e1fbb"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 693,
+          "offset": 8245752,
+          "original_hex": "3dd6293fe589ab3ec450af3ba3d179bb"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 694,
+          "offset": 8245768,
+          "original_hex": "604b413f49b5773e9d87c73bddc147bb"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 695,
+          "offset": 8245784,
+          "original_hex": "a8d3473f4bd15f3ed745ce3b2143b2bb"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 696,
+          "offset": 8245800,
+          "original_hex": "f2182f3f1d4fa23eeabeb43b51ffd4bb"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 697,
+          "offset": 8245816,
+          "original_hex": "6518583f2963193eed10df3b3b453dba"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 699,
+          "offset": 8245848,
+          "original_hex": "7611093f14caec3e617d8d3b377b11bb"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 700,
+          "offset": 8245864,
+          "original_hex": "aabc103f392dde3ee967953bfa157ebb"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 701,
+          "offset": 8245880,
+          "original_hex": "5e35153f729bd63e8a059a3b2d91dbbb"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 702,
+          "offset": 8245896,
+          "original_hex": "fbb75f3fba9ff93d77efe63b77d139bb"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 762,
+          "offset": 8246856,
+          "original_hex": "21f6273ff654b33ee51d393b906e16bc"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 763,
+          "offset": 8246872,
+          "original_hex": "b5c94f3f8b7b453e5edacb3a4542c7bb"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 766,
+          "offset": 8246920,
+          "original_hex": "d38a6e3f6d0d903d05b3143a00ad31bb"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 768,
+          "offset": 8246952,
+          "original_hex": "f296013f334b003f1bc5853be96b3bbc"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 785,
+          "offset": 8247224,
+          "original_hex": "04b4543fd131313e8890db3b42e62dbc"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 786,
+          "offset": 8247240,
+          "original_hex": "5f0f3b3f0ffb8c3e2018c13bd2c543bc"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 792,
+          "offset": 8247336,
+          "original_hex": "11a8203fd762c23ec7d6a53b8d4a49bc"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 793,
+          "offset": 8247352,
+          "original_hex": "7315803f2c37043c0d4674bb6ebea3bb"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 794,
+          "offset": 8247368,
+          "original_hex": "8ea16c3f730e9c3dab43f43bf0f802bc"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 918,
+          "offset": 8249352,
+          "original_hex": "e9097f3f05a2033c3da0efbadda020bb"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 919,
+          "offset": 8249368,
+          "original_hex": "7315803f2c37043c0d4674bb6ebea3bb"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 920,
+          "offset": 8249384,
+          "original_hex": "8ea16c3f730e9c3dab43f43bf0f802bc"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 921,
+          "offset": 8249400,
+          "original_hex": "24ea693f9fd4ae3dd275f13ba4d1d3bb"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 926,
+          "offset": 8249480,
+          "original_hex": "55a4663f61edc53dfd14ee3b61159fbb"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 1036,
+          "offset": 8251240,
+          "original_hex": "126f023f2a0ff93e33a4863be3d67bb8"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 1040,
+          "offset": 8251304,
+          "original_hex": "bcac1e3f835ec03e15cba33b334e0eba"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 1065,
+          "offset": 8251704,
+          "original_hex": "9b191d3fe1d5c83ef32aa23b823832bc"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 1066,
+          "offset": 8251720,
+          "original_hex": "11a8203fd762c23ec7d6a53b8d4a49bc"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 1067,
+          "offset": 8251736,
+          "original_hex": "f296013f334b003f1bc5853be96b3bbc"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 1068,
+          "offset": 8251752,
+          "original_hex": "0aa0033ff0d9fb3edffc813bee3e24bc"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 1069,
+          "offset": 8251768,
+          "original_hex": "98ac373f6317933e6399bd3b1edf2cbc"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 1070,
+          "offset": 8251784,
+          "original_hex": "5f0f3b3f0ffb8c3e2018c13bd2c543bc"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 1071,
+          "offset": 8251800,
+          "original_hex": "2e71193f2f68cf3e50649e3b828318bc"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 1072,
+          "offset": 8251816,
+          "original_hex": "4612343f7a8d993e51e1b93b7a3113bc"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 1073,
+          "offset": 8251832,
+          "original_hex": "16ef063f9685f43edd687c3b65920bbc"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 1074,
+          "offset": 8251848,
+          "original_hex": "7675513fecd53c3e2f37d83bccd716bc"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 1075,
+          "offset": 8251864,
+          "original_hex": "04b4543fd131313e8890db3b42e62dbc"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 1076,
+          "offset": 8251880,
+          "original_hex": "f2da4d3faecd493ee97ed43b8fadfbbb"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 1129,
+          "offset": 8252728,
+          "original_hex": "66a72a3fb536aa3eab28b03ba58891bb"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 1132,
+          "offset": 8252776,
+          "original_hex": "c281083f6230ee3e0ae98c3b3bc533bb"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 1133,
+          "offset": 8252792,
+          "original_hex": "5ada473fdd505f3ec04cce3b3595a5bb"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 1135,
+          "offset": 8252824,
+          "original_hex": "31cf643f7c4dd43db730ec3b27a198bb"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 1217,
+          "offset": 8254136,
+          "original_hex": "1c23723fd51f603dab5ae739ac0884ba"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 1218,
+          "offset": 8254152,
+          "original_hex": "d38a6e3f6d0d903d05b3143a00ad31bb"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 1219,
+          "offset": 8254168,
+          "original_hex": "a32d533fc07f363ed762bc3a6ae295bb"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 1220,
+          "offset": 8254184,
+          "original_hex": "b5c94f3f8b7b453e5edacb3a4542c7bb"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 1222,
+          "offset": 8254216,
+          "original_hex": "f79f563f4946273ea6abac3a10df47bb"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 1223,
+          "offset": 8254232,
+          "original_hex": "a3532b3f7ceeab3e4f7a313bbe2dfebb"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 1224,
+          "offset": 8254248,
+          "original_hex": "21f6273ff654b33ee51d393b906e16bc"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 1225,
+          "offset": 8254264,
+          "original_hex": "3eb42e3fb37ea43e1ccd293b66b2cebb"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 1425,
+          "offset": 8257464,
+          "original_hex": "fbb75f3fba9ff93d77efe63b77d139bb"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 1426,
+          "offset": 8257480,
+          "original_hex": "6518583f2963193eed10df3b3b453dba"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 1449,
+          "offset": 8257848,
+          "original_hex": "8ccc2e3f50e8a23e9c29283b0cdd68bb"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 1450,
+          "offset": 8257864,
+          "original_hex": "a42f543f80412e3e84e0b33a6fa5cfb9"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 1452,
+          "offset": 8257896,
+          "original_hex": "41db2e3f4d5aa13ec38e263b2ed93bba"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 1455,
+          "offset": 8257944,
+          "original_hex": "f996133f4e90d73e71845e3bb69176ba"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 1456,
+          "offset": 8257960,
+          "original_hex": "91f70b3fcab4e73e3c2e6f3bf52341bb"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 1463,
+          "offset": 8258072,
+          "original_hex": "7073093fff26ee3eadd5753bbb62bebb"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 1489,
+          "offset": 8258488,
+          "original_hex": "96c13d3f5e4f823e9be0c33be40ce2ba"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 1490,
+          "offset": 8258504,
+          "original_hex": "604b413f49b5773e9d87c73bddc147bb"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 1491,
+          "offset": 8258520,
+          "original_hex": "3dd6293fe589ab3ec450af3ba3d179bb"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 1492,
+          "offset": 8258536,
+          "original_hex": "a3af233fda3bb73e5ef7a83bb87e1fbb"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 1493,
+          "offset": 8258552,
+          "original_hex": "a8d3473f4bd15f3ed745ce3b2143b2bb"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 1494,
+          "offset": 8258568,
+          "original_hex": "f2182f3f1d4fa23eeabeb43b51ffd4bb"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 1496,
+          "offset": 8258600,
+          "original_hex": "6518583f2963193eed10df3b3b453dba"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 1497,
+          "offset": 8258616,
+          "original_hex": "7611093f14caec3e617d8d3b377b11bb"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 1498,
+          "offset": 8258632,
+          "original_hex": "aabc103f392dde3ee967953bfa157ebb"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 1499,
+          "offset": 8258648,
+          "original_hex": "5e35153f729bd63e8a059a3b2d91dbbb"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 1500,
+          "offset": 8258664,
+          "original_hex": "fbb75f3fba9ff93d77efe63b77d139bb"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 1560,
+          "offset": 8259624,
+          "original_hex": "b5c94f3f8b7b453e5edacb3a4542c7bb"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 1561,
+          "offset": 8259640,
+          "original_hex": "21f6273ff654b33ee51d393b906e16bc"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 1564,
+          "offset": 8259688,
+          "original_hex": "d38a6e3f6d0d903d05b3143a00ad31bb"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 1566,
+          "offset": 8259720,
+          "original_hex": "f296013f334b003f1bc5853be96b3bbc"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 1583,
+          "offset": 8259992,
+          "original_hex": "5f0f3b3f0ffb8c3e2018c13bd2c543bc"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 1584,
+          "offset": 8260008,
+          "original_hex": "04b4543fd131313e8890db3b42e62dbc"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 1590,
+          "offset": 8260104,
+          "original_hex": "11a8203fd762c23ec7d6a53b8d4a49bc"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 1591,
+          "offset": 8260120,
+          "original_hex": "7315803f2c37043c0d4674bb6ebea3bb"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 1592,
+          "offset": 8260136,
+          "original_hex": "8ea16c3f730e9c3dab43f43bf0f802bc"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 1664,
+          "offset": 8261288,
+          "original_hex": "c676733fb0b08b3d7b9b9dbc00000000"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 1666,
+          "offset": 8261320,
+          "original_hex": "8e92663f7f65f03dc6e793bc00000000"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 1669,
+          "offset": 8261368,
+          "original_hex": "2c53803f5925a63c41f0babc00000000"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 1675,
+          "offset": 8261464,
+          "original_hex": "da2a713f7ed57b3dad3168bb00000000"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 1731,
+          "offset": 8262360,
+          "original_hex": "eb0e8f3f48d5743daaac35be00000000"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 1732,
+          "offset": 8262376,
+          "original_hex": "eaf6953f3c74b43cd44546be00000000"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 1733,
+          "offset": 8262392,
+          "original_hex": "ce5e943fa84363bd0c4bd4bd00000000"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 1734,
+          "offset": 8262408,
+          "original_hex": "0645923f18f359bdcd56b7bd00000000"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 1736,
+          "offset": 8262440,
+          "original_hex": "de79763f641b3e3d18e516bc00000000"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 1737,
+          "offset": 8262456,
+          "original_hex": "7768903fb782cd3d14056abe00000000"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 1738,
+          "offset": 8262472,
+          "original_hex": "9f2e803fd8954a3c62e561bc00000000"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 1739,
+          "offset": 8262488,
+          "original_hex": "db4c763fbe33213e57cef4bd00000000"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 1740,
+          "offset": 8262504,
+          "original_hex": "0dd09f3f1ea298bd5c2f32be00000000"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 1741,
+          "offset": 8262520,
+          "original_hex": "9c76853fd48ef4bba54110bd00000000"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 1742,
+          "offset": 8262536,
+          "original_hex": "24e8893f683408bd0ed034bd00000000"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 1743,
+          "offset": 8262552,
+          "original_hex": "ba3e933f864e7abd57c4b6bd00000000"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 1744,
+          "offset": 8262568,
+          "original_hex": "8478913f38a42fbd1eb6bfbd00000000"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 1745,
+          "offset": 8262584,
+          "original_hex": "c512953f5ce26bbd253bdbbd00000000"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 1746,
+          "offset": 8262600,
+          "original_hex": "8478913f38a42fbd1eb6bfbd00000000"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 1747,
+          "offset": 8262616,
+          "original_hex": "7956813f6d9d1e3e385129be00000000"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 1748,
+          "offset": 8262632,
+          "original_hex": "aed68c3f3fd216bc9a90babd00000000"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 1749,
+          "offset": 8262648,
+          "original_hex": "52108d3fd5fb28bd6f0e79bd00000000"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 1818,
+          "offset": 8263752,
+          "original_hex": "c676733fb0b08b3d7b9b9dbc00000000"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 1820,
+          "offset": 8263784,
+          "original_hex": "8e92663f7f65f03dc6e793bc00000000"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 1823,
+          "offset": 8263832,
+          "original_hex": "2c53803f5925a63c41f0babc00000000"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 1829,
+          "offset": 8263928,
+          "original_hex": "da2a713f7ed57b3dad3168bb00000000"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 1885,
+          "offset": 8264824,
+          "original_hex": "eaf6953f3c74b43cd44546be00000000"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 1886,
+          "offset": 8264840,
+          "original_hex": "eb0e8f3f48d5743daaac35be00000000"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 1887,
+          "offset": 8264856,
+          "original_hex": "0645923f18f359bdcd56b7bd00000000"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 1888,
+          "offset": 8264872,
+          "original_hex": "ce5e943fa84363bd0c4bd4bd00000000"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 1889,
+          "offset": 8264888,
+          "original_hex": "de79763f641b3e3d18e516bc00000000"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 1891,
+          "offset": 8264920,
+          "original_hex": "7768903fb782cd3d14056abe00000000"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 1892,
+          "offset": 8264936,
+          "original_hex": "9f2e803fd8954a3c62e561bc00000000"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 1893,
+          "offset": 8264952,
+          "original_hex": "db4c763fbe33213e57cef4bd00000000"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 1894,
+          "offset": 8264968,
+          "original_hex": "9c76853fd48ef4bba54110bd00000000"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 1895,
+          "offset": 8264984,
+          "original_hex": "0dd09f3f1ea298bd5c2f32be00000000"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 1896,
+          "offset": 8265000,
+          "original_hex": "ba3e933f864e7abd57c4b6bd00000000"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 1897,
+          "offset": 8265016,
+          "original_hex": "24e8893f683408bd0ed034bd00000000"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 1898,
+          "offset": 8265032,
+          "original_hex": "8478913f38a42fbd1eb6bfbd00000000"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 1899,
+          "offset": 8265048,
+          "original_hex": "c512953f5ce26bbd253bdbbd00000000"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 1900,
+          "offset": 8265064,
+          "original_hex": "8478913f38a42fbd1eb6bfbd00000000"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 1901,
+          "offset": 8265080,
+          "original_hex": "7956813f6d9d1e3e385129be00000000"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 1902,
+          "offset": 8265096,
+          "original_hex": "aed68c3f3fd216bc9a90babd00000000"
+        },
+        {
+          "mesh": "shoes01",
+          "vertex": 1903,
+          "offset": 8265112,
+          "original_hex": "52108d3fd5fb28bd6f0e79bd00000000"
+        },
+        {
+          "mesh": "bob01",
+          "vertex": 216,
+          "offset": 12790464,
+          "original_hex": "fc12803f1ff18eb943cfa0b900000000"
+        },
+        {
+          "mesh": "bob01",
+          "vertex": 270,
+          "offset": 12791328,
+          "original_hex": "01cb763f2e1de23cad7d113c408407ba"
+        },
+        {
+          "mesh": "bob01",
+          "vertex": 271,
+          "offset": 12791344,
+          "original_hex": "86aa803fc5a784b979c74eba4f6288bb"
+        },
+        {
+          "mesh": "bob01",
+          "vertex": 302,
+          "offset": 12791840,
+          "original_hex": "ccc4693fd6a87b3d9475d03cec9b41b8"
+        },
+        {
+          "mesh": "bob01",
+          "vertex": 303,
+          "offset": 12791856,
+          "original_hex": "d5a96e3f145d483dbc3c9c3c24628cb9"
+        },
+        {
+          "mesh": "bob01",
+          "vertex": 343,
+          "offset": 12792496,
+          "original_hex": "5852573ff30bc23d51d6833d8b006ab9"
+        },
+        {
+          "mesh": "bob01",
+          "vertex": 455,
+          "offset": 12794288,
+          "original_hex": "028f813f3c31b7bbccd0d7bb00000000"
+        },
+        {
+          "mesh": "bob01",
+          "vertex": 916,
+          "offset": 12801664,
+          "original_hex": "9aef803f0e035cbb989881bb00000000"
+        },
+        {
+          "mesh": "bob01",
+          "vertex": 947,
+          "offset": 12802160,
+          "original_hex": "5137803f35da52ba64ad67ba00000000"
+        },
+        {
+          "mesh": "bob01",
+          "vertex": 973,
+          "offset": 12802576,
+          "original_hex": "2b29563f6cfdf93d95282f3d87c3b6ba"
+        },
+        {
+          "mesh": "bob01",
+          "vertex": 975,
+          "offset": 12802608,
+          "original_hex": "242b813f3a7b2bbb2666d5bb00000000"
+        },
+        {
+          "mesh": "bob01",
+          "vertex": 1209,
+          "offset": 12806352,
+          "original_hex": "8a615d3fbbe5983d9f47873db09ab3bb"
+        },
+        {
+          "mesh": "bob01",
+          "vertex": 1210,
+          "offset": 12806368,
+          "original_hex": "18da7f3faede9c3b9fea89bb00000000"
+        },
+        {
+          "mesh": "bob01",
+          "vertex": 1211,
+          "offset": 12806384,
+          "original_hex": "8d8e803f8a6fa3bafc624bbb00000000"
+        },
+        {
+          "mesh": "bob01",
+          "vertex": 1348,
+          "offset": 12808576,
+          "original_hex": "84f2803f1684f2bb0000000000000000"
+        },
+        {
+          "mesh": "bob01",
+          "vertex": 2352,
+          "offset": 12824640,
+          "original_hex": "da1e813ff06c0fbc0000000000000000"
+        },
+        {
+          "mesh": "bob01",
+          "vertex": 2355,
+          "offset": 12824688,
+          "original_hex": "f302803f62bebcb80000000000000000"
+        },
+        {
+          "mesh": "bob01",
+          "vertex": 2783,
+          "offset": 12831536,
+          "original_hex": "8c0f5e3f1e788f3df643803d76d9e1b8"
+        },
+        {
+          "mesh": "bob01",
+          "vertex": 3239,
+          "offset": 12838832,
+          "original_hex": "8c0f5e3f1e788f3df643803d76d9e1b8"
+        },
+        {
+          "mesh": "bob01",
+          "vertex": 4141,
+          "offset": 12853264,
+          "original_hex": "f6e3813f183afab9e3b8dbbb0399f8bb"
+        },
+        {
+          "mesh": "bob01",
+          "vertex": 4384,
+          "offset": 12857152,
+          "original_hex": "c101813fbae000bc0000000000000000"
+        },
+        {
+          "mesh": "bob01",
+          "vertex": 4574,
+          "offset": 12860192,
+          "original_hex": "90867a3ff6b2773c1b9ccd3b17a413b7"
+        },
+        {
+          "mesh": "bob01",
+          "vertex": 4618,
+          "offset": 12860896,
+          "original_hex": "1426813fc80913bc0000000000000000"
+        },
+        {
+          "mesh": "bob01",
+          "vertex": 4621,
+          "offset": 12860944,
+          "original_hex": "c008803fc6fb8bb90000000000000000"
+        },
+        {
+          "mesh": "bob01",
+          "vertex": 4785,
+          "offset": 12863568,
+          "original_hex": "441c5e3fe6818e3d5bb9803d9cf56ab8"
+        },
+        {
+          "mesh": "bob01",
+          "vertex": 5017,
+          "offset": 12867280,
+          "original_hex": "90125e3f85808f3dbe27803d0e1cf3b8"
+        },
+        {
+          "mesh": "bob01",
+          "vertex": 5205,
+          "offset": 12870288,
+          "original_hex": "37dd813fbf9b6ebc0000000000000000"
+        },
+        {
+          "mesh": "bob01",
+          "vertex": 5364,
+          "offset": 12872832,
+          "original_hex": "17d0803ffc92eeba367294bb00000000"
+        },
+        {
+          "mesh": "bob01",
+          "vertex": 5438,
+          "offset": 12874016,
+          "original_hex": "a1b77c3f09a6183c17ec693b31b584b8"
+        }
+      ]
+    }
+  }
+}

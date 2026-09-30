@@ -1,0 +1,455 @@
+Godot Engine v4.7.1.stable.official.a13da4feb - https://godotengine.org
+
+[   0% ] [90m[1mfirst_scan_filesystem[22m | Started 项目初始化 (5 steps)[39m[0m
+[   0% ] [90m[1mfirst_scan_filesystem[22m | 正在扫描文件结构……[39m[0m
+[  16% ] [90m[1mfirst_scan_filesystem[22m | 正在加载全局类名……[39m[0m
+[  33% ] [90m[1mfirst_scan_filesystem[22m | 正在校验 GDExtension……[39m[0m
+[  50% ] [90m[1mfirst_scan_filesystem[22m | 正在创建自动加载脚本……[39m[0m
+[  66% ] [90m[1mfirst_scan_filesystem[22m | 正在初始化插件……[39m[0m
+[  83% ] [90m[1mfirst_scan_filesystem[22m | 正在启动文件扫描……[39m[0m
+[92m[ DONE ][39m [1mfirst_scan_filesystem[22m
+[0m
+[   0% ] [90m[1mloading_editor_layout[22m | Started 正在加载编辑器 (5 steps)[39m[0m
+[   0% ] [90m[1mloading_editor_layout[22m | 正在加载编辑器布局……[39m[0m
+[  16% ] [90m[1mloading_editor_layout[22m | 正在加载停靠面板……[39m[0m
+[92m[ DONE ][39m [1mloading_editor_layout[22m
+[0m
+Godot Engine v4.7.1.stable.official.a13da4feb - https://godotengine.org
+
+Godot Engine v4.7.1.stable.official.a13da4feb - https://godotengine.org
+
+ACTION_TEST failures=0
+Godot Engine v4.7.1.stable.official.a13da4feb - https://godotengine.org
+
+AUTHORED_GAIT casual walk support_error_m=0.0 shoulder_motion_rad=0.15353792905807
+AUTHORED_GAIT casual run support_error_m=0.0 shoulder_motion_rad=0.08566354215145
+AUTHORED casual idle foot_drift_m=0.0 wrist_extent_m=0.03857628628612
+AUTHORED casual talk foot_drift_m=0.0 wrist_extent_m=0.07310904562473
+AUTHORED_GAIT office walk support_error_m=0.0 shoulder_motion_rad=0.15353792905807
+AUTHORED_GAIT office run support_error_m=0.0 shoulder_motion_rad=0.08566354215145
+AUTHORED office idle foot_drift_m=0.0 wrist_extent_m=0.03857628628612
+AUTHORED office talk foot_drift_m=0.0 wrist_extent_m=0.07310904562473
+AUTHORED_GAIT office_female walk support_error_m=0.0 shoulder_motion_rad=0.15353792905807
+AUTHORED_GAIT office_female run support_error_m=0.0 shoulder_motion_rad=0.08566354215145
+AUTHORED office_female idle foot_drift_m=0.0 wrist_extent_m=0.03857628628612
+AUTHORED office_female talk foot_drift_m=0.0 wrist_extent_m=0.07310904562473
+AUTHORED_GAIT protagonist walk support_error_m=0.0 shoulder_motion_rad=0.15353792905807
+AUTHORED_GAIT protagonist run support_error_m=0.0 shoulder_motion_rad=0.08566075563431
+AUTHORED protagonist idle foot_drift_m=0.0 wrist_extent_m=0.04042106866837
+AUTHORED protagonist talk foot_drift_m=0.0 wrist_extent_m=0.07852540165186
+AUTHORED_GAIT lin_lan walk support_error_m=0.0 shoulder_motion_rad=0.15353949368
+AUTHORED_GAIT lin_lan run support_error_m=0.0 shoulder_motion_rad=0.08566354215145
+AUTHORED lin_lan idle foot_drift_m=0.0 wrist_extent_m=0.03594814985991
+AUTHORED lin_lan talk foot_drift_m=0.0 wrist_extent_m=0.06576912105083
+AUTHORED_GAIT a_cheng walk support_error_m=0.0 shoulder_motion_rad=0.15353792905807
+AUTHORED_GAIT a_cheng run support_error_m=0.0 shoulder_motion_rad=0.08566632866859
+AUTHORED a_cheng idle foot_drift_m=0.0 wrist_extent_m=0.04156514629722
+AUTHORED a_cheng talk foot_drift_m=0.0 wrist_extent_m=0.08074766397476
+AUTHORED_MOTION_TEST failures=0
+Godot Engine v4.7.1.stable.official.a13da4feb - https://godotengine.org
+
+BODY_SUPPORT_TEST failures=0 final_height=-0.01963429525495
+Godot Engine v4.7.1.stable.official.a13da4feb - https://godotengine.org
+
+CAREER_TEST failures=0
+Godot Engine v4.7.1.stable.official.a13da4feb - https://godotengine.org
+
+SKIRT lin_lan walk max_edge_ratio=2.41620902117556
+SKIRT lin_lan run max_edge_ratio=3.7380564039084
+SKIRT lin_lan work max_edge_ratio=1.0001414672277
+SKIRT lin_lan sit max_edge_ratio=1.0001414672277
+SKIRT lin_lan strike max_edge_ratio=1.00011136790427
+SKIRT office_female walk max_edge_ratio=2.2089843605291
+SKIRT office_female run max_edge_ratio=2.98659591143652
+SKIRT office_female work max_edge_ratio=1.00019167692435
+SKIRT office_female sit max_edge_ratio=1.00019167692435
+SKIRT office_female strike max_edge_ratio=1.00008912196458
+CAST_DEFORMATION_TEST failures=0
+Godot Engine v4.7.1.stable.official.a13da4feb - https://godotengine.org
+
+CAST_FACE_TEST failures=0
+Godot Engine v4.7.1.stable.official.a13da4feb - https://godotengine.org
+
+CAST_RESOURCES_TEST failures=0
+Godot Engine v4.7.1.stable.official.a13da4feb - https://godotengine.org
+
+CHAIR_SUPPORT_TEST failures=0
+Godot Engine v4.7.1.stable.official.a13da4feb - https://godotengine.org
+
+CHAOS_TEST failures=0 simulated_seconds=85
+Godot Engine v4.7.1.stable.official.a13da4feb - https://godotengine.org
+
+CITY_ACTIVITY_SAVE_TEST failures=0
+Godot Engine v4.7.1.stable.official.a13da4feb - https://godotengine.org
+
+CITY_ARCHITECTURE_TEST failures=0 window_bays=226 textures=10 texture_bytes=30758376
+Godot Engine v4.7.1.stable.official.a13da4feb - https://godotengine.org
+
+CITY_BOOKSHOP_TEST failures=0 outcomes={ "screen": { "wait_frames": 6411, "participants": ["resident_zhou_ning", "resident_lin_qiao", "resident_wu_fan"], "elapsed": 18.0 }, "paper": { "wait_frames": 6481, "participants": ["resident_zhou_ning", "resident_lin_qiao", "resident_wu_fan"], "elapsed": 18.0 }, "garden": { "wait_frames": 2050, "participants": ["resident_zhou_ning", "resident_wu_fan"], "elapsed": 18.0 } }
+Godot Engine v4.7.1.stable.official.a13da4feb - https://godotengine.org
+
+CITY_BUS_SEATING_TEST failures=0 {"casual":[{"penetration_m":0.0,"phase":0.0,"seat_triangles":2068,"support_gap_m":0.0273639559745789,"vertices":21362,"worst_mesh":"","worst_point":[0.0,0.0,0.0]},{"penetration_m":0.0,"phase":0.4,"seat_triangles":2068,"support_gap_m":0.0273639559745789,"vertices":21362,"worst_mesh":"","worst_point":[0.0,0.0,0.0]},{"penetration_m":0.0,"phase":2.0,"seat_triangles":2068,"support_gap_m":0.0273639559745789,"vertices":21362,"worst_mesh":"","worst_point":[0.0,0.0,0.0]},{"penetration_m":0.0,"phase":3.8,"seat_triangles":2068,"support_gap_m":0.0273639559745789,"vertices":21362,"worst_mesh":"","worst_point":[0.0,0.0,0.0]}],"office":[{"penetration_m":0.0,"phase":0.0,"seat_triangles":2068,"support_gap_m":0.00687271356582642,"vertices":20902,"worst_mesh":"","worst_point":[0.0,0.0,0.0]},{"penetration_m":0.0,"phase":0.4,"seat_triangles":2068,"support_gap_m":0.00687283277511597,"vertices":20902,"worst_mesh":"","worst_point":[0.0,0.0,0.0]},{"penetration_m":0.0,"phase":2.0,"seat_triangles":2068,"support_gap_m":0.00687271356582642,"vertices":20902,"worst_mesh":"","worst_point":[0.0,0.0,0.0]},{"penetration_m":0.0,"phase":3.8,"seat_triangles":2068,"support_gap_m":0.00687283277511597,"vertices":20902,"worst_mesh":"","worst_point":[0.0,0.0,0.0]}],"office_female":[{"penetration_m":0.0,"phase":0.0,"seat_triangles":2068,"support_gap_m":0.000725209712982178,"vertices":19621,"worst_mesh":"","worst_point":[0.0,0.0,0.0]},{"penetration_m":0.0,"phase":0.4,"seat_triangles":2068,"support_gap_m":0.000725269317626953,"vertices":19621,"worst_mesh":"","worst_point":[0.0,0.0,0.0]},{"penetration_m":0.0,"phase":2.0,"seat_triangles":2068,"support_gap_m":0.000725209712982178,"vertices":19621,"worst_mesh":"","worst_point":[0.0,0.0,0.0]},{"penetration_m":0.0,"phase":3.8,"seat_triangles":2068,"support_gap_m":0.000725269317626953,"vertices":19621,"worst_mesh":"","worst_point":[0.0,0.0,0.0]}]}
+Godot Engine v4.7.1.stable.official.a13da4feb - https://godotengine.org
+
+CITY_BUS_VISUAL_TEST {"bad_normals":0,"baked_triangles":70052,"degenerate":0,"failures":0,"lods":95,"maximum_driver_palm_error":0.000000961096020546393,"vehicle_triangles":74160,"wheel_cover_rays":28}
+Godot Engine v4.7.1.stable.official.a13da4feb - https://godotengine.org
+
+CITY_CAR_VISUAL_TEST {"bad_normals":0,"baked_triangles":78040,"degenerate":0,"driver_leg_difference_m":0.0,"failures":0,"inward_triangles":0,"lods":82,"maximum_driver_palm_error_m":0.00000786781311035156,"natural_blend_leg_difference_m":0.0,"seating":{"casual":{"lowest_foot_m":0.123613491654396,"penetration_m":0.0,"seat_triangles":2172,"support_gap_m":0.002372145652771,"vertices":21362,"worst_point":[0.0,0.0,0.0]},"protagonist":{"lowest_foot_m":0.113939210772514,"penetration_m":0.0,"seat_triangles":2172,"support_gap_m":0.0215502977371216,"vertices":28993,"worst_point":[0.0,0.0,0.0]}},"wheel_cover_rays":24}
+Godot Engine v4.7.1.stable.official.a13da4feb - https://godotengine.org
+
+CITY_COMMONS_SAVE_TEST failures=0 corruptions=17 legacy_versions=17
+Godot Engine v4.7.1.stable.official.a13da4feb - https://godotengine.org
+
+CITY_COMMONS_TEST failures=0 benches={ "commons_west_0": true, "commons_east_0": true, "commons_west_1": true, "commons_east_1": true, "commons_north_0": true, "commons_north_1": true } seated=11 left=11 walking_distance=7406.8103773538 max_walking_step=0.02767585963011 bus_transfers=15 reading=true pairs=true natural_contacts=["casual", "office_female", "office"] contacts={ "casual": true, "office_female": true, "office": true } palm_error=0.00000095553514
+Godot Engine v4.7.1.stable.official.a13da4feb - https://godotengine.org
+
+CITY_CONTROLS_TEST failures=0
+Godot Engine v4.7.1.stable.official.a13da4feb - https://godotengine.org
+
+CITY_CROSSING_FLOW_TEST failures=0 data={"homes":{"both_cleared":true,"max_step":0.026765912771225,"minimum_separation":0.753563106060028,"traffic_released":true,"vehicle_overlap_samples":0},"market":{"both_cleared":true,"max_step":0.026765912771225,"minimum_separation":0.753563106060028,"traffic_released":true,"vehicle_overlap_samples":0},"office":{"both_cleared":true,"max_step":0.0267645865678787,"minimum_separation":0.753569781780243,"traffic_released":true,"vehicle_overlap_samples":0},"waterfront":{"both_cleared":true,"max_step":0.0267665721476078,"minimum_separation":0.753571271896362,"traffic_released":true,"vehicle_overlap_samples":0}}
+Godot Engine v4.7.1.stable.official.a13da4feb - https://godotengine.org
+
+CITY_CROSSINGS_TEST failures=0 stop=true restored=true crossed=true released=true vehicle_interval=true bus_stop=true bus_release=true late_bus_clearance=true
+Godot Engine v4.7.1.stable.official.a13da4feb - https://godotengine.org
+
+CITY_DAY_CYCLE_TEST failures=0 rest_cases=7 legacy_versions=20 malformed_cases=5
+Godot Engine v4.7.1.stable.official.a13da4feb - https://godotengine.org
+
+CITY_DAYLIGHT_TEST failures=0 minute_samples=1440 pause_restore_cases=9 max_sun_step=0.01349499821663 max_sky_step=0.01718075200915 visual_acceptance=separate
+Godot Engine v4.7.1.stable.official.a13da4feb - https://godotengine.org
+
+CITY_DRIVING_TEST failures=0 acceleration_distances=[17.9998512268066, 17.9998664855957, 17.9998550415039] max_palm_error_mm=0.00786510372563
+Godot Engine v4.7.1.stable.official.a13da4feb - https://godotengine.org
+
+CITY_EVENING_CYCLE_TEST failures=0 data={"clock_advanced_normally":true,"end_minute":1310,"independent_player_acceptance":false,"max_step":0.0383396819233894,"metres":1229.40861144289,"normal_fps_measured":false,"observed":{"a_friend":{"bookshop":1176,"returned":1288,"waterfront":1242},"a_group":{"garden":1165,"returned":1287,"waterfront":1226},"b_friend":{"garden":1226,"returned":1279,"waterfront":1174}},"start_minute":1138,"vehicle_overlap_samples":0}
+Godot Engine v4.7.1.stable.official.a13da4feb - https://godotengine.org
+
+CITY_EVENING_SAVE_TEST failures=0 legacy=19 current=25 invalid_crossings=6
+Godot Engine v4.7.1.stable.official.a13da4feb - https://godotengine.org
+
+EVENING_ARRIVED first {"a_friend":{"max_step":0.0383355021476746,"metres":172.920840252191,"overlaps":0,"person":"a_friend","road_frames":376,"stage":"first"},"a_group":{"max_step":0.0383396819233894,"metres":127.075028702617,"overlaps":0,"person":"a_group","road_frames":388,"stage":"first"},"b_friend":{"max_step":0.0383350290358067,"metres":162.144959401339,"overlaps":0,"person":"b_friend","road_frames":827,"stage":"first"}}
+EVENING_ARRIVED second {"a_friend":{"max_step":0.0383360348641872,"metres":174.605545736849,"overlaps":0,"person":"a_friend","road_frames":427,"stage":"second"},"a_group":{"max_step":0.0383369363844395,"metres":121.017390631139,"overlaps":0,"person":"a_group","road_frames":421,"stage":"second"},"b_friend":{"max_step":0.0383370108902454,"metres":124.430344924331,"overlaps":0,"person":"b_friend","road_frames":393,"stage":"second"}}
+EVENING_ARRIVED return {"a_friend":{"max_step":0.0383364334702492,"metres":132.899228852242,"overlaps":0,"person":"a_friend","road_frames":391,"stage":"return"},"a_group":{"max_step":0.0383371263742447,"metres":123.507361702621,"overlaps":0,"person":"a_group","road_frames":393,"stage":"return"},"b_friend":{"max_step":0.0383351482450962,"metres":88.9342946261168,"overlaps":0,"person":"b_friend","road_frames":0,"stage":"return"}}
+EVENING_ARRIVED work {"a_friend":{"max_step":0.0383447073400021,"metres":50.9833686165512,"overlaps":0,"person":"a_friend","road_frames":342,"stage":"work"},"a_group":{"max_step":0.0383341908454895,"metres":48.7982979305089,"overlaps":0,"person":"a_group","road_frames":337,"stage":"work"},"b_friend":{"max_step":0.0383339636027813,"metres":39.2149883806705,"overlaps":0,"person":"b_friend","road_frames":336,"stage":"work"}}
+EVENING_ARRIVED work-follow {"b_friend":{"max_step":0.0383362993597984,"metres":152.334462497383,"overlaps":0,"person":"b_friend","road_frames":733,"stage":"work-follow"}}
+CITY_EVENING_TEST failures=0 routes=13
+Godot Engine v4.7.1.stable.official.a13da4feb - https://godotengine.org
+
+STREET_ALPHA potted_plant_02 range=0.0:1.0 source_mean_error=0.00051054112205
+STREET_ALPHA industrial_wall_lamp range=0.8901960849762:0.99215686321259 source_mean_error=0.00169893142447
+CITY_FRONTAGES_TEST failures=0 textures=19 texture_bytes=20971800 models={"industrial_wall_lamp":{"lod_surfaces":10,"triangles":4446},"plastic_crate_01":{"lod_surfaces":0,"triangles":10206},"potted_plant_02":{"lod_surfaces":12,"triangles":12408},"rollershutter_door":{"lod_surfaces":3,"triangles":552}} old_positions=3 actors=2
+Godot Engine v4.7.1.stable.official.a13da4feb - https://godotengine.org
+
+CITY_HOME_SAVE_CASES corruptions=14 legacy=21 furniture_positions=3
+CITY_HOME_SAVE_TEST failures=0
+Godot Engine v4.7.1.stable.official.a13da4feb - https://godotengine.org
+
+CITY_HOME_SEATING_TEST failures=0
+Godot Engine v4.7.1.stable.official.a13da4feb - https://godotengine.org
+
+CITY_HOME_TEST failures=0
+Godot Engine v4.7.1.stable.official.a13da4feb - https://godotengine.org
+
+CITY_LIGHTING_BAKE_TEST failures=0 proxies=2089 exclusions=7 live_static_dynamic_meshes=826
+Godot Engine v4.7.1.stable.official.a13da4feb - https://godotengine.org
+
+CITY_MEAL_CONTACT_TEST failures=0 {"a_friend":{"contact_error":0.00000191107028513215,"skin_error":0.0000496002321597189,"worst":{"face":[0.0122709274291992,1.67182004451752,-0.0660667419433594],"frame":70,"palm":[0.0210561752319336,1.38100063800812,-0.245277404785156],"side":"R","target":[0.0210561752319336,1.38100051879883,-0.245279312133789]}},"player":{"contact_error":0.00000192219204109279,"skin_error":0.0000477313769806642,"worst":{"face":[0.0219640731811523,1.61535251140594,-0.0869941711425781],"frame":83,"palm":[0.0129222869873047,1.44015789031982,-0.303306579589844],"side":"R","target":[0.0129222869873047,1.44015765190125,-0.303304672241211]}},"resident_chen_yu":{"contact_error":0.00000192219204109279,"skin_error":0.0000495916392537765,"worst":{"face":[0.0122709274291992,1.67182004451752,-0.0660667419433594],"frame":70,"palm":[0.0210564136505127,1.38100075721741,-0.245277404785156],"side":"R","target":[0.0210564136505127,1.38100051879883,-0.245279312133789]}},"resident_xu_hang":{"contact_error":0.00000196604992197535,"skin_error":0.0000495841850352008,"worst":{"face":[0.00926542282104492,1.67471194267273,-0.0533256530761719],"frame":171,"palm":[0.000438213348388672,1.47926914691925,-0.275104522705078],"side":"R","target":[0.000438690185546875,1.47926914691925,-0.275102615356445]}},"resident_zhao_lin":{"contact_error":0.00000213248063118954,"skin_error":0.0000496002321597189,"worst":{"face":[0.0127735137939453,1.67275714874268,-0.0681610107421875],"frame":182,"palm":[0.0212373733520508,1.38134038448334,-0.246036529541016],"side":"R","target":[0.0212383270263672,1.38134038448334,-0.246038436889648]}},"vendor":{"contact_error":0.00000136961045882344,"outside_pot_frames":0}}
+Godot Engine v4.7.1.stable.official.a13da4feb - https://godotengine.org
+
+CITY_MEALS_SAVE_CASES bad=23 legacy=24 disk=queued,ready,eating
+CITY_MEALS_SAVE_TEST failures=0
+Godot Engine v4.7.1.stable.official.a13da4feb - https://godotengine.org
+
+CITY_MEALS_SOCIAL_TEST failures=0 metres=72.5649431534111 maximum=0.03833712264895 stages=["queued", "ready", "carrying", "eating"]
+Godot Engine v4.7.1.stable.official.a13da4feb - https://godotengine.org
+
+CITY_MEALS_TEST failures=0
+Godot Engine v4.7.1.stable.official.a13da4feb - https://godotengine.org
+
+FOLIAGE_ISLANDS level=0 count=30250
+FOLIAGE_ISLANDS level=1 count=30250
+FOLIAGE_ISLANDS level=2 count=30250
+CITY_NATURE_TEST failures=0 triangles=[297834, 160239, 100716] texture_bytes=36350808 textures=12
+Godot Engine v4.7.1.stable.official.a13da4feb - https://godotengine.org
+
+OUTING_STANDING_PLAYER distance=19.5370750427246 contacts=14 max_step=0.03833553567529 npc=(22.71242, 0.00094, 55.4506) player=(40.57299, -0.004785, 54.13592)
+OUTING_JUNCTION_PLAYER distance=6.28338527679443 max_step=0.03833471611142 player_xz=0.0 npc=(6.20281, 0.0, 58.11457) route=[] target=(6.20281, 0.0, 58.11457)
+CITY_OUTING_SAVE_TEST failures=0
+Godot Engine v4.7.1.stable.official.a13da4feb - https://godotengine.org
+
+OUTING_ROUTE { "route": "a_friend-bookshop", "metres": 138.765124708414, "max_step": 0.03833572566509, "road_frames": 0, "request_frames": 0, "vehicle_overlap_samples": 0 }
+OUTING_ROUTE { "route": "a_friend-bookshop-return", "metres": 139.265583794564, "max_step": 0.03833524882793, "road_frames": 0, "request_frames": 0, "vehicle_overlap_samples": 0 }
+OUTING_ROUTE { "route": "b_friend-garden", "metres": 88.588646043092, "max_step": 0.03833509981632, "road_frames": 43, "request_frames": 0, "vehicle_overlap_samples": 0 }
+OUTING_ROUTE { "route": "b_friend-garden-return", "metres": 91.0688171498477, "max_step": 0.03834088146687, "road_frames": 0, "request_frames": 0, "vehicle_overlap_samples": 0 }
+OUTING_ROUTE { "route": "a_friend-waterfront", "metres": 129.332508139312, "max_step": 0.03833508491516, "road_frames": 408, "request_frames": 31, "vehicle_overlap_samples": 0 }
+OUTING_ROUTE { "route": "a_friend-waterfront-return", "metres": 130.714903701097, "max_step": 0.03833688795567, "road_frames": 386, "request_frames": 702, "vehicle_overlap_samples": 0 }
+CITY_OUTING_TEST failures=0
+Godot Engine v4.7.1.stable.official.a13da4feb - https://godotengine.org
+
+CITY_PASSENGERS_SAVE_TEST failures=0 public_seats=5 bad_cases=17 legacy_versions=22 platforms=4 floor_top=0.3999999910593 minimum_foot_bone_clearance=0.07746221125126
+Godot Engine v4.7.1.stable.official.a13da4feb - https://godotengine.org
+
+PASSENGER_STAGE frame=0 stage=activity resident=(-23.35, -0.004557, 18.6) bus_stop=0 destination=office
+PASSENGER_STAGE frame=447 stage=walking resident=(-23.36027, -0.004434, 18.57575) bus_stop=0 destination=bus_office_0
+PASSENGER_STAGE frame=1603 stage=waiting resident=(-4.970673, -0.004062, 15.31106) bus_stop=1 destination=bus_office_0
+PASSENGER_STAGE frame=6454 stage=riding resident=(-3.6, 0.4, 8.65) bus_stop=0 destination=bus_office_0
+PASSENGER_STAGE frame=8040 stage=activity resident=(-71.48164, 0.0, 58.01887) bus_stop=1 destination=market
+CITY_PASSENGERS_TEST {"arrived_original_goal":true,"clock":620,"failures":0,"final":[-93.5076675415039,-0.00415945611894131,57.6267166137695],"invalid_json_samples":0,"max_ground_y_step":0.0666086082346737,"max_walk_xz_step":0.026336744427681,"riding_saved":true,"states":["activity","walking","waiting","riding","activity"],"waiting_saved":true,"walked_metres":29.4144229721278}
+Godot Engine v4.7.1.stable.official.a13da4feb - https://godotengine.org
+
+CITY_PLACES_METRES 158.432996988297 player_old_positions=3 resident_old_positions=3 safe_resident=unchanged fallen_dead=unchanged actual_glazing=2
+CITY_PLACES_TEST failures=0
+Godot Engine v4.7.1.stable.official.a13da4feb - https://godotengine.org
+
+CITY_POPULATION_TEST failures=0 crossings={ "market": 10, "homes": 1, "waterfront": 3 } traffic_distance=[1663.83385591605, 1523.87011345062, 1403.91702623233] visited={ "resident_zhou_ning": ["commons_west_0", "reading_west"], "resident_chen_yu": ["reading_center", "commons_west_0"], "resident_liang_bo": ["commons_east_0", "office"], "resident_lin_qiao": ["office", "market"], "resident_xu_hang": ["bus_office_0", "market", "commons_east_1"], "resident_song_an": ["bus_waterfront_0", "commons_west_1", "commons_west_0"], "resident_he_yue": ["bus_waterfront_1", "commons_west_0", "reading_west"], "resident_wu_fan": ["reading_center", "commons_east_0"], "resident_zhao_lin": ["commons_east_0", "office", "market"], "resident_tang_ke": ["office", "market"], "resident_lu_yang": ["market", "commons_west_1"], "resident_su_wan": ["bus_waterfront_2", "commons_east_0", "commons_west_1"] }
+Godot Engine v4.7.1.stable.official.a13da4feb - https://godotengine.org
+
+CITY_RESIDENTS_TEST failures=0
+Godot Engine v4.7.1.stable.official.a13da4feb - https://godotengine.org
+
+CITY_RESPONSE_ROUTES_TEST failures=0 routes={"bookshop":{"max_step_m":0.0300025604665279,"received":true,"traffic_released":false,"traffic_stopped":false,"walked_m":246.776760401204},"homes":{"max_step_m":0.0300036501139402,"received":true,"traffic_released":true,"traffic_stopped":true,"walked_m":203.518516339362},"market":{"max_step_m":0.0300025623291731,"received":true,"traffic_released":true,"traffic_stopped":true,"walked_m":204.116560708731},"waterfront":{"max_step_m":0.0300027877092361,"received":true,"traffic_released":true,"traffic_stopped":true,"walked_m":142.016339154914}}
+Godot Engine v4.7.1.stable.official.a13da4feb - https://godotengine.org
+
+CITY_RESPONSE_SAVE_TEST failures=0 invalid_cases=19 legacy_versions=15
+Godot Engine v4.7.1.stable.official.a13da4feb - https://godotengine.org
+
+CITY_RESPONSE_TEST failures=0 carried=true received=true max_step=0.03000256232917 queued_cases=1
+Godot Engine v4.7.1.stable.official.a13da4feb - https://godotengine.org
+
+CITY_ROOM_LIGHTING_TEST failures=0 static_geometry=599
+Godot Engine v4.7.1.stable.official.a13da4feb - https://godotengine.org
+
+CITY_SHARE_PERFORMANCE_TEST failures=0 metrics={"garden":{"max_hand_step_m":0.0,"palm_error_m":0.0,"skin_depth_m":0.0,"turns":[{"narrator":"resident_zhou_ning","page":0,"time":1.4,"turn":0.0},{"narrator":"resident_zhou_ning","page":0,"time":5.6,"turn":0.0},{"narrator":"resident_lin_qiao","page":0,"time":7.4,"turn":0.0},{"narrator":"resident_lin_qiao","page":0,"time":11.6,"turn":0.0},{"narrator":"resident_wu_fan","page":0,"time":13.4,"turn":0.0}]},"paper":{"max_hand_step_m":0.0299831982702017,"palm_error_m":0.00000853075562190497,"skin_depth_m":0.000953295305371284,"turns":[{"narrator":"resident_zhou_ning","page":0,"time":1.4,"turn":0.0},{"narrator":"resident_zhou_ning","page":0,"time":5.6,"turn":0.499999999999999},{"narrator":"resident_lin_qiao","page":1,"time":7.4,"turn":0.0},{"narrator":"resident_lin_qiao","page":1,"time":11.6,"turn":0.499999999999999},{"narrator":"resident_wu_fan","page":2,"time":13.4,"turn":0.0}]},"screen":{"max_hand_step_m":0.0,"palm_error_m":0.0,"skin_depth_m":0.0,"turns":[{"narrator":"resident_zhou_ning","page":0,"time":1.4,"turn":0.0},{"narrator":"resident_zhou_ning","page":0,"time":5.6,"turn":0.0},{"narrator":"resident_lin_qiao","page":0,"time":7.4,"turn":0.0},{"narrator":"resident_lin_qiao","page":0,"time":11.6,"turn":0.0},{"narrator":"resident_wu_fan","page":0,"time":13.4,"turn":0.0}]}}
+Godot Engine v4.7.1.stable.official.a13da4feb - https://godotengine.org
+
+CITY_SOUND_SCENE steps={ "stone": 2, "carpet": 2, "wood": 2, "grass": 2 } failures=0
+Godot Engine v4.7.1.stable.official.a13da4feb - https://godotengine.org
+
+CITY_STORY_SAVE_TEST failures=0
+Godot Engine v4.7.1.stable.official.a13da4feb - https://godotengine.org
+
+STORY_WALK_ARRIVED stage=1 metres=45.8672851365991 crossed=["market"]
+STORY_WALK_ARRIVED stage=2 metres=180.377818602603 crossed=["market", "waterfront"]
+STORY_WALK_ARRIVED stage=3 metres=185.65599105414 crossed=["waterfront"]
+STORY_WALK_PLAYER_DETOUR blockers=["resident_liang_bo"]
+STORY_WALK_PLAYER_DETOUR blockers=["resident_tang_ke"]
+CITY_STORY_WALK_TEST failures=0
+Godot Engine v4.7.1.stable.official.a13da4feb - https://godotengine.org
+
+CITY_STREETS_TEST failures=0 instances=15976 batches=660 lights=27 public_links=51 deterministic_buffers=GPU_tool_required
+Godot Engine v4.7.1.stable.official.a13da4feb - https://godotengine.org
+
+CITY_TRAFFIC_TEST failures=0 travelled_m=[482.519987184684, 726.356713358293, 610.185722421411] overlaps=0
+Godot Engine v4.7.1.stable.official.a13da4feb - https://godotengine.org
+
+CITY_TRANSIT_TEST failures=0 route_m=482.229614257812 stops=[2, 3, 0]
+Godot Engine v4.7.1.stable.official.a13da4feb - https://godotengine.org
+
+CITY_URBAN_METRES 191.167528152466 arcade_lots=3 scenery_only_lots=29
+CITY_URBAN_TEST failures=0
+Godot Engine v4.7.1.stable.official.a13da4feb - https://godotengine.org
+
+COMPANY_BATCHES_TEST failures=0
+Godot Engine v4.7.1.stable.official.a13da4feb - https://godotengine.org
+
+COMPANY_SPACES_TEST failures=0
+Godot Engine v4.7.1.stable.official.a13da4feb - https://godotengine.org
+
+CONSEQUENCE_TEST failures=0
+Godot Engine v4.7.1.stable.official.a13da4feb - https://godotengine.org
+
+DAILY_ROUTE tea (-17.36794, 0.0, 0.675007) {"max_step":0.0383340306580067,"metres":11.9216602817178,"overlaps":0}
+DAILY_ROUTE lunch (9.314189, 0.00094, 17.9717) {"max_step":0.0383342429995537,"metres":51.9356345906854,"overlaps":0}
+DAILY_ROUTE legacy_walk (-5.336367, 0.00094, 17.9271) {"max_step":0.038334246724844,"metres":15.5633181333542,"overlaps":0}
+DAILY_ROUTE walk (41.33428, 0.00094, 54.05407) {"max_step":0.038335133343935,"metres":87.2469345368445,"overlaps":0}
+DAILY_ROUTINE_TEST failures=0
+Godot Engine v4.7.1.stable.official.a13da4feb - https://godotengine.org
+
+DESTRUCTION_TEST failures=0
+Godot Engine v4.7.1.stable.official.a13da4feb - https://godotengine.org
+
+DIALOGUE_SCENE_TEST failures=0
+Godot Engine v4.7.1.stable.official.a13da4feb - https://godotengine.org
+
+ASSET_BOUNDS name=waiting_chair bounds=[P: (-0.406809, 0.000382, -0.575452), S: (0.820344, 1.022852, 0.986562)] triangles=8916
+ASSET_BOUNDS name=reception_lamp bounds=[P: (-0.082931, -0.061596, -0.207646), S: (0.141211, 0.624827, 0.429711)] triangles=24102
+ENVIRONMENT_ASSETS_TEST failures=0
+Godot Engine v4.7.1.stable.official.a13da4feb - https://godotengine.org
+
+ROUTE_STEP ["a_hr", "interview_hr"]
+ROUTE_STEP ["a_lead", "interview_lead"]
+ROUTE_STEP ["a_boss", "interview_boss"]
+ROUTE_STEP ["a_hr", "join_a"]
+ROUTE_STEP ["a_hr", "tour_begin"]
+ROUTE_STEP ["a_hr", "tour_greet"]
+ROUTE_STEP ["a_hr", "tour_settle"]
+ROUTE_STEP ["desk_a", "desk_open"]
+ROUTE_STEP ["a_hr", "service_account"]
+ROUTE_STEP ["a_lead", "brief"]
+ROUTE_STEP ["archive", "data"]
+ROUTE_STEP ["desk_a", "prepare"]
+ROUTE_STEP ["a_friend", "shortcut"]
+ROUTE_STEP ["demo", "submit"]
+ROUTE_STEP ["a_lead", "no_hc"]
+ROUTE_STEP ["a_group", "transfer"]
+ROUTE_STEP ["desk_a2", "desk_open"]
+ROUTE_STEP ["backup", "backup"]
+ROUTE_STEP ["a_boss", "defend"]
+ROUTE_STEP ["a_hr", "resign"]
+ROUTE_STEP ["b_hr", "interview_b"]
+ROUTE_STEP ["b_hr", "join_b"]
+ROUTE_STEP ["b_friend", "tour_begin"]
+ROUTE_STEP ["b_friend", "tour_greet"]
+ROUTE_STEP ["b_friend", "tour_settle"]
+ROUTE_STEP ["desk_b", "desk_open"]
+ROUTE_STEP ["b_hr", "service_account"]
+ROUTE_STEP ["b_friend", "help"]
+ROUTE_STEP ["handover", "handover"]
+ROUTE_BRANCH ["b_friend", "refuse"]
+ROUTE_BRANCH ["b_friend", "negotiate"]
+ROUTE_BRANCH ["desk_b", "computer_open"]
+ROUTE_BRANCH ["b_boss", "settle"]
+FULL_ROUTE_TEST failures=0
+Godot Engine v4.7.1.stable.official.a13da4feb - https://godotengine.org
+
+GAIT casual walk drift_m=0.0032366074156 lift_m=0.12000004947186
+GAIT casual run drift_m=0.01018696930259 lift_m=0.19999998807907
+GAIT office walk drift_m=0.0032366074156 lift_m=0.12000004947186
+GAIT office run drift_m=0.01018696930259 lift_m=0.19999998807907
+GAIT office_female walk drift_m=0.0032366074156 lift_m=0.12000004947186
+GAIT office_female run drift_m=0.01018696930259 lift_m=0.19999998807907
+GAIT protagonist walk drift_m=0.00044334100676 lift_m=0.11999996006489
+GAIT protagonist run drift_m=0.00180313282181 lift_m=0.19999995827675
+GAIT lin_lan walk drift_m=0.00050619547255 lift_m=0.12000009417534
+GAIT lin_lan run drift_m=0.00203680759296 lift_m=0.19999997317791
+GAIT a_cheng walk drift_m=0.00042632673285 lift_m=0.12000000476837
+GAIT a_cheng run drift_m=0.00174133002292 lift_m=0.20000004768372
+GAIT_TEST failures=0
+Godot Engine v4.7.1.stable.official.a13da4feb - https://godotengine.org
+
+GUIDANCE_TEST failures=0
+Godot Engine v4.7.1.stable.official.a13da4feb - https://godotengine.org
+
+HAND_CONTACT_TEST measurements={"a_cheng":{"reach_error_m":0.000000256369276030455,"skin_error_m":0.0000183501797437202},"casual":{"reach_error_m":0.000000359176709707754,"skin_error_m":0.0000372489703295287},"held/badge":{"max_support_penetration_m":0.0,"skin_error_m":0.00203399197198451},"held/cup":{"max_support_penetration_m":0.0,"skin_error_m":0.00203399197198451},"held/keyboard":{"max_support_penetration_m":0.0,"skin_error_m":0.00203399197198451},"held/monitor":{"max_support_penetration_m":0.0,"skin_error_m":0.0020341114141047},"interview_b/box_message":{"max_sample_displacement_m":0.0160876493901014,"skin_error_m":0.0000237702242884552},"interview_b/phone_reply":{"max_sample_displacement_m":0.0112689230591059,"skin_error_m":0.0000238659849856049},"interview_boss/phone_reply":{"max_sample_displacement_m":0.0126111255958676,"skin_error_m":0.0000478081274195574},"interview_lead/phone_reply":{"max_sample_displacement_m":0.0126111255958676,"skin_error_m":0.0000478081274195574},"lin_lan":{"reach_error_m":0.000000184317187290617,"skin_error_m":0.0000331870651280042},"office":{"reach_error_m":0.000000359176709707754,"skin_error_m":0.0000372489703295287},"office_female":{"reach_error_m":0.000000359176709707754,"skin_error_m":0.0000372489703295287},"protagonist":{"reach_error_m":0.0000003698370960592,"skin_error_m":0.0000358850884367712}} failures=0
+Godot Engine v4.7.1.stable.official.a13da4feb - https://godotengine.org
+
+HIT_REACTION_TEST failures=0
+Godot Engine v4.7.1.stable.official.a13da4feb - https://godotengine.org
+
+INTAKE_TEST failures=0
+Godot Engine v4.7.1.stable.official.a13da4feb - https://godotengine.org
+
+INTERACTION_TEST failures=0
+Godot Engine v4.7.1.stable.official.a13da4feb - https://godotengine.org
+
+INTERRUPTION_TEST failures=0
+Godot Engine v4.7.1.stable.official.a13da4feb - https://godotengine.org
+
+INTERVIEW_CALL_TEST failures=0
+Godot Engine v4.7.1.stable.official.a13da4feb - https://godotengine.org
+
+INTERVIEW_CONTENT_TEST failures=0
+Godot Engine v4.7.1.stable.official.a13da4feb - https://godotengine.org
+
+INTERVIEW_PERFORMANCE_TEST failures=0
+Godot Engine v4.7.1.stable.official.a13da4feb - https://godotengine.org
+
+INTERVIEW_TEST failures=0
+Godot Engine v4.7.1.stable.official.a13da4feb - https://godotengine.org
+
+INVENTORY_TEST failures=0
+Godot Engine v4.7.1.stable.official.a13da4feb - https://godotengine.org
+
+LOCOMOTION_BLEND_TEST failures=0 transitions=120 max_phase_error=0.0
+Godot Engine v4.7.1.stable.official.a13da4feb - https://godotengine.org
+
+LOCOMOTION_TEST failures=0
+Godot Engine v4.7.1.stable.official.a13da4feb - https://godotengine.org
+
+MOUSE_CAPTURE_TEST failures=0
+Godot Engine v4.7.1.stable.official.a13da4feb - https://godotengine.org
+
+NEGOTIATION_FOLLOW_TEST failures=0
+Godot Engine v4.7.1.stable.official.a13da4feb - https://godotengine.org
+
+NONLETHAL_CARE_TEST failures=0
+Godot Engine v4.7.1.stable.official.a13da4feb - https://godotengine.org
+
+NPC_LIFECYCLE_TEST failures=0
+Godot Engine v4.7.1.stable.official.a13da4feb - https://godotengine.org
+
+OFFICE_LIFE_TEST failures=0
+Godot Engine v4.7.1.stable.official.a13da4feb - https://godotengine.org
+
+ONBOARDING_ROUTE a phase=done
+ONBOARDING_ROUTE b phase=done
+ONBOARDING_TEST failures=0
+Godot Engine v4.7.1.stable.official.a13da4feb - https://godotengine.org
+
+UI_VIEWPORT requested=(1280, 720) logical=(1422.0, 800.0) render=(1153.0, 648.0)
+UI_VIEWPORT requested=(1280, 800) logical=(1280.0, 800.0) render=(1280.0, 800.0)
+UI_VIEWPORT requested=(1260, 540) logical=(1866.0, 800.0) render=(851.0, 365.0)
+PAGE_CONTROLS_TEST failures=0
+Godot Engine v4.7.1.stable.official.a13da4feb - https://godotengine.org
+
+PANELS_TEST failures=0
+Godot Engine v4.7.1.stable.official.a13da4feb - https://godotengine.org
+
+PAYROLL_TEST failures=0
+Godot Engine v4.7.1.stable.official.a13da4feb - https://godotengine.org
+
+PRESENTATION_TEST failures=0
+Godot Engine v4.7.1.stable.official.a13da4feb - https://godotengine.org
+
+PROMISES_TEST failures=0
+Godot Engine v4.7.1.stable.official.a13da4feb - https://godotengine.org
+
+PROPS_EXPANSION_TEST failures=0 props=114
+Godot Engine v4.7.1.stable.official.a13da4feb - https://godotengine.org
+
+RECRUITMENT_TEST failures=0
+Godot Engine v4.7.1.stable.official.a13da4feb - https://godotengine.org
+
+RELATIONSHIPS_TEST failures=0
+Godot Engine v4.7.1.stable.official.a13da4feb - https://godotengine.org
+
+ROOMS_TEST failures=0
+Godot Engine v4.7.1.stable.official.a13da4feb - https://godotengine.org
+
+SAVE_TEST failures=0
+Godot Engine v4.7.1.stable.official.a13da4feb - https://godotengine.org
+
+SCHEDULE_TEST failures=0
+Godot Engine v4.7.1.stable.official.a13da4feb - https://godotengine.org
+
+CAST_SEAT protagonist ankle_error_m=0.00000005960464
+CAST_SEAT lin_lan ankle_error_m=0.00000001490116
+CAST_SEAT a_cheng ankle_error_m=0.0
+SEATING_TEST failures=0
+Godot Engine v4.7.1.stable.official.a13da4feb - https://godotengine.org
+
+SOCIAL_TEST failures=0
+Godot Engine v4.7.1.stable.official.a13da4feb - https://godotengine.org
+
+STAFFING_TEST failures=0
+Godot Engine v4.7.1.stable.official.a13da4feb - https://godotengine.org
+
+VERSION_IMPORT_TEST failures=0
+Godot Engine v4.7.1.stable.official.a13da4feb - https://godotengine.org
+
+VISUAL_TEST failures=0
+Godot Engine v4.7.1.stable.official.a13da4feb - https://godotengine.org
+
+WORK_HANDOVER_SAVE_TEST failures=0 invalid_cases=24 legacy_versions=23 legacy_work_branches=3
+Godot Engine v4.7.1.stable.official.a13da4feb - https://godotengine.org
+
+WORK_HANDOVER_TEST failures=0 metres=254.13368845731 max_step=0.03834230080247 palm_error=0.01635194942355 contact_samples=7020
+Godot Engine v4.7.1.stable.official.a13da4feb - https://godotengine.org
+
+WORK_PROJECTS_TEST failures=0
+Godot Engine v4.7.1.stable.official.a13da4feb - https://godotengine.org
+
+WORK_SCENE_TEST failures=0
+Godot Engine v4.7.1.stable.official.a13da4feb - https://godotengine.org
+
+WORLD_TEST failures=0

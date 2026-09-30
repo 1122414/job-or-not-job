@@ -28,6 +28,22 @@ func run() -> void:
 		if FileAccess.get_sha256(lighting_path)!=lighting_record.resources[room] or not load(lighting_path) is VoxelGIData:
 			push_error("Packaged room light differs from baked resource");quit(1);return
 	print("PACKAGED_ROOM_LIGHTING resources=4 hashes_match=true production_excluded=true")
+	var skin_record: Dictionary=JSON.parse_string(FileAccess.get_file_as_string("res://assets/characters/skin_repair_provenance.json"))
+	for outfit in skin_record.characters:
+		var path: String="res://assets/characters/"+outfit+".glb"
+		# Exported GLBs are remapped to imported scenes; validate source identity
+		# against the package manifest, then inspect the actual loaded skin arrays.
+		if build.get("runtime_inputs",{}).get(path.trim_prefix("res://"),"")!=skin_record.characters[outfit].derived_sha256:
+			push_error("Packaged character differs from skin repair: "+outfit);quit(1);return
+		var model: Node=load(path).instantiate()
+		for mesh in model.find_children("*","MeshInstance3D",true,false):
+			for surface in range(mesh.mesh.get_surface_count()):
+				var weights: PackedFloat32Array=mesh.mesh.surface_get_arrays(surface)[Mesh.ARRAY_WEIGHTS]
+				for weight in weights:
+					if not is_finite(weight) or weight<0:
+						push_error("Invalid packaged skin influence: "+outfit);model.free();quit(1);return
+		model.free()
+	print("PACKAGED_CHARACTER_SKIN models=3 negative_weights=0 source_hashes_match=true imported_meshes_checked=true")
 	var bus_record: Dictionary=JSON.parse_string(FileAccess.get_file_as_string(CityBusVisual.ROOT+"production.json"))
 	var package_resources := OS.get_executable_path().get_base_dir().path_join("../Resources")
 	if FileAccess.get_file_as_string(package_resources.path_join("BUS-PRODUCTION.json"))!=FileAccess.get_file_as_string(CityBusVisual.ROOT+"production.json") or FileAccess.get_file_as_string(package_resources.path_join("RESIDENT-SKIRT-SOURCES.json"))!=FileAccess.get_file_as_string("res://assets/characters/resident_skirt_provenance.json") or FileAccess.file_exists("res://production/characters/resident-skirt-2026-09-30/office_female.glb") or ResourceLoader.exists("res://production/characters/resident-skirt-2026-09-30/office_female.glb"):

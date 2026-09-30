@@ -1,7 +1,8 @@
 """Apply the existing fitted-skirt recipe to the legacy resident outfit only.
 
 Read the preserved project GLB, retain all geometry/material/bone data byte for
-byte, and change only the skirt's JOINTS_0/WEIGHTS_0 values. No external tools.
+byte, change the skirt's JOINTS_0/WEIGHTS_0 values, then repair invalid
+legacy skin weights. No external tools.
 """
 import hashlib
 import json
@@ -9,6 +10,7 @@ from pathlib import Path
 import struct
 
 from character_fitting import skirt_weights
+from repair_character_skin import repair as repair_skin
 
 ROOT = Path(__file__).resolve().parents[1]
 SOURCE = ROOT / 'production/characters/resident-skirt-2026-09-30/office_female.glb'
@@ -81,13 +83,20 @@ def prepare(content):
         changed += 1
     if not changed or any(a != b and i not in modified for i, (a, b) in enumerate(zip(content, output))):
         raise ValueError('Expected only reviewed skirt weight changes')
-    return bytes(output), {'changed_exported_vertices': changed, 'hip_height_m': hip_height,
-                           'unchanged': 'positions, topology, UVs, normals, textures, materials, bones and other meshes'}
+    result, skin_repair = repair_skin(bytes(output))
+    return result, {'changed_exported_vertices': changed, 'hip_height_m': hip_height,
+                    'skin_repair': skin_repair,
+                    'unchanged': 'positions, topology, UVs, normals, textures, materials, bones and valid non-skirt weights'}
 
 
 if __name__ == '__main__':
     previous = json.loads(RECORD.read_text()) if RECORD.exists() else {}
-    if hashlib.sha256(TARGET.read_bytes()).hexdigest() not in (ORIGINAL_SHA, previous.get('derived_sha256')):
+    current = hashlib.sha256(TARGET.read_bytes()).hexdigest()
+    skin_record_path = ROOT / 'assets/characters/skin_repair_provenance.json'
+    skin_record = json.loads(skin_record_path.read_text())['characters']['office_female'] if skin_record_path.exists() else {}
+    known_repair = (skin_record.get('source_sha256') == previous.get('derived_sha256')
+                    and current == skin_record.get('derived_sha256'))
+    if current not in (ORIGINAL_SHA, previous.get('derived_sha256')) and not known_repair:
         raise ValueError('Preserve independent runtime character edits before rebuilding')
     result, metrics = prepare(SOURCE.read_bytes())
     TARGET.write_bytes(result)
@@ -96,7 +105,10 @@ if __name__ == '__main__':
               'license_record': 'assets/MAKEHUMAN-CC0.txt',
               'recipe': 'tools/prepare_resident_skirt.py + tools/character_fitting.py:skirt_weights',
               'recipe_sha256': {name: hashlib.sha256((ROOT / name).read_bytes()).hexdigest()
-                                for name in ('tools/prepare_resident_skirt.py', 'tools/character_fitting.py')},
+                                for name in ('tools/prepare_resident_skirt.py', 'tools/character_fitting.py', 'tools/repair_character_skin.py')},
               'derived_sha256': hashlib.sha256(result).hexdigest(), **metrics}
+    record['skin_repair'] = {'negative_values_removed': metrics['skin_repair']['negative_values_removed'],
+                            'weight_rows_changed': len(metrics['skin_repair']['rows']),
+                            'row_record': 'assets/characters/skin_repair_provenance.json'}
     RECORD.write_text(json.dumps(record, ensure_ascii=False, indent=2) + '\n')
     print(json.dumps(record, ensure_ascii=False))

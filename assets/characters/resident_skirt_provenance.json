@@ -6,11 +6,17 @@
   "license_record": "assets/MAKEHUMAN-CC0.txt",
   "recipe": "tools/prepare_resident_skirt.py + tools/character_fitting.py:skirt_weights",
   "recipe_sha256": {
-    "tools/prepare_resident_skirt.py": "a5e7ad17859b9a3e982e4a8f44a81c42c29cf1ea72d3c7d43ad2ca79cf30650b",
-    "tools/character_fitting.py": "682a85f3e08b6e897a77f800539b2706520eb9847d0733a3dc721156002de9be"
+    "tools/prepare_resident_skirt.py": "620596190afc78b5662651a618c987bf29f2a6d43e2ab14a86f805223e171633",
+    "tools/character_fitting.py": "682a85f3e08b6e897a77f800539b2706520eb9847d0733a3dc721156002de9be",
+    "tools/repair_character_skin.py": "ae4a39b10fc98af4a266b5a7cf08a2bd3fc7f9757a306b71cbc7811ef0546e12"
   },
-  "derived_sha256": "4d6cfa47c63f10e6ed07a644efa0efcfe381f5934d926251992c59900e81243d",
+  "derived_sha256": "c42c1a35a3821b071ac32bc6b0be0b71f00c3fe5d058567ff4143272b0d53cca",
   "changed_exported_vertices": 420,
   "hip_height_m": 0.9172974824905396,
-  "unchanged": "positions, topology, UVs, normals, textures, materials, bones and other meshes"
+  "skin_repair": {
+    "negative_values_removed": 230,
+    "weight_rows_changed": 191,
+    "row_record": "assets/characters/skin_repair_provenance.json"
+  },
+  "unchanged": "positions, topology, UVs, normals, textures, materials, bones and valid non-skirt weights"
 }

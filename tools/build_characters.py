@@ -220,7 +220,7 @@ def build(outfit,output,female=False):
     model=GLTF();parts=[];hidden=set()
     for name in [outfit,'shoes01','bob01' if female else 'short02']:
         file=find(name+'.mhclo')
-        item=clothing(file);parts.append((name,item));hidden.update(item[4])
+        item=clothing(file,positive_skin=True);parts.append((name,item));hidden.update(item[4])
     skin_file=find('young_lightskinned_female_diffuse3.png' if female else 'young_lightskinned_male_diffuse3.png')
     mat=model.material('skin',skin_file)
     body=[(g,f) for g,f in base_faces if g=='body']
@@ -232,7 +232,7 @@ def build(outfit,output,female=False):
         model.mesh(name,v,uv,f,w,mat)
     # Eyeballs use the same attachment mapping as the clothing assets.
     try:
-        file=find('low-poly.mhclo');v,uv,f,w,h,m,d=clothing(file)
+        file=find('low-poly.mhclo');v,uv,f,w,h,m,d=clothing(file,positive_skin=True)
         texture=find('brown_eye.png')
         model.mesh('eyes',v,uv,f,w,model.material('eyes',texture))
     except RuntimeError:pass
