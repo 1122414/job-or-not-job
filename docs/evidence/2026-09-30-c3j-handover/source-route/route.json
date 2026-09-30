@@ -1,0 +1,116 @@
+{
+	"background_guard": true,
+	"delivery_observation": {
+		"minute": 4937,
+		"outside_office": true,
+		"player": [
+			-0.0077076917514205,
+			-0.00478515634313226,
+			57.8095779418945
+		]
+	},
+	"fresh_career_route": true,
+	"handover": {
+		"arranged_at": 3473,
+		"completed_at": 4937,
+		"due_at": 4920,
+		"elapsed": 24.0,
+		"kind": "negotiated",
+		"phase": "delivered",
+		"sender": "b_friend"
+	},
+	"images": 8,
+	"independent_player_acceptance": false,
+	"interview_existing_driver_commands": true,
+	"max_player_step": 0.0833356976509094,
+	"max_worker_step": 0.0383340381085873,
+	"message_mouse_buttons": true,
+	"no_post_agreement_teleports": true,
+	"normal_game_fps": false,
+	"persistence": false,
+	"visits": [
+		{
+			"image": "confirmed-next-day",
+			"minute": 3473,
+			"outing": {},
+			"player": [
+				6.68525695800781,
+				-0.00478515634313226,
+				-7.49992847442627
+			]
+		},
+		{
+			"image": "own-time-bookshop",
+			"minute": 3491,
+			"outing": {},
+			"player": [
+				-55.5693206787109,
+				-0.00478515634313226,
+				30.6651706695557
+			]
+		},
+		{
+			"image": "home-evening",
+			"minute": 3960,
+			"outing": {},
+			"player": [
+				52.1203575134277,
+				-0.00478515634313226,
+				29.1220512390137
+			]
+		},
+		{
+			"image": "next-morning-at-home",
+			"minute": 4860,
+			"outing": {},
+			"player": [
+				52.1203575134277,
+				-0.00478515634313226,
+				29.1220512390137
+			]
+		},
+		{
+			"image": "coworker-sending-player-camera",
+			"minute": 4926,
+			"outing": {},
+			"player": [
+				24.3085021972656,
+				-0.00478515634313226,
+				-1.4749504327774
+			]
+		},
+		{
+			"image": "keyboard-contact-diagnostic",
+			"minute": 4926,
+			"outing": {},
+			"player": [
+				24.3085021972656,
+				-0.00478515634313226,
+				-1.4749504327774
+			]
+		},
+		{
+			"image": "off-site-receipt",
+			"minute": 4937,
+			"outing": {},
+			"player": [
+				-0.0077076917514205,
+				-0.00478515634313226,
+				57.8095779418945
+			]
+		},
+		{
+			"image": "next-day-workstation",
+			"minute": 4944,
+			"outing": {},
+			"player": [
+				20.0,
+				0.0,
+				-0.899999976158142
+			]
+		}
+	],
+	"walking_metres": 686.4996053949,
+	"worker_metres": 45.7316629327834,
+	"world_choices_keyboard": true
+}

@@ -64,6 +64,7 @@ func _ready() -> void:
 	visual.cast_id={"a_hr":"lin_lan","b_hr":"a_cheng"}.get(stable_id,"")
 	add_child(visual)
 	visual.animation.mixer_applied.connect(func(): game.interviews.update_phone_contact(self))
+	visual.animation.mixer_applied.connect(func(): game.handover.contact(self))
 	if not visual.cast_id.is_empty():
 		capsule.height=visual.standing_height
 		body_shape.position.y=capsule.height*0.5
@@ -166,6 +167,7 @@ func _physics_process(delta: float) -> void:
 				"refused", "helping": target=Vector3(21,0,-4)
 				"negotiating": target=game.player.position+Vector3(1.5,0,0)
 				"helped", "negotiated", "conflict": target=Vector3(14,0,4)
+		if role_id=="b_friend" and not game.payroll.after_work() and game.handover.data.get("phase") in ["pending","delivered"]: target=home
 		var visiting: Variant=game.office.visit_target(self)
 		if visiting!=null: target=visiting
 		elif (visit_wait>0 or game.speaker==self) and not (role_id=="b_friend" and game.career.b_event=="negotiating"): target=position
@@ -175,6 +177,7 @@ func _physics_process(delta: float) -> void:
 		if introduction!=null: target=introduction
 		var meeting: Variant=game.interviews.host_target(self)
 		if meeting!=null: target=meeting
+		if game.handover.owns(self) and game.speaker!=self: target=game.handover.point()
 		if hostile > 0 and game.player.protection <= 0 and distance < 9 and game.can_see(self, game.player):
 			target = game.player.global_position
 			if distance < 1.6 and attack_cooldown == 0:
@@ -195,7 +198,7 @@ func _physics_process(delta: float) -> void:
 		if street_request!="" and not game.population.may_cross(street_request): next=global_position
 		var direction := next - global_position
 		direction.y = 0
-		if direction.length() > 0.15:
+		if direction.length() > (.035 if game.handover.owns(self) and game.speaker!=self else .15):
 			direction = direction.normalized()
 			# The grid excludes moving people; steer around nearby bodies locally.
 			for other in game.npcs+game.population.residents+[game.player]:
@@ -231,10 +234,12 @@ func _physics_process(delta: float) -> void:
 		var facing: Vector3 = game.player.global_position-global_position if distance<5 else Vector3(0,0,1)
 		var public_focus: Variant=CityEvening.facing(self)
 		if public_focus!=null: facing=public_focus-global_position
+		if game.handover.owns(self) and game.speaker!=self: facing=game.handover.station().position-global_position
 		visual.rotation.y=lerp_angle(visual.rotation.y,atan2(-facing.x,-facing.z),delta*4)
 	update_body_pose()
 	visual.blocking=block_time>0 and available()
 	visual.scene_action=game.interviews.performance(self)
+	if game.handover.working(self): visual.scene_action="terminal_work"
 	visual.set_attention(game.player.visual.face_position(),available() and hit_stun<=0 and (game.speaker==self or interview_calling or interview_seated))
 	visual.pose(Vector2(velocity.x,velocity.z).length(),attack_cooldown>0.7,down>0 or dead,seated,interview_seated or interview_calling,hit_stun>0,(game.speaker==self and not game.conversation.is_empty()) or interview_calling or (interview_seated and game.interviews.active_firm()==company))
 	var requested_motion := Vector2(velocity.x,velocity.z).length()

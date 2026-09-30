@@ -66,6 +66,9 @@ static func options(target: Node3D, c: Career) -> Dictionary:
 			if c.employer=="a" and c.stage==4: choices.append(["切换备用线路，恢复现场投影","backup"])
 		_: text="今天也可以什么都不证明。"
 	var firm := "a" if id.begins_with("a_") else "b" if id.begins_with("b_") else ""
+	if id in ["b_friend","handover"]:
+		var decorated: Dictionary=target.get_parent().handover.decorate(id,{"text":text,"choices":choices})
+		text=decorated.text;choices=decorated.choices
 	if firm!="" and c.conflict[firm]>=2:
 		text="公司已关闭职业机会，已有成果和个人关系保留。你仍可自由离开。"
 		choices=[]

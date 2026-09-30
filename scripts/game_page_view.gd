@@ -239,6 +239,7 @@ func computer() -> void:
 	var firm: String=game.career.employer
 	if not firm in ["a","b"]: paragraph("当前没有可用的工作账号。",MUTED); return
 	var project: Dictionary=game.projects.state(firm)
+	var assigned: bool=firm=="b" and not game.handover.data.is_empty()
 	var docs: Array=WorkProjects.A_DOCS if firm=="a" else WorkProjects.B_DOCS
 	heading.text="演示工作台" if firm=="a" else "交接工作台"
 	for i in range(3): key_action("document-"+str(i),str(i+1)+"  "+docs[i][0]+("  · 已打开" if game.projects.document==i else ""),KEY_1+i)
@@ -247,7 +248,10 @@ func computer() -> void:
 	var choices: Array
 	if firm=="a": choices=["演示依据："+{"":"未选择","official":"正式说明 v1.2","draft":"未确认草稿 v2"}[project.source],"运行方式："+("离线样例" if project.mode=="offline" else "生产环境"),"运行预览"]
 	else: choices=["交接版本："+{"":"未选择","complete":"完整交接包","old":"旧交接包"}[project.package],"计划时间："+{"":"未填写","tonight":"今晚","tomorrow":"明早10:00"}[project.deadline],"检查交接包","发送 / 准备协商材料"]
-	for i in range(choices.size()): key_action("project-"+str(i+4),str(i+4)+"  "+choices[i],KEY_4+i)
+	if assigned:
+		choices[1]="已确认时间："+(game.recruitment.stamp(game.handover.data.due_at) if game.handover.data.due_at>=0 else "旧记录未注明，可找同事确认")
+		paragraph(game.handover.status(),ACCENT)
+	for i in range(choices.size()): key_action("project-"+str(i+4),str(i+4)+"  "+choices[i],KEY_4+i,assigned)
 	paragraph("预览 / 检查结果",ACCENT)
 	paragraph("检查未通过，请查看具体问题。" if project.preview=="error" else project.preview if project.preview!="" else "尚未运行。配置改变后需要重新检查。")
 	if firm=="a" and project.preview!="":

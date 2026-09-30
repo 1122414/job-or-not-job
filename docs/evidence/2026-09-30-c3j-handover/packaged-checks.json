@@ -1,0 +1,14 @@
+[
+  {
+    "cwd": "/Users/geminchen/My-Item/job-or-not-job",
+    "exit_code": 0,
+    "passed": true,
+    "log": "logs/c3j-final-package-project.log"
+  },
+  {
+    "cwd": "/private/tmp",
+    "exit_code": 0,
+    "passed": true,
+    "log": "logs/c3j-final-package-outside.log"
+  }
+]

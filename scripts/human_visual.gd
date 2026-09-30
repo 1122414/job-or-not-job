@@ -47,7 +47,7 @@ func _ready() -> void:
 	animation=AnimationPlayer.new()
 	add_child(animation)
 	var library := AnimationLibrary.new()
-	for clip in ["idle","walk","run","strike","work","sit","fallen","recoil","talk","sit_talk","carry","carry_idle","block","read","write","message","pause","beckon","move_box","phone_reply","box_message","story_read","story_listen","story_present"]: library.add_animation(clip,make_clip(clip))
+	for clip in ["idle","walk","run","strike","work","sit","fallen","recoil","talk","sit_talk","carry","carry_idle","block","read","write","message","pause","beckon","move_box","phone_reply","box_message","story_read","story_listen","story_present","terminal_work"]: library.add_animation(clip,make_clip(clip))
 	if use_authored_motion:
 		var path := "res://assets/animations/quaternius_upper_body.res" if cast_id.is_empty() else "res://assets/animations/cast/"+cast_id+".res"
 		var authored: AnimationLibrary=load(path)
@@ -166,6 +166,12 @@ func make_clip(clip: String) -> Animation:
 				if clip in ["sit","sit_talk"]:
 					if bone.begins_with("upperarm"): euler.x=-0.4
 					if bone.begins_with("lowerarm"): euler.x=-0.3
+			elif clip=="terminal_work":
+				if bone=="spine02": euler.x=.42
+				if bone=="spine03": euler.x=.18
+				if bone=="head": euler.x=.12
+				if bone.begins_with("upperarm"): euler=Vector3(-.4,0,-.25 if bone.ends_with("L") else .25)
+				if bone.begins_with("lowerarm"): euler.x=-.3
 			elif clip in ["story_read","story_listen","story_present"]:
 				if bone=="spine02": euler=Vector3(.015+wave*.008,wave*.018,0)
 				if bone=="head": euler.x=.15 if clip=="story_read" else sin(phase*TAU*2)*.025
@@ -312,7 +318,7 @@ func pose(speed: float, attacking: bool, fallen: bool, working: bool = false, ta
 		return
 	var next := ("carry" if speed>0.2 else "carry_idle") if carrying else "recoil" if stunned else "block" if blocking else ("sit_talk" if conversing else "sit") if talking else "talk" if conversing and speed<0.2 else "work" if working else "strike" if attacking else "run" if speed>3.2 else "walk" if speed>0.2 else "idle"
 	if talking and not stunned and not blocking and not attacking and speed<0.2 and scene_action!="": next=scene_action
-	if not talking and not working and not carrying and not stunned and not blocking and not attacking and speed<.2 and scene_action in ["story_read","story_listen","story_present"]: next=scene_action
+	if not talking and not working and not carrying and not stunned and not blocking and not attacking and speed<.2 and scene_action in ["story_read","story_listen","story_present","terminal_work"]: next=scene_action
 	if next!=current:
 		var moving_change := next in ["walk","run","carry"] and current in ["walk","run","carry"]
 		var phase := fposmod(animation.current_animation_position/animation.current_animation_length,1.0) if moving_change else 0.0

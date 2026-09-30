@@ -1,0 +1,18 @@
+{
+  "build_id": "20260930T054436737049Z-92a1d4c2-2455478a",
+  "source_sha256": "2455478a8564c3dcb2b83fcb5961070b394fbe4f07b63fb3b6ecdb2c033f12f8",
+  "source_matches": true,
+  "all_runtime_inputs_match": true,
+  "inner_outer_manifest_match": true,
+  "pck_matches": true,
+  "packaged_engine_matches": true,
+  "zip_matches": true,
+  "schema": 24,
+  "zip_sha256": "b7462c365d911a4240e71c5b1a86e04538a474889a3a6c0b45835e4ca9aae143",
+  "original_validation_field": "not_yet_verified",
+  "original_runtime_dirty": true,
+  "codesign_valid": true,
+  "zip_crc_valid": true,
+  "zip_game.pck_matches": true,
+  "zip_Godot_matches": true
+}

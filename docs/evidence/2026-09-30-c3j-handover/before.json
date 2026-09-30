@@ -1,0 +1,43 @@
+[
+	{
+		"b_event": "negotiated",
+		"branch": "negotiated",
+		"minute": 2530,
+		"npc_position": [
+			7.87556076049805,
+			0.0,
+			17.9831066131592
+		],
+		"project": {
+			"deadline": "tomorrow",
+			"note": "协商材料已准备：完整包、陈工、明早10:00。关闭电脑，带阿乐去找赵总确认。",
+			"package": "complete",
+			"preview": "设备清单 ✓ 已处理事项 ✓ 未关闭问题与负责人 ✓ 接收人：陈工/值班同事",
+			"proposal": true,
+			"read": [
+				1,
+				2,
+				3
+			],
+			"sent": false
+		}
+	},
+	{
+		"b_event": "refused",
+		"branch": "refused",
+		"minute": 2530,
+		"npc_position": [
+			7.87556076049805,
+			0.0,
+			17.9831066131592
+		],
+		"project": {
+			"deadline": "",
+			"package": "",
+			"preview": "",
+			"proposal": false,
+			"read": [],
+			"sent": false
+		}
+	}
+]

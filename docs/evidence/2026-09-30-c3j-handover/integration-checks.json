@@ -1,0 +1,84 @@
+[
+  {
+    "log": "c3j-suite.log",
+    "sha256": "e5dc62037d76896289740aaef6e62586bc762ed9bdae3505121b8bd909d80b2e",
+    "errors": 0,
+    "warnings": 0,
+    "markers": [
+      "FULL_ROUTE_TEST failures=0",
+      "WORK_HANDOVER_SAVE_TEST failures=0 invalid_cases=24 legacy_versions=23 legacy_work_branches=3",
+      "WORK_HANDOVER_TEST failures=0 metres=254.133665170521 max_step=0.03834230080247 palm_error=0.01635194942355 contact_samples=7020"
+    ]
+  },
+  {
+    "log": "c3j-python.log",
+    "sha256": "948d2e6efae0ac129b45d055768c1d4cf0be93139f561e0471ce4ce27acb6d61",
+    "errors": 0,
+    "warnings": 0,
+    "markers": [
+      "Ran 32 tests in 1.252s",
+      "OK"
+    ]
+  },
+  {
+    "log": "c3j-final-career-graphics.log",
+    "sha256": "328fc112a2b665c1193b4f5b3f93c7dad8d34a3ab081b45096be0a9d94034bd4",
+    "errors": 0,
+    "warnings": 0,
+    "markers": [
+      "FULL_ROUTE_TEST failures=0"
+    ]
+  },
+  {
+    "log": "c3j-route-final.log",
+    "sha256": "b671f87ee4276fe236334b8ecfc96e4648799670f4b69989babf8dd63f20cad9",
+    "errors": 0,
+    "warnings": 0,
+    "markers": []
+  },
+  {
+    "log": "c3j-package-route.log",
+    "sha256": "b671f87ee4276fe236334b8ecfc96e4648799670f4b69989babf8dd63f20cad9",
+    "errors": 0,
+    "warnings": 0,
+    "markers": []
+  },
+  {
+    "log": "c3j-final-package-project.log",
+    "sha256": "5c29afe072088712719384351f45197b1c33e5fe329afb46494601470699042d",
+    "errors": 0,
+    "warnings": 0,
+    "markers": [
+      "PACKAGED_HANDOVER actual_terminal_work=true actual_sender=true negotiated_choice_preserved=true json_restore=true schema=24",
+      "PACKAGED_SMOKE_OK build=20260930T054436737049Z-92a1d4c2-2455478a label=v0.5.0 · 92a1d4c2 / 2455478a（含未提交修改） npcs=10 props=114 company_spaces=2 company_sources=2 environment_props=6 asset_sources=5 authored_clips=4 authored_characters=29 texture_imports=verified ui_mouse=verified city_stops=4 authored_bus=verified bus_ride_save=verified driving_save=verified traffic=3 public_residents=12 population_save=verified bookshop_walk_save=verified original_illustrations=3 public_response_transfer_save=verified persistence=false"
+    ]
+  },
+  {
+    "log": "c3j-final-package-outside.log",
+    "sha256": "5c29afe072088712719384351f45197b1c33e5fe329afb46494601470699042d",
+    "errors": 0,
+    "warnings": 0,
+    "markers": [
+      "PACKAGED_HANDOVER actual_terminal_work=true actual_sender=true negotiated_choice_preserved=true json_restore=true schema=24",
+      "PACKAGED_SMOKE_OK build=20260930T054436737049Z-92a1d4c2-2455478a label=v0.5.0 · 92a1d4c2 / 2455478a（含未提交修改） npcs=10 props=114 company_spaces=2 company_sources=2 environment_props=6 asset_sources=5 authored_clips=4 authored_characters=29 texture_imports=verified ui_mouse=verified city_stops=4 authored_bus=verified bus_ride_save=verified driving_save=verified traffic=3 public_residents=12 population_save=verified bookshop_walk_save=verified original_illustrations=3 public_response_transfer_save=verified persistence=false"
+    ]
+  },
+  {
+    "log": "work_handover_test.gd.log",
+    "sha256": "9ab7b255f488415ac82b2d54681b3e542cc1429f01cceac30e61379dc1a4bf9b",
+    "errors": 0,
+    "warnings": 0,
+    "markers": [
+      "WORK_HANDOVER_TEST failures=0 metres=254.133665170521 max_step=0.03834230080247 palm_error=0.01635194942355 contact_samples=7020"
+    ]
+  },
+  {
+    "log": "work_handover_save_test.gd.log",
+    "sha256": "fbbcdcda05d4f2fee6ea3338283592be818fe32011f07e036a3a111934016cba",
+    "errors": 0,
+    "warnings": 0,
+    "markers": [
+      "WORK_HANDOVER_SAVE_TEST failures=0 invalid_cases=24 legacy_versions=23 legacy_work_branches=3"
+    ]
+  }
+]

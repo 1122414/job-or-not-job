@@ -1,0 +1,124 @@
+{
+  "all_images_identical": false,
+  "all_route_fields_identical": true,
+  "images": [
+    {
+      "image": "confirmed-next-day.png",
+      "identical": false,
+      "source_sha256": "ba1364d4db0f905dc2dc42798a1bf32b00bd277a292b2fe9cf8e5ef9d202d5c6",
+      "package_sha256": "19316fd03703b9dc48ec5a2a6be19d97b11cdea016d410c11484ca7ddd34fa41",
+      "pixel_difference_box": [
+        257,
+        485,
+        1419,
+        856
+      ],
+      "pixel_identical": false,
+      "changed_pixels": 25,
+      "max_channel_delta": 1,
+      "mean_absolute_channel_delta": 6.430041152263374e-06
+    },
+    {
+      "image": "coworker-sending-player-camera.png",
+      "identical": false,
+      "source_sha256": "c83c97cee969ce21b52bffffd4592df4871b3574ce401dc390ed3be1aabe8aa6",
+      "package_sha256": "4744d0c49898aadfff72a27646a2a712b6305d1c36bf5419e78d7fb95cd89911",
+      "pixel_difference_box": [
+        287,
+        434,
+        986,
+        487
+      ],
+      "pixel_identical": false,
+      "changed_pixels": 14,
+      "max_channel_delta": 1,
+      "mean_absolute_channel_delta": 3.6008230452674896e-06
+    },
+    {
+      "image": "home-evening.png",
+      "identical": false,
+      "source_sha256": "3291413734eccb997ff810ac9ffcf6ac4f5cad5def9b8d080a0ee57452c14c24",
+      "package_sha256": "a6da1437fb2cada055146b354baca8140b9b146fe50ac67d3d17c078e71b95f7",
+      "pixel_difference_box": [
+        340,
+        218,
+        1217,
+        686
+      ],
+      "pixel_identical": false,
+      "changed_pixels": 4,
+      "max_channel_delta": 1,
+      "mean_absolute_channel_delta": 1.0288065843621398e-06
+    },
+    {
+      "image": "keyboard-contact-diagnostic.png",
+      "identical": false,
+      "source_sha256": "4e37370559a2239c327cefdc8882873d5fea4556bd5433506d4d18b7a432246c",
+      "package_sha256": "249de02ed8e698ed9e211f4a44e9b9314d25f752984eb48da0c763909b5c60a3",
+      "pixel_difference_box": [
+        300,
+        280,
+        1435,
+        390
+      ],
+      "pixel_identical": false,
+      "changed_pixels": 23,
+      "max_channel_delta": 1,
+      "mean_absolute_channel_delta": 6.172839506172839e-06
+    },
+    {
+      "image": "next-day-workstation.png",
+      "identical": false,
+      "source_sha256": "4842241e56b2bbe8a1e1626b0e261dd8183b1f0eb81a97462dbb1d307d781afd",
+      "package_sha256": "4500fb3b26284ca8d507d85466eb4fd052012ca32c294546b03b770771687a7f",
+      "pixel_difference_box": [
+        24,
+        473,
+        1248,
+        595
+      ],
+      "pixel_identical": false,
+      "changed_pixels": 69,
+      "max_channel_delta": 1,
+      "mean_absolute_channel_delta": 1.800411522633745e-05
+    },
+    {
+      "image": "next-morning-at-home.png",
+      "identical": false,
+      "source_sha256": "bcb3fb6b5ab11bede0e5918d553b95bb646ba2ad512fc050b871fc0bdfc85076",
+      "package_sha256": "8f097857278d0c51c54583d00391a22eef4fb681fa14cd94409979aa32e01d6b",
+      "pixel_difference_box": [
+        340,
+        218,
+        836,
+        686
+      ],
+      "pixel_identical": false,
+      "changed_pixels": 3,
+      "max_channel_delta": 1,
+      "mean_absolute_channel_delta": 7.716049382716049e-07
+    },
+    {
+      "image": "off-site-receipt.png",
+      "identical": true,
+      "source_sha256": "81eecdb3e999c19fc194ece3f7739b9afd42492f97f981c98b4a7ccc03e49385",
+      "package_sha256": "81eecdb3e999c19fc194ece3f7739b9afd42492f97f981c98b4a7ccc03e49385",
+      "pixel_difference_box": null,
+      "pixel_identical": true,
+      "changed_pixels": 0,
+      "max_channel_delta": 0,
+      "mean_absolute_channel_delta": 0.0
+    },
+    {
+      "image": "own-time-bookshop.png",
+      "identical": true,
+      "source_sha256": "72b42f80a3cdfb2c4e82d4773c902ba165868f3aeb24fc999a401280bd800108",
+      "package_sha256": "72b42f80a3cdfb2c4e82d4773c902ba165868f3aeb24fc999a401280bd800108",
+      "pixel_difference_box": null,
+      "pixel_identical": true,
+      "changed_pixels": 0,
+      "max_channel_delta": 0,
+      "mean_absolute_channel_delta": 0.0
+    }
+  ]
+}

@@ -46,6 +46,8 @@ static func current(game: Node3D) -> Dictionary:
 			6: id=""
 	else:
 		id={"pending":"b_friend","helping":"handover","refused":"b_friend","negotiating":"b_boss","helped":"b_friend","negotiated":"b_friend"}.get(c.b_event,"")
+		if not game.handover.data.is_empty():
+			title=game.handover.screen_text().replace("\n"," · ");id=""
 	var selected_firm: String=c.facts.get("guide_company","") if c.facts.get("guide_company","") is String else ""
 	var session: Dictionary=game.interviews.sessions.get(selected_firm,{})
 	if c.employer=="" and not session.is_empty() and session.status in ["scheduled","active"] and c.conflict.get(selected_firm,3)<2:

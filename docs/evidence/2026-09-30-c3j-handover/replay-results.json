@@ -1,0 +1,218 @@
+[
+  {
+    "test": "import",
+    "exit_code": 0,
+    "passed": true,
+    "log": "logs/c3j-replay-import.log"
+  },
+  {
+    "test": "smoke",
+    "exit_code": 0,
+    "passed": true,
+    "log": "logs/c3j-replay-smoke.log"
+  },
+  {
+    "test": "action_test.gd",
+    "exit_code": 0,
+    "passed": true,
+    "log": "logs/c3j-replay-action_test.gd.log"
+  },
+  {
+    "test": "authored_motion_test.gd",
+    "exit_code": 0,
+    "passed": true,
+    "log": "logs/c3j-replay-authored_motion_test.gd.log"
+  },
+  {
+    "test": "body_support_test.gd",
+    "exit_code": 0,
+    "passed": true,
+    "log": "logs/c3j-replay-body_support_test.gd.log"
+  },
+  {
+    "test": "career_test.gd",
+    "exit_code": 0,
+    "passed": true,
+    "log": "logs/c3j-replay-career_test.gd.log"
+  },
+  {
+    "test": "cast_deformation_test.gd",
+    "exit_code": 0,
+    "passed": true,
+    "log": "logs/c3j-replay-cast_deformation_test.gd.log"
+  },
+  {
+    "test": "cast_face_test.gd",
+    "exit_code": 0,
+    "passed": true,
+    "log": "logs/c3j-replay-cast_face_test.gd.log"
+  },
+  {
+    "test": "cast_resources_test.gd",
+    "exit_code": 0,
+    "passed": true,
+    "log": "logs/c3j-replay-cast_resources_test.gd.log"
+  },
+  {
+    "test": "chair_support_test.gd",
+    "exit_code": 0,
+    "passed": true,
+    "log": "logs/c3j-replay-chair_support_test.gd.log"
+  },
+  {
+    "test": "chaos_test.gd",
+    "exit_code": 0,
+    "passed": true,
+    "log": "logs/c3j-replay-chaos_test.gd.log"
+  },
+  {
+    "test": "city_activity_save_test.gd",
+    "exit_code": 0,
+    "passed": true,
+    "log": "logs/c3j-replay-city_activity_save_test.gd.log"
+  },
+  {
+    "test": "city_architecture_test.gd",
+    "exit_code": 0,
+    "passed": true,
+    "log": "logs/c3j-replay-city_architecture_test.gd.log"
+  },
+  {
+    "test": "city_bookshop_test.gd",
+    "exit_code": 0,
+    "passed": true,
+    "log": "logs/c3j-replay-city_bookshop_test.gd.log"
+  },
+  {
+    "test": "city_bus_seating_test.gd",
+    "exit_code": 0,
+    "passed": true,
+    "log": "logs/c3j-replay-city_bus_seating_test.gd.log"
+  },
+  {
+    "test": "city_bus_visual_test.gd",
+    "exit_code": 0,
+    "passed": true,
+    "log": "logs/c3j-replay-city_bus_visual_test.gd.log"
+  },
+  {
+    "test": "city_commons_save_test.gd",
+    "exit_code": 0,
+    "passed": true,
+    "log": "logs/c3j-replay-city_commons_save_test.gd.log"
+  },
+  {
+    "test": "city_commons_test.gd",
+    "exit_code": 0,
+    "passed": true,
+    "log": "logs/c3j-replay-city_commons_test.gd.log"
+  },
+  {
+    "test": "city_controls_test.gd",
+    "exit_code": 0,
+    "passed": true,
+    "log": "logs/c3j-replay-city_controls_test.gd.log"
+  },
+  {
+    "test": "city_crossing_flow_test.gd",
+    "exit_code": 0,
+    "passed": true,
+    "log": "logs/c3j-replay-city_crossing_flow_test.gd.log"
+  },
+  {
+    "test": "city_crossings_test.gd",
+    "exit_code": 0,
+    "passed": true,
+    "log": "logs/c3j-replay-city_crossings_test.gd.log"
+  },
+  {
+    "test": "city_day_cycle_test.gd",
+    "exit_code": 0,
+    "passed": true,
+    "log": "logs/c3j-replay-city_day_cycle_test.gd.log"
+  },
+  {
+    "test": "city_daylight_test.gd",
+    "exit_code": 0,
+    "passed": true,
+    "log": "logs/c3j-replay-city_daylight_test.gd.log"
+  },
+  {
+    "test": "city_driving_test.gd",
+    "exit_code": 0,
+    "passed": true,
+    "log": "logs/c3j-replay-city_driving_test.gd.log"
+  },
+  {
+    "test": "city_evening_cycle_test.gd",
+    "exit_code": 0,
+    "passed": true,
+    "log": "logs/c3j-replay-city_evening_cycle_test.gd.log"
+  },
+  {
+    "test": "city_evening_save_test.gd",
+    "exit_code": 0,
+    "passed": true,
+    "log": "logs/c3j-replay-city_evening_save_test.gd.log"
+  },
+  {
+    "test": "city_evening_test.gd",
+    "exit_code": 0,
+    "passed": true,
+    "log": "logs/c3j-replay-city_evening_test.gd.log"
+  },
+  {
+    "test": "city_frontages_test.gd",
+    "exit_code": 0,
+    "passed": true,
+    "log": "logs/c3j-replay-city_frontages_test.gd.log"
+  },
+  {
+    "test": "city_home_save_test.gd",
+    "exit_code": 0,
+    "passed": true,
+    "log": "logs/c3j-replay-city_home_save_test.gd.log"
+  },
+  {
+    "test": "city_home_seating_test.gd",
+    "exit_code": 0,
+    "passed": true,
+    "log": "logs/c3j-replay-city_home_seating_test.gd.log"
+  },
+  {
+    "test": "city_home_test.gd",
+    "exit_code": 0,
+    "passed": true,
+    "log": "logs/c3j-replay-city_home_test.gd.log"
+  },
+  {
+    "test": "city_nature_test.gd",
+    "exit_code": 0,
+    "passed": true,
+    "log": "logs/c3j-replay-city_nature_test.gd.log"
+  },
+  {
+    "test": "city_outing_save_test.gd",
+    "exit_code": 0,
+    "passed": true,
+    "log": "logs/c3j-replay-city_outing_save_test.gd.log"
+  },
+  {
+    "test": "city_outing_test.gd",
+    "exit_code": 0,
+    "passed": true,
+    "log": "logs/c3j-replay-city_outing_test.gd.log"
+  },
+  {
+    "test": "city_passengers_save_test.gd",
+    "exit_code": 0,
+    "passed": true,
+    "log": "logs/c3j-replay-city_passengers_save_test.gd.log"
+  },
+  {
+    "test": "city_passengers_test.gd",
+    "exit_code": 0,
+    "passed": true,
+    "log": "logs/c3j-replay-city_passengers_test.gd.log"
+  }
+]

@@ -30,11 +30,14 @@ func open(station: WorkStation) -> void:
 	document=0
 	feedback="先读材料，再选择依据和运行方式。" if firm=="a" else "对照请求、交接内容和原始截止时间，决定发送或协商。"
 	feedback=current.get("note",feedback)
+	if firm=="b" and not game.handover.data.is_empty(): feedback=game.handover.status()
 	game.panels.show_page("computer")
 func key(index: int) -> void:
 	var firm: String=game.career.employer
 	if not firm in ["a","b"]: return
 	var s := state(firm)
+	if firm=="b" and index>3 and not game.handover.data.is_empty():
+		feedback=game.handover.status();return
 	if index<=3:
 		document=index-1
 		if not index in s.read: s.read.append(index)
@@ -83,6 +86,7 @@ func send_b() -> void:
 		if s.deadline!="tonight": feedback="你选择了明早发送，请带着这份安排与阿乐一起向赵总确认。"; return
 		game.career.apply("handover")
 		s.sent=game.career.b_event=="helped"
+		if s.sent: game.handover.complete("player")
 		var friend: OfficeNPC=game.npc_for_role("b_friend")
 		if friend and s.sent: game.social.remember(friend,"handover","你核对了原始要求，发送完整交接包，让他按约定离开。",8,6)
 		feedback="已发送给陈工和值班同事。阿乐收到完成通知，可以离开工位。"

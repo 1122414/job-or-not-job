@@ -23,6 +23,7 @@ var social := SocialLife.new()
 var onboarding := Onboarding.new()
 var recruitment := RecruitmentFlow.new()
 var projects := WorkProjects.new()
+var handover := WorkHandover.new()
 var promises := WorkPromises.new()
 var person_index := 0
 var interviews := InterviewFlow.new()
@@ -67,6 +68,7 @@ func _ready() -> void:
 	onboarding.game=self
 	recruitment.game=self
 	projects.game=self
+	handover.game=self
 	promises.game=self
 	interviews.game=self
 	Neighborhood.build(self)
@@ -201,6 +203,7 @@ func _process(delta: float) -> void:
 	staffing.tick(delta)
 	care.tick(delta)
 	social.tick(delta)
+	handover.tick(delta)
 	onboarding.tick()
 	advance_time(delta*(0.2 if not conversation.is_empty() else 1.0)*Payroll.GAME_MINUTES_PER_SECOND,false)
 	if save_delay>=0:
@@ -406,6 +409,7 @@ func choose(index: int) -> void:
 		panels.show_page("messages")
 		return
 	if recruitment.handle(action): return
+	if handover.handle(action): return
 	if promises.handle(action,speaker): return
 	if projects.handle(action): return
 	if onboarding.handle(action): return
@@ -457,6 +461,7 @@ func choose(index: int) -> void:
 		close_interaction()
 		return
 	var result := "小夏：我们关系再好，也不能造假。找捷径可以，伪造成果不行。" if action=="boundary" else career.apply(action)
+	handover.decided(action)
 	if action in ["permission","confirm"]:
 		projects.state("a").approval="confirmed" if career.facts.has("confirm") else "permission" if career.facts.has("permission") else "none"
 	if action in ["handover","settle"] and career.employer=="b":
@@ -495,6 +500,7 @@ func on_aggression(npc: OfficeNPC, action: int) -> void:
 	staffing.calm[npc.company]=0.0
 	close_interaction()
 	var warning := career.aggression(npc.company,action,action_counter)
+	handover.suspend()
 	queue_save()
 	if warning!="": say(warning)
 	for witness in npcs:

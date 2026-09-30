@@ -106,6 +106,7 @@ func _process(_delta: float) -> void:
 			progress=1.0 if facts.has("prepared") else 0.0
 	else: progress=1.0 if (stable_id=="demo" and facts.has("output_one")) or (stable_id=="backup" and facts.has("output_two")) or (stable_id=="handover" and facts.has("b_help")) else 0.0
 	if stable_id==game.office.assigned_desk() and not game.onboarding.account_ready(): screen.text="无法登录 · 候选人组织\n工单：已完成 / 请联系前台"
+	elif stable_id=="desk_b" and not game.handover.data.is_empty(): screen.text=game.handover.screen_text()
 	for i in range(work_bars.size()):
 		work_bars[i].visible=progress>0 and device_present
 		work_bars[i].scale.x=maxf(0.01,clampf(progress*3-i,0,1))
@@ -123,5 +124,12 @@ func _process(_delta: float) -> void:
 		var project: Dictionary=game.recruitment.work.project_b
 		screen.text=("已发送 / " if project.sent else "协商材料就绪 / " if project.proposal else "检查 / ")+project.preview
 	if indicator:
+		if stable_id=="handover" and not game.handover.data.is_empty():
+			screen.text=game.handover.screen_text()
+			progress=game.handover.data.elapsed/WorkHandover.SECONDS
+			for i in range(work_bars.size()):
+				work_bars[i].visible=progress>0
+				work_bars[i].scale.x=maxf(.01,clampf(progress*3-i,0,1))
 		var complete: bool=(stable_id=="demo" and facts.has("output_one")) or (stable_id=="backup" and facts.has("output_two")) or (stable_id=="handover" and facts.has("b_help"))
+		if stable_id=="handover" and game.handover.data.get("phase")=="delivered": complete=true
 		indicator.material_override.albedo_color=Color("335647") if complete else Color("29383f")

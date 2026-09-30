@@ -1,0 +1,20 @@
+[
+  {
+    "save": "build/c3j/package-route/morning-route.json",
+    "log": "logs/c3j-package-save-morning.log",
+    "passed": true,
+    "exit_code": 0
+  },
+  {
+    "save": "build/c3j/package-route/working-route.json",
+    "log": "logs/c3j-package-save-working.log",
+    "passed": true,
+    "exit_code": 0
+  },
+  {
+    "save": "build/c3j/package-route/completed-route.json",
+    "log": "logs/c3j-package-save-completed.log",
+    "passed": true,
+    "exit_code": 0
+  }
+]

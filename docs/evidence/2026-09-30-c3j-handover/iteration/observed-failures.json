@@ -1,0 +1,21 @@
+{
+  "c3j-handover-second.log": [
+    "ERROR: typing palms reach keyboard: 0.13575229048729 actor=(22.99044, 0.0, -3.244203) pose=terminal_work palms=[(22.82361, 1.057217, -3.664181), (23.17237, 1.062082, -3.665141)]",
+    "WORK_HANDOVER_TEST failures=1 metres=102.83190895617 max_step=0.03833695873618 palm_error=0.13575229048729"
+  ],
+  "c3j-handover-third.log": [
+    "ERROR: typing palms reach keyboard: 0.03162347897887 actor=(22.99044, 0.0, -3.244203) pose=terminal_work palms=[(22.82825, 0.986445, -3.739941), (23.17069, 0.991236, -3.742359)]",
+    "WORK_HANDOVER_TEST failures=1 metres=102.83190895617 max_step=0.03833695873618 palm_error=0.03162347897887"
+  ],
+  "c3j-handover-boundaries.log": [
+    "SCRIPT ERROR: Invalid call. Nonexistent function 'rebuild' in base 'RefCounted (WalkingGrid)'.",
+    "WORK_HANDOVER_TEST failures=0 metres=109.080244712532 max_step=0.03833695873618 palm_error=0.01618331670761 contact_samples=2790"
+  ],
+  "c3j-handover-boundaries-second.log": [
+    "ERROR: existing staffing supplies actual replacement",
+    "WORK_HANDOVER_TEST failures=1 metres=220.170220084488 max_step=0.03833695873618 palm_error=0.01618331670761 contact_samples=5610"
+  ],
+  "c3j-return-probe.log": [
+    "RETURN_PROBE reached=false player=(20.95003, -0.004402, -0.321047) worker=(7.10807, 0.0, -4.848354) minute=4877 nearest=@StaticBody3D@2898:<StaticBody3D#312911867693>"
+  ]
+}

@@ -155,7 +155,7 @@ func run() -> void:
 			push_error("Packaged public gallery is obstructed")
 			quit(1)
 			return
-	if game.commons.benches.size()!=6 or SaveGame.VERSION!=23 or game.passengers==null:
+	if game.commons.benches.size()!=6 or SaveGame.VERSION!=24 or game.passengers==null or game.handover==null:
 		push_error("Packaged public commons missing"); quit(1); return
 	var commons_original := SaveGame.snapshot(game)
 	game.set_process(false)
@@ -177,6 +177,7 @@ func run() -> void:
 	if not SaveGame.restore(game,commons_original): quit(1); return
 	if not await verify_city_evening(game): quit(1); return
 	if not await verify_city_outing(game): quit(1); return
+	if not await verify_work_handover(game): quit(1); return
 	game.set_process(true)
 	var urban_original := SaveGame.snapshot(game)
 	var urban_old := JSON.parse_string(JSON.stringify(urban_original)) as Dictionary
@@ -473,6 +474,28 @@ func run() -> void:
 	game.queue_free()
 	await process_frame
 	quit()
+
+func verify_work_handover(game: Node3D) -> bool:
+	var original := SaveGame.snapshot(game)
+	if not SaveGame.restore(game,game.initial_state.duplicate(true)):return false
+	game.set_process(false)
+	for action in ["interview_b","join_b","negotiate"]:game.career.apply(action)
+	game.career.facts["welcome_b"]=true
+	game.payroll.minute=1080;game.player.position=Vector3(0,0,23)
+	for key in [1,2,3,4,5,5,6,7]:game.projects.key(key)
+	game.career.apply("settle");game.handover.decided("settle")
+	game.advance_time(960)
+	if game.handover.data.due_at!=2040 or game.handover.data.elapsed!=0:
+		push_error("Packaged agreement/date jump failed");return false
+	for i in range(3600):
+		await physics_frame;game.handover.tick(1.0/60)
+		if game.handover.data.phase=="delivered":break
+	if game.handover.data.phase!="delivered" or game.handover.data.sender!="b_friend" or game.career.b_event!="negotiated" or game.career.facts.has("b_help"):
+		push_error("Packaged physical handover failed");return false
+	if not SaveGame.restore(game,JSON.parse_string(JSON.stringify(SaveGame.snapshot(game)))) or not game.home.memory_text().contains("已将完整交接包"):
+		push_error("Packaged handover persistence failed");return false
+	print("PACKAGED_HANDOVER actual_terminal_work=true actual_sender=true negotiated_choice_preserved=true json_restore=true schema=",SaveGame.VERSION)
+	return SaveGame.restore(game,original)
 
 func verify_city_share(game: Node3D) -> bool:
 	var original: Dictionary=SaveGame.snapshot(game)
