@@ -90,3 +90,10 @@ macOS包的`ASSET-SOURCES.json`和`CREDITS.txt`保存来源；通用CC0原文随
 ## 2026-09-30 街道首层设施
 
 新增四项 Poly Haven CC0 街道资源：MP 的素色卷帘门、PierreB3D 的周转箱、Rico Cilliers 的盆栽和 Kuutti Siitonen 的壁灯。原页与重建步骤见[制作源记录](../production/environment/polyhaven_street/README.md)，全部原件有作者、许可及摘要。运行资源四网格/十九贴图，源alpha、植物分部位置及安装基准分别检查；十处现有建筑首层和三连廊背面使用，未新增商店营业或可玩城区面积。正式整区艺术签收仍开放。
+
+
+## 2026-09-30 社区公交与居民裙装适配
+
+101公交使用[原创离线制作源](../tools/prepare_city_bus.gd)，运行加载五种共享网格，车门和四轮独立运动。无第三方车辆下载、无新增依赖。制作清单记录源摘要、生成面数和派生摘要，独立包附BUS-PRODUCTION.json；车辆自身含运行方向盘和地板74,160三角形，司机按独立人物计。材质、驾驶员与上下客完整表演仍非最终写实品质，见[车辆制作说明](../assets/vehicles/city_bus/README.md)。
+
+旧office_female居民源已按原SHA保留在[制作目录](../production/characters/resident-skirt-2026-09-30/README.md)，仍为既有MakeHuman CC0资产。重绑只改独立短裙420个导出顶点的JOINTS_0/WEIGHTS_0，不改位置、UV、拓扑、材质、纹理、骨架或其他网格。原件排除运行包，派生和配方摘要在resident_skirt_provenance.json及独立包RESIDENT-SKIRT-SOURCES.json；走跑布料伸缩仍有局限。

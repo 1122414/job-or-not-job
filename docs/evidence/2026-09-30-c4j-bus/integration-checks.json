@@ -1,0 +1,92 @@
+{
+  "package_repo": {
+    "log": "logs/c4j-package-repo.log",
+    "sha256": "33146a5daac9602d21807bf320f22e49117445adc4c82fb69e595683d196ce51",
+    "success_marker": "PACKAGED_SMOKE_OK",
+    "passed": true,
+    "errors_warnings": false
+  },
+  "package_outside": {
+    "log": "logs/c4j-package-outside.log",
+    "sha256": "33146a5daac9602d21807bf320f22e49117445adc4c82fb69e595683d196ce51",
+    "success_marker": "PACKAGED_SMOKE_OK",
+    "passed": true,
+    "errors_warnings": false
+  },
+  "package_seating": {
+    "log": "logs/c4j-package-seating.log",
+    "sha256": "d8fc7e16da7ea28fac06053ae29bd88733c005db89e8a7bbcb3fa900eab64f20",
+    "success_marker": "CITY_BUS_SEATING_TEST failures=0",
+    "passed": true,
+    "errors_warnings": false
+  },
+  "source_render": {
+    "log": "logs/c4j-source-render.log",
+    "sha256": "6f280feb6c63fc025aced8fc2371eedb3a44c67f7be34d78345a9f31fdd620cc",
+    "success_marker": "CITY_BUS_RENDER_OK",
+    "passed": true,
+    "errors_warnings": false
+  },
+  "package_render": {
+    "log": "logs/c4j-package-render.log",
+    "sha256": "6f280feb6c63fc025aced8fc2371eedb3a44c67f7be34d78345a9f31fdd620cc",
+    "success_marker": "CITY_BUS_RENDER_OK",
+    "passed": true,
+    "errors_warnings": false
+  },
+  "source_ride": {
+    "log": "logs/c4j-source-ride.log",
+    "sha256": "493a070ae8eee55f575c4f5e626ac1cac5725ca74986e45290efed438fee6364",
+    "success_marker": "CITY_PASSENGERS_GUI_OK",
+    "passed": true,
+    "errors_warnings": false
+  },
+  "package_ride": {
+    "log": "logs/c4j-package-ride.log",
+    "sha256": "2b7de39fbede160ab063ef9476fe1cec114c13b54b74a6c2823fd7f7122defb6",
+    "success_marker": "CITY_PASSENGERS_GUI_OK",
+    "passed": true,
+    "errors_warnings": false
+  },
+  "career_gui": {
+    "log": "logs/c4j-source-career.log",
+    "sha256": "328fc112a2b665c1193b4f5b3f93c7dad8d34a3ab081b45096be0a9d94034bd4",
+    "success_marker": "FULL_ROUTE_TEST failures=0",
+    "passed": true,
+    "errors_warnings": false
+  },
+  "restore_source-ride_shared-ride": {
+    "log": "logs/c4j-restore-source-ride-shared-ride.log",
+    "sha256": "bf42a8314bf19738d451cf8406083f2b13de6ac02335844fe001db1a4780656e",
+    "success_marker": "CITY_PASSENGERS_SAVE_TEST failures=0",
+    "passed": true,
+    "errors_warnings": false
+  },
+  "restore_source-ride_after-ride": {
+    "log": "logs/c4j-restore-source-ride-after-ride.log",
+    "sha256": "dfa18c13f93fa7fca58297cc826a489cf9fe34b50189d8c72f0fdcd040a6d18b",
+    "success_marker": "CITY_PASSENGERS_SAVE_TEST failures=0",
+    "passed": true,
+    "errors_warnings": false
+  },
+  "restore_package-ride_shared-ride": {
+    "log": "logs/c4j-restore-package-ride-shared-ride.log",
+    "sha256": "d98458303a656f5db51c7b48e14bd84f4a2f81a61617a705416c030228c8633c",
+    "success_marker": "CITY_PASSENGERS_SAVE_TEST failures=0",
+    "passed": true,
+    "errors_warnings": false
+  },
+  "restore_package-ride_after-ride": {
+    "log": "logs/c4j-restore-package-ride-after-ride.log",
+    "sha256": "50775432e2f409baa71baaeac7b734fa9f7b7703d19b7e4811b1e7893036ba69",
+    "success_marker": "CITY_PASSENGERS_SAVE_TEST failures=0",
+    "passed": true,
+    "errors_warnings": false
+  },
+  "python_suite": {
+    "log": "logs/c4j-python-suite.log",
+    "sha256": "a5d84d563260b869ed5efed5bfe75d5724ffdb5f4715059927449ae71ebb0f9f",
+    "tests": 32,
+    "passed": true
+  }
+}

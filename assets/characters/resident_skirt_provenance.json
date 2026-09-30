@@ -1,0 +1,16 @@
+{
+  "source": "production/characters/resident-skirt-2026-09-30/office_female.glb",
+  "source_sha256": "5769e05c92036a83dbf07f53e535272880d6ecb8e3333a24ec27a49a1b6b97de",
+  "source_project_commit": "7344b0a",
+  "license": "CC0-1.0",
+  "license_record": "assets/MAKEHUMAN-CC0.txt",
+  "recipe": "tools/prepare_resident_skirt.py + tools/character_fitting.py:skirt_weights",
+  "recipe_sha256": {
+    "tools/prepare_resident_skirt.py": "a5e7ad17859b9a3e982e4a8f44a81c42c29cf1ea72d3c7d43ad2ca79cf30650b",
+    "tools/character_fitting.py": "682a85f3e08b6e897a77f800539b2706520eb9847d0733a3dc721156002de9be"
+  },
+  "derived_sha256": "4d6cfa47c63f10e6ed07a644efa0efcfe381f5934d926251992c59900e81243d",
+  "changed_exported_vertices": 420,
+  "hip_height_m": 0.9172974824905396,
+  "unchanged": "positions, topology, UVs, normals, textures, materials, bones and other meshes"
+}

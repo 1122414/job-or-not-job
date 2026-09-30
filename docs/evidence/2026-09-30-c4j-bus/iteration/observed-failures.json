@@ -1,0 +1,31 @@
+{
+  "c4j-seating-settled.log": {
+    "sha256": "4626b0146413905db472904900f497e675f0be1f1841dd19ba82f8813a63c7ef",
+    "results": [
+      "ERROR: 座椅不穿透人物超过1.5cm office_female {\"penetration_m\":0.0739640593528748,\"seat_triangles\":164,\"support_gap_m\":0.0000271201133728027,\"vertices\":19621,\"worst_point\":[-0.649990022182465,0.716035962104797,-0.596737682819366]}",
+      "CITY_BUS_SEATING_TEST failures=1 {\"casual\":{\"penetration_m\":0.0,\"seat_triangles\":164,\"support_gap_m\":0.0191507339477539,\"vertices\":21362,\"worst_point\":[0.0,0.0,0.0]},\"office\":{\"penetration_m\":0.0,\"seat_triangles\":164,\"support_gap_m\":0.00115525722503662,\"vertices\":20902,\"worst_point\":[0.0,0.0,0.0]},\"office_female\":{\"penetration_m\":0.0739640593528748,\"seat_triangles\":164,\"support_gap_m\":0.0000271201133728027,\"vertices\":19621,\"worst_point\":[-0.649990022182465,0.716035962104797,-0.596737682819366]}}"
+    ]
+  },
+  "c4j-seating-diagnosis.log": {
+    "sha256": "250bcadda432d3497998f7e44a4aa5f35af33000f4f8dcbc735951bfedbfa0ad",
+    "results": [
+      "ERROR: 座椅不穿透人物超过1.5cm office_female {\"penetration_m\":0.0739640593528748,\"seat_triangles\":164,\"support_gap_m\":0.0000271201133728027,\"vertices\":19621,\"worst_mesh\":\"female_elegantsuit01\",\"worst_point\":[-0.649990022182465,0.716035962104797,-0.596737682819366]}",
+      "CITY_BUS_SEATING_TEST failures=1 {\"casual\":{\"penetration_m\":0.0,\"seat_triangles\":164,\"support_gap_m\":0.0191507339477539,\"vertices\":21362,\"worst_mesh\":\"\",\"worst_point\":[0.0,0.0,0.0]},\"office\":{\"penetration_m\":0.0,\"seat_triangles\":164,\"support_gap_m\":0.00115525722503662,\"vertices\":20902,\"worst_mesh\":\"\",\"worst_point\":[0.0,0.0,0.0]},\"office_female\":{\"penetration_m\":0.0739640593528748,\"seat_triangles\":164,\"support_gap_m\":0.0000271201133728027,\"vertices\":19621,\"worst_mesh\":\"female_elegantsuit01\",\"worst_point\":[-0.649990022182465,0.716035962104797,-0.596737682819366]}}"
+    ]
+  },
+  "c4j-seating-rebound.log": {
+    "sha256": "853b0e239ed2a4c83286b078ed7e1acf11c86f21cababca12869619e9c6af59e",
+    "results": [
+      "ERROR: 座椅不穿透人物超过1.5cm office_female {\"penetration_m\":0.0462172031402588,\"seat_triangles\":164,\"support_gap_m\":0.000165998935699463,\"vertices\":19621,\"worst_mesh\":\"female_elegantsuit01\",\"worst_point\":[-0.676591694355011,0.743782818317413,-0.639972925186157]}",
+      "CITY_BUS_SEATING_TEST failures=1 {\"casual\":{\"penetration_m\":0.0,\"seat_triangles\":164,\"support_gap_m\":0.0191507339477539,\"vertices\":21362,\"worst_mesh\":\"\",\"worst_point\":[0.0,0.0,0.0]},\"office\":{\"penetration_m\":0.0,\"seat_triangles\":164,\"support_gap_m\":0.00115525722503662,\"vertices\":20902,\"worst_mesh\":\"\",\"worst_point\":[0.0,0.0,0.0]},\"office_female\":{\"penetration_m\":0.0462172031402588,\"seat_triangles\":164,\"support_gap_m\":0.000165998935699463,\"vertices\":19621,\"worst_mesh\":\"female_elegantsuit01\",\"worst_point\":[-0.676591694355011,0.743782818317413,-0.639972925186157]}}"
+    ]
+  },
+  "c4j-night-before.log": {
+    "sha256": "64b446de8d6fd8ead61a9a42a184098e9537d39efe98d8e1d071286d6064ed6b",
+    "results": [
+      "ERROR: 暂停时间切换立即开启公交夜灯，无需物理帧",
+      "ERROR: 暂停恢复夜间存档立即同步公交灯光",
+      "CITY_BUS_VISUAL_TEST {\"bad_normals\":0,\"baked_triangles\":70052,\"degenerate\":0,\"failures\":2,\"lods\":95,\"maximum_driver_palm_error\":0.000000961096020546393,\"vehicle_triangles\":74160,\"wheel_cover_rays\":28}"
+    ]
+  }
+}

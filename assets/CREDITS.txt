@@ -61,3 +61,10 @@ industrial_wall_lamp: Kuutti Siitonen. https://polyhaven.com/a/industrial_wall_l
 Adaptations: selected plain door, source plant offsets, leaf/glass alpha merge,
 1K prop and 2K door textures, reduced crate/pot/soil and generated mesh LODs.
 Original files unchanged and excluded from runtime. See STREET-SOURCES.json.
+
+Community bus: original project-authored geometry and materials.
+See BUS-PRODUCTION.json for generated parts, source and derived hashes.
+Bus driver reuses the existing MakeHuman CC0 office character.
+Legacy female resident outfit: existing MakeHuman CC0 source; only short-skirt
+skin weights adapted to pelvis and thighs. Geometry and other data unchanged.
+See RESIDENT-SKIRT-SOURCES.json. Preserved original excluded from runtime.

@@ -261,6 +261,8 @@ func update_daylight() -> void:
 	var daylight := CityDaylight.apply(sun,environment,payroll.minute)
 	var streets: CityStreetscape=get_node_or_null("ConnectedDistrict/Streetscape")
 	if streets: streets.daylight(daylight)
+	var local_minute := payroll.minute % Payroll.DAY
+	if transit and transit.visual: transit.visual.set_night(local_minute<6*60 or local_minute>=18*60)
 
 func in_vehicle() -> bool:
 	return transit!=null and transit.riding or driving!=null and driving.in_vehicle()

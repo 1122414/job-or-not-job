@@ -1,0 +1,38 @@
+{
+	"adapter": "Apple M5 Pro (Apple9)",
+	"background_guard": true,
+	"fixture_cameras": true,
+	"images": [
+		{
+			"draw_calls": 1071,
+			"name": "front"
+		},
+		{
+			"draw_calls": 718,
+			"name": "rear"
+		},
+		{
+			"draw_calls": 944,
+			"name": "platform-door"
+		},
+		{
+			"draw_calls": 845,
+			"name": "cabin-forward"
+		},
+		{
+			"draw_calls": 1048,
+			"name": "cabin-rear"
+		},
+		{
+			"draw_calls": 613,
+			"name": "driver"
+		},
+		{
+			"draw_calls": 845,
+			"name": "cabin-night"
+		}
+	],
+	"normal_game_fps": false,
+	"persistence": false,
+	"renderer": "forward_plus"
+}

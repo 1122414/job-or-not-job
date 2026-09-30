@@ -20,6 +20,22 @@ func run() -> void:
 	var game=load("res://scenes/main.tscn").instantiate()
 	root.add_child(game)
 	for i in range(10): await physics_frame
+	var bus_record: Dictionary=JSON.parse_string(FileAccess.get_file_as_string(CityBusVisual.ROOT+"production.json"))
+	var package_resources := OS.get_executable_path().get_base_dir().path_join("../Resources")
+	if FileAccess.get_file_as_string(package_resources.path_join("BUS-PRODUCTION.json"))!=FileAccess.get_file_as_string(CityBusVisual.ROOT+"production.json") or FileAccess.get_file_as_string(package_resources.path_join("RESIDENT-SKIRT-SOURCES.json"))!=FileAccess.get_file_as_string("res://assets/characters/resident_skirt_provenance.json") or FileAccess.file_exists("res://production/characters/resident-skirt-2026-09-30/office_female.glb") or ResourceLoader.exists("res://production/characters/resident-skirt-2026-09-30/office_female.glb"):
+		push_error("Vehicle/resident provenance mismatch or original character leaked");quit(1);return
+	if game.transit.visual==null or game.transit.visual.driver==null or game.transit.visual.wheels.size()!=4 or bus_record.get("derived_files",{}).size()!=5 or ResourceLoader.exists("res://tools/prepare_city_bus.gd"):
+		push_error("Packaged authored bus or source exclusion missing");quit(1);return
+	for file in bus_record.derived_files:
+		if FileAccess.get_sha256(CityBusVisual.ROOT+file)!=bus_record.derived_files[file]:
+			push_error("Packaged bus geometry differs from production record");quit(1);return
+	game.transit.visual.snap_doors(true);game.transit.visual.step_doors(.4,false)
+	if game.transit.visual.doors_closed() or game.transit.visual.door_open>=1:
+		push_error("Packaged bus door transition missing");quit(1);return
+	game.transit.visual.step_doors(.4,false)
+	if not game.transit.visual.doors_closed():push_error("Packaged bus door cannot close");quit(1);return
+	game.transit.visual.snap_doors(game.transit.current_stop>=0)
+	print("PACKAGED_BUS authored_parts=5 wheels=4 driver=true continuous_doors=true originals_excluded=true")
 	var audio_sources := OS.get_executable_path().get_base_dir().path_join("../Resources/AUDIO-SOURCES.json")
 	if FileAccess.get_file_as_string(audio_sources)!=FileAccess.get_file_as_string("res://assets/audio/city/provenance.json") or ResourceLoader.exists("res://production/audio/cc0-2026-09-30/engine.wav") or FileAccess.file_exists("res://production/audio/cc0-2026-09-30/shop.zip"):
 		push_error("Packaged audio provenance mismatch or originals leaked"); quit(1); return
@@ -190,7 +206,7 @@ func run() -> void:
 	for clip in ["idle","talk","walk","run"]:
 		if not authored.has_animation(clip):push_error("Packaged authored clip missing: "+clip);quit(1);return
 	var humans: Array=game.find_children("*","Node3D",true,false).filter(func(node): return node is HumanVisual)
-	if humans.size()!=28:
+	if humans.size()!=29:
 		push_error("Packaged character visuals missing")
 		quit(1)
 		return
@@ -452,7 +468,7 @@ func run() -> void:
 			if argument.begins_with("--screenshot="):
 				var error := root.get_texture().get_image().save_png(argument.trim_prefix("--screenshot="))
 				if error!=OK: quit(1); return
-	print("PACKAGED_SMOKE_OK build=",build.build_id," label=",BuildInfo.label()," npcs=",game.npcs.size()," props=",game.props.size()," company_spaces=2 company_sources=2 environment_props=6 asset_sources=5 authored_clips=4 authored_characters=28 texture_imports=verified ui_mouse=verified city_stops=4 bus_ride_save=verified driving_save=verified traffic=3 public_residents=12 population_save=verified bookshop_walk_save=verified original_illustrations=3 public_response_transfer_save=verified persistence=",game.persistence_enabled)
+	print("PACKAGED_SMOKE_OK build=",build.build_id," label=",BuildInfo.label()," npcs=",game.npcs.size()," props=",game.props.size()," company_spaces=2 company_sources=2 environment_props=6 asset_sources=5 authored_clips=4 authored_characters=29 texture_imports=verified ui_mouse=verified city_stops=4 authored_bus=verified bus_ride_save=verified driving_save=verified traffic=3 public_residents=12 population_save=verified bookshop_walk_save=verified original_illustrations=3 public_response_transfer_save=verified persistence=",game.persistence_enabled)
 	paused=false
 	game.queue_free()
 	await process_frame

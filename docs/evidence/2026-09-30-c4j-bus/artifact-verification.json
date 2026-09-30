@@ -1,0 +1,15 @@
+{
+  "source_sha256": "2629b47f7b69fde33a655a9f593974585753992872c9fa84a7e66379a2191ba7",
+  "zip_sha256": "74817c66328ae4850171907c575bae2629ee0f99b9eea09778f9cfa1811b6132",
+  "pck_sha256": "41301ca9181abfef9c37cae7fc8b1fa4e4c65b7d2858e16da87113ba8362a60f",
+  "zip_crc": true,
+  "signature": true,
+  "inner_outer_manifests_equal": true,
+  "runtime_inputs_equal": true,
+  "packaged_engine_sha256": "5178630803cd070e6dd8aced511b5958e105fcd10b726a6c48880c76fe9593e7",
+  "build_id": "20260930T043343223134Z-7344b0ab-2629b47f",
+  "save_schema": 23,
+  "renderer": "forward_plus",
+  "manifest_validation_retained": "not_yet_verified",
+  "build_runtime_dirty_retained": true
+}

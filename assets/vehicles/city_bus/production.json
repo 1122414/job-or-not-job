@@ -1,0 +1,38 @@
+{
+	"collision": "unchanged 2.6 x 2.8 x 7 m",
+	"derived_files": {
+		"body.res": "28db5285e2875835a6636dd0dc37dbbef798eb270450e85808f9b61eed961ed6",
+		"cabin.res": "bac044fb8a9464428987408a19262c28a688bc94930b166c7e63c635cf060a6b",
+		"door_front.res": "c88bc0a6fc5a6e3843931cf314b93e4beee77a48f9b046e5d0dbd7d90c8077b1",
+		"door_rear.res": "11ba9c6485465117b46c6fa0ca526560c19ddcffef4a939366f896fe8ec85a88",
+		"wheel.res": "63ca2cec5a7b3def0c948ea5ceb3c4a1935d3ad1b94a3552155f3822251a6bb6"
+	},
+	"floor_top_m": 0.4,
+	"geometry": {
+		"body": {
+			"surfaces": 7,
+			"triangles": 22556
+		},
+		"cabin": {
+			"surfaces": 9,
+			"triangles": 32056
+		},
+		"door_front": {
+			"surfaces": 3,
+			"triangles": 1320
+		},
+		"door_rear": {
+			"surfaces": 3,
+			"triangles": 1320
+		},
+		"wheel": {
+			"surfaces": 2,
+			"triangles": 3200
+		}
+	},
+	"origin": "Original project geometry; no third-party vehicle input",
+	"passenger_roots": "unchanged CityPassengers.SEATS and player seat",
+	"source": "tools/prepare_city_bus.gd",
+	"source_sha256": "5c7029f9fb4d700842f646848b3cf09be502f1dbe1ab10a41a8a6c9413f88525",
+	"wheel_radius_m": 0.43
+}

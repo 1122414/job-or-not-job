@@ -1,0 +1,70 @@
+{
+  "runtime_sha256": "2629b47f7b69fde33a655a9f593974585753992872c9fa84a7e66379a2191ba7",
+  "images": [
+    {
+      "name": "cabin-forward.png",
+      "sha256": "d3494aa0c0f9f44c03eded80249b956664cfb74cd37a85a8f542cfe3e559c372",
+      "package_byte_equal": true
+    },
+    {
+      "name": "cabin-night.png",
+      "sha256": "d2f00de401acc900583089fbb123b5c25bf5d93e2c86bf2d8752eb4c9d11147f",
+      "package_byte_equal": true
+    },
+    {
+      "name": "cabin-rear.png",
+      "sha256": "036b0f0908cfb8c512f9b2f3c67c29d3ca3c9589ffc80fdfdf55e9268752308f",
+      "package_byte_equal": true
+    },
+    {
+      "name": "door-0.png",
+      "sha256": "c13a1d33a8c8707f8d876cfdd9929c52ceeb1cda7d46d9a499ac68710f26f357",
+      "package_byte_equal": true
+    },
+    {
+      "name": "door-100.png",
+      "sha256": "4f90f01e184c168ff1968686bc562721e1bf7ca1eb164b5c2502f340d3b10d6b",
+      "package_byte_equal": true
+    },
+    {
+      "name": "door-50.png",
+      "sha256": "8e9f63570c15ad43f010bbd62dcd8ae78164f9c84bc2b0294b720f2e6c000ea7",
+      "package_byte_equal": true
+    },
+    {
+      "name": "driver.png",
+      "sha256": "a92bb1f1ebf4949ce7710c42de7a494d1a9c074fcfd025ab617ac25ce7eabcf4",
+      "package_byte_equal": true
+    },
+    {
+      "name": "front.png",
+      "sha256": "1a519e84a90050cc0c19c7e2d5bcde8d25bea4fc2a5299d2c82c9ebb5bbed593",
+      "package_byte_equal": true
+    },
+    {
+      "name": "platform-door.png",
+      "sha256": "4f90f01e184c168ff1968686bc562721e1bf7ca1eb164b5c2502f340d3b10d6b",
+      "package_byte_equal": true
+    },
+    {
+      "name": "rear.png",
+      "sha256": "a37019cbf8ae752c0a5ffb057a8cfe156aa45120d232e5d22c361831d4ca1590",
+      "package_byte_equal": true
+    },
+    {
+      "name": "seated-casual.png",
+      "sha256": "5736c60f08e50b23b948e0d821445899453a17302966c9a3f0a2833621b9c4cb",
+      "package_byte_equal": true
+    },
+    {
+      "name": "seated-office.png",
+      "sha256": "0ecb80ab1ecf65489cc39e1fcaa0e5ff33c8852d3e5470a3c103a2d30d8fe2ac",
+      "package_byte_equal": true
+    },
+    {
+      "name": "seated-office_female.png",
+      "sha256": "efa1f96f85e7864f61ee1008001fee7b4b1d793fd57e47e55e449cb62260ae03",
+      "package_byte_equal": true
+    }
+  ]
+}

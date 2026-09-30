@@ -1,0 +1,176 @@
+{
+  "seat_fit": {
+    "casual": [
+      {
+        "penetration_m": 0.0,
+        "phase": 0.0,
+        "seat_triangles": 2068,
+        "support_gap_m": 0.0273639559745789,
+        "vertices": 21362,
+        "worst_mesh": "",
+        "worst_point": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      {
+        "penetration_m": 0.0,
+        "phase": 0.4,
+        "seat_triangles": 2068,
+        "support_gap_m": 0.0273639559745789,
+        "vertices": 21362,
+        "worst_mesh": "",
+        "worst_point": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      {
+        "penetration_m": 0.0,
+        "phase": 2.0,
+        "seat_triangles": 2068,
+        "support_gap_m": 0.0273639559745789,
+        "vertices": 21362,
+        "worst_mesh": "",
+        "worst_point": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      {
+        "penetration_m": 0.0,
+        "phase": 3.8,
+        "seat_triangles": 2068,
+        "support_gap_m": 0.0273639559745789,
+        "vertices": 21362,
+        "worst_mesh": "",
+        "worst_point": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      }
+    ],
+    "office": [
+      {
+        "penetration_m": 0.0,
+        "phase": 0.0,
+        "seat_triangles": 2068,
+        "support_gap_m": 0.00687271356582642,
+        "vertices": 20902,
+        "worst_mesh": "",
+        "worst_point": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      {
+        "penetration_m": 0.0,
+        "phase": 0.4,
+        "seat_triangles": 2068,
+        "support_gap_m": 0.00687283277511597,
+        "vertices": 20902,
+        "worst_mesh": "",
+        "worst_point": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      {
+        "penetration_m": 0.0,
+        "phase": 2.0,
+        "seat_triangles": 2068,
+        "support_gap_m": 0.00687271356582642,
+        "vertices": 20902,
+        "worst_mesh": "",
+        "worst_point": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      {
+        "penetration_m": 0.0,
+        "phase": 3.8,
+        "seat_triangles": 2068,
+        "support_gap_m": 0.00687283277511597,
+        "vertices": 20902,
+        "worst_mesh": "",
+        "worst_point": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      }
+    ],
+    "office_female": [
+      {
+        "penetration_m": 0.0,
+        "phase": 0.0,
+        "seat_triangles": 2068,
+        "support_gap_m": 0.000725209712982178,
+        "vertices": 19621,
+        "worst_mesh": "",
+        "worst_point": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      {
+        "penetration_m": 0.0,
+        "phase": 0.4,
+        "seat_triangles": 2068,
+        "support_gap_m": 0.000725269317626953,
+        "vertices": 19621,
+        "worst_mesh": "",
+        "worst_point": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      {
+        "penetration_m": 0.0,
+        "phase": 2.0,
+        "seat_triangles": 2068,
+        "support_gap_m": 0.000725209712982178,
+        "vertices": 19621,
+        "worst_mesh": "",
+        "worst_point": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      {
+        "penetration_m": 0.0,
+        "phase": 3.8,
+        "seat_triangles": 2068,
+        "support_gap_m": 0.000725269317626953,
+        "vertices": 19621,
+        "worst_mesh": "",
+        "worst_point": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      }
+    ]
+  },
+  "vehicle": {
+    "bad_normals": 0,
+    "baked_triangles": 70052,
+    "degenerate": 0,
+    "failures": 0,
+    "lods": 95,
+    "maximum_driver_palm_error": 9.61096020546393e-07,
+    "vehicle_triangles": 74160,
+    "wheel_cover_rays": 28
+  }
+}

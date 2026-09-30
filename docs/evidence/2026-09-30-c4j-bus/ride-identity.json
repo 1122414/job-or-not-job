@@ -1,0 +1,40 @@
+{
+  "images": [
+    {
+      "name": "bus-board-control.png",
+      "sha256": "b917098ac7ba6a4c18985b62f10b7e8bc1f8f66c00701d219e41a0702bb3f97c",
+      "package_byte_equal": true
+    },
+    {
+      "name": "first-public-passengers.png",
+      "sha256": "fcd3328c922e1bd192ca424efbb0e951b15c44efbbe58037601ae114096686c5",
+      "package_byte_equal": true
+    },
+    {
+      "name": "platform-before-boarding.png",
+      "sha256": "780267cba0d23e3745f331c93d7490ccdf88fe229af1664e166ed1de6e4c0c33",
+      "package_byte_equal": true
+    },
+    {
+      "name": "player-market-platform.png",
+      "sha256": "82e5d0da0b249714506c1bc9f0d6cfb70455c91ad939770994c759a7ebfc636a",
+      "package_byte_equal": true
+    },
+    {
+      "name": "resident-resumes-destination.png",
+      "sha256": "f978a36b5ade18fdb3bac1f65bc3d24dbe58cdb121079ae006f5878bb5dc8374",
+      "package_byte_equal": true
+    },
+    {
+      "name": "seat-contact-diagnostic.png",
+      "sha256": "69739a95eb678c21a4175780ce606b9a425a95a952c9c0fecb8804c2c39e140d",
+      "package_byte_equal": true
+    },
+    {
+      "name": "shared-ride-player-camera.png",
+      "sha256": "3b6f7881881281e9375be6a3be72601120dbb706d08f2176c3c8f16c6066140e",
+      "package_byte_equal": true
+    }
+  ],
+  "same_natural_journey": true
+}

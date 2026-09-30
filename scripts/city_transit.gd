@@ -20,7 +20,7 @@ var selected_stop := 0
 var waypoint := ""
 var visited: Array[String]=[]
 var sign: Label3D
-var door: MeshInstance3D
+var visual: CityBusVisual
 
 func _ready() -> void:
 	name="CityTransit"
@@ -31,40 +31,13 @@ func _ready() -> void:
 	bus.collision_mask=3
 	add_child(bus)
 	Shapes.collider(bus,Vector3(2.6,2.8,7),Vector3(0,1.6,0))
-	# The seated roots are 0.4 m above the street. Keep the cabin floor at that
-	# height; a solid chassis reaching the cushions hides passengers' lower legs.
-	var floor := Shapes.box(bus,Vector3(2.5,0.16,7),Vector3(0,0.32,0),Color("e6dfcb"))
+	# Keep the established passenger support plane and external physics contract.
+	var floor := Shapes.box(bus,Vector3(2.5,.16,7),Vector3(0,.32,0),Color("4e5758"))
 	floor.name="CabinFloor"
-	Shapes.box(bus,Vector3(2.6,0.16,7.1),Vector3(0,2.98,0),Color("456c68"))
-	for x in [-1.22,1.22]:
-		Shapes.box(bus,Vector3(0.08,0.55,7),Vector3(x,0.675,0),Color("e6dfcb"))
-		Shapes.box(bus,Vector3(0.08,0.5,7),Vector3(x,1.15,0),Color("456c68"))
-		for z in [-3.35,-1.6,0.3,2,3.35]: Shapes.box(bus,Vector3(0.08,1.9,0.12),Vector3(x,2,z),Color("e6dfcb"))
-	for z in [-3.48,3.48]:
-		Shapes.box(bus,Vector3(2.45,0.55,0.1),Vector3(0,0.675,z),Color("e6dfcb"))
-		Shapes.box(bus,Vector3(2.45,0.4,0.1),Vector3(0,1.1,z),Color("456c68"))
-		for x in [-0.9,0.9]: Shapes.box(bus,Vector3(0.28,0.16,0.12),Vector3(x,0.9,z),Color("efdbad") if z<0 else Color("bb554d"))
-	for x in [-0.65,0.65]:
-		for z in [-0.4,1.0,2.4]:
-			Shapes.box(bus,Vector3(0.15,0.4,0.2),Vector3(x,0.6,z),Color("456c68"))
-			Shapes.box(bus,Vector3(0.65,0.15,0.6),Vector3(x,0.86,z),Color("6d8983"))
-			Shapes.box(bus,Vector3(0.65,0.65,0.12),Vector3(x,1.18,z+0.26),Color("6d8983"))
-	for x in [-1.24,1.24]:
-		for z in [-2.1,2.1]:
-			var wheel := MeshInstance3D.new()
-			var mesh := CylinderMesh.new()
-			mesh.top_radius=0.43
-			mesh.bottom_radius=0.43
-			mesh.height=0.25
-			wheel.mesh=mesh
-			wheel.material_override=Shapes.material(Color("30383b"))
-			bus.add_child(wheel)
-			wheel.position=Vector3(x,0.43,z)
-			wheel.rotation.z=PI/2
-	door=Shapes.box(bus,Vector3(0.08,1.7,1.2),Vector3(-1.24,1.85,-2.6),Color("658486"))
-	sign=Shapes.label(bus,"101  城区环线",Vector3(0,2.65,-3.55),28)
+	visual=CityBusVisual.new();bus.add_child(visual)
+	sign=Shapes.label(bus,"101  城区环线",Vector3(0,2.57,-3.409),28)
 	sign.billboard=BaseMaterial3D.BILLBOARD_DISABLED
-	sign.pixel_size=0.004
+	sign.pixel_size=0.005
 	sign.rotation.y=PI
 	sync_vehicle()
 
@@ -85,7 +58,9 @@ func vehicle_transform(offset: float) -> Transform3D:
 
 func sync_vehicle() -> void:
 	bus.transform=vehicle_transform(distance)
-	door.visible=current_stop<0
+	var before := vehicle_transform(distance-.5).basis.get_euler().y
+	var after := vehicle_transform(distance+.5).basis.get_euler().y
+	visual.set_motion(distance,clampf(atan(-angle_difference(before,after)*4.5),-.58,.58))
 	sign.text="101  "+CityLayout.STOPS[next_stop].title.split(" · ")[0]
 	sync_passenger()
 	if game.passengers: game.passengers.sync_all()
@@ -101,11 +76,13 @@ func tick(delta: float) -> void:
 	if delta<=0: return
 	blocked=false
 	if current_stop>=0:
-		if riding and requested or game.passengers and game.passengers.holds_departure(): return
+		if riding and requested or game.passengers and game.passengers.holds_departure():
+			visual.step_doors(delta,true)
+			return
 		dwell=maxf(0,dwell-delta)
-		if dwell>0: return
+		visual.step_doors(delta,dwell>0)
+		if dwell>0 or not visual.doors_closed(): return
 		current_stop=-1
-		door.visible=true
 	var length := curve.get_baked_length()
 	var remaining := fposmod(stop_offsets[next_stop]-distance,length)
 	var desired := minf(MAX_SPEED,sqrt(2*ACCELERATION*remaining))
@@ -266,6 +243,7 @@ func restore(data: Dictionary) -> void:
 	if riding:
 		game.player.add_collision_exception_with(bus)
 		game.player.spring.add_excluded_object(bus.get_rid())
+	visual.snap_doors(current_stop>=0)
 	sync_vehicle()
 
 func station_for(id: String) -> WorkStation:
