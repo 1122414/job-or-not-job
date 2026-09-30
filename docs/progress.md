@@ -965,3 +965,9 @@ S4b记录同步：1247项项目文档、原始设计、图片与元数据逐字�
 边界：上下客仍为受限位置交接；开门踏步、车内走动、司机、轮拱、自然坐姿及人物重复仍待制作。快进不模拟新乘客上车。固定FPS与自动路线不证明持续正常帧率或独立玩家体验。完整品质城区、30—60分钟自由体验、长期职业/关系、正式人物/表演/声音、跨区/八类城区、64km²都市圈/16km²密集城区及1440p30/1080p60持续性能全部保持开放，G01—G06未关闭。后续以完整城区统一视听和自由生活为交付单位，再证明跨区扩展并进入整城生产。
 
 详情：[C2c验收](2026-09-30_C2c居民公交出行验收.md)、[逐项证据](evidence/2026-09-30-c2c-passengers/README.md)。复用更新[离站导航](experience/patterns/navigation-endpoints.md)、[乘客恢复](experience/patterns/vehicle-passenger-restoration.md)、[身体支撑](experience/patterns/body-support.md)和[存档关联](experience/patterns/save-content-expansion.md)。中文实施提交号在后续收尾同步项记录。
+
+
+C2c中文实施提交00ce34c，未push；提交后运行源码干净，完整输入与已验证实际包7e5c5f91一致。完整城区和G01—G06继续。
+
+
+C2c记录同步：1293项项目文档、原始设计、图片与元数据逐字节及校验和一致，零冲突；Obsidian每日计划、进度和索引已更新，顶层历史计划保持。完整城区和G01—G06继续。
