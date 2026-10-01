@@ -30,7 +30,10 @@
       "Relaxed shoulders, neck and hand poses; no obvious spikes or extra limbs in reviewed views.",
       "Rear hand fingers overlap naturally; an exact finger count in every view is not established."
     ],
-    "user_approval": "pending",
-    "runtime_verification": "not applicable to a concept image"
+    "user_approval": "approved",
+    "runtime_verification": "not applicable to a concept image",
+    "approval_date": "2026-10-01",
+    "approval_text": "可以，就先用这个吧",
+    "approval_scope": "Default male visual concept only; no runtime model or animation acceptance"
   }
 }

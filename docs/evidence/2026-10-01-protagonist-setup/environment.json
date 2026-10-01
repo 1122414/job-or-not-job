@@ -1,0 +1,54 @@
+{
+  "stage": "CH2-P1",
+  "date": "2026-10-01",
+  "scope": "Approved 2D reference and authoring environment preparation only",
+  "reference_approval": "可以，就先用这个吧",
+  "reference": "../2026-10-01-protagonist-concept/male-graduate-v1.png",
+  "environment": {
+    "chip": "Apple M5 Pro",
+    "memory_bytes": 51539607552,
+    "macos": "26.6.2 (25G83)",
+    "available_disk_at_check": "about 383 GiB",
+    "xcode_select": "/Library/Developer/CommandLineTools",
+    "full_xcode": "not found in checked top-level Applications directories; custom paths unexamined"
+  },
+  "download": {
+    "requested_url": "https://launcher-public-service-prod06.ol.epicgames.com/launcher/api/installer/download/EpicGamesLauncher.dmg",
+    "resolved_url": "https://epicgames-download1.akamaized.net/Builds/UnrealEngineLauncher/Installers/Mac/EpicInstaller-20.3.3.dmg?launcherfilename=EpicInstaller-20.3.3.dmg",
+    "bytes": 115248384,
+    "sha256": "d25d7344f3759ef820c3b3f27eab10e86bfaba22788f88d5b917f4937a429076"
+  },
+  "application": {
+    "local_path": "build/tools/Epic Games Launcher.app",
+    "bundle_id": "com.epicgames.EpicGamesLauncher",
+    "version": "20.3.3",
+    "build": "0.0.4",
+    "architectures": [
+      "x86_64",
+      "arm64"
+    ],
+    "team_id": "96DBZ92D3Y",
+    "developer": "Epic Games International, S.a.r.l.",
+    "codesign_deep_strict": "passed on copied app",
+    "gatekeeper": "accepted; Notarized Developer ID",
+    "launch": "open -g exit 0; native app observed running",
+    "ui_observation": "Official sign-in page visible, empty email field; user authentication pending"
+  },
+  "not_completed": [
+    "Epic authentication",
+    "Unreal Engine and MetaHuman Creator Core Data installation",
+    "compatible full Xcode validation",
+    "MetaHuman 3D character creation",
+    "motion and runtime integration"
+  ],
+  "failed_attempts": [
+    {
+      "endpoint": "EpicGamesLauncherInstaller.dmg",
+      "result": "Official endpoint resolved to old Intel-only EpicInstaller-9.13.0.dmg; not used"
+    },
+    {
+      "check": "Deep strict codesign on mounted current DMG",
+      "result": "Failed due to com.apple.FinderInfo metadata; normal copy without resource fork/extended metadata passed full signature and Gatekeeper; no security setting or quarantine override"
+    }
+  ]
+}
