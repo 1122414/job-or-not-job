@@ -1,0 +1,273 @@
+{
+  "source_file": "rp_eric_rigged_001_zup_a.fbx",
+  "source_sha256": "2324fee0c1deb546eebe7a68ab84d6be9dc0180119de852630f30a545f25f740",
+  "tool_sha256": "7ee8d0661c51ae92fc4475237c8aff4b9d56c5b2d690ac946f40184199a5010d",
+  "blender": "4.5.9 LTS",
+  "imported_images_before_material_rebuild": [
+    {
+      "name": "rp_eric_rigged_001_dif",
+      "size": [
+        8192,
+        8192
+      ]
+    }
+  ],
+  "character": {
+    "meshes": [
+      {
+        "name": "rp_eric_rigged_001_geo",
+        "vertices": 10353,
+        "polygons": 10558,
+        "triangles": 20542,
+        "uv_layers": 1,
+        "materials": [
+          "rp_eric_rigged_001_mat"
+        ],
+        "armatures": [
+          "rp_eric_rigged_001"
+        ],
+        "invalid_weights": 0,
+        "unweighted_vertices": 0,
+        "nonunit_weight_vertices": 0,
+        "max_positive_influences": 8,
+        "degenerate_triangles": 0,
+        "shape_keys": 0,
+        "world_bounds_m": {
+          "min": [
+            -0.661536455154419,
+            -0.21532794833183289,
+            -0.00487333070486784
+          ],
+          "max": [
+            0.6478922367095947,
+            0.1372927576303482,
+            1.8586485385894775
+          ]
+        }
+      }
+    ],
+    "rigs": [
+      {
+        "name": "rp_eric_rigged_001",
+        "bones": 88,
+        "bone_names": [
+          "root",
+          "hip",
+          "spine_01",
+          "spine_02",
+          "spine_03",
+          "neck",
+          "head",
+          "head_end",
+          "jaw",
+          "jaw_end",
+          "eye_l",
+          "eye_end_l",
+          "eye_r",
+          "eye_end_r",
+          "mouth_l",
+          "mouth_r",
+          "eyelid_l",
+          "eyelid_end_l",
+          "eyelid_r",
+          "eyelid_end_r",
+          "eyebrow_l",
+          "eyebrow_r",
+          "shoulder_l",
+          "upperarm_l",
+          "lowerarm_l",
+          "hand_l",
+          "thumb_01_l",
+          "thumb_02_l",
+          "thumb_03_l",
+          "thumb_end_l",
+          "index_01_l",
+          "index_02_l",
+          "index_03_l",
+          "index_end_l",
+          "middle_01_l",
+          "middle_02_l",
+          "middle_03_l",
+          "middle_end_l",
+          "ring_01_l",
+          "ring_02_l",
+          "ring_03_l",
+          "ring_end_l",
+          "pinky_01_l",
+          "pinky_02_l",
+          "pinky_03_l",
+          "pinky_end_l",
+          "lowerarm_twist_l",
+          "upperarm_twist_l",
+          "shoulder_r",
+          "upperarm_r",
+          "lowerarm_r",
+          "hand_r",
+          "thumb_01_r",
+          "thumb_02_r",
+          "thumb_03_r",
+          "thumb_end_r",
+          "index_01_r",
+          "index_02_r",
+          "index_03_r",
+          "index_end_r",
+          "middle_01_r",
+          "middle_02_r",
+          "middle_03_r",
+          "middle_end_r",
+          "ring_01_r",
+          "ring_02_r",
+          "ring_03_r",
+          "ring_end_r",
+          "pinky_01_r",
+          "pinky_02_r",
+          "pinky_03_r",
+          "pinky_end_r",
+          "lowerarm_twist_r",
+          "upperarm_twist_r",
+          "upperleg_l",
+          "lowerleg_l",
+          "foot_l",
+          "ball_l",
+          "foot_end_l",
+          "lowerleg_twist_l",
+          "upperleg_twist_l",
+          "upperleg_r",
+          "lowerleg_r",
+          "foot_r",
+          "ball_r",
+          "foot_end_r",
+          "lowerleg_twist_r",
+          "upperleg_twist_r"
+        ],
+        "zero_length_bones": [],
+        "object_scale": [
+          0.009999999776482582,
+          0.009999999776482582,
+          0.009999999776482582
+        ]
+      }
+    ],
+    "images": [
+      {
+        "name": "rp_eric_rigged_001_dif",
+        "file": "rp_eric_rigged_001_dif.jpg",
+        "size": [
+          8192,
+          8192
+        ],
+        "colorspace": "sRGB",
+        "exists": true,
+        "sha256": "586ca7aa7acdd4a66258045553d434d9cb52f45c6f49a992d897c3fd4705ac2e",
+        "decoded_rgba8_mib": 256.0
+      },
+      {
+        "name": "rp_eric_rigged_001_gloss.jpg",
+        "file": "rp_eric_rigged_001_gloss.jpg",
+        "size": [
+          8192,
+          8192
+        ],
+        "colorspace": "Non-Color",
+        "exists": true,
+        "sha256": "73bf1d7c419557b4794897abbf1dbe14db81d650cd6374acae423b5b98832c27",
+        "decoded_rgba8_mib": 256.0
+      },
+      {
+        "name": "rp_eric_rigged_001_norm.jpg",
+        "file": "rp_eric_rigged_001_norm.jpg",
+        "size": [
+          8192,
+          8192
+        ],
+        "colorspace": "Non-Color",
+        "exists": true,
+        "sha256": "9ebc1c277550ead990b62f1c9ea4ba84e79a1a771ece642d2af0fb5c09e47c8f",
+        "decoded_rgba8_mib": 256.0
+      }
+    ],
+    "materials": [
+      {
+        "name": "rp_eric_rigged_001_mat",
+        "nodes": [
+          {
+            "name": "Image Texture",
+            "type": "TEX_IMAGE",
+            "image": "rp_eric_rigged_001_dif",
+            "operation": null
+          },
+          {
+            "name": "Image Texture.001",
+            "type": "TEX_IMAGE",
+            "image": "rp_eric_rigged_001_gloss.jpg",
+            "operation": null
+          },
+          {
+            "name": "Image Texture.002",
+            "type": "TEX_IMAGE",
+            "image": "rp_eric_rigged_001_norm.jpg",
+            "operation": null
+          },
+          {
+            "name": "Material Output",
+            "type": "OUTPUT_MATERIAL",
+            "image": null,
+            "operation": null
+          },
+          {
+            "name": "Math",
+            "type": "MATH",
+            "image": null,
+            "operation": "SUBTRACT"
+          },
+          {
+            "name": "Normal Map",
+            "type": "NORMAL_MAP",
+            "image": null,
+            "operation": null
+          },
+          {
+            "name": "Principled BSDF",
+            "type": "BSDF_PRINCIPLED",
+            "image": null,
+            "operation": null
+          }
+        ],
+        "links": [
+          "Image Texture.001.Color -> Math.Value",
+          "Image Texture.002.Color -> Normal Map.Color",
+          "Image Texture.Color -> Principled BSDF.Base Color",
+          "Math.Value -> Principled BSDF.Roughness",
+          "Normal Map.Normal -> Principled BSDF.Normal",
+          "Principled BSDF.BSDF -> Material Output.Surface"
+        ]
+      }
+    ],
+    "lod_meshes": [],
+    "actions": []
+  },
+  "pose_probe": {
+    "status": "rendered",
+    "requested_bend_degrees": {
+      "lowerarm_l": 70,
+      "lowerleg_l": 65
+    },
+    "observed_bend_degrees": {
+      "lowerarm_l": 70.0000065013869,
+      "lowerleg_l": 65.00000750061409
+    },
+    "finite_vertices": true,
+    "moved_vertices": 1981,
+    "max_displacement_m": 0.622978838998878,
+    "rest_bone_lengths_unchanged": true,
+    "scope": "Two static joint probes, not animation or clothing acceptance."
+  },
+  "material_mapping": {
+    "diffuse": "sRGB",
+    "normal": "Non-Color tangent, unchanged RGB",
+    "roughness": "1 - Non-Color gloss",
+    "unused": "mask01/mask02: semantics unverified"
+  },
+  "blend_sha256": "951d4518abefcc2d30eea5476f26dca842d07ec8c292372b235f3526700d4552",
+  "game_export": false
+}

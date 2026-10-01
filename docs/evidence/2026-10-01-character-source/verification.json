@@ -1,0 +1,55 @@
+{
+  "date_local": "2026-10-01",
+  "images": {
+    "front.png": {
+      "sha256": "5d8c3d1fd19dad122f2523b939bed8332c60237cc422be1a027c1c2eb325197e",
+      "dimensions": [
+        1000,
+        1200
+      ],
+      "png_crc_ok": true
+    },
+    "side.png": {
+      "sha256": "b1597d0fcfdc341e01b6ff50d8ba4b9646427fd8fd4738633043fa426ed0bd0b",
+      "dimensions": [
+        1000,
+        1200
+      ],
+      "png_crc_ok": true
+    },
+    "back.png": {
+      "sha256": "ee15c2c23b69511e9e7ecabd255a65afdc706cda2ced0d6ccc07975c2f1aad90",
+      "dimensions": [
+        1000,
+        1200
+      ],
+      "png_crc_ok": true
+    },
+    "face.png": {
+      "sha256": "71cc0cd91ba98b873d5d160aa4e8b6ce8c65ff808a681031ddb6814457b15904",
+      "dimensions": [
+        1000,
+        1200
+      ],
+      "png_crc_ok": true
+    },
+    "joint_probe.png": {
+      "sha256": "74c661b793fd9ea2c9e28f73974689025d3eedb55df34e2aad11b4083fe59f87",
+      "dimensions": [
+        1000,
+        1200
+      ],
+      "png_crc_ok": true
+    }
+  },
+  "source_review_exit": 0,
+  "reopen_exit": 0,
+  "source_outside_build_rejection_exit": 1,
+  "no_rejected_directory": true,
+  "syntax_check": "python3 -m py_compile tools/review_character_source.py passed",
+  "relative_links_checked": 14,
+  "runtime_sha256_unchanged": "cbe4475048d3af98a030a333b510ab010905f958792c0f78672395661628a94e",
+  "original_candidate_tools_preserved": true,
+  "tool_sha256": "7ee8d0661c51ae92fc4475237c8aff4b9d56c5b2d690ac946f40184199a5010d",
+  "scope": "Private Blender source/pipeline only; no character export or runtime replacement."
+}

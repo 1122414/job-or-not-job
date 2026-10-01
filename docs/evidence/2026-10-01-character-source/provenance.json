@@ -1,0 +1,81 @@
+{
+  "url": "https://renderpeople.com/sample/free/renderpeople_free_rigged_people_FBX.zip",
+  "bytes": 395419456,
+  "sha256": "dadbe6fb83345566ff1d2822c0fa38e05aaa09c17d7f1340719a4c8e01dbadcd",
+  "downloaded_utc": "2026-10-01T11:09:01Z",
+  "files": [
+    {
+      "name": "rp_eric_rigged_001_FBX.zip",
+      "size": 45243926
+    },
+    {
+      "name": "rp_carla_rigged_001_FBX.zip",
+      "size": 178741586
+    },
+    {
+      "name": "rp_claudia_rigged_002_FBX.zip",
+      "size": 171166339
+    },
+    {
+      "name": "Renderpeople_Renderpoints_Voucher.pdf",
+      "size": 266888
+    }
+  ],
+  "inner_zip_crc_ok": true,
+  "safe_paths_checked": true,
+  "inspected_candidate": "Eric z-up A-pose only; female files not extracted or inspected",
+  "candidate_files": {
+    "rp_eric_rigged_001_zup_t.fbx": {
+      "sha256": "e275e9b2c93e5cbcac138ef7eea20bea0702f065a460c0a440ebf6428682f762",
+      "bytes": 6437504
+    },
+    "rp_eric_rigged_001_A.jpg": {
+      "sha256": "a36970aaf10032faa1f2e1bf0b3232beb3759c9edd29a83ac8c30a9f4ad6c088",
+      "bytes": 49260
+    },
+    "rp_eric_rigged_001_zup_a.fbx": {
+      "sha256": "2324fee0c1deb546eebe7a68ab84d6be9dc0180119de852630f30a545f25f740",
+      "bytes": 6440448
+    },
+    "rp_eric_rigged_001_yup_a.fbx": {
+      "sha256": "99e24d9e614c4238f539a7872f1db1e3d5cfa6de98251598fb602e9c36015392",
+      "bytes": 6444480
+    },
+    "rp_eric_rigged_001_yup_t.fbx": {
+      "sha256": "c587ff60c19fa84f79782d888e835d10e4826bd492ea972dbb86ef094b50d930",
+      "bytes": 6444000
+    },
+    "rp_eric_rigged_001_ue4.fbx": {
+      "sha256": "060e4a29027d0338a0a15fad3ab7c57eec3f6dcf9a324301fb57d663d971025d",
+      "bytes": 1222592
+    },
+    "rp_eric_rigged_001_u3d.fbx": {
+      "sha256": "077ac01d17b78ce99fc1be2f383268ba1733ae71eec6d1ff4577b84968c7b9c7",
+      "bytes": 1025696
+    },
+    "tex/rp_eric_rigged_001_dif.jpg": {
+      "sha256": "586ca7aa7acdd4a66258045553d434d9cb52f45c6f49a992d897c3fd4705ac2e",
+      "bytes": 5494792
+    },
+    "tex/rp_eric_rigged_001_norm.jpg": {
+      "sha256": "9ebc1c277550ead990b62f1c9ea4ba84e79a1a771ece642d2af0fb5c09e47c8f",
+      "bytes": 12880171
+    },
+    "tex/rp_eric_rigged_001_gloss.jpg": {
+      "sha256": "73bf1d7c419557b4794897abbf1dbe14db81d650cd6374acae423b5b98832c27",
+      "bytes": 5062610
+    },
+    "tex/rp_eric_rigged_001_mask01.jpg": {
+      "sha256": "a90f702c33cabba892276821fbc5049595a10e6d3ca29e0ffd955e6c34a6cc21",
+      "bytes": 2315050
+    },
+    "tex/rp_eric_rigged_001_mask02.jpg": {
+      "sha256": "704b7a16f97bb5a833986fa790e08127b892a90eebcd9ca8ffe01cad75b5cdf6",
+      "bytes": 2243825
+    }
+  },
+  "license_url": "https://renderpeople.com/general-terms-and-conditions/",
+  "source_page": "https://renderpeople.com/free-3d-people/",
+  "license_version": "13.12.2024",
+  "license_class": "free proprietary commercial license, not CC0/open-source; private neutral-render review only in this stage"
+}
