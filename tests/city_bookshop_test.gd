@@ -107,7 +107,7 @@ func run() -> void:
 			check(life.elapsed==elapsed_before and life.caption()=="","隔墙站在室外不能算参与或显示现场字幕")
 		game.player.position=player_position
 		var victim: CityResident=game.population.residents[CityLife.AUDIENCE[0]]
-		game.player.position=victim.position+Vector3(0,0,1.15)
+		game.player.position=victim.position+Vector3(0,0,.75)
 		game.player.yaw=0
 		game.player.cooldown=0
 		var attack := InputEventAction.new()
@@ -115,9 +115,13 @@ func run() -> void:
 		root.push_input(attack,true)
 		attack=attack.duplicate(); attack.pressed=false
 		root.push_input(attack,true)
+		for frame in range(34):
+			await physics_frame
+			if victim.hits>0: break
+		var elapsed_at_hit := life.elapsed
 		check(victim.hits>0 and victim.fear>0,"真实攻击使参加者受伤避险")
 		await frames(120)
-		check(life.elapsed==elapsed_before,"攻击与目击避险使现场分享中断")
+		check(life.elapsed==elapsed_at_hit,"实际命中与目击避险后现场分享停止推进")
 		game.player.position=player_position
 		for index in CityLife.AUDIENCE: game.population.residents[index].fear=0
 		for i in range(6000):

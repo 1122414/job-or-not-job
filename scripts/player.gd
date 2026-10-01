@@ -20,6 +20,15 @@ var bag_open := false
 var bag_page := 0
 var cooldown := 0.0
 var swing := 0.0
+var strike_action := -1
+var strike_weapon: OfficeProp
+var strike_dangerous := false
+var strike_previous := Transform3D.IDENTITY
+var strike_phase := 0.0
+var strike_origin := Vector3.ZERO
+var strike_yaw := 0.0
+var strike_shape: Shape3D
+var strike_parts: Array[CollisionShape3D]=[]
 var hp := 100
 var protection := 0.0
 var dead := 0.0
@@ -97,6 +106,7 @@ func _unhandled_input(event: InputEvent) -> void:
 func _physics_process(delta: float) -> void:
 	cooldown = maxf(0,cooldown-delta)
 	swing = maxf(0,swing-delta)
+	if swing<=0 and (strike_action>=0 or strike_shape!=null or not strike_parts.is_empty()): cancel_strike()
 	protection = maxf(0,protection-delta)
 	if frame_remaining>0 and game.interviews.player_seated():
 		frame_remaining=maxf(0,frame_remaining-delta)
@@ -115,6 +125,7 @@ func _physics_process(delta: float) -> void:
 		if meal_facing!=null: facing=PI
 	visual.rotation.y = lerp_angle(visual.rotation.y,facing,1.0-exp(-delta*14.0))
 	visual.pose(Vector2(velocity.x,velocity.z).length(),swing>0,dead>0,seated,game.interviews.player_seated() or game.in_vehicle() or game.commons!=null and game.commons.player_bench()!=null or game.home!=null and game.home.sitting())
+	if swing>0: visual.animation.speed_scale=1.0
 	var speaker: OfficeNPC=game.speaker if game.speaker is OfficeNPC else null
 	if speaker==null and game.interviews.player_seated():
 		var session: Dictionary=game.interviews.sessions[game.interviews.active_firm()]
@@ -124,6 +135,7 @@ func _physics_process(delta: float) -> void:
 	body_shape.shape.height=1.3 if seated else 1.75
 	body_shape.position.y=0.68 if seated else 0.88
 	sync_held()
+	update_strike()
 	if dead > 0:
 		dead -= delta
 		visual.rotation.z = 1.4
@@ -147,26 +159,99 @@ func _physics_process(delta: float) -> void:
 	if position.y < -8: hurt(100)
 
 func attack() -> void:
-	if game.in_vehicle(): return
-	if cooldown > 0: return
+	if game.in_vehicle() or dead>0 or cooldown>0 or not stand_up(): return
+	cancel_strike()
 	cooldown = 0.5 if held and held.kind == "keyboard" else 0.7
-	swing = 0.3
-	var action: int = game.next_action()
-	var reach := 2.7 if held and held.kind == "keyboard" else 2.0
-	var dangerous := held!=null and held.mass>=2.0 and Input.is_action_pressed("dangerous")
-	var candidate: Node3D
-	var nearest_distance := reach+1.0
-	for node in game.targets():
-		if not (node is OfficeNPC or node is CityResident or node is OfficeProp) or node==held: continue
-		if not node.visible: continue
-		if node is CityResident and (node.hp==0 or not dangerous and not node.available()): continue
-		if node is OfficeNPC and (node.care_state in ["away","carried"] or not dangerous and not node.available()): continue
-		var offset: Vector3=node.global_position-global_position
-		offset.y=0
-		if offset.length()<=reach and offset.length()<nearest_distance and offset.normalized().dot(forward())>0.35 and game.can_see(self,node):
-			candidate=node
-			nearest_distance=offset.length()
+	swing = visual.animation.get_animation("strike").length+.03
+	strike_action=game.next_action()
+	strike_weapon=held
+	strike_dangerous=held!=null and held.mass>=2.0 and Input.is_action_pressed("dangerous")
+	strike_yaw=yaw
+	strike_origin=global_position
+	strike_phase=0.0
+	if held:
+		for child in held.get_children():
+			if child is CollisionShape3D and not child.disabled: strike_parts.append(child)
+	else:
+		var fist := SphereShape3D.new()
+		fist.radius=0.10
+		strike_shape=fist
+	visual.current="strike"
+	visual.animation.play("strike",0.06)
+	visual.animation.speed_scale=1.0
+	strike_previous=strike_transform()
+
+func cancel_strike() -> void:
+	strike_action=-1
+	strike_weapon=null
+	strike_shape=null
+	strike_parts.clear()
+	swing=0.0
+
+func strike_transform() -> Transform3D:
+	if is_instance_valid(strike_weapon): return strike_weapon.global_transform
+	var palm := visual.contacts.palm("R")
+	palm.origin+=palm.basis.y*0.04
+	return palm
+
+func update_strike() -> void:
+	if strike_action<0: return
+	if swing<=0 or dead>0 or seated or game.in_vehicle() or held!=strike_weapon or visual.current!="strike" or absf(angle_difference(strike_yaw,yaw))>.6 or global_position.distance_to(strike_origin)>.75:
+		cancel_strike()
+		return
+	visual.animation.speed_scale=1.0
+	var phase := visual.animation.current_animation_position
+	var current_transform := strike_transform()
+	# Only the outward stroke can hit. Starting the sweep at the active boundary
+	# prevents a wind-up overlap or the return stroke from damaging a target.
+	if phase>=.08 and phase<=.28:
+		var start := strike_previous if strike_phase>=.08 else current_transform
+		var distance := start.origin.distance_to(current_transform.origin)
+		var angle := start.basis.get_rotation_quaternion().angle_to(current_transform.basis.get_rotation_quaternion())
+		var steps := maxi(1,maxi(ceili(distance/.02),ceili(angle/.05)))
+		var query := PhysicsShapeQueryParameters3D.new()
+		query.margin=.01
+		query.collision_mask=3
+		var excluded: Array[RID]=[get_rid()]
+		if is_instance_valid(held): excluded.append(held.get_rid())
+		query.exclude=excluded
+		for step in range(steps+1):
+			var frame := start.interpolate_with(current_transform,float(step)/steps)
+			var contacts: Array[Dictionary]=[]
+			if strike_parts.is_empty():
+				query.shape=strike_shape
+				query.transform=frame
+				contacts=get_world_3d().direct_space_state.intersect_shape(query,32)
+			else:
+				for part in strike_parts:
+					query.shape=part.shape
+					query.transform=frame*part.transform
+					contacts.append_array(get_world_3d().direct_space_state.intersect_shape(query,32))
+			if contacts.is_empty(): continue
+			# Every solid blocks the stroke, including unavailable people and walls.
+			var candidate: Node3D=contacts[0].collider
+			var nearest := query.transform.origin.distance_squared_to(candidate.global_position)
+			for contact in contacts:
+				var node: Node3D=contact.collider
+				if not (node is OfficeNPC or node is CityResident or node is OfficeProp):
+					strike_action=-1
+					return
+				if node.global_position.distance_squared_to(query.transform.origin)<nearest:
+					candidate=node
+					nearest=node.global_position.distance_squared_to(query.transform.origin)
+			apply_strike(candidate)
+			strike_action=-1
+			return
+	strike_previous=current_transform
+	strike_phase=phase
+	strike_origin=global_position
+
+func apply_strike(candidate: Node3D) -> void:
+	var action := strike_action
+	var dangerous := strike_dangerous
+	if not candidate.visible or not game.can_see(self,candidate): return
 	if candidate is OfficeNPC or candidate is CityResident:
+		if not dangerous and not candidate.available(): return
 		candidate.hit(forward(),1.4 if dangerous else 0.5,action,dangerous)
 		game.impact()
 	elif candidate is OfficeProp:
@@ -177,6 +262,7 @@ func attack() -> void:
 
 func pick(prop: OfficeProp) -> void:
 	if game.in_vehicle(): return
+	cancel_strike()
 	if not prop.portable():
 		if prop.tip(forward(),game.next_action()):
 			game.on_property_hit(prop,game.action_counter)
@@ -198,6 +284,21 @@ func pick(prop: OfficeProp) -> void:
 func sync_held() -> void:
 	if game.meals: game.meals.scene.apply(self)
 	if game.driving and game.driving.active: game.driving.active.pose_driver(visual)
+	if swing>0 and visual.current=="strike" and dead<=0:
+		var phase := visual.animation.current_animation_position
+		var extension := smoothstep(.04,.18,phase)*(1.0-smoothstep(.24,.42,phase))
+		var palm_basis := Basis(Vector3.RIGHT,Vector3.FORWARD,Vector3.UP) if held else Basis(Vector3.UP,Vector3.FORWARD,Vector3.LEFT)
+		var point := Vector3(.20,visual.standing_height*.66,lerpf(-.26,-.70,extension))
+		visual.contacts.reach("R",visual.global_transform*Transform3D(palm_basis,point),smoothstep(0,.06,phase))
+		visual.contacts.fingers("R",-.3 if held else 1.8)
+		if not held:
+			var skeleton := visual.skeleton
+			var thumb := skeleton.find_bone("finger1-1.R")
+			var tip := skeleton.find_bone("finger1-3.R")
+			var base := skeleton.get_bone_global_pose(thumb).origin
+			var end := skeleton.get_bone_global_pose(tip).origin
+			var target := skeleton.to_local(visual.contacts.palm("R")*Vector3(.035,.045,.045))
+			visual.contacts.align_bone(thumb,end-base,target-base)
 	if not is_instance_valid(held): return
 	if swing<=0 and dead<=0:
 		var frame := Basis(Vector3.RIGHT,Vector3.FORWARD,Vector3.UP)
@@ -217,6 +318,7 @@ func sync_held() -> void:
 func release(throwing: bool) -> void:
 	if game.in_vehicle(): return
 	if not held: return
+	cancel_strike()
 	sync_held()
 	var prop := held
 	held = null
@@ -236,6 +338,7 @@ func release(throwing: bool) -> void:
 func hurt(amount: int) -> void:
 	stand_up()
 	if protection > 0: return
+	cancel_strike()
 	hp = maxi(0,hp-amount)
 	game.impact()
 
@@ -263,6 +366,7 @@ func collect(prop: OfficeProp) -> void:
 	game.queue_save()
 
 func store_held() -> void:
+	cancel_strike()
 	if not held: return
 	if not inventory.has(held): inventory.append(held)
 	held.hide()
@@ -276,6 +380,7 @@ func cycle_item() -> void:
 	game.queue_save()
 
 func respawn() -> void:
+	cancel_strike()
 	if seat_body: remove_collision_exception_with(seat_body)
 	seat_body=null
 	seated=false

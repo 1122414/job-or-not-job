@@ -348,7 +348,7 @@ static func restore(game: Node3D, data: Dictionary) -> bool:
 	game.player.bag_page=0
 	game.navigation_dirty=0.1
 	game.player.cooldown=0
-	game.player.swing=0
+	game.player.cancel_strike()
 	game.player.velocity=Vector3.ZERO
 	game.player.visual.rotation.z=0
 	if game.player.hp==0: game.player.respawn()

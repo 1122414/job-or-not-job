@@ -19,16 +19,19 @@ func run() -> void:
 	await physics_frame
 	await physics_frame
 	game.player.attack()
+	for i in range(34): await physics_frame
 	check(not desk.damaged and desk.durability==desk.max_durability(),"真实空手攻击不坍塌桌子")
 	var first: OfficeNPC=game.npcs[0]
 	var second: OfficeNPC=game.npcs[1]
-	first.position=Vector3(29.6,0,18)
-	second.position=Vector3(30.4,0,18)
-	game.player.position=Vector3(30,0,19.5)
+	first.set_physics_process(false);second.set_physics_process(false)
+	first.position=Vector3(29.7,0,18)
+	second.position=Vector3(30.3,0,18)
+	game.player.position=Vector3(30,0,18.75)
 	await physics_frame
 	await physics_frame
 	game.player.cooldown=0
 	game.player.attack()
+	for i in range(34): await physics_frame
 	check(int(first.hp<100)+int(second.hp<100)==1,"一次真实挥击只有一个主要对象受伤")
 	for i in range(15): desk.strike(Vector3.FORWARD,game.next_action(),0.4)
 	check(not desk.damaged and desk.durability==desk.max_durability(),"徒手不损坏坚固桌体")

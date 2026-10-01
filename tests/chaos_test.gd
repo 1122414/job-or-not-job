@@ -12,13 +12,17 @@ func run() -> void:
 	await physics_frame
 	var opponent: OfficeNPC=game.npc_for_role("a_boss")
 	opponent.position=Vector3(0,0,12)
-	game.player.position=opponent.position+Vector3(0,0,1.4)
+	game.player.position=opponent.position+Vector3(0,0,.65)
 	# Self-defence is now brief and personality-dependent, so exercise recovery from an injured state.
 	game.player.hp=36
 	game.player.yaw=0
 	game.player.pick(game.props[0])
 	game.player.pick(game.props[1])
+	opponent.set_physics_process(false)
 	game.player.attack()
+	for frame in range(34): await physics_frame
+	check(opponent.hp<100,"手持杯子在近身挥击中实际接触对方")
+	opponent.set_physics_process(true)
 	var died := false
 	var revived := false
 	for i in range(1500):

@@ -58,14 +58,16 @@ func run() -> void:
 	person.set_physics_process(false)
 	person.position=Vector3(0,0,58)
 	person.from_node="center"; person.route.clear(); person.crossing=""
-	game.player.position=Vector3(0,0,59.2)
+	game.player.position=Vector3(0,0,58.75)
 	await frames(3)
 	action("attack")
+	await frames(34)
 	check(person.hp==88 and person.fear>0 and person.hits==1,"玩家攻击动作触发居民受伤与避险")
 	check(witness.witnessed==1 and witness.fear>0,"附近居民目击危险后选择避险")
 	for i in range(20):
 		game.player.cooldown=0
 		action("attack")
+		await frames(34)
 	check(person.hp==1 and person.down>0,"连续普通攻击最多使居民倒地")
 	check(SaveGame.restore(game,JSON.parse_string(JSON.stringify(SaveGame.snapshot(game)))),"倒地与目击后果可以JSON恢复")
 	person.fear=0

@@ -1,0 +1,308 @@
+{
+  "build_id": "20261001T092435329084Z-9e0eaaf6-cbe44750",
+  "source_sha256": "cbe4475048d3af98a030a333b510ab010905f958792c0f78672395661628a94e",
+  "pck_sha256": "1484371ac7c5942c5f3ddd6e0fa1e2af687704851f8bcaedd5b262d7b5cbc33b",
+  "zip_sha256": "0d62ea9f521692a1c80cc41f61760dcc86e56afbf7a7da9aed5c3ac297f7bd09",
+  "engine_source_sha256": "ecc8da2d60100102cfca6e833d3860d7436b46ae062fa072ce89a6c95d664a3f",
+  "packaged_runtime_sha256": "5178630803cd070e6dd8aced511b5958e105fcd10b726a6c48880c76fe9593e7",
+  "zip_crc": "passed",
+  "signature": "ad_hoc_deep_strict_passed",
+  "inner_outer_manifest_match": true,
+  "runtime_source_unchanged": true,
+  "retained_manifest_validation": "not_yet_verified",
+  "retained_runtime_dirty": true,
+  "probes": [
+    {
+      "case": "package-root",
+      "cwd": "/Users/geminchen/My-Item/job-or-not-job",
+      "command": [
+        "/Users/geminchen/My-Item/job-or-not-job/build/baselines/20261001T092435329084Z-9e0eaaf6-cbe44750/今天不上班-0.5.0.app/Contents/MacOS/TodayOff",
+        "--headless",
+        "--fixed-fps",
+        "60",
+        "--script",
+        "/Users/geminchen/My-Item/job-or-not-job/tools/verify_macos.gd",
+        "--audio-driver",
+        "Dummy",
+        "--log-file",
+        "/Users/geminchen/My-Item/job-or-not-job/build/attack-window-2026-10-01/package-root.log",
+        "--",
+        "--no-mouse-capture"
+      ],
+      "exit_code": 0,
+      "errors": [],
+      "success_marker": "PACKAGED_SMOKE_OK",
+      "log_sha256": "0f37fcfcffd711ced84fcdaaf33195171a7da37ad6cab1be8b7c68e5bd481a29",
+      "warnings": []
+    },
+    {
+      "case": "package-tmp",
+      "cwd": "/private/tmp",
+      "command": [
+        "/Users/geminchen/My-Item/job-or-not-job/build/baselines/20261001T092435329084Z-9e0eaaf6-cbe44750/今天不上班-0.5.0.app/Contents/MacOS/TodayOff",
+        "--headless",
+        "--fixed-fps",
+        "60",
+        "--script",
+        "/Users/geminchen/My-Item/job-or-not-job/tools/verify_macos.gd",
+        "--audio-driver",
+        "Dummy",
+        "--log-file",
+        "/Users/geminchen/My-Item/job-or-not-job/build/attack-window-2026-10-01/package-tmp.log",
+        "--",
+        "--no-mouse-capture"
+      ],
+      "exit_code": 0,
+      "errors": [],
+      "success_marker": "PACKAGED_SMOKE_OK",
+      "log_sha256": "0f37fcfcffd711ced84fcdaaf33195171a7da37ad6cab1be8b7c68e5bd481a29",
+      "warnings": []
+    },
+    {
+      "case": "package-attack",
+      "cwd": "/private/tmp",
+      "command": [
+        "/Users/geminchen/My-Item/job-or-not-job/build/baselines/20261001T092435329084Z-9e0eaaf6-cbe44750/今天不上班-0.5.0.app/Contents/MacOS/TodayOff",
+        "--headless",
+        "--fixed-fps",
+        "60",
+        "--script",
+        "/Users/geminchen/My-Item/job-or-not-job/tests/attack_window_test.gd",
+        "--audio-driver",
+        "Dummy",
+        "--log-file",
+        "/Users/geminchen/My-Item/job-or-not-job/build/attack-window-2026-10-01/package-attack.log",
+        "--",
+        "--no-mouse-capture"
+      ],
+      "exit_code": 0,
+      "errors": [],
+      "success_marker": "ATTACK_WINDOW_TEST failures=0",
+      "log_sha256": "d06954be08cf6e334ea147f6c0fbe5c3d945da5c6baccf7578cbfab522051e01",
+      "warnings": []
+    },
+    {
+      "case": "package-render",
+      "cwd": "/private/tmp",
+      "command": [
+        "/Users/geminchen/My-Item/job-or-not-job/build/baselines/20261001T092435329084Z-9e0eaaf6-cbe44750/今天不上班-0.5.0.app/Contents/MacOS/TodayOff",
+        "--fixed-fps",
+        "60",
+        "--script",
+        "/Users/geminchen/My-Item/job-or-not-job/tools/render_player_strike.gd",
+        "--audio-driver",
+        "Dummy",
+        "--log-file",
+        "/Users/geminchen/My-Item/job-or-not-job/build/attack-window-2026-10-01/package-render.log",
+        "--",
+        "--no-mouse-capture",
+        "--output=/Users/geminchen/My-Item/job-or-not-job/build/attack-window-2026-10-01/package-render"
+      ],
+      "exit_code": 0,
+      "errors": [],
+      "success_marker": "PLAYER_STRIKE_RENDER_OK",
+      "log_sha256": "07f44e8a580334f40957228814bf9a7cea1f2bb2d2cefb000fc93812154f1770",
+      "warnings": [
+        "WARNING: 7 RIDs of type \"Texture\" were leaked."
+      ]
+    }
+  ],
+  "source_package_png_comparison": [
+    {
+      "file": "fist-close.png",
+      "source_sha256": "f39954f7fd18f38a7281d626953a0cb0c689432f9b757ac46af53577512b2801",
+      "package_sha256": "f39954f7fd18f38a7281d626953a0cb0c689432f9b757ac46af53577512b2801",
+      "same_bytes": true,
+      "changed_rgb_pixels": 0,
+      "max_channel_difference": 0,
+      "difference_bbox": null
+    },
+    {
+      "file": "normal-near-before.png",
+      "source_sha256": "1402a1ad1bf46a720b584c8e0eb4a10ad0a9f54476a17a06fb97c00d1cd30532",
+      "package_sha256": "b46616442944d7d17fbe570f5963f1054d1f1a4a1a40195de68177894fbbafc1",
+      "same_bytes": false,
+      "changed_rgb_pixels": 24,
+      "max_channel_difference": 2,
+      "difference_bbox": [
+        395,
+        345,
+        743,
+        353
+      ]
+    },
+    {
+      "file": "normal-near-contact.png",
+      "source_sha256": "7d163c2c06f833242aa2a25c162337f3bc81103083930a116157a8a4b29bb9ae",
+      "package_sha256": "7d163c2c06f833242aa2a25c162337f3bc81103083930a116157a8a4b29bb9ae",
+      "same_bytes": true,
+      "changed_rgb_pixels": 0,
+      "max_channel_difference": 0,
+      "difference_bbox": null
+    },
+    {
+      "file": "normal-near-return.png",
+      "source_sha256": "3f7740f0c8188a74cd0e6c849c1c13709ba432857bfcfeea0902a6e9e624271a",
+      "package_sha256": "3f7740f0c8188a74cd0e6c849c1c13709ba432857bfcfeea0902a6e9e624271a",
+      "same_bytes": true,
+      "changed_rgb_pixels": 0,
+      "max_channel_difference": 0,
+      "difference_bbox": null
+    },
+    {
+      "file": "normal-near-windup.png",
+      "source_sha256": "a9954ac6258f8542997346bfba6a7d589bf34bde6c21fb55933d6dbf414e69a9",
+      "package_sha256": "a9954ac6258f8542997346bfba6a7d589bf34bde6c21fb55933d6dbf414e69a9",
+      "same_bytes": true,
+      "changed_rgb_pixels": 0,
+      "max_channel_difference": 0,
+      "difference_bbox": null
+    },
+    {
+      "file": "side-keyboard-before.png",
+      "source_sha256": "c510a7211d304909b903296fdc2dc04f58ba0f2c5252708e720300666b6fc33a",
+      "package_sha256": "c510a7211d304909b903296fdc2dc04f58ba0f2c5252708e720300666b6fc33a",
+      "same_bytes": true,
+      "changed_rgb_pixels": 0,
+      "max_channel_difference": 0,
+      "difference_bbox": null
+    },
+    {
+      "file": "side-keyboard-contact.png",
+      "source_sha256": "b4b87a6b7d4510a4c07aa8202edbe211bbf7769c394050953781be149dbe8718",
+      "package_sha256": "b4b87a6b7d4510a4c07aa8202edbe211bbf7769c394050953781be149dbe8718",
+      "same_bytes": true,
+      "changed_rgb_pixels": 0,
+      "max_channel_difference": 0,
+      "difference_bbox": null
+    },
+    {
+      "file": "side-keyboard-return.png",
+      "source_sha256": "fc9aa5d8ac6e52d6855407b8bc6a10742817b867cce5145cfb8e2fac195c463b",
+      "package_sha256": "fc9aa5d8ac6e52d6855407b8bc6a10742817b867cce5145cfb8e2fac195c463b",
+      "same_bytes": true,
+      "changed_rgb_pixels": 0,
+      "max_channel_difference": 0,
+      "difference_bbox": null
+    },
+    {
+      "file": "side-keyboard-windup.png",
+      "source_sha256": "903ec48c21e76c5c978b1ca04feb6b9246c4a95e68cf1fc12828ce32c4979787",
+      "package_sha256": "903ec48c21e76c5c978b1ca04feb6b9246c4a95e68cf1fc12828ce32c4979787",
+      "same_bytes": true,
+      "changed_rgb_pixels": 0,
+      "max_channel_difference": 0,
+      "difference_bbox": null
+    },
+    {
+      "file": "side-near-before.png",
+      "source_sha256": "2ebb7c1f20ad322d1d9fbdfafa3820a49bab7c7dda16e6a5b0d8e856996a238a",
+      "package_sha256": "2ebb7c1f20ad322d1d9fbdfafa3820a49bab7c7dda16e6a5b0d8e856996a238a",
+      "same_bytes": true,
+      "changed_rgb_pixels": 0,
+      "max_channel_difference": 0,
+      "difference_bbox": null
+    },
+    {
+      "file": "side-near-contact.png",
+      "source_sha256": "781419ff1a49195a6da4f614a2cfb157210346f3fc292bee03f206f5de2b5e13",
+      "package_sha256": "781419ff1a49195a6da4f614a2cfb157210346f3fc292bee03f206f5de2b5e13",
+      "same_bytes": true,
+      "changed_rgb_pixels": 0,
+      "max_channel_difference": 0,
+      "difference_bbox": null
+    },
+    {
+      "file": "side-near-return.png",
+      "source_sha256": "1258abc6b4464cde26213f25854d1642b5b67e8c0e0f2726ef2e15fb2dae42b1",
+      "package_sha256": "1258abc6b4464cde26213f25854d1642b5b67e8c0e0f2726ef2e15fb2dae42b1",
+      "same_bytes": true,
+      "changed_rgb_pixels": 0,
+      "max_channel_difference": 0,
+      "difference_bbox": null
+    },
+    {
+      "file": "side-near-windup.png",
+      "source_sha256": "c27e606f442e6390e499726f77b1e3cb6a3ce3658f9ee988c743a174ccf045ef",
+      "package_sha256": "c27e606f442e6390e499726f77b1e3cb6a3ce3658f9ee988c743a174ccf045ef",
+      "same_bytes": true,
+      "changed_rgb_pixels": 0,
+      "max_channel_difference": 0,
+      "difference_bbox": null
+    },
+    {
+      "file": "side-remote-before.png",
+      "source_sha256": "154cea6370afafc34357ce8693058de26cc8f7ce49df3dfd11f9ce256b070b58",
+      "package_sha256": "154cea6370afafc34357ce8693058de26cc8f7ce49df3dfd11f9ce256b070b58",
+      "same_bytes": true,
+      "changed_rgb_pixels": 0,
+      "max_channel_difference": 0,
+      "difference_bbox": null
+    },
+    {
+      "file": "side-remote-miss.png",
+      "source_sha256": "96c24f4b4c5fadd52e8f3d960aaebbb320bf7b3f84848d535c3797439d40e1d2",
+      "package_sha256": "96c24f4b4c5fadd52e8f3d960aaebbb320bf7b3f84848d535c3797439d40e1d2",
+      "same_bytes": true,
+      "changed_rgb_pixels": 0,
+      "max_channel_difference": 0,
+      "difference_bbox": null
+    },
+    {
+      "file": "side-remote-return.png",
+      "source_sha256": "eb30109effe8614f4e4f396b0879c0df36b6be3fc25150878fe1c8f042aabbb6",
+      "package_sha256": "eb30109effe8614f4e4f396b0879c0df36b6be3fc25150878fe1c8f042aabbb6",
+      "same_bytes": true,
+      "changed_rgb_pixels": 0,
+      "max_channel_difference": 0,
+      "difference_bbox": null
+    },
+    {
+      "file": "side-remote-windup.png",
+      "source_sha256": "ecf58ef45b140ecb9984d13ad841836e5e2025446afb00aca409564e588c0228",
+      "package_sha256": "ecf58ef45b140ecb9984d13ad841836e5e2025446afb00aca409564e588c0228",
+      "same_bytes": true,
+      "changed_rgb_pixels": 0,
+      "max_channel_difference": 0,
+      "difference_bbox": null
+    },
+    {
+      "file": "side-wall-before.png",
+      "source_sha256": "6b5cd0ec7195d6d3b9f598aaf05a0cfe2b34a4b5b9ca0a6b6461a72bf075a392",
+      "package_sha256": "6b5cd0ec7195d6d3b9f598aaf05a0cfe2b34a4b5b9ca0a6b6461a72bf075a392",
+      "same_bytes": true,
+      "changed_rgb_pixels": 0,
+      "max_channel_difference": 0,
+      "difference_bbox": null
+    },
+    {
+      "file": "side-wall-miss.png",
+      "source_sha256": "cb234563f2987f9e0b6ddc97a38ecec53168e57c0a59de6dfd54d6cdba701dca",
+      "package_sha256": "cb234563f2987f9e0b6ddc97a38ecec53168e57c0a59de6dfd54d6cdba701dca",
+      "same_bytes": true,
+      "changed_rgb_pixels": 0,
+      "max_channel_difference": 0,
+      "difference_bbox": null
+    },
+    {
+      "file": "side-wall-return.png",
+      "source_sha256": "214e6783833ede428d957bcc2c0f14af9f4204893daeb023f37d5e8afbfb5706",
+      "package_sha256": "214e6783833ede428d957bcc2c0f14af9f4204893daeb023f37d5e8afbfb5706",
+      "same_bytes": true,
+      "changed_rgb_pixels": 0,
+      "max_channel_difference": 0,
+      "difference_bbox": null
+    },
+    {
+      "file": "side-wall-windup.png",
+      "source_sha256": "2919165066896ef0b2eff9d31c017c6e66a4eab0bcffb73bdcd27a72f1aeb3c4",
+      "package_sha256": "2919165066896ef0b2eff9d31c017c6e66a4eab0bcffb73bdcd27a72f1aeb3c4",
+      "same_bytes": true,
+      "changed_rgb_pixels": 0,
+      "max_channel_difference": 0,
+      "difference_bbox": null
+    }
+  ],
+  "integrity_first_attempt": "Incorrectly compared signed binary with pre-signing engine; corrected to existing packaged_runtime_sha256. No package changes.",
+  "png_comparison": "20/21 byte-identical; first normal-camera before-input frame differs; all final HP/contact phases equal. Difference retained without inferred cause."
+}

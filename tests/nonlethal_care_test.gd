@@ -9,15 +9,20 @@ func run() -> void:
 	for i in range(10): await physics_frame
 	var npc: OfficeNPC=game.npc_for_role("a_hr")
 	npc.position=Vector3(-14,0,0)
-	game.player.position=npc.position+Vector3(0,0,1.1)
+	game.player.position=npc.position+Vector3(0,0,.75)
 	game.player.yaw=0
+	for other in game.npcs: other.set_physics_process(false)
 	game.player.attack()
+	for i in range(34): await physics_frame
 	check(npc.hp==88 and npc.down==0 and npc.velocity.y<=0,"徒手首击不倒地、不腾空")
 	check(npc.hostile==0 and npc.reaction>0,"谨慎人物退避求助，不追打")
 	for i in range(20):
 		game.player.cooldown=0
 		game.player.attack()
+		for frame in range(34): await physics_frame
+		if npc.care_state=="unconscious": break
 	check(npc.hp==1 and not npc.dead and npc.care_state=="unconscious","连续徒手最多昏迷")
+	for other in game.npcs: other.set_physics_process(true)
 	var original: String=npc.stable_id
 	var saved: Dictionary=SaveGame.snapshot(game)
 	check(SaveGame.restore(game,saved),"昏迷状态可存取")
