@@ -1,0 +1,36 @@
+{
+  "stage": "CH2-V1",
+  "date": "2026-10-01",
+  "method": "built-in imagegen",
+  "artifact_kind": "2D concept reference; not an implemented 3D model or engine screenshot",
+  "input_images": [],
+  "image": {
+    "path": "male-graduate-v1.png",
+    "width": 1536,
+    "height": 1024,
+    "bytes": 2219709,
+    "sha256": "e00173210fba76f576545dde7c853893c6a789bdeb2ad95084b585f4e338eb87"
+  },
+  "prompt": {
+    "path": "prompt.md",
+    "sha256": "1e69bae417b684a76ddbf62f60adfe110cf8d1bec2901a476fa9507eaaf199f0"
+  },
+  "visual_review": {
+    "performed": true,
+    "views": [
+      "front_full",
+      "side_full",
+      "back_full",
+      "portrait"
+    ],
+    "observations": [
+      "All full-body views show the entire head and shoes.",
+      "Blue-gray open shirt, off-white undershirt, charcoal straight trousers and light sneakers match the brief.",
+      "View-level hair, face and clothing identity appear consistent; this is an image-level review, not verified 3D correspondence.",
+      "Relaxed shoulders, neck and hand poses; no obvious spikes or extra limbs in reviewed views.",
+      "Rear hand fingers overlap naturally; an exact finger count in every view is not established."
+    ],
+    "user_approval": "pending",
+    "runtime_verification": "not applicable to a concept image"
+  }
+}
