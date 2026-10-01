@@ -50,5 +50,12 @@
       "check": "Deep strict codesign on mounted current DMG",
       "result": "Failed due to com.apple.FinderInfo metadata; normal copy without resource fork/extended metadata passed full signature and Gatekeeper; no security setting or quarantine override"
     }
-  ]
+  ],
+  "latest_status": {
+    "user_instruction": "算了先暂停使用epic",
+    "epic_route": "paused by user",
+    "application_running": false,
+    "verification": "Native app inventory reported isRunning=false after normal quit",
+    "next_steps": "Retain approved visual concept; reconsider authoring route before further Epic actions"
+  }
 }
