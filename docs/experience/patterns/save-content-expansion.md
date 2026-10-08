@@ -40,3 +40,7 @@
 2026-09-30 C3j v24复用：未来安排要同时验证绝对日期、原职业选择、项目内容、实际发送人/结果，不能只校验字段类型。旧协商/拒绝没有安排时间，迁移成unconfirmed并通过玩家当面确认建立新日期；旧已发送结果保留，但不虚构回执。`work_handover_save_test`覆盖24类坏档整体拒绝、v1—v23构造JSON和三种旧工作分支；源码/实际包的晨间、作业中、完成六档在实际TodayOff独立进程恢复全部交接字段。字段归一与关联检查再次验证；不外推历史玩家档全集或区域卸载。见C3j验收及[延后世界行为](deferred-world-actions.md)。
 
 2026-09-30 C4k复用：新独立驾驶恢复探针再次把运行schema整数与磁盘JSON浮点Dictionary直接比较，误报恢复不一致。保持全部字段，统一JSON域后八份真实行程档在实际包八个进程恢复通过，另验证暂停夜灯、驾驶者座位及无新输入90帧刹停。见`tools/verify_car_journey_save.gd`及C4k的`save-recovery.json`。存档仍为v24；本次证明当前路线字段与恢复表现，未验证跨区卸载或历史玩家档全集。
+
+2026-10-08 v26叙事改版：新故事需要转正失败，不能把旧已转正玩家档改成失败；用显式legacy/current路线与面试edition2/3保留已发生的历史，缺新字段的旧版档初始化legacy，新游戏显式current。章节不只校验枚举：离职/后段必须与conversion_failed、无雇佣及无regular相容，后段必须有一段实习证明，ending须三个结果已查看。`autumn_prologue_test`、`autumn_career_test`、`autumn_search_test`验证JSON游标、旧已转正夹具与坏档原子拒绝，旧full_route_test仍成功转正。限构造旧档和本轮真实路线，不代表历史档全集。
+
+同轮资源生命周期发现：RefCounted故事对象持有search、search又持有故事对象，退出报告对象与资源泄漏；search改持场景Node，通过访问器获取game.story后定向headless退出无此告警。此因果只经一次改前/改后观察；Metal退出既有Texture RID警告属于另一个未定位问题，不能合并宣称修复。

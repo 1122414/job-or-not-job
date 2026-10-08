@@ -89,7 +89,7 @@ func report(firm: String) -> void:
 		if game.story.active(): game.story.joined()
 	game.queue_save()
 func next_time() -> int:
-	var result := 0
+	var result: int=game.story.search.next_time()
 	for state in applications.values():
 		var time: int=state.feedback_at if state.phase=="waiting" else state.report_at if state.phase=="accepted" else 0
 		if time>game.payroll.minute and (result==0 or time<result): result=time

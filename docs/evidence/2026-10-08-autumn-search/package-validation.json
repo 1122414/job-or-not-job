@@ -1,0 +1,45 @@
+{
+  "date": "2026-10-08",
+  "build_id": "20261008T122307213459Z-5605cc50-94da00a7",
+  "source_commit_at_build": "5605cc50f949f3b9011f904532e85feb3967c64d",
+  "runtime_dirty_at_build": true,
+  "source_sha256": "94da00a79d0b94ac2c5fb3e7ed07cbb25742c0f7c40b25dc1f84b06ab0754e77",
+  "pck_sha256": "4c9915f7814761a68e979590a0d8803528b990ef3bafb72a66dd5df1f9e419b1",
+  "verified": {
+    "two_cwd_isolated_startup": true,
+    "codesign_strict": true,
+    "zip_crc": true,
+    "source_checksum_matches": true,
+    "runtime_tests": {
+      "autumn-package-prologue.log": {
+        "marker": "AUTUMN_PROLOGUE_TEST failures=0",
+        "log_sha256": "aafb3f61dc29c4f3d104da454343a7bf10669685422f7356d45227da13746293"
+      },
+      "autumn-package-final-route.log": {
+        "marker": "AUTUMN_FULL_STORY_TEST failures=0",
+        "log_sha256": "ccd0a79fd6b2ca5d569394b83fa7f5b7882d585d6837fb1652b33dc8d62ca636"
+      },
+      "autumn-package-restore-final.log": {
+        "marker": "PACKAGED_ENDING_RESTORE_OK=true",
+        "log_sha256": "a3624d22f37347dc9db0915ba2fe85d058245f8b859c24c97df5fe9eac22b442"
+      }
+    }
+  },
+  "limits": [
+    "Headless package route is not independent player acceptance",
+    "Final page pixels reviewed in source Metal run",
+    "Existing Metal exit Texture RID warning remains"
+  ],
+  "regression": {
+    "godot_tests": 109,
+    "check_sh_exit": 0,
+    "python_tests": 34,
+    "python_result": "OK",
+    "aggregate_log_sha256": "a1e58a849d07212ecd0cce7a61dcec57cb51662d2c23f84e203f51a79c8f484d",
+    "final_delta_checks": [
+      "autumn_search_test after font and revisit fixes",
+      "final package full route and prologue",
+      "editor import after persisted restore probe"
+    ]
+  }
+}

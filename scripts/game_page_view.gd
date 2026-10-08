@@ -1,7 +1,7 @@
 class_name GamePageView
 extends Control
 
-const TITLES := {"city":"城区与出行","transit":"101 · 城区环线","journal":"今天的安排","messages":"招聘消息","computer":"工作台","people":"认识的人","promises":"谈过的约定","bag":"随身物品","history":"经历与成果","ledger":"工资到账明细","help":"操作说明"}
+const TITLES := {"search":"秋招后段 · 投递记录","city":"城区与出行","transit":"101 · 城区环线","journal":"今天的安排","messages":"招聘消息","computer":"工作台","people":"认识的人","promises":"谈过的约定","bag":"随身物品","history":"经历与成果","ledger":"工资到账明细","help":"操作说明"}
 const ACCENT := Color("e6c785")
 const MUTED := Color("afc0c8")
 var game: Node3D
@@ -119,6 +119,7 @@ func key_action(id: String, value: String, key: int, disabled: bool=false) -> vo
 
 func refresh() -> void:
 	var page: String=game.panels.page
+	theme.default_font=preload("res://assets/fonts/NotoSansCJKsc-Regular.otf") if page=="search" else null
 	visible=TITLES.has(page)
 	if not visible: displayed_page=""; return
 	var same_page := displayed_page==page
@@ -136,6 +137,7 @@ func refresh() -> void:
 	match page:
 		"city": city_page()
 		"transit": transit_page()
+		"search": autumn_search()
 		"journal": journal()
 		"help": help_page()
 		"bag": bag()
@@ -215,6 +217,7 @@ func bag() -> void:
 	key_action("next","下一页 · PgDn",KEY_PAGEDOWN,p.bag_page>=pages-1)
 
 func messages() -> void:
+	if game.story.search.available(): action("open-search","查看秋招后段岗位与投递记录",func(): game.panels.open_child("search"))
 	var flow: RecruitmentFlow=game.recruitment
 	key_action("firm-a",("● " if flow.selected=="a" else "")+"规程科技",KEY_LEFT)
 	key_action("firm-b",("● " if flow.selected=="b" else "")+"自己人网络",KEY_RIGHT)
@@ -399,3 +402,42 @@ func transit_page() -> void:
 				if not t.wait_for_bus(index): paragraph("当前位置或站点车道不允许跳过等车。",ACCENT),not t.at_platform(index) or t.blocked)
 		action("bus-observe","留在站台等车",func(): game.panels.show_page(""))
 	action("bus-map","查看城区",func(): game.panels.open_child("city"))
+
+func autumn_search() -> void:
+	var search: AutumnSearch=game.story.search
+	if not search.available():
+		paragraph("目前尚未进入秋招后段。",MUTED)
+		return
+	search.select(search.selected)
+	paragraph(game.story.chapter_text(),ACCENT)
+	paragraph("应届研究生 · 一段规程科技实习 · 两份实际成果，业务考核通过，未转正。",MUTED)
+	if game.story.data.phase=="ending":
+		paragraph("你按要求留在学校，又按承诺完成了实习。现在简历上多了一段经历，收件箱里仍没有录用。")
+		paragraph("岗位因AI调整被取消；另一家公司需要更成熟的经验；还有一份投递，追问后仍无回复。")
+		paragraph("这一段故事停在这里：你仍然没有找到工作。可以关掉页面，继续在街区生活；原承诺、成果与投递记录都会保留。",ACCENT)
+	for i in range(AutumnSearch.JOBS.size()):
+		var index: int=i
+		var job: Dictionary=AutumnSearch.JOBS[i]
+		action("search-job-"+str(i),("● " if search.selected==i else "")+job.company+" · "+job.title,func(): search.select(index); refresh())
+	var job: Dictionary=AutumnSearch.JOBS[search.selected]
+	paragraph("原始岗位信息",ACCENT)
+	paragraph(job.listing)
+	var item: Dictionary=search.state(job.id)
+	if item.is_empty():
+		action("search-submit","提交简历与实习成果",func(): search.submit(); refresh())
+	else:
+		paragraph("投递于 "+game.recruitment.stamp(int(item.submitted))+" · "+AutumnSearch.STATUS[item.status],ACCENT)
+		paragraph(item.body)
+		if item.due>0: paragraph("公交站可以等待下一次进度检查，也可以先去做别的。",MUTED)
+		if item.status=="invited":
+			var beat: Array=AutumnSearch.INTERVIEW[int(item.step)]
+			paragraph("线上沟通 · 随时关闭，回答进度保留",MUTED)
+			paragraph(beat[0] if item.reply<0 else beat[2][int(item.reply)])
+			if item.reply>=0:
+				action("search-next","继续沟通",func(): search.continue_interview(); refresh())
+			else:
+				for i in range(3):
+					var answer_index: int=i
+					action("search-answer-"+str(i),beat[1][i],func(): search.answer(answer_index); refresh())
+		if item.status=="silent": action("search-followup","追问岗位是否仍在招聘",func(): search.follow_up(); refresh())
+	if search.ready_to_end() and game.story.data.phase!="ending": action("search-finish","整理本轮求职结果",func(): search.finish(); refresh())

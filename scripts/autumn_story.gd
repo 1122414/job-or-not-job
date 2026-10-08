@@ -10,11 +10,12 @@ const MENTOR_LINES := [
 ]
 var game: Node3D
 var data := blank()
+var search := AutumnSearch.new()
 var room: Node3D
 var points: Array[AutumnStoryPoint] = []
 
 static func blank(mode: String="legacy") -> Dictionary:
-	return {"mode":mode,"phase":"mentor" if mode=="current" else "legacy","beat":0,"reply":-1,"answers":[],"mentor_interrupted":false,"call_done":false,"call_reply":"","started_at":0,"review_at":0}
+	return {"mode":mode,"phase":"mentor" if mode=="current" else "legacy","beat":0,"reply":-1,"answers":[],"mentor_interrupted":false,"call_done":false,"call_reply":"","started_at":0,"review_at":0,"search":{}}
 
 func active() -> bool:
 	return data.mode=="current"
@@ -23,6 +24,7 @@ func campus() -> bool:
 	return active() and data.phase in ["mentor","campus_exit"]
 
 func build() -> void:
+	search.game=game
 	room=Node3D.new()
 	room.name="GraduatePrologue"
 	game.add_child(room)
@@ -73,6 +75,8 @@ func objective() -> Dictionary:
 	if data.phase=="mentor_call": return {"title":"秋招接收通知已到 · 公交站接听导师来电","id":"rest"}
 	if data.phase=="internship" and game.career.stage==2 and not review_ready(): return {"title":"成果已通过 · 公交站可推进到四周后的转正评审","id":"rest"}
 	if data.phase=="departure": return {"title":"未能转正 · 找林岚领取实习证明，原成果保留","id":"a_hr"}
+	if data.phase=="ending": return {"title":"秋招后段 · 仍未找到工作；可继续生活，N查看保留的投递记录","id":""}
+	if data.phase=="late_autumn" and search.ready_to_end(): return {"title":"本轮投递仍无录用 · N进入投递记录，整理本轮结果","id":"rest"}
 	if data.phase=="late_autumn": return {"title":"秋招后段 · 公交站查看岗位，重新投递","id":"rest"}
 	return {}
 
@@ -132,7 +136,7 @@ func restore(saved: Dictionary) -> void:
 
 static func valid(value: Variant) -> bool:
 	if not value is Dictionary or not value.get("mode") in ["legacy","current"]: return false
-	if not value.get("phase") in ["legacy","mentor","campus_exit","early_autumn","mentor_call","internship","departure","late_autumn"]: return false
+	if not value.get("phase") in ["legacy","mentor","campus_exit","early_autumn","mentor_call","internship","departure","late_autumn","ending"]: return false
 	if (value.mode=="legacy")!=(value.phase=="legacy"): return false
 	for key in ["beat","reply"]:
 		if not (value.get(key) is int or value.get(key) is float) or not is_finite(value[key]) or value[key]!=int(value[key]): return false
@@ -145,6 +149,11 @@ static func valid(value: Variant) -> bool:
 		var number: Variant=value.get(key,0)
 		if not (number is int or number is float) or not is_finite(number) or number<0 or number!=int(number): return false
 	if not value.get("call_done",false) is bool or not value.get("call_reply","") is String: return false
+	if not AutumnSearch.valid(value.get("search",{})): return false
+	if value.phase=="ending":
+		for i in range(AutumnSearch.JOBS.size()):
+			var item: Dictionary=value.get("search",{}).get(AutumnSearch.JOBS[i].id,{})
+			if item.get("status")!=["cancelled","rejected","silent_final"][i] or not item.get("seen",false): return false
 	return value.get("mentor_interrupted") is bool
 
 func chapter_text() -> String:
@@ -153,6 +162,7 @@ func chapter_text() -> String:
 	if data.phase=="internship": return "第二章 · 同一段实习：成果与名额"
 	if data.phase=="departure": return "第三章 · 转正失败：带走实习证明"
 	if data.phase=="late_autumn": return "第四章 · 秋招后段：重新投递"
+	if data.phase=="ending": return "本段故事结束 · 秋招仍无录用"
 	return ""
 
 func offer(firm: String) -> void:
@@ -196,6 +206,7 @@ func decorate(target: Node3D,fallback: Dictionary) -> Dictionary:
 	if not active(): return fallback
 	var id: String=target.role_id if target is OfficeNPC else target.stable_id
 	if id=="rest":
+		if search.available(): fallback.choices.push_front(["查看秋招后段岗位与投递记录","story_jobs"])
 		if data.phase=="mentor_call": fallback.choices.push_front(["接听导师来电 · 秋招接收安排","story_call"])
 		elif data.phase=="internship" and game.career.stage==2 and not review_ready(): fallback.choices.push_front(["推进到四周实习评审 · 保留成果与应得工资","story_review_wait"])
 	if id=="a_lead" and game.career.stage<3:
@@ -209,7 +220,7 @@ func decorate(target: Node3D,fallback: Dictionary) -> Dictionary:
 	return fallback
 
 func show_verdict(target: Node3D) -> void:
-	data.phase="departure"
+	if data.phase=="internship": data.phase="departure"
 	game.speaker=target
 	game.conversation={"text":"方总：演示交付和现场恢复都合格。但是最终没有正式HC，这次不能转正。实习今天结束。\n你拿出接收通知：有HC，交付达标后转正。", "choices":[["当时为什么明确说有名额","story_verdict_why"],["所以失败的不是我的考核","story_verdict_result"],["保留通知和成果，去领取实习证明","story_pause"]]}
 	game.queue_save()
@@ -218,6 +229,8 @@ func career_action(action: String) -> bool:
 	if not active(): return false
 	var target: Node3D=game.speaker
 	match action:
+		"story_jobs":
+			if search.available(): game.panels.show_page("search")
 		"story_call":
 			if data.phase=="mentor_call": open_call(target,data.get("call_reply","")!="")
 		"story_call_question", "story_call_offer", "story_call_accept":
@@ -236,7 +249,7 @@ func career_action(action: String) -> bool:
 		"story_verdict":
 			if game.career.facts.has("conversion_failed"): show_verdict(target)
 		"story_verdict_why", "story_verdict_result":
-			if data.phase!="departure": return true
+			if not data.phase in ["departure","late_autumn","ending"]: return true
 			game.conversation={"text":"方总：当时项目确实缺人，我们按需求招的。现在名额没批，我只能给你写考核通过。" if action=="story_verdict_why" else "方总：对，你的成果没有问题。没有名额是公司的事，但这次你留不下来。","choices":[["保留回复，去领取实习证明","story_pause"]]}
 			game.career.record("hc_broken","公司承认业务成果通过，却把最初的有HC承诺改称用人需求；转正失败由求职者承担。")
 		"story_original_offer":

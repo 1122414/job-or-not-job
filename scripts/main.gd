@@ -233,6 +233,7 @@ func advance_time(minutes: float, skipped: bool=true) -> void:
 	social.time_changed(before,seconds if skipped else 0.0)
 	if meals: meals.time_changed()
 	recruitment.tick()
+	story.search.tick()
 	update_daylight()
 	if payroll.minute!=before: city_life.sync_scene()
 	if skipped or payroll.next_payday!=payday_before: queue_save()
@@ -623,8 +624,8 @@ func _exit_tree() -> void:
 func startup() -> void:
 	await get_tree().physics_frame
 	# Unit/integration scenes never load or overwrite the player's save slot.
-	persistence_enabled=get_tree().current_scene==self
-	if persistence_enabled: story.start_new()
+	persistence_enabled=get_tree().current_scene==self and not "--isolated-startup" in OS.get_cmdline_user_args()
+	if get_tree().current_scene==self: story.start_new()
 	initial_state=SaveGame.snapshot(self)
 	soundscape.start_settings()
 	if persistence_enabled:

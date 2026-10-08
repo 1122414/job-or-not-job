@@ -43,3 +43,5 @@
 | 时间驱动灯光与暂停恢复 | 暂停读夜档不亮、跨日一直亮 | C4j暂停JSON及18个跨日晨昏样本验证一次 | [时间表现](patterns/time-dependent-presentation.md) |
 
 | 延后承诺与实际作业 | 对话说次日完成却没有发送；旧档日期不明；未答复邀请变成约定 | C3j实体作业、源码/实际包跨日路线及六档独立恢复验证一次；整城离线模拟开放 | [延后世界行为](patterns/deferred-world-actions.md) |
+
+2026-10-08复用补充：[内容扩充与存档迁移](patterns/save-content-expansion.md)记录v26新旧叙事隔离、阶段关联及本轮RefCounted循环；[平台字体边界](patterns/web-export-platform-gaps.md)补桌面新增汉字缺字反例，定向字符检查与四页实际图形验证一次。

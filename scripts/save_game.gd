@@ -182,7 +182,13 @@ static func valid(data: Variant, game: Node3D) -> bool:
 	if data.version>=10 and not Onboarding.valid(data.get("onboarding")): return false
 	if data.version>=9 and not SocialLife.valid(data.get("social"),data.npcs,data.version>=21): return false
 	if data.version>=25 and not game.meals.valid(data.get("city_meals"),data): return false
-	if data.version>=26 and not AutumnStory.valid(data.get("autumn_story")): return false
+	if data.version>=26:
+		if not AutumnStory.valid(data.get("autumn_story")): return false
+		if data.autumn_story.mode=="current":
+			if not c.facts.get("autumn_story",false): return false
+			if data.autumn_story.phase in ["departure","late_autumn","ending"]:
+				if not c.facts.get("conversion_failed",false) or c.employer!="" or c.stage!=6 or c.facts.has("regular"): return false
+			if data.autumn_story.phase in ["late_autumn","ending"] and not c.facts.get("internship_certificate",false): return false
 	var occupied := {}
 	for id in data.npcs:
 		var entry: Dictionary=data.npcs[id]
