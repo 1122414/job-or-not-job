@@ -159,6 +159,7 @@ func journal() -> void:
 	action("city-map","城区与出行 · M",func(): game.panels.open_child("city"))
 	paragraph("当前目标",ACCENT)
 	paragraph(game.objective_text())
+	if game.story.active(): paragraph(game.story.chapter_text(),ACCENT)
 	if game.career.employer=="":
 		paragraph("了解岗位后再决定。导航选择可以随时更改。",MUTED)
 		key_action("company-a","1  规程科技 · 演示项目岗位 / 三轮沟通",KEY_1)
@@ -227,7 +228,7 @@ func messages() -> void:
 	key_action("older","较早消息 · PgUp",KEY_PAGEUP,flow.message_page>=selected.size()-1)
 	key_action("newer","较新消息 · PgDn",KEY_PAGEDOWN,flow.message_page==0)
 	var phase: String=flow.applications[flow.selected].phase
-	paragraph("当前状态："+{"idle":"尚未完成面试","waiting":"等待反馈","offered":"等待回复","deferred":"已暂缓，可继续考虑","declined":"已拒绝，可重新联系","accepted":"待现场报到","reported":"已报到"}.get(phase,phase),ACCENT)
+	paragraph("当前状态："+{"idle":"尚未完成面试","waiting":"等待反馈","offered":"等待回复","deferred":"已暂缓，可继续考虑","declined":"已拒绝，可重新联系","accepted":"待现场报到","reported":"已报到","rejected":"岗位取消 / 未录用"}.get(phase,phase),ACCENT)
 	if phase in ["offered","deferred","declined"]:
 		for i in range(3): key_action("reply-"+str(i),["1  接受并预约报到","2  暂缓决定","3  拒绝邀请"][i],KEY_1+i)
 	if phase=="accepted":

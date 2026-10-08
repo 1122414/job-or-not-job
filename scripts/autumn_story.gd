@@ -14,7 +14,7 @@ var room: Node3D
 var points: Array[AutumnStoryPoint] = []
 
 static func blank(mode: String="legacy") -> Dictionary:
-	return {"mode":mode,"phase":"mentor" if mode=="current" else "legacy","beat":0,"reply":-1,"answers":[],"mentor_interrupted":false}
+	return {"mode":mode,"phase":"mentor" if mode=="current" else "legacy","beat":0,"reply":-1,"answers":[],"mentor_interrupted":false,"call_done":false,"call_reply":"","started_at":0,"review_at":0}
 
 func active() -> bool:
 	return data.mode=="current"
@@ -70,6 +70,10 @@ func objective() -> Dictionary:
 	if not active(): return {}
 	if data.phase=="mentor": return {"title":"秋招前 · 与导师讨论暑期实习（可走开或结束谈话）","id":"story_mentor"}
 	if data.phase=="campus_exit": return {"title":"实习未获允许 · 走到办公室外的走廊","id":"story_exit"}
+	if data.phase=="mentor_call": return {"title":"秋招接收通知已到 · 公交站接听导师来电","id":"rest"}
+	if data.phase=="internship" and game.career.stage==2 and not review_ready(): return {"title":"成果已通过 · 公交站可推进到四周后的转正评审","id":"rest"}
+	if data.phase=="departure": return {"title":"未能转正 · 找林岚领取实习证明，原成果保留","id":"a_hr"}
+	if data.phase=="late_autumn": return {"title":"秋招后段 · 公交站查看岗位，重新投递","id":"rest"}
 	return {}
 
 func open(point: AutumnStoryPoint) -> void:
@@ -97,7 +101,7 @@ func refuse(interrupted: bool=false) -> void:
 
 func handle(action: String) -> bool:
 	if not action.begins_with("story_"): return false
-	if not campus(): return true
+	if not campus(): return career_action(action)
 	var point: AutumnStoryPoint=game.speaker as AutumnStoryPoint
 	if not point: return true
 	if action=="story_pause": game.close_interaction(); return true
@@ -122,12 +126,13 @@ func handle(action: String) -> bool:
 	return true
 
 func restore(saved: Dictionary) -> void:
-	data=saved.duplicate(true) if not saved.is_empty() else blank()
+	data=blank()
+	data.merge(saved.duplicate(true),true)
 	sync_scene()
 
 static func valid(value: Variant) -> bool:
 	if not value is Dictionary or not value.get("mode") in ["legacy","current"]: return false
-	if not value.get("phase") in ["legacy","mentor","campus_exit","early_autumn"]: return false
+	if not value.get("phase") in ["legacy","mentor","campus_exit","early_autumn","mentor_call","internship","departure","late_autumn"]: return false
 	if (value.mode=="legacy")!=(value.phase=="legacy"): return false
 	for key in ["beat","reply"]:
 		if not (value.get(key) is int or value.get(key) is float) or not is_finite(value[key]) or value[key]!=int(value[key]): return false
@@ -136,4 +141,112 @@ static func valid(value: Variant) -> bool:
 	if not value.get("answers") is Array or value.answers.size()!=int(value.beat)+(1 if value.reply>=0 else 0): return false
 	for answer in value.answers:
 		if not (answer is int or answer is float) or answer!=int(answer) or answer<0 or answer>2: return false
+	for key in ["started_at","review_at"]:
+		var number: Variant=value.get(key,0)
+		if not (number is int or number is float) or not is_finite(number) or number<0 or number!=int(number): return false
+	if not value.get("call_done",false) is bool or not value.get("call_reply","") is String: return false
 	return value.get("mentor_interrupted") is bool
+
+func chapter_text() -> String:
+	if campus(): return "序章 · 秋招之前：未获允许的实习"
+	if data.phase in ["early_autumn","mentor_call"]: return "第一章 · 秋招前段：有名额，先来实习"
+	if data.phase=="internship": return "第二章 · 同一段实习：成果与名额"
+	if data.phase=="departure": return "第三章 · 转正失败：带走实习证明"
+	if data.phase=="late_autumn": return "第四章 · 秋招后段：重新投递"
+	return ""
+
+func offer(firm: String) -> void:
+	var flow: RecruitmentFlow=game.recruitment
+	if firm=="b":
+		flow.applications.b.phase="rejected"
+		flow.send("b","offer","这轮初级协作岗位取消了。赵总决定由现有同事使用AI工具处理资料，不新增应届编制。今天的面试没有形成录用。你仍可以来见阿乐，但我们无法安排入职。")
+	else:
+		flow.applications.a.phase="offered"
+		flow.send("a","offer","秋招接收通知：应届项目岗位，有正式HC。先实习四周，实际交付考核达标后转正，不是仅做短期项目。业务面试已通过，请确认后预约报到。")
+
+func ask_conditions(firm: String) -> void:
+	if firm=="b":
+		game.recruitment.send("b","conditions","你问：取消岗位以后还能先入职吗？\n阿诚：不能，没有录用。阿乐可以和你聊，但不能替公司给你岗位。")
+	elif game.career.stage<3:
+		game.recruitment.send("a","conditions","你问：有正式HC、考核达标就能转正吗？\n林岚：有HC，达标后转正。业务会保留交付评价，不是让你做完项目就走。请留好这份通知。")
+	else:
+		game.recruitment.send("a","conditions_after_review","你追问之前的有HC承诺。\n林岚：招人时按业务报的需求回复，现在只能按最终批准的名额办理。业务评价通过，不等于这次有名额。\n原接收通知保留，不覆盖。")
+
+func accepted() -> void:
+	if not data.get("call_done",false): data.phase="mentor_call"
+	game.career.record("hc_promised","秋招接收通知明确写有HC，先实习四周、交付达标后转正。你按这个安排投入实习，其他秋招机会仍在流逝。")
+	game.say("导师来电 · 到公交站按E接听，再按预约报到。")
+
+func open_call(target: Node3D,reply: bool=false) -> void:
+	game.speaker=target
+	game.conversation={"text":"导师（电话）：既然已经有单位接收，就按毕业实习办，论文别耽误。", "choices":[["之前想去实习时，您不是这样说的","story_call_question"],["公司说有HC，实习达标后转正","story_call_offer"],["知道了，我会安排论文","story_call_accept"]]}
+	if reply:
+		game.conversation={"text":data.get("call_reply","")+"\n电话那头等着你结束通话。","choices":[["结束通话，保留招聘通知","story_call_done"],["先放下手机，稍后继续","story_pause"]]}
+
+func joined() -> void:
+	data.phase="internship"
+	data.started_at=game.payroll.minute
+	data.review_at=game.payroll.minute+28*Payroll.DAY
+	game.queue_save()
+
+func review_ready() -> bool:
+	return not active() or game.payroll.minute>=int(data.get("review_at",0)) and int(data.get("review_at",0))>0
+
+func decorate(target: Node3D,fallback: Dictionary) -> Dictionary:
+	if not active(): return fallback
+	var id: String=target.role_id if target is OfficeNPC else target.stable_id
+	if id=="rest":
+		if data.phase=="mentor_call": fallback.choices.push_front(["接听导师来电 · 秋招接收安排","story_call"])
+		elif data.phase=="internship" and game.career.stage==2 and not review_ready(): fallback.choices.push_front(["推进到四周实习评审 · 保留成果与应得工资","story_review_wait"])
+	if id=="a_lead" and game.career.stage<3:
+		fallback.text="周工：有HC，转正看实际成果。先把这份演示交出来，来源明确、现场能运行，我就认通过。"
+	if id=="a_boss" and game.career.stage<3:
+		fallback.text="方总：先入组做项目，有转正名额，达标之后走转正。"
+	if id=="a_boss" and game.career.facts.has("conversion_failed"):
+		fallback={"text":"方总：成果合格我承认，但最终没有正式名额。你可以找林岚拿实习证明。","choices":[["对照原来的名额承诺","story_verdict"]]}
+	if id=="a_hr" and data.phase=="departure":
+		fallback={"text":"林岚：实习证明已经准备好了。同一家公司换组仍算同一段实习，两份成果都写进去。正式录用这次办不了。","choices":[["核对并领取实习证明","story_certificate"],["保留原来有HC的接收通知","story_original_offer"]]}
+	return fallback
+
+func show_verdict(target: Node3D) -> void:
+	data.phase="departure"
+	game.speaker=target
+	game.conversation={"text":"方总：演示交付和现场恢复都合格。但是最终没有正式HC，这次不能转正。实习今天结束。\n你拿出接收通知：有HC，交付达标后转正。", "choices":[["当时为什么明确说有名额","story_verdict_why"],["所以失败的不是我的考核","story_verdict_result"],["保留通知和成果，去领取实习证明","story_pause"]]}
+	game.queue_save()
+
+func career_action(action: String) -> bool:
+	if not active(): return false
+	var target: Node3D=game.speaker
+	match action:
+		"story_call":
+			if data.phase=="mentor_call": open_call(target,data.get("call_reply","")!="")
+		"story_call_question", "story_call_offer", "story_call_accept":
+			if data.phase!="mentor_call": return true
+			data.call_reply={"story_call_question":"导师：那时候是让你先顾学校，现在单位都定了，两回事。","story_call_offer":"导师：那就好好做，把工作定下来。论文也不能落下。","story_call_accept":"导师：嗯，论文进度定期发我。找工作的事情你自己把握。"}[action]
+			open_call(target,true)
+		"story_call_done":
+			if data.phase!="mentor_call" or data.get("call_reply","")=="": return true
+			data.call_done=true; data.phase="early_autumn"
+			game.career.record("mentor_released","秋招收到公司接收通知后，导师改口：已有单位接收，可以去，论文别耽误。此前错过的暑期实习没有补回。")
+			game.close_interaction(); game.say("通话结束。按N里的预约报到，原招聘承诺已保留。")
+		"story_review_wait":
+			if data.phase!="internship" or game.career.stage!=2 or game.career.employer!="a" or review_ready(): return true
+			game.advance_time(int(data.review_at)-game.payroll.minute)
+			game.close_interaction(); game.say("四周实习过去。成果已经通过，秋招仍在继续。去找周工确认转正。")
+		"story_verdict":
+			if game.career.facts.has("conversion_failed"): show_verdict(target)
+		"story_verdict_why", "story_verdict_result":
+			if data.phase!="departure": return true
+			game.conversation={"text":"方总：当时项目确实缺人，我们按需求招的。现在名额没批，我只能给你写考核通过。" if action=="story_verdict_why" else "方总：对，你的成果没有问题。没有名额是公司的事，但这次你留不下来。","choices":[["保留回复，去领取实习证明","story_pause"]]}
+			game.career.record("hc_broken","公司承认业务成果通过，却把最初的有HC承诺改称用人需求；转正失败由求职者承担。")
+		"story_original_offer":
+			game.conversation={"text":"原接收通知：有正式HC。先实习四周，实际交付考核达标后转正。\n现在的回复：无正式名额，实习结束。两份记录同时保留。","choices":[["核对并领取实习证明","story_certificate"],["收起通知","story_pause"]]}
+		"story_certificate":
+			if data.phase!="departure" or not game.career.facts.has("conversion_failed"): return true
+			data.phase="late_autumn"
+			game.career.record("internship_certificate","领取一段规程科技实习证明：演示交付、换组现场恢复，业务考核通过，未转正。没有新增第二段实习经历。")
+			game.conversation={"text":"证明上写着一段实习和两份合格成果。你重新打开秋招岗位，有些批次已经结束。\n接下来：回公交站查看秋招后段的招聘信息。","choices":[["收好证明，重新找工作","story_pause"]]}
+		"story_pause": game.close_interaction()
+		_: return false
+	game.queue_save()
+	return true

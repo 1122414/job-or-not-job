@@ -13,6 +13,7 @@ func active_firm() -> String:
 	return ""
 
 func pages(action: String) -> Array:
+	if game.story.active(): return AutumnInterviewContent.pages(action)
 	var result: Array=InterviewContent.CORE[action].duplicate(true)
 	var firm := "b" if action=="interview_b" else "a"
 	var session: Dictionary=sessions.get(firm,{})
@@ -26,7 +27,7 @@ func schedule(action: String) -> void:
 		game.say("公司处分仍在生效，当前不接受面试。")
 		return
 	if not sessions.has(firm) or sessions[firm].action!=action or sessions[firm].status=="completed":
-		sessions[firm]={"action":action,"step":0,"status":"scheduled","phase":"question","answers":[],"reply":0,"edition":2,"call_stage":"approach","call_elapsed":0.0,"exit_remaining":0.0,"box_drop_done":false,"gesture_done_step":-1}
+		sessions[firm]={"action":action,"step":0,"status":"scheduled","phase":"question","answers":[],"reply":0,"edition":3 if game.story.active() else 2,"call_stage":"approach","call_elapsed":0.0,"exit_remaining":0.0,"box_drop_done":false,"gesture_done_step":-1}
 	else: sessions[firm].status="scheduled"
 	game.career.facts["guide_company"]=firm
 	game.close_interaction()

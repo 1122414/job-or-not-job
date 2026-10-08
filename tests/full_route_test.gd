@@ -11,6 +11,8 @@ func _initialize() -> void:
 	Input.mouse_mode=Input.MOUSE_MODE_VISIBLE
 	call_deferred("run")
 func perform(game: Node3D,id: String,action: String) -> bool:
+	if action=="no_hc" and game.story.active() and not game.story.review_ready():
+		if not await perform(game,"rest","story_review_wait"): return false
 	if action in ["join_a","join_b"]:
 		var firm := action.trim_prefix("join_")
 		if not await perform(game,"rest","rest_next"): return false
@@ -18,6 +20,9 @@ func perform(game: Node3D,id: String,action: String) -> bool:
 		game.recruitment.selected=firm
 		game.recruitment.message_action(0)
 		game.panels.back()
+		if game.story.active() and game.story.data.phase=="mentor_call":
+			if not await perform(game,"rest","story_call"): return false
+			game.choose(1); game.choose(0)
 		if not await perform(game,"rest","rest_next"): return false
 		action="report_"+firm
 	game.close_interaction()

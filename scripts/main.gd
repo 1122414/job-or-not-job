@@ -408,6 +408,7 @@ func interact() -> void:
 			var introduction: Dictionary=onboarding.options(target)
 			if not introduction.is_empty(): conversation=introduction
 			conversation=onboarding.service_options(target,conversation)
+		conversation=story.decorate(target,conversation)
 		journal_open=false
 
 func choose(index: int) -> void:

@@ -25,6 +25,9 @@ func review(npc: OfficeNPC) -> void:
 	game.conversation={"text":npc.title.split(" · ")[0]+"："+text,"choices":[["请把通过评价和未批名额分别写下来","promise_written"],["请带着已完成成果，联系能接收的团队","promise_referral"],["先保留记录，我再考虑是否继续","promise_defer"]]}
 func handle(action: String,npc: Node3D) -> bool:
 	if action=="no_hc" and npc is OfficeNPC:
+		if game.story.active() and not game.story.review_ready():
+			game.say("周工：成果通过了。按约定四周后评审，你可以在公交站推进到评审日。")
+			game.close_interaction(); return true
 		game.career.apply(action)
 		review(npc)
 		return true
@@ -52,7 +55,10 @@ func handle(action: String,npc: Node3D) -> bool:
 		return true
 	if action in ["transfer_confirm","defend_confirm"]:
 		var result: String=game.career.apply("transfer" if action=="transfer_confirm" else "defend")
-		game.close_interaction(); game.say(OfficeDialogue.voice(npc,result) if npc is OfficeNPC else result); game.queue_save(); return true
+		game.close_interaction()
+		if action=="defend_confirm" and game.story.active() and game.career.facts.has("conversion_failed"): game.story.show_verdict(npc)
+		else: game.say(OfficeDialogue.voice(npc,result) if npc is OfficeNPC else result)
+		game.queue_save(); return true
 	if action=="promise_pause": game.close_interaction(); return true
 	return false
 func support_available() -> bool:

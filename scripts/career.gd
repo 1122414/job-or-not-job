@@ -32,6 +32,7 @@ func apply(action: String) -> String:
 				recruit.b=1
 				return "阿诚：面试通过。这里流程短，讲的是人情；愿意的话就入职。"
 		"join_b":
+			if facts.get("autumn_story",false): return "该岗位已取消，当前没有录用。"
 			if recruit.b==1 and employer=="" and not former.has("b"):
 				employer="b"
 				grade="自己人网络员工"
@@ -72,7 +73,7 @@ func apply(action: String) -> String:
 		"interview_boss":
 			if recruit.a==2:
 				recruit.a=3
-				return "三轮通过！但正式名额冻结了。回 HR 处可接受实习，也可直接离开。"
+				return "三轮通过。招聘承诺有HC，实习达标后转正；等待书面通知。" if facts.get("autumn_story",false) else "三轮通过！但正式名额冻结了。回 HR 处可接受实习，也可直接离开。"
 		"join_a":
 			if recruit.a==3 and employer=="" and not former.has("a"):
 				employer="a"
@@ -127,6 +128,12 @@ func apply(action: String) -> String:
 		"defend":
 			if employer=="a" and stage==5:
 				stage=6
+				if facts.get("autumn_story",false):
+					employer=""
+					grade="未转正 · 应届求职者"
+					if not former.has("a"): former.append("a")
+					record("conversion_failed","两份实际成果均通过，但最终没有正式HC，实习结束，未能转正。这是同一家公司的同一段实习，不是能力考核失败。")
+					return "方总：两份成果都合格。但名额最终没有批下来，今天结束实习。你继续参加秋招吧。"
 				grade="正式员工"
 				record("regular","答辩展示两份成果，已正式转正。没有第三次实习。")
 				return "方总：演示交付、现场恢复都已确认。正式名额生效，你转正了。"
@@ -139,6 +146,7 @@ func apply(action: String) -> String:
 	return "当前条件尚未满足，已完成的成果不会丢失。"
 
 func objective() -> String:
+	if facts.get("autumn_story",false) and employer=="" and recruit.a==3 and not former.has("a"): return "招聘承诺有HC · 查看通知后决定实习安排"
 	if conflict.a>=2 and conflict.b>=2: return "两家公司职业机会均已关闭 · 仍可自由活动、见人、使用道具"
 	if employer=="b":
 		return {"pending":"找阿乐聊聊今晚的交接", "helping":"到右侧交接终端发送资料", "refused":"阿乐正在处理 · 可以离开，也可改为交涉", "negotiating":"与阿乐一起找后方赵总", "helped":"交接完成 · 阿乐在门外等你", "negotiated":"交接改为明早 · 今晚自由了", "conflict":"现场工作被中断 · 后果已经记录"}.get(b_event,"自由活动")
