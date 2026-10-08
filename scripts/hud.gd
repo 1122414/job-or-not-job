@@ -83,7 +83,7 @@ func _draw() -> void:
 		text_at(Vector2(w*0.35,h-52),"%02d km/h   W/S 油门与倒车 · A/D 转向 · 空格手刹 · E 下车" % roundi(absf(game.driving.active.speed)*3.6),16,Color("e4be70"))
 	var target: Node3D = null if game.in_vehicle() else game.focus_target
 	if target and game.panels.page=="" and game.conversation.is_empty():
-		var verb := "交谈" if target is OfficeNPC or target is CityResident else "使用"
+		var verb := "交谈" if target is OfficeNPC or target is CityResident or target is AutumnStoryPoint and target.person else "使用"
 		if target is CityCar: verb="驾驶"
 		if target is OfficeProp: verb="收进背包" if target.portable() else "查看固定支架" if target.kind in ["panel","side_panel"] else "推掀"
 		if target is OfficeNPC and target.dead: verb="查看"

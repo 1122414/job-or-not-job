@@ -2,6 +2,8 @@ class_name ObjectiveGuide
 extends RefCounted
 
 static func current(game: Node3D) -> Dictionary:
+	var story_goal: Dictionary=game.story.objective()
+	if not story_goal.is_empty(): return story_goal
 	var introduction: Dictionary=game.onboarding.objective()
 	if not introduction.is_empty(): return introduction
 	var recruitment: Dictionary=game.recruitment.objective()

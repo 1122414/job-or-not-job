@@ -28,6 +28,7 @@ var promises := WorkPromises.new()
 var person_index := 0
 var interviews := InterviewFlow.new()
 var career := Career.new()
+var story := AutumnStory.new()
 var stations: Array[WorkStation] = []
 var restore_revision := 0
 var conversation: Dictionary = {}
@@ -115,6 +116,8 @@ func _ready() -> void:
 	room_lighting=CityRoomLighting.new()
 	room_lighting.game=self
 	add_child(room_lighting)
+	story.game=self
+	story.build()
 	build_ui()
 	build_audio()
 	interview_audio=InterviewAudio.new()
@@ -241,6 +244,7 @@ func rest_time(action: String) -> int:
 	return payroll.minute+(remaining if remaining>0 else Payroll.DAY)
 
 func location_name() -> String:
+	if story.campus(): return "秋招前 · 研究生导师办公室"
 	if home and home.inside(player.position): return "东里 101 · 我的住处"
 	if player.position.z>2 or absf(player.position.x)>29:
 		var region := CityLayout.region_at(player.position)
@@ -259,6 +263,7 @@ func money_text() -> String:
 	return "¥ %.2f · 发薪 第%d天" % [payroll.balance/100.0,payroll.next_payday/1440+1]
 
 func objective_text() -> String:
+	if story.campus(): return story.objective().title
 	if home and home.guiding: return "回家 · 东里 101（M 更改目的地）"
 	if CityOuting.target(social)!=null and city_life.guide=="" and not city_life.walk.guiding and driving.guide_car=="" and transit.waypoint=="": return CityOuting.status(social)
 	if city_life and city_life.walk.guiding: return city_life.walk.status_text()
@@ -292,7 +297,7 @@ func navigation_target() -> Node3D:
 	return companion if companion else ObjectiveGuide.target(self)
 
 func targets() -> Array:
-	return npcs + stations + props + (driving.cars.filter(func(car): return not car.traffic) if driving else []) + (population.residents if population else []) + (city_life.points if city_life else []) + (commons.benches.values() if commons else []) + (home.points if home else []) + (meals.points if meals else [])
+	return story.points.filter(func(point): return point.visible) + npcs + stations + props + (driving.cars.filter(func(car): return not car.traffic) if driving else []) + (population.residents if population else []) + (city_life.points if city_life else []) + (commons.benches.values() if commons else []) + (home.points if home else []) + (meals.points if meals else [])
 
 func nearest() -> Node3D:
 	var best: Node3D
@@ -318,7 +323,7 @@ func nearest() -> Node3D:
 
 func can_see(from: Node3D, to: Node3D) -> bool:
 	var start := from.global_position + Vector3.UP*1.35
-	var end := to.global_position + (Vector3.UP*.6 if to is CityBench else Vector3.UP*1.2 if to is CharacterBody3D or to is WorkStation or to is CityActivityPoint or to is CityHomePoint or to is CityMealPoint else Vector3.ZERO)
+	var end := to.global_position + (Vector3.UP*.6 if to is CityBench else Vector3.UP*1.2 if to is CharacterBody3D or to is WorkStation or to is CityActivityPoint or to is CityHomePoint or to is CityMealPoint or to is AutumnStoryPoint else Vector3.ZERO)
 	var query := PhysicsRayQueryParameters3D.create(start,end)
 	if from is CollisionObject3D: query.exclude = [from.get_rid()]
 	if to is WorkStation and to.stable_id.begins_with("desk_"):
@@ -347,6 +352,9 @@ func interact() -> void:
 		return
 	if interviews.advance(): return
 	var target := nearest()
+	if target is AutumnStoryPoint:
+		story.open(target)
+		return
 	if target is CityMealPoint:
 		meals.open_point(target)
 		return
@@ -410,6 +418,7 @@ func choose(index: int) -> void:
 	var choices: Array = conversation.choices
 	if index>=choices.size(): return
 	var action: String = choices[index][1]
+	if story.handle(action): return
 	if speaker is CityMealPoint:
 		meals.answer(speaker,action)
 		return
@@ -585,6 +594,7 @@ func show_inventory() -> void:
 	say("背包：%s\nQ 收纳手持 · R 轮换取出 · G 放下 · 右键投掷" % ("空" if names.is_empty() else " / ".join(names)))
 
 func safe_spawn(origin: Vector3) -> Vector3:
+	if story.campus(): return AutumnStory.CAMPUS_SPAWN
 	var candidates: Array[Vector3] = []
 	for x in [-20,-12,0,12,20]:
 		for z in [8,4,-2]: candidates.append(Vector3(x,0.3,z))
@@ -612,8 +622,9 @@ func _exit_tree() -> void:
 func startup() -> void:
 	await get_tree().physics_frame
 	# Unit/integration scenes never load or overwrite the player's save slot.
-	initial_state=SaveGame.snapshot(self)
 	persistence_enabled=get_tree().current_scene==self
+	if persistence_enabled: story.start_new()
+	initial_state=SaveGame.snapshot(self)
 	soundscape.start_settings()
 	if persistence_enabled:
 		room_lighting.read_settings(CityRoomLighting.SETTINGS_PATH)

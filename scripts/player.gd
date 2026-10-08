@@ -233,7 +233,7 @@ func update_strike() -> void:
 			var nearest := query.transform.origin.distance_squared_to(candidate.global_position)
 			for contact in contacts:
 				var node: Node3D=contact.collider
-				if not (node is OfficeNPC or node is CityResident or node is OfficeProp):
+				if not (node is OfficeNPC or node is CityResident or node is OfficeProp or node is AutumnStoryPoint):
 					strike_action=-1
 					return
 				if node.global_position.distance_squared_to(query.transform.origin)<nearest:
@@ -250,7 +250,10 @@ func apply_strike(candidate: Node3D) -> void:
 	var action := strike_action
 	var dangerous := strike_dangerous
 	if not candidate.visible or not game.can_see(self,candidate): return
-	if candidate is OfficeNPC or candidate is CityResident:
+	if candidate is AutumnStoryPoint:
+		candidate.hit(forward(),.5,action,dangerous)
+		game.impact()
+	elif candidate is OfficeNPC or candidate is CityResident:
 		if not dangerous and not candidate.available(): return
 		candidate.hit(forward(),1.4 if dangerous else 0.5,action,dangerous)
 		game.impact()

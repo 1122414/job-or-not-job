@@ -16,7 +16,7 @@ func run() -> void:
 	var file := "res://build/c3k/queued.json"
 	check(SaveGame.write(game,file)==OK,"v25真实JSON写盘")
 	var saved := SaveGame.read(file,game)
-	check(not saved.is_empty() and saved.version==25,"v25真实JSON校验读取")
+	check(not saved.is_empty() and saved.version==SaveGame.VERSION,"v25真实JSON校验读取")
 	if saved.is_empty(): finish();return
 	var invalid := ["missing","orders_type","queue_type","served_type","unknown","item","stage","slot","amount","negative","fraction","window","future_today","cooked_nan","cooked_complete","eaten_early","eaten_complete","queue_missing","queue_duplicate","queue_unknown","served_unknown","served_future","served_future_today"]
 	for issue in invalid:
