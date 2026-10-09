@@ -1,0 +1,74 @@
+[
+  {
+    "name": "checked",
+    "exit": 0,
+    "passed": true,
+    "save_sha256": "98b969c1826737865a622efa7a11a18b086e350621c98023aa478659649a0e05",
+    "command": [
+      "/Users/geminchen/My-Item/job-or-not-job/build/baselines/20261009T113504140087Z-885ac516-7f9a5bca/\u4eca\u5929\u4e0d\u4e0a\u73ed-0.5.0.app/Contents/MacOS/TodayOff",
+      "--headless",
+      "--fixed-fps",
+      "60",
+      "--script",
+      "/tmp/current-experience-package-check/drivers/friend_handover_test.gd",
+      "--log-file",
+      "/Users/geminchen/My-Item/job-or-not-job/build/current-experience-package-check/checked-restore-engine.log",
+      "--",
+      "--from-route=/Users/geminchen/My-Item/job-or-not-job/build/current-experience-package-check/friend-saves/checked.json"
+    ]
+  },
+  {
+    "name": "declined",
+    "exit": 0,
+    "passed": true,
+    "save_sha256": "2f76c8ec83a2d342c9888c7a8dafd6e6f55a538d124363418d32a440b1b63879",
+    "command": [
+      "/Users/geminchen/My-Item/job-or-not-job/build/baselines/20261009T113504140087Z-885ac516-7f9a5bca/\u4eca\u5929\u4e0d\u4e0a\u73ed-0.5.0.app/Contents/MacOS/TodayOff",
+      "--headless",
+      "--fixed-fps",
+      "60",
+      "--script",
+      "/tmp/current-experience-package-check/drivers/friend_handover_test.gd",
+      "--log-file",
+      "/Users/geminchen/My-Item/job-or-not-job/build/current-experience-package-check/declined-restore-engine.log",
+      "--",
+      "--from-route=/Users/geminchen/My-Item/job-or-not-job/build/current-experience-package-check/friend-saves/declined.json"
+    ]
+  },
+  {
+    "name": "negotiated",
+    "exit": 0,
+    "passed": true,
+    "save_sha256": "838d445ee7c4c60a507f08107eadf6eccee01f69a502f28cae075cba83932a93",
+    "command": [
+      "/Users/geminchen/My-Item/job-or-not-job/build/baselines/20261009T113504140087Z-885ac516-7f9a5bca/\u4eca\u5929\u4e0d\u4e0a\u73ed-0.5.0.app/Contents/MacOS/TodayOff",
+      "--headless",
+      "--fixed-fps",
+      "60",
+      "--script",
+      "/tmp/current-experience-package-check/drivers/friend_handover_test.gd",
+      "--log-file",
+      "/Users/geminchen/My-Item/job-or-not-job/build/current-experience-package-check/negotiated-restore-engine.log",
+      "--",
+      "--from-route=/Users/geminchen/My-Item/job-or-not-job/build/current-experience-package-check/friend-saves/negotiated.json"
+    ]
+  },
+  {
+    "name": "legacy-v30",
+    "exit": 0,
+    "passed": true,
+    "save_sha256": "5e6d86d33c6b89d73765f2575948640f532c944171ad6d157e5cc06d6681c557",
+    "command": [
+      "/Users/geminchen/My-Item/job-or-not-job/build/baselines/20261009T113504140087Z-885ac516-7f9a5bca/\u4eca\u5929\u4e0d\u4e0a\u73ed-0.5.0.app/Contents/MacOS/TodayOff",
+      "--headless",
+      "--fixed-fps",
+      "60",
+      "--script",
+      "/Users/geminchen/My-Item/job-or-not-job/tools/verify_autumn_ending.gd",
+      "--log-file",
+      "/Users/geminchen/My-Item/job-or-not-job/build/current-experience-package-check/legacy-v30-restore-engine.log",
+      "--",
+      "--from=/tmp/dialogue-package-ending.json"
+    ]
+  }
+]

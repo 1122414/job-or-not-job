@@ -1,0 +1,123 @@
+[
+  {
+    "name": "prologue",
+    "command": [
+      "/Users/geminchen/My-Item/job-or-not-job/build/baselines/20261009T113504140087Z-885ac516-7f9a5bca/\u4eca\u5929\u4e0d\u4e0a\u73ed-0.5.0.app/Contents/MacOS/TodayOff",
+      "--headless",
+      "--fixed-fps",
+      "60",
+      "--script",
+      "/tmp/current-experience-package-check/drivers/autumn_prologue_test.gd",
+      "--log-file",
+      "/Users/geminchen/My-Item/job-or-not-job/build/current-experience-package-check/prologue-engine.log"
+    ],
+    "cwd": "/tmp",
+    "exit": 0,
+    "marker": "AUTUMN_PROLOGUE_TEST failures=0",
+    "passed": true
+  },
+  {
+    "name": "full-story",
+    "command": [
+      "/Users/geminchen/My-Item/job-or-not-job/build/baselines/20261009T113504140087Z-885ac516-7f9a5bca/\u4eca\u5929\u4e0d\u4e0a\u73ed-0.5.0.app/Contents/MacOS/TodayOff",
+      "--headless",
+      "--fixed-fps",
+      "60",
+      "--script",
+      "/tmp/current-experience-package-check/drivers/autumn_full_story_test.gd",
+      "--log-file",
+      "/Users/geminchen/My-Item/job-or-not-job/build/current-experience-package-check/full-story-engine.log",
+      "--",
+      "--story-save=/Users/geminchen/My-Item/job-or-not-job/build/current-experience-package-check/ending.json"
+    ],
+    "cwd": "/tmp",
+    "exit": 0,
+    "marker": "AUTUMN_FULL_STORY_TEST failures=0",
+    "passed": true
+  },
+  {
+    "name": "friend",
+    "command": [
+      "/Users/geminchen/My-Item/job-or-not-job/build/baselines/20261009T113504140087Z-885ac516-7f9a5bca/\u4eca\u5929\u4e0d\u4e0a\u73ed-0.5.0.app/Contents/MacOS/TodayOff",
+      "--headless",
+      "--fixed-fps",
+      "60",
+      "--script",
+      "/tmp/current-experience-package-check/drivers/friend_handover_test.gd",
+      "--log-file",
+      "/Users/geminchen/My-Item/job-or-not-job/build/current-experience-package-check/friend-engine.log"
+    ],
+    "cwd": "/tmp",
+    "exit": 0,
+    "marker": "FRIEND_HANDOVER_TEST failures=0",
+    "passed": true
+  },
+  {
+    "name": "response",
+    "command": [
+      "/Users/geminchen/My-Item/job-or-not-job/build/baselines/20261009T113504140087Z-885ac516-7f9a5bca/\u4eca\u5929\u4e0d\u4e0a\u73ed-0.5.0.app/Contents/MacOS/TodayOff",
+      "--headless",
+      "--fixed-fps",
+      "60",
+      "--script",
+      "/tmp/current-experience-package-check/drivers/departure_response_test.gd",
+      "--log-file",
+      "/Users/geminchen/My-Item/job-or-not-job/build/current-experience-package-check/response-engine.log"
+    ],
+    "cwd": "/tmp",
+    "exit": 0,
+    "marker": "DEPARTURE_RESPONSE_TEST failures=0",
+    "passed": true
+  },
+  {
+    "name": "chat",
+    "command": [
+      "/Users/geminchen/My-Item/job-or-not-job/build/baselines/20261009T113504140087Z-885ac516-7f9a5bca/\u4eca\u5929\u4e0d\u4e0a\u73ed-0.5.0.app/Contents/MacOS/TodayOff",
+      "--headless",
+      "--fixed-fps",
+      "60",
+      "--script",
+      "/tmp/current-experience-package-check/drivers/free_chat_context_test.gd",
+      "--log-file",
+      "/Users/geminchen/My-Item/job-or-not-job/build/current-experience-package-check/chat-engine.log"
+    ],
+    "cwd": "/tmp",
+    "exit": 0,
+    "marker": "FREE_CHAT_CONTEXT_TEST failures=0",
+    "passed": true
+  },
+  {
+    "name": "smoke-root",
+    "command": [
+      "/Users/geminchen/My-Item/job-or-not-job/build/baselines/20261009T113504140087Z-885ac516-7f9a5bca/\u4eca\u5929\u4e0d\u4e0a\u73ed-0.5.0.app/Contents/MacOS/TodayOff",
+      "--headless",
+      "--fixed-fps",
+      "60",
+      "--script",
+      "/Users/geminchen/My-Item/job-or-not-job/tools/verify_macos.gd",
+      "--log-file",
+      "/Users/geminchen/My-Item/job-or-not-job/build/current-experience-package-check/smoke-root-engine.log"
+    ],
+    "cwd": "/Users/geminchen/My-Item/job-or-not-job",
+    "exit": 0,
+    "marker": "PACKAGED_SMOKE_OK",
+    "passed": true
+  },
+  {
+    "name": "smoke-external",
+    "command": [
+      "/Users/geminchen/My-Item/job-or-not-job/build/baselines/20261009T113504140087Z-885ac516-7f9a5bca/\u4eca\u5929\u4e0d\u4e0a\u73ed-0.5.0.app/Contents/MacOS/TodayOff",
+      "--headless",
+      "--fixed-fps",
+      "60",
+      "--script",
+      "/Users/geminchen/My-Item/job-or-not-job/tools/verify_macos.gd",
+      "--log-file",
+      "/Users/geminchen/My-Item/job-or-not-job/build/current-experience-package-check/smoke-external-engine.log"
+    ],
+    "cwd": "/tmp",
+    "exit": 0,
+    "marker": "PACKAGED_SMOKE_OK",
+    "passed": true
+  }
+]

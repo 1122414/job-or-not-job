@@ -1,0 +1,62 @@
+[
+  {
+    "test": "autumn_career_test.gd",
+    "source_sha256": "62e1d8d4710fb69c1a8afde65af7fe5a1b8e5cbc842c0cce9201f765871b74f4",
+    "external_sha256": "c06857d076b9e1571eec99b466e6774fc3c0048a82770c77e6ad9c137d9d4d88",
+    "adaptations": "test imports only"
+  },
+  {
+    "test": "autumn_full_story_test.gd",
+    "source_sha256": "24692bbb3b0a0a57681fa425651e6693a284d58a7b9bd2491e25c8850c15991b",
+    "external_sha256": "091565deae13dec028369844e70b150b0a9c6fee1c71ec39bab7f129cc98cdda",
+    "adaptations": "test imports only"
+  },
+  {
+    "test": "autumn_prologue_test.gd",
+    "source_sha256": "74a802b72b84eaae6b2f1f649b702e97823f929d555ad903ea13c55c4a0bb70b",
+    "external_sha256": "74a802b72b84eaae6b2f1f649b702e97823f929d555ad903ea13c55c4a0bb70b",
+    "adaptations": "test imports only"
+  },
+  {
+    "test": "autumn_search_driver.gd",
+    "source_sha256": "6aa15a284edad5c38e45f58991a97a07afc17dbcf10d99ae4cef16ebd42c16b3",
+    "external_sha256": "6aa15a284edad5c38e45f58991a97a07afc17dbcf10d99ae4cef16ebd42c16b3",
+    "adaptations": "test imports only"
+  },
+  {
+    "test": "departure_response_test.gd",
+    "source_sha256": "253ac8f27e5640fd5b8ed06953972885cd0c062e2b1f4d46fb4a2d5a54bc1d27",
+    "external_sha256": "99f987a180c6004a589f3a2660730cd6f61a7fccc95e683b94f5180bf2450a41",
+    "adaptations": "test imports only"
+  },
+  {
+    "test": "free_chat_context_test.gd",
+    "source_sha256": "b0afe097890373120eaa5be5999b356ba6eb155a5834fe598336645b736d4dc5",
+    "external_sha256": "9903bbaf4234c9efd17cf141fe0329ecba62007654f7f4024645d934afa023f6",
+    "adaptations": "test imports only"
+  },
+  {
+    "test": "free_chat_test.gd",
+    "source_sha256": "568c8b4005dccef792f70aec2b2bb50aa46430d9d385662e6c817c357503af33",
+    "external_sha256": "568c8b4005dccef792f70aec2b2bb50aa46430d9d385662e6c817c357503af33",
+    "adaptations": "test imports only"
+  },
+  {
+    "test": "friend_handover_test.gd",
+    "source_sha256": "f72e83b822595eb771c1e81825caa8a691d9812868ea94392f3c80e884cea9b9",
+    "external_sha256": "f2a1c40d7285a1643bb17dbbbb3eef5e90d951fd31b1cb0931792c2d7c67fb5e",
+    "adaptations": "test imports only; friend output destinations isolated"
+  },
+  {
+    "test": "full_route_test.gd",
+    "source_sha256": "85a7456f155441ff6e883d13547866f39b1a43e6858be2e92d64cba57bdc53b7",
+    "external_sha256": "7fc4d9d7e525e8c1aac40406ba3b33b72562ce80c72bed3fc0d5e3eaba996870",
+    "adaptations": "test imports only"
+  },
+  {
+    "test": "scene_driver.gd",
+    "source_sha256": "f65c0276d73f304291d7abd388f30a4e5a9ed9c8bc8b2b85c994cb3f4bddc19b",
+    "external_sha256": "f65c0276d73f304291d7abd388f30a4e5a9ed9c8bc8b2b85c994cb3f4bddc19b",
+    "adaptations": "test imports only"
+  }
+]

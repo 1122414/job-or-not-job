@@ -1,0 +1,27 @@
+[
+  {
+    "image": "01-offer.png",
+    "same_bytes": true,
+    "sha256": "d876603ad5e191c11cd6c62416aefcddb0a93bfbea2bd7d244a65bc5ca2ac5d4"
+  },
+  {
+    "image": "02-shared-deadline.png",
+    "same_bytes": true,
+    "sha256": "848c4708ab94f0f4ddf46d3576d12b0fa38fa4b67c008ff0f7487bc5754ea439"
+  },
+  {
+    "image": "03-ale-working.png",
+    "same_bytes": true,
+    "sha256": "d24ca76d4fc1135f9d260fae9b31ba67e77c046d788cbf7cc874aafe53dd74dd"
+  },
+  {
+    "image": "04-negotiated.png",
+    "same_bytes": false,
+    "sha256": "8598432b3a503d8816b1909645f47ba6269b56ae1f30b967ebb321881b876f70"
+  },
+  {
+    "image": "05-delivered.png",
+    "same_bytes": true,
+    "sha256": "edbb7f501579509e1e2ae7e4ec43b1762861790893219d4077dd5876bfdec3af"
+  }
+]

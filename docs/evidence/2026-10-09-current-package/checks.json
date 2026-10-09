@@ -1,0 +1,36 @@
+{
+  "package": "20261009T113504140087Z-885ac516-7f9a5bca",
+  "source_full_120_same_runtime_input": true,
+  "source_full_120_evidence": "../2026-10-09-friend-handover/full-suite.json",
+  "package_headless_checks": 7,
+  "independent_ending_restore": {
+    "exit": 0,
+    "passed": true,
+    "save_sha256": "91ae4598c277aaddaceed8106c07586c39f9591357a73a65f825eccf17718524",
+    "schema": 31,
+    "actual_days": 84.00763888888889,
+    "phase": "ending",
+    "employer": ""
+  },
+  "graphics": {
+    "exit": 0,
+    "failures": 0,
+    "width": 1280,
+    "height": 800,
+    "renderer": "Metal Forward+",
+    "explicit_background": true,
+    "window_guard_passed": true,
+    "Dummy_audio": true,
+    "images": 5,
+    "texture_rid_exit_warning": 7,
+    "same_bytes_as_source": 4,
+    "different_image": "04-negotiated.png",
+    "different_image_inspected": true,
+    "difference_cause": "not measured"
+  },
+  "natural_player_acceptance": false,
+  "system_ime": false,
+  "real_cloud_calls": 0,
+  "normal_game_fps": false,
+  "listening_acceptance": false
+}

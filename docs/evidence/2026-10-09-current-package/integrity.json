@@ -1,0 +1,14 @@
+{
+  "runtime_input_matches": true,
+  "runtime_dirty": false,
+  "manifest_copies_match": true,
+  "pck_matches": true,
+  "signed_engine_matches": true,
+  "zip_matches": true,
+  "zip_crc_ok": true,
+  "signature_exit": 0,
+  "build_id": "20261009T113504140087Z-885ac516-7f9a5bca",
+  "source_commit": "885ac516e229bf32a2be0111bbcd040f4e8bb264",
+  "source_sha256": "7f9a5bca422ed5df47962071ed97b8b2296beaf54a34aea2e704421353f07250",
+  "save_schema": 31
+}

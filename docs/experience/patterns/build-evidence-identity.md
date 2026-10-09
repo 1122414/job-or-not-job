@@ -40,3 +40,6 @@ C4g完成信号边界：同一工具GL总frame_post_draw为1080，Metal为2159�
 
 
 2026-10-09 NEXT07后台活场景复验：实际包3600次frame_post_draw逐样本增1且窗口守卫通过，再次确认显式绘制应用完成信号而非Engine计数。OS.get_cmdline_args在本机已移除disable-render-loop/fixed-fps等引擎处理参数；用是否包含启动参数判断真实配置会误拒绝合法运行，改用RenderingServer.is_render_loop_enabled并验证缺少关闭参数确实拒绝。性能监视器周期刷新，10步预热后可连续读到启动期3486ms旧值，不是当前帧成本；至少2秒墙钟预热后六组最高8.87ms，并明确记录周期快照及实际预热步数。源码和headless模式不再报告后台FPS。支持tests/performance.gd及docs/evidence/2026-10-09-performance；本机验证一次，GPU零值仍不可用，正常FPS/长期路线保持未验收。
+
+
+2026-10-09统一候选包7f9a5bca再次复用：先比当前运行输入与此前完整120项来源，再独立核对实际PCK/签名后引擎/ZIP。包外测试仅改res://tests依赖及朋友事件输出目录，游戏res://资源保持包内；七项包检查与五次实际档独立恢复通过。五张包图只有四张与源码逐字节相同，协商图目视可读但差异原因未测，继续保留“相同身份不代表逐像素必同”的边界。详见docs/evidence/2026-10-09-current-package。

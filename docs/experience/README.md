@@ -71,3 +71,5 @@
 2026-10-09 NEXT02：复用[内容入口与叙事资格](patterns/content-entry-eligibility.md)、[延后实际行为](patterns/deferred-world-actions.md)和[存档迁移](patterns/save-content-expansion.md)。朋友事件独立资格/原人物/实际发送与旧员工任务分开，三分支与独立磁盘恢复验证一次；完整120项通过，自然体验仍开放。
 
 2026-10-09回应动态取证：复用[声音输出](patterns/audio-output-lifecycle.md)，补初始化apply_levels覆盖提前静音的单次验证反例；后台守卫、3份实际PCM与音画时长边界已核对。
+
+2026-10-09统一候选包：复用[构建身份](patterns/build-evidence-identity.md)，同运行输入关联120项源码回归，实际包另执行七项与五次独立档恢复；五图四张字节一致，差异图保留并目视复核，未推定原因。
