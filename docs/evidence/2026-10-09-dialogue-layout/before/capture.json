@@ -1,0 +1,13 @@
+{
+	"background_guard": true,
+	"build": "source",
+	"images": [
+		"normal-dialogue",
+		"typing-inline",
+		"reply-inline",
+		"long-reply-inline",
+		"wide-inline"
+	],
+	"persistence": false,
+	"reply_source": "explicit_display_fixture_not_cloud"
+}

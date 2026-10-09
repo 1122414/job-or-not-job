@@ -64,6 +64,12 @@ func run() -> void:
 		root.push_input(key);await process_frame
 		key.pressed=false;root.push_input(key)
 	check(game.player.position==at and mentor.hp==100 and game.conversation.choices==choices,"输入移动/攻击/数字键不走路、不伤人、不选择")
+	input.clear()
+	for character in "说好的转正名额呢？":
+		key=InputEventKey.new();key.unicode=character.unicode_at(0);key.pressed=true
+		root.push_input(key);await process_frame
+		key.pressed=false;root.push_input(key)
+	check(input.text=="说好的转正名额呢？" and chat.draft==input.text and game.panels.page=="","中文字符提交进入原输入框；此断言不模拟操作系统IME候选")
 	var story: Dictionary=game.story.data.duplicate(true)
 	var career := SaveGame.fields(game.career,SaveGame.CAREER_FIELDS)
 	input.text="老师，我想解释一下实习安排。";input.text_changed.emit(input.text)
@@ -129,6 +135,11 @@ func run() -> void:
 	key.physical_keycode=KEY_ESCAPE;key.keycode=KEY_ESCAPE;key.unicode=0;key.pressed=true;root.push_input(key);await process_frame
 	key.pressed=false;root.push_input(key)
 	check(not paused and game.panels.page=="" and not game.conversation.is_empty(),"Esc结束输入，保留普通对话")
+	var released_at: Vector3=game.player.position
+	Input.action_press("right")
+	for i in range(30): await physics_frame
+	Input.action_release("right")
+	check(game.player.position.distance_to(released_at)>.2,"结束输入后真实移动键重新控制角色")
 	game.panels.toggle("pause");check(paused and game.panels.page=="pause","随后Esc菜单仍可用")
 
 	game.panels.show_page("");server.stop();game.queue_free();await process_frame

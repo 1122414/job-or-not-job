@@ -19,3 +19,6 @@
 2026-10-09 U01/U02用户纠正：自由输入不能作为独立大页面替代正常现场对话。改为原HUD对话框追加LineEdit/发送/取消，原选项保留为真实按钮；模型回答覆盖显示台词但不覆盖conversation选择数据。聚焦输入时暂停世界、GamePanels将文字键交给GUI，Esc只释放输入；固定选择/切页/结束交谈取消旧请求并释放该暂停所有权。上述R04整页入口已撤换，只有模型设置仍是独立页面。`tests/free_chat_test.gd`覆盖N/W/F/C/数字输入、实际点击发送/取消/选项、Esc和原主线续接；`tools/capture_inline_chat.gd`检查1280×800/720正常及长回复布局，真实中文IME仍开放。
 
 自动点击反例：Control.get_global_rect给的是视口内坐标，root.push_input默认会再做窗口伸缩变换，导致发送按钮无响应；传in_local_coords=true后实际按钮与请求断言通过。保持真实GUI事件，不用emit pressed替代点击来掩盖坐标错误。HTTPRequest.timeout要在request前配置；事后改属性未重置已开始的等待，本轮先设短时限再发请求后超时回退通过。均为本机/本项目验证一次。
+
+
+2026-10-09 NEXT05-L1/L2：内嵌输入高度跟随正文、选择与非空状态消息，不再固定预留空状态行。两分辨率图形检查还必须覆盖实际换行后的Button矩形及RichTextLabel，不能只比较预估字数。`tools/capture_inline_chat.gd`新增选择两两不相交、回复/选项/输入不相交及真实滚轮；本轮通过一次。`free_chat_test.gd`中文unicode事件通过只证明字符提交，不证明操作系统IME组合/候选窗；这两种证据必须分开。

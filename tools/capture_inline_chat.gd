@@ -3,6 +3,7 @@ var output := "res://docs/evidence/2026-10-09-inline-chat/runtime"
 var viewport: SubViewport
 var game: Node3D
 var images: Array=[]
+var layouts := {}
 func _initialize() -> void:
 	for argument in OS.get_cmdline_user_args():
 		if argument.begins_with("--output="): output=argument.trim_prefix("--output=")
@@ -18,9 +19,14 @@ func shot(label: String) -> void:
 	if not bounds.encloses(game.hud.chat_row.get_global_rect()): push_error("Inline input outside viewport");quit(1);return
 	for button in game.hud.chat_choices:
 		if not bounds.encloses(button.get_global_rect()) or button.get_global_rect().intersects(game.hud.chat_row.get_global_rect()): push_error("Inline choice/input overlap");quit(1);return
+		if game.hud.chat_reply.visible and button.get_global_rect().intersects(game.hud.chat_reply.get_global_rect()): push_error("Reply/choice overlap");quit(1);return
+		for other in game.hud.chat_choices:
+			if other!=button and other.get_global_rect().intersects(button.get_global_rect()): push_error("Wrapped choices overlap");quit(1);return
+	if game.hud.chat_reply.visible and not bounds.encloses(game.hud.chat_reply.get_global_rect()): push_error("Reply outside viewport");quit(1);return
 	if viewport.get_texture().get_image().save_png(output.path_join(label+".png"))!=OK:
 		push_error("Capture failed");quit(1);return
 	images.append(label)
+	layouts[label]={"viewport":str(viewport.size),"input":str(game.hud.chat_row.get_global_rect()),"reply":str(game.hud.chat_reply.get_global_rect()) if game.hud.chat_reply.visible else "hidden","choices":game.hud.chat_choices.map(func(button: Button): return str(button.get_global_rect()))}
 func run() -> void:
 	root.set_disable_input(true);root.set_flag(Window.FLAG_NO_FOCUS,true);root.mode=Window.MODE_MINIMIZED
 	DirAccess.make_dir_recursive_absolute(output)
@@ -41,11 +47,24 @@ func run() -> void:
 	game.free_chat.apply_reply({"reply":"实习的事我们刚才已经谈过了。先把论文和实验做好，我不同意你现在离校。","attitude":"guarded","affinity":0,"trust":0},game.free_chat.draft)
 	game.free_chat.draft="";game.free_chat.notice="界面演示：固定回复，非云端生成。"
 	await shot("reply-inline")
-	game.free_chat.reply_text="导师："+"你说的安排我听到了，但实验和论文仍要按时推进。".repeat(18)
+	game.free_chat.reply_text="你："+"我想核对当时说好的实习安排。".repeat(30).left(500)+"\n导师："+"你说的安排我听到了，但实验和论文仍要按时推进。".repeat(22).left(500)
 	await shot("long-reply-inline")
+	var scroll: VScrollBar=game.hud.chat_reply.get_v_scroll_bar()
+	if scroll.max_value<=scroll.page: push_error("Long reply fixture does not overflow");quit(1);return
+	for i in range(6):
+		var wheel := InputEventMouseButton.new();wheel.button_index=MOUSE_BUTTON_WHEEL_DOWN;wheel.pressed=true;wheel.position=game.hud.chat_reply.get_global_rect().get_center()
+		viewport.push_input(wheel,true);await process_frame
+	if scroll.value<=0: push_error("Long reply mouse scroll failed");quit(1);return
+	await shot("long-reply-scrolled")
 	viewport.size=Vector2i(1280,720)
 	await shot("wide-inline")
-	var record := {"build":BuildInfo.read().get("build_id","source"),"images":images,"background_guard":not root.has_focus() and Input.mouse_mode==Input.MOUSE_MODE_VISIBLE,"persistence":game.persistence_enabled,"reply_source":"explicit_display_fixture_not_cloud"}
+	game.free_chat.notice="";game.free_chat.reply_text="导师：我听到了。"
+	await shot("short-reply-720")
+	game.conversation.choices[0][0]="我想核对当时约定的工作范围、完成日期和评审标准，并保留实际发生的沟通记录。".repeat(3)
+	game.hud.sync_chat()
+	game.free_chat.notice="回复暂时不可用，你可以重试，也可以继续下面的固定选项。".repeat(4)
+	await shot("wrapped-choice-notice-720")
+	var record := {"build":BuildInfo.read().get("build_id","source"),"images":images,"layouts":layouts,"long_reply_mouse_scroll":true,"background_guard":not root.has_focus() and Input.mouse_mode==Input.MOUSE_MODE_VISIBLE,"persistence":game.persistence_enabled,"reply_source":"explicit_display_fixture_not_cloud","ime":"not tested; no operating-system composition events"}
 	FileAccess.open(output.path_join("capture.json"),FileAccess.WRITE).store_string(JSON.stringify(record,"\t")+"\n")
 	game.close_interaction();viewport.queue_free();await process_frame
 	print("INLINE_CHAT_GRAPHICS_OK ",JSON.stringify(record));quit()

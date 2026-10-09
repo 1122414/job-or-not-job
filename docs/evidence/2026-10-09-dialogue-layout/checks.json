@@ -1,0 +1,123 @@
+{
+  "stage": "NEXT05-L1/L2",
+  "source_base": "65254a3",
+  "targeted_tests": [
+    {
+      "test": "free_chat",
+      "exit": 0,
+      "passed": true
+    },
+    {
+      "test": "panels",
+      "exit": 0,
+      "passed": true
+    },
+    {
+      "test": "page_controls",
+      "exit": 0,
+      "passed": true
+    },
+    {
+      "test": "mouse_capture",
+      "exit": 0,
+      "passed": true
+    },
+    {
+      "test": "dialogue_scene",
+      "exit": 0,
+      "passed": true
+    },
+    {
+      "test": "departure_response",
+      "exit": 0,
+      "passed": true
+    }
+  ],
+  "graphical": {
+    "before_exit": 0,
+    "after_exit": 0,
+    "meeting_exit": 0,
+    "sizes": [
+      [
+        1280,
+        800
+      ],
+      [
+        1280,
+        720
+      ]
+    ],
+    "long_reply_mouse_scroll": true
+  },
+  "ordinary_panel_layout": {
+    "before_height_px": 299,
+    "after_height_px": 236,
+    "reduction_px": 63,
+    "basis": "same 25px text + 116px choices; runtime layout formula and paired screenshots"
+  },
+  "limits": [
+    "OS IME composition not exercised",
+    "No cloud calls; displayed answers are fixtures",
+    "No natural player acceptance",
+    "No new package or full suite in this stage",
+    "Existing 7 Texture RID exit warnings remain"
+  ],
+  "logs": {
+    "dialogue-layout-before.log": {
+      "sha256": "7a34e50fb2cb525b48116d3d4c7c61975222ac61d086803804bc344f444851e3",
+      "errors": false
+    },
+    "dialogue-layout-final.log": {
+      "sha256": "1b78a00f7f3352aaef11f4ae16ecc5168c5e8c7f7881df513b8a3a2b1b12f1f2",
+      "errors": false
+    },
+    "departure-layout-final.log": {
+      "sha256": "1e904c7bbeb91d478b491915486a999a63acc78ccbc6b5ee6a544a63cf69a7fd",
+      "errors": false
+    },
+    "mouse_capture.log": {
+      "sha256": "2c873323ddbc0e7ac49f2dfa6c941a8988c0476441cf8708fc8ee3b4b0731c96",
+      "errors": false
+    },
+    "page_controls.log": {
+      "sha256": "344313ad03dbf0141919810dfbd43a0e34889a9767371d0e4b59e5771109c1e1",
+      "errors": false
+    },
+    "dialogue_scene.log": {
+      "sha256": "10e757a171e71407bb83ee4c6d32c21b1c92b22584ca368ebd19a954c7f261c1",
+      "errors": false
+    },
+    "panels.log": {
+      "sha256": "0aaa8a855ece811441f12b549284c65ee030fe134fe7772aca96fe798f6aa2d3",
+      "errors": false
+    },
+    "free_chat.log": {
+      "sha256": "c9937ef646530a6d501d66910fea4801ea33c58c8a8615d4eb78d127a642903b",
+      "errors": false
+    },
+    "departure_response.log": {
+      "sha256": "c90e40c94a9bc696d0a87d06059576f45328afc18984703502ae36f91ee9ed08",
+      "errors": false
+    }
+  },
+  "images": {
+    "meeting/03-acknowledged.png": "22edca985a6591c83b4644476da025037ca5f742fd1fad4a85050f5820808be9",
+    "meeting/04-next-places.png": "01a43df8681885bfd1ce4e38fbad63ab74130cb514d753a014dff8cfe4ae6158",
+    "meeting/02-testimony.png": "8e4ef526365edbba48d1762c751422da2eb831044440b8c06b4776bba5bcc84f",
+    "meeting/01-written.png": "34bf87545a97f4bbeadc88b4df90bb258304ee53327bba331f483a8f363f8029",
+    "before/wide-inline.png": "b9202ca944549747eb457e5bc43f4a07a183e05e6c34e07f9595b3c74d2ac99a",
+    "before/normal-dialogue.png": "bda06d3675dc6e42d82ce646f65d59ca9d1b6086c17c48bb92030fd4c0c5535b",
+    "before/long-reply-inline.png": "cf915e9ffd7cf5db8bce31736eb38ba77bd320432013ab74771834c479527fd2",
+    "before/reply-inline.png": "3deb2df0690f0e2a87232dc305ecf25fe7d741595c3f23246df5d97ea08c572a",
+    "before/typing-inline.png": "bd7ef67ae5b35187a53ee871b8e185f4cf45904b420edff99391a6022044f558",
+    "after/wide-inline.png": "c884f846139cb3c35dafcecc67e454ba3c80bc7419f2c3d48474e6fed122e203",
+    "after/normal-dialogue.png": "c58ad3196df828d6db5ea55bfd5b2a7afd9c979c1efd866d182e0926839f56cc",
+    "after/long-reply-scrolled.png": "07beb5074e0c1b6bf24b55a2b2da6a75b1536f22f2a282938f170a7f9e98b315",
+    "after/long-reply-inline.png": "b831f80b3c2fcebb3d9c45b6ad12b49d103a40a9322e4196a62b6b650365cf03",
+    "after/reply-inline.png": "7152f221b4e70a59471b9871b3e9eb59c1ea3d81c9325c4e132285681c3e4e25",
+    "after/wrapped-choice-notice-720.png": "32e6f9ddf170ea7381960a33ac18f8111a3daaa7d9a6ec05f525ee36603bfc40",
+    "after/typing-inline.png": "7e524f55a23ad339217133ff65c0d7868f47bacde6f0ecebd2febf6863236424",
+    "after/short-reply-720.png": "14319770e33397b353ae5692986d940af026c15e53a12431b1585999e44afe3d"
+  },
+  "input_release_real_movement": true
+}

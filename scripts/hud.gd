@@ -125,6 +125,9 @@ func _draw() -> void:
 	if game.panels.page=="" and not scene_dialogue:
 		var goal: String=game.objective_text()
 		var lines := wrap_lines(goal,480,17)
+		var goal_width := 0.0
+		for i in range(mini(2,lines.size())): goal_width=maxf(goal_width,font.get_string_size(lines[i],HORIZONTAL_ALIGNMENT_LEFT,-1,17).x)
+		if goal_width>0: draw_style_box(panel_style(),Rect2(20,15,goal_width+24,lines.size()*24+12 if lines.size()<2 else 60))
 		for i in range(mini(2,lines.size())): text_at(Vector2(32,38+i*24),lines[i],17,Color("f0e6d3"))
 		text_at(Vector2(32,92),"J  安排    M  城区与出行    P  人物    TAB  背包",13,Color("c7cdd0"))
 		if game==get_tree().current_scene and Input.mouse_mode!=Input.MOUSE_MODE_CAPTURED:
@@ -197,8 +200,10 @@ func _draw() -> void:
 		var actor: OfficeNPC=game.npc_for_role(game.conversation.get("actor","")) if in_scene else game.speaker if game.speaker is OfficeNPC else null
 		var name_height: float=30 if in_scene and actor else 0
 		var inline_chat: bool=chat_row.visible
-		var text_height: float=minf(120,maxf(64,wrap_lines(game.free_chat.reply_text,panel_width-48,18).size()*28+8)) if chat_reply.visible else dialogue_lines.size()*25
-		var height: float=maxf(112,76+name_height+text_height+option_height)+(82 if inline_chat else 0)
+		var text_height: float=minf(120,maxf(32,wrap_lines(game.free_chat.reply_text,panel_width-48,18).size()*28+4)) if chat_reply.visible else dialogue_lines.size()*25
+		var notice_lines := wrap_lines(game.free_chat.notice,panel_width-48,14) if inline_chat else PackedStringArray()
+		var notice_height: float=notice_lines.size()*22
+		var height: float=95+name_height+text_height+option_height+notice_height if inline_chat else maxf(112,76+name_height+text_height+option_height)
 		var top: float=h-52-height
 		if actor and not in_scene:
 			var npc: OfficeNPC=actor
@@ -216,7 +221,7 @@ func _draw() -> void:
 			for line in dialogue_lines:
 				text_at(Vector2(panel_x+24,y),line,18)
 				y+=25
-			y+=12
+		y+=8 if inline_chat else 12
 		for i in range(option_lines.size()):
 			var lines: PackedStringArray=option_lines[i]
 			if inline_chat and i<chat_choices.size():
@@ -228,9 +233,9 @@ func _draw() -> void:
 					text_at(Vector2(panel_x+24,y),line,17,Color("f5d386"));y+=23
 				y+=6
 		if inline_chat:
-			chat_row.position=Vector2(panel_x+24,top+height-94)
+			chat_row.position=Vector2(panel_x+24,y-9)
 			chat_row.size=Vector2(panel_width-48,40)
-			text_at(Vector2(panel_x+24,top+height-34),game.free_chat.notice,14,Color("e4be70"))
+			for i in range(notice_lines.size()): text_at(Vector2(panel_x+24,chat_row.position.y+60+i*22),notice_lines[i],14,Color("e4be70"))
 		text_at(Vector2(panel_x+24,top+height-14),"Enter 发送 · Esc 结束输入 · 可点击或用数字键选择" if inline_chat else game.conversation.get("hint","数字键选择 · 走开或动手立即中断"),13,Color("a4b3bd"))
 
 	if game.debug_open:
