@@ -59,7 +59,7 @@
     "OS IME composition not exercised",
     "No cloud calls; displayed answers are fixtures",
     "No natural player acceptance",
-    "No new package or full suite in this stage",
+    "This stage includes a new verified isolated package and targeted package tests; full suite not rerun",
     "Existing 7 Texture RID exit warnings remain"
   ],
   "logs": {
@@ -98,6 +98,34 @@
     "departure_response.log": {
       "sha256": "c90e40c94a9bc696d0a87d06059576f45328afc18984703502ae36f91ee9ed08",
       "errors": false
+    },
+    "packaged-startup-0.log": {
+      "sha256": "1f4aefb7bdaa3aac5c3ea38b8d505eb0d072d02dfef33d1c42767bcd075bbb24",
+      "errors": false
+    },
+    "packaged-startup-1.log": {
+      "sha256": "1f4aefb7bdaa3aac5c3ea38b8d505eb0d072d02dfef33d1c42767bcd075bbb24",
+      "errors": false
+    },
+    "packaged-departure_response_test.log": {
+      "sha256": "c90e40c94a9bc696d0a87d06059576f45328afc18984703502ae36f91ee9ed08",
+      "errors": false
+    },
+    "packaged-free_chat_test.log": {
+      "sha256": "c9937ef646530a6d501d66910fea4801ea33c58c8a8615d4eb78d127a642903b",
+      "errors": false
+    },
+    "packaged-camera_clearance_test.log": {
+      "sha256": "727f697aaf8d9e92f23f7fcdb9186166825b100de8de5f7b68284235e21218df",
+      "errors": false
+    },
+    "packaged-autumn_full_story_test.log": {
+      "sha256": "ccd0a79fd6b2ca5d569394b83fa7f5b7882d585d6837fb1652b33dc8d62ca636",
+      "errors": false
+    },
+    "packaged-verify_autumn_ending.log": {
+      "sha256": "a3624d22f37347dc9db0915ba2fe85d058245f8b859c24c97df5fe9eac22b442",
+      "errors": false
     }
   },
   "images": {
@@ -117,7 +145,78 @@
     "after/reply-inline.png": "7152f221b4e70a59471b9871b3e9eb59c1ea3d81c9325c4e132285681c3e4e25",
     "after/wrapped-choice-notice-720.png": "32e6f9ddf170ea7381960a33ac18f8111a3daaa7d9a6ec05f525ee36603bfc40",
     "after/typing-inline.png": "7e524f55a23ad339217133ff65c0d7868f47bacde6f0ecebd2febf6863236424",
-    "after/short-reply-720.png": "14319770e33397b353ae5692986d940af026c15e53a12431b1585999e44afe3d"
+    "after/short-reply-720.png": "14319770e33397b353ae5692986d940af026c15e53a12431b1585999e44afe3d",
+    "packaged/wide-inline.png": "c884f846139cb3c35dafcecc67e454ba3c80bc7419f2c3d48474e6fed122e203",
+    "packaged/normal-dialogue.png": "c58ad3196df828d6db5ea55bfd5b2a7afd9c979c1efd866d182e0926839f56cc",
+    "packaged/long-reply-scrolled.png": "07beb5074e0c1b6bf24b55a2b2da6a75b1536f22f2a282938f170a7f9e98b315",
+    "packaged/long-reply-inline.png": "b831f80b3c2fcebb3d9c45b6ad12b49d103a40a9322e4196a62b6b650365cf03",
+    "packaged/reply-inline.png": "7152f221b4e70a59471b9871b3e9eb59c1ea3d81c9325c4e132285681c3e4e25",
+    "packaged/wrapped-choice-notice-720.png": "32e6f9ddf170ea7381960a33ac18f8111a3daaa7d9a6ec05f525ee36603bfc40",
+    "packaged/typing-inline.png": "7e524f55a23ad339217133ff65c0d7868f47bacde6f0ecebd2febf6863236424",
+    "packaged/short-reply-720.png": "14319770e33397b353ae5692986d940af026c15e53a12431b1585999e44afe3d"
   },
-  "input_release_real_movement": true
+  "input_release_real_movement": true,
+  "packaged": {
+    "build_id": "20261009T102402425542Z-6738f513-47780fc4",
+    "source_sha256": "47780fc402ad525c48961f150636961e291c370f84e80fb51044d3ae97399eec",
+    "save_schema": 30,
+    "runtime_dirty": false,
+    "source_pck_engine_zip_sign_verified": true,
+    "tests": [
+      {
+        "test": "autumn_full_story_test",
+        "exit": 0,
+        "passed": true
+      },
+      {
+        "test": "departure_response_test",
+        "exit": 0,
+        "passed": true
+      },
+      {
+        "test": "free_chat_test",
+        "exit": 0,
+        "passed": true
+      },
+      {
+        "test": "camera_clearance_test",
+        "exit": 0,
+        "passed": true
+      },
+      {
+        "test": "verify_autumn_ending",
+        "exit": 0,
+        "passed": true
+      }
+    ],
+    "startup": [
+      {
+        "cwd": "/tmp",
+        "exit": 0,
+        "passed": true
+      },
+      {
+        "cwd": "/Users/geminchen/My-Item/job-or-not-job",
+        "exit": 0,
+        "passed": true
+      }
+    ],
+    "layout_rectangles_match_source": true,
+    "all_eight_png_files_identical_to_source": true,
+    "ending": {
+      "phase": "ending",
+      "started_at": 4869.0,
+      "placement": {
+        "enabled": true,
+        "ended_at": 125840.0,
+        "renewed_at": 85519.0,
+        "reviewed_at": 45199.0
+      },
+      "response": {
+        "guide": "",
+        "meeting": {},
+        "written": {}
+      }
+    }
+  }
 }
