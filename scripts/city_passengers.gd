@@ -16,6 +16,7 @@ func aboard(person: CityResident) -> bool:
 	return trips.get(person.stable_id,{}).get("stage")=="riding"
 
 func prepare(person: CityResident,goal: String) -> String:
+	if game.transit.bus.taken: return goal
 	if not person.index in COMMUTERS or person.journey%3!=0 or person.fear>0 or not person.available() or trips.has(person.stable_id): return goal
 	if person.position.distance_to(CityPopulation.POINTS[goal])<60: return goal
 	var origin := closest_stop(person.position)
@@ -44,6 +45,7 @@ func free_seat() -> int:
 	return -1
 
 func wants_exit(person: CityResident,trip: Dictionary) -> bool:
+	if game.transit.bus.taken: return absf(game.transit.bus.speed)<.35
 	return game.transit.current_stop>=0 and (game.transit.current_stop==trip.destination or trip.early_exit or not person.available() or person.fear>0)
 
 func holds_departure() -> bool:
@@ -85,9 +87,10 @@ func detach(person: CityResident) -> void:
 
 func exit_at_stop(person: CityResident,trip: Dictionary) -> bool:
 	var stop: int=game.transit.current_stop
-	if stop<0: return false
-	for point in exit_points(stop):
+	if stop<0 and not game.transit.bus.taken: return false
+	for point in (game.transit.manual_exits() if game.transit.bus.taken else exit_points(stop)):
 		if not clear_exit(person,point): continue
+		if game.transit.bus.taken and not game.transit.manual_exit_clear(person,point): continue
 		finish_exit(person,trip,point)
 		return true
 	return false
@@ -145,6 +148,8 @@ func attend(person: CityResident,delta: float) -> bool:
 		if wants_exit(person,trip) and exit_at_stop(person,trip): return false
 		sync(person)
 		return true
+	if game.transit.bus.taken:
+		cancel_wait(person);person.plan(trip.goal);return false
 	if not person.available() or person.fear>0 or person.destination!=wait_node(trip.origin,trip.queue):
 		cancel_wait(person);return false
 	if not person.route.is_empty() or game.speaker==person: return false
@@ -191,7 +196,7 @@ func valid(data: Variant,people: Dictionary,transit: Dictionary) -> bool:
 		if trip.stage=="riding":
 			if trip.seat<0 or seats.has(int(trip.seat)) or not actor.route.is_empty() or actor.crossing!="" or actor.state not in ["riding","fallen","dead"]: return false
 			seats[int(trip.seat)]=true
-			var expected: Vector3=game.transit.vehicle_transform(transit.distance)*SEATS[int(trip.seat)]
+			var expected: Vector3=game.transit.stored_transform(transit)*SEATS[int(trip.seat)]
 			if expected.distance_to(SaveGame.unvector(actor.position))>.08: return false
 		else:
 			var queue := wait_node(trip.origin,trip.queue)

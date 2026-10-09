@@ -42,6 +42,16 @@ func perform(game: Node3D,id: String,action: String) -> bool:
 		if game.nearest()==target:
 			reached=true
 			break
+		# A slower walk lets a scheduled colleague arrive before the desk.
+		# Answer the real interruption through its UI, then continue approaching.
+		var nearby: Node3D=game.nearest()
+		if nearby is OfficeNPC and not game.office.offer_for(nearby).is_empty():
+			game.interact()
+			for choice in range(game.conversation.get("choices",[]).size()):
+				if game.conversation.choices[choice][1]=="visit_defer":
+					game.choose(choice)
+					break
+			game.close_interaction()
 	if not reached:
 		push_error("完整路线无法接近 "+id+" player="+str(game.player.position)+" target="+str(target.position))
 		return false

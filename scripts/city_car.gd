@@ -10,6 +10,11 @@ const SEAT := Vector3(-0.43,0.13,0.10)
 var stable_id := ""
 var title := "城区共享车"
 var traffic := false
+var taken := false
+var bus_mode := false
+var bus_visual: CityBusVisual
+var displaced: VehicleDriver
+var driven_distance := 0.0
 var paint := Color("477d88")
 var speed := 0.0
 var steering := 0.0
@@ -23,10 +28,20 @@ var steering_wheel: MeshInstance3D
 var visual: CityCarVisual
 var braking_now := false
 
+func update_body_exceptions() -> void:
+	for person in get_parent().game.population.residents:
+		if not person.available(): add_collision_exception_with(person)
+		elif person in get_collision_exceptions(): remove_collision_exception_with(person)
+
 func _ready() -> void:
 	name=stable_id
 	collision_mask=3
 	motion_mode=CharacterBody3D.MOTION_MODE_FLOATING
+	if bus_mode:
+		Shapes.collider(self,Vector3(2.6,2.8,7),Vector3(0,1.6,0))
+		bus_visual=CityBusVisual.new();add_child(bus_visual)
+		driver=bus_visual.driver
+		return
 	Shapes.collider(self,Vector3(1.86,1.3,4.25),Vector3(0,0.86,0))
 	visual=CityCarVisual.new();visual.car=self;add_child(visual)
 	wheels=visual.wheels;front_wheels=visual.front_axles
@@ -37,16 +52,24 @@ func _ready() -> void:
 func update_lights() -> void:
 	var city: Node3D=get_parent().game
 	var minute: int=city.payroll.minute%Payroll.DAY
-	visual.set_lighting(minute<360 or minute>=1080,traffic or get_parent().active==self,braking_now)
+	if bus_mode: bus_visual.set_night(minute<360 or minute>=1080)
+	else: visual.set_lighting(minute<360 or minute>=1080,traffic and not taken or city.driving.active==self,braking_now)
 
 func animate_wheels(delta: float, braking: bool) -> void:
+	if bus_mode:
+		driven_distance+=speed*delta
+		bus_visual.set_motion(driven_distance,steering)
+		bus_visual.step_doors(delta,false)
+		update_lights()
+		return
 	for tire in wheels:tire.rotation.x=fposmod(tire.rotation.x-speed*delta/.34,TAU)
 	for pivot in front_wheels:pivot.rotation.y=-steering
 	steering_wheel.basis=Basis(Vector3.RIGHT,1.05)*Basis(Vector3.UP,-steering*2.5)
 	braking_now=braking;update_lights()
-	if driver:pose_driver(driver)
+	if driver and not taken:pose_driver(driver)
 
 func palm_target(side: String) -> Transform3D:
+	if bus_mode: return bus_visual.palm_target(side)
 	var sign_value := -1.0 if side=="L" else 1.0
 	var normal := Vector3(-sign_value,0,0)
 	var along := Vector3(0,0,-1)
@@ -58,6 +81,7 @@ func pose_driver(human: HumanVisual) -> void:
 		human.contacts.fingers(side,.72)
 
 func drive(delta: float, throttle: float, turn: float, handbrake: bool) -> void:
+	update_body_exceptions()
 	# A planar bicycle controller for the current flat district. Sweeps cover travel;
 	# rotation is also swept in small steps so a rear corner cannot rotate through a wall.
 	var dt := minf(delta,0.1)
@@ -68,7 +92,7 @@ func drive(delta: float, throttle: float, turn: float, handbrake: bool) -> void:
 	speed=move_toward(speed,0.0 if handbrake else target,acceleration*dt)
 	var steer_limit := lerpf(0.58,0.25,clampf(absf(speed)/MAX_SPEED,0,1))
 	steering=move_toward(steering,turn*steer_limit,2.4*dt)
-	var turn_angle := -(old_speed+speed)*0.5/WHEELBASE*tan(steering)*dt
+	var turn_angle := -(old_speed+speed)*0.5/(4.5 if bus_mode else WHEELBASE)*tan(steering)*dt
 	var travel := (old_speed+speed)*0.5*dt
 	blocked=false
 	var substeps := maxi(1,ceili(absf(turn_angle)/0.015))
@@ -81,24 +105,47 @@ func drive(delta: float, throttle: float, turn: float, handbrake: bool) -> void:
 		var collision := move_and_collide(motion)
 		if collision:
 			var actor := collision.get_collider()
-			if actor is CityResident and not traffic and absf(old_speed)>1.5:
-				actor.hit(-basis.z*signf(old_speed),clampf(absf(old_speed)/3,0.5,5),actor.game.next_action(),absf(old_speed)>6)
+			if actor is CityResident and (not traffic or taken) and absf(old_speed)>1.5:
+				actor.vehicle_hit(-basis.z*signf(old_speed),absf(old_speed))
+				add_collision_exception_with(actor)
+				speed*=.9
+				collision=move_and_collide(collision.get_remainder())
+				if not collision: continue
 			blocked=true
 			speed=0
 			break
 	rotation.y=wrapf(rotation.y,-PI,PI)
+	position.y=0.0
 	animate_wheels(dt,handbrake or reversing or blocked)
 
 func rotation_clear(yaw: float) -> bool:
 	var query := PhysicsShapeQueryParameters3D.new()
 	query.shape=get_child(0).shape
-	query.transform=Transform3D(Basis(Vector3.UP,yaw),position+Vector3(0,0.86,0))
+	query.transform=Transform3D(Basis(Vector3.UP,yaw),position+Vector3(0,1.6 if bus_mode else .86,0))
 	query.collision_mask=3
 	query.exclude=[get_rid()]
 	var exceptions := query.exclude
 	for object in get_collision_exceptions(): exceptions.append(object.get_rid())
 	query.exclude=exceptions
-	return get_world_3d().direct_space_state.intersect_shape(query,1).is_empty()
+	for hit in get_world_3d().direct_space_state.intersect_shape(query,16):
+		if hit.collider is CityResident and (not traffic or taken) and absf(speed)>1.5:
+			hit.collider.vehicle_hit(-basis.z*signf(speed),absf(speed))
+			add_collision_exception_with(hit.collider)
+		else: return false
+	return true
+
+func seat() -> Vector3:
+	return CityBusVisual.DRIVER_SEAT if bus_mode else SEAT
+
+func set_taken(value: bool,at: Vector3=Vector3.ZERO,retreat_time: float=3.0) -> void:
+	taken=value
+	if driver: driver.visible=not taken
+	if displaced:
+		displaced.queue_free();displaced=null
+	if taken and driver:
+		displaced=VehicleDriver.new();displaced.vehicle=self
+		get_parent().game.driving.add_child(displaced)
+		displaced.position=at;displaced.retreat=retreat_time
 
 func tick_traffic(delta: float, transit: CityTransit) -> void:
 	var dt := minf(delta,0.1)

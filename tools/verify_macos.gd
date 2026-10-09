@@ -201,7 +201,7 @@ func run() -> void:
 			push_error("Packaged public gallery is obstructed")
 			quit(1)
 			return
-	if game.commons.benches.size()!=6 or SaveGame.VERSION!=25 or game.passengers==null or game.handover==null or game.meals==null or game.meals.points.size()!=2:
+	if game.commons.benches.size()!=6 or SaveGame.VERSION<25 or game.passengers==null or game.handover==null or game.meals==null or game.meals.points.size()!=2:
 		push_error("Packaged public commons missing"); quit(1); return
 	var commons_original := SaveGame.snapshot(game)
 	game.set_process(false)
@@ -253,8 +253,9 @@ func run() -> void:
 	for clip in ["idle","talk","walk","run"]:
 		if not authored.has_animation(clip):push_error("Packaged authored clip missing: "+clip);quit(1);return
 	var humans: Array=game.find_children("*","Node3D",true,false).filter(func(node): return node is HumanVisual)
-	if humans.size()!=29:
-		push_error("Packaged character visuals missing")
+	var expected_humans: int=1+game.npcs.size()+game.population.residents.size()+game.response.helpers.size()+game.driving.cars.filter(func(car): return car.driver!=null).size()+1+game.story.points.filter(func(point): return point.person).size()
+	if humans.size()!=expected_humans:
+		push_error("Packaged character visuals missing: actual="+str(humans.size())+" expected="+str(expected_humans))
 		quit(1)
 		return
 	for human in humans:
@@ -478,7 +479,7 @@ func run() -> void:
 	game.set_process(false)
 	for i in range(3): await physics_frame
 	Input.action_press("forward")
-	for i in range(35): await physics_frame
+	for i in range(ceili(3.0/game.player.walk_speed*60)): await physics_frame
 	Input.action_release("forward")
 	if game.player.position.z>33.5:
 		push_error("Packaged bookshop interior is not walkable")
@@ -515,7 +516,7 @@ func run() -> void:
 			if argument.begins_with("--screenshot="):
 				var error := root.get_texture().get_image().save_png(argument.trim_prefix("--screenshot="))
 				if error!=OK: quit(1); return
-	print("PACKAGED_SMOKE_OK build=",build.build_id," label=",BuildInfo.label()," npcs=",game.npcs.size()," props=",game.props.size()," company_spaces=2 company_sources=2 environment_props=6 asset_sources=5 authored_clips=4 authored_characters=29 texture_imports=verified ui_mouse=verified city_stops=4 authored_bus=verified bus_ride_save=verified driving_save=verified traffic=3 public_residents=12 population_save=verified bookshop_walk_save=verified original_illustrations=3 public_response_transfer_save=verified persistence=",game.persistence_enabled)
+	print("PACKAGED_SMOKE_OK build=",build.build_id," label=",BuildInfo.label()," npcs=",game.npcs.size()," props=",game.props.size()," company_spaces=2 company_sources=2 environment_props=6 asset_sources=5 authored_clips=4 authored_characters=",humans.size()," texture_imports=verified ui_mouse=verified city_stops=4 authored_bus=verified bus_ride_save=verified driving_save=verified traffic=3 public_residents=12 population_save=verified bookshop_walk_save=verified original_illustrations=3 public_response_transfer_save=verified persistence=",game.persistence_enabled)
 	paused=false
 	game.queue_free()
 	await process_frame

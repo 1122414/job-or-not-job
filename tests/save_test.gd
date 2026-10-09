@@ -58,6 +58,14 @@ func run() -> void:
 		check(SaveGame.restore(game,migration),"旧档无障碍位置恢复")
 		for i in range(8): await physics_frame
 		check(Vector2(game.player.position.x,game.player.position.z)==Vector2(0,10),"有效旧位置不被搬动")
+	# A flush contact with the garden notice board must not trigger a half-metre jump.
+	var actor: OfficeNPC=game.npc_for_role("b_friend")
+	actor.set_physics_process(false)
+	actor.position=Vector3(38.59497,0,53.1577)
+	var contact_origin := actor.position
+	check(not game.position_clear(actor,contact_origin),"复现告示牌边缘接触被迁移查询判为占用")
+	await game.repair_migrated_positions(game.restore_revision)
+	check(actor.position.distance_to(contact_origin)<.1 and game.position_clear(actor,actor.position),"接触级修正只微移并保持落点安全")
 	game.audio.stop()
 	OS.delay_msec(150)
 	await process_frame

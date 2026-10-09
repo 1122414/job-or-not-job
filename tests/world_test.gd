@@ -6,7 +6,7 @@ func check(value: bool, message: String) -> void:
 		push_error(message)
 		failures += 1
 func walk(game: Node3D, target: Vector3) -> void:
-	for i in range(420):
+	for i in range(maxi(420,ceili(game.player.position.distance_to(target)/game.player.walk_speed*60)+120)):
 		var diff: Vector3 = target-game.player.position
 		diff.y=0
 		if diff.length()<0.4: break

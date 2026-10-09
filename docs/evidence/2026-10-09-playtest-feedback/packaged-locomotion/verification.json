@@ -1,0 +1,77 @@
+{
+	"adapter": "Apple M5 Pro (Apple9)",
+	"background_guard": true,
+	"build_id": "20261009T033244602920Z-6723eb45-fee40d95",
+	"images": [
+		"walk-out",
+		"walk-full-out",
+		"run-out",
+		"walk-return",
+		"walk-full-return",
+		"stop"
+	],
+	"maximum_step": 0.0916671752929688,
+	"metres": 23.158850453794,
+	"motions": [
+		{
+			"clip": "walk",
+			"position": [
+				-34.0,
+				-0.00445435522124171,
+				46.4678916931152
+			],
+			"section": "walk-out"
+		},
+		{
+			"clip": "walk",
+			"position": [
+				-34.0,
+				-0.00445435522124171,
+				51.911304473877
+			],
+			"section": "walk-full-out"
+		},
+		{
+			"clip": "run",
+			"position": [
+				-34.0,
+				-0.00445435522124171,
+				61.2613563537598
+			],
+			"section": "run-out"
+		},
+		{
+			"clip": "walk",
+			"position": [
+				-34.0,
+				-0.00445435522124171,
+				59.2966270446777
+			],
+			"section": "walk-return"
+		},
+		{
+			"clip": "walk",
+			"position": [
+				-34.0,
+				-0.00445435522124171,
+				55.3865699768066
+			],
+			"section": "walk-full-return"
+		},
+		{
+			"clip": "idle",
+			"position": [
+				-34.0,
+				-0.00445435522124171,
+				55.3865699768066
+			],
+			"section": "stop"
+		}
+	],
+	"normal_game_fps": false,
+	"normal_player_camera": true,
+	"persistence": false,
+	"renderer": "forward_plus",
+	"simulated_analog_input": true,
+	"source_sha256": "fee40d95f16d0ab7589123b210ea934be03c2b16b9c4b487db80c76410a09799"
+}

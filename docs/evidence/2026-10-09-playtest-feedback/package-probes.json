@@ -1,0 +1,20 @@
+{
+  "build_id": "20261009T033244602920Z-6723eb45-fee40d95",
+  "results": [
+    {
+      "probe": "blockers",
+      "exit_code": 0,
+      "success": true
+    },
+    {
+      "probe": "vehicles",
+      "exit_code": 0,
+      "success": true
+    },
+    {
+      "probe": "combat",
+      "exit_code": 0,
+      "success": true
+    }
+  ]
+}

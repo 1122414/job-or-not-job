@@ -1,8 +1,8 @@
 class_name OfficePlayer
 extends CharacterBody3D
 
-@export var walk_speed := 5.0
-@export var run_speed := 8.0
+@export var walk_speed := 2.3
+@export var run_speed := 5.5
 @export var sensitivity := 0.0025
 var game: Node3D
 var frame_remaining := 0.0
@@ -20,6 +20,7 @@ var bag_open := false
 var bag_page := 0
 var cooldown := 0.0
 var swing := 0.0
+var hit_pause := 0.0
 var strike_action := -1
 var strike_weapon: OfficeProp
 var strike_dangerous := false
@@ -104,6 +105,10 @@ func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("cycle"): cycle_item()
 
 func _physics_process(delta: float) -> void:
+	if hit_pause>0:
+		hit_pause=maxf(0,hit_pause-delta)
+		visual.animation.speed_scale=0
+		return
 	cooldown = maxf(0,cooldown-delta)
 	swing = maxf(0,swing-delta)
 	if swing<=0 and (strike_action>=0 or strike_shape!=null or not strike_parts.is_empty()): cancel_strike()
@@ -182,6 +187,8 @@ func attack() -> void:
 	strike_previous=strike_transform()
 
 func cancel_strike() -> void:
+	hit_pause=0
+	visual.animation.speed_scale=1.0
 	strike_action=-1
 	strike_weapon=null
 	strike_shape=null
@@ -204,8 +211,9 @@ func update_strike() -> void:
 	var current_transform := strike_transform()
 	# Only the outward stroke can hit. Starting the sweep at the active boundary
 	# prevents a wind-up overlap or the return stroke from damaging a target.
-	if phase>=.08 and phase<=.28:
-		var start := strike_previous if strike_phase>=.08 else current_transform
+	var contact_start := .13 if strike_dangerous else .08
+	if phase>=contact_start and phase<=(.32 if strike_dangerous else .28):
+		var start := strike_previous if strike_phase>=contact_start else current_transform
 		var distance := start.origin.distance_to(current_transform.origin)
 		var angle := start.basis.get_rotation_quaternion().angle_to(current_transform.basis.get_rotation_quaternion())
 		var steps := maxi(1,maxi(ceili(distance/.02),ceili(angle/.05)))
@@ -234,6 +242,7 @@ func update_strike() -> void:
 			for contact in contacts:
 				var node: Node3D=contact.collider
 				if not (node is OfficeNPC or node is CityResident or node is OfficeProp or node is AutumnStoryPoint):
+					if strike_dangerous: comic_contact(query.transform.origin,false)
 					strike_action=-1
 					return
 				if node.global_position.distance_squared_to(query.transform.origin)<nearest:
@@ -252,16 +261,23 @@ func apply_strike(candidate: Node3D) -> void:
 	if not candidate.visible or not game.can_see(self,candidate): return
 	if candidate is AutumnStoryPoint:
 		candidate.hit(forward(),.5,action,dangerous)
-		game.impact()
+		comic_contact(strike_transform().origin,false)
 	elif candidate is OfficeNPC or candidate is CityResident:
 		if not dangerous and not candidate.available(): return
+		var before: int=candidate.hp
 		candidate.hit(forward(),1.4 if dangerous else 0.5,action,dangerous)
-		game.impact()
+		if candidate.hp<before: comic_contact(strike_transform().origin,candidate.hp==1 and candidate.down>0)
 	elif candidate is OfficeProp:
 		var strength := 4.0 if held and held.kind=="monitor" else 2.5 if held else 0.4
 		if candidate.strike(forward(),action,strength): game.on_property_hit(candidate,action)
 		else: game.say("徒手只能推撞，坚固家具需要重物或明确掀翻。")
-		game.impact()
+		comic_contact(strike_transform().origin,false)
+
+func comic_contact(point: Vector3,ko: bool) -> void:
+	ComicImpact.show_hit(game,point,ko,strike_dangerous)
+	hit_pause=.085 if strike_dangerous or ko else .045
+	visual.animation.speed_scale=0
+	game.impact()
 
 func pick(prop: OfficeProp) -> void:
 	if game.in_vehicle(): return
@@ -292,6 +308,13 @@ func sync_held() -> void:
 		var extension := smoothstep(.04,.18,phase)*(1.0-smoothstep(.24,.42,phase))
 		var palm_basis := Basis(Vector3.RIGHT,Vector3.FORWARD,Vector3.UP) if held else Basis(Vector3.UP,Vector3.FORWARD,Vector3.LEFT)
 		var point := Vector3(.20,visual.standing_height*.66,lerpf(-.26,-.70,extension))
+		if strike_dangerous:
+			# Two-handed lift, descending contact, then recovery; the held collider
+			# follows this same evaluated palm path used by the damage sweep.
+			var lift := smoothstep(0,.08,phase)*(1.0-smoothstep(.08,.24,phase))
+			var descent := smoothstep(.08,.24,phase)*(1.0-smoothstep(.28,.45,phase))
+			point=Vector3(.18,visual.standing_height*.66+lift*.50-descent*.42,-.30-descent*.43)
+			palm_basis=Basis(Vector3.RIGHT,-.55*lift+.65*descent)*palm_basis
 		visual.contacts.reach("R",visual.global_transform*Transform3D(palm_basis,point),smoothstep(0,.06,phase))
 		visual.contacts.fingers("R",-.3 if held else 1.8)
 		if not held:

@@ -1,7 +1,7 @@
 class_name SaveGame
 extends RefCounted
 
-const VERSION := 26
+const VERSION := 27
 const BASE_NPCS := ["a_hr","a_lead","a_boss","a_friend","a_group","a_guard","b_hr","b_friend","b_boss","b_guard"]
 const LEGACY_PROPS := ["a_keyboard","a_cup","a_table","a_chair","a_printer","b_keyboard","b_cup","b_table","b_chair","b_printer"]
 const PATH := "user://neighborhood.json"
@@ -47,7 +47,7 @@ static func valid_vector(value: Variant) -> bool:
 
 static func valid(data: Variant, game: Node3D) -> bool:
 	if not data is Dictionary: return false
-	if data.get("version")!=1 and data.get("version")!=2 and data.get("version")!=3 and data.get("version")!=4 and data.get("version")!=5 and data.get("version")!=6 and data.get("version")!=7 and data.get("version")!=8 and data.get("version")!=9 and data.get("version")!=10 and data.get("version")!=11 and data.get("version")!=12 and data.get("version")!=13 and data.get("version")!=14 and data.get("version")!=15 and data.get("version")!=16 and data.get("version")!=17 and data.get("version")!=18 and data.get("version")!=19 and data.get("version")!=20 and data.get("version")!=21 and data.get("version")!=22 and data.get("version")!=23 and data.get("version")!=24 and data.get("version")!=25 and data.get("version")!=VERSION: return false
+	if data.get("version")!=1 and data.get("version")!=2 and data.get("version")!=3 and data.get("version")!=4 and data.get("version")!=5 and data.get("version")!=6 and data.get("version")!=7 and data.get("version")!=8 and data.get("version")!=9 and data.get("version")!=10 and data.get("version")!=11 and data.get("version")!=12 and data.get("version")!=13 and data.get("version")!=14 and data.get("version")!=15 and data.get("version")!=16 and data.get("version")!=17 and data.get("version")!=18 and data.get("version")!=19 and data.get("version")!=20 and data.get("version")!=21 and data.get("version")!=22 and data.get("version")!=23 and data.get("version")!=24 and data.get("version")!=25 and data.get("version")!=26 and data.get("version")!=VERSION: return false
 	for field in ["career","payroll","props","npcs","player"]:
 		if not data.get(field) is Dictionary: return false
 	for field in CAREER_FIELDS:
@@ -172,6 +172,11 @@ static func valid(data: Variant, game: Node3D) -> bool:
 	if data.version>=12:
 		if data.city_transit.riding and (data.player.hp<=0 or held_count>0): return false
 		if data.version>=13 and data.city_transit.riding and data.city_driving.active!="": return false
+	if data.version>=27:
+		var manual: Dictionary=data.city_transit.get("manual",{})
+		var bus: Dictionary=data.city_driving.vehicles.get("bus_101",{})
+		if manual.is_empty()!=bus.is_empty(): return false
+		if not manual.is_empty() and (manual.position!=bus.position or manual.yaw!=bus.yaw): return false
 	if data.version>=18 and not game.commons.valid(data.get("city_commons"),data): return false
 	if data.version>=22 and not game.home.valid(data.get("city_home"),data): return false
 	if data.version>=23:
@@ -390,8 +395,42 @@ static func archives(directory: String = "user://restarts") -> Array[String]:
 	return result
 
 static func archive(game: Node3D, directory: String = "user://restarts") -> String:
+	if FileAccess.file_exists(directory) or FileAccess.file_exists(directory.get_base_dir()): return ""
 	if DirAccess.make_dir_recursive_absolute(directory)!=OK: return ""
 	var stamp := "%020d-%016d" % [int(Time.get_unix_time_from_system()*1000000),Time.get_ticks_usec()]
 	var path := directory.path_join(stamp+".json")
 	if write(game,path)!=OK: return ""
 	return path if not read(path,game).is_empty() else ""
+
+static func invalid_section(game: Node3D) -> String:
+	var data := snapshot(game)
+	if not game.driving.valid(data.city_driving): return "车辆"
+	if not game.transit.valid(data.city_transit): return "公交"
+	if not game.population.valid(data.city_population,VERSION,data.city_transit): return "居民或乘客"
+	if not game.response.valid(data.city_response,data.city_population.people): return "现场救助"
+	if not AutumnStory.valid(data.autumn_story): return "主线"
+	return "世界状态关联"
+
+static func archive_for_restart(game: Node3D,directory: String) -> String:
+	if FileAccess.file_exists(directory) or FileAccess.file_exists(directory.get_base_dir()): return ""
+	if valid(snapshot(game),game): return archive(game,directory)
+	# Preserve the exact invalid world separately; never advertise it as a loadable save.
+	if DirAccess.make_dir_recursive_absolute(directory)!=OK: return ""
+	var stamp := "%020d-%016d" % [int(Time.get_unix_time_from_system()*1000000),Time.get_ticks_usec()]
+	var path := directory.path_join(stamp+".recovery")
+	var payload := JSON.stringify(snapshot(game))
+	var content := JSON.stringify({"payload":payload,"checksum":payload.sha256_text(),"reason":invalid_section(game)})
+	var file := FileAccess.open(path,FileAccess.WRITE)
+	if not file: return ""
+	file.store_string(content); file.flush(); file.close()
+	if FileAccess.get_file_as_string(path)!=content: return ""
+	# Also keep each existing disk file byte-for-byte, and expose only a valid one in Restore.
+	var copied_valid := false
+	for suffix in ["",".bak"]:
+		var source: String=game.save_path+suffix
+		if not FileAccess.file_exists(source): continue
+		if DirAccess.copy_absolute(source,path+suffix+".disk")!=OK: return ""
+		if not copied_valid and not read(source,game).is_empty():
+			if DirAccess.copy_absolute(source,directory.path_join(stamp+".json"))!=OK: return ""
+			copied_valid=true
+	return path

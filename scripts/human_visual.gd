@@ -251,6 +251,20 @@ func make_clip(clip: String) -> Animation:
 # swing feet clear the floor. Use imported proportions instead of fixed joint angles.
 func gait_drop(clip: String,phase: float) -> float:
 	if clip not in ["walk","run"]: return 0.0
+	if cast_id=="protagonist" and clip=="walk":
+		# A support leg straightens as the pelvis passes above it. The former
+		# full-stride clamp kept the hips crouched even when both legs had room.
+		var drop := -.025+.008*cos(phase*TAU*2)
+		for side in ["L","R"]:
+			var hip := skeleton.get_bone_global_rest(skeleton.find_bone("upperleg01."+side)).origin
+			var knee := skeleton.get_bone_global_rest(skeleton.find_bone("lowerleg01."+side)).origin
+			var ankle := skeleton.get_bone_global_rest(skeleton.find_bone("foot."+side)).origin
+			var length := Vector2(knee.y-hip.y,knee.z-hip.z).length()+Vector2(ankle.y-knee.y,ankle.z-knee.z).length()-.002
+			var target := gait_target(clip,phase,side)
+			var forward := ankle.z+target.x-hip.z
+			var depth := sqrt(maxf(0,length*length-forward*forward))+target.y
+			drop=minf(drop,depth-(hip.y-ankle.y))
+		return drop
 	var drop := -0.10+0.012*cos(phase*TAU*2) if clip=="walk" else -0.125+0.008*sin(phase*TAU*2)
 	if not cast_id.is_empty():
 		# Shorter bodies need a lower hip for the same world-speed stride. Otherwise
@@ -271,6 +285,12 @@ func gait_angles(clip: String,phase: float,side: String) -> Vector3:
 	var ankle := skeleton.get_bone_global_rest(skeleton.find_bone("foot."+side)).origin
 	var upper := Vector2(knee.y-hip.y,knee.z-hip.z)
 	var lower := Vector2(ankle.y-knee.y,ankle.z-knee.z)
+	var target := gait_target(clip,phase,side)
+	var depth := hip.y+gait_drop(clip,phase)-ankle.y-target.y
+	var forward := ankle.z+target.x-hip.z
+	return solve_leg(upper,lower,depth,forward)
+
+func gait_target(clip: String,phase: float,side: String) -> Vector2:
 	var t := fposmod(phase+(0.5 if side=="R" else 0.0),1.0)
 	var stance := 0.25 if clip=="run" else 0.5
 	var reach := 0.43 if clip=="run" else 0.37
@@ -282,9 +302,7 @@ func gait_angles(clip: String,phase: float,side: String) -> Vector3:
 		var swing := (t-stance)/(1.0-stance)
 		stride=lerpf(-reach,reach,swing*swing*(3.0-2.0*swing))
 		lift=sin(swing*PI)*(0.20 if clip=="run" else 0.12)
-	var depth := hip.y+gait_drop(clip,phase)-ankle.y-lift
-	var forward := ankle.z+stride-hip.z
-	return solve_leg(upper,lower,depth,forward)
+	return Vector2(stride,lift)
 
 func seated_leg_angles(side: String) -> Vector3:
 	var hip := skeleton.get_bone_global_rest(skeleton.find_bone("upperleg01."+side)).origin

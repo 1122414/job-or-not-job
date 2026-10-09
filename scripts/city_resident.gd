@@ -30,6 +30,29 @@ var conversations := 0
 var last_hit := -1
 var last_alarm := -1
 var stuck := 0.0
+var vehicle_velocity := Vector3.ZERO
+
+func vehicle_hit(direction: Vector3,speed: float) -> void:
+	if not available(): return
+	hit(direction,clampf(speed/3.0,.5,5.0),game.next_action(),speed>6)
+	down=12.0 if hp>0 else 0.0
+	state="dead" if hp==0 else "fallen"
+	visual.rotation.y=atan2(direction.z,-direction.x)
+	visual.rotation.z=PI/2; visual.position.y=.27
+	update_body()
+	if speed>6:
+		vehicle_velocity=direction*minf(speed*.65,10.0)+Vector3.UP*clampf(speed*.35,2.2,5)
+	game.queue_save()
+
+func move_vehicle_impact(delta: float) -> void:
+	down=maxf(0,down-delta)
+	vehicle_velocity.y-=16*delta
+	var collision := move_and_collide(vehicle_velocity*delta)
+	if collision:
+		vehicle_velocity=vehicle_velocity.slide(collision.get_normal())
+		if collision.get_normal().y>.5: vehicle_velocity=Vector3.ZERO; position.y=0
+	if position.y<0: position.y=0; vehicle_velocity=Vector3.ZERO
+	visual.pose(0,false,true)
 
 func _ready() -> void:
 	name=stable_id
@@ -74,6 +97,9 @@ func requested_crossing() -> String:
 	return population.crossing_for(from_node,route[0]) if not route.is_empty() else ""
 
 func _physics_process(delta: float) -> void:
+	if vehicle_velocity.length_squared()>.001:
+		move_vehicle_impact(delta)
+		return
 	if game.response and (game.response.carried(self) or game.response.resting(self)):
 		game.response.sync_person(self)
 		return
@@ -241,12 +267,18 @@ func hit(direction: Vector3,strength: float,action: int,dangerous: bool=true) ->
 	game.queue_save()
 
 func snapshot() -> Dictionary:
-	return {"position":SaveGame.vector(position),"yaw":wrapf(visual.rotation.y,-PI,PI),"state":state,"destination":destination,"from_node":from_node,"route":route.duplicate(),"crossing":crossing,"activity_left":activity_left,"phase":phase,"journey":journey,"visits":visits.duplicate(),"hp":hp,"down":down,"fear":fear,"hits":hits,"witnessed":witnessed,"met":met,"apologized":apologized,"conversations":conversations}
+	return {"vehicle_velocity":SaveGame.vector(vehicle_velocity),"position":SaveGame.vector(position),"yaw":wrapf(visual.rotation.y,-PI,PI),"state":state,"destination":destination,"from_node":from_node,"route":route.duplicate(),"crossing":crossing,"activity_left":activity_left,"phase":phase,"journey":journey,"visits":visits.duplicate(),"hp":hp,"down":down,"fear":fear,"hits":hits,"witnessed":witnessed,"met":met,"apologized":apologized,"conversations":conversations}
 
 func valid(data: Variant,on_bus: bool=false) -> bool:
 	if not data is Dictionary or not SaveGame.valid_vector(data.get("position")): return false
 	var point := SaveGame.unvector(data.position)
-	if not CityLayout.BOUNDS.has_point(Vector2(point.x,point.z)) or absf(point.y-(.4 if on_bus else 0.0))>.1: return false
+	var impact: Variant=data.get("vehicle_velocity",[0,0,0])
+	if not SaveGame.valid_vector(impact): return false
+	var motion := SaveGame.unvector(impact)
+	if motion.length()>15 or not CityLayout.BOUNDS.has_point(Vector2(point.x,point.z)): return false
+	if motion.length_squared()>.001:
+		if on_bus or point.y<-.1 or point.y>1.2 or not data.get("state") in ["fallen","dead"]: return false
+	elif absf(point.y-(.4 if on_bus else 0.0))>.1: return false
 	if not data.get("state") in ["activity","walking","waiting","talking","fallen","dead","riding"]: return false
 	if not data.get("destination") in CityPopulation.POINTS or not data.get("from_node") in CityPopulation.POINTS: return false
 	if not data.get("route") is Array or data.route.size()>CityPopulation.POINTS.size() or not data.get("visits") is Array or data.visits.size()>CityPopulation.POINTS.size(): return false
@@ -269,6 +301,7 @@ func valid(data: Variant,on_bus: bool=false) -> bool:
 
 func restore(data: Dictionary) -> void:
 	velocity=Vector3.ZERO
+	vehicle_velocity=SaveGame.unvector(data.get("vehicle_velocity",[0,0,0]))
 	last_hit=-1
 	last_alarm=-1
 	stuck=0

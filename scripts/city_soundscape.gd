@@ -149,8 +149,8 @@ func _process(delta: float) -> void:
 	bed("birds",green*day*outdoor,-25,delta)
 	bed("room",interior,-33,delta)
 	for car in game.driving.cars:
-		engine(engines[car.stable_id],car.global_position,absf(car.speed),car.traffic or game.driving.active==car,delta)
-	engine(engines.bus,game.transit.bus.global_position,absf(game.transit.speed),true,delta)
+		engine(engines[car.stable_id],car.global_position,absf(car.speed),car.traffic and not car.taken or game.driving.active==car,delta)
+	engine(engines.bus,game.transit.bus.global_position,absf(game.transit.bus.speed if game.transit.bus.taken else game.transit.speed),not game.transit.bus.taken or game.driving.active==game.transit.bus,delta)
 
 func bed(key: String,weight: float,base: float,delta: float) -> void:
 	var source: AudioStreamPlayer=beds[key]

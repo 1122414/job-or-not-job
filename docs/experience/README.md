@@ -45,3 +45,5 @@
 | 延后承诺与实际作业 | 对话说次日完成却没有发送；旧档日期不明；未答复邀请变成约定 | C3j实体作业、源码/实际包跨日路线及六档独立恢复验证一次；整城离线模拟开放 | [延后世界行为](patterns/deferred-world-actions.md) |
 
 2026-10-08复用补充：[内容扩充与存档迁移](patterns/save-content-expansion.md)记录v26新旧叙事隔离、阶段关联及本轮RefCounted循环；[平台字体边界](patterns/web-export-platform-gaps.md)补桌面新增汉字缺字反例，定向字符检查与四页实际图形验证一次。
+
+2026-10-09反馈复用：[保存校验与原始现场保全](patterns/save-content-expansion.md)、[救助接近点及自动玩家步速适配](patterns/navigation-endpoints.md)、[普通步行/髋高](patterns/character-proportion-adaptation.md)、[接管后公交乘客位置](patterns/vehicle-passenger-restoration.md)。上述定向反例验证一次，完整发布检查与体验边界见当日验收文档。

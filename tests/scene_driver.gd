@@ -14,16 +14,29 @@ static func steer_around_people(game: Node3D,direction: Vector3) -> Vector3:
 
 static func walk(tree: SceneTree,game: Node3D,destination: Vector3) -> bool:
 	game.player.stand_up()
-	var route: PackedVector3Array=game.walking.route(game.player.position,destination)
+	var route: PackedVector3Array=game.walking.route(game.player.position,destination,null,game.player)
+	if route.is_empty(): route=game.walking.route(game.player.position,destination)
 	if route.is_empty(): push_warning("no route: "+str(game.player.position)+" -> "+str(destination)); return false
-	for point in route:
-		for i in range(120):
-			var offset: Vector3=point-game.player.position
-			offset.y=0
-			if offset.length()<0.21: break
-			game.player.yaw=atan2(-offset.x,-offset.z)
-			Input.action_press("forward")
-			await tree.physics_frame
+	var length: float=game.player.position.distance_to(route[0])
+	for i in range(1,route.size()): length+=route[i-1].distance_to(route[i])
+	var budget := ceili(length/game.player.walk_speed*60)*3+600
+	var previous: Vector3=game.player.position
+	var stalled := 0
+	for frame in range(budget):
+		while not route.is_empty() and Vector2(route[0].x-game.player.position.x,route[0].z-game.player.position.z).length()<.08: route.remove_at(0)
+		if route.is_empty(): break
+		stalled=stalled+1 if game.player.position.distance_to(previous)<.005 else 0
+		previous=game.player.position
+		if stalled>=30:
+			route=game.walking.route(game.player.position,destination,null,game.player)
+			if route.is_empty(): route=game.walking.route(game.player.position,destination)
+			stalled=0
+			continue
+		var offset: Vector3=route[0]-game.player.position
+		offset.y=0
+		game.player.yaw=atan2(-offset.x,-offset.z)
+		Input.action_press("forward")
+		await tree.physics_frame
 	Input.action_release("forward")
 	game.player.yaw=0
 	return Vector2(game.player.position.x-destination.x,game.player.position.z-destination.z).length()<0.7

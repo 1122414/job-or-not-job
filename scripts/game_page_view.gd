@@ -190,10 +190,10 @@ func journal() -> void:
 func help_page() -> void:
 	for section in [
 		["走进城市","WASD 移动 · Shift 跑 · 空格跳跃 · 鼠标转向。\nE 交互或推进台词，数字键回应；移动或动手可中断对话。"],
-		["城区出行","M 查看城区、站点和可用车辆。站牌旁 E 乘坐 101 公交；乘车后 E 请求下车。\n共享车旁 E 驾驶；W 加速，S 刹车/倒车，A/D 转向，空格手刹，刹停后 E 下车。"],
+		["城区出行","M 查看城区、站点和可用车辆。站牌旁 E 乘坐 101 公交；乘车后 E 请求下车。\n共享车旁 E 驾驶；通行车低速时 E 抢夺，公交页面可接管驾驶位。\nW 加速，S 刹车/倒车，A/D 转向，空格手刹，刹停后 E 下车。"],
 		["随身物品","Q 收纳 · R 轮换取出 · Tab 打开背包。\n背包内可点击物品取出、收纳或放下，Esc 返回；Tab 在按钮间移动焦点。"],
 		["信息与工作","J 已知事项 · P 人物关系 · L 工资明细。\nN 招聘消息 · O 实际约定 · K 历史经历。\n电脑可点击阅读资料与配置，保留 1—7 快捷键。"],
-		["冲突与后果","左键普通击打，不致命；Alt＋左键为重物危险攻击。\n右键投掷，重物可能致命；G 放下。\n星级代表当前公司后果：警告、机会取消、决裂。"],
+		["冲突与后果","左键普通击打，不致命；手持重物时 Alt＋左键举起摔砸，可能致命。\n右键投掷，重物可能致命；G 放下。\n星级代表当前公司后果：警告、机会取消、决裂。"],
 		["伤者与清理","徒手最多打昏；伤者救助离场，次日上午返岗。\n危险行为可致命；死者不复活，岗位另行接替。\n按 E 找保安清理堵路大件；已经造成的后果不会消失。"],
 		["保存与返回","F5 保存 · F9 读取 · Esc 菜单。\n页面支持鼠标、Tab/Shift＋Tab、Enter，也可用手柄方向与确认/返回按钮。\n菜单期间世界暂停，关闭即恢复。"],
 		["自由选择","蓝色 A：规程科技 · 棕色 B：自己人网络。\n所有职业内容均可不动手完成；你可以离开、拒绝或改变决定。"]]:
@@ -348,7 +348,7 @@ func city_page() -> void:
 	map.custom_minimum_size.y=290
 	body.add_child(map)
 	paragraph("101 环线：下班路 → 榕树街 → 海风步道 → 东里社区 → 下班路。步行可达全部站点；在站牌旁按 E 乘车，也可主动跳过等车。",MUTED)
-	paragraph("绿色标记是可用共享车，灰色标记是通行车辆。共享车旁按 E 驾驶，刹停后 E 下车。",MUTED)
+	paragraph("绿色标记是可用共享车，灰色标记是通行车辆。共享车旁按 E 驾驶；灰色通行车低速时也可抢夺，公交可在乘坐页面接管。刹停后 E 下车。",MUTED)
 	for stop in CityLayout.STOPS:
 		var id: String=stop.id
 		var distance: float=game.player.position.distance_to(stop.platform)
@@ -381,7 +381,11 @@ func city_page() -> void:
 
 func transit_page() -> void:
 	var t: CityTransit=game.transit
-	if t.riding:
+	if t.bus.taken:
+		paragraph("101 已离开运营路线 · 停稳后可上下车或接管驾驶。",ACCENT)
+		if t.riding: action("bus-leave","就地下车",func(): t.leave())
+		else: action("bus-board","乘坐公交",func(): t.board_vehicle(),game.player.position.distance_to(t.bus.position)>4.5)
+	elif t.riding:
 		paragraph("当前到站："+CityLayout.STOPS[t.current_stop].title if t.current_stop>=0 else "前往："+CityLayout.STOPS[t.next_stop].title)
 		if t.current_stop>=0:
 			action("bus-leave","下车 · 继续自由探索",func():
@@ -401,6 +405,7 @@ func transit_page() -> void:
 			action("bus-wait","跳过等车时间",func():
 				if not t.wait_for_bus(index): paragraph("当前位置或站点车道不允许跳过等车。",ACCENT),not t.at_platform(index) or t.blocked)
 		action("bus-observe","留在站台等车",func(): game.panels.show_page(""))
+	action("bus-take","接管公交驾驶位" if t.bus.taken else "抢夺公交驾驶位",func(): game.driving.enter(t.bus),game.player.position.distance_to(t.bus.position)>4.5 or absf(t.bus.speed if t.bus.taken else t.speed)>2)
 	action("bus-map","查看城区",func(): game.panels.open_child("city"))
 
 func autumn_search() -> void:

@@ -7,6 +7,7 @@ func run() -> void:
 	viewport.render_target_update_mode=SubViewport.UPDATE_ALWAYS;root.add_child(viewport)
 	var game=load("res://scenes/main.tscn").instantiate();viewport.add_child(game)
 	for i in range(10):await physics_frame
+	root.set_flag(Window.FLAG_NO_FOCUS,true);root.mode=Window.MODE_MINIMIZED;Input.mouse_mode=Input.MOUSE_MODE_VISIBLE
 	# Initial location/time are fixtures. Subsequent movement uses the existing
 	# analog/full-strength actions and Shift, at unchanged controller speeds.
 	game.player.position=Vector3(-34,0,44);game.player.yaw=PI;game.player.pitch=-.12
@@ -14,7 +15,7 @@ func run() -> void:
 	player_previous=game.player.position;travelling=true
 	var monitor: Callable=record_step.bind(game);physics_frame.connect(monitor)
 	var samples := []
-	for part in [["walk-out",.7,false,100],["run-out",1.0,false,70],["fast-out",1.0,true,55],["walk-return",.7,false,80],["run-return",1.0,false,50],["stop",0.0,false,30]]:
+	for part in [["walk-out",.7,false,100],["walk-full-out",1.0,false,140],["run-out",1.0,true,100],["walk-return",.7,false,80],["walk-full-return",1.0,false,100],["stop",0.0,false,30]]:
 		if part[0]=="walk-return":game.player.yaw=0
 		Input.action_release("forward");Input.action_release("run")
 		if part[1]>0:Input.action_press("forward",part[1])
@@ -23,10 +24,10 @@ func run() -> void:
 			await physics_frame
 			if frame>=10:
 				var speed := Vector2(game.player.velocity.x,game.player.velocity.z).length()
-				var expected := "idle" if part[1]==0 else "walk" if part[1]<1 else "run"
+				var expected := "idle" if part[1]==0 else "run" if part[2] else "walk"
 				if game.player.visual.current!=expected:push_error("Locomotion route clip mismatch "+part[0]);quit(1);return
 				samples.append({"section":part[0],"frame":frame,"speed":speed,"clip":game.player.visual.current,"phase":game.player.visual.animation.current_animation_position,"player":SaveGame.vector(game.player.position)})
-		if not await shot(viewport,game,part[0]):quit(1);return
+		if not await shot(viewport,game,part[0]):push_error("Route capture guard: "+str([root.mode,root.has_focus(),root.get_flag(Window.FLAG_NO_FOCUS),root.is_input_disabled(),Input.mouse_mode]));quit(1);return
 	Input.action_release("forward");Input.action_release("run")
 	physics_frame.disconnect(monitor)
 	var result := {"images":captures,"visits":visits,"samples":samples,"walking_metres":metres,"walking_max_step":max_step,"background_guard":desktop_safe and guard(),"persistence":game.persistence_enabled,"normal_player_camera":true,"simulated_analog_input":true,"normal_game_fps":false,"independent_player_acceptance":false}

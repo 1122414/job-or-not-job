@@ -20,7 +20,8 @@ func press(name: String,pressed: bool) -> void:
 
 func walk_to(target: Vector3) -> bool:
 	game.close_interaction()
-	for i in range(1800):
+	var budget := maxi(1800,ceili(game.player.position.distance_to(target)/game.player.walk_speed*60)+600)
+	for i in range(budget):
 		var offset: Vector3=target-game.player.position
 		offset.y=0
 		if offset.length()<.22:

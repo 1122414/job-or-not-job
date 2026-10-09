@@ -43,13 +43,13 @@ func run() -> void:
 	game.payroll.minute=1080;game.update_daylight();previous=game.player.position
 	var monitor: Callable=record_step.bind(game);physics_frame.connect(monitor)
 	var motions := []
-	for part in [["walk-out",.7,false,100],["run-out",1.0,false,70],["fast-out",1.0,true,55],["walk-return",.7,false,80],["run-return",1.0,false,50],["stop",0.0,false,30]]:
+	for part in [["walk-out",.7,false,100],["walk-full-out",1.0,false,140],["run-out",1.0,true,100],["walk-return",.7,false,80],["walk-full-return",1.0,false,100],["stop",0.0,false,30]]:
 		if part[0]=="walk-return":game.player.yaw=0
 		Input.action_release("forward");Input.action_release("run")
 		if part[1]>0:Input.action_press("forward",part[1])
 		if part[2]:Input.action_press("run")
 		for frame in range(part[3]):await physics_frame
-		var expected := "idle" if part[1]==0 else "walk" if part[1]<1 else "run"
+		var expected := "idle" if part[1]==0 else "run" if part[2] else "walk"
 		if game.player.visual.current!=expected or not await capture(viewport,part[0]):push_error("Package motion failed "+part[0]);quit(1);return
 		motions.append({"section":part[0],"clip":expected,"position":SaveGame.vector(game.player.position)})
 	Input.action_release("forward");Input.action_release("run");physics_frame.disconnect(monitor)

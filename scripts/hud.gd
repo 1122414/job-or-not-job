@@ -55,6 +55,7 @@ func _draw() -> void:
 	if game.alert_level()>0:
 		text_at(Vector2(w-205,44),"★".repeat(game.alert_level())+"☆".repeat(5-game.alert_level()),27,Color("e3bc69"))
 	text_at(Vector2(w-160,73),game.clock_text(),15,Color("d2d8db"))
+	if game.save_problem!="": text_at(Vector2(w-275,100),"进度未保存 · F5 重试 / Esc 菜单",14,Color("e4be70"))
 	if game.panels.page=="" and not scene_dialogue:
 		var goal: String=game.objective_text()
 		var lines := wrap_lines(goal,480,17)
@@ -78,13 +79,13 @@ func _draw() -> void:
 			draw_style_box(dialogue_style(),Rect2(at,Vector2(width,height)))
 			for i in range(subtitle_lines.size()): text_at(at+Vector2(20,27+i*27),subtitle_lines[i],19)
 	if game.transit.riding and game.panels.page=="":
-		text_at(Vector2(w*0.35,h-52),"101 · "+("已到站 · E 下车" if game.transit.current_stop>=0 else "E 请求下车 · 下一站 "+CityLayout.STOPS[game.transit.next_stop].title),18,Color("e4be70"))
+		text_at(Vector2(w*0.35,h-52),"101 · "+("已离线停靠 · E 下车 / 接管" if game.transit.bus.taken else "已到站 · E 下车" if game.transit.current_stop>=0 else "E 请求下车 · 下一站 "+CityLayout.STOPS[game.transit.next_stop].title),18,Color("e4be70"))
 	if game.driving.in_vehicle() and game.panels.page=="":
 		text_at(Vector2(w*0.35,h-52),"%02d km/h   W/S 油门与倒车 · A/D 转向 · 空格手刹 · E 下车" % roundi(absf(game.driving.active.speed)*3.6),16,Color("e4be70"))
 	var target: Node3D = null if game.in_vehicle() else game.focus_target
 	if target and game.panels.page=="" and game.conversation.is_empty():
 		var verb := "交谈" if target is OfficeNPC or target is CityResident or target is AutumnStoryPoint and target.person else "使用"
-		if target is CityCar: verb="驾驶"
+		if target is CityCar: verb="乘坐 / 接管" if target.bus_mode else "抢夺车辆" if target.traffic and not target.taken else "驾驶"
 		if target is OfficeProp: verb="收进背包" if target.portable() else "查看固定支架" if target.kind in ["panel","side_panel"] else "推掀"
 		if target is OfficeNPC and target.dead: verb="查看"
 		if target is CityResident and not target.available(): verb="查看"

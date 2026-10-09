@@ -14,6 +14,8 @@ var save_path := SaveGame.PATH
 var archive_directory := "user://restarts"
 var persistence_enabled := false
 var save_delay := -1.0
+var save_problem := ""
+var save_retry_after := 0
 var payroll := Payroll.new()
 var walking := WalkingGrid.new()
 var office := OfficeLife.new()
@@ -298,7 +300,7 @@ func navigation_target() -> Node3D:
 	return companion if companion else ObjectiveGuide.target(self)
 
 func targets() -> Array:
-	return story.points.filter(func(point): return point.visible) + npcs + stations + props + (driving.cars.filter(func(car): return not car.traffic) if driving else []) + (population.residents if population else []) + (city_life.points if city_life else []) + (commons.benches.values() if commons else []) + (home.points if home else []) + (meals.points if meals else [])
+	return story.points.filter(func(point): return point.visible) + npcs + stations + props + (driving.cars+[transit.bus] if driving else []) + (population.residents if population else []) + (city_life.points if city_life else []) + (commons.benches.values() if commons else []) + (home.points if home else []) + (meals.points if meals else [])
 
 func nearest() -> Node3D:
 	var best: Node3D
@@ -317,7 +319,8 @@ func nearest() -> Node3D:
 		if arriving: score-=1.0
 		# Keep a deliberately faced companion selectable when pedestrians pass by.
 		if node is OfficeNPC and node.available() and social.outing.get("person")==node.stable_id and social.outing.has("venue") and offset.normalized().dot(player.forward())>.9: score-=.75
-		if d<3.0 and score < distance and (arriving or (node is WorkStation and d<0.7) or offset.normalized().dot(player.forward()) > 0.2) and can_see(player,node):
+		if node is CityCar and node.bus_mode: score=d*.6
+		if d<(4.5 if node is CityCar and node.bus_mode else 3.0) and score < distance and (arriving or (node is WorkStation and d<0.7) or offset.normalized().dot(player.forward()) > 0.2) and can_see(player,node):
 			best = node
 			distance = score
 	return best
@@ -372,7 +375,8 @@ func interact() -> void:
 		population.talk(target)
 		return
 	if target is CityCar:
-		driving.enter(target)
+		if target.bus_mode: transit.open_stop(maxi(0,transit.current_stop))
+		else: driving.enter(target)
 		return
 	if target is WorkStation and target.stable_id.begins_with("bus_"):
 		for i in range(CityLayout.STOPS.size()):
@@ -638,9 +642,15 @@ func queue_save() -> void:
 
 func save_game(show_message: bool = true) -> bool:
 	if not persistence_enabled: return false
+	if not show_message and Time.get_ticks_msec()<save_retry_after: return false
 	var error := SaveGame.write(self,save_path)
-	if error!=OK: say("保存失败："+error_string(error)+"。旧档保留，请检查磁盘空间。")
-	elif show_message: say("已保存。F9 继续此存档，F5 再次保存。")
+	if error!=OK:
+		save_problem="状态校验失败（"+SaveGame.invalid_section(self)+"）" if error==ERR_INVALID_DATA else "写入失败："+error_string(error)
+		save_retry_after=Time.get_ticks_msec()+30000
+		if show_message: say("保存失败："+save_problem+"。旧档保留；可重试或备份后新游戏。")
+	else:
+		save_problem=""; save_retry_after=0
+		if show_message: say("已保存。F9 继续此存档，F5 再次保存。")
 	return error==OK
 
 func load_game() -> void:
@@ -655,6 +665,7 @@ func load_game() -> void:
 		return
 	SaveGame.restore(self,data)
 	save_delay=-1
+	save_problem=""; save_retry_after=0
 	say("主档损坏，已恢复有效备份；损坏文件保留。" if backup else "已继续存档：装备、成果、工资和公司后果均已恢复。")
 
 func toggle_menu() -> void:
@@ -662,13 +673,16 @@ func toggle_menu() -> void:
 
 func new_game() -> void:
 	if not persistence_enabled: return
-	var archive := SaveGame.archive(self,archive_directory)
+	var archive := SaveGame.archive_for_restart(self,archive_directory)
 	if archive.is_empty():
 		say("备份失败，未重开。当前世界和旧档保留。")
 		return
-	SaveGame.restore(self,initial_state.duplicate(true))
+	if not SaveGame.restore(self,initial_state.duplicate(true)):
+		say("初始世界校验失败，未重开；原始备份已保留。")
+		return
+	save_problem=""; save_retry_after=0
 	panels.show_page("")
-	if save_game(false): say("新的一天。旧进度已备份，可在菜单恢复。")
+	if save_game(true): say("新的一天。旧进度已备份，可在菜单恢复。")
 
 func restore_previous() -> void:
 	if not persistence_enabled: return
@@ -685,7 +699,7 @@ func restore_previous() -> void:
 		return
 	SaveGame.restore(self,data)
 	panels.show_page("")
-	if save_game(false): say("已恢复上一次进度；刚才的进度也已备份。")
+	if save_game(true): say("已恢复上一次进度；刚才的进度也已备份。")
 
 func repair_migrated_positions(revision: int) -> void:
 	await get_tree().physics_frame
@@ -709,7 +723,7 @@ func repair_migrated_positions(revision: int) -> void:
 				actor.velocity=Vector3.ZERO
 			continue
 		var found := false
-		for radius in [0.5,1.0,1.5,2.0,3.0]:
+		for radius in [0.02,0.05,0.1,0.5,1.0,1.5,2.0,3.0]:
 			for step in range(16):
 				var candidate: Vector3 = origin+Vector3(sin(step*TAU/16),0,cos(step*TAU/16))*radius
 				if position_clear(actor,candidate):
@@ -722,7 +736,7 @@ func repair_migrated_positions(revision: int) -> void:
 
 func position_clear(actor: CharacterBody3D,point: Vector3) -> bool:
 	var shape := CapsuleShape3D.new()
-	shape.radius=0.27
+	shape.radius=0.28
 	shape.height=1.7
 	var query := PhysicsShapeQueryParameters3D.new()
 	query.shape=shape

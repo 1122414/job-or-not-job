@@ -1,0 +1,911 @@
+{
+  "method": "tools/check.sh interrupted on failures; identical per-test commands continued and affected cases rerun after fixes",
+  "godot_tests": [
+    {
+      "test": "action_test.gd",
+      "success": true,
+      "command": "Godot --headless --fixed-fps 60 --path . --script tests/action_test.gd",
+      "summary": [
+        "ACTION_TEST failures=0"
+      ]
+    },
+    {
+      "test": "attack_window_test.gd",
+      "success": true,
+      "command": "Godot --headless --fixed-fps 60 --path . --script tests/attack_window_test.gd",
+      "summary": [
+        "ATTACK_WINDOW_TEST failures=0 first_hit_phase=0.1"
+      ]
+    },
+    {
+      "test": "authored_motion_test.gd",
+      "success": true,
+      "command": "Godot --headless --fixed-fps 60 --path . --script tests/authored_motion_test.gd",
+      "summary": [
+        "AUTHORED_MOTION_TEST failures=0"
+      ]
+    },
+    {
+      "test": "autumn_career_test.gd",
+      "success": true,
+      "command": "Godot --headless --fixed-fps 60 --path . --script tests/autumn_career_test.gd",
+      "summary": [
+        "AUTUMN_CAREER_TEST failures=0"
+      ]
+    },
+    {
+      "test": "autumn_full_story_test.gd",
+      "success": true,
+      "command": "Godot --headless --fixed-fps 60 --path . --script tests/autumn_full_story_test.gd",
+      "summary": [
+        "AUTUMN_FULL_STORY_TEST failures=0"
+      ]
+    },
+    {
+      "test": "autumn_prologue_test.gd",
+      "success": true,
+      "command": "Godot --headless --fixed-fps 60 --path . --script tests/autumn_prologue_test.gd",
+      "summary": [
+        "AUTUMN_PROLOGUE_TEST failures=0"
+      ]
+    },
+    {
+      "test": "autumn_search_test.gd",
+      "success": true,
+      "command": "Godot --headless --fixed-fps 60 --path . --script tests/autumn_search_test.gd",
+      "summary": [
+        "AUTUMN_SEARCH_TEST failures=0"
+      ]
+    },
+    {
+      "test": "body_support_test.gd",
+      "success": true,
+      "command": "Godot --headless --fixed-fps 60 --path . --script tests/body_support_test.gd",
+      "summary": [
+        "BODY_SUPPORT_TEST failures=0 final_height=-0.01963429525495"
+      ]
+    },
+    {
+      "test": "career_test.gd",
+      "success": true,
+      "command": "Godot --headless --fixed-fps 60 --path . --script tests/career_test.gd",
+      "summary": [
+        "CAREER_TEST failures=0"
+      ]
+    },
+    {
+      "test": "cast_deformation_test.gd",
+      "success": true,
+      "command": "Godot --headless --fixed-fps 60 --path . --script tests/cast_deformation_test.gd",
+      "summary": [
+        "CAST_DEFORMATION_TEST failures=0"
+      ]
+    },
+    {
+      "test": "cast_face_test.gd",
+      "success": true,
+      "command": "Godot --headless --fixed-fps 60 --path . --script tests/cast_face_test.gd",
+      "summary": [
+        "CAST_FACE_TEST failures=0"
+      ]
+    },
+    {
+      "test": "cast_resources_test.gd",
+      "success": true,
+      "command": "Godot --headless --fixed-fps 60 --path . --script tests/cast_resources_test.gd",
+      "summary": [
+        "CAST_RESOURCES_TEST failures=0"
+      ]
+    },
+    {
+      "test": "chair_support_test.gd",
+      "success": true,
+      "command": "Godot --headless --fixed-fps 60 --path . --script tests/chair_support_test.gd",
+      "summary": [
+        "CHAIR_SUPPORT_TEST failures=0"
+      ]
+    },
+    {
+      "test": "chaos_test.gd",
+      "success": true,
+      "command": "Godot --headless --fixed-fps 60 --path . --script tests/chaos_test.gd",
+      "summary": [
+        "CHAOS_TEST failures=0 simulated_seconds=85"
+      ]
+    },
+    {
+      "test": "city_activity_save_test.gd",
+      "success": true,
+      "command": "Godot --headless --fixed-fps 60 --path . --script tests/city_activity_save_test.gd",
+      "summary": [
+        "CITY_ACTIVITY_SAVE_TEST failures=0"
+      ]
+    },
+    {
+      "test": "city_architecture_test.gd",
+      "success": true,
+      "command": "Godot --headless --fixed-fps 60 --path . --script tests/city_architecture_test.gd",
+      "summary": [
+        "CITY_ARCHITECTURE_TEST failures=0 window_bays=226 textures=10 texture_bytes=30758376"
+      ]
+    },
+    {
+      "test": "city_bookshop_test.gd",
+      "success": true,
+      "command": "Godot --headless --fixed-fps 60 --path . --script tests/city_bookshop_test.gd",
+      "summary": [
+        "CITY_BOOKSHOP_TEST failures=0 outcomes={ \"screen\": { \"wait_frames\": 5873, \"participants\": [\"resident_zhou_ning\", \"resident_lin_qiao\", \"resident_wu_fan\"], \"elapsed\": 18.0 }, \"paper\": { \"wait_frames\": 5982, \"participants\": [\"resident_zhou_ning\", \"resident_lin_qiao\", \"resident_wu_fan\"], \"elapsed\": 18.0 }, \"garden\": { \"wait_frames\": 2021, \"participants\": [\"resident_lin_qiao\", \"resident_wu_fan\", \"resident_zhou_ning\"], \"elapsed\": 18.0 } }"
+      ]
+    },
+    {
+      "test": "city_bus_seating_test.gd",
+      "success": true,
+      "command": "Godot --headless --fixed-fps 60 --path . --script tests/city_bus_seating_test.gd",
+      "summary": [
+        "CITY_BUS_SEATING_TEST failures=0 {\"casual\":[{\"penetration_m\":0.0,\"phase\":0.0,\"seat_triangles\":2068,\"support_gap_m\":0.0273639559745789,\"vertices\":21362,\"worst_mesh\":\"\",\"worst_point\":[0.0,0.0,0.0]},{\"penetration_m\":0.0,\"phase\":0.4,\"seat_triangles\":2068,\"support_gap_m\":0.0273639559745789,\"vertices\":21362,\"worst_mesh\":\"\",\"worst_point\":[0.0,0.0,0.0]},{\"penetration_m\":0.0,\"phase\":2.0,\"seat_triangles\":2068,\"support_gap_m\":0.0273639559745789,\"vertices\":21362,\"worst_mesh\":\"\",\"worst_point\":[0.0,0.0,0.0]},{\"penetration_m\":0.0,\"phase\":3.8,\"seat_triangles\":2068,\"support_gap_m\":0.0273639559745789,\"vertices\":21362,\"worst_mesh\":\"\",\"worst_point\":[0.0,0.0,0.0]}],\"office\":[{\"penetration_m\":0.0,\"phase\":0.0,\"seat_triangles\":2068,\"support_gap_m\":0.00687271356582642,\"vertices\":20902,\"worst_mesh\":\"\",\"worst_point\":[0.0,0.0,0.0]},{\"penetration_m\":0.0,\"phase\":0.4,\"seat_triangles\":2068,\"support_gap_m\":0.00687283277511597,\"vertices\":20902,\"worst_mesh\":\"\",\"worst_point\":[0.0,0.0,0.0]},{\"penetration_m\":0.0,\"phase\":2.0,\"seat_triangles\":2068,\"support_gap_m\":0.00687271356582642,\"vertices\":20902,\"worst_mesh\":\"\",\"worst_point\":[0.0,0.0,0.0]},{\"penetration_m\":0.0,\"phase\":3.8,\"seat_triangles\":2068,\"support_gap_m\":0.00687283277511597,\"vertices\":20902,\"worst_mesh\":\"\",\"worst_point\":[0.0,0.0,0.0]}],\"office_female\":[{\"penetration_m\":0.0,\"phase\":0.0,\"seat_triangles\":2068,\"support_gap_m\":0.000725209712982178,\"vertices\":19621,\"worst_mesh\":\"\",\"worst_point\":[0.0,0.0,0.0]},{\"penetration_m\":0.0,\"phase\":0.4,\"seat_triangles\":2068,\"support_gap_m\":0.000725269317626953,\"vertices\":19621,\"worst_mesh\":\"\",\"worst_point\":[0.0,0.0,0.0]},{\"penetration_m\":0.0,\"phase\":2.0,\"seat_triangles\":2068,\"support_gap_m\":0.000725209712982178,\"vertices\":19621,\"worst_mesh\":\"\",\"worst_point\":[0.0,0.0,0.0]},{\"penetration_m\":0.0,\"phase\":3.8,\"seat_triangles\":2068,\"support_gap_m\":0.000725269317626953,\"vertices\":19621,\"worst_mesh\":\"\",\"worst_point\":[0.0,0.0,0.0]}]}"
+      ]
+    },
+    {
+      "test": "city_bus_visual_test.gd",
+      "success": true,
+      "command": "Godot --headless --fixed-fps 60 --path . --script tests/city_bus_visual_test.gd",
+      "summary": [
+        "CITY_BUS_VISUAL_TEST {\"bad_normals\":0,\"baked_triangles\":70052,\"degenerate\":0,\"failures\":0,\"lods\":95,\"maximum_driver_palm_error\":0.000000961096020546393,\"vehicle_triangles\":74160,\"wheel_cover_rays\":28}"
+      ]
+    },
+    {
+      "test": "city_car_visual_test.gd",
+      "success": true,
+      "command": "Godot --headless --fixed-fps 60 --path . --script tests/city_car_visual_test.gd",
+      "summary": [
+        "CITY_CAR_VISUAL_TEST {\"bad_normals\":0,\"baked_triangles\":78040,\"degenerate\":0,\"driver_leg_difference_m\":0.0,\"failures\":0,\"inward_triangles\":0,\"lods\":82,\"maximum_driver_palm_error_m\":0.00000786781311035156,\"natural_blend_leg_difference_m\":0.0,\"seating\":{\"casual\":{\"lowest_foot_m\":0.123613491654396,\"penetration_m\":0.0,\"seat_triangles\":2172,\"support_gap_m\":0.002372145652771,\"vertices\":21362,\"worst_point\":[0.0,0.0,0.0]},\"protagonist\":{\"lowest_foot_m\":0.113939210772514,\"penetration_m\":0.0,\"seat_triangles\":2172,\"support_gap_m\":0.0215502977371216,\"vertices\":28993,\"worst_point\":[0.0,0.0,0.0]}},\"wheel_cover_rays\":24}"
+      ]
+    },
+    {
+      "test": "city_commons_save_test.gd",
+      "success": true,
+      "command": "Godot --headless --fixed-fps 60 --path . --script tests/city_commons_save_test.gd",
+      "summary": [
+        "CITY_COMMONS_SAVE_TEST failures=0 corruptions=17 legacy_versions=17"
+      ]
+    },
+    {
+      "test": "city_commons_test.gd",
+      "success": true,
+      "command": "Godot --headless --fixed-fps 60 --path . --script tests/city_commons_test.gd",
+      "summary": [
+        "CITY_COMMONS_TEST failures=0 benches={ \"commons_west_0\": true, \"commons_east_0\": true, \"commons_west_1\": true, \"commons_east_1\": true, \"commons_north_0\": true, \"commons_north_1\": true } seated=11 left=11 walking_distance=7404.71023374423 max_walking_step=0.02767666056752 bus_transfers=15 reading=true pairs=true natural_contacts=[\"casual\", \"office_female\", \"office\"] contacts={ \"casual\": true, \"office_female\": true, \"office\": true } palm_error=0.00000095553514"
+      ]
+    },
+    {
+      "test": "city_controls_test.gd",
+      "success": true,
+      "command": "Godot --headless --fixed-fps 60 --path . --script tests/city_controls_test.gd",
+      "summary": [
+        "CITY_CONTROLS_TEST failures=0"
+      ]
+    },
+    {
+      "test": "city_crossing_flow_test.gd",
+      "success": true,
+      "command": "Godot --headless --fixed-fps 60 --path . --script tests/city_crossing_flow_test.gd",
+      "summary": [
+        "CITY_CROSSING_FLOW_TEST failures=0 data={\"homes\":{\"both_cleared\":true,\"max_step\":0.026765912771225,\"minimum_separation\":0.753563106060028,\"traffic_released\":true,\"vehicle_overlap_samples\":0},\"market\":{\"both_cleared\":true,\"max_step\":0.026765912771225,\"minimum_separation\":0.753563106060028,\"traffic_released\":true,\"vehicle_overlap_samples\":0},\"office\":{\"both_cleared\":true,\"max_step\":0.0267645865678787,\"minimum_separation\":0.753569781780243,\"traffic_released\":true,\"vehicle_overlap_samples\":0},\"waterfront\":{\"both_cleared\":true,\"max_step\":0.0267665721476078,\"minimum_separation\":0.753571271896362,\"traffic_released\":true,\"vehicle_overlap_samples\":0}}"
+      ]
+    },
+    {
+      "test": "city_crossings_test.gd",
+      "success": true,
+      "command": "Godot --headless --fixed-fps 60 --path . --script tests/city_crossings_test.gd",
+      "summary": [
+        "CITY_CROSSINGS_TEST failures=0 stop=true restored=true crossed=true released=true vehicle_interval=true bus_stop=true bus_release=true late_bus_clearance=true"
+      ]
+    },
+    {
+      "test": "city_day_cycle_test.gd",
+      "success": true,
+      "command": "Godot --headless --fixed-fps 60 --path . --script tests/city_day_cycle_test.gd",
+      "summary": [
+        "CITY_DAY_CYCLE_TEST failures=0 rest_cases=7 legacy_versions=20 malformed_cases=5"
+      ]
+    },
+    {
+      "test": "city_daylight_test.gd",
+      "success": true,
+      "command": "Godot --headless --fixed-fps 60 --path . --script tests/city_daylight_test.gd",
+      "summary": [
+        "CITY_DAYLIGHT_TEST failures=0 minute_samples=1440 pause_restore_cases=9 max_sun_step=0.01349499821663 max_sky_step=0.01718075200915 visual_acceptance=separate"
+      ]
+    },
+    {
+      "test": "city_driving_test.gd",
+      "success": true,
+      "command": "Godot --headless --fixed-fps 60 --path . --script tests/city_driving_test.gd",
+      "summary": [
+        "CITY_DRIVING_TEST failures=0 acceleration_distances=[17.9998512268066, 17.9998664855957, 17.9998550415039] max_palm_error_mm=0.00786510372563"
+      ]
+    },
+    {
+      "test": "city_evening_cycle_test.gd",
+      "success": true,
+      "command": "Godot --headless --fixed-fps 60 --path . --script tests/city_evening_cycle_test.gd",
+      "summary": [
+        "CITY_EVENING_CYCLE_TEST failures=0 data={\"clock_advanced_normally\":true,\"end_minute\":1310,\"independent_player_acceptance\":false,\"max_step\":0.0383421592414379,\"metres\":1229.40861555561,\"normal_fps_measured\":false,\"observed\":{\"a_friend\":{\"bookshop\":1176,\"returned\":1288,\"waterfront\":1242},\"a_group\":{\"garden\":1165,\"returned\":1287,\"waterfront\":1226},\"b_friend\":{\"garden\":1226,\"returned\":1279,\"waterfront\":1174}},\"start_minute\":1138,\"vehicle_overlap_samples\":0}"
+      ]
+    },
+    {
+      "test": "city_evening_save_test.gd",
+      "success": true,
+      "command": "Godot --headless --fixed-fps 60 --path . --script tests/city_evening_save_test.gd",
+      "summary": [
+        "CITY_EVENING_SAVE_TEST failures=0 legacy=19 current=27 invalid_crossings=6"
+      ]
+    },
+    {
+      "test": "city_evening_test.gd",
+      "success": true,
+      "command": "Godot --headless --fixed-fps 60 --path . --script tests/city_evening_test.gd",
+      "summary": [
+        "CITY_EVENING_TEST failures=0 routes=13"
+      ]
+    },
+    {
+      "test": "city_frontages_test.gd",
+      "success": true,
+      "command": "Godot --headless --fixed-fps 60 --path . --script tests/city_frontages_test.gd",
+      "summary": [
+        "CITY_FRONTAGES_TEST failures=0 textures=19 texture_bytes=20971800 models={\"industrial_wall_lamp\":{\"lod_surfaces\":10,\"triangles\":4446},\"plastic_crate_01\":{\"lod_surfaces\":0,\"triangles\":10206},\"potted_plant_02\":{\"lod_surfaces\":12,\"triangles\":12408},\"rollershutter_door\":{\"lod_surfaces\":3,\"triangles\":552}} old_positions=3 actors=2"
+      ]
+    },
+    {
+      "test": "city_home_save_test.gd",
+      "success": true,
+      "command": "Godot --headless --fixed-fps 60 --path . --script tests/city_home_save_test.gd",
+      "summary": [
+        "CITY_HOME_SAVE_TEST failures=0"
+      ]
+    },
+    {
+      "test": "city_home_seating_test.gd",
+      "success": true,
+      "command": "Godot --headless --fixed-fps 60 --path . --script tests/city_home_seating_test.gd",
+      "summary": [
+        "CITY_HOME_SEATING_TEST failures=0"
+      ]
+    },
+    {
+      "test": "city_home_test.gd",
+      "success": true,
+      "command": "Godot --headless --fixed-fps 60 --path . --script tests/city_home_test.gd",
+      "summary": [
+        "CITY_HOME_TEST failures=0"
+      ]
+    },
+    {
+      "test": "city_lighting_bake_test.gd",
+      "success": true,
+      "command": "Godot --headless --fixed-fps 60 --path . --script tests/city_lighting_bake_test.gd",
+      "summary": [
+        "CITY_LIGHTING_BAKE_TEST failures=0 proxies=2089 exclusions=7 live_static_dynamic_meshes=826"
+      ]
+    },
+    {
+      "test": "city_meal_contact_test.gd",
+      "success": true,
+      "command": "Godot --headless --fixed-fps 60 --path . --script tests/city_meal_contact_test.gd",
+      "summary": [
+        "CITY_MEAL_CONTACT_TEST failures=0 {\"a_friend\":{\"contact_error\":0.00000191107028513215,\"skin_error\":0.0000496002321597189,\"worst\":{\"face\":[0.0122709274291992,1.67182004451752,-0.0660667419433594],\"frame\":70,\"palm\":[0.0210561752319336,1.38100063800812,-0.245277404785156],\"side\":\"R\",\"target\":[0.0210561752319336,1.38100051879883,-0.245279312133789]}},\"player\":{\"contact_error\":0.00000192219204109279,\"skin_error\":0.0000477313769806642,\"worst\":{\"face\":[0.0219640731811523,1.61535251140594,-0.0869941711425781],\"frame\":83,\"palm\":[0.0129222869873047,1.44015789031982,-0.303306579589844],\"side\":\"R\",\"target\":[0.0129222869873047,1.44015765190125,-0.303304672241211]}},\"resident_chen_yu\":{\"contact_error\":0.00000192219204109279,\"skin_error\":0.0000495916392537765,\"worst\":{\"face\":[0.0122709274291992,1.67182004451752,-0.0660667419433594],\"frame\":70,\"palm\":[0.0210564136505127,1.38100075721741,-0.245277404785156],\"side\":\"R\",\"target\":[0.0210564136505127,1.38100051879883,-0.245279312133789]}},\"resident_xu_hang\":{\"contact_error\":0.00000196604992197535,\"skin_error\":0.0000495841850352008,\"worst\":{\"face\":[0.00926542282104492,1.67471194267273,-0.0533256530761719],\"frame\":171,\"palm\":[0.000438213348388672,1.47926914691925,-0.275104522705078],\"side\":\"R\",\"target\":[0.000438690185546875,1.47926914691925,-0.275102615356445]}},\"resident_zhao_lin\":{\"contact_error\":0.00000213248063118954,\"skin_error\":0.0000496002321597189,\"worst\":{\"face\":[0.0127735137939453,1.67275714874268,-0.0681610107421875],\"frame\":182,\"palm\":[0.0212373733520508,1.38134038448334,-0.246036529541016],\"side\":\"R\",\"target\":[0.0212383270263672,1.38134038448334,-0.246038436889648]}},\"vendor\":{\"contact_error\":0.00000136961045882344,\"outside_pot_frames\":0}}"
+      ]
+    },
+    {
+      "test": "city_meals_save_test.gd",
+      "success": true,
+      "command": "Godot --headless --fixed-fps 60 --path . --script tests/city_meals_save_test.gd",
+      "summary": [
+        "CITY_MEALS_SAVE_TEST failures=0"
+      ]
+    },
+    {
+      "test": "city_meals_social_test.gd",
+      "success": true,
+      "command": "Godot --headless --fixed-fps 60 --path . --script tests/city_meals_social_test.gd",
+      "summary": [
+        "CITY_MEALS_SOCIAL_TEST failures=0 metres=72.3350371606648 maximum=0.03834220021963 stages=[\"queued\", \"ready\", \"carrying\", \"eating\"]"
+      ]
+    },
+    {
+      "test": "city_meals_test.gd",
+      "success": true,
+      "command": "Godot --headless --fixed-fps 60 --path . --script tests/city_meals_test.gd",
+      "summary": [
+        "CITY_MEALS_TEST failures=0"
+      ]
+    },
+    {
+      "test": "city_nature_test.gd",
+      "success": true,
+      "command": "Godot --headless --fixed-fps 60 --path . --script tests/city_nature_test.gd",
+      "summary": [
+        "CITY_NATURE_TEST failures=0 triangles=[297834, 160239, 100716] texture_bytes=36350808 textures=12"
+      ]
+    },
+    {
+      "test": "city_outing_save_test.gd",
+      "success": true,
+      "command": "Godot --headless --fixed-fps 60 --path . --script tests/city_outing_save_test.gd",
+      "summary": [
+        "CITY_OUTING_SAVE_TEST failures=0"
+      ]
+    },
+    {
+      "test": "city_outing_test.gd",
+      "success": true,
+      "command": "Godot --headless --fixed-fps 60 --path . --script tests/city_outing_test.gd",
+      "summary": [
+        "CITY_OUTING_TEST failures=0"
+      ]
+    },
+    {
+      "test": "city_passengers_save_test.gd",
+      "success": true,
+      "command": "Godot --headless --fixed-fps 60 --path . --script tests/city_passengers_save_test.gd",
+      "summary": [
+        "CITY_PASSENGERS_SAVE_TEST failures=0 public_seats=5 bad_cases=17 legacy_versions=22 platforms=4 floor_top=0.3999999910593 minimum_foot_bone_clearance=0.07746221125126"
+      ]
+    },
+    {
+      "test": "city_passengers_test.gd",
+      "success": true,
+      "command": "Godot --headless --fixed-fps 60 --path . --script tests/city_passengers_test.gd",
+      "summary": [
+        "CITY_PASSENGERS_TEST {\"arrived_original_goal\":true,\"clock\":620,\"failures\":0,\"final\":[-93.5076675415039,-0.00415945611894131,57.6267166137695],\"invalid_json_samples\":0,\"max_ground_y_step\":0.0666086082346737,\"max_walk_xz_step\":0.026336744427681,\"riding_saved\":true,\"states\":[\"activity\",\"walking\",\"waiting\",\"riding\",\"activity\"],\"waiting_saved\":true,\"walked_metres\":29.4144229721278}"
+      ]
+    },
+    {
+      "test": "city_places_test.gd",
+      "success": true,
+      "command": "Godot --headless --fixed-fps 60 --path . --script tests/city_places_test.gd",
+      "summary": [
+        "CITY_PLACES_TEST failures=0"
+      ]
+    },
+    {
+      "test": "city_population_test.gd",
+      "success": true,
+      "command": "Godot --headless --fixed-fps 60 --path . --script tests/city_population_test.gd",
+      "summary": [
+        "CITY_POPULATION_TEST failures=0 crossings={ \"market\": 10, \"homes\": 1, \"waterfront\": 3 } traffic_distance=[1663.83385591605, 1523.87011345062, 1403.91702623233] visited={ \"resident_zhou_ning\": [\"commons_west_0\", \"reading_west\"], \"resident_chen_yu\": [\"reading_center\", \"commons_west_0\"], \"resident_liang_bo\": [\"commons_east_0\", \"office\"], \"resident_lin_qiao\": [\"office\", \"market\"], \"resident_xu_hang\": [\"bus_office_0\", \"market\", \"commons_east_1\"], \"resident_song_an\": [\"bus_waterfront_0\", \"commons_west_1\", \"commons_west_0\"], \"resident_he_yue\": [\"bus_waterfront_1\", \"commons_west_0\", \"reading_west\"], \"resident_wu_fan\": [\"reading_center\", \"commons_east_0\"], \"resident_zhao_lin\": [\"commons_east_0\", \"office\", \"market\"], \"resident_tang_ke\": [\"office\", \"market\"], \"resident_lu_yang\": [\"market\", \"commons_west_1\"], \"resident_su_wan\": [\"bus_waterfront_2\", \"commons_east_0\", \"commons_west_1\"] }"
+      ]
+    },
+    {
+      "test": "city_residents_test.gd",
+      "success": true,
+      "command": "Godot --headless --fixed-fps 60 --path . --script tests/city_residents_test.gd",
+      "summary": [
+        "CITY_RESIDENTS_TEST failures=0"
+      ]
+    },
+    {
+      "test": "city_response_routes_test.gd",
+      "success": true,
+      "command": "Godot --headless --fixed-fps 60 --path . --script tests/city_response_routes_test.gd",
+      "summary": [
+        "CITY_RESPONSE_ROUTES_TEST failures=0 routes={\"bookshop\":{\"max_step_m\":0.0300025604665279,\"received\":true,\"traffic_released\":false,\"traffic_stopped\":false,\"walked_m\":242.669125979766},\"homes\":{\"max_step_m\":0.0300036780536175,\"received\":true,\"traffic_released\":true,\"traffic_stopped\":true,\"walked_m\":198.749325146899},\"market\":{\"max_step_m\":0.0300038438290358,\"received\":true,\"traffic_released\":true,\"traffic_stopped\":true,\"walked_m\":201.658801985905},\"waterfront\":{\"max_step_m\":0.0300037376582623,\"received\":true,\"traffic_released\":true,\"traffic_stopped\":true,\"walked_m\":138.713493125513}}"
+      ]
+    },
+    {
+      "test": "city_response_save_test.gd",
+      "success": true,
+      "command": "Godot --headless --fixed-fps 60 --path . --script tests/city_response_save_test.gd",
+      "summary": [
+        "CITY_RESPONSE_SAVE_TEST failures=0 invalid_cases=19 legacy_versions=15"
+      ]
+    },
+    {
+      "test": "city_response_test.gd",
+      "success": true,
+      "command": "Godot --headless --fixed-fps 60 --path . --script tests/city_response_test.gd",
+      "summary": [
+        "CITY_RESPONSE_TEST failures=0 carried=true received=true max_step=0.03000586479902 queued_cases=1"
+      ]
+    },
+    {
+      "test": "city_room_lighting_test.gd",
+      "success": true,
+      "command": "Godot --headless --fixed-fps 60 --path . --script tests/city_room_lighting_test.gd",
+      "summary": [
+        "CITY_ROOM_LIGHTING_TEST failures=0 static_geometry=599"
+      ]
+    },
+    {
+      "test": "city_share_performance_test.gd",
+      "success": true,
+      "command": "Godot --headless --fixed-fps 60 --path . --script tests/city_share_performance_test.gd",
+      "summary": [
+        "CITY_SHARE_PERFORMANCE_TEST failures=0 metrics={\"garden\":{\"max_hand_step_m\":0.0,\"palm_error_m\":0.0,\"skin_depth_m\":0.0,\"turns\":[{\"narrator\":\"resident_zhou_ning\",\"page\":0,\"time\":1.4,\"turn\":0.0},{\"narrator\":\"resident_zhou_ning\",\"page\":0,\"time\":5.6,\"turn\":0.0},{\"narrator\":\"resident_lin_qiao\",\"page\":0,\"time\":7.4,\"turn\":0.0},{\"narrator\":\"resident_lin_qiao\",\"page\":0,\"time\":11.6,\"turn\":0.0},{\"narrator\":\"resident_wu_fan\",\"page\":0,\"time\":13.4,\"turn\":0.0}]},\"paper\":{\"max_hand_step_m\":0.0299831982702017,\"palm_error_m\":0.00000853075562190497,\"skin_depth_m\":0.000953295305371284,\"turns\":[{\"narrator\":\"resident_zhou_ning\",\"page\":0,\"time\":1.4,\"turn\":0.0},{\"narrator\":\"resident_zhou_ning\",\"page\":0,\"time\":5.6,\"turn\":0.499999999999999},{\"narrator\":\"resident_lin_qiao\",\"page\":1,\"time\":7.4,\"turn\":0.0},{\"narrator\":\"resident_lin_qiao\",\"page\":1,\"time\":11.6,\"turn\":0.499999999999999},{\"narrator\":\"resident_wu_fan\",\"page\":2,\"time\":13.4,\"turn\":0.0}]},\"screen\":{\"max_hand_step_m\":0.0,\"palm_error_m\":0.0,\"skin_depth_m\":0.0,\"turns\":[{\"narrator\":\"resident_zhou_ning\",\"page\":0,\"time\":1.4,\"turn\":0.0},{\"narrator\":\"resident_zhou_ning\",\"page\":0,\"time\":5.6,\"turn\":0.0},{\"narrator\":\"resident_lin_qiao\",\"page\":0,\"time\":7.4,\"turn\":0.0},{\"narrator\":\"resident_lin_qiao\",\"page\":0,\"time\":11.6,\"turn\":0.0},{\"narrator\":\"resident_wu_fan\",\"page\":0,\"time\":13.4,\"turn\":0.0}]}}"
+      ]
+    },
+    {
+      "test": "city_soundscape_test.gd",
+      "success": true,
+      "command": "Godot --headless --fixed-fps 60 --path . --script tests/city_soundscape_test.gd",
+      "summary": []
+    },
+    {
+      "test": "city_story_save_test.gd",
+      "success": true,
+      "command": "Godot --headless --fixed-fps 60 --path . --script tests/city_story_save_test.gd",
+      "summary": [
+        "CITY_STORY_SAVE_TEST failures=0"
+      ]
+    },
+    {
+      "test": "city_story_walk_test.gd",
+      "success": true,
+      "command": "Godot --headless --fixed-fps 60 --path . --script tests/city_story_walk_test.gd",
+      "summary": [
+        "CITY_STORY_WALK_TEST failures=0"
+      ]
+    },
+    {
+      "test": "city_streets_test.gd",
+      "success": true,
+      "command": "Godot --headless --fixed-fps 60 --path . --script tests/city_streets_test.gd",
+      "summary": [
+        "CITY_STREETS_TEST failures=0 instances=15976 batches=660 lights=27 public_links=51 deterministic_buffers=GPU_tool_required"
+      ]
+    },
+    {
+      "test": "city_traffic_test.gd",
+      "success": true,
+      "command": "Godot --headless --fixed-fps 60 --path . --script tests/city_traffic_test.gd",
+      "summary": [
+        "CITY_TRAFFIC_TEST failures=0 travelled_m=[482.519987184684, 726.356713358293, 610.185722421411] overlaps=0"
+      ]
+    },
+    {
+      "test": "city_transit_test.gd",
+      "success": true,
+      "command": "Godot --headless --fixed-fps 60 --path . --script tests/city_transit_test.gd",
+      "summary": [
+        "CITY_TRANSIT_TEST failures=0 route_m=482.229614257812 stops=[2, 3, 0]"
+      ]
+    },
+    {
+      "test": "city_urban_test.gd",
+      "success": true,
+      "command": "Godot --headless --fixed-fps 60 --path . --script tests/city_urban_test.gd",
+      "summary": [
+        "CITY_URBAN_TEST failures=0"
+      ]
+    },
+    {
+      "test": "company_batches_test.gd",
+      "success": true,
+      "command": "Godot --headless --fixed-fps 60 --path . --script tests/company_batches_test.gd",
+      "summary": [
+        "COMPANY_BATCHES_TEST failures=0"
+      ]
+    },
+    {
+      "test": "company_spaces_test.gd",
+      "success": true,
+      "command": "Godot --headless --fixed-fps 60 --path . --script tests/company_spaces_test.gd",
+      "summary": [
+        "COMPANY_SPACES_TEST failures=0"
+      ]
+    },
+    {
+      "test": "consequence_test.gd",
+      "success": true,
+      "command": "Godot --headless --fixed-fps 60 --path . --script tests/consequence_test.gd",
+      "summary": [
+        "CONSEQUENCE_TEST failures=0"
+      ]
+    },
+    {
+      "test": "daily_routine_test.gd",
+      "success": true,
+      "command": "Godot --headless --fixed-fps 60 --path . --script tests/daily_routine_test.gd",
+      "summary": [
+        "DAILY_ROUTINE_TEST failures=0"
+      ]
+    },
+    {
+      "test": "destruction_test.gd",
+      "success": true,
+      "command": "Godot --headless --fixed-fps 60 --path . --script tests/destruction_test.gd",
+      "summary": [
+        "DESTRUCTION_TEST failures=0"
+      ]
+    },
+    {
+      "test": "dialogue_scene_test.gd",
+      "success": true,
+      "command": "Godot --headless --fixed-fps 60 --path . --script tests/dialogue_scene_test.gd",
+      "summary": [
+        "DIALOGUE_SCENE_TEST failures=0"
+      ]
+    },
+    {
+      "test": "environment_assets_test.gd",
+      "success": true,
+      "command": "Godot --headless --fixed-fps 60 --path . --script tests/environment_assets_test.gd",
+      "summary": [
+        "ENVIRONMENT_ASSETS_TEST failures=0"
+      ]
+    },
+    {
+      "test": "feedback_blockers_test.gd",
+      "success": true,
+      "command": "Godot --headless --fixed-fps 60 --path . --script tests/feedback_blockers_test.gd",
+      "summary": [
+        "FEEDBACK_BLOCKERS_TEST failures=0 impact_peak_y=[0.0, 0.54666662216187]"
+      ]
+    },
+    {
+      "test": "feedback_combat_test.gd",
+      "success": true,
+      "command": "Godot --headless --fixed-fps 60 --path . --script tests/feedback_combat_test.gd",
+      "summary": [
+        "FEEDBACK_COMBAT_TEST failures=0"
+      ]
+    },
+    {
+      "test": "feedback_rescue_test.gd",
+      "success": true,
+      "command": "Godot --headless --fixed-fps 60 --path . --script tests/feedback_rescue_test.gd",
+      "summary": [
+        "FEEDBACK_RESCUE_TEST failures=0 phases=[\"approaching\", \"assessing\", \"transporting\", \"received\"] max_y=0.0"
+      ]
+    },
+    {
+      "test": "feedback_vehicle_test.gd",
+      "success": true,
+      "command": "Godot --headless --fixed-fps 60 --path . --script tests/feedback_vehicle_test.gd",
+      "summary": [
+        "FEEDBACK_VEHICLE_TEST failures=0"
+      ]
+    },
+    {
+      "test": "full_route_test.gd",
+      "success": true,
+      "command": "Godot --headless --fixed-fps 60 --path . --script tests/full_route_test.gd",
+      "summary": [
+        "FULL_ROUTE_TEST failures=0"
+      ]
+    },
+    {
+      "test": "gait_test.gd",
+      "success": true,
+      "command": "Godot --headless --fixed-fps 60 --path . --script tests/gait_test.gd",
+      "summary": [
+        "GAIT_TEST failures=0"
+      ]
+    },
+    {
+      "test": "guidance_test.gd",
+      "success": true,
+      "command": "Godot --headless --fixed-fps 60 --path . --script tests/guidance_test.gd",
+      "summary": [
+        "GUIDANCE_TEST failures=0"
+      ]
+    },
+    {
+      "test": "hand_contact_test.gd",
+      "success": true,
+      "command": "Godot --headless --fixed-fps 60 --path . --script tests/hand_contact_test.gd",
+      "summary": [
+        "HAND_CONTACT_TEST measurements={\"a_cheng\":{\"reach_error_m\":0.000000256369276030455,\"skin_error_m\":0.0000183501797437202},\"casual\":{\"reach_error_m\":0.000000359176709707754,\"skin_error_m\":0.0000372489703295287},\"held/badge\":{\"max_support_penetration_m\":0.0,\"skin_error_m\":0.00203399197198451},\"held/cup\":{\"max_support_penetration_m\":0.0,\"skin_error_m\":0.00203399197198451},\"held/keyboard\":{\"max_support_penetration_m\":0.0,\"skin_error_m\":0.00203399197198451},\"held/monitor\":{\"max_support_penetration_m\":0.0,\"skin_error_m\":0.00203410838730633},\"interview_b/box_message\":{\"max_sample_displacement_m\":0.0160876493901014,\"skin_error_m\":0.0000237702242884552},\"interview_b/phone_reply\":{\"max_sample_displacement_m\":0.0112689230591059,\"skin_error_m\":0.0000238659849856049},\"interview_boss/phone_reply\":{\"max_sample_displacement_m\":0.0126111255958676,\"skin_error_m\":0.0000478081274195574},\"interview_lead/phone_reply\":{\"max_sample_displacement_m\":0.0126111255958676,\"skin_error_m\":0.0000478081274195574},\"lin_lan\":{\"reach_error_m\":0.000000184317187290617,\"skin_error_m\":0.0000331870651280042},\"office\":{\"reach_error_m\":0.000000359176709707754,\"skin_error_m\":0.0000372489703295287},\"office_female\":{\"reach_error_m\":0.000000359176709707754,\"skin_error_m\":0.0000372489703295287},\"protagonist\":{\"reach_error_m\":0.000000373422039956495,\"skin_error_m\":0.0000358850884367712}} failures=0"
+      ]
+    },
+    {
+      "test": "hit_reaction_test.gd",
+      "success": true,
+      "command": "Godot --headless --fixed-fps 60 --path . --script tests/hit_reaction_test.gd",
+      "summary": [
+        "HIT_REACTION_TEST failures=0"
+      ]
+    },
+    {
+      "test": "intake_test.gd",
+      "success": true,
+      "command": "Godot --headless --fixed-fps 60 --path . --script tests/intake_test.gd",
+      "summary": [
+        "INTAKE_TEST failures=0"
+      ]
+    },
+    {
+      "test": "interaction_test.gd",
+      "success": true,
+      "command": "Godot --headless --fixed-fps 60 --path . --script tests/interaction_test.gd",
+      "summary": [
+        "INTERACTION_TEST failures=0"
+      ]
+    },
+    {
+      "test": "interruption_test.gd",
+      "success": true,
+      "command": "Godot --headless --fixed-fps 60 --path . --script tests/interruption_test.gd",
+      "summary": [
+        "INTERRUPTION_TEST failures=0"
+      ]
+    },
+    {
+      "test": "interview_call_test.gd",
+      "success": true,
+      "command": "Godot --headless --fixed-fps 60 --path . --script tests/interview_call_test.gd",
+      "summary": [
+        "INTERVIEW_CALL_TEST failures=0"
+      ]
+    },
+    {
+      "test": "interview_content_test.gd",
+      "success": true,
+      "command": "Godot --headless --fixed-fps 60 --path . --script tests/interview_content_test.gd",
+      "summary": [
+        "INTERVIEW_CONTENT_TEST failures=0"
+      ]
+    },
+    {
+      "test": "interview_performance_test.gd",
+      "success": true,
+      "command": "Godot --headless --fixed-fps 60 --path . --script tests/interview_performance_test.gd",
+      "summary": [
+        "INTERVIEW_PERFORMANCE_TEST failures=0"
+      ]
+    },
+    {
+      "test": "interview_test.gd",
+      "success": true,
+      "command": "Godot --headless --fixed-fps 60 --path . --script tests/interview_test.gd",
+      "summary": [
+        "INTERVIEW_TEST failures=0"
+      ]
+    },
+    {
+      "test": "inventory_test.gd",
+      "success": true,
+      "command": "Godot --headless --fixed-fps 60 --path . --script tests/inventory_test.gd",
+      "summary": [
+        "INVENTORY_TEST failures=0"
+      ]
+    },
+    {
+      "test": "locomotion_blend_test.gd",
+      "success": true,
+      "command": "Godot --headless --fixed-fps 60 --path . --script tests/locomotion_blend_test.gd",
+      "summary": [
+        "LOCOMOTION_BLEND_TEST failures=0 transitions=120 max_phase_error=0.0"
+      ]
+    },
+    {
+      "test": "locomotion_test.gd",
+      "success": true,
+      "command": "Godot --headless --fixed-fps 60 --path . --script tests/locomotion_test.gd",
+      "summary": [
+        "LOCOMOTION_TEST failures=0"
+      ]
+    },
+    {
+      "test": "mouse_capture_test.gd",
+      "success": true,
+      "command": "Godot --headless --fixed-fps 60 --path . --script tests/mouse_capture_test.gd",
+      "summary": [
+        "MOUSE_CAPTURE_TEST failures=0"
+      ]
+    },
+    {
+      "test": "negotiation_follow_test.gd",
+      "success": true,
+      "command": "Godot --headless --fixed-fps 60 --path . --script tests/negotiation_follow_test.gd",
+      "summary": [
+        "NEGOTIATION_FOLLOW_TEST failures=0"
+      ]
+    },
+    {
+      "test": "nonlethal_care_test.gd",
+      "success": true,
+      "command": "Godot --headless --fixed-fps 60 --path . --script tests/nonlethal_care_test.gd",
+      "summary": [
+        "NONLETHAL_CARE_TEST failures=0"
+      ]
+    },
+    {
+      "test": "npc_lifecycle_test.gd",
+      "success": true,
+      "command": "Godot --headless --fixed-fps 60 --path . --script tests/npc_lifecycle_test.gd",
+      "summary": [
+        "NPC_LIFECYCLE_TEST failures=0"
+      ]
+    },
+    {
+      "test": "office_life_test.gd",
+      "success": true,
+      "command": "Godot --headless --fixed-fps 60 --path . --script tests/office_life_test.gd",
+      "summary": [
+        "OFFICE_LIFE_TEST failures=0"
+      ]
+    },
+    {
+      "test": "onboarding_test.gd",
+      "success": true,
+      "command": "Godot --headless --fixed-fps 60 --path . --script tests/onboarding_test.gd",
+      "summary": [
+        "ONBOARDING_TEST failures=0"
+      ]
+    },
+    {
+      "test": "page_controls_test.gd",
+      "success": true,
+      "command": "Godot --headless --fixed-fps 60 --path . --script tests/page_controls_test.gd",
+      "summary": [
+        "PAGE_CONTROLS_TEST failures=0"
+      ]
+    },
+    {
+      "test": "panels_test.gd",
+      "success": true,
+      "command": "Godot --headless --fixed-fps 60 --path . --script tests/panels_test.gd",
+      "summary": [
+        "PANELS_TEST failures=0"
+      ]
+    },
+    {
+      "test": "payroll_test.gd",
+      "success": true,
+      "command": "Godot --headless --fixed-fps 60 --path . --script tests/payroll_test.gd",
+      "summary": [
+        "PAYROLL_TEST failures=0"
+      ]
+    },
+    {
+      "test": "presentation_test.gd",
+      "success": true,
+      "command": "Godot --headless --fixed-fps 60 --path . --script tests/presentation_test.gd",
+      "summary": [
+        "PRESENTATION_TEST failures=0"
+      ]
+    },
+    {
+      "test": "promises_test.gd",
+      "success": true,
+      "command": "Godot --headless --fixed-fps 60 --path . --script tests/promises_test.gd",
+      "summary": [
+        "PROMISES_TEST failures=0"
+      ]
+    },
+    {
+      "test": "props_expansion_test.gd",
+      "success": true,
+      "command": "Godot --headless --fixed-fps 60 --path . --script tests/props_expansion_test.gd",
+      "summary": [
+        "PROPS_EXPANSION_TEST failures=0 props=114"
+      ]
+    },
+    {
+      "test": "recruitment_test.gd",
+      "success": true,
+      "command": "Godot --headless --fixed-fps 60 --path . --script tests/recruitment_test.gd",
+      "summary": [
+        "RECRUITMENT_TEST failures=0"
+      ]
+    },
+    {
+      "test": "relationships_test.gd",
+      "success": true,
+      "command": "Godot --headless --fixed-fps 60 --path . --script tests/relationships_test.gd",
+      "summary": [
+        "RELATIONSHIPS_TEST failures=0"
+      ]
+    },
+    {
+      "test": "rooms_test.gd",
+      "success": true,
+      "command": "Godot --headless --fixed-fps 60 --path . --script tests/rooms_test.gd",
+      "summary": [
+        "ROOMS_TEST failures=0"
+      ]
+    },
+    {
+      "test": "save_test.gd",
+      "success": true,
+      "command": "Godot --headless --fixed-fps 60 --path . --script tests/save_test.gd",
+      "summary": [
+        "SAVE_TEST failures=0"
+      ]
+    },
+    {
+      "test": "schedule_test.gd",
+      "success": true,
+      "command": "Godot --headless --fixed-fps 60 --path . --script tests/schedule_test.gd",
+      "summary": [
+        "SCHEDULE_TEST failures=0"
+      ]
+    },
+    {
+      "test": "seating_test.gd",
+      "success": true,
+      "command": "Godot --headless --fixed-fps 60 --path . --script tests/seating_test.gd",
+      "summary": [
+        "SEATING_TEST failures=0"
+      ]
+    },
+    {
+      "test": "social_test.gd",
+      "success": true,
+      "command": "Godot --headless --fixed-fps 60 --path . --script tests/social_test.gd",
+      "summary": [
+        "SOCIAL_TEST failures=0"
+      ]
+    },
+    {
+      "test": "staffing_test.gd",
+      "success": true,
+      "command": "Godot --headless --fixed-fps 60 --path . --script tests/staffing_test.gd",
+      "summary": [
+        "STAFFING_TEST failures=0"
+      ]
+    },
+    {
+      "test": "version_import_test.gd",
+      "success": true,
+      "command": "Godot --headless --fixed-fps 60 --path . --script tests/version_import_test.gd",
+      "summary": [
+        "VERSION_IMPORT_TEST failures=0"
+      ]
+    },
+    {
+      "test": "visual_test.gd",
+      "success": true,
+      "command": "Godot --headless --fixed-fps 60 --path . --script tests/visual_test.gd",
+      "summary": [
+        "VISUAL_TEST failures=0"
+      ]
+    },
+    {
+      "test": "work_handover_save_test.gd",
+      "success": true,
+      "command": "Godot --headless --fixed-fps 60 --path . --script tests/work_handover_save_test.gd",
+      "summary": [
+        "WORK_HANDOVER_SAVE_TEST failures=0 invalid_cases=24 legacy_versions=23 legacy_work_branches=3"
+      ]
+    },
+    {
+      "test": "work_handover_test.gd",
+      "success": true,
+      "command": "Godot --headless --fixed-fps 60 --path . --script tests/work_handover_test.gd",
+      "summary": [
+        "WORK_HANDOVER_TEST failures=0 metres=254.133681207895 max_step=0.03834230080247 palm_error=0.01635194942355 contact_samples=7020"
+      ]
+    },
+    {
+      "test": "work_projects_test.gd",
+      "success": true,
+      "command": "Godot --headless --fixed-fps 60 --path . --script tests/work_projects_test.gd",
+      "summary": [
+        "WORK_PROJECTS_TEST failures=0"
+      ]
+    },
+    {
+      "test": "work_scene_test.gd",
+      "success": true,
+      "command": "Godot --headless --fixed-fps 60 --path . --script tests/work_scene_test.gd",
+      "summary": [
+        "WORK_SCENE_TEST failures=0"
+      ]
+    },
+    {
+      "test": "world_test.gd",
+      "success": true,
+      "command": "Godot --headless --fixed-fps 60 --path . --script tests/world_test.gd",
+      "summary": [
+        "WORLD_TEST failures=0"
+      ]
+    }
+  ],
+  "python_tests": 34,
+  "python_success": true,
+  "import_success": true,
+  "actual_user_save_readonly": true
+}

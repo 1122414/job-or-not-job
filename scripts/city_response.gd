@@ -15,6 +15,33 @@ var quiet := 10.0
 var blocked := false
 var notice: Label3D
 var beds: Array[Node3D]=[]
+var approach_clock := 0.0
+
+func approach(person: CityResident) -> void:
+	var near: Vector3=CityPopulation.POINTS[game.population.closest(person.position)]
+	var best := INF
+	var chosen := person.position+(near-person.position).normalized()*1.8
+	for i in range(16):
+		var point := person.position+Vector3(1.8,0,0).rotated(Vector3.UP,TAU*i/16.0)
+		point.y=0
+		var query := PhysicsShapeQueryParameters3D.new()
+		query.shape=crew.get_child(0).shape
+		query.transform.origin=point+Vector3.UP*.91
+		query.collision_mask=3; query.exclude=[crew.get_rid(),person.get_rid()]
+		if not get_world_3d().direct_space_state.intersect_shape(query,1).is_empty(): continue
+		var ray := PhysicsRayQueryParameters3D.create(point+Vector3.UP*.7,person.position+Vector3.UP*.3)
+		ray.exclude=[crew.get_rid(),person.get_rid()];ray.collision_mask=3
+		if not get_world_3d().direct_space_state.intersect_ray(ray).is_empty(): continue
+		var cost := point.distance_to(near)+point.distance_to(crew.position)*.15
+		if cost<best: best=cost; chosen=point
+	plan(chosen)
+	approach_clock=0
+
+func can_assess(person: CityResident) -> bool:
+	if crew.position.distance_to(person.position)>=2.5: return false
+	var ray := PhysicsRayQueryParameters3D.create(crew.position+Vector3.UP*.7,person.body.global_position)
+	ray.exclude=[crew.get_rid(),person.get_rid()];ray.collision_mask=3
+	return get_world_3d().direct_space_state.intersect_ray(ray).is_empty()
 
 func _ready() -> void:
 	name="CityResponse"
@@ -23,6 +50,7 @@ func _ready() -> void:
 	crew.name="ResponseCrew"
 	crew.collision_layer=1
 	crew.collision_mask=3
+	crew.motion_mode=CharacterBody3D.MOTION_MODE_FLOATING
 	var shape := CollisionShape3D.new()
 	var capsule := CapsuleShape3D.new()
 	capsule.radius=.55
@@ -152,6 +180,7 @@ func move_crew(delta: float) -> void:
 	blocked=false
 	crew.velocity=Vector3.ZERO
 	while not route.is_empty() and crew.position.distance_to(route[0])<.23: route.pop_front()
+	while route.size()>1 and crew.position.distance_to(route[0])<1.0 and not crew.test_move(crew.transform,route[1]-crew.position): route.pop_front()
 	if not route.is_empty():
 		var admitted := true
 		for id in CityPopulation.CROSSINGS:
@@ -172,7 +201,20 @@ func move_crew(delta: float) -> void:
 		else: blocked=true
 	crew.rotation.y=wrapf(crew.rotation.y,-PI,PI)
 	crew.move_and_slide()
-	for helper in helpers: helper.pose(crew.velocity.length(),false,false,false,false)
+	crew.position.y=0
+	for helper in helpers:
+		var assessing: bool=active!="" and cases[active].phase=="assessing"
+		helper.carrying=not assessing
+		helper.scene_action="move_box" if assessing else ""
+		helper.pose(crew.velocity.length(),false,false,false,assessing)
+		if assessing:
+			var progress := smoothstep(3.8,5.8,elapsed)
+			helper.rotation.y=lerp_angle(helper.rotation.y,atan2(-person_for(active).position.x+helper.global_position.x,-person_for(active).position.z+helper.global_position.z)-crew.rotation.y,.1)
+			# Lower hands toward the patient, then lift back to stretcher height.
+			for side in ["L","R"]:
+				var target := helper.global_transform*Transform3D(Basis.IDENTITY,Vector3(-.18 if side=="L" else .18,lerpf(.38,.85,progress),-.48))
+				helper.contacts.reach(side,target)
+		else: helper.rotation.y=lerp_angle(helper.rotation.y,0,.15)
 
 func _physics_process(delta: float) -> void:
 	quiet=minf(10,quiet+delta)
@@ -188,18 +230,22 @@ func _physics_process(delta: float) -> void:
 		if active!="":
 			cases[active].phase="approaching"
 			var person := person_for(active)
-			var near: Vector3=CityPopulation.POINTS[game.population.closest(person.position)]
-			var approach := (near-person.position).normalized()
-			if approach.length()<.1: approach=Vector3.BACK
-			plan(person.position+approach*1.8)
+			approach(person)
 			elapsed=0
 			game.queue_save()
 	if active!="":
 		var person := person_for(active)
 		var entry: Dictionary=cases[active]
+		if entry.phase in ["approaching","assessing"] and person.vehicle_velocity.length_squared()>.001:
+			entry.phase="approaching";elapsed=0;route.clear()
+			return
+		approach_clock+=delta
+		if entry.phase=="assessing" and crew.position.distance_to(person.position)>2.5:
+			entry.phase="approaching";elapsed=0;approach(person)
+		elif entry.phase=="approaching" and approach_clock>3 and (blocked or route.is_empty() or route[-1].distance_to(person.position)>3): approach(person)
 		if entry.phase in ["approaching","assessing"] and person.available():
 			finish(person,"recovered")
-		elif entry.phase=="approaching" and crew.position.distance_to(person.position)<2.5 and game.can_see(crew,person):
+		elif entry.phase=="approaching" and can_assess(person):
 			route.clear()
 			entry.phase="assessing"
 			elapsed=0

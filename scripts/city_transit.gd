@@ -5,7 +5,7 @@ const MAX_SPEED := 8.0
 const ACCELERATION := 2.4
 const DWELL := 8.0
 var game: Node3D
-var bus: CharacterBody3D
+var bus: CityCar
 var curve := CityLayout.route_curve()
 var stop_offsets: Array[float]=[]
 var distance := 0.0
@@ -25,16 +25,15 @@ var visual: CityBusVisual
 func _ready() -> void:
 	name="CityTransit"
 	for stop in CityLayout.STOPS: stop_offsets.append(curve.get_closest_offset(stop.point))
-	bus=CharacterBody3D.new()
+	bus=CityCar.new();bus.bus_mode=true;bus.stable_id="bus_101";bus.title="101 公交车"
 	bus.name="Bus101"
 	bus.collision_layer=1
 	bus.collision_mask=3
 	add_child(bus)
-	Shapes.collider(bus,Vector3(2.6,2.8,7),Vector3(0,1.6,0))
 	# Keep the established passenger support plane and external physics contract.
 	var floor := Shapes.box(bus,Vector3(2.5,.16,7),Vector3(0,.32,0),Color("4e5758"))
 	floor.name="CabinFloor"
-	visual=CityBusVisual.new();bus.add_child(visual)
+	visual=bus.bus_visual
 	sign=Shapes.label(bus,"101  城区环线",Vector3(0,2.57,-3.409),28)
 	sign.billboard=BaseMaterial3D.BILLBOARD_DISABLED
 	sign.pixel_size=0.005
@@ -57,6 +56,9 @@ func vehicle_transform(offset: float) -> Transform3D:
 	return Transform3D(Basis(Vector3.UP,atan2(-direction.x,-direction.z)),curve.sample_baked(offset))
 
 func sync_vehicle() -> void:
+	if bus.taken:
+		if game.passengers: game.passengers.sync_all()
+		return
 	bus.transform=vehicle_transform(distance)
 	var before := vehicle_transform(distance-.5).basis.get_euler().y
 	var after := vehicle_transform(distance+.5).basis.get_euler().y
@@ -74,6 +76,10 @@ func sync_passenger() -> void:
 
 func tick(delta: float) -> void:
 	if delta<=0: return
+	if bus.taken:
+		sync_passenger()
+		if game.passengers: game.passengers.sync_all()
+		return
 	blocked=false
 	if current_stop>=0:
 		if riding and requested or game.passengers and game.passengers.holds_departure():
@@ -117,6 +123,7 @@ func at_platform(index: int) -> bool:
 	return game.player.dead<=0 and game.player.position.distance_to(CityLayout.STOPS[index].platform)<3.1
 
 func board(index: int) -> bool:
+	if bus.taken: return false
 	if game.in_vehicle() or not at_platform(index) or current_stop!=index: return false
 	if not game.player.stand_up(): return false
 	game.player.store_held()
@@ -131,9 +138,43 @@ func board(index: int) -> bool:
 	game.say("已乘坐 101 · E 请求下一站下车，M 查看城区")
 	return true
 
+func board_vehicle() -> bool:
+	if not bus.taken:
+		return board(current_stop) if current_stop>=0 else false
+	if game.in_vehicle() or game.player.dead>0 or absf(bus.speed)>.35 or game.player.position.distance_to(bus.position)>4.5 or not game.can_see(game.player,bus): return false
+	if not game.player.stand_up(): return false
+	game.player.store_held()
+	game.player.add_collision_exception_with(bus)
+	game.player.spring.add_excluded_object(bus.get_rid())
+	riding=true;requested=false
+	game.panels.show_page("")
+	sync_passenger();game.queue_save()
+	return true
+
+func manual_exits() -> Array[Vector3]:
+	var result: Array[Vector3]=[]
+	for z in [-2.2,-1.1,0.0,1.1,2.2]: result.append(bus.to_global(Vector3(2,0,z)))
+	return result
+
+func manual_exit_clear(actor: CharacterBody3D,point: Vector3) -> bool:
+	if not game.position_clear(actor,point): return false
+	var ray := PhysicsRayQueryParameters3D.create(bus.position+Vector3.UP*.9,point+Vector3.UP*.9)
+	ray.collision_mask=3
+	var excluded: Array[RID]=[bus.get_rid(),actor.get_rid(),game.player.get_rid()]
+	for person in game.population.residents:
+		if game.passengers.aboard(person): excluded.append(person.get_rid())
+	ray.exclude=excluded
+	return get_world_3d().direct_space_state.intersect_ray(ray).is_empty()
+
 func leave() -> bool:
-	if not riding or current_stop<0: return false
-	var point: Vector3=CityLayout.STOPS[current_stop].platform
+	if not riding or (current_stop<0 and not bus.taken): return false
+	var point: Vector3=CityLayout.STOPS[maxi(0,current_stop)].platform
+	if bus.taken:
+		if absf(bus.speed)>.35: return false
+		var found := false
+		for candidate in manual_exits():
+			if manual_exit_clear(game.player,candidate): point=candidate;found=true;break
+		if not found: return false
 	if not game.position_clear(game.player,point):
 		game.say("站台被挡住了，清空落脚位置后再下车。")
 		return false
@@ -159,6 +200,9 @@ func request_stop() -> void:
 	game.queue_save()
 
 func wait_for_bus(index: int) -> bool:
+	if bus.taken:
+		game.say("101已离开运营路线。可在实际车辆旁乘坐或接管，不能跳过等车召回。")
+		return false
 	if riding or not at_platform(index) or blocked: return false
 	if current_stop==index: return true
 	# The explicit time skip moves only the scheduled bus and advances the shared clock.
@@ -204,7 +248,11 @@ func wait_for_bus(index: int) -> bool:
 	return true
 
 func snapshot() -> Dictionary:
-	return {"route":"101-v1","distance":distance,"speed":speed,"dwell":dwell,"current_stop":current_stop,"next_stop":next_stop,"riding":riding,"requested":requested,"visited":visited.duplicate(),"waypoint":waypoint}
+	return {"route":"101-v1","distance":distance,"speed":speed,"dwell":dwell,"current_stop":current_stop,"next_stop":next_stop,"riding":riding,"requested":requested,"visited":visited.duplicate(),"waypoint":waypoint,"manual":{"position":SaveGame.vector(bus.position),"yaw":bus.rotation.y} if bus.taken else {}}
+
+func stored_transform(data: Dictionary) -> Transform3D:
+	var manual: Dictionary=data.get("manual",{})
+	return Transform3D(Basis(Vector3.UP,manual.yaw),SaveGame.unvector(manual.position)) if not manual.is_empty() else vehicle_transform(data.distance)
 
 func valid(data: Variant) -> bool:
 	if not data is Dictionary or data.get("route")!="101-v1": return false
@@ -220,6 +268,13 @@ func valid(data: Variant) -> bool:
 	for id in data.visited:
 		if not id in ids or data.visited.count(id)!=1: return false
 	if not data.get("waypoint") is String or not data.waypoint in ids+[""]: return false
+	var manual: Variant=data.get("manual",{})
+	if not manual is Dictionary: return false
+	if not manual.is_empty():
+		if not SaveGame.valid_vector(manual.get("position")) or not CityPopulation.number(manual.get("yaw"),-PI-.001,PI+.001): return false
+		var at := SaveGame.unvector(manual.position)
+		if absf(at.y)>.01 or not CityLayout.BOUNDS.has_point(Vector2(at.x,at.z)): return false
+		if data.current_stop!=-1 or data.speed!=0 or data.dwell!=0: return false
 	if data.current_stop>=0:
 		if absf(data.distance-stop_offsets[int(data.current_stop)])>0.01 or data.next_stop!=(int(data.current_stop)+1)%4 or data.speed!=0: return false
 	else:
@@ -230,6 +285,7 @@ func valid(data: Variant) -> bool:
 
 func restore(data: Dictionary) -> void:
 	detach()
+	bus.taken=not data.get("manual",{}).is_empty()
 	distance=float(data.get("distance",0))
 	speed=float(data.get("speed",0))
 	dwell=float(data.get("dwell",DWELL))
@@ -244,6 +300,7 @@ func restore(data: Dictionary) -> void:
 		game.player.add_collision_exception_with(bus)
 		game.player.spring.add_excluded_object(bus.get_rid())
 	visual.snap_doors(current_stop>=0)
+	if bus.taken: bus.transform=stored_transform(data)
 	sync_vehicle()
 
 func station_for(id: String) -> WorkStation:
