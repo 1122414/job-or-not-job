@@ -1,7 +1,7 @@
 class_name SaveGame
 extends RefCounted
 
-const VERSION := 30
+const VERSION := 31
 const BASE_NPCS := ["a_hr","a_lead","a_boss","a_friend","a_group","a_guard","b_hr","b_friend","b_boss","b_guard"]
 const LEGACY_PROPS := ["a_keyboard","a_cup","a_table","a_chair","a_printer","b_keyboard","b_cup","b_table","b_chair","b_printer"]
 const PATH := "user://neighborhood.json"
@@ -32,6 +32,7 @@ static func snapshot(game: Node3D) -> Dictionary:
 	data.city_response=game.response.snapshot()
 	data.city_commons=game.commons.snapshot()
 	data.city_home=game.home.snapshot()
+	data.friend_handover=game.friend_handover.data.duplicate(true)
 	data.work_handover=game.handover.data.duplicate(true)
 	data.city_meals=game.meals.snapshot()
 	for prop in game.props:
@@ -49,8 +50,8 @@ static func valid_vector(value: Variant) -> bool:
 
 static func valid(data: Variant, game: Node3D) -> bool:
 	if not data is Dictionary: return false
-	if (data.get("version") in [28,29,VERSION]) and (not AutumnStoryPoint.valid(data.get("mentor")) or not FreeChat.valid(data.get("free_chat"))): return false
-	if data.get("version")!=1 and data.get("version")!=2 and data.get("version")!=3 and data.get("version")!=4 and data.get("version")!=5 and data.get("version")!=6 and data.get("version")!=7 and data.get("version")!=8 and data.get("version")!=9 and data.get("version")!=10 and data.get("version")!=11 and data.get("version")!=12 and data.get("version")!=13 and data.get("version")!=14 and data.get("version")!=15 and data.get("version")!=16 and data.get("version")!=17 and data.get("version")!=18 and data.get("version")!=19 and data.get("version")!=20 and data.get("version")!=21 and data.get("version")!=22 and data.get("version")!=23 and data.get("version")!=24 and data.get("version")!=25 and data.get("version")!=26 and data.get("version")!=27 and data.get("version")!=28 and data.get("version")!=29 and data.get("version")!=VERSION: return false
+	if (data.get("version") in [28,29,30,VERSION]) and (not AutumnStoryPoint.valid(data.get("mentor")) or not FreeChat.valid(data.get("free_chat"))): return false
+	if data.get("version")!=1 and data.get("version")!=2 and data.get("version")!=3 and data.get("version")!=4 and data.get("version")!=5 and data.get("version")!=6 and data.get("version")!=7 and data.get("version")!=8 and data.get("version")!=9 and data.get("version")!=10 and data.get("version")!=11 and data.get("version")!=12 and data.get("version")!=13 and data.get("version")!=14 and data.get("version")!=15 and data.get("version")!=16 and data.get("version")!=17 and data.get("version")!=18 and data.get("version")!=19 and data.get("version")!=20 and data.get("version")!=21 and data.get("version")!=22 and data.get("version")!=23 and data.get("version")!=24 and data.get("version")!=25 and data.get("version")!=26 and data.get("version")!=27 and data.get("version")!=28 and data.get("version")!=29 and data.get("version")!=30 and data.get("version")!=VERSION: return false
 	for field in ["career","payroll","props","npcs","player"]:
 		if not data.get(field) is Dictionary: return false
 	for field in CAREER_FIELDS:
@@ -201,6 +202,7 @@ static func valid(data: Variant, game: Node3D) -> bool:
 		if not InternshipArc.valid(data.autumn_story.get("placement"),data.autumn_story,c,int(p.minute),data.recruitment.promises): return false
 	if data.version>=26 and (data.version>=30 or data.autumn_story.has("response")):
 		if not DepartureResponse.valid(data.autumn_story.get("response"),data): return false
+	if data.version>=31 and not FriendHandover.valid(data.get("friend_handover"),data): return false
 	var occupied := {}
 	for id in data.npcs:
 		var entry: Dictionary=data.npcs[id]
@@ -350,6 +352,8 @@ static func restore(game: Node3D, data: Dictionary) -> bool:
 			game.recruitment.scenes.erase(firm)
 	if data.version<11: game.recruitment.migrate()
 	game.projects.migrate()
+	game.friend_handover.data=data.get("friend_handover",{}).duplicate(true) if data.version>=31 else {}
+	if not game.friend_handover.data.is_empty(): game.friend_handover.data.read=game.friend_handover.data.read.map(func(value): return int(value))
 	game.handover.restore(data.get("work_handover",{}) if data.version>=24 else {},data.version<24)
 	game.onboarding.tour=data.get("onboarding",{}).duplicate(true)
 	game.social.people=data.get("social",{}).get("people",{}).duplicate(true)

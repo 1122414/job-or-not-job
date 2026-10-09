@@ -1,0 +1,59 @@
+[
+  {
+    "branch": "checked",
+    "command": [
+      "/Applications/Godot.app/Contents/MacOS/Godot",
+      "--headless",
+      "--fixed-fps",
+      "60",
+      "--path",
+      "/Users/geminchen/My-Item/job-or-not-job",
+      "--script",
+      "tests/friend_handover_test.gd",
+      "--log-file",
+      "/tmp/friend-restore-checked-engine.log",
+      "--",
+      "--from-route=res://build/friend-handover/checked.json"
+    ],
+    "exit": 0,
+    "passed": true
+  },
+  {
+    "branch": "declined",
+    "command": [
+      "/Applications/Godot.app/Contents/MacOS/Godot",
+      "--headless",
+      "--fixed-fps",
+      "60",
+      "--path",
+      "/Users/geminchen/My-Item/job-or-not-job",
+      "--script",
+      "tests/friend_handover_test.gd",
+      "--log-file",
+      "/tmp/friend-restore-declined-engine.log",
+      "--",
+      "--from-route=res://build/friend-handover/declined.json"
+    ],
+    "exit": 0,
+    "passed": true
+  },
+  {
+    "branch": "negotiated",
+    "command": [
+      "/Applications/Godot.app/Contents/MacOS/Godot",
+      "--headless",
+      "--fixed-fps",
+      "60",
+      "--path",
+      "/Users/geminchen/My-Item/job-or-not-job",
+      "--script",
+      "tests/friend_handover_test.gd",
+      "--log-file",
+      "/tmp/friend-restore-negotiated-engine.log",
+      "--",
+      "--from-route=res://build/friend-handover/negotiated.json"
+    ],
+    "exit": 0,
+    "passed": true
+  }
+]

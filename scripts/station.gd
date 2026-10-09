@@ -129,12 +129,16 @@ func _process(_delta: float) -> void:
 		if result_board and stable_id=="backup" and facts.has("output_two"):
 			result_board.text="第二份成果 / 现场恢复通过\n"+("第12周：无HC，实习结束" if facts.has("conversion_failed") else "第12周答辩 · 成果与原承诺均保留")
 	if indicator:
+		if stable_id=="handover" and not game.friend_handover.data.is_empty():
+			screen.text="阿乐的交接 · 已发送" if game.friend_handover.data.phase=="delivered" else "阿乐的交接 · 尚未发送"
+			progress=game.friend_handover.data.elapsed/WorkHandover.SECONDS
 		if stable_id=="handover" and not game.handover.data.is_empty():
 			screen.text=game.handover.screen_text()
 			progress=game.handover.data.elapsed/WorkHandover.SECONDS
+		if stable_id=="handover" and (not game.handover.data.is_empty() or not game.friend_handover.data.is_empty()):
 			for i in range(work_bars.size()):
 				work_bars[i].visible=progress>0
 				work_bars[i].scale.x=maxf(.01,clampf(progress*3-i,0,1))
 		var complete: bool=(stable_id=="demo" and facts.has("output_one")) or (stable_id=="backup" and facts.has("output_two")) or (stable_id=="handover" and facts.has("b_help"))
-		if stable_id=="handover" and game.handover.data.get("phase")=="delivered": complete=true
+		if stable_id=="handover" and (game.handover.data.get("phase")=="delivered" or game.friend_handover.data.get("phase")=="delivered"): complete=true
 		indicator.material_override.albedo_color=Color("335647") if complete else Color("29383f")

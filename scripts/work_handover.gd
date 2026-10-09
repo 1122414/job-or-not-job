@@ -33,7 +33,10 @@ func owns(person: OfficeNPC) -> bool:
 	return person.role_id=="b_friend" and due() and person.available() and person.hostile<=0 and person.reaction<=0 and person.hit_stun<=0 and person.block_time<=0 and game.office.visit_target(person)==null and game.onboarding.npc_target(person)==null and game.interviews.host_target(person)==null
 
 func working(person: OfficeNPC) -> bool:
-	return owns(person) and game.speaker!=person and person.position.distance_to(point())<.06 and Vector2(person.velocity.x,person.velocity.z).length()<.2 and absf(wrapf(person.visual.rotation.y,-PI,PI))<.1
+	return owns(person) and at_terminal(person)
+
+func at_terminal(person: OfficeNPC) -> bool:
+	return game.speaker!=person and person.position.distance_to(point())<.06 and Vector2(person.velocity.x,person.velocity.z).length()<.2 and absf(wrapf(person.visual.rotation.y,-PI,PI))<.1
 
 func tick(delta: float) -> void:
 	if not active() or game.get_tree().paused: return
@@ -118,10 +121,13 @@ func suspend() -> void:
 	if data.get("phase")=="pending" and game.career.b_event=="conflict": data.phase="suspended"
 
 func contact(person: OfficeNPC) -> void:
-	if not working(person) or person.visual.current!="terminal_work": return
+	if working(person): contact_at_terminal(person,float(data.elapsed))
+
+func contact_at_terminal(person: OfficeNPC,elapsed: float) -> void:
+	if person.visual.current!="terminal_work": return
 	for side in ["L","R"]:
 		var normal := Vector3.DOWN;var along := Vector3.FORWARD
-		var height := .965+sin(float(data.elapsed)*5+(0 if side=="L" else PI))*.008
+		var height := .965+sin(elapsed*5+(0 if side=="L" else PI))*.008
 		var target := Transform3D(Basis(along.cross(normal),along,normal),station().global_position+Vector3(-.17 if side=="L" else .17,height,.24))
 		person.visual.contacts.reach(side,target)
 		person.visual.contacts.fingers(side,.10)

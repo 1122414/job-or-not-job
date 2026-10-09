@@ -101,7 +101,7 @@ func npc_target(npc: OfficeNPC) -> Variant:
 	return npc.position
 
 func work_following(npc: OfficeNPC) -> bool:
-	return game.story.response.owns(npc) or npc.role_id=="b_friend" and (game.career.b_event=="negotiating" or game.handover.owns(npc))
+	return game.story.response.owns(npc) or game.friend_handover.owns(npc) or npc.role_id=="b_friend" and (game.career.b_event=="negotiating" or game.handover.owns(npc))
 
 func willing(npc: OfficeNPC) -> bool:
 	var p := state(npc)

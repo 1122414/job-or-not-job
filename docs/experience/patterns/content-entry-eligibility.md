@@ -15,3 +15,6 @@
 同日复核：`work_projects_test.gd`、`autumn_career_test.gd`、`autumn_search_test.gd`最终均failures=0且无ERROR，分别支持旧分支内部行为、新主线B不可录用和结尾事实。初次沙箱出现系统证书读取ERROR，正常权限复跑消失；未改游戏逻辑。上述测试仍不替代新入口的真实交互路线。
 
 2026-10-09用户纠正后的适用边界：用户强调长期实习与明确HC承诺落空，故B入口虽受限，也不应自动成为首个开发任务。内容可达性是证据，开发优先级还需服从玩家希望体验的核心处境；P1支线后置、P2主线优先，仅规划修正，尚未验证体验。
+
+
+2026-10-09 NEXT02接入验证：新入口不复用Career.b_event作为参与资格，而由FriendHandover保存原人物、分享材料、选择、约定和实际发送。WorkProjects的员工电脑权限保持；三个分支都由原阿乐实际到终端发送，没有把拒绝或陪同记成玩家接单。共享的是WorkHandover的终端落点/站稳/手掌接触，不是员工身份和成果字段。真实新故事B面试拒绝后到场入口、三分支、安全/邀请边界、当前JSON/旧v30与三种实际完成档独立恢复通过一次。支持scripts/friend_handover.gd、tests/friend_handover_test.gd及当日friend-handover证据；完整回归仍在运行，自然发现率和选择情绪差异未验证。

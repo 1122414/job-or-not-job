@@ -26,6 +26,7 @@ var onboarding := Onboarding.new()
 var recruitment := RecruitmentFlow.new()
 var projects := WorkProjects.new()
 var handover := WorkHandover.new()
+var friend_handover := FriendHandover.new()
 var promises := WorkPromises.new()
 var person_index := 0
 var interviews := InterviewFlow.new()
@@ -75,6 +76,7 @@ func _ready() -> void:
 	recruitment.game=self
 	projects.game=self
 	handover.game=self
+	friend_handover.game=self
 	promises.game=self
 	interviews.game=self
 	Neighborhood.build(self)
@@ -219,6 +221,7 @@ func _process(delta: float) -> void:
 	staffing.tick(delta)
 	care.tick(delta)
 	story.response.tick()
+	friend_handover.tick(delta)
 	social.tick(delta)
 	handover.tick(delta)
 	onboarding.tick()
@@ -237,6 +240,7 @@ func advance_time(minutes: float, skipped: bool=true) -> void:
 	payroll.tick(seconds,career.employer)
 	if skipped and payroll.minute!=before: care.tick(0)
 	story.response.tick()
+	friend_handover.tick(0)
 	social.time_changed(before,seconds if skipped else 0.0)
 	if meals: meals.time_changed()
 	recruitment.tick()
@@ -421,6 +425,7 @@ func interact(target_override: Node3D=null) -> void:
 			if not introduction.is_empty(): conversation=introduction
 			conversation=onboarding.service_options(target,conversation)
 		conversation=story.decorate(target,conversation)
+		conversation=friend_handover.decorate(target,conversation)
 		journal_open=false
 
 func choose(index: int) -> void:
@@ -451,6 +456,7 @@ func choose(index: int) -> void:
 		panels.show_page("messages")
 		return
 	if recruitment.handle(action): return
+	if friend_handover.handle(action): return
 	if handover.handle(action): return
 	if promises.handle(action,speaker): return
 	if projects.handle(action): return

@@ -2,6 +2,8 @@ class_name ObjectiveGuide
 extends RefCounted
 
 static func current(game: Node3D) -> Dictionary:
+	if game.friend_handover.data.get("phase")=="walking" and game.friend_handover.safe_meeting():
+		return {"title":"自愿陪同 · 和阿乐到赵总面前确认截止时间；离开可暂缓","id":"b_boss"}
 	var story_goal: Dictionary=game.story.objective()
 	if not story_goal.is_empty(): return story_goal
 	var introduction: Dictionary=game.onboarding.objective()

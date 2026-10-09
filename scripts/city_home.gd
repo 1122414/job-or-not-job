@@ -126,6 +126,7 @@ func memory_text() -> String:
 	elif career.facts.has("output_one"): lines.append("第一份演示已经交付。")
 	elif career.b_event in ["helped","negotiated","refused"]:
 		lines.append({"helped":"和阿乐一起完成了交接。","negotiated":"与阿乐谈好了明早交接。","refused":"那次加班，你选择了自己的晚上。"}[career.b_event])
+	if not game.friend_handover.data.is_empty(): lines.append(game.friend_handover.status())
 	var company := ""
 	if game.handover.data.get("phase")=="delivered": lines.append(game.handover.receipt())
 	for npc in game.npcs:

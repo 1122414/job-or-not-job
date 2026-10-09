@@ -66,3 +66,6 @@
 
 
 2026-10-09 NEXT07：复用[构建证据](patterns/build-evidence-identity.md)和[后台窗口](patterns/background-window-state.md)，实际包3600活场景绘制完成与窗口守卫通过；补引擎消费启动参数、短预热监视器旧值反例及边界。正常帧率/长期路线仍开放。
+
+
+2026-10-09 NEXT02：复用[内容入口与叙事资格](patterns/content-entry-eligibility.md)、[延后实际行为](patterns/deferred-world-actions.md)和[存档迁移](patterns/save-content-expansion.md)。朋友事件独立资格/原人物/实际发送与旧员工任务分开，三分支与独立磁盘恢复验证一次；完整120项通过，自然体验仍开放。
