@@ -1,0 +1,32 @@
+{
+	"bus": {
+		"hit_length": 2.15020990371704
+	},
+	"driving": {
+		"distance": 7.13057279586792,
+		"hit_length": 6.39985036849976
+	},
+	"physics_rate": 60,
+	"rotation": {
+		"min_length": 0.0211914051324129,
+		"samples": 288
+	},
+	"walk": {
+		"camera_offset": [
+			0.449999988079071,
+			1.84773552417755,
+			3.09008598327637
+		],
+		"distance": 2.30003356933594
+	},
+	"window_mesh_hits": {},
+	"witness": {
+		"camera": [
+			-2.40283060073853,
+			1.78537106513977,
+			-6.34672451019287
+		],
+		"hit_length": 2.37949204444885,
+		"window_triangle_hits": 0
+	}
+}

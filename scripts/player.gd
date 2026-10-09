@@ -62,6 +62,10 @@ func _ready() -> void:
 	spring.spring_length = 3.1
 	spring.position.x = 0.45
 	spring.margin = 0.2
+	# Keep the lens clear of window trim protruding beyond the wall collider.
+	var camera_probe := SphereShape3D.new()
+	camera_probe.radius = 0.25
+	spring.shape = camera_probe
 	spring.add_excluded_object(get_rid())
 	camera = Camera3D.new()
 	spring.add_child(camera)

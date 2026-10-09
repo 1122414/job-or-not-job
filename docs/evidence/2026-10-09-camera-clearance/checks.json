@@ -1,5 +1,5 @@
 {
-  "status": "candidate only; production camera unchanged",
+  "status": "production camera integrated; targeted source verification passed; package and natural experience pending",
   "baseline": {
     "exit": 1,
     "expected_failure": "witness window clearance",
@@ -51,7 +51,7 @@
     "NPCs are relocated and physics-frozen for geometry fixture; pose is not acceptance evidence",
     "Vehicle camera probe covers stationary boarding/driving view, not driving dynamics",
     "Low/high physics checks are headless; no graphical performance inference",
-    "Full suite still running on unchanged production camera"
+    "117-test full suite predates camera change; 10 targeted tests ran after integration"
   ],
   "images": {
     "candidate-800/corner--4.0--8.14999961853027.png": "299f2a240c6730a3570bc69889ae5a5df531c39e9b6ba7c83b3383541dcbbf1b",
@@ -67,6 +67,141 @@
     "candidate-720/corner--3.0--15.5.png": "1762a640c1c9f3e828d4326c62e6121d1389727cf7f52255ce9488fd06637080",
     "candidate-720/bus.png": "cbe106efd3fd70354d91f28cc89e0f88e7ec33c2f4e8258fc44d3be1a64040ef",
     "candidate-720/corner--25.0--15.5.png": "3d42e46119b26fc6a64a65619ccfeb97560f1dad6dfe91401ca4021d3e40f916",
-    "candidate-720/driving.png": "47638f6ab127a19b61079d6c955ea4a1a02beca238a193fddbe9a002c8fe8a90"
+    "candidate-720/driving.png": "47638f6ab127a19b61079d6c955ea4a1a02beca238a193fddbe9a002c8fe8a90",
+    "production-720/corner--4.0--8.14999961853027.png": "d06672bffcf5198c1d9aca0800ed5d055235594d0f4d3611f84f25b7a244bfc2",
+    "production-720/witness.png": "0c17ada320196ee2a70493bbe0817364df6c2eeb23c1234580b3832f82068f49",
+    "production-720/corner-0.0-28.0.png": "12df26c851293007d0cd567a576fce9408af645f17cea99e4fcf2d0c4f4bb1d1",
+    "production-720/corner--3.0--15.5.png": "1762a640c1c9f3e828d4326c62e6121d1389727cf7f52255ce9488fd06637080",
+    "production-720/bus.png": "7329903ad205c9c049a7fcfd934ab44930d8dc549c931bad05bedc20d74d63db",
+    "production-720/corner--25.0--15.5.png": "3d42e46119b26fc6a64a65619ccfeb97560f1dad6dfe91401ca4021d3e40f916",
+    "production-720/driving.png": "0d2f516ae1a7761e58e01ec4d0d1839bd300cbd86dc9dc69b69a7f2bbc7616cd"
+  },
+  "production": {
+    "radius_m": 0.25,
+    "targeted_tests": [
+      {
+        "test": "camera_clearance",
+        "exit": 0,
+        "passed": true
+      },
+      {
+        "test": "seating",
+        "exit": 0,
+        "passed": true
+      },
+      {
+        "test": "city_bus_seating",
+        "exit": 0,
+        "passed": true
+      },
+      {
+        "test": "city_home_seating",
+        "exit": 0,
+        "passed": true
+      },
+      {
+        "test": "mouse_capture",
+        "exit": 0,
+        "passed": true
+      },
+      {
+        "test": "interaction",
+        "exit": 0,
+        "passed": true
+      },
+      {
+        "test": "feedback_vehicle",
+        "exit": 0,
+        "passed": true
+      },
+      {
+        "test": "city_driving",
+        "exit": 0,
+        "passed": true
+      },
+      {
+        "test": "free_chat",
+        "exit": 0,
+        "passed": true
+      },
+      {
+        "test": "departure_response",
+        "exit": 0,
+        "passed": true
+      }
+    ],
+    "graphical_720": {
+      "bus": {
+        "hit_length": 2.15020990371704
+      },
+      "driving": {
+        "distance": 7.13057279586792,
+        "hit_length": 6.39985036849976
+      },
+      "physics_rate": 60,
+      "rotation": {
+        "min_length": 0.0211914051324129,
+        "samples": 288
+      },
+      "walk": {
+        "camera_offset": [
+          0.449999988079071,
+          1.84773552417755,
+          3.09008598327637
+        ],
+        "distance": 2.30003356933594
+      },
+      "window_mesh_hits": {},
+      "witness": {
+        "camera": [
+          -2.40283060073853,
+          1.78537106513977,
+          -6.34672451019287
+        ],
+        "hit_length": 2.37949204444885,
+        "window_triangle_hits": 0
+      }
+    },
+    "graphical_meeting_800": {
+      "exit": 0,
+      "failures": 0,
+      "images": "../2026-10-09-departure-response/camera-fixed"
+    },
+    "physics_rates": [
+      {
+        "physics": 30,
+        "exit": 0,
+        "passed": true
+      },
+      {
+        "physics": 120,
+        "exit": 0,
+        "passed": true
+      }
+    ],
+    "sandbox_attempts": "Graphical start exited 134; headless assertions passed but system CA lookup emitted ERROR. Normal-permission repeats passed without ERROR.",
+    "log_digests": {
+      "mouse_capture.log": "2c873323ddbc0e7ac49f2dfa6c941a8988c0476441cf8708fc8ee3b4b0731c96",
+      "seating.log": "5bdbc92906a8044c4fd973c4e80c4ee612ea589a740b9bcdac74e7410cf76fdb",
+      "city_bus_seating.log": "d8fc7e16da7ea28fac06053ae29bd88733c005db89e8a7bbcb3fa900eab64f20",
+      "feedback_vehicle.log": "af40634587bac76c152c30034fdb26e9c406f8f5ef84836678210a19fcd1cd1d",
+      "city_home_seating.log": "b0e966a93874fe21610ad0354e53071861c477d7db57c31e57b94eb8261689cc",
+      "interaction.log": "1ea188f6d4d7bb425deebe16ce07c65b22cf8eb52b00d951cbc226347047208d",
+      "free_chat.log": "c9937ef646530a6d501d66910fea4801ea33c58c8a8615d4eb78d127a642903b",
+      "departure_response.log": "c90e40c94a9bc696d0a87d06059576f45328afc18984703502ae36f91ee9ed08",
+      "camera_clearance.log": "727f697aaf8d9e92f23f7fcdb9186166825b100de8de5f7b68284235e21218df",
+      "city_driving.log": "a40f81b47d6e3d2c0f9b0f832406eacb0a1d999ba945b71f21eb81fc99c23ee8",
+      "camera-import.log": "e4fc5b6c0e7e0ed2ff5cc2191b1117f031c1f46d18c1065f740b844762af26c1",
+      "departure-camera-final.log": "1e904c7bbeb91d478b491915486a999a63acc78ccbc6b5ee6a544a63cf69a7fd",
+      "camera-production-720.log": "0e6c6b3b6a88c8f818a1a033eac27ed0b27eb9878c51da4e3f5b35103a54fa20",
+      "camera-production-30-clean.txt": "0a3b9421549096a470fd36acf57ddd4f84e496a1fa25f16112623fa790f5612d",
+      "camera-production-120-clean.txt": "41994b57e24001add36cc0e7934149543feb426478a2f3ad631aacce7140a9d9"
+    },
+    "meeting_image_digests": {
+      "03-acknowledged.png": "4621f71bb3ea36ca5249bd908c2040e6eec5b61bda4309924071295ce873c885",
+      "04-next-places.png": "01a43df8681885bfd1ce4e38fbad63ab74130cb514d753a014dff8cfe4ae6158",
+      "02-testimony.png": "e729deb8a0012c8bf78fbc2657e16bfe3999f1b6d8b28a99956f25218e612f04",
+      "01-written.png": "7f371b28b000f006ea373fa9acabab22250c9ba14cadf1339b92df570d693aee"
+    }
   }
 }
