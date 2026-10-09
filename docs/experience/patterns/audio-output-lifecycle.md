@@ -12,3 +12,6 @@
 适用范围：本机Godot4.7.1/macOS。真实录音捕获首轮验证一次：左右声道方向、暂停/后台/分类静音通过；最终增强GUI鼠标点击和四滑块Home/End八端点全部通过，见C4e验收。不能由PCM通过推断耳机/扬声器混音或独立玩家体验通过。
 
 支持：`scripts/city_soundscape.gd`、`tests/city_soundscape_test.gd`、`tools/capture_city_audio.gd`。
+
+
+2026-10-09动态取证反例：Soundscape._ready/start_settings的apply_levels会根据音量解除提前设置的Master静音。隔离Dummy录制需等初始化完成后启用capture_only并明确重新静音，再在输入/每帧前检查守卫；仅设置capture_only不能保证输出条件成立。三条最终PCM非零且丢帧0，验证一次；本次PCM时长短于画面，尚未对齐时钟，不能由无丢帧推断音画同步。支持：tools/capture_response_motion.gd、docs/evidence/2026-10-09-response-motion/checks.json。

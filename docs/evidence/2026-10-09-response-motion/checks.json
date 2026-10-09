@@ -1,0 +1,124 @@
+{
+  "source_commit": "c34942f",
+  "source_runtime_sha256": "7f9a5bca422ed5df47962071ed97b8b2296beaf54a34aea2e704421353f07250",
+  "exit": 0,
+  "failures": 0,
+  "placement_fixture": true,
+  "npc_meeting_real_movement": true,
+  "natural_player_acceptance": false,
+  "normal_game_fps": false,
+  "av_sync_calibrated": false,
+  "audio_driver": "Dummy",
+  "capture": [
+    {
+      "branch": "written",
+      "frames": 121,
+      "video_seconds": 3.999169,
+      "audio_seconds": 3.622312925170068,
+      "audio": {
+        "dropped": 0,
+        "peak": 0.032031424343586,
+        "rms": 0.00349336350671315,
+        "sample_rate": 44100,
+        "samples": 159744
+      },
+      "hp_before": 100,
+      "hp_after": 100,
+      "company_conflict": 0.0,
+      "damage_changes": 0,
+      "peak_effects": 0,
+      "peak_camera_offset": 0.0,
+      "peak_sampled_hit_pause": 0.0,
+      "guard": true,
+      "video_file": "build/response-motion-v6/written.mp4",
+      "video_sha256": "188deb8b430a1702391a362ac066d7415c87e8ccb5011b4e80c81323a9950051",
+      "video_probe": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "codec_name": "h264",
+            "width": 1280,
+            "height": 800,
+            "duration": "4.080000",
+            "nb_frames": "102"
+          }
+        ]
+      }
+    },
+    {
+      "branch": "leave",
+      "frames": 121,
+      "video_seconds": 3.9993929999999995,
+      "audio_seconds": 3.7151927437641725,
+      "audio": {
+        "dropped": 0,
+        "peak": 0.0329465195536613,
+        "rms": 0.00385830636126283,
+        "sample_rate": 44100,
+        "samples": 163840
+      },
+      "hp_before": 100,
+      "hp_after": 100,
+      "company_conflict": 0.0,
+      "damage_changes": 0,
+      "peak_effects": 0,
+      "peak_camera_offset": 0.0,
+      "peak_sampled_hit_pause": 0.0,
+      "guard": true,
+      "video_file": "build/response-motion-v6/leave.mp4",
+      "video_sha256": "573daf87b6c9c23beab085873ff8e9b2f7591afb345628712190ef094b6487ba",
+      "video_probe": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "codec_name": "h264",
+            "width": 1280,
+            "height": 800,
+            "duration": "4.080000",
+            "nb_frames": "102"
+          }
+        ]
+      }
+    },
+    {
+      "branch": "conflict",
+      "frames": 121,
+      "video_seconds": 3.9979839999999998,
+      "audio_seconds": 3.622312925170068,
+      "audio": {
+        "dropped": 0,
+        "peak": 0.0918572619557381,
+        "rms": 0.0111102663775956,
+        "sample_rate": 44100,
+        "samples": 159744
+      },
+      "hp_before": 100,
+      "hp_after": 88,
+      "company_conflict": 1.0,
+      "damage_changes": 1,
+      "peak_effects": 1,
+      "peak_camera_offset": 0.119999997317791,
+      "peak_sampled_hit_pause": 0.0,
+      "guard": true,
+      "video_file": "build/response-motion-v6/conflict.mp4",
+      "video_sha256": "e2ade212f281c0c148eba1a50c19f247a74ab84054cb21b53e484cb7e033a30b",
+      "video_probe": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "codec_name": "h264",
+            "width": 1280,
+            "height": 800,
+            "duration": "4.080000",
+            "nb_frames": "102"
+          }
+        ]
+      }
+    }
+  ],
+  "final_tool_parse_exit": 0,
+  "added_feedback_assertions": "Applied offline to final v6 capture; capture itself predates these added assertions."
+}
