@@ -49,3 +49,5 @@
 2026-10-09反馈复用：[保存校验与原始现场保全](patterns/save-content-expansion.md)、[救助接近点及自动玩家步速适配](patterns/navigation-endpoints.md)、[普通步行/髋高](patterns/character-proportion-adaptation.md)、[接管后公交乘客位置](patterns/vehicle-passenger-restoration.md)。上述定向反例验证一次，完整发布检查与体验边界见当日验收文档。
 
 2026-10-09 NPC/LLM：新增[特殊人物与异步对话](patterns/npc-free-chat-boundaries.md)（特殊NPC覆盖、取消/过期回复、严格模型数据边界，定向验证一次）；复用[页面输入](patterns/panel-input-ownership.md)、[存档版本](patterns/save-content-expansion.md)，并用实际高度日志修正[地面恢复](patterns/floor-seams.md)的瞬时抬升边界。
+
+2026-10-09 U01/U02：按用户纠正撤换独立聊天页，复用[输入归属](patterns/panel-input-ownership.md)与[异步对话边界](patterns/npc-free-chat-boundaries.md)，记录原对话内输入、GUI点击坐标及请求前超时配置；协议成功不能替代产品入口验收。

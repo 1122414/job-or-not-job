@@ -18,6 +18,10 @@ var serial := 0
 var request: HTTPRequest
 var revision := 0
 var sent_text := ""
+var reply_text := ""
+var context := {}
+var holding_input := false
+var timeout_seconds := 25.0
 
 func _ready() -> void:
 	process_mode=Node.PROCESS_MODE_ALWAYS
@@ -57,25 +61,55 @@ func cancel() -> void:
 	if is_instance_valid(request): request.cancel_request();request.queue_free()
 	request=null
 
+func inline_available() -> bool:
+	return game.panels.page=="" and not game.conversation.is_empty() and not game.conversation.get("scene",false) and TargetStatus.supported(game.speaker) and game.speaker.available()
+
+func attach(person: Node3D) -> void:
+	if actor==person and context==game.conversation: return
+	close()
+	actor=person;context=game.conversation.duplicate(true)
+
+func hold_input() -> void:
+	if not inline_available(): return
+	attach(game.speaker)
+	holding_input=true
+	game.player.cancel_strike()
+	Input.mouse_mode=Input.MOUSE_MODE_VISIBLE
+	get_tree().paused=true
+
+func release_input() -> void:
+	if not holding_input: return
+	holding_input=false
+	game.hud.chat_input.release_focus()
+	get_tree().paused=game.panels.page!=""
+
+func close() -> void:
+	cancel();release_input()
+	actor=null;context={};draft="";notice="";reply_text=""
+
 func open(person: Node3D) -> void:
 	if not TargetStatus.supported(person) or not person.available(): game.say("对方现在无法交谈。");return
-	cancel();actor=person;draft="";notice="自由回复只影响关系与态度，任务仍按既有流程推进。"
-	game.player.cancel_strike()
-	game.panels.open_child("free_chat")
+	if game.speaker!=person or game.conversation.is_empty(): game.interact(person)
+	if not inline_available(): return
+	game.hud.sync_chat()
+	Input.mouse_mode=Input.MOUSE_MODE_VISIBLE
+	game.hud.chat_input.grab_focus()
 
 func refresh() -> void:
-	if game.panels.page=="free_chat": game.panels.view.refresh.call_deferred()
+	game.hud.sync_chat()
+	game.hud.queue_redraw()
 
 func send(value: String) -> bool:
 	if pending: return false
+	if not inline_available() or actor!=game.speaker or context!=game.conversation: return false
 	value=value.strip_edges()
 	if value.is_empty() or value.length()>500: notice="请输入1到500字。";return false
 	if not TargetStatus.supported(actor) or not actor.available() or game.player.position.distance_to(actor.position)>3.5:
 		notice="对方已离开或无法交谈，请重新靠近。";return false
 	if not valid_endpoint(endpoint) or not valid_model(model): notice="请先配置有效接口和模型。";return false
-	if endpoint.begins_with("https://") and api_key=="": notice="请先在模型设置填写自己的密钥。固定选项仍可使用。";return false
-	cancel();pending=true;revision=game.restore_revision;sent_text=value;draft=value
-	request=HTTPRequest.new();request.timeout=25;request.body_size_limit=65536;request.max_redirects=0;request.use_threads=false
+	if endpoint.begins_with("https://") and api_key=="": notice="请在 Esc 菜单的模型设置中填写密钥。";return false
+	hold_input();cancel();pending=true;revision=game.restore_revision;sent_text=value;draft=value
+	request=HTTPRequest.new();request.timeout=timeout_seconds;request.body_size_limit=65536;request.max_redirects=0;request.use_threads=false
 	add_child(request)
 	request.request_completed.connect(completed.bind(serial))
 	var headers := PackedStringArray(["Content-Type: application/json"])
@@ -83,10 +117,10 @@ func send(value: String) -> bool:
 	var body := payload(value)
 	var error := request.request(endpoint,headers,HTTPClient.METHOD_POST,JSON.stringify(body))
 	if error!=OK: cancel();notice="请求未能发出，请检查设置。可以返回固定选项。";return false
-	notice="对方正在回应……可以取消或返回固定选项。";refresh();return true
+	notice="对方正在回应……";refresh();return true
 
 func payload(value: String) -> Dictionary:
-	var facts := {"人物":TargetStatus.describe(game,actor),"身份":actor.title,"地点":game.location_name()}
+	var facts := {"人物":TargetStatus.describe(game,actor),"身份":actor.title,"地点":game.location_name(),"当前对话":game.conversation.text}
 	if actor is OfficeNPC:
 		facts["性格"]=actor.temperament()
 		facts["共同经历"]=game.social.state(actor).memories
@@ -131,16 +165,17 @@ func completed(result: int,code: int,_headers: PackedStringArray,body: PackedByt
 	pending=false
 	if is_instance_valid(request): request.queue_free()
 	request=null
-	if revision!=game.restore_revision or game.panels.page!="free_chat" or not TargetStatus.supported(actor) or not actor.available(): return
+	if revision!=game.restore_revision or not inline_available() or actor!=game.speaker or context!=game.conversation: return
 	if result!=HTTPRequest.RESULT_SUCCESS or code!=200:
-		notice="回复超时或网络不可用，可以重试或返回固定选项。" if code==0 else "服务未完成回复（HTTP %d），请检查密钥、额度或模型设置。"%code
+		notice="回复超时或网络不可用，可以重试，也可继续选择下方选项。" if code==0 else "服务未完成回复（HTTP %d），请检查密钥、额度或模型设置。"%code
 		refresh();return
 	var reply := parse_reply(body)
-	if reply.is_empty(): notice="回复格式不完整，本轮未改变关系。可重试或返回固定选项。";refresh();return
+	if reply.is_empty(): notice="回复格式不完整，本轮未改变关系。可重试或继续选择下方选项。";refresh();return
 	apply_reply(reply,sent_text)
 	draft="";notice="对方已回应。";refresh()
 
 func apply_reply(reply: Dictionary,user: String) -> void:
+	reply_text="你："+user+"\n"+TargetStatus.describe(game,actor).name+"："+reply.reply
 	var id: String=actor.stable_id
 	var record: Dictionary=records.get(id,{"history":[],"day":-1,"changes":0,"affinity":0,"trust":0,"last_change":"","attitude":"neutral"})
 	var day: int=game.payroll.minute/1440
@@ -182,4 +217,4 @@ static func valid(data: Variant) -> bool:
 	return true
 
 func restore(data: Dictionary) -> void:
-	cancel();actor=null;draft="";notice="";records=data.duplicate(true)
+	close();records=data.duplicate(true)

@@ -15,3 +15,7 @@
 2026-09-30 C4e复用：新增音量HSlider鼠标工作正常，但四总线Home/End共8项真实输入检查失败；GamePanels在_input里吞掉了未列入放行表的键。仅在暂停页面且GUI焦点为Slider时把Home/End交给控件，最终真实点击与8个键盘端点全部通过，保持暂停和鼠标可见。对应tools/capture_city_audio.gd，未修改世界快捷键归属。
 
 2026-10-09 R04复用：TextEdit/LineEdit输入页必须在GamePanels业务快捷键分发前放行文字键，否则输入N会打开招聘消息。保留Esc/手柄返回，由暂停保证世界不消费动作键。`tests/free_chat_test.gd`实际推送N并断言文字框与页面归属；模型设置与自由输入Metal画面已检查。中文IME组合输入和实体手柄仍未人工验收。
+
+2026-10-09 U01/U02用户纠正：自由输入不能作为独立大页面替代正常现场对话。改为原HUD对话框追加LineEdit/发送/取消，原选项保留为真实按钮；模型回答覆盖显示台词但不覆盖conversation选择数据。聚焦输入时暂停世界、GamePanels将文字键交给GUI，Esc只释放输入；固定选择/切页/结束交谈取消旧请求并释放该暂停所有权。上述R04整页入口已撤换，只有模型设置仍是独立页面。`tests/free_chat_test.gd`覆盖N/W/F/C/数字输入、实际点击发送/取消/选项、Esc和原主线续接；`tools/capture_inline_chat.gd`检查1280×800/720正常及长回复布局，真实中文IME仍开放。
+
+自动点击反例：Control.get_global_rect给的是视口内坐标，root.push_input默认会再做窗口伸缩变换，导致发送按钮无响应；传in_local_coords=true后实际按钮与请求断言通过。保持真实GUI事件，不用emit pressed替代点击来掩盖坐标错误。HTTPRequest.timeout要在request前配置；事后改属性未重置已开始的等待，本轮先设短时限再发请求后超时回退通过。均为本机/本项目验证一次。

@@ -5,15 +5,75 @@ var game: Node3D
 var font: Font = ThemeDB.fallback_font
 var toast := ""
 var toast_time := 0.0
-var free_button: Button
+var chat_row: HBoxContainer
+var chat_input: LineEdit
+var chat_send: Button
+var chat_cancel: Button
+var chat_reply: RichTextLabel
+var chat_choices: Array[Button]=[]
+var chat_context := {}
 
 func _ready() -> void:
 	set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	mouse_filter = Control.MOUSE_FILTER_IGNORE
-	free_button=Button.new();free_button.text="T  我想自己说……"
-	free_button.add_theme_font_override("font",preload("res://assets/fonts/NotoSansCJKsc-Regular.otf"))
-	free_button.pressed.connect(func(): game.free_chat.open(game.speaker if is_instance_valid(game.speaker) else game.focus_target))
-	add_child(free_button)
+	chat_row=HBoxContainer.new();chat_row.add_theme_constant_override("separation",8)
+	chat_row.add_theme_font_override("font",preload("res://assets/fonts/NotoSansCJKsc-Regular.otf"))
+	chat_row.add_theme_font_size_override("font_size",17)
+	add_child(chat_row)
+	chat_input=LineEdit.new();chat_input.name="FreeChatInput"
+	chat_input.placeholder_text="自己说点什么……";chat_input.max_length=500
+	chat_input.size_flags_horizontal=Control.SIZE_EXPAND_FILL
+	chat_input.focus_entered.connect(func(): game.free_chat.hold_input())
+	chat_input.text_changed.connect(func(value: String): game.free_chat.draft=value)
+	chat_input.text_submitted.connect(func(_value: String): send_chat())
+	chat_row.add_child(chat_input)
+	chat_send=Button.new();chat_send.text="发送";chat_send.custom_minimum_size.x=72
+	chat_send.pressed.connect(send_chat);chat_row.add_child(chat_send)
+	chat_cancel=Button.new();chat_cancel.text="取消"
+	chat_cancel.pressed.connect(func(): game.free_chat.cancel();game.free_chat.notice="已取消本次回复。";sync_chat())
+	chat_row.add_child(chat_cancel)
+	chat_reply=RichTextLabel.new();chat_reply.bbcode_enabled=false
+	chat_reply.add_theme_font_override("normal_font",preload("res://assets/fonts/NotoSansCJKsc-Regular.otf"))
+	chat_reply.add_theme_font_size_override("normal_font_size",18)
+	add_child(chat_reply)
+	chat_row.hide();chat_reply.hide()
+
+func send_chat() -> void:
+	game.free_chat.send(chat_input.text)
+	sync_chat()
+
+func sync_chat() -> void:
+	var active: bool=game.free_chat.inline_available()
+	chat_row.visible=active
+	chat_reply.visible=active and game.free_chat.reply_text!=""
+	if not active:
+		if is_instance_valid(game.free_chat.actor): game.free_chat.close()
+		for button in chat_choices: button.hide()
+		chat_context={}
+		return
+	game.free_chat.attach(game.speaker)
+	var chat: FreeChat=game.free_chat
+	if chat_input.text!=chat.draft: chat_input.text=chat.draft
+	chat_input.editable=not chat.pending;chat_send.disabled=chat.pending
+	chat_cancel.visible=chat.pending
+	chat_reply.visible=chat.reply_text!=""
+	if chat_reply.text!=chat.reply_text:
+		chat_reply.text=chat.reply_text;chat_reply.scroll_to_line(0)
+	if chat_context!=game.conversation:
+		Input.mouse_mode=Input.MOUSE_MODE_VISIBLE
+		for button in chat_choices: button.queue_free()
+		chat_choices.clear();chat_context=game.conversation.duplicate(true)
+		for i in range(game.conversation.choices.size()):
+			var button := Button.new()
+			button.text=str(i+1)+"  "+game.conversation.choices[i][0]
+			button.alignment=HORIZONTAL_ALIGNMENT_LEFT;button.autowrap_mode=TextServer.AUTOWRAP_WORD_SMART
+			button.add_theme_font_override("font",preload("res://assets/fonts/NotoSansCJKsc-Regular.otf"))
+			button.add_theme_font_size_override("font_size",17)
+			button.add_theme_color_override("font_color",Color("f5d386"))
+			button.add_theme_stylebox_override("normal",StyleBoxEmpty.new())
+			button.pressed.connect(func(): game.choose(i))
+			add_child(button);chat_choices.append(button)
+
 
 func text_at(pos: Vector2, text: String, size: int = 20, color: Color = Color.WHITE) -> void:
 	draw_string_outline(font,pos,text,HORIZONTAL_ALIGNMENT_LEFT,-1,size,1,Color(0,0,0,0.6))
@@ -21,9 +81,7 @@ func text_at(pos: Vector2, text: String, size: int = 20, color: Color = Color.WH
 
 func _process(delta: float) -> void:
 	if not get_tree().paused: toast_time = maxf(0,toast_time-delta)
-	var person: Node3D=game.speaker if is_instance_valid(game.speaker) else game.focus_target
-	free_button.visible=game.panels.page=="" and TargetStatus.supported(person) and person.visible and person.available()
-	free_button.position=Vector2(size.x-354,276);free_button.size=Vector2(326,38)
+	sync_chat()
 	queue_redraw()
 
 func _draw() -> void:
@@ -138,7 +196,9 @@ func _draw() -> void:
 			option_height+=lines.size()*23+6
 		var actor: OfficeNPC=game.npc_for_role(game.conversation.get("actor","")) if in_scene else game.speaker if game.speaker is OfficeNPC else null
 		var name_height: float=30 if in_scene and actor else 0
-		var height: float=maxf(112,76+name_height+dialogue_lines.size()*25+option_height)
+		var inline_chat: bool=chat_row.visible
+		var text_height: float=minf(120,maxf(64,wrap_lines(game.free_chat.reply_text,panel_width-48,18).size()*28+8)) if chat_reply.visible else dialogue_lines.size()*25
+		var height: float=maxf(112,76+name_height+text_height+option_height)+(82 if inline_chat else 0)
 		var top: float=h-52-height
 		if actor and not in_scene:
 			var npc: OfficeNPC=actor
@@ -149,16 +209,30 @@ func _draw() -> void:
 		if actor and in_scene:
 			text_at(Vector2(panel_x+24,y),actor.title.split(" · ")[0],17,Color("e4c889"))
 			y+=name_height
-		for line in dialogue_lines:
-			text_at(Vector2(panel_x+24,y),line,18)
-			y+=25
-		y+=12
-		for lines in option_lines:
-			for line in lines:
-				text_at(Vector2(panel_x+24,y),line,17,Color("f5d386"))
-				y+=23
-			y+=6
-		text_at(Vector2(panel_x+24,top+height-19),game.conversation.get("hint","数字键选择 · 走开或动手立即中断"),14,Color("a4b3bd"))
+		if chat_reply.visible:
+			chat_reply.position=Vector2(panel_x+24,y-20);chat_reply.size=Vector2(panel_width-48,text_height)
+			y+=text_height
+		else:
+			for line in dialogue_lines:
+				text_at(Vector2(panel_x+24,y),line,18)
+				y+=25
+			y+=12
+		for i in range(option_lines.size()):
+			var lines: PackedStringArray=option_lines[i]
+			if inline_chat and i<chat_choices.size():
+				chat_choices[i].position=Vector2(panel_x+24,y-19)
+				chat_choices[i].size=Vector2(panel_width-48,lines.size()*23+6)
+				y+=lines.size()*23+6
+			else:
+				for line in lines:
+					text_at(Vector2(panel_x+24,y),line,17,Color("f5d386"));y+=23
+				y+=6
+		if inline_chat:
+			chat_row.position=Vector2(panel_x+24,top+height-94)
+			chat_row.size=Vector2(panel_width-48,40)
+			text_at(Vector2(panel_x+24,top+height-34),game.free_chat.notice,14,Color("e4be70"))
+		text_at(Vector2(panel_x+24,top+height-14),"Enter 发送 · Esc 结束输入 · 可点击或用数字键选择" if inline_chat else game.conversation.get("hint","数字键选择 · 走开或动手立即中断"),13,Color("a4b3bd"))
+
 	if game.debug_open:
 		text_at(Vector2(270,95),"DEBUG stage=%d employer=%s facts=%d fps=%d" % [game.career.stage,game.career.employer,game.career.facts.size(),Engine.get_frames_per_second()],16)
 

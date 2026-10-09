@@ -427,6 +427,7 @@ func choose(index: int) -> void:
 		return
 	var choices: Array = conversation.choices
 	if index>=choices.size(): return
+	free_chat.close()
 	var action: String = choices[index][1]
 	if story.handle(action): return
 	if speaker is CityMealPoint:
@@ -517,6 +518,7 @@ func choose(index: int) -> void:
 			if station.stable_id=="backup": station.label.text="投影已恢复 · 成果已记录"
 
 func close_interaction() -> void:
+	free_chat.close()
 	interviews.interrupt()
 	conversation.clear()
 	speaker=null

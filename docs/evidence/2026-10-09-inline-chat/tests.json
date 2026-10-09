@@ -1,0 +1,52 @@
+[
+  {
+    "test": "free_chat_test.gd",
+    "passed": true,
+    "initial_passed": false,
+    "recheck": "实际视口坐标点击发送/取消/固定选项，超时在请求启动前配置；最终failures=0"
+  },
+  {
+    "test": "npc_feedback_test.gd",
+    "passed": true
+  },
+  {
+    "test": "panels_test.gd",
+    "passed": true
+  },
+  {
+    "test": "page_controls_test.gd",
+    "passed": true
+  },
+  {
+    "test": "mouse_capture_test.gd",
+    "passed": true
+  },
+  {
+    "test": "dialogue_scene_test.gd",
+    "passed": true
+  },
+  {
+    "test": "autumn_prologue_test.gd",
+    "passed": true
+  },
+  {
+    "test": "autumn_full_story_test.gd",
+    "passed": true
+  },
+  {
+    "test": "full_route_test.gd",
+    "passed": true
+  },
+  {
+    "test": "save_test.gd",
+    "passed": true
+  },
+  {
+    "test": "office_life_test.gd",
+    "passed": true
+  },
+  {
+    "test": "city_residents_test.gd",
+    "passed": true
+  }
+]

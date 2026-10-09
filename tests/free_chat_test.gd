@@ -50,21 +50,34 @@ func run() -> void:
 	for url in ["http://example.com/chat/completions","https://user:secret@example.com/chat/completions","file:///tmp/key"]:
 		check(not FreeChat.valid_endpoint(url),"拒绝不安全地址 "+url)
 	chat.open(mentor)
-	check(paused and game.panels.page=="free_chat","自由输入暂停世界")
-	var input: TextEdit=game.panels.view.body.get_node("FreeChatInput")
+	check(paused and game.panels.page=="" and game.speaker==mentor and game.hud.chat_row.visible,"自由输入嵌在原对话，聚焦时暂停世界")
+	var input: LineEdit=game.hud.chat_input
 	input.grab_focus()
 	var key := InputEventKey.new();key.physical_keycode=KEY_N;key.keycode=KEY_N;key.unicode=110;key.pressed=true
 	root.push_input(key);await process_frame
-	check(game.panels.page=="free_chat" and input.text.contains("n"),"输入N进入文字框，不打开招聘消息")
+	check(game.panels.page=="" and input.text.contains("n"),"输入N进入文字框，不打开招聘消息")
 	key.pressed=false;root.push_input(key)
+	var choices: Array=game.conversation.choices.duplicate(true)
+	var at: Vector3=game.player.position
+	for code in [KEY_W,KEY_F,KEY_C,KEY_1]:
+		key.physical_keycode=code;key.keycode=code;key.unicode=code+32 if code>=KEY_A and code<=KEY_Z else code;key.pressed=true
+		root.push_input(key);await process_frame
+		key.pressed=false;root.push_input(key)
+	check(game.player.position==at and mentor.hp==100 and game.conversation.choices==choices,"输入移动/攻击/数字键不走路、不伤人、不选择")
 	var story: Dictionary=game.story.data.duplicate(true)
 	var career := SaveGame.fields(game.career,SaveGame.CAREER_FIELDS)
-	check(chat.send("老师，我想解释一下实习安排。"),"真实HTTP请求发出")
+	input.text="老师，我想解释一下实习安排。";input.text_changed.emit(input.text)
+	for i in range(4): await process_frame
+	for pressed in [true,false]:
+		var click := InputEventMouseButton.new();click.button_index=MOUSE_BUTTON_LEFT;click.pressed=pressed;click.position=game.hud.chat_send.get_global_rect().get_center()
+		root.push_input(click,true);await process_frame
+	check(chat.pending,"点击原对话框发送按钮发出真实HTTP请求 rect="+str(game.hud.chat_send.get_global_rect())+" hud="+str(game.hud.size)+" notice="+chat.notice)
 	check(not chat.send("重复发送"),"等待时不重复请求")
 	await until_done(chat)
 	check(not chat.pending and chat.records.has(mentor.stable_id),"兼容服务返回已应用 "+chat.notice)
 	check(requests.size()==1 and requests[0].model=="fixture-model" and requests[0].messages[-1].content.contains("实习安排"),"发送正确模型和当前玩家文字")
 	check(mentor.affinity==1 and mentor.trust==1,"仅有限关系更新")
+	check(game.hud.chat_reply.text.contains(answer.reply) and game.conversation.choices==choices and game.panels.page=="","回复在原台词区，原固定选项保留")
 	check(game.story.data==story and SaveGame.fields(game.career,SaveGame.CAREER_FIELDS)==career,"LLM不能改剧情或职业事实")
 	for invalid in [answer.merged({"command":"approve_internship"}),answer.merged({"trust":3},true),answer.merged({"reply":"字".repeat(501)},true)]:
 		var envelope := {"choices":[{"finish_reason":"stop","message":{"content":JSON.stringify(invalid)}}]}
@@ -77,12 +90,16 @@ func run() -> void:
 	check(chat.notice.contains("401") and chat.records[mentor.stable_id].history.size()==1,"认证失败可回退且不暴露原始响应")
 	mode="wait";chat.send("等待取消");var token: int=chat.serial
 	for i in range(10): serve();await process_frame
-	chat.cancel()
+	for pressed in [true,false]:
+		var click := InputEventMouseButton.new();click.button_index=MOUSE_BUTTON_LEFT;click.pressed=pressed;click.position=game.hud.chat_cancel.get_global_rect().get_center()
+		root.push_input(click,true);await process_frame
+	check(not chat.pending,"点击原对话框取消按钮取消等待")
 	chat.completed(HTTPRequest.RESULT_SUCCESS,200,PackedStringArray(),JSON.stringify({"choices":[{"finish_reason":"stop","message":{"content":JSON.stringify(answer)}}]}).to_utf8_buffer(),token)
 	check(chat.records[mentor.stable_id].history.size()==1,"取消后的迟到回复不得写入")
-	mode="wait";chat.send("超时回退测试");chat.request.timeout=.1
+	mode="wait";chat.timeout_seconds=.1;chat.send("超时回退测试")
 	await until_done(chat)
-	check(not chat.pending and chat.notice.contains("超时") and chat.records[mentor.stable_id].history.size()==1,"超时不修改关系，可继续交谈")
+	check(not chat.pending and chat.notice.contains("超时") and chat.records[mentor.stable_id].history.size()==1,"超时不修改关系，可继续交谈 pending="+str(chat.pending)+" notice="+chat.notice)
+	chat.timeout_seconds=25
 	mode="wait";chat.send("读档前请求");token=chat.serial
 	check(SaveGame.restore(game,saved),"等待中恢复存档")
 	chat.completed(HTTPRequest.RESULT_SUCCESS,200,PackedStringArray(),JSON.stringify({"choices":[{"finish_reason":"stop","message":{"content":JSON.stringify(answer)}}]}).to_utf8_buffer(),token)
@@ -98,10 +115,21 @@ func run() -> void:
 	var legacy := saved.duplicate(true);legacy.version=27;legacy.erase("mentor");legacy.erase("free_chat")
 	check(SaveGame.restore(game,legacy) and chat.records.is_empty() and mentor.hp==100,"v27无新字段存档可迁移，主线保留")
 	chat.open(mentor)
-	var fixed: Button=game.panels.view.buttons.get("chat_fixed")
-	check(is_instance_valid(fixed),"保留固定选项按钮")
-	if is_instance_valid(fixed):
-		fixed.pressed.emit()
-		check(game.panels.page=="" and game.speaker==mentor,"返回原交谈对象的固定选项")
+	check(game.hud.chat_choices.size()==game.conversation.choices.size(),"原固定选项仍可点击")
+	for i in range(4): await process_frame
+	for pressed in [true,false]:
+		var click := InputEventMouseButton.new();click.button_index=MOUSE_BUTTON_LEFT;click.pressed=pressed;click.position=game.hud.chat_choices[0].get_global_rect().get_center()
+		root.push_input(click,true);await process_frame
+	check(game.panels.page=="" and game.speaker==mentor and not paused and game.story.data.reply==0,"自由输入后继续原主线选项")
+	chat.open(mentor);mode="wait";chat.send("切换固定分支前");token=chat.serial
+	game.choose(0)
+	chat.completed(HTTPRequest.RESULT_SUCCESS,200,PackedStringArray(),JSON.stringify({"choices":[{"finish_reason":"stop","message":{"content":JSON.stringify(answer)}}]}).to_utf8_buffer(),token)
+	check(not chat.pending and chat.records.is_empty() and chat.reply_text=="","固定选项令旧请求失效，不串入新台词")
+	chat.open(mentor)
+	key.physical_keycode=KEY_ESCAPE;key.keycode=KEY_ESCAPE;key.unicode=0;key.pressed=true;root.push_input(key);await process_frame
+	key.pressed=false;root.push_input(key)
+	check(not paused and game.panels.page=="" and not game.conversation.is_empty(),"Esc结束输入，保留普通对话")
+	game.panels.toggle("pause");check(paused and game.panels.page=="pause","随后Esc菜单仍可用")
+
 	game.panels.show_page("");server.stop();game.queue_free();await process_frame
 	print("FREE_CHAT_TEST failures=",failures);quit(failures)

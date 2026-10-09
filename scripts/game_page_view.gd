@@ -1,7 +1,7 @@
 class_name GamePageView
 extends Control
 
-const TITLES := {"free_chat":"我想自己说……","llm_settings":"自由对话 · 模型设置","search":"秋招后段 · 投递记录","city":"城区与出行","transit":"101 · 城区环线","journal":"今天的安排","messages":"招聘消息","computer":"工作台","people":"认识的人","promises":"谈过的约定","bag":"随身物品","history":"经历与成果","ledger":"工资到账明细","help":"操作说明"}
+const TITLES := {"llm_settings":"自由对话 · 模型设置","search":"秋招后段 · 投递记录","city":"城区与出行","transit":"101 · 城区环线","journal":"今天的安排","messages":"招聘消息","computer":"工作台","people":"认识的人","promises":"谈过的约定","bag":"随身物品","history":"经历与成果","ledger":"工资到账明细","help":"操作说明"}
 const ACCENT := Color("e6c785")
 const MUTED := Color("afc0c8")
 var game: Node3D
@@ -119,7 +119,7 @@ func key_action(id: String, value: String, key: int, disabled: bool=false) -> vo
 
 func refresh() -> void:
 	var page: String=game.panels.page
-	theme.default_font=preload("res://assets/fonts/NotoSansCJKsc-Regular.otf") if page in ["search","free_chat","llm_settings"] else null
+	theme.default_font=preload("res://assets/fonts/NotoSansCJKsc-Regular.otf") if page in ["search","llm_settings"] else null
 	visible=TITLES.has(page)
 	if not visible: displayed_page=""; return
 	var same_page := displayed_page==page
@@ -135,7 +135,6 @@ func refresh() -> void:
 	feedback.visible=page=="computer"
 	feedback.text=""
 	match page:
-		"free_chat": free_chat_page()
 		"llm_settings": llm_settings_page()
 		"city": city_page()
 		"transit": transit_page()
@@ -195,7 +194,7 @@ func help_page() -> void:
 		["城区出行","M 查看城区、站点和可用车辆。站牌旁 E 乘坐 101 公交；乘车后 E 请求下车。\n共享车旁 E 驾驶；通行车低速时 E 抢夺，公交页面可接管驾驶位。\nW 加速，S 刹车/倒车，A/D 转向，空格手刹，刹停后 E 下车。"],
 		["随身物品","Q 收纳 · R 轮换取出 · Tab 打开背包。\n背包内可点击物品取出、收纳或放下，Esc 返回；Tab 在按钮间移动焦点。"],
 		["信息与工作","J 已知事项 · P 人物关系 · L 工资明细。\nN 招聘消息 · O 实际约定 · K 历史经历。\n电脑可点击阅读资料与配置，保留 1—7 快捷键。"],
-		["冲突与后果","左键左右拳交替；空手 F 推搡、C 踢击。手持重物 Alt＋左键举起摔砸。\n右键投掷；G 放下。新伤害最多暂时昏迷，不永久死亡。\n对准人物按 T 自由输入；Esc 菜单配置模型。\n星级代表当前公司后果：警告、机会取消、决裂。"],
+		["冲突与后果","左键左右拳交替；空手 F 推搡、C 踢击。手持重物 Alt＋左键举起摔砸。\n右键投掷；G 放下。新伤害最多暂时昏迷，不永久死亡。\n正常对话框可直接输入，T 聚焦输入；Esc 菜单配置模型。\n星级代表当前公司后果：警告、机会取消、决裂。"],
 		["伤者与清理","新伤害最多暂时昏迷；同事救助离场后次日上午返岗。\n旧档已有的死亡历史保留；恢复清醒不会抹去关系损伤。\n按 E 找保安清理堵路大件；已经造成的后果不会消失。"],
 		["保存与返回","F5 保存 · F9 读取 · Esc 菜单。\n页面支持鼠标、Tab/Shift＋Tab、Enter，也可用手柄方向与确认/返回按钮。\n菜单期间世界暂停，关闭即恢复。"],
 		["自由选择","蓝色 A：规程科技 · 棕色 B：自己人网络。\n所有职业内容均可不动手完成；你可以离开、拒绝或改变决定。"]]:
@@ -475,31 +474,3 @@ func llm_settings_page() -> void:
 	action("chat_deepseek","填入 DeepSeek 默认地址与模型",func(): url.text=FreeChat.DEFAULT_ENDPOINT;model.text=FreeChat.DEFAULT_MODEL)
 	paragraph("本地示例：http://127.0.0.1:8000/v1/chat/completions；模型名请按本地服务填写。",MUTED)
 	paragraph(chat.notice,ACCENT)
-
-func free_chat_page() -> void:
-	var chat: FreeChat=game.free_chat
-	if not TargetStatus.supported(chat.actor): paragraph("交谈已结束，请返回并重新靠近人物。",MUTED);return
-	var status := TargetStatus.describe(game,chat.actor)
-	paragraph(status.name+" · "+status.state,ACCENT)
-	paragraph("生命 %d / 100    好感 %+d    信任 %+d    恐惧 %d"%[status.hp,status.affinity,status.trust,status.fear])
-	paragraph(status.reason,MUTED)
-	for pair in chat.records.get(chat.actor.stable_id,{}).get("history",[]):
-		paragraph("你："+pair.user,MUTED)
-		paragraph(status.name+"："+pair.reply)
-	if chat.actor is AutumnStoryPoint: paragraph("当前事实：实习仍未获批准。自由交谈不会替代主线选择。",ACCENT)
-	var input := TextEdit.new()
-	input.name="FreeChatInput";input.placeholder_text="写下你想说的话（最多500字）"
-	input.custom_minimum_size.y=110;input.wrap_mode=TextEdit.LINE_WRAPPING_BOUNDARY
-	input.text=chat.draft;input.editable=not chat.pending
-	input.text_changed.connect(func(): chat.draft=input.text)
-	body.add_child(input)
-	paragraph(chat.notice,ACCENT)
-	action("chat_send","发送给对方",func(): chat.send(input.text);refresh(),chat.pending)
-	if chat.pending: action("chat_cancel","取消等待",func(): chat.cancel();chat.notice="已取消，本轮未改变关系。";refresh())
-	action("chat_settings","模型设置",func(): game.panels.open_child("llm_settings"))
-	action("chat_fixed","返回固定选项",func():
-		var target: Node3D=chat.actor
-		game.panels.show_page("")
-		if is_instance_valid(target) and target.available():
-			game.player.yaw=atan2(-target.position.x+game.player.position.x,-target.position.z+game.player.position.z)
-			game.interact(target))

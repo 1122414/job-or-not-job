@@ -10,7 +10,6 @@ func _ready() -> void:
 	process_mode=Node.PROCESS_MODE_ALWAYS
 
 func show_page(next: String) -> void:
-	if page=="free_chat" and next!="free_chat": game.free_chat.cancel()
 	if game.driving: game.driving.suspend_controls()
 	page=next
 	if page=="": return_pages.clear()
@@ -55,7 +54,13 @@ func _input(event: InputEvent) -> void:
 		back()
 		get_viewport().set_input_as_handled()
 		return
-	if page in ["free_chat","llm_settings"]: return
+	if page=="llm_settings": return
+	if page=="" and game.free_chat.holding_input:
+		if event.is_action_pressed("ui_cancel"):
+			game.free_chat.cancel();game.free_chat.release_input()
+			game.free_chat.notice=""
+			get_viewport().set_input_as_handled()
+		return
 	if not event is InputEventKey or not event.pressed or event.echo: return
 	var key: int=event.physical_keycode if event.physical_keycode else event.keycode
 	# Once a page is open, Tab and navigation keys belong to Control focus.
