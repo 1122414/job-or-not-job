@@ -1,0 +1,47 @@
+{
+  "date": "2026-10-09",
+  "source_commit": "b1a0727ff9a54e9344af8ccde72121b020dcb084",
+  "engine": "4.7.1.stable.official.a13da4feb",
+  "game_changes": false,
+  "tests": [
+    {
+      "test": "tests/work_projects_test.gd",
+      "command": "/Applications/Godot.app/Contents/MacOS/Godot --headless --fixed-fps 60 --path . --script tests/work_projects_test.gd",
+      "exit_code": 0,
+      "failures": 0,
+      "error_scan": "no ERROR or SCRIPT ERROR",
+      "scope": "existing isolated baseline, not player experience"
+    },
+    {
+      "test": "tests/autumn_search_test.gd",
+      "command": "/Applications/Godot.app/Contents/MacOS/Godot --headless --fixed-fps 60 --path . --script tests/autumn_search_test.gd",
+      "exit_code": 0,
+      "failures": 0,
+      "error_scan": "no ERROR or SCRIPT ERROR",
+      "scope": "existing isolated baseline, not player experience"
+    },
+    {
+      "test": "tests/autumn_career_test.gd",
+      "command": "/Applications/Godot.app/Contents/MacOS/Godot --headless --fixed-fps 60 --path . --script tests/autumn_career_test.gd",
+      "exit_code": 0,
+      "failures": 0,
+      "error_scan": "no ERROR or SCRIPT ERROR",
+      "scope": "existing isolated baseline, not player experience"
+    }
+  ],
+  "initial_attempt": "Sandbox runs returned failures=0 but emitted macOS get_system_ca_certificates ERROR; all three rerun with normal system access and clean logs. No game changes made.",
+  "images_reviewed": [
+    "docs/evidence/2026-10-09-inline-chat/packaged/normal-dialogue.png",
+    "docs/evidence/2026-10-09-playtest-feedback/runtime/comic-punch.png",
+    "docs/evidence/2026-10-08-autumn-search/04-no-offer-ending.png"
+  ],
+  "not_executed": [
+    "human playtest",
+    "new content entry",
+    "current graphical performance",
+    "Chinese IME",
+    "live cloud dialogue",
+    "full regression",
+    "new package"
+  ]
+}
