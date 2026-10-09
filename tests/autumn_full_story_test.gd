@@ -20,6 +20,6 @@ func capture_search(game: Node3D,name: String) -> void:
 	if DisplayServer.get_name()=="headless": return
 	for frame in range(3): await process_frame
 	RenderingServer.force_draw()
-	var folder := "res://docs/evidence/2026-10-08-autumn-search"
+	var folder := "res://docs/evidence/2026-10-09-internship-arc/search"
 	DirAccess.make_dir_recursive_absolute(folder)
 	check(capture_viewport.get_texture().get_image().save_png(folder.path_join(name+".png"))==OK,"后段图形证据保存")

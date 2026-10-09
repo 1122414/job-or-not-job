@@ -11,11 +11,12 @@ const MENTOR_LINES := [
 var game: Node3D
 var data := blank()
 var search := AutumnSearch.new()
+var arc := InternshipArc.new()
 var room: Node3D
 var points: Array[AutumnStoryPoint] = []
 
 static func blank(mode: String="legacy") -> Dictionary:
-	return {"mode":mode,"phase":"mentor" if mode=="current" else "legacy","beat":0,"reply":-1,"answers":[],"mentor_interrupted":false,"call_done":false,"call_reply":"","started_at":0,"review_at":0,"search":{}}
+	return {"mode":mode,"phase":"mentor" if mode=="current" else "legacy","beat":0,"reply":-1,"answers":[],"mentor_interrupted":false,"call_done":false,"call_reply":"","started_at":0,"review_at":0,"search":{},"placement":InternshipArc.blank()}
 
 func active() -> bool:
 	return data.mode=="current"
@@ -25,6 +26,7 @@ func campus() -> bool:
 
 func build() -> void:
 	search.game=game
+	arc.game=game
 	room=Node3D.new()
 	room.name="GraduatePrologue"
 	game.add_child(room)
@@ -59,6 +61,8 @@ func add_point(id: String,title: String,at: Vector3,person: bool=false) -> void:
 
 func start_new() -> void:
 	data=blank("current")
+	data.placement=InternshipArc.blank(true)
+	game.career.facts["internship_extended"]=true
 	points[0].restore({})
 	game.career.facts["autumn_story"]=true
 	game.player.position=CAMPUS_SPAWN
@@ -71,10 +75,12 @@ func sync_scene() -> void:
 
 func objective() -> Dictionary:
 	if not active(): return {}
+	var milestone := arc.objective()
+	if not milestone.is_empty(): return milestone
 	if data.phase=="mentor": return {"title":"秋招前 · 与导师讨论暑期实习（可走开或结束谈话）","id":"story_mentor"}
 	if data.phase=="campus_exit": return {"title":"实习未获允许 · 走到办公室外的走廊","id":"story_exit"}
 	if data.phase=="mentor_call": return {"title":"秋招接收通知已到 · 公交站接听导师来电","id":"rest"}
-	if data.phase=="internship" and game.career.stage==2 and not review_ready(): return {"title":"成果已通过 · 公交站可推进到四周后的转正评审","id":"rest"}
+	if not arc.active() and data.phase=="internship" and game.career.employer=="a" and game.career.stage==2 and not review_ready(): return {"title":"成果已通过 · 公交站可推进到四周后的转正评审","id":"rest"}
 	if data.phase=="departure": return {"title":"未能转正 · 找林岚领取实习证明，原成果保留","id":"a_hr"}
 	if data.phase=="ending": return {"title":"秋招后段 · 仍未找到工作；可继续生活，N查看保留的投递记录","id":""}
 	if data.phase=="late_autumn" and search.ready_to_end(): return {"title":"本轮投递仍无录用 · N进入投递记录，整理本轮结果","id":"rest"}
@@ -107,6 +113,7 @@ func refuse(interrupted: bool=false) -> void:
 	sync_scene()
 
 func handle(action: String) -> bool:
+	if arc.handle(action): return true
 	if not action.begins_with("story_"): return false
 	if not campus(): return career_action(action)
 	var point: AutumnStoryPoint=game.speaker as AutumnStoryPoint
@@ -211,7 +218,7 @@ func decorate(target: Node3D,fallback: Dictionary) -> Dictionary:
 	if id=="rest":
 		if search.available(): fallback.choices.push_front(["查看秋招后段岗位与投递记录","story_jobs"])
 		if data.phase=="mentor_call": fallback.choices.push_front(["接听导师来电 · 秋招接收安排","story_call"])
-		elif data.phase=="internship" and game.career.stage==2 and not review_ready(): fallback.choices.push_front(["推进到四周实习评审 · 保留成果与应得工资","story_review_wait"])
+		elif not arc.active() and data.phase=="internship" and game.career.employer=="a" and game.career.stage==2 and not review_ready(): fallback.choices.push_front(["推进到四周实习评审 · 保留成果与应得工资","story_review_wait"])
 	if id=="a_lead" and game.career.stage<3:
 		fallback.text="周工：有HC，转正看实际成果。先把这份演示交出来，来源明确、现场能运行，我就认通过。"
 	if id=="a_boss" and game.career.stage<3:
@@ -220,7 +227,7 @@ func decorate(target: Node3D,fallback: Dictionary) -> Dictionary:
 		fallback={"text":"方总：成果合格我承认，但最终没有正式名额。你可以找林岚拿实习证明。","choices":[["对照原来的名额承诺","story_verdict"]]}
 	if id=="a_hr" and data.phase=="departure":
 		fallback={"text":"林岚：实习证明已经准备好了。同一家公司换组仍算同一段实习，两份成果都写进去。正式录用这次办不了。","choices":[["核对并领取实习证明","story_certificate"],["保留原来有HC的接收通知","story_original_offer"]]}
-	return fallback
+	return arc.decorate(target,fallback)
 
 func show_verdict(target: Node3D) -> void:
 	if data.phase=="internship": data.phase="departure"

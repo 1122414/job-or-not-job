@@ -53,3 +53,5 @@
 2026-10-09 NPC/LLM：新增[特殊人物与异步对话](patterns/npc-free-chat-boundaries.md)（特殊NPC覆盖、取消/过期回复、严格模型数据边界，定向验证一次）；复用[页面输入](patterns/panel-input-ownership.md)、[存档版本](patterns/save-content-expansion.md)，并用实际高度日志修正[地面恢复](patterns/floor-seams.md)的瞬时抬升边界。
 
 2026-10-09 U01/U02：按用户纠正撤换独立聊天页，复用[输入归属](patterns/panel-input-ownership.md)与[异步对话边界](patterns/npc-free-chat-boundaries.md)，记录原对话内输入、GUI点击坐标及请求前超时配置；协议成功不能替代产品入口验收。
+
+2026-10-09 NEXT08：复用[存档扩充](patterns/save-content-expansion.md)，补充恢复借用调用者字典导致原快照被后续职业状态改写的实际反例。原序章3失败修复后与新定向检查通过一次；12周日历和岗位/承诺关联、两种评审入口、旧档不补记经历分别验证，完整门槛见阶段验收。

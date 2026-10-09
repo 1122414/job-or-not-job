@@ -102,7 +102,9 @@ func answer_visit(npc: OfficeNPC, confirm: bool) -> void:
 	if confirm:
 		game.career.record(offer.key,OfficeDialogue.voice(npc,offer.line))
 		var action: String={"visit_brief":"brief","visit_review":"no_hc"}.get(offer.key,"")
-		if action!="": game.say(game.career.apply(action))
+		if action!="":
+			game.say(game.career.apply(action))
+			if action=="no_hc": game.story.arc.review(npc)
 		else: game.say(OfficeDialogue.voice(npc,offer.line))
 	else: game.say("已记下待交谈事项，可通过目标找到对方继续。")
 	npc.visit_wait=0

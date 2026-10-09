@@ -1,0 +1,59 @@
+{
+  "date": "2026-10-09",
+  "stage": "NEXT08 and week8 part of NEXT01",
+  "build": "20261009T090038551763Z-03c0b85a-2f593179",
+  "source_sha256": "2f5931797371ca68744e44dbd01e402f56ccd515a210d92008a722f3329d83f1",
+  "schema": 29,
+  "source_directed": "passed",
+  "source_full_story": "passed",
+  "graphical_career": {
+    "exit": 0,
+    "failures": 0,
+    "renderer": "Metal Forward+",
+    "size": [
+      1280,
+      800
+    ],
+    "warning": "7 Texture RID leaks, pre-existing",
+    "identity_note": "Captured before snapshot-copy repair; visible scene/UI unchanged. Final build has separate packaged-* captures."
+  },
+  "packaged_directed": "passed; external absolute test script with packaged runtime",
+  "packaged_full_story": "passed; external test dependencies remapped to temporary paths, packaged scene",
+  "two_cwd_startup": "passed",
+  "codesign": "passed",
+  "zip_crc": "passed",
+  "source_pck_identity": "matched",
+  "full_suite": {
+    "tests": 116,
+    "exit": 0,
+    "errors": 0,
+    "first_attempt": "3 prologue restore failures; snapshot aliasing fixed; complete suite rerun passed"
+  },
+  "unverified": [
+    "natural player experience",
+    "Chinese IME",
+    "real cloud model quality",
+    "performance p95/p99"
+  ],
+  "images": {
+    "defend.png": "55ae6a7216db7956992d13cddf13bfe36475458ef2c09e72eba776d957786b88",
+    "certificate.png": "04dd96f2d9ec5131900a23e6ffeda9cba728b91ef5c6eca745a6a385272a48ea",
+    "packaged-records.png": "15b8a75710226de0541e95720ba2a3f66edf7363927b34bca38b239c58b5798f",
+    "week8-record.png": "ef0fb1b5070e75148f85ab4262f731baf33d3258a81fd607e5fda8f6ef4b8cf8",
+    "packaged-verdict.png": "9dcc2bce7ba8fd4729086a9380f08c237557d5bd7c4078dce19b47643e060329",
+    "join_a.png": "5c3b1e001b6344cf997c70d395c8a053f1e06d745eb4096cb178770efbd501e8",
+    "no_hc.png": "36da593ef0c587cf1883c87cc62f4ca585b0bbfa07a61145a6a43099f2e0c8c1"
+  },
+  "packaged_independent_ending_restore": "passed; all story fields JSON-equal; +7 days remains unemployed ending",
+  "packaged_graphical": {
+    "exit": 0,
+    "capture_ok": true,
+    "mode": "restore actual packaged ending save, reposition camera/player for framing only; replay verdict and records",
+    "size": [
+      1280,
+      800
+    ],
+    "warning": "7 pre-existing Texture RID leaks",
+    "review": "readable; historical verdict today wording tracked as NEXT01-T1; composition remains NEXT05"
+  }
+}

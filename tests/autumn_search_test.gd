@@ -20,6 +20,8 @@ func run() -> void:
 	for frame in range(10): await physics_frame
 	# Explicit late-autumn fixture; full_story_test reaches this through career interactions.
 	game.story.start_new();game.story.refuse();game.story.data.phase="late_autumn";game.story.sync_scene()
+	game.story.data.placement=InternshipArc.blank()
+	game.career.facts.erase("internship_extended")
 	game.player.position=AutumnStory.STREET_SPAWN
 	game.career.stage=6;game.career.grade="未转正 · 应届求职者"
 	for key in ["conversion_failed","internship_certificate","output_one","output_two"]: game.career.facts[key]=true

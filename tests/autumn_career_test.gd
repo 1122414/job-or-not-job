@@ -38,9 +38,15 @@ func run() -> void:
 		if step[1]=="submit":
 			check(not game.story.review_ready(),"交付不瞬间经过四周")
 			check(game.office.visit().get("key","")!="visit_review","未到评审不会提前泄露无HC")
+		if step[1]=="backup":
+			game.panels.show_page("promises")
+			await capture(game,"week8-record")
+			game.panels.show_page("")
 		if step[1] in ["join_a","no_hc","defend"]:
 			await capture(game,step[1])
 			check(SaveGame.restore(game,JSON.parse_string(JSON.stringify(SaveGame.snapshot(game)))),"章节JSON恢复："+step[1])
+	check(game.story.arc.state().ended_at>=game.story.data.started_at+84*Payroll.DAY,"实际经历12周后才答辩")
+	check(game.story.arc.state().reviewed_at>0 and game.story.arc.state().renewed_at>0,"三次节点均有实际交流")
 	check(game.career.stage==6 and game.career.employer=="" and not game.career.facts.has("regular") and game.career.facts.has("conversion_failed"),"两份成果通过但最终未转正")
 	check(game.story.data.phase=="departure" and game.career.facts.has("output_one") and game.career.facts.has("output_two"),"保留成果与失败原因")
 	var pending: float=game.payroll.pending.a
@@ -60,7 +66,7 @@ func capture(game: Node3D,name: String) -> void:
 	paused=true
 	for frame in range(3): await process_frame
 	RenderingServer.force_draw()
-	var folder := "res://docs/evidence/2026-10-08-autumn-career"
+	var folder := "res://docs/evidence/2026-10-09-internship-arc"
 	DirAccess.make_dir_recursive_absolute(folder)
 	check(capture_viewport.get_texture().get_image().save_png(folder.path_join(name+".png"))==OK,"图形证据保存")
 	paused=false

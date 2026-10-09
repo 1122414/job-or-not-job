@@ -163,6 +163,7 @@ func journal() -> void:
 	paragraph("当前目标",ACCENT)
 	paragraph(game.objective_text())
 	if game.story.active(): paragraph(game.story.chapter_text(),ACCENT)
+	if game.story.arc.active(): paragraph(game.story.arc.summary())
 	if game.career.employer=="":
 		paragraph("了解岗位后再决定。导航选择可以随时更改。",MUTED)
 		key_action("company-a","1  规程科技 · 演示项目岗位 / 三轮沟通",KEY_1)
@@ -294,6 +295,7 @@ func people() -> void:
 	action("open-promises","查看实际约定",func(): game.panels.open_child("promises"))
 
 func promises() -> void:
+	if game.story.arc.active(): paragraph(game.story.arc.summary(),ACCENT)
 	var items: Array=game.recruitment.promises
 	if items.is_empty(): paragraph("尚无记录。只保存实际完成过的关键交流。",MUTED); return
 	game.promises.page=clampi(game.promises.page,0,items.size()-1)

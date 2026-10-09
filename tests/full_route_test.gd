@@ -12,7 +12,13 @@ func _initialize() -> void:
 	call_deferred("run")
 func perform(game: Node3D,id: String,action: String) -> bool:
 	if action=="no_hc" and game.story.active() and not game.story.review_ready():
-		if not await perform(game,"rest","story_review_wait"): return false
+		if not await perform(game,"rest","story_milestone_wait" if game.story.arc.active() else "story_review_wait"): return false
+	if action=="backup" and game.story.arc.active() and game.story.arc.state().renewed_at==0:
+		if not game.story.arc.ready(8) and not await perform(game,"rest","story_milestone_wait"): return false
+		if not await perform(game,"a_group","story_renewal"): return false
+		game.choose(0)
+	if action=="defend" and game.story.arc.active() and not game.story.arc.ready(12):
+		if not await perform(game,"rest","story_milestone_wait"): return false
 	if action in ["join_a","join_b"]:
 		var firm := action.trim_prefix("join_")
 		if not await perform(game,"rest","rest_next"): return false

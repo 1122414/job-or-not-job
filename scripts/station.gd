@@ -123,6 +123,11 @@ func _process(_delta: float) -> void:
 	if stable_id=="handover" and game.recruitment.work.has("project_b"):
 		var project: Dictionary=game.recruitment.work.project_b
 		screen.text=("已发送 / " if project.sent else "协商材料就绪 / " if project.proposal else "检查 / ")+project.preview
+	if game.story.arc.active():
+		if stable_id==game.office.assigned_desk() and game.career.stage>=4:
+			screen.text="约定第8周 · 待许姐确认名额" if game.story.arc.state().renewed_at==0 else "第12周答辩 · 书面回复已留存" if facts.has("renewal_written") else "第12周答辩 · 只做约定的恢复任务"
+		if result_board and stable_id=="backup" and facts.has("output_two"):
+			result_board.text="第二份成果 / 现场恢复通过\n"+("第12周：无HC，实习结束" if facts.has("conversion_failed") else "第12周答辩 · 成果与原承诺均保留")
 	if indicator:
 		if stable_id=="handover" and not game.handover.data.is_empty():
 			screen.text=game.handover.screen_text()

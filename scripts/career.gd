@@ -22,6 +22,9 @@ func apply(action: String) -> String:
 	var a_actions := ["interview_hr","interview_lead","interview_boss","join_a","brief","prepare","permission","confirm","shortcut","submit","no_hc","transfer","backup","defend"]
 	if action in a_actions and conflict.a>=2: return "规程科技已关闭当前职业机会。此前成果保留，可以离开。"
 	if action in ["interview_b","join_b","help","refuse","negotiate","settle","handover"] and conflict.b>=2: return "自己人网络已停止合作，个人关系单独保留。"
+	if facts.get("internship_extended",false):
+		if action=="backup" and not facts.has("internship_renewed"): return "第8周先与许姐核对任务范围、名额和答辩安排。"
+		if action=="defend" and not facts.has("internship_final_ready"): return "两份成果保留，第12周再当面确认结果。"
 	match action:
 		"decline_a", "decline_b":
 			var firm := action.trim_prefix("decline_")
@@ -119,7 +122,7 @@ func apply(action: String) -> String:
 				stage=4
 				grade="二组实习生"
 				record("transfer","转入二组，前次成果保留；这次只需切换现场备用投影。")
-				return "许姐：不用重做演示。右后方投影失灵，切换备用线路就能交付。"
+				return "许姐：不用重做演示。先安顿新工位，第8周再当面确认HC和最终答辩安排。" if facts.get("internship_extended",false) else "许姐：不用重做演示。右后方投影失灵，切换备用线路就能交付。"
 		"backup":
 			if employer=="a" and stage==4:
 				stage=5
