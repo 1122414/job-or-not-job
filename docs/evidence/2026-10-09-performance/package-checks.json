@@ -1,0 +1,59 @@
+[
+  {
+    "case": "smoke-project",
+    "command": [
+      "/Users/geminchen/My-Item/job-or-not-job/build/baselines/20261009T104304257584Z-3ff91750-61c587d6/今天不上班-0.5.0.app/Contents/MacOS/TodayOff",
+      "--headless",
+      "--audio-driver",
+      "Dummy",
+      "--fixed-fps",
+      "60",
+      "--log-file",
+      "/tmp/performance-package-smoke-project-engine.log",
+      "--script",
+      "/Users/geminchen/My-Item/job-or-not-job/tools/verify_macos.gd"
+    ],
+    "cwd": "/Users/geminchen/My-Item/job-or-not-job",
+    "exit": 0,
+    "marker": "PACKAGED_SMOKE_OK",
+    "passed": true
+  },
+  {
+    "case": "smoke-external",
+    "command": [
+      "/Users/geminchen/My-Item/job-or-not-job/build/baselines/20261009T104304257584Z-3ff91750-61c587d6/今天不上班-0.5.0.app/Contents/MacOS/TodayOff",
+      "--headless",
+      "--audio-driver",
+      "Dummy",
+      "--fixed-fps",
+      "60",
+      "--log-file",
+      "/tmp/performance-package-smoke-external-engine.log",
+      "--script",
+      "/Users/geminchen/My-Item/job-or-not-job/tools/verify_macos.gd"
+    ],
+    "cwd": "/tmp",
+    "exit": 0,
+    "marker": "PACKAGED_SMOKE_OK",
+    "passed": true
+  },
+  {
+    "case": "chat-context",
+    "command": [
+      "/Users/geminchen/My-Item/job-or-not-job/build/baselines/20261009T104304257584Z-3ff91750-61c587d6/今天不上班-0.5.0.app/Contents/MacOS/TodayOff",
+      "--headless",
+      "--audio-driver",
+      "Dummy",
+      "--fixed-fps",
+      "60",
+      "--log-file",
+      "/tmp/performance-package-chat-context-engine.log",
+      "--script",
+      "/tmp/performance-package-tests/free_chat_context_test.gd"
+    ],
+    "cwd": "/tmp",
+    "exit": 0,
+    "marker": "FREE_CHAT_CONTEXT_TEST failures=0",
+    "passed": true
+  }
+]

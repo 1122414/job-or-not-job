@@ -37,3 +37,6 @@ C4g完成信号边界：同一工具GL总frame_post_draw为1080，Metal为2159�
 
 
 2026-10-01 R30实际包复验：`engine_source_sha256`标识签名前原引擎，`artifact-sha256.json`中的`packaged_runtime_sha256`标识签名后包内引擎。首次校验误用前者对签名后文件，失败；改用已有正确字段，签名/PCK/ZIP CRC通过，未修改包。二者不可要求字节一致。源码/包五场景血量和命中相位相同，21图只有20图逐字节一致；首张24像素最大通道差2，原因未测。保留两套图与差异，不因目视相同声称全部像素一致。此哈希边界在当前打包脚本/本机验证一次；完整行为/画面仍须独立检查。详见`docs/evidence/2026-10-01-player-strike/package-integrity.json`。
+
+
+2026-10-09 NEXT07后台活场景复验：实际包3600次frame_post_draw逐样本增1且窗口守卫通过，再次确认显式绘制应用完成信号而非Engine计数。OS.get_cmdline_args在本机已移除disable-render-loop/fixed-fps等引擎处理参数；用是否包含启动参数判断真实配置会误拒绝合法运行，改用RenderingServer.is_render_loop_enabled并验证缺少关闭参数确实拒绝。性能监视器周期刷新，10步预热后可连续读到启动期3486ms旧值，不是当前帧成本；至少2秒墙钟预热后六组最高8.87ms，并明确记录周期快照及实际预热步数。源码和headless模式不再报告后台FPS。支持tests/performance.gd及docs/evidence/2026-10-09-performance；本机验证一次，GPU零值仍不可用，正常FPS/长期路线保持未验收。

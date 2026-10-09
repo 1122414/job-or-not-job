@@ -1,0 +1,123 @@
+[
+  {
+    "case": "headless-background",
+    "command": [
+      "/Users/geminchen/My-Item/job-or-not-job/build/baselines/20261009T104304257584Z-3ff91750-61c587d6/今天不上班-0.5.0.app/Contents/MacOS/TodayOff",
+      "--headless",
+      "--disable-render-loop",
+      "--audio-driver",
+      "Dummy",
+      "--fixed-fps",
+      "60",
+      "--log-file",
+      "/tmp/performance-headless-background-engine.log",
+      "--script",
+      "/Users/geminchen/My-Item/job-or-not-job/tests/performance.gd",
+      "--",
+      "--background",
+      "--frames=10",
+      "--warmup=2",
+      "--output=/Users/geminchen/My-Item/job-or-not-job/build/performance-headless-background.json"
+    ],
+    "exit": 2,
+    "expected_exit": 2,
+    "marker": "requires graphics",
+    "passed": true
+  },
+  {
+    "case": "missing-disable",
+    "command": [
+      "/Users/geminchen/My-Item/job-or-not-job/build/baselines/20261009T104304257584Z-3ff91750-61c587d6/今天不上班-0.5.0.app/Contents/MacOS/TodayOff",
+      "--audio-driver",
+      "Dummy",
+      "--fixed-fps",
+      "60",
+      "--log-file",
+      "/tmp/performance-missing-disable-engine.log",
+      "--script",
+      "/Users/geminchen/My-Item/job-or-not-job/tests/performance.gd",
+      "--",
+      "--background",
+      "--frames=10",
+      "--warmup=2",
+      "--output=/Users/geminchen/My-Item/job-or-not-job/build/performance-missing-disable.json"
+    ],
+    "exit": 2,
+    "expected_exit": 2,
+    "marker": "requires graphics",
+    "passed": true
+  },
+  {
+    "case": "missing-identity",
+    "command": [
+      "/Users/geminchen/My-Item/job-or-not-job/build/baselines/20261009T104304257584Z-3ff91750-61c587d6/今天不上班-0.5.0.app/Contents/MacOS/TodayOff",
+      "--disable-render-loop",
+      "--audio-driver",
+      "Dummy",
+      "--fixed-fps",
+      "60",
+      "--log-file",
+      "/tmp/performance-missing-identity-engine.log",
+      "--script",
+      "/Users/geminchen/My-Item/job-or-not-job/tests/performance.gd",
+      "--",
+      "--background",
+      "--frames=10",
+      "--warmup=2",
+      "--output=/Users/geminchen/My-Item/job-or-not-job/build/performance-missing-identity.json"
+    ],
+    "exit": 2,
+    "expected_exit": 2,
+    "marker": "requires a build identity",
+    "passed": true
+  },
+  {
+    "case": "wrong-identity",
+    "command": [
+      "/Users/geminchen/My-Item/job-or-not-job/build/baselines/20261009T104304257584Z-3ff91750-61c587d6/今天不上班-0.5.0.app/Contents/MacOS/TodayOff",
+      "--disable-render-loop",
+      "--audio-driver",
+      "Dummy",
+      "--fixed-fps",
+      "60",
+      "--log-file",
+      "/tmp/performance-wrong-identity-engine.log",
+      "--script",
+      "/Users/geminchen/My-Item/job-or-not-job/tests/performance.gd",
+      "--",
+      "--background",
+      "--identity=/Users/geminchen/My-Item/job-or-not-job/build/baselines/20261009T102402425542Z-6738f513-47780fc4/build-manifest.json",
+      "--frames=10",
+      "--warmup=2",
+      "--output=/Users/geminchen/My-Item/job-or-not-job/build/performance-wrong-identity.json"
+    ],
+    "exit": 2,
+    "expected_exit": 2,
+    "marker": "must match",
+    "passed": true
+  },
+  {
+    "case": "headless-harness",
+    "command": [
+      "/Users/geminchen/My-Item/job-or-not-job/build/baselines/20261009T104304257584Z-3ff91750-61c587d6/今天不上班-0.5.0.app/Contents/MacOS/TodayOff",
+      "--headless",
+      "--audio-driver",
+      "Dummy",
+      "--fixed-fps",
+      "60",
+      "--log-file",
+      "/tmp/performance-headless-harness-engine.log",
+      "--script",
+      "/Users/geminchen/My-Item/job-or-not-job/tests/performance.gd",
+      "--",
+      "--allow-headless",
+      "--frames=10",
+      "--warmup=2",
+      "--output=/Users/geminchen/My-Item/job-or-not-job/build/performance-headless-harness.json"
+    ],
+    "exit": 0,
+    "expected_exit": 0,
+    "marker": "PROFILE_COMPLETE",
+    "passed": true
+  }
+]

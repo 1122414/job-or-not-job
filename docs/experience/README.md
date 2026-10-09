@@ -63,3 +63,6 @@
 
 
 2026-10-09 NEXT06-C1/C2：复用[异步聊天边界](patterns/npc-free-chat-boundaries.md)，补本人stable_id原话来源、岗位替换/未来记录隔离，以及已发生事实与自由聊天执行权限的区别；五项回归通过一次，真实云端质量开放。
+
+
+2026-10-09 NEXT07：复用[构建证据](patterns/build-evidence-identity.md)和[后台窗口](patterns/background-window-state.md)，实际包3600活场景绘制完成与窗口守卫通过；补引擎消费启动参数、短预热监视器旧值反例及边界。正常帧率/长期路线仍开放。

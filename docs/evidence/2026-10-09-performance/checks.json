@@ -1,0 +1,17 @@
+{
+  "build_id": "20261009T104304257584Z-3ff91750-61c587d6",
+  "source_sha256": "61c587d60b2e4ca187aedc77b1152c0558044f2a87ad5a7d29e131b650b470ce",
+  "runtime_dirty": false,
+  "source_matches": true,
+  "pck_hash": true,
+  "engine_hash": true,
+  "zip_hash": true,
+  "zip_crc": true,
+  "signature": true,
+  "performance_script_sha256": "f1947e0ad9b8440f658a6b66d66bb0de87dd183030ac27a0bb1728cf3bdbc6c0",
+  "final_sampling_exit": 0,
+  "samples": 3600,
+  "all_draw_completions_exactly_one": true,
+  "log_errors": false,
+  "texture_rid_warning": 7
+}
