@@ -132,6 +132,8 @@ func run() -> void:
 		check(game.speaker==witness,"两人邻近时面向见证者不会选中老板")
 		choose(game,"story_response_testify")
 		check(game.career.facts.has("review_testimony") and not game.career.facts.has("review_acknowledged"),"证言不代替老板回应")
+		game.free_chat.attach(witness)
+		check(JSON.stringify(game.free_chat.scene_facts()["本人已留下的原话"]).contains("不能把无名额写成成果不合格"),"实际到场后的本人证言可用于后续自由聊天")
 		await capture("02-testimony")
 		game.close_interaction()
 		check(await talk(game,boss),"当面选择用工负责人")

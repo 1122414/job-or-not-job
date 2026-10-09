@@ -60,3 +60,6 @@
 
 
 2026-10-09 NEXT05-L1/L2：复用[页面输入](patterns/panel-input-ownership.md)，补充按内容布局、真实控件换行边界和滚轮验收；中文字符事件与系统IME组合明确分开，后者未验收。
+
+
+2026-10-09 NEXT06-C1/C2：复用[异步聊天边界](patterns/npc-free-chat-boundaries.md)，补本人stable_id原话来源、岗位替换/未来记录隔离，以及已发生事实与自由聊天执行权限的区别；五项回归通过一次，真实云端质量开放。
