@@ -42,7 +42,8 @@ func run() -> void:
 	game.care.tick(0)
 	check(npc.available() and npc.visible and npc.stable_id==original and npc.affinity<0,"次日原人返岗、关系损伤保留")
 	npc.hit(Vector3.FORWARD,5,game.next_action(),true)
-	check(npc.dead,"明确危险伤害仍可致命")
+	check(npc.hp==1 and not npc.dead and npc.care_state=="unconscious","危险伤害现在也最多暂时昏迷")
+	preload("res://tests/legacy_damage_fixture.gd").npc(game,npc)
 	var old: Dictionary=SaveGame.snapshot(game)
 	old.version=7
 	for entry in old.npcs.values():

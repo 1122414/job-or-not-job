@@ -10,7 +10,7 @@ func check(ok: bool,message: String) -> void:
 func frames(count: int) -> void:
 	for i in range(count): await physics_frame
 func reset(distance: float=.75) -> void:
-	game.player.cancel_strike();game.player.cooldown=0;game.player.protection=0
+	game.player.cancel_strike();game.player.next_left=false;game.player.cooldown=0;game.player.protection=0
 	game.player.hp=100;game.player.dead=0
 	game.player.position=Vector3(0,0,61);game.player.yaw=0;game.player.visual.rotation=Vector3.ZERO;game.player.velocity=Vector3.ZERO;game.player.seated=false;game.player.visual.position=Vector3.ZERO
 	victim.position=Vector3(0,0,61-distance)

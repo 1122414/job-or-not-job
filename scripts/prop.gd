@@ -261,7 +261,7 @@ func _contact(body: Node) -> void:
 	var speed := linear_velocity.length()
 	if speed<2.0: return
 	var strength := clampf(mass*speed/8.0,0.5,9.0)
-	if body is OfficeNPC or body is CityResident:
+	if body is OfficeNPC or body is CityResident or body is AutumnStoryPoint and body.person:
 		hits[body.get_instance_id()]=true
 		body.hit((body.global_position-global_position).normalized(),minf(strength,2.5),attack_id,mass>=2.0 and speed>=4.0)
 		game.impact()

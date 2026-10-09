@@ -127,7 +127,7 @@ func run() -> void:
 		var participant: CityResident=game.population.residents[0]
 		participant.hit(Vector3.FORWARD,200,991,true)
 		await frames(10)
-		check(not performance.books[participant.stable_id].visible and participant.visual.current=="fallen","致命受击释放表演，保留伤亡")
+		check(not performance.books[participant.stable_id].visible and participant.visual.current=="fallen","重伤受击释放表演，保留倒地")
 		check(not performance.running(),"目击避险让分享中断")
 		check(SaveGame.restore(game,before.duplicate(true)),"中断后恢复合法存档")
 		await frames(50)

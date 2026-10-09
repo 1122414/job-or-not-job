@@ -15,12 +15,14 @@ func run():
 	capture_view.add_child(game);root.set_disable_input(true);Input.mouse_mode=Input.MOUSE_MODE_VISIBLE
 	for i in range(10):await physics_frame
 	game.set_process(false)
+	var initial := SaveGame.snapshot(game)
 	for npc in game.npcs:npc.set_physics_process(false)
 	for person in game.population.residents:
 		person.set_physics_process(false);person.position=Vector3(30+person.index*2,0,24)
 	var victim: CityResident=game.population.residents[4]
 	victim.position=Vector3(-7.47,0,16.62)
 	victim.hit(Vector3.FORWARD,10,game.next_action());victim.set_physics_process(true)
+	preload("res://tests/legacy_damage_fixture.gd").resident(game,victim)
 	game.response.report(victim,"player");game.player.position=Vector3(20,0,20)
 	var phases := []
 	var maximum_y := 0.0
@@ -38,7 +40,21 @@ func run():
 		if phase=="received":break
 	check(game.response.resting(victim) and "assessing" in phases and "transporting" in phases,"F03 站棚旁移动伤者最终连续转运："+str(game.response.snapshot()))
 	check(maximum_y<.01,"F03 平地救助不被身体顶起后悬空")
-	print("FEEDBACK_RESCUE_TEST failures=",failures," phases=",phases," max_y=",maximum_y)
+	check(SaveGame.restore(game,initial),"R01 恢复新非致命救助场景")
+	for person in game.population.residents:
+		person.set_physics_process(false);person.position=Vector3(30+person.index*2,0,24)
+	victim.position=Vector3(16,0,69)
+	victim.hit(Vector3.FORWARD,10,game.next_action());victim.set_physics_process(true)
+	game.response.report(victim,"player")
+	var new_phases := []
+	for i in range(2400):
+		await physics_frame
+		var phase: String=game.response.cases[victim.stable_id].phase
+		if not phase in new_phases: new_phases.append(phase)
+		if phase=="recovered": break
+	check("assessing" in new_phases and "transporting" in new_phases and "recovered" in new_phases and victim.hp>1 and victim.hits>0,"R01 新伤者实际评估/转运后恢复，伤害记忆保留："+str(new_phases))
+	check(SaveGame.valid(SaveGame.snapshot(game),game),"R01 新非致命救助完成后可保存")
+	print("FEEDBACK_RESCUE_TEST failures=",failures," phases=",phases," nonlethal_phases=",new_phases," max_y=",maximum_y)
 	game.queue_free();await process_frame;quit(failures)
 
 func shot(game: Node3D,name: String,at: Vector3,focus: Vector3) -> void:

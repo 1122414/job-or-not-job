@@ -131,10 +131,10 @@ func run() -> void:
 	await frames();queue(riders[0],0,2)
 	game.transit.dwell=0;game.transit.tick(1)
 	riders[0].hit(Vector3.RIGHT,10,12345,true)
-	check(riders[0].hp==0 and game.passengers.aboard(riders[0]) and not game.response.report(riders[0],"player"),"车内伤亡保留在车上，救助不抢走移动乘客")
+	check(riders[0].hp==1 and riders[0].down>0 and game.passengers.aboard(riders[0]) and not game.response.report(riders[0],"player"),"车内昏迷保留在车上，救助不抢走移动乘客")
 	check(SaveGame.valid(SaveGame.snapshot(game),game),"车内危险后的关联可保存")
 	at_stop(1);game.passengers.attend(riders[0],0)
-	check(riders[0].hp==0 and not game.passengers.aboard(riders[0]) and game.response.report(riders[0],"player"),"下一停站安全落脚后交给既有救助，死亡事实不变")
+	check(riders[0].hp==1 and riders[0].down>0 and not game.passengers.aboard(riders[0]) and game.response.report(riders[0],"player"),"下一停站安全落脚后交给既有救助，受伤事实不变")
 	check(SaveGame.restore(game,initial),"跳过等车夹具重置")
 	await frames();queue(riders[0],0,1)
 	game.player.position=CityLayout.STOPS[2].platform

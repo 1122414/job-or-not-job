@@ -32,7 +32,7 @@ func _ready() -> void:
 	title.text="今天不上班 / 菜单"
 	title.add_theme_font_size_override("font_size",26)
 	list.add_child(title)
-	for entry in [["继续游戏",func(): game.toggle_menu()], ["今天的安排 / J",func(): game.panels.open_child("journal")], ["新游戏（自动备份当前进度）",func(): game.new_game()], ["恢复上一次进度（当前进度也会备份）",func(): game.restore_previous()], ["操作说明 / H",func(): game.panels.toggle("help")], ["保存 / F5",func(): game.save_game()], ["读取 / F9",func(): game.load_game()], ["保存并退出",func():
+	for entry in [["继续游戏",func(): game.toggle_menu()], ["今天的安排 / J",func(): game.panels.open_child("journal")], ["新游戏（自动备份当前进度）",func(): game.new_game()], ["恢复上一次进度（当前进度也会备份）",func(): game.restore_previous()], ["自由对话模型设置",func(): game.panels.open_child("llm_settings")], ["操作说明 / H",func(): game.panels.toggle("help")], ["保存 / F5",func(): game.save_game()], ["读取 / F9",func(): game.load_game()], ["保存并退出",func():
 		if game.save_game(): get_tree().quit()], ["直接退出",func(): get_tree().quit()]]:
 		if OS.has_feature("web") and entry[0] in ["保存并退出","直接退出"]: continue
 		var button := Button.new()

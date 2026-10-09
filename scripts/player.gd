@@ -24,6 +24,8 @@ var hit_pause := 0.0
 var strike_action := -1
 var strike_weapon: OfficeProp
 var strike_dangerous := false
+var strike_style := "strike"
+var next_left := false
 var strike_previous := Transform3D.IDENTITY
 var strike_phase := 0.0
 var strike_origin := Vector3.ZERO
@@ -92,6 +94,9 @@ func _unhandled_input(event: InputEvent) -> void:
 	if game.in_vehicle():
 		if event.is_action_pressed("interact"): game.interact()
 		return
+	if event.is_action_pressed("push") or event.is_action_pressed("kick"):
+		game.close_interaction()
+		attack("push" if event.is_action_pressed("push") else "kick")
 	if event.is_action_pressed("attack"):
 		if not stand_up(): return
 		game.close_interaction()
@@ -163,11 +168,16 @@ func _physics_process(delta: float) -> void:
 	move_and_slide()
 	if position.y < -8: hurt(100)
 
-func attack() -> void:
+func attack(style: String="") -> void:
 	if game.in_vehicle() or dead>0 or cooldown>0 or not stand_up(): return
+	if style!="" and held: return
 	cancel_strike()
+	strike_style=style if style in ["push","kick"] else "strike" if held or not next_left else "strike_left"
+	if style=="" and not held: next_left=not next_left
+	visual.attack_style=strike_style
 	cooldown = 0.5 if held and held.kind == "keyboard" else 0.7
-	swing = visual.animation.get_animation("strike").length+.03
+	if strike_style=="kick": cooldown=.85
+	swing = visual.animation.get_animation(strike_style).length+.03
 	strike_action=game.next_action()
 	strike_weapon=held
 	strike_dangerous=held!=null and held.mass>=2.0 and Input.is_action_pressed("dangerous")
@@ -179,10 +189,10 @@ func attack() -> void:
 			if child is CollisionShape3D and not child.disabled: strike_parts.append(child)
 	else:
 		var fist := SphereShape3D.new()
-		fist.radius=0.10
+		fist.radius=0.14 if strike_style=="kick" else .12 if strike_style=="push" else .10
 		strike_shape=fist
-	visual.current="strike"
-	visual.animation.play("strike",0.06)
+	visual.current=strike_style
+	visual.animation.play(strike_style,0.06)
 	visual.animation.speed_scale=1.0
 	strike_previous=strike_transform()
 
@@ -197,13 +207,16 @@ func cancel_strike() -> void:
 
 func strike_transform() -> Transform3D:
 	if is_instance_valid(strike_weapon): return strike_weapon.global_transform
-	var palm := visual.contacts.palm("R")
+	if strike_style=="kick":
+		var skeleton := visual.skeleton
+		return skeleton.global_transform*skeleton.get_bone_global_pose(skeleton.find_bone("foot.R"))
+	var palm := visual.contacts.palm("L" if strike_style=="strike_left" else "R")
 	palm.origin+=palm.basis.y*0.04
 	return palm
 
 func update_strike() -> void:
 	if strike_action<0: return
-	if swing<=0 or dead>0 or seated or game.in_vehicle() or held!=strike_weapon or visual.current!="strike" or absf(angle_difference(strike_yaw,yaw))>.6 or global_position.distance_to(strike_origin)>.75:
+	if swing<=0 or dead>0 or seated or game.in_vehicle() or held!=strike_weapon or visual.current!=strike_style or absf(angle_difference(strike_yaw,yaw))>.6 or global_position.distance_to(strike_origin)>.75:
 		cancel_strike()
 		return
 	visual.animation.speed_scale=1.0
@@ -258,18 +271,21 @@ func update_strike() -> void:
 func apply_strike(candidate: Node3D) -> void:
 	var action := strike_action
 	var dangerous := strike_dangerous
+	var strength := 1.4 if dangerous else .25 if strike_style=="push" else .8 if strike_style=="kick" else .5
 	if not candidate.visible or not game.can_see(self,candidate): return
 	if candidate is AutumnStoryPoint:
-		candidate.hit(forward(),.5,action,dangerous)
-		comic_contact(strike_transform().origin,false)
+		var before: int=candidate.hp
+		candidate.hit(forward(),strength,action,dangerous)
+		if candidate.hp<before: comic_contact(strike_transform().origin,candidate.down>0)
 	elif candidate is OfficeNPC or candidate is CityResident:
 		if not dangerous and not candidate.available(): return
 		var before: int=candidate.hp
-		candidate.hit(forward(),1.4 if dangerous else 0.5,action,dangerous)
+		candidate.hit(forward(),strength,action,dangerous)
+		if strike_style in ["push","kick"] and candidate.down<=0: candidate.hit_push=forward()*3.0
 		if candidate.hp<before: comic_contact(strike_transform().origin,candidate.hp==1 and candidate.down>0)
 	elif candidate is OfficeProp:
-		var strength := 4.0 if held and held.kind=="monitor" else 2.5 if held else 0.4
-		if candidate.strike(forward(),action,strength): game.on_property_hit(candidate,action)
+		var prop_strength := 4.0 if held and held.kind=="monitor" else 2.5 if held else 0.4
+		if candidate.strike(forward(),action,prop_strength): game.on_property_hit(candidate,action)
 		else: game.say("徒手只能推撞，坚固家具需要重物或明确掀翻。")
 		comic_contact(strike_transform().origin,false)
 
@@ -303,11 +319,12 @@ func pick(prop: OfficeProp) -> void:
 func sync_held() -> void:
 	if game.meals: game.meals.scene.apply(self)
 	if game.driving and game.driving.active: game.driving.active.pose_driver(visual)
-	if swing>0 and visual.current=="strike" and dead<=0:
+	if swing>0 and visual.current==strike_style and dead<=0 and strike_style!="kick":
 		var phase := visual.animation.current_animation_position
 		var extension := smoothstep(.04,.18,phase)*(1.0-smoothstep(.24,.42,phase))
 		var palm_basis := Basis(Vector3.RIGHT,Vector3.FORWARD,Vector3.UP) if held else Basis(Vector3.UP,Vector3.FORWARD,Vector3.LEFT)
-		var point := Vector3(.20,visual.standing_height*.66,lerpf(-.26,-.70,extension))
+		var side := "L" if strike_style=="strike_left" else "R"
+		var point := Vector3(-.20 if side=="L" else .20,visual.standing_height*.66,lerpf(-.26,-.70,extension))
 		if strike_dangerous:
 			# Two-handed lift, descending contact, then recovery; the held collider
 			# follows this same evaluated palm path used by the damage sweep.
@@ -315,9 +332,12 @@ func sync_held() -> void:
 			var descent := smoothstep(.08,.24,phase)*(1.0-smoothstep(.28,.45,phase))
 			point=Vector3(.18,visual.standing_height*.66+lift*.50-descent*.42,-.30-descent*.43)
 			palm_basis=Basis(Vector3.RIGHT,-.55*lift+.65*descent)*palm_basis
-		visual.contacts.reach("R",visual.global_transform*Transform3D(palm_basis,point),smoothstep(0,.06,phase))
-		visual.contacts.fingers("R",-.3 if held else 1.8)
-		if not held:
+		visual.contacts.reach(side,visual.global_transform*Transform3D(palm_basis,point),smoothstep(0,.06,phase))
+		if strike_style=="push":
+			point.x=-.2
+			visual.contacts.reach("L",visual.global_transform*Transform3D(palm_basis,point),smoothstep(0,.06,phase))
+		visual.contacts.fingers(side,-.3 if held or strike_style=="push" else 1.8)
+		if not held and side=="R" and strike_style!="push":
 			var skeleton := visual.skeleton
 			var thumb := skeleton.find_bone("finger1-1.R")
 			var tip := skeleton.find_bone("finger1-3.R")

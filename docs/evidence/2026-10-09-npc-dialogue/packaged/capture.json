@@ -1,0 +1,16 @@
+{
+	"background_guard": true,
+	"build": "20261009T041943424615Z-a3602a5d-8ba34c3b",
+	"cloud_response": "not_tested_display_fixture_only",
+	"images": [
+		"strike",
+		"strike_left",
+		"push",
+		"kick",
+		"mentor-reaction-status",
+		"mentor-unconscious",
+		"free-input-preview",
+		"model-settings"
+	],
+	"persistence": false
+}

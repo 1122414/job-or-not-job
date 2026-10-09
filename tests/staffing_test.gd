@@ -10,7 +10,8 @@ func run() -> void:
 	await physics_frame
 	var original: OfficeNPC=game.npc_for_role("a_hr")
 	original.hit(Vector3.FORWARD,5.0,game.next_action())
-	check(original.dead and game.career.conflict.a==1,"单次致命事件保留警告，不额外直接关职业线")
+	preload("res://tests/legacy_damage_fixture.gd").npc(game,original)
+	check(original.dead and game.career.conflict.a==1,"旧版死亡事件保留警告，不额外直接关职业线")
 	for npc in game.npcs: npc.hostile=0; npc.reaction=0
 	game.staffing.tick(29)
 	check(game.npc_for_role("a_hr")==null,"平静不足30秒不生成替代人员")

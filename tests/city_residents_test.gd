@@ -100,16 +100,16 @@ func run() -> void:
 	for i in range(12):
 		car.drive(.1,1,0,false)
 		await physics_frame
-		if person.hp==0: break
+		if person.hp==1: break
 	car.speed=0
-	check(person.hp==0 and person.state=="dead","玩家车辆高速实际接触有致命后果")
+	check(person.hp==1 and person.state=="fallen","玩家车辆高速实际接触造成重伤倒地但不死亡")
 	var saved := SaveGame.snapshot(game)
 	var file := "user://city-residents-"+str(Time.get_ticks_usec())+".json"
 	check(SaveGame.write(game,file)==OK,"包含居民与车辆后果的真实JSON写入")
 	check(SaveGame.restore(game,SaveGame.read(file,game)),"真实JSON恢复居民和过街状态")
 	person.set_physics_process(true)
 	await frames(120)
-	check(person.hp==0 and person.hits>0 and witness.witnessed>0,"恢复后死亡不复活、伤害与目击记忆保留")
+	check(person.hp==1 and person.hits>0 and witness.witnessed>0,"恢复后仍有重伤、伤害与目击记忆保留")
 	check(person.body.position.distance_to(Vector3(-.65,.28,0).rotated(Vector3.UP,person.visual.rotation.y))<.001,"倒地碰撞跟随人物朝向")
 	person.set_physics_process(false)
 	for pair in [["hp",NAN],["position",[0,5,58]],["state","unknown"],["route",["missing"]],["crossing","missing"],["fear",100],["journey",1.5]]:

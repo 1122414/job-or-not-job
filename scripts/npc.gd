@@ -93,7 +93,7 @@ func hit(direction: Vector3, strength: float, action: int, dangerous: bool = tru
 	if not dangerous and (care_state!="awake" or down>0): return
 	last_hit=action
 	var damage := roundi(strength*24*(0.5 if block_time>0 and not dangerous else 1.0))
-	hp=maxi(0 if dangerous else 1,hp-damage)
+	hp=maxi(1,hp-damage)
 	dead=hp==0
 	var knocked_out := not dead and hp<=1
 	if knocked_out:

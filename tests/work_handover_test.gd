@@ -67,6 +67,7 @@ func boundary_cases() -> void:
 	npc=game.npc_for_role("b_friend")
 	game.advance_time(960)
 	npc.hit(Vector3.RIGHT,10,game.next_action(),true)
+	preload("res://tests/legacy_damage_fixture.gd").npc(game,npc)
 	for i in range(180):await physics_frame;game.handover.tick(1.0/60)
 	check(npc.dead and game.handover.data.elapsed==0 and not game.projects.state("b").sent,"dead colleague never completes work")
 	for i in range(3600):

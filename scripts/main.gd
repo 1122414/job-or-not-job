@@ -30,6 +30,7 @@ var promises := WorkPromises.new()
 var person_index := 0
 var interviews := InterviewFlow.new()
 var career := Career.new()
+var free_chat := FreeChat.new()
 var story := AutumnStory.new()
 var stations: Array[WorkStation] = []
 var restore_revision := 0
@@ -118,6 +119,8 @@ func _ready() -> void:
 	room_lighting=CityRoomLighting.new()
 	room_lighting.game=self
 	add_child(room_lighting)
+	free_chat.game=self
+	add_child(free_chat)
 	story.game=self
 	story.build()
 	build_ui()
@@ -133,7 +136,7 @@ func bind_inputs() -> void:
 		ui_button.button_index=JOY_BUTTON_A if action=="ui_accept" else JOY_BUTTON_B
 		ui_button.device=-1
 		if not InputMap.action_has_event(action,ui_button): InputMap.action_add_event(action,ui_button)
-	var keys := {"city":KEY_M,"forward":KEY_W,"back":KEY_S,"left":KEY_A,"right":KEY_D,"run":KEY_SHIFT,"jump":KEY_SPACE,"interact":KEY_E,"drop":KEY_G,"cancel":KEY_ESCAPE,"bag":KEY_TAB,"store":KEY_Q,"cycle":KEY_R,"save":KEY_F5,"load":KEY_F9,"journal":KEY_J,"ledger":KEY_L,"help":KEY_H,"history":KEY_K,"dangerous":KEY_ALT,"people":KEY_P,"messages":KEY_N,"promises":KEY_O}
+	var keys := {"city":KEY_M,"forward":KEY_W,"back":KEY_S,"left":KEY_A,"right":KEY_D,"run":KEY_SHIFT,"jump":KEY_SPACE,"interact":KEY_E,"drop":KEY_G,"cancel":KEY_ESCAPE,"bag":KEY_TAB,"store":KEY_Q,"cycle":KEY_R,"save":KEY_F5,"load":KEY_F9,"journal":KEY_J,"ledger":KEY_L,"help":KEY_H,"history":KEY_K,"free_chat":KEY_T,"push":KEY_F,"kick":KEY_C,"dangerous":KEY_ALT,"people":KEY_P,"messages":KEY_N,"promises":KEY_O}
 	for action in keys:
 		InputMap.add_action(action)
 		var event := InputEventKey.new()
@@ -347,7 +350,7 @@ func add_station(id: String, title: String, pos: Vector3) -> void:
 	stations.append(station)
 	add_child(station)
 
-func interact() -> void:
+func interact(target_override: Node3D=null) -> void:
 	if driving.in_vehicle():
 		driving.leave()
 		return
@@ -355,7 +358,8 @@ func interact() -> void:
 		transit.open_stop(transit.current_stop if transit.current_stop>=0 else transit.next_stop)
 		return
 	if interviews.advance(): return
-	var target := nearest()
+	var target := target_override if is_instance_valid(target_override) else nearest()
+	if is_instance_valid(target_override) and (not targets().has(target_override) or player.position.distance_to(target_override.position)>3.5 or not can_see(player,target_override)): return
 	if target is AutumnStoryPoint:
 		story.open(target)
 		return
@@ -519,6 +523,8 @@ func close_interaction() -> void:
 
 func _unhandled_key_input(event: InputEvent) -> void:
 	if event is InputEventKey and event.pressed and not event.echo:
+		if event.is_action_pressed("free_chat"):
+			free_chat.open(speaker if is_instance_valid(speaker) else focus_target)
 		if event.physical_keycode>=KEY_1 and event.physical_keycode<=KEY_4: choose(event.physical_keycode-KEY_1)
 		if event.physical_keycode==KEY_F3 and OS.is_debug_build(): debug_open=not debug_open
 		if event.is_action_pressed("save"): save_game(true)
@@ -633,6 +639,7 @@ func startup() -> void:
 	initial_state=SaveGame.snapshot(self)
 	soundscape.start_settings()
 	if persistence_enabled:
+		free_chat.load_settings()
 		room_lighting.read_settings(CityRoomLighting.SETTINGS_PATH)
 		if FileAccess.file_exists(save_path): load_game()
 		else: import_previous(OS.get_user_data_dir().get_base_dir().path_join("今天不上班/neighborhood.json"))
@@ -701,7 +708,7 @@ func restore_previous() -> void:
 	panels.show_page("")
 	if save_game(true): say("已恢复上一次进度；刚才的进度也已备份。")
 
-func repair_migrated_positions(revision: int) -> void:
+func repair_migrated_positions(revision: int,ground_actors: Array=[]) -> void:
 	await get_tree().physics_frame
 	await get_tree().physics_frame
 	if revision!=restore_revision: return
@@ -717,8 +724,11 @@ func repair_migrated_positions(revision: int) -> void:
 		# new scenery below the flat district floor. Query and assign the same
 		# supported height; position_clear already evaluates at least y=0.
 		origin.y=maxf(origin.y,0)
+		# An embedded ground-level save can be pushed briefly onto a planter's
+		# rim. Validate its eventual landing height, not that transient lift.
+		if actor in ground_actors and origin.y<.5: origin.y=0
 		if position_clear(actor,origin):
-			if actor.position.y<0:
+			if not is_equal_approx(actor.position.y,origin.y):
 				actor.position=origin
 				actor.velocity=Vector3.ZERO
 			continue

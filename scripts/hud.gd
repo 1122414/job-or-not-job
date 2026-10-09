@@ -5,10 +5,15 @@ var game: Node3D
 var font: Font = ThemeDB.fallback_font
 var toast := ""
 var toast_time := 0.0
+var free_button: Button
 
 func _ready() -> void:
 	set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	mouse_filter = Control.MOUSE_FILTER_IGNORE
+	free_button=Button.new();free_button.text="T  我想自己说……"
+	free_button.add_theme_font_override("font",preload("res://assets/fonts/NotoSansCJKsc-Regular.otf"))
+	free_button.pressed.connect(func(): game.free_chat.open(game.speaker if is_instance_valid(game.speaker) else game.focus_target))
+	add_child(free_button)
 
 func text_at(pos: Vector2, text: String, size: int = 20, color: Color = Color.WHITE) -> void:
 	draw_string_outline(font,pos,text,HORIZONTAL_ALIGNMENT_LEFT,-1,size,1,Color(0,0,0,0.6))
@@ -16,6 +21,9 @@ func text_at(pos: Vector2, text: String, size: int = 20, color: Color = Color.WH
 
 func _process(delta: float) -> void:
 	if not get_tree().paused: toast_time = maxf(0,toast_time-delta)
+	var person: Node3D=game.speaker if is_instance_valid(game.speaker) else game.focus_target
+	free_button.visible=game.panels.page=="" and TargetStatus.supported(person) and person.visible and person.available()
+	free_button.position=Vector2(size.x-354,276);free_button.size=Vector2(326,38)
 	queue_redraw()
 
 func _draw() -> void:
@@ -82,6 +90,17 @@ func _draw() -> void:
 		text_at(Vector2(w*0.35,h-52),"101 · "+("已离线停靠 · E 下车 / 接管" if game.transit.bus.taken else "已到站 · E 下车" if game.transit.current_stop>=0 else "E 请求下车 · 下一站 "+CityLayout.STOPS[game.transit.next_stop].title),18,Color("e4be70"))
 	if game.driving.in_vehicle() and game.panels.page=="":
 		text_at(Vector2(w*0.35,h-52),"%02d km/h   W/S 油门与倒车 · A/D 转向 · 空格手刹 · E 下车" % roundi(absf(game.driving.active.speed)*3.6),16,Color("e4be70"))
+	var person: Node3D=game.speaker if is_instance_valid(game.speaker) else game.focus_target
+	if game.panels.page=="" and TargetStatus.supported(person) and person.visible:
+		var status := TargetStatus.describe(game,person)
+		var at := Vector2(w-354,132)
+		draw_style_box(panel_style(),Rect2(at,Vector2(326,136)))
+		text_at(at+Vector2(14,25),status.name+" · "+status.state.left(12),16)
+		draw_rect(Rect2(at+Vector2(14,39),Vector2(298,9)),Color("372e32"))
+		draw_rect(Rect2(at+Vector2(14,39),Vector2(298*status.hp/100.0,9)),Color("e78963"))
+		text_at(at+Vector2(14,71),"生命 %d / 100"%status.hp,14)
+		text_at(at+Vector2(14,97),"好感 %+d  信任 %+d  恐惧 %d"%[status.affinity,status.trust,status.fear],15)
+		text_at(at+Vector2(14,121),status.reason.left(20),13,Color("e4be70"))
 	var target: Node3D = null if game.in_vehicle() else game.focus_target
 	if target and game.panels.page=="" and game.conversation.is_empty():
 		var verb := "交谈" if target is OfficeNPC or target is CityResident or target is AutumnStoryPoint and target.person else "使用"

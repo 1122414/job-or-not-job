@@ -47,3 +47,5 @@
 2026-10-08复用补充：[内容扩充与存档迁移](patterns/save-content-expansion.md)记录v26新旧叙事隔离、阶段关联及本轮RefCounted循环；[平台字体边界](patterns/web-export-platform-gaps.md)补桌面新增汉字缺字反例，定向字符检查与四页实际图形验证一次。
 
 2026-10-09反馈复用：[保存校验与原始现场保全](patterns/save-content-expansion.md)、[救助接近点及自动玩家步速适配](patterns/navigation-endpoints.md)、[普通步行/髋高](patterns/character-proportion-adaptation.md)、[接管后公交乘客位置](patterns/vehicle-passenger-restoration.md)。上述定向反例验证一次，完整发布检查与体验边界见当日验收文档。
+
+2026-10-09 NPC/LLM：新增[特殊人物与异步对话](patterns/npc-free-chat-boundaries.md)（特殊NPC覆盖、取消/过期回复、严格模型数据边界，定向验证一次）；复用[页面输入](patterns/panel-input-ownership.md)、[存档版本](patterns/save-content-expansion.md)，并用实际高度日志修正[地面恢复](patterns/floor-seams.md)的瞬时抬升边界。

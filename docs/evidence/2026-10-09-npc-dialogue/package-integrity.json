@@ -1,0 +1,20 @@
+{
+  "build_id": "20261009T041943424615Z-a3602a5d-8ba34c3b",
+  "source_sha256": "8ba34c3b34df69ef301bcfc20cc6958e5c23ce728105466a11b8d53aec92557c",
+  "runtime_matches_source": true,
+  "pck_matches_manifest": true,
+  "zip_matches_artifact": true,
+  "runtime_binary_matches_artifact": true,
+  "zip_crc_ok": true,
+  "signature_ok": true,
+  "startups": [
+    {
+      "cwd": "/Users/geminchen/My-Item/job-or-not-job",
+      "success": true
+    },
+    {
+      "cwd": "/private/tmp",
+      "success": true
+    }
+  ]
+}

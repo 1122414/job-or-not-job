@@ -13,3 +13,5 @@
 2026-09-29鼠标控制权反例：用户指出自动图形验证抢走鼠标。`OfficePlayer._ready()`无条件CAPTURED，`GamePanels.show_page("")`又重新CAPTURED，因此夹具启动后设置VISIBLE只保护到下一次关页面。修复应删除所有生命周期/页面关闭捕获；只有当前游戏场景、窗口有焦点、Viewport未禁输入、非headless、未指定`--no-mouse-capture`，且玩家主动点击世界画面，才可捕获。激活点击被消费，不穿透攻击；失焦/离树释放，回焦不重抓。`tests/mouse_capture_test.gd`无窗口验证启动/十页面往返/模拟点击/鼠标移动/焦点通知/销毁，0失败；真实人工捕获/浏览器锁定未由这些断言证明。以后自动工具不得置顶、拉前台或为了验证而锁住用户指针；停止测试保留部分证据，不能记成全路线通过。
 
 2026-09-30 C4e复用：新增音量HSlider鼠标工作正常，但四总线Home/End共8项真实输入检查失败；GamePanels在_input里吞掉了未列入放行表的键。仅在暂停页面且GUI焦点为Slider时把Home/End交给控件，最终真实点击与8个键盘端点全部通过，保持暂停和鼠标可见。对应tools/capture_city_audio.gd，未修改世界快捷键归属。
+
+2026-10-09 R04复用：TextEdit/LineEdit输入页必须在GamePanels业务快捷键分发前放行文字键，否则输入N会打开招聘消息。保留Esc/手柄返回，由暂停保证世界不消费动作键。`tests/free_chat_test.gd`实际推送N并断言文字框与页面归属；模型设置与自由输入Metal画面已检查。中文IME组合输入和实体手柄仍未人工验收。

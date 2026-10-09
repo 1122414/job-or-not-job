@@ -1,0 +1,43 @@
+[
+  {
+    "test": "city_frontages_test.gd",
+    "success": true
+  },
+  {
+    "test": "city_urban_test.gd",
+    "success": true
+  },
+  {
+    "test": "city_places_test.gd",
+    "success": true
+  },
+  {
+    "test": "city_commons_save_test.gd",
+    "success": true
+  },
+  {
+    "test": "city_passengers_save_test.gd",
+    "success": true
+  },
+  {
+    "test": "city_response_routes_test.gd",
+    "success": true
+  },
+  {
+    "test": "save_test.gd",
+    "success": true
+  },
+  {
+    "test": "free_chat_test.gd",
+    "success": true
+  },
+  {
+    "test": "npc_feedback_test.gd",
+    "success": true
+  },
+  {
+    "test": "feedback_rescue_test.gd",
+    "success": true,
+    "output": "Godot Engine v4.7.1.stable.official.a13da4feb - https://godotengine.org\n\nFEEDBACK_RESCUE_TEST failures=0 phases=[\"approaching\", \"assessing\", \"transporting\", \"received\"] max_y=0.0\n"
+  }
+]

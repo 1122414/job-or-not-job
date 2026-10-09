@@ -17,7 +17,8 @@ func run() -> void:
 		check(Vector2(npc.position.x-npc.home.x,npc.position.z-npc.home.z).length()<0.6,"返岗不应卡住："+npc.stable_id+str(npc.position))
 	var victim=game.npcs[0]
 	for i in range(5): victim.hit(Vector3.FORWARD,1,game.next_action())
-	check(victim.dead and victim.hp==0,"重复攻击导致死亡")
+	preload("res://tests/legacy_damage_fixture.gd").npc(game,victim)
+	check(victim.dead and victim.hp==0,"旧版死亡夹具保留死亡事实")
 	for i in range(300): await physics_frame
 	check(victim.dead and not victim.seated and victim.visual.current=="fallen","死亡不恢复坐班，使用独立倒地姿势")
 	var data=SaveGame.snapshot(game)

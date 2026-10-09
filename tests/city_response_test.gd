@@ -31,6 +31,7 @@ func run() -> void:
 	person.position=Vector3(-76,0,58)
 	person.from_node="west_in"; person.destination="market"; person.route.assign(["west_out","market"]); person.crossing="market"
 	person.hit(Vector3.FORWARD,10,game.next_action())
+	preload("res://tests/legacy_damage_fixture.gd").resident(game,person)
 	person.set_physics_process(true)
 	await frames(120)
 	check(response.cases.is_empty(),"没有实际目击者时现场不会凭空报告")
@@ -101,6 +102,7 @@ func run() -> void:
 	var second: CityResident=game.population.residents[3]
 	second.position=Vector3(19,0,68)
 	second.hit(Vector3.FORWARD,10,game.next_action())
+	preload("res://tests/legacy_damage_fixture.gd").resident(game,second)
 	check(response.cases.size()==2 and response.sequence==2,"两个现场保留独立队列")
 	person.set_physics_process(true)
 	var first_done := false

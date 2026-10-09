@@ -27,6 +27,8 @@ func run() -> void:
 		victim.destination=victim.from_node
 		victim.route.clear(); victim.crossing=""
 		victim.hit(Vector3.FORWARD,10,game.next_action())
+		# Retain the historical-death route test; new injuries can recover before arrival.
+		preload("res://tests/legacy_damage_fixture.gd").resident(game,victim)
 		victim.set_physics_process(true)
 		game.response.report(victim,"player")
 		game.player.position=Vector3(-18,0,18)

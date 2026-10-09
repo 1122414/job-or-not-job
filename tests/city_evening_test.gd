@@ -153,8 +153,9 @@ func run() -> void:
 	await frames(8)
 	friend=game.npc_for_role("a_friend")
 	friend.hit(Vector3.FORWARD,200,7791,true)
+	preload("res://tests/legacy_damage_fixture.gd").npc(game,friend)
 	await frames(10)
-	check(friend.dead and CityEvening.at_place(friend)=="","致命伤害不被日程清除")
+	check(friend.dead and CityEvening.at_place(friend)=="","旧版死亡事实不被日程清除")
 	game.payroll.minute=1980
 	await frames(60)
 	check(friend.dead and friend.hp==0,"次日不复活")

@@ -31,7 +31,7 @@ func run() -> void:
 	check(npc.fall_side==1,"旧档采用原先左侧倒地默认值")
 	npc.visual.rotation.y=0
 	npc.hit(Vector3.LEFT,5.0,game.next_action())
-	check(npc.dead and npc.hp==0 and npc.fall_side==1,"反向致命重击保持死亡事实")
+	check(not npc.dead and npc.hp==1 and npc.fall_side==1,"反向重击造成暂时昏迷并保持倒地方向")
 	await physics_frame
 	check(npc.body_shape.position.x<0,"再次反向打击后倒地碰撞同步换侧")
 	var malformed := SaveGame.snapshot(game)

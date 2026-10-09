@@ -1,0 +1,593 @@
+{
+  "total": 115,
+  "initial_failures": 3,
+  "final_failures": 0,
+  "note": "完整首轮后按已发现问题定向修复并复验；非同一时刻冻结源码的一次运行。",
+  "results": [
+    {
+      "test": "action_test.gd",
+      "success": true,
+      "initial_success": true
+    },
+    {
+      "test": "attack_window_test.gd",
+      "success": true,
+      "initial_success": true
+    },
+    {
+      "test": "authored_motion_test.gd",
+      "success": true,
+      "initial_success": true
+    },
+    {
+      "test": "autumn_career_test.gd",
+      "success": true,
+      "initial_success": true
+    },
+    {
+      "test": "autumn_full_story_test.gd",
+      "success": true,
+      "initial_success": true
+    },
+    {
+      "test": "autumn_prologue_test.gd",
+      "success": true,
+      "initial_success": true
+    },
+    {
+      "test": "autumn_search_test.gd",
+      "success": true,
+      "initial_success": true
+    },
+    {
+      "test": "body_support_test.gd",
+      "success": true,
+      "initial_success": true
+    },
+    {
+      "test": "career_test.gd",
+      "success": true,
+      "initial_success": true
+    },
+    {
+      "test": "cast_deformation_test.gd",
+      "success": true,
+      "initial_success": true
+    },
+    {
+      "test": "cast_face_test.gd",
+      "success": true,
+      "initial_success": true
+    },
+    {
+      "test": "cast_resources_test.gd",
+      "success": true,
+      "initial_success": true
+    },
+    {
+      "test": "chair_support_test.gd",
+      "success": true,
+      "initial_success": true
+    },
+    {
+      "test": "chaos_test.gd",
+      "success": true,
+      "initial_success": true
+    },
+    {
+      "test": "city_activity_save_test.gd",
+      "success": true,
+      "initial_success": true
+    },
+    {
+      "test": "city_architecture_test.gd",
+      "success": true,
+      "initial_success": true
+    },
+    {
+      "test": "city_bookshop_test.gd",
+      "success": true,
+      "initial_success": true
+    },
+    {
+      "test": "city_bus_seating_test.gd",
+      "success": true,
+      "initial_success": true
+    },
+    {
+      "test": "city_bus_visual_test.gd",
+      "success": true,
+      "initial_success": true
+    },
+    {
+      "test": "city_car_visual_test.gd",
+      "success": true,
+      "initial_success": true
+    },
+    {
+      "test": "city_commons_save_test.gd",
+      "success": true,
+      "initial_success": true,
+      "rechecked": true
+    },
+    {
+      "test": "city_commons_test.gd",
+      "success": true,
+      "initial_success": true
+    },
+    {
+      "test": "city_controls_test.gd",
+      "success": true,
+      "initial_success": true
+    },
+    {
+      "test": "city_crossing_flow_test.gd",
+      "success": true,
+      "initial_success": true
+    },
+    {
+      "test": "city_crossings_test.gd",
+      "success": true,
+      "initial_success": true
+    },
+    {
+      "test": "city_day_cycle_test.gd",
+      "success": true,
+      "initial_success": true
+    },
+    {
+      "test": "city_daylight_test.gd",
+      "success": true,
+      "initial_success": true
+    },
+    {
+      "test": "city_driving_test.gd",
+      "success": true,
+      "initial_success": true
+    },
+    {
+      "test": "city_evening_cycle_test.gd",
+      "success": true,
+      "initial_success": true
+    },
+    {
+      "test": "city_evening_save_test.gd",
+      "success": true,
+      "initial_success": true
+    },
+    {
+      "test": "city_evening_test.gd",
+      "success": true,
+      "initial_success": true
+    },
+    {
+      "test": "city_frontages_test.gd",
+      "success": true,
+      "initial_success": false,
+      "rechecked": true
+    },
+    {
+      "test": "city_home_save_test.gd",
+      "success": true,
+      "initial_success": true
+    },
+    {
+      "test": "city_home_seating_test.gd",
+      "success": true,
+      "initial_success": true
+    },
+    {
+      "test": "city_home_test.gd",
+      "success": true,
+      "initial_success": true
+    },
+    {
+      "test": "city_lighting_bake_test.gd",
+      "success": true,
+      "initial_success": true
+    },
+    {
+      "test": "city_meal_contact_test.gd",
+      "success": true,
+      "initial_success": true
+    },
+    {
+      "test": "city_meals_save_test.gd",
+      "success": true,
+      "initial_success": true
+    },
+    {
+      "test": "city_meals_social_test.gd",
+      "success": true,
+      "initial_success": true
+    },
+    {
+      "test": "city_meals_test.gd",
+      "success": true,
+      "initial_success": true
+    },
+    {
+      "test": "city_nature_test.gd",
+      "success": true,
+      "initial_success": true
+    },
+    {
+      "test": "city_outing_save_test.gd",
+      "success": true,
+      "initial_success": true
+    },
+    {
+      "test": "city_outing_test.gd",
+      "success": true,
+      "initial_success": true
+    },
+    {
+      "test": "city_passengers_save_test.gd",
+      "success": true,
+      "initial_success": true,
+      "rechecked": true
+    },
+    {
+      "test": "city_passengers_test.gd",
+      "success": true,
+      "initial_success": true
+    },
+    {
+      "test": "city_places_test.gd",
+      "success": true,
+      "initial_success": true,
+      "rechecked": true
+    },
+    {
+      "test": "city_population_test.gd",
+      "success": true,
+      "initial_success": true
+    },
+    {
+      "test": "city_residents_test.gd",
+      "success": true,
+      "initial_success": true
+    },
+    {
+      "test": "city_response_routes_test.gd",
+      "success": true,
+      "initial_success": false,
+      "rechecked": true
+    },
+    {
+      "test": "city_response_save_test.gd",
+      "success": true,
+      "initial_success": true
+    },
+    {
+      "test": "city_response_test.gd",
+      "success": true,
+      "initial_success": true
+    },
+    {
+      "test": "city_room_lighting_test.gd",
+      "success": true,
+      "initial_success": true
+    },
+    {
+      "test": "city_share_performance_test.gd",
+      "success": true,
+      "initial_success": true
+    },
+    {
+      "test": "city_soundscape_test.gd",
+      "success": true,
+      "initial_success": true
+    },
+    {
+      "test": "city_story_save_test.gd",
+      "success": true,
+      "initial_success": true
+    },
+    {
+      "test": "city_story_walk_test.gd",
+      "success": true,
+      "initial_success": true
+    },
+    {
+      "test": "city_streets_test.gd",
+      "success": true,
+      "initial_success": true
+    },
+    {
+      "test": "city_traffic_test.gd",
+      "success": true,
+      "initial_success": true
+    },
+    {
+      "test": "city_transit_test.gd",
+      "success": true,
+      "initial_success": true
+    },
+    {
+      "test": "city_urban_test.gd",
+      "success": true,
+      "initial_success": true,
+      "rechecked": true
+    },
+    {
+      "test": "company_batches_test.gd",
+      "success": true,
+      "initial_success": true
+    },
+    {
+      "test": "company_spaces_test.gd",
+      "success": true,
+      "initial_success": true
+    },
+    {
+      "test": "consequence_test.gd",
+      "success": true,
+      "initial_success": true
+    },
+    {
+      "test": "daily_routine_test.gd",
+      "success": true,
+      "initial_success": true
+    },
+    {
+      "test": "destruction_test.gd",
+      "success": true,
+      "initial_success": true
+    },
+    {
+      "test": "dialogue_scene_test.gd",
+      "success": true,
+      "initial_success": true
+    },
+    {
+      "test": "environment_assets_test.gd",
+      "success": true,
+      "initial_success": true
+    },
+    {
+      "test": "feedback_blockers_test.gd",
+      "success": true,
+      "initial_success": true
+    },
+    {
+      "test": "feedback_combat_test.gd",
+      "success": true,
+      "initial_success": true
+    },
+    {
+      "test": "feedback_rescue_test.gd",
+      "success": true,
+      "initial_success": false,
+      "rechecked": true
+    },
+    {
+      "test": "feedback_vehicle_test.gd",
+      "success": true,
+      "initial_success": true
+    },
+    {
+      "test": "free_chat_test.gd",
+      "success": true,
+      "initial_success": true,
+      "rechecked": true
+    },
+    {
+      "test": "full_route_test.gd",
+      "success": true,
+      "initial_success": true
+    },
+    {
+      "test": "gait_test.gd",
+      "success": true,
+      "initial_success": true
+    },
+    {
+      "test": "guidance_test.gd",
+      "success": true,
+      "initial_success": true
+    },
+    {
+      "test": "hand_contact_test.gd",
+      "success": true,
+      "initial_success": true
+    },
+    {
+      "test": "hit_reaction_test.gd",
+      "success": true,
+      "initial_success": true
+    },
+    {
+      "test": "intake_test.gd",
+      "success": true,
+      "initial_success": true
+    },
+    {
+      "test": "interaction_test.gd",
+      "success": true,
+      "initial_success": true
+    },
+    {
+      "test": "interruption_test.gd",
+      "success": true,
+      "initial_success": true
+    },
+    {
+      "test": "interview_call_test.gd",
+      "success": true,
+      "initial_success": true
+    },
+    {
+      "test": "interview_content_test.gd",
+      "success": true,
+      "initial_success": true
+    },
+    {
+      "test": "interview_performance_test.gd",
+      "success": true,
+      "initial_success": true
+    },
+    {
+      "test": "interview_test.gd",
+      "success": true,
+      "initial_success": true
+    },
+    {
+      "test": "inventory_test.gd",
+      "success": true,
+      "initial_success": true
+    },
+    {
+      "test": "locomotion_blend_test.gd",
+      "success": true,
+      "initial_success": true
+    },
+    {
+      "test": "locomotion_test.gd",
+      "success": true,
+      "initial_success": true
+    },
+    {
+      "test": "mouse_capture_test.gd",
+      "success": true,
+      "initial_success": true
+    },
+    {
+      "test": "negotiation_follow_test.gd",
+      "success": true,
+      "initial_success": true
+    },
+    {
+      "test": "nonlethal_care_test.gd",
+      "success": true,
+      "initial_success": true
+    },
+    {
+      "test": "npc_feedback_test.gd",
+      "success": true,
+      "initial_success": true,
+      "rechecked": true
+    },
+    {
+      "test": "npc_lifecycle_test.gd",
+      "success": true,
+      "initial_success": true
+    },
+    {
+      "test": "office_life_test.gd",
+      "success": true,
+      "initial_success": true
+    },
+    {
+      "test": "onboarding_test.gd",
+      "success": true,
+      "initial_success": true
+    },
+    {
+      "test": "page_controls_test.gd",
+      "success": true,
+      "initial_success": true
+    },
+    {
+      "test": "panels_test.gd",
+      "success": true,
+      "initial_success": true
+    },
+    {
+      "test": "payroll_test.gd",
+      "success": true,
+      "initial_success": true
+    },
+    {
+      "test": "presentation_test.gd",
+      "success": true,
+      "initial_success": true
+    },
+    {
+      "test": "promises_test.gd",
+      "success": true,
+      "initial_success": true
+    },
+    {
+      "test": "props_expansion_test.gd",
+      "success": true,
+      "initial_success": true
+    },
+    {
+      "test": "recruitment_test.gd",
+      "success": true,
+      "initial_success": true
+    },
+    {
+      "test": "relationships_test.gd",
+      "success": true,
+      "initial_success": true
+    },
+    {
+      "test": "rooms_test.gd",
+      "success": true,
+      "initial_success": true
+    },
+    {
+      "test": "save_test.gd",
+      "success": true,
+      "initial_success": true,
+      "rechecked": true
+    },
+    {
+      "test": "schedule_test.gd",
+      "success": true,
+      "initial_success": true
+    },
+    {
+      "test": "seating_test.gd",
+      "success": true,
+      "initial_success": true
+    },
+    {
+      "test": "social_test.gd",
+      "success": true,
+      "initial_success": true
+    },
+    {
+      "test": "staffing_test.gd",
+      "success": true,
+      "initial_success": true
+    },
+    {
+      "test": "version_import_test.gd",
+      "success": true,
+      "initial_success": true
+    },
+    {
+      "test": "visual_test.gd",
+      "success": true,
+      "initial_success": true
+    },
+    {
+      "test": "work_handover_save_test.gd",
+      "success": true,
+      "initial_success": true
+    },
+    {
+      "test": "work_handover_test.gd",
+      "success": true,
+      "initial_success": true
+    },
+    {
+      "test": "work_projects_test.gd",
+      "success": true,
+      "initial_success": true
+    },
+    {
+      "test": "work_scene_test.gd",
+      "success": true,
+      "initial_success": true
+    },
+    {
+      "test": "world_test.gd",
+      "success": true,
+      "initial_success": true
+    }
+  ]
+}

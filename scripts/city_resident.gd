@@ -20,6 +20,8 @@ var phase := -1
 var journey := 0
 var visits: Array[String]=[]
 var hp := 100
+var hit_stun := 0.0
+var hit_push := Vector3.ZERO
 var down := 0.0
 var fear := 0.0
 var hits := 0
@@ -104,6 +106,7 @@ func _physics_process(delta: float) -> void:
 		game.response.sync_person(self)
 		return
 	if game.passengers and game.passengers.attend(self,delta): return
+	hit_stun=maxf(0,hit_stun-delta)
 	fear=maxf(0,fear-delta)
 	down=maxf(0,down-delta)
 	if game.city_life: game.city_life.redirect(self)
@@ -132,6 +135,7 @@ func _physics_process(delta: float) -> void:
 				plan(population.destination(self))
 		if state in ["walking","waiting"]: walk(delta)
 		else: velocity=Vector3.ZERO
+	if hit_stun>0 and down<=0: velocity=hit_push*hit_stun/.4
 	var falling := state in ["fallen","dead"]
 	visual.rotation.z=move_toward(visual.rotation.z,PI/2 if falling else 0,delta*7)
 	var seated: bool=game.commons!=null and game.commons.sitting(self)
@@ -155,7 +159,7 @@ func _physics_process(delta: float) -> void:
 			visual.rotation.y=lerp_angle(visual.rotation.y,atan2(-direction.x,-direction.z),1-exp(-delta*8))
 	var reading: bool=game.commons!=null and game.commons.reading(self)
 	visual.scene_action="read" if reading else game.city_life.performance.action(self) if game.city_life else ""
-	visual.pose(Vector2(velocity.x,velocity.z).length(),false,falling,seated,seated,false,state=="talking" or game.commons!=null and game.commons.telling(self))
+	visual.pose(Vector2(velocity.x,velocity.z).length(),false,falling,seated,seated,hit_stun>0,state=="talking" or game.commons!=null and game.commons.telling(self))
 	if not reading: pastime_book.hide()
 	visual.rotation.y=wrapf(visual.rotation.y,-PI,PI)
 	update_body()
@@ -252,9 +256,10 @@ func hit(direction: Vector3,strength: float,action: int,dangerous: bool=true) ->
 		if game.passengers.aboard(self): game.passengers.trips[stable_id].early_exit=true
 		else: game.passengers.cancel_wait(self)
 	last_hit=action
+	hit_stun=.4;hit_push=direction*2.0
 	hits+=1
 	apologized=false
-	hp=maxi(0 if dangerous else 1,hp-roundi(strength*24))
+	hp=maxi(1,hp-roundi(strength*24))
 	if hp<=1: down=12.0 if hp>0 else 0.0
 	if game.speaker==self: game.close_interaction()
 	if hp==0:
@@ -300,7 +305,7 @@ func valid(data: Variant,on_bus: bool=false) -> bool:
 	return (data.hp!=0 or data.state=="dead") and (data.state!="dead" or data.hp==0)
 
 func restore(data: Dictionary) -> void:
-	velocity=Vector3.ZERO
+	velocity=Vector3.ZERO;hit_stun=0;hit_push=Vector3.ZERO
 	vehicle_velocity=SaveGame.unvector(data.get("vehicle_velocity",[0,0,0]))
 	last_hit=-1
 	last_alarm=-1

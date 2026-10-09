@@ -37,6 +37,7 @@ func run() -> void:
 	game.interviews.sessions.a.answers=["确认具体产出和评价标准"]
 	var original: OfficeNPC=game.npc_for_role("a_hr")
 	original.hit(Vector3.FORWARD,5.0,game.next_action())
+	preload("res://tests/legacy_damage_fixture.gd").npc(game,original)
 	for npc in game.npcs: npc.hostile=0; npc.reaction=0
 	game.staffing.tick(30)
 	check(game.npc_for_role("a_hr")!=original,"面试岗位死亡后安排新人")

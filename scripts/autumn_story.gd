@@ -59,6 +59,7 @@ func add_point(id: String,title: String,at: Vector3,person: bool=false) -> void:
 
 func start_new() -> void:
 	data=blank("current")
+	points[0].restore({})
 	game.career.facts["autumn_story"]=true
 	game.player.position=CAMPUS_SPAWN
 	game.player.yaw=0; game.player.pitch=-.08
@@ -85,6 +86,8 @@ func open(point: AutumnStoryPoint) -> void:
 	game.speaker=point
 	if point.stable_id=="story_exit":
 		game.conversation={"text":"暑期实习的确认期限已经过去。你留在学校做项目。\n毕业学年，秋招开始。简历的实习经历一栏仍是空白。","choices":[["带上简历，进入秋招","story_autumn"],["回办公室再谈谈","story_pause"]]} if data.phase=="campus_exit" else {"text":"实习还没有得到允许。可以回去继续争辩，也可以结束这次谈话。","choices":[["不再争辩，离开办公室","story_leave"],["回去继续谈","story_pause"]]}
+	elif point.person and (point.down>0 or point.fear>0):
+		game.conversation={"text":"导师暂时昏迷，无法交谈。" if point.down>0 else "导师：退后。刚才的事我不会当作没发生。实习仍未获允许。","choices":[["离开，让对方休息","story_pause"]]}
 	elif data.phase=="campus_exit":
 		game.conversation={"text":"导师：实习的事已经说过了，不许去。下周照常汇报。","choices":[["结束谈话","story_pause"]]}
 	elif data.reply>=0:
