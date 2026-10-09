@@ -1,7 +1,7 @@
 class_name SaveGame
 extends RefCounted
 
-const VERSION := 29
+const VERSION := 30
 const BASE_NPCS := ["a_hr","a_lead","a_boss","a_friend","a_group","a_guard","b_hr","b_friend","b_boss","b_guard"]
 const LEGACY_PROPS := ["a_keyboard","a_cup","a_table","a_chair","a_printer","b_keyboard","b_cup","b_table","b_chair","b_printer"]
 const PATH := "user://neighborhood.json"
@@ -49,8 +49,8 @@ static func valid_vector(value: Variant) -> bool:
 
 static func valid(data: Variant, game: Node3D) -> bool:
 	if not data is Dictionary: return false
-	if (data.get("version")==28 or data.get("version")==VERSION) and (not AutumnStoryPoint.valid(data.get("mentor")) or not FreeChat.valid(data.get("free_chat"))): return false
-	if data.get("version")!=1 and data.get("version")!=2 and data.get("version")!=3 and data.get("version")!=4 and data.get("version")!=5 and data.get("version")!=6 and data.get("version")!=7 and data.get("version")!=8 and data.get("version")!=9 and data.get("version")!=10 and data.get("version")!=11 and data.get("version")!=12 and data.get("version")!=13 and data.get("version")!=14 and data.get("version")!=15 and data.get("version")!=16 and data.get("version")!=17 and data.get("version")!=18 and data.get("version")!=19 and data.get("version")!=20 and data.get("version")!=21 and data.get("version")!=22 and data.get("version")!=23 and data.get("version")!=24 and data.get("version")!=25 and data.get("version")!=26 and data.get("version")!=27 and data.get("version")!=28 and data.get("version")!=VERSION: return false
+	if (data.get("version") in [28,29,VERSION]) and (not AutumnStoryPoint.valid(data.get("mentor")) or not FreeChat.valid(data.get("free_chat"))): return false
+	if data.get("version")!=1 and data.get("version")!=2 and data.get("version")!=3 and data.get("version")!=4 and data.get("version")!=5 and data.get("version")!=6 and data.get("version")!=7 and data.get("version")!=8 and data.get("version")!=9 and data.get("version")!=10 and data.get("version")!=11 and data.get("version")!=12 and data.get("version")!=13 and data.get("version")!=14 and data.get("version")!=15 and data.get("version")!=16 and data.get("version")!=17 and data.get("version")!=18 and data.get("version")!=19 and data.get("version")!=20 and data.get("version")!=21 and data.get("version")!=22 and data.get("version")!=23 and data.get("version")!=24 and data.get("version")!=25 and data.get("version")!=26 and data.get("version")!=27 and data.get("version")!=28 and data.get("version")!=29 and data.get("version")!=VERSION: return false
 	for field in ["career","payroll","props","npcs","player"]:
 		if not data.get(field) is Dictionary: return false
 	for field in CAREER_FIELDS:
@@ -199,6 +199,8 @@ static func valid(data: Variant, game: Node3D) -> bool:
 			if data.autumn_story.phase in ["late_autumn","ending"] and not c.facts.get("internship_certificate",false): return false
 	if data.version>=26 and (data.version>=29 or data.autumn_story.has("placement")):
 		if not InternshipArc.valid(data.autumn_story.get("placement"),data.autumn_story,c,int(p.minute),data.recruitment.promises): return false
+	if data.version>=26 and (data.version>=30 or data.autumn_story.has("response")):
+		if not DepartureResponse.valid(data.autumn_story.get("response"),data): return false
 	var occupied := {}
 	for id in data.npcs:
 		var entry: Dictionary=data.npcs[id]

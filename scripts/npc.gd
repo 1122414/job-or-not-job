@@ -183,6 +183,8 @@ func _physics_process(delta: float) -> void:
 		var meeting: Variant=game.interviews.host_target(self)
 		if meeting!=null: target=meeting
 		if game.handover.owns(self) and game.speaker!=self: target=game.handover.point()
+		var review_target: Variant=game.story.response.npc_target(self)
+		if review_target!=null: target=review_target
 		if hostile > 0 and game.player.protection <= 0 and distance < 9 and game.can_see(self, game.player):
 			target = game.player.global_position
 			if distance < 1.6 and attack_cooldown == 0:
@@ -225,7 +227,7 @@ func _physics_process(delta: float) -> void:
 		velocity.z=hit_push.z*hit_stun/0.32
 	var interview_seated: bool=game.interviews.host_seated(self)
 	var interview_calling: bool=game.interviews.host_calling(self)
-	seated=interview_seated or not dead and role not in ["guard","hr"] and down<=0 and hostile<=0 and reaction<=0 and block_time<=0 and hit_stun<=0 and visit_wait<=0 and game.speaker!=self and game.office.visit_target(self)==null and game.social.npc_target(self)==null and game.onboarding.npc_target(self)==null and Vector2(position.x-home.x,position.z-home.z).length()<0.4 and not game.payroll.after_work()
+	seated=interview_seated or not game.story.response.owns(self) and not dead and role not in ["guard","hr"] and down<=0 and hostile<=0 and reaction<=0 and block_time<=0 and hit_stun<=0 and visit_wait<=0 and game.speaker!=self and game.office.visit_target(self)==null and game.social.npc_target(self)==null and game.onboarding.npc_target(self)==null and Vector2(position.x-home.x,position.z-home.z).length()<0.4 and not game.payroll.after_work()
 	visual.position.y=move_toward(visual.position.y,0.27 if down>0 or dead else visual.seated_offset.y if seated else 0.0,delta*2.5)
 	label.position.y=1.65 if seated else 2.05
 	if block_time>0 and down<=0 and not dead:

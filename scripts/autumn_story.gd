@@ -12,11 +12,12 @@ var game: Node3D
 var data := blank()
 var search := AutumnSearch.new()
 var arc := InternshipArc.new()
+var response := DepartureResponse.new()
 var room: Node3D
 var points: Array[AutumnStoryPoint] = []
 
 static func blank(mode: String="legacy") -> Dictionary:
-	return {"mode":mode,"phase":"mentor" if mode=="current" else "legacy","beat":0,"reply":-1,"answers":[],"mentor_interrupted":false,"call_done":false,"call_reply":"","started_at":0,"review_at":0,"search":{},"placement":InternshipArc.blank()}
+	return {"mode":mode,"phase":"mentor" if mode=="current" else "legacy","beat":0,"reply":-1,"answers":[],"mentor_interrupted":false,"call_done":false,"call_reply":"","started_at":0,"review_at":0,"search":{},"placement":InternshipArc.blank(),"response":DepartureResponse.blank()}
 
 func active() -> bool:
 	return data.mode=="current"
@@ -27,6 +28,7 @@ func campus() -> bool:
 func build() -> void:
 	search.game=game
 	arc.game=game
+	response.game=game
 	room=Node3D.new()
 	room.name="GraduatePrologue"
 	game.add_child(room)
@@ -75,6 +77,8 @@ func sync_scene() -> void:
 
 func objective() -> Dictionary:
 	if not active(): return {}
+	var departure := response.objective()
+	if not departure.is_empty(): return departure
 	var milestone := arc.objective()
 	if not milestone.is_empty(): return milestone
 	if data.phase=="mentor": return {"title":"秋招前 · 与导师讨论暑期实习（可走开或结束谈话）","id":"story_mentor"}
@@ -113,7 +117,7 @@ func refuse(interrupted: bool=false) -> void:
 	sync_scene()
 
 func handle(action: String) -> bool:
-	if arc.handle(action): return true
+	if response.handle(action) or arc.handle(action): return true
 	if not action.begins_with("story_"): return false
 	if not campus(): return career_action(action)
 	var point: AutumnStoryPoint=game.speaker as AutumnStoryPoint
@@ -227,12 +231,17 @@ func decorate(target: Node3D,fallback: Dictionary) -> Dictionary:
 		fallback={"text":"方总：成果合格我承认，但最终没有正式名额。你可以找林岚拿实习证明。","choices":[["对照原来的名额承诺","story_verdict"]]}
 	if id=="a_hr" and data.phase=="departure":
 		fallback={"text":"林岚：实习证明已经准备好了。同一家公司换组仍算同一段实习，两份成果都写进去。正式录用这次办不了。","choices":[["核对并领取实习证明","story_certificate"],["保留原来有HC的接收通知","story_original_offer"]]}
-	return arc.decorate(target,fallback)
+	return response.decorate(target,arc.decorate(target,fallback))
 
 func show_verdict(target: Node3D) -> void:
+	var replaying: bool=data.phase!="internship"
 	if data.phase=="internship": data.phase="departure"
 	game.speaker=target
 	game.conversation={"text":"方总：演示交付和现场恢复都合格。但是最终没有正式HC，这次不能转正。实习今天结束。\n你拿出接收通知：有HC，交付达标后转正。", "choices":[["当时为什么明确说有名额","story_verdict_why"],["所以失败的不是我的考核","story_verdict_result"],["保留通知和成果，去领取实习证明","story_pause"]]}
+	if replaying:
+		var when: String=game.recruitment.stamp(int(arc.state().ended_at)) if arc.state().ended_at>0 else "此前答辩"
+		game.conversation.text="回看结论 · "+when+"\n"+game.conversation.text.replace("实习今天结束。","实习已在当次答辩后结束。")
+	game.conversation.choices.append(["要求书面结论、请人见证或离开","story_response_menu"])
 	game.queue_save()
 
 func career_action(action: String) -> bool:

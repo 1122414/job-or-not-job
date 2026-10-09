@@ -55,3 +55,5 @@
 2026-10-09 U01/U02：按用户纠正撤换独立聊天页，复用[输入归属](patterns/panel-input-ownership.md)与[异步对话边界](patterns/npc-free-chat-boundaries.md)，记录原对话内输入、GUI点击坐标及请求前超时配置；协议成功不能替代产品入口验收。
 
 2026-10-09 NEXT08：复用[存档扩充](patterns/save-content-expansion.md)，补充恢复借用调用者字典导致原快照被后续职业状态改写的实际反例。原序章3失败修复后与新定向检查通过一次；12周日历和岗位/承诺关联、两种评审入口、旧档不补记经历分别验证，完整门槛见阶段验收。
+
+2026-10-09 NEXT05-C1：新增[渲染装饰与相机间隙](patterns/camera-render-collision-clearance.md)，真实见证视角稳定遮挡、侧窗三角形命中及球形探针原位对照验证一次；两个分辨率、30/120Hz候选检查通过，正式接入待做。

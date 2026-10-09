@@ -1,0 +1,72 @@
+{
+  "status": "candidate only; production camera unchanged",
+  "baseline": {
+    "exit": 1,
+    "expected_failure": "witness window clearance",
+    "glass_triangle_hits": 9,
+    "frame_triangle_hits": 9,
+    "camera": [
+      -2.1595168,
+      1.823112,
+      -5.9437256
+    ],
+    "spring_length": 2.8517578
+  },
+  "candidate": {
+    "radius": 0.25,
+    "glass_and_frame_hits": 0,
+    "rendered_sizes": [
+      [
+        1280,
+        800
+      ],
+      [
+        1280,
+        720
+      ]
+    ],
+    "graphical_exits": [
+      0,
+      0
+    ],
+    "rotation_samples_per_run": 288,
+    "physics_hz": [
+      30,
+      120
+    ],
+    "walk_distance_m": [
+      4.5999527,
+      1.1500168
+    ],
+    "driving_camera_lengths_m": [
+      6.3999987,
+      6.3777647
+    ],
+    "bus_camera_lengths_m": [
+      2.1500006,
+      2.1784866
+    ]
+  },
+  "limits": [
+    "NPCs are relocated and physics-frozen for geometry fixture; pose is not acceptance evidence",
+    "Vehicle camera probe covers stationary boarding/driving view, not driving dynamics",
+    "Low/high physics checks are headless; no graphical performance inference",
+    "Full suite still running on unchanged production camera"
+  ],
+  "images": {
+    "candidate-800/corner--4.0--8.14999961853027.png": "299f2a240c6730a3570bc69889ae5a5df531c39e9b6ba7c83b3383541dcbbf1b",
+    "candidate-800/witness.png": "3652bba6b0e500230b7a4efe09bdd2db6fd8bce5056b039c87ee121b1e79b390",
+    "candidate-800/corner-0.0-28.0.png": "04f0252aaf24e35f2e84f41f81169ff665b84dc344768dd5ce71b34b186e3122",
+    "candidate-800/corner--3.0--15.5.png": "2357ed2666b406c412ce38080c926f2e956031694badb1e972dd9b2d7c8ac1d3",
+    "candidate-800/bus.png": "7c964bcc282da8d7fcab646943a22400e2fbef702404fd9aeebf46d19e573e5b",
+    "candidate-800/corner--25.0--15.5.png": "d1fa6c122115769db4bb43b7ce3bb8b288cd6047a7ebbe29280de67175d61f9c",
+    "candidate-800/driving.png": "e4cc0f227db04e7284dfa75d209cad8a2f659ad2c4c0aa924e30f1e9bd4e5c78",
+    "candidate-720/corner--4.0--8.14999961853027.png": "0191b31ea1d79e8496df0ea032e9f9f24e860e25b183f797757df5779a552d3a",
+    "candidate-720/witness.png": "c4590342afbc01251cd0be8ebce3af74f6877887345e5598437484891ed6335c",
+    "candidate-720/corner-0.0-28.0.png": "12df26c851293007d0cd567a576fce9408af645f17cea99e4fcf2d0c4f4bb1d1",
+    "candidate-720/corner--3.0--15.5.png": "1762a640c1c9f3e828d4326c62e6121d1389727cf7f52255ce9488fd06637080",
+    "candidate-720/bus.png": "cbe106efd3fd70354d91f28cc89e0f88e7ec33c2f4e8258fc44d3be1a64040ef",
+    "candidate-720/corner--25.0--15.5.png": "3d42e46119b26fc6a64a65619ccfeb97560f1dad6dfe91401ca4021d3e40f916",
+    "candidate-720/driving.png": "47638f6ab127a19b61079d6c955ea4a1a02beca238a193fddbe9a002c8fe8a90"
+  }
+}

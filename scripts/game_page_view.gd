@@ -164,6 +164,20 @@ func journal() -> void:
 	paragraph(game.objective_text())
 	if game.story.active(): paragraph(game.story.chapter_text(),ACCENT)
 	if game.story.arc.active(): paragraph(game.story.arc.summary())
+	var response: DepartureResponse=game.story.response
+	if response.status()!="": paragraph(response.status(),ACCENT)
+	var meeting: Dictionary=response.state().meeting
+	if not meeting.is_empty() and not meeting.phase in ["done","cancelled"]:
+		action("response-find","继续寻找见证者 / 会面现场",func(): response.focus("meeting");game.panels.show_page(""))
+		action("response-cancel","取消本次会面，保留已有记录",func(): response.cancel_meeting();game.panels.show_page("journal"))
+	if response.state().guide!="":
+		action("response-clear","取消这条导航",func(): response.clear_guide();game.queue_save();game.panels.show_page("journal"))
+	var places: Array=response.opportunities()
+	if not places.is_empty():
+		paragraph("接下来的时间 · 可以选择，也可以自己走走",ACCENT)
+		for place in places:
+			var id: String=place.id
+			action("response-place-"+id,place.text,func(): response.choose_place(id))
 	if game.career.employer=="":
 		paragraph("了解岗位后再决定。导航选择可以随时更改。",MUTED)
 		key_action("company-a","1  规程科技 · 演示项目岗位 / 三轮沟通",KEY_1)
@@ -296,6 +310,7 @@ func people() -> void:
 
 func promises() -> void:
 	if game.story.arc.active(): paragraph(game.story.arc.summary(),ACCENT)
+	if game.story.response.status()!="": paragraph(game.story.response.status())
 	var items: Array=game.recruitment.promises
 	if items.is_empty(): paragraph("尚无记录。只保存实际完成过的关键交流。",MUTED); return
 	game.promises.page=clampi(game.promises.page,0,items.size()-1)
@@ -321,6 +336,7 @@ func city_page() -> void:
 	paragraph(game.city_life.status_text())
 	paragraph(game.response.status_text(),MUTED)
 	action("city-home","回家 · 东里 101 · %dm" % game.player.position.distance_to(game.home.entrance.position),func():
+		game.story.response.clear_guide()
 		game.home.guiding=true
 		game.city_life.walk.guiding=false
 		game.city_life.guide=""
@@ -329,6 +345,7 @@ func city_page() -> void:
 		game.queue_save()
 		game.panels.show_page(""))
 	action("city-bookshop","前往社区书屋 · 自由阅览与手绘图册分享",func():
+		game.story.response.clear_guide()
 		game.home.guiding=false
 		game.city_life.walk.guiding=false
 		game.city_life.guide="notice"
@@ -338,6 +355,7 @@ func city_page() -> void:
 		game.panels.show_page(""))
 	if game.city_life.result!="":
 		action("city-walk","旧站到海边 · "+("找到带路人" if game.city_life.walk.stage in [1,2,3] else "查看书屋走访记录"),func():
+			game.story.response.clear_guide()
 			game.home.guiding=false
 			if game.city_life.walk.stage==0:
 				game.city_life.guide="notice"
@@ -356,6 +374,7 @@ func city_page() -> void:
 		var id: String=stop.id
 		var distance: float=game.player.position.distance_to(stop.platform)
 		action("city-"+id,stop.title+" · %dm" % distance+(" · 已到访" if id in game.transit.visited else ""),func():
+			game.story.response.clear_guide()
 			game.home.guiding=false
 			game.city_life.walk.guiding=false
 			game.city_life.guide=""
@@ -366,6 +385,7 @@ func city_page() -> void:
 	for entry in CityDriving.PARKED:
 		var car: CityCar=game.driving.car_for(entry.id)
 		action("guide-"+entry.id,entry.title+" · %dm" % game.player.position.distance_to(car.position),func():
+			game.story.response.clear_guide()
 			game.home.guiding=false
 			game.city_life.walk.guiding=false
 			game.city_life.guide=""
@@ -374,6 +394,7 @@ func city_page() -> void:
 			game.queue_save()
 			game.panels.show_page(""))
 	action("city-clear","返回职业目标",func():
+		game.story.response.clear_guide()
 		game.home.guiding=false
 		game.city_life.walk.guiding=false
 		game.city_life.guide=""

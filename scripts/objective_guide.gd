@@ -64,6 +64,8 @@ static func current(game: Node3D) -> Dictionary:
 	return {"title":title,"id":id}
 
 static func target(game: Node3D) -> Node3D:
+	var response_target: Node3D=game.story.response.target()
+	if response_target: return response_target
 	var id: String=current(game).id
 	var actor: OfficeNPC=game.npc_for_role(id)
 	if actor: return actor

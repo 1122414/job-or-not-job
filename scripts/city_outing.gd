@@ -20,6 +20,7 @@ static func menu(social: SocialLife,npc: OfficeNPC) -> void:
 	game.conversation={"text":npc.title.split(" · ")[0]+"：下班了，一起去街区走走？你来选地方，走到一半也可以各忙各的。"+("书屋已经关门，我们去户外吧。" if not game.city_life.is_open() else ""),"choices":choices}
 
 static func focus(social: SocialLife) -> void:
+	social.game.story.response.clear_guide()
 	social.outing["guiding"]=true
 	social.game.home.guiding=false
 	social.game.city_life.guide=""

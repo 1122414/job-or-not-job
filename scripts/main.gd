@@ -218,6 +218,7 @@ func _process(delta: float) -> void:
 	office.tick(delta)
 	staffing.tick(delta)
 	care.tick(delta)
+	story.response.tick()
 	social.tick(delta)
 	handover.tick(delta)
 	onboarding.tick()
@@ -235,6 +236,7 @@ func advance_time(minutes: float, skipped: bool=true) -> void:
 	var seconds := maxf(0,minutes)/Payroll.GAME_MINUTES_PER_SECOND
 	payroll.tick(seconds,career.employer)
 	if skipped and payroll.minute!=before: care.tick(0)
+	story.response.tick()
 	social.time_changed(before,seconds if skipped else 0.0)
 	if meals: meals.time_changed()
 	recruitment.tick()
@@ -322,6 +324,7 @@ func nearest() -> Node3D:
 		if arriving: score-=1.0
 		# Keep a deliberately faced companion selectable when pedestrians pass by.
 		if node is OfficeNPC and node.available() and social.outing.get("person")==node.stable_id and social.outing.has("venue") and offset.normalized().dot(player.forward())>.9: score-=.75
+		if node is OfficeNPC and story.response.owns(node) and node.available() and offset.normalized().dot(player.forward())>.9: score-=.75
 		if node is CityCar and node.bus_mode: score=d*.6
 		if d<(4.5 if node is CityCar and node.bus_mode else 3.0) and score < distance and (arriving or (node is WorkStation and d<0.7) or offset.normalized().dot(player.forward()) > 0.2) and can_see(player,node):
 			best = node
@@ -543,6 +546,7 @@ func on_aggression(npc: OfficeNPC, action: int) -> void:
 	close_interaction()
 	var warning := career.aggression(npc.company,action,action_counter)
 	handover.suspend()
+	story.response.pause("现场发生冲突，会面暂缓；原成果和证言保留。")
 	queue_save()
 	if warning!="": say(warning)
 	for witness in npcs:
