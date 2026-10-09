@@ -1,6 +1,5 @@
 {
   "package": "20261009T113504140087Z-885ac516-7f9a5bca",
-  "source_full_120_same_runtime_input": true,
   "source_full_120_evidence": "../2026-10-09-friend-handover/full-suite.json",
   "package_headless_checks": 7,
   "independent_ending_restore": {
@@ -32,5 +31,7 @@
   "system_ime": false,
   "real_cloud_calls": 0,
   "normal_game_fps": false,
-  "listening_acceptance": false
+  "listening_acceptance": false,
+  "matches_final_friend_stage_runtime_input": true,
+  "source_full_suite_timing": "120 tests passed, but final historical-text edit occurred during that source run before friend/legacy-handover cases. Do not claim every source test ran on frozen final input. Current package route/friend/response tests executed on immutable PCK."
 }
