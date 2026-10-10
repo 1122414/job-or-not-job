@@ -1,0 +1,10 @@
+{
+  "build": "20261010T032349968183Z-1a676e5d-1f26afaf",
+  "source_sha256": "1f26afaf52a64fecc2de5081f7af5264b2f2400c17b7a1c56d5af49930d0d037",
+  "source_matches": true,
+  "pck_matches": true,
+  "engine_matches": true,
+  "zip_matches": true,
+  "zip_crc": null,
+  "codesign_exit": 0
+}

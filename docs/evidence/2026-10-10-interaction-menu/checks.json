@@ -1,0 +1,18 @@
+{
+  "baseline": {
+    "observed_failures": 2,
+    "cases": [
+      "desktop_autoload_processing_enabled",
+      "E_dialogue_replaced_by_pause"
+    ]
+  },
+  "after": {
+    "interaction_menu_test": "failures=0",
+    "source_regressions": 8,
+    "import_and_isolated_startup": true
+  },
+  "web_pointer_lock": "synthetic_state_samples_only_no_real_browser_or_OS_capture",
+  "full_suite": "not_rerun_this_stage",
+  "fix_commit": "02263fe",
+  "packaged_checks": "3_tests_plus_startup_all_passed"
+}

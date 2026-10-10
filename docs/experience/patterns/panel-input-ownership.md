@@ -22,3 +22,12 @@
 
 
 2026-10-09 NEXT05-L1/L2：内嵌输入高度跟随正文、选择与非空状态消息，不再固定预留空状态行。两分辨率图形检查还必须覆盖实际换行后的Button矩形及RichTextLabel，不能只比较预估字数。`tools/capture_inline_chat.gd`新增选择两两不相交、回复/选项/输入不相交及真实滚轮；本轮通过一次。`free_chat_test.gd`中文unicode事件通过只证明字符提交，不证明操作系统IME组合/候选窗；这两种证据必须分开。
+
+
+2026-10-10 INPUT01：E交谈后出现完整暂停菜单。实际Godot4.7.1探针确认桌面web=false但WebSupport.is_processing=true：_enter_tree内set_process(false)会在进入ready阶段时被脚本回调启用覆盖。网页autoload随后将HUD对话主动释放鼠标误当成浏览器意外失锁，show_page("pause")又清掉conversation。将set_process平台开关移至_ready，并在_process加平台防线；网页指针状态逻辑也排除现有对话/自由输入的主动释放。
+
+以往很多测试只root.add_child(game)，不设置SceneTree.current_scene；这个autoload因此直接return，无法观察该故障。`tests/interaction_menu_test.gd`先完成隔离场景初始化（persistence=false），再设current_scene并使用真实Viewport E事件，合成“上一帧曾捕获”的采样变量，不实际捕获桌面鼠标。旧版2断言失败，修复后通过一次，覆盖连续E、长按、菜单返回、自由输入、Esc及桌面回调防线。网页初始菜单/意外失锁/主动交谈/交谈结束仅用状态样本验证，不能视作真实浏览器指针锁体验。
+
+适用范围：带自动处理回调的节点在_enter_tree禁用处理，以及依赖current_scene的autoload与普通隔离测试不一致。先实测生命周期，不把所有E误触都归为按键冲突；本例无需修改E或Esc映射。
+
+INPUT01最终复验：02263fe通过八项相关回归及实际包E/页面/聊天恢复/启动检查；平台及生命周期机制源码和包均验证，真实浏览器人工锁定仍开放。

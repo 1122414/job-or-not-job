@@ -1,0 +1,62 @@
+[
+  {
+    "name": "import",
+    "exit": 0,
+    "success": true,
+    "log_sha256": "1ab8420d0097c6e46a426e5b6bd130cb5052f3d13ca02cd76d586f95d4312929"
+  },
+  {
+    "name": "startup",
+    "exit": 0,
+    "success": true,
+    "log_sha256": "1f4aefb7bdaa3aac5c3ea38b8d505eb0d072d02dfef33d1c42767bcd075bbb24"
+  },
+  {
+    "name": "interaction_menu_test",
+    "exit": 0,
+    "success": true,
+    "log_sha256": "6b47bff06cd0ff08a52fe14695fe6f7ec7bc3c36033b194a584fa0e7bb2b7baf"
+  },
+  {
+    "name": "panels_test",
+    "exit": 0,
+    "success": true,
+    "log_sha256": "0aaa8a855ece811441f12b549284c65ee030fe134fe7772aca96fe798f6aa2d3"
+  },
+  {
+    "name": "page_controls_test",
+    "exit": 0,
+    "success": true,
+    "log_sha256": "344313ad03dbf0141919810dfbd43a0e34889a9767371d0e4b59e5771109c1e1"
+  },
+  {
+    "name": "mouse_capture_test",
+    "exit": 0,
+    "success": true,
+    "log_sha256": "2c873323ddbc0e7ac49f2dfa6c941a8988c0476441cf8708fc8ee3b4b0731c96"
+  },
+  {
+    "name": "city_controls_test",
+    "exit": 0,
+    "success": true,
+    "log_sha256": "a946a7b91b93e4c729c044e9c1dc171cf100bd61ca214adf1ad418a416d1d9f1"
+  },
+  {
+    "name": "free_chat_test",
+    "exit": 0,
+    "success": true,
+    "log_sha256": "0799e53fc9b9ec92715b9897c4eb1c70240296729250b3870c03208685128387"
+  },
+  {
+    "name": "free_chat_context_test",
+    "exit": 0,
+    "success": true,
+    "log_sha256": "27a7a944bf073662625ca0e9586fd683399a149aef4609277ba41bfa418cf14b"
+  },
+  {
+    "name": "free_chat_recovery_test",
+    "exit": 0,
+    "success": true,
+    "log_sha256": "b0bc372f09d4babf7a277340a6cf58842d4ba6e5e57c50aba965ffe6d389dce4"
+  }
+]

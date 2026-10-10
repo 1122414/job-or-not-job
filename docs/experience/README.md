@@ -75,3 +75,5 @@
 2026-10-09统一候选包：复用[构建身份](patterns/build-evidence-identity.md)，同运行输入关联120项源码回归，实际包另执行七项与五次独立档恢复；五图四张字节一致，差异图保留并目视复核，未推定原因。
 
 2026-10-10 CHAT01—03：复用[异步自由对话边界](patterns/npc-free-chat-boundaries.md)，补充JSON历史协议、缺关系字段的台词保留、单次恢复及无正文诊断。旧版4断言失败，修复后定向HTTP通过一次；截图云端具体根因与真实成功率仍未确认。
+
+2026-10-10 INPUT01：复用[页面输入归属](patterns/panel-input-ownership.md)，确认WebSupport在_enter_tree禁用处理无效、桌面误跑网页失锁菜单，以及current_scene为空的旧夹具盲区。旧版2失败、修复后实际E事件定向通过；网页仅状态验证。

@@ -1,0 +1,26 @@
+[
+  {
+    "test": "interaction_menu_test.gd",
+    "source_sha256": "58c60e4faa5f51d7c21a3df28e9054bbb0a0dc7724b32d2d8503ca795dd28a54",
+    "external_sha256": "58c60e4faa5f51d7c21a3df28e9054bbb0a0dc7724b32d2d8503ca795dd28a54",
+    "adaptation": "test inheritance path only"
+  },
+  {
+    "test": "page_controls_test.gd",
+    "source_sha256": "18edb6ef979d28818895c321967d6fa603fcbe23b905a04886d2e3b8bd34c336",
+    "external_sha256": "18edb6ef979d28818895c321967d6fa603fcbe23b905a04886d2e3b8bd34c336",
+    "adaptation": "test inheritance path only"
+  },
+  {
+    "test": "free_chat_test.gd",
+    "source_sha256": "e0f0774525c886d8c5a0b272aaebb102ce4710d5b64423551489e78624921eec",
+    "external_sha256": "e0f0774525c886d8c5a0b272aaebb102ce4710d5b64423551489e78624921eec",
+    "adaptation": "test inheritance path only"
+  },
+  {
+    "test": "free_chat_recovery_test.gd",
+    "source_sha256": "d0e5d081bd4c08cc15e3ad66b6f4c7d6d50dc66b519bd43dcbb7cc4cde020137",
+    "external_sha256": "e33ce674592e9c5bddc4b694c77e0ea353ca580aee08b7e869676d0bfc0ee67e",
+    "adaptation": "test inheritance path only"
+  }
+]
