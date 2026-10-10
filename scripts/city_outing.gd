@@ -22,6 +22,7 @@ static func menu(social: SocialLife,npc: OfficeNPC) -> void:
 static func focus(social: SocialLife) -> void:
 	social.game.story.response.clear_guide()
 	social.outing["guiding"]=true
+	social.game.rental.clear_guide()
 	social.game.home.guiding=false
 	social.game.city_life.guide=""
 	social.game.city_life.walk.guiding=false

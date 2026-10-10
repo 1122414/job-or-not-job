@@ -187,7 +187,7 @@ func _draw() -> void:
 		draw_rect(Rect2(0,h*0.4,w,100),Color(0.15,0,0,0.75))
 		text_at(Vector2(w*0.38,h*0.4+60),"今天，先躺一下。",34,Color("e27670"))
 
-	if not game.conversation.is_empty():
+	if not game.conversation.is_empty() and not game.conversation.get("ai_interview",false):
 		var in_scene: bool=scene_dialogue
 		var panel_x: float=w*0.22
 		var panel_width: float=w*(0.64 if in_scene else 0.75)

@@ -49,6 +49,7 @@ func accept(firm: String) -> void:
 	if not applications[firm].phase in ["offered","deferred","declined"]: return
 	if reserved()!="": game.say("已有待报到安排或雇佣，先取消安排或办理离职。"); return
 	if game.career.conflict[firm]>=2 or game.career.former.has(firm): game.say("这家公司当前不再接受入职。"); return
+	game.rental.clear_guide()
 	game.career.facts.guide_company=firm
 	applications[firm].phase="accepted"
 	applications[firm].report_at=(game.payroll.minute/1440+1)*1440+540

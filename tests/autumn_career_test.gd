@@ -20,6 +20,9 @@ func run() -> void:
 	game.player.position=game.story.points[1].position+Vector3(0,0,-1.5)
 	game.story.open(game.story.points[1]); game.choose(0)
 	check(game.story.data.phase=="early_autumn","从序章出口进入当前主线")
+	if not await Driver.settle_housing(self,game):
+		check(false,"从序章出口实际走完三处租房并签约");finish(game);return
+	check(game.rental.state().paid==420000,"面试前已完成真实租房首月付款")
 	for step in [["b_hr","interview_b"],["rest","rest_next"]]:
 		if not await perform(game,step[0],step[1]): failures+=1; finish(game); return
 	check(game.recruitment.applications.b.phase=="rejected","先选B仍可面试，取消岗位不伪装录用")

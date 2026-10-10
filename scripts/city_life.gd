@@ -204,6 +204,7 @@ func answer(point: CityActivityPoint,action: String) -> void:
 	if action.begins_with("city_plan_") and point.stable_id=="notice":
 		method=action.trim_prefix("city_plan_")
 		checked=false; prepared=false; elapsed=0; joined=false; participants.clear()
+		game.rental.clear_guide()
 		guide=method
 		game.driving.guide_car=""
 		game.transit.waypoint=""

@@ -56,7 +56,11 @@ func _input(event: InputEvent) -> void:
 		back()
 		get_viewport().set_input_as_handled()
 		return
-	if page=="llm_settings": return
+	if page in ["llm_settings","interview_setup"]: return
+	if game.interview_ai.holding_input:
+		if event.is_action_pressed("ui_cancel"):
+			game.interview_ai.release_input();get_viewport().set_input_as_handled()
+		return
 	if page=="" and game.free_chat.holding_input:
 		if event.is_action_pressed("ui_cancel"):
 			game.free_chat.cancel();game.free_chat.release_input()
@@ -111,12 +115,14 @@ func activate_key(key: int) -> void:
 		if key==KEY_G: game.player.release(false)
 	if page=="journal" and key in [KEY_1,KEY_2] and game.career.employer=="":
 		game.story.response.clear_guide()
+		game.rental.clear_guide()
 		game.home.guiding=false
 		game.career.facts.erase("guide_visit")
 		game.career.facts["guide_company"]="a" if key==KEY_1 else "b"
 		game.queue_save()
 	if page=="journal":
 		if key>=KEY_3 and key<=KEY_9:
+			game.rental.clear_guide()
 			game.home.guiding=false
 			game.story.response.clear_guide()
 		if key==KEY_3: game.career.facts.erase("guide_visit")

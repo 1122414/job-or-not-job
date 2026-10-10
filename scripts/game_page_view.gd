@@ -1,7 +1,7 @@
 class_name GamePageView
 extends Control
 
-const TITLES := {"llm_settings":"自由对话 · 模型设置","search":"秋招后段 · 投递记录","city":"城区与出行","transit":"101 · 城区环线","journal":"今天的安排","messages":"招聘消息","computer":"工作台","people":"认识的人","promises":"谈过的约定","bag":"随身物品","history":"经历与成果","ledger":"工资到账明细","help":"操作说明"}
+const TITLES := {"rental":"找房与租约 · 先有地方住","interview_setup":"面试准备 · 简历与方式","llm_settings":"自由对话 · 模型设置","search":"秋招后段 · 投递记录","city":"城区与出行","transit":"101 · 城区环线","journal":"今天的安排","messages":"招聘消息","computer":"工作台","people":"认识的人","promises":"谈过的约定","bag":"随身物品","history":"经历与成果","ledger":"工资到账明细","help":"操作说明"}
 const ACCENT := Color("e6c785")
 const MUTED := Color("afc0c8")
 var game: Node3D
@@ -119,7 +119,7 @@ func key_action(id: String, value: String, key: int, disabled: bool=false) -> vo
 
 func refresh() -> void:
 	var page: String=game.panels.page
-	theme.default_font=preload("res://assets/fonts/NotoSansCJKsc-Regular.otf") if page in ["search","llm_settings"] else null
+	theme.default_font=preload("res://assets/fonts/NotoSansCJKsc-Regular.otf") if page in ["search","llm_settings","rental","interview_setup"] else null
 	visible=TITLES.has(page)
 	if not visible: displayed_page=""; return
 	var same_page := displayed_page==page
@@ -135,6 +135,8 @@ func refresh() -> void:
 	feedback.visible=page=="computer"
 	feedback.text=""
 	match page:
+		"rental": game.rental.page(self)
+		"interview_setup": game.interview_ai.setup_page(self)
 		"llm_settings": llm_settings_page()
 		"city": city_page()
 		"transit": transit_page()
@@ -159,6 +161,7 @@ func restore_focus(page: String,id: String,old_scroll: int) -> void:
 	else: back_button.grab_focus()
 
 func journal() -> void:
+	if game.rental.state().started: action("rental-open","找房对比 / 租金与押金记录",func(): game.panels.open_child("rental"))
 	action("city-map","城区与出行 · M",func(): game.panels.open_child("city"))
 	paragraph("当前目标",ACCENT)
 	paragraph(game.objective_text())
@@ -337,6 +340,7 @@ func city_page() -> void:
 	paragraph(game.response.status_text(),MUTED)
 	action("city-home","回家 · 东里 101 · %dm" % game.player.position.distance_to(game.home.entrance.position),func():
 		game.story.response.clear_guide()
+		game.rental.clear_guide()
 		game.home.guiding=true
 		game.city_life.walk.guiding=false
 		game.city_life.guide=""
@@ -346,6 +350,7 @@ func city_page() -> void:
 		game.panels.show_page(""))
 	action("city-bookshop","前往社区书屋 · 自由阅览与手绘图册分享",func():
 		game.story.response.clear_guide()
+		game.rental.clear_guide()
 		game.home.guiding=false
 		game.city_life.walk.guiding=false
 		game.city_life.guide="notice"
@@ -356,6 +361,7 @@ func city_page() -> void:
 	if game.city_life.result!="":
 		action("city-walk","旧站到海边 · "+("找到带路人" if game.city_life.walk.stage in [1,2,3] else "查看书屋走访记录"),func():
 			game.story.response.clear_guide()
+			game.rental.clear_guide()
 			game.home.guiding=false
 			if game.city_life.walk.stage==0:
 				game.city_life.guide="notice"
@@ -375,6 +381,7 @@ func city_page() -> void:
 		var distance: float=game.player.position.distance_to(stop.platform)
 		action("city-"+id,stop.title+" · %dm" % distance+(" · 已到访" if id in game.transit.visited else ""),func():
 			game.story.response.clear_guide()
+			game.rental.clear_guide()
 			game.home.guiding=false
 			game.city_life.walk.guiding=false
 			game.city_life.guide=""
@@ -386,6 +393,7 @@ func city_page() -> void:
 		var car: CityCar=game.driving.car_for(entry.id)
 		action("guide-"+entry.id,entry.title+" · %dm" % game.player.position.distance_to(car.position),func():
 			game.story.response.clear_guide()
+			game.rental.clear_guide()
 			game.home.guiding=false
 			game.city_life.walk.guiding=false
 			game.city_life.guide=""
@@ -395,6 +403,7 @@ func city_page() -> void:
 			game.panels.show_page(""))
 	action("city-clear","返回职业目标",func():
 		game.story.response.clear_guide()
+		game.rental.clear_guide()
 		game.home.guiding=false
 		game.city_life.walk.guiding=false
 		game.city_life.guide=""

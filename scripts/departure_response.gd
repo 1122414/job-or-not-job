@@ -79,6 +79,7 @@ func clear_guide() -> void:
 	state().guide=""
 
 func focus(id: String) -> void:
+	game.rental.clear_guide()
 	game.home.guiding=false;game.city_life.guide="";game.city_life.walk.guiding=false
 	game.driving.guide_car="";game.transit.waypoint=""
 	if game.social.outing.has("guiding"): game.social.outing.guiding=false

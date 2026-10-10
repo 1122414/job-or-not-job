@@ -86,3 +86,5 @@
 2026-10-10 NEXT07最新包复测：复用[构建证据](patterns/build-evidence-identity.md)及[后台窗口](patterns/background-window-state.md)，新旧包各3600样本/守卫通过；同一旧包跨日也变慢，记录归因边界，不据差值盲改画质。正常FPS/目标设备仍开放。
 
 2026-10-10 FB10-01/05/06：复用[乘客恢复](patterns/vehicle-passenger-restoration.md)及[身体支撑](patterns/body-support.md)，记录零转角重叠查询阻止反向脱离、司机独立类型遗漏、临时碰撞例外生命周期及导师朝向支撑反例。阶段证据见本轮六项修复验收。
+
+2026-10-10 FB10-02/03：复用[导航终点](patterns/navigation-endpoints.md)和[暂停页面输入](patterns/panel-input-ownership.md)，记录不可达招租点与新AI面板暂停吞键的实测反例；真实步行及本地HTTP/字符事件通过。旧档与实际玩家倒退6.91米补入[载具恢复](patterns/vehicle-passenger-restoration.md)。系统IME与真实模型质量仍未验收。

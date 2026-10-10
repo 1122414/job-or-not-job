@@ -13,7 +13,9 @@ func active_firm() -> String:
 	return ""
 
 func pages(action: String) -> Array:
-	if game.story.active(): return AutumnInterviewContent.pages(action)
+	if game.story.active():
+		var firm := "b" if action=="interview_b" else "a"
+		return AutumnInterviewContent.pages(action,sessions.get(firm,{}).get("edition",3)==4)
 	var result: Array=InterviewContent.CORE[action].duplicate(true)
 	var firm := "b" if action=="interview_b" else "a"
 	var session: Dictionary=sessions.get(firm,{})
@@ -22,13 +24,17 @@ func pages(action: String) -> Array:
 	return result
 
 func schedule(action: String) -> void:
+	if game.rental.required():
+		game.rental.notice="先安顿住处，再约正式面试。两家公司仍然可以自由选择。"
+		game.panels.show_page("rental");return
 	var firm := "b" if action=="interview_b" else "a"
 	if game.career.conflict[firm]>=2:
 		game.say("公司处分仍在生效，当前不接受面试。")
 		return
 	if not sessions.has(firm) or sessions[firm].action!=action or sessions[firm].status=="completed":
-		sessions[firm]={"action":action,"step":0,"status":"scheduled","phase":"question","answers":[],"reply":0,"edition":3 if game.story.active() else 2,"call_stage":"approach","call_elapsed":0.0,"exit_remaining":0.0,"box_drop_done":false,"gesture_done_step":-1}
+		sessions[firm]={"action":action,"step":0,"status":"scheduled","phase":"question","answers":[],"reply":0,"edition":4 if game.story.active() else 2,"call_stage":"approach","call_elapsed":0.0,"exit_remaining":0.0,"box_drop_done":false,"gesture_done_step":-1}
 	else: sessions[firm].status="scheduled"
+	game.rental.clear_guide()
 	game.career.facts["guide_company"]=firm
 	game.close_interaction()
 	var seen: String="waiting_seen_"+action
@@ -63,7 +69,10 @@ func room_options(firm: String) -> Dictionary:
 	var host: OfficeNPC=game.npc_for_role(HOSTS[session.action])
 	if not host: return {"text":"岗位正在安排接替人员。原交流进度保留，稍后可继续。","choices":[]}
 	if not host_seated(host): return {"text":host.title+"正在接你进去。","choices":[]}
-	return {"text":host.title+"：请坐。","choices":[["坐下，开始或继续这轮交流","interview_seat_"+firm],["暂时不参加，保留进度","interview_leave"]]}
+	var choices: Array=[["坐下，开始或继续这轮交流","interview_seat_"+firm]]
+	if session.step==0 and session.answers.is_empty(): choices.append(["面试方式 · 导入简历 / AI问答","interview_prepare_"+firm])
+	choices.append(["暂时不参加，保留进度","interview_leave"])
+	return {"text":host.title+"：请坐。这轮会谈经历、具体案例、边界和岗位条件。","choices":choices}
 
 func raw_question(firm: String) -> Dictionary:
 	var session: Dictionary=sessions[firm]
@@ -77,6 +86,8 @@ func raw_question(firm: String) -> Dictionary:
 	return {"text":OfficeDialogue.voice(host,item[0]) if host else item[0],"choices":choices}
 
 func handle(action: String) -> bool:
+	if action.begins_with("interview_prepare_"):
+		game.interview_ai.prepare(action.trim_prefix("interview_prepare_"));return true
 	if action in ACTIONS:
 		schedule(action)
 		return true
@@ -173,6 +184,7 @@ func tick(delta: float=0.016) -> void:
 
 # The cursor belongs to a spoken segment, not to a UI panel. Reopening resumes it.
 func question(firm: String) -> Dictionary:
+	if sessions[firm].has("ai"): return game.interview_ai.scene(firm)
 	var raw := raw_question(firm)
 	var session: Dictionary=sessions[firm]
 	var key: String=session.action+"_"+str(session.step)+"_"+session.phase
@@ -184,7 +196,7 @@ func question(firm: String) -> Dictionary:
 	cursor.line=clampi(int(cursor.line),0,parts.size()-1)
 	var last: bool=cursor.line==parts.size()-1
 	var choices: Array=raw.choices if last and session.phase=="question" and session.step<pages(session.action).size() else []
-	return {"text":parts[cursor.line],"choices":choices,"scene":true,"hint":"数字键回应 · 起身可离开" if not choices.is_empty() else "E 继续 · 起身可离开","actor":HOSTS[session.action]}
+	return {"text":parts[cursor.line],"choices":choices,"scene":true,"hint":("第%d/%d题 · "%[mini(int(session.step)+1,pages(session.action).size()),pages(session.action).size()])+("数字键回应 · 起身可离开" if not choices.is_empty() else "E 继续 · 起身可离开"),"actor":HOSTS[session.action]}
 
 static func segments(value: String) -> Array[String]:
 	var result: Array[String]=[]
@@ -201,6 +213,7 @@ static func segments(value: String) -> Array[String]:
 func advance() -> bool:
 	var firm := active_firm()
 	if firm=="" or not game.conversation.get("scene",false): return false
+	if sessions[firm].has("ai"): return true
 	var session: Dictionary=sessions[firm]
 	var cursor: Dictionary=game.recruitment.scenes[firm]
 	var parts := segments(raw_question(firm).text)

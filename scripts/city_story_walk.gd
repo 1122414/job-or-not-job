@@ -129,6 +129,7 @@ func start(id: String) -> bool:
 
 func set_guide() -> void:
 	guiding=true
+	game.rental.clear_guide()
 	game.home.guiding=false
 	game.city_life.guide=""
 	game.driving.guide_car=""

@@ -3,8 +3,10 @@ extends RefCounted
 var game: Node3D
 var page := 0
 func heard(session: Dictionary,npc: OfficeNPC) -> void:
-	if not npc or int(session.step) not in [1,2]: return
-	if not ((session.action=="interview_hr" and session.step==1) or (session.action in ["interview_lead","interview_boss","interview_b"] and session.step==2)): return
+	if not npc: return
+	var promise_step := 1 if session.action=="interview_hr" else 2
+	if session.get("edition",3)==4: promise_step=3 if session.action=="interview_hr" else 5
+	if session.step!=promise_step: return
 	var key: String=npc.stable_id+"_"+session.action+"_"+str(session.step)
 	for item in game.recruitment.promises:
 		if item.key==key: return

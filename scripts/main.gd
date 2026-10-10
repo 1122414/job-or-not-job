@@ -33,6 +33,8 @@ var interviews := InterviewFlow.new()
 var career := Career.new()
 var free_chat := FreeChat.new()
 var story := AutumnStory.new()
+var rental := RentalSearch.new()
+var interview_ai := InterviewAI.new()
 var stations: Array[WorkStation] = []
 var restore_revision := 0
 var conversation: Dictionary = {}
@@ -126,7 +128,10 @@ func _ready() -> void:
 	add_child(free_chat)
 	story.game=self
 	story.build()
+	rental.game=self;add_child(rental)
+	interview_ai.game=self;add_child(interview_ai)
 	build_ui()
+	interview_ai.build_ui()
 	build_audio()
 	interview_audio=InterviewAudio.new()
 	add_child(interview_audio)
@@ -246,6 +251,7 @@ func advance_time(minutes: float, skipped: bool=true) -> void:
 	social.time_changed(before,seconds if skipped else 0.0)
 	if meals: meals.time_changed()
 	recruitment.tick()
+	rental.tick()
 	story.search.tick()
 	update_daylight()
 	if payroll.minute!=before: city_life.sync_scene()
@@ -278,6 +284,7 @@ func money_text() -> String:
 
 func objective_text() -> String:
 	if story.campus(): return story.objective().title
+	if rental.required(): return "秋招前 · 先找房：到场核实三处房源，J 打开租房对比"
 	if home and home.guiding: return "回家 · 东里 101（M 更改目的地）"
 	if CityOuting.target(social)!=null and city_life.guide=="" and not city_life.walk.guiding and driving.guide_car=="" and transit.waypoint=="": return CityOuting.status(social)
 	if city_life and city_life.walk.guiding: return city_life.walk.status_text()
@@ -308,6 +315,7 @@ func in_vehicle() -> bool:
 	return transit!=null and transit.riding or driving!=null and driving.in_vehicle()
 
 func navigation_target() -> Node3D:
+	if rental.target(): return rental.target()
 	if home and home.guiding: return home.entrance
 	if city_life and city_life.walk.guiding: return city_life.walk.target()
 	if city_life and city_life.guide!="": return city_life.point_for(city_life.guide)
@@ -317,7 +325,7 @@ func navigation_target() -> Node3D:
 	return companion if companion else ObjectiveGuide.target(self)
 
 func targets() -> Array:
-	return story.points.filter(func(point): return point.visible) + npcs + stations + props + (driving.cars+[transit.bus] if driving else []) + (population.residents if population else []) + (city_life.points if city_life else []) + (commons.benches.values() if commons else []) + (home.points if home else []) + (meals.points if meals else [])
+	return rental.points.filter(func(point): return point.visible) + story.points.filter(func(point): return point.visible) + npcs + stations + props + (driving.cars+[transit.bus] if driving else []) + (population.residents if population else []) + (city_life.points if city_life else []) + (commons.benches.values() if commons else []) + (home.points if home else []) + (meals.points if meals else [])
 
 func nearest() -> Node3D:
 	var best: Node3D
@@ -345,7 +353,7 @@ func nearest() -> Node3D:
 
 func can_see(from: Node3D, to: Node3D) -> bool:
 	var start := from.global_position + Vector3.UP*1.35
-	var end := to.global_position + (Vector3.UP*.6 if to is CityBench else Vector3.UP*1.2 if to is CharacterBody3D or to is WorkStation or to is CityActivityPoint or to is CityHomePoint or to is CityMealPoint or to is AutumnStoryPoint else Vector3.ZERO)
+	var end := to.global_position + (Vector3.UP*.6 if to is CityBench else Vector3.UP*1.2 if to is CharacterBody3D or to is WorkStation or to is CityActivityPoint or to is CityHomePoint or to is RentalPoint or to is CityMealPoint or to is AutumnStoryPoint else Vector3.ZERO)
 	var query := PhysicsRayQueryParameters3D.create(start,end)
 	if from is CollisionObject3D: query.exclude = [from.get_rid()]
 	if to is WorkStation and to.stable_id.begins_with("desk_"):
@@ -381,6 +389,8 @@ func interact(target_override: Node3D=null) -> void:
 	if target is CityMealPoint:
 		meals.open_point(target)
 		return
+	if target is RentalPoint:
+		rental.open(target);return
 	if target is CityHomePoint:
 		home.open_point(target)
 		return
@@ -445,6 +455,7 @@ func choose(index: int) -> void:
 	if index>=choices.size(): return
 	free_chat.close()
 	var action: String = choices[index][1]
+	if rental.handle(action): return
 	if story.handle(action): return
 	if speaker is CityMealPoint:
 		meals.answer(speaker,action)
@@ -535,6 +546,7 @@ func choose(index: int) -> void:
 			if station.stable_id=="backup": station.label.text="投影已恢复 · 成果已记录"
 
 func close_interaction() -> void:
+	interview_ai.close()
 	free_chat.close()
 	interviews.interrupt()
 	conversation.clear()

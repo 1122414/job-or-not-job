@@ -63,6 +63,7 @@ func add_point(id: String,title: String,at: Vector3,person: bool=false) -> void:
 
 func start_new() -> void:
 	data=blank("current")
+	data.rental=RentalSearch.blank(true)
 	data.placement=InternshipArc.blank(true)
 	game.career.facts["internship_extended"]=true
 	points[0].restore({})
@@ -74,6 +75,7 @@ func start_new() -> void:
 func sync_scene() -> void:
 	if room: room.visible=campus()
 	for point in points: point.visible=campus()
+	if game.rental.is_inside_tree(): game.rental.sync()
 
 func objective() -> Dictionary:
 	if not active(): return {}
@@ -130,7 +132,8 @@ func handle(action: String) -> bool:
 		game.close_interaction()
 		game.player.position=STREET_SPAWN; game.player.velocity=Vector3.ZERO
 		game.player.yaw=0; game.player.pitch=-.08
-		game.say("秋招前段 · 应届研究生。两家公司都可以先去了解，J查看安排。")
+		game.rental.begin()
+		game.say("秋招前段 · 先找房再面试。J 查看三处房源，亲自到场核实广告与押付条件。")
 		sync_scene(); game.queue_save(); return true
 	if data.phase!="mentor" or point.stable_id!="story_mentor": return true
 	if action.begins_with("story_answer_") and data.reply==-1:
@@ -164,6 +167,7 @@ static func valid(value: Variant) -> bool:
 		if not (number is int or number is float) or not is_finite(number) or number<0 or number!=int(number): return false
 	if not value.get("call_done",false) is bool or not value.get("call_reply","") is String: return false
 	if not AutumnSearch.valid(value.get("search",{})): return false
+	if value.has("rental") and not RentalSearch.valid(value.rental): return false
 	if value.phase=="ending":
 		for i in range(AutumnSearch.JOBS.size()):
 			var item: Dictionary=value.get("search",{}).get(AutumnSearch.JOBS[i].id,{})

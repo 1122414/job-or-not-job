@@ -68,6 +68,9 @@ func can_use(point: CityHomePoint) -> bool:
 
 func open_point(point: CityHomePoint) -> void:
 	if not can_use(point): return
+	if game.rental.required():
+		game.say("房东：可以先看房，签好租约再住进来。J 可查看房源对比与合同。")
+		return
 	if point.stable_id=="home_sofa":
 		use_sofa();return
 	game.speaker=point

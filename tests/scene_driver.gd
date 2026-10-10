@@ -56,7 +56,7 @@ static func complete_interview(tree: SceneTree,game: Node3D,action: String,exerc
 		push_error("面试入口未选中 "+action+" "+str(game.conversation))
 		return false
 	game.choose(0)
-	for step in range(5):
+	for step in range(game.interviews.pages(action).size()):
 		if game.interviews.sessions[firm].step>=game.interviews.pages(action).size(): break
 		for line in range(20):
 			if not game.conversation.choices.is_empty(): break
@@ -109,3 +109,18 @@ static func computer(game: Node3D) -> bool:
 	var ok: bool=s.preview!="" and s.preview!="error"
 	game.panels.back()
 	return ok
+
+static func settle_housing(tree: SceneTree,game: Node3D) -> bool:
+	if not game.rental.required(): return true
+	for point in game.rental.points:
+		print("RENTAL_WALK ",point.stable_id)
+		if not await walk(tree,game,point.position+Vector3(0,0,1.5)): return false
+		game.player.yaw=0;game.interact(point)
+		if game.speaker!=point: return false
+		game.choose(0)
+		if game.panels.page!="rental": return false
+		game.panels.show_page("")
+	game.panels.show_page("rental")
+	game.panels.view.buttons["lease-standard"].pressed.emit()
+	game.panels.show_page("")
+	return not game.rental.required() and game.rental.state().lease=="east_standard"
