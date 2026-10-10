@@ -7,6 +7,7 @@ var received := PackedByteArray()
 var requests: Array=[]
 var answer := {"reply":"刚才的事让我有些不安，我们慢慢说。","attitude":"guarded","affinity":1,"trust":1}
 var mode := "ok"
+var queued_responses: Array=[]
 func _initialize() -> void: call_deferred("run")
 func check(ok: bool,message: String) -> void:
 	if not ok: push_error(message);failures+=1
@@ -28,6 +29,7 @@ func serve() -> void:
 	if mode=="wait": return
 	var data := {"choices":[{"finish_reason":"stop","message":{"content":JSON.stringify(answer)}}]}
 	var content := "bad json" if mode=="bad" else JSON.stringify(data)
+	if not queued_responses.is_empty(): content=JSON.stringify(queued_responses.pop_front())
 	var status := "401 Unauthorized" if mode=="unauthorized" else "200 OK"
 	peer.put_data(("HTTP/1.1 "+status+"\r\nContent-Type: application/json\r\nContent-Length: "+str(content.to_utf8_buffer().size())+"\r\nConnection: close\r\n\r\n"+content).to_utf8_buffer())
 	peer=null

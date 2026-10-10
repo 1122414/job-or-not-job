@@ -22,6 +22,7 @@ var reply_text := ""
 var context := {}
 var holding_input := false
 var timeout_seconds := 25.0
+var repair_attempted := false
 
 func _ready() -> void:
 	process_mode=Node.PROCESS_MODE_ALWAYS
@@ -109,15 +110,20 @@ func send(value: String) -> bool:
 	if not valid_endpoint(endpoint) or not valid_model(model): notice="请先配置有效接口和模型。";return false
 	if endpoint.begins_with("https://") and api_key=="": notice="请在 Esc 菜单的模型设置中填写密钥。";return false
 	hold_input();cancel();pending=true;revision=game.restore_revision;sent_text=value;draft=value
+	repair_attempted=false
+	return start_request()
+
+func start_request() -> bool:
 	request=HTTPRequest.new();request.timeout=timeout_seconds;request.body_size_limit=65536;request.max_redirects=0;request.use_threads=false
 	add_child(request)
 	request.request_completed.connect(completed.bind(serial))
 	var headers := PackedStringArray(["Content-Type: application/json"])
 	if api_key!="": headers.append("Authorization: Bearer "+api_key)
-	var body := payload(value)
+	var body := payload(sent_text,repair_attempted)
 	var error := request.request(endpoint,headers,HTTPClient.METHOD_POST,JSON.stringify(body))
 	if error!=OK: cancel();notice="请求未能发出，请检查设置。可以返回固定选项。";return false
-	notice="对方正在回应……";refresh();return true
+	notice="回复未完整送达，正在重新获取（1/1）……" if repair_attempted else "对方正在回应……"
+	refresh();return true
 
 func scene_facts() -> Dictionary:
 	var facts := {"人物":TargetStatus.describe(game,actor),"身份":actor.title,"地点":game.location_name(),"当前时间":game.recruitment.stamp(game.payroll.minute),"当前对话":game.conversation.text}
@@ -138,39 +144,61 @@ func scene_facts() -> Dictionary:
 	elif actor is CityResident: facts["立场"]="普通街区居民，不掌握公司的招聘内部消息。"
 	return facts
 
-func payload(value: String) -> Dictionary:
+func payload(value: String,repair: bool=false) -> Dictionary:
 	var facts := scene_facts()
 	var messages := [{"role":"system","content":SYSTEM+"\n可信现场资料："+JSON.stringify(facts)}]
+	messages[0].content+="\n回答通常用1到180字，避免长篇独白。"
+	if repair: messages[0].content+="\n上次服务回复未通过格式检查。请重新回答当前问题，只输出完整JSON对象及四个指定字段，不加代码围栏或说明；reply控制在180字内。"
 	for pair in records.get(actor.stable_id,{}).get("history",[]):
 		messages.append({"role":"user","content":pair.user})
-		messages.append({"role":"assistant","content":pair.reply})
+		# Old saves retain dialogue only. Neutral metadata is an output-format example,
+		# not a replay of the relationship changes made by that historical turn.
+		messages.append({"role":"assistant","content":JSON.stringify({"reply":pair.reply,"attitude":"neutral","affinity":0,"trust":0})})
 	messages.append({"role":"user","content":value})
-	var body := {"model":model,"messages":messages,"stream":false,"max_tokens":700}
+	var body := {"model":model,"messages":messages,"stream":false,"max_tokens":2000 if repair else 1400}
 	if endpoint.begins_with("https://api.deepseek.com/"):
 		body.thinking={"type":"disabled"}
 		body.response_format={"type":"json_object"}
 	return body
 
 static func parse_reply(body: PackedByteArray) -> Dictionary:
-	if body.size()>65536: return {}
+	return inspect_reply(body).get("reply",{})
+
+static func inspect_reply(body: PackedByteArray) -> Dictionary:
+	if body.size()>65536: return {"error":"oversized"}
 	var parser := JSON.new()
-	if parser.parse(body.get_string_from_utf8())!=OK: return {}
+	if parser.parse(body.get_string_from_utf8())!=OK: return {"error":"format"}
 	var envelope: Variant=parser.data
-	if not envelope is Dictionary or not envelope.get("choices") is Array or envelope.choices.is_empty(): return {}
+	if not envelope is Dictionary or not envelope.get("choices") is Array or envelope.choices.is_empty(): return {"error":"format"}
 	var choice: Variant=envelope.choices[0]
-	if not choice is Dictionary or choice.get("finish_reason")!="stop" or not choice.get("message") is Dictionary: return {}
+	if not choice is Dictionary: return {"error":"format"}
+	if choice.get("finish_reason")=="length": return {"error":"length"}
+	if choice.get("finish_reason")=="content_filter": return {"error":"filtered"}
+	if choice.get("finish_reason")!="stop" or not choice.get("message") is Dictionary: return {"error":"format"}
 	var content: Variant=choice.message.get("content")
-	if not content is String: return {}
+	if content==null: return {"error":"empty"}
+	if not content is String: return {"error":"format"}
 	content=content.strip_edges()
-	if content.begins_with("```json") and content.ends_with("```"): content=content.trim_prefix("```json").trim_suffix("```").strip_edges()
-	if parser.parse(content)!=OK: return {}
+	if content.is_empty(): return {"error":"empty"}
+	if content.begins_with("```") and content.ends_with("```"):
+		var newline: int=content.find("\n")
+		if newline>=0 and content.left(newline).strip_edges().to_lower() in ["```","```json"]:
+			content=content.substr(newline+1).trim_suffix("```").strip_edges()
+		elif content.begins_with("```json"):
+			content=content.trim_prefix("```json").trim_suffix("```").strip_edges()
+	if parser.parse(content)!=OK: return {"error":"format"}
 	var parsed: Variant=parser.data
-	if not parsed is Dictionary or parsed.size()!=4: return {}
-	if not parsed.get("reply") is String or parsed.reply.strip_edges().is_empty() or parsed.reply.length()>500: return {}
-	if not parsed.get("attitude") in ["neutral","guarded","angry","warm"]: return {}
+	if not parsed is Dictionary: return {"error":"format"}
+	for key in parsed:
+		if key not in ["reply","attitude","affinity","trust"]: return {"error":"format"}
+	if not parsed.get("reply") is String or parsed.reply.strip_edges().is_empty() or parsed.reply.length()>500: return {"error":"format"}
+	if parsed.has("attitude") and not parsed.attitude in ["neutral","guarded","angry","warm"]: return {"error":"format"}
 	for key in ["affinity","trust"]:
-		if not CityPopulation.number(parsed.get(key),-2,2,true): return {}
-	return parsed
+		if parsed.has(key) and not CityPopulation.number(parsed[key],-2,2,true): return {"error":"format"}
+	var dialogue_only: bool=parsed.size()!=4
+	if dialogue_only:
+		parsed={"reply":parsed.reply,"attitude":"neutral","affinity":0,"trust":0}
+	return {"reply":parsed,"dialogue_only":dialogue_only}
 
 func completed(result: int,code: int,_headers: PackedStringArray,body: PackedByteArray,token: int) -> void:
 	if token!=serial or not pending: return
@@ -181,10 +209,18 @@ func completed(result: int,code: int,_headers: PackedStringArray,body: PackedByt
 	if result!=HTTPRequest.RESULT_SUCCESS or code!=200:
 		notice="回复超时或网络不可用，可以重试，也可继续选择下方选项。" if code==0 else "服务未完成回复（HTTP %d），请检查密钥、额度或模型设置。"%code
 		refresh();return
-	var reply := parse_reply(body)
-	if reply.is_empty(): notice="回复格式不完整，本轮未改变关系。可重试或继续选择下方选项。";refresh();return
-	apply_reply(reply,sent_text)
-	draft="";notice="对方已回应。";refresh()
+	var parsed := inspect_reply(body)
+	if not parsed.has("reply"):
+		var reason: String=parsed.error
+		# Only a category is logged: never credentials, prompts or response bodies.
+		print("FREE_CHAT_RESPONSE_INVALID reason=",reason," repair_attempted=",repair_attempted)
+		if not repair_attempted and reason in ["empty","length","format"]:
+			cancel();repair_attempted=true;pending=true;start_request();return
+		var detail: String={"empty":"服务返回了空回复","length":"服务回复被截断","filtered":"服务未提供这轮回答","oversized":"服务回复过大","format":"服务回复格式仍不完整"}.get(reason,"服务回复不可用")
+		notice=detail+"，本轮未改变关系。输入已保留，可重试或选择下方选项。";refresh();return
+	if parsed.dialogue_only: parsed.reply.attitude=records.get(actor.stable_id,{}).get("attitude","neutral")
+	apply_reply(parsed.reply,sent_text)
+	draft="";notice="对方已回应，本轮关系未调整。" if parsed.dialogue_only else "对方已回应。";refresh()
 
 func apply_reply(reply: Dictionary,user: String) -> void:
 	reply_text="你："+user+"\n"+TargetStatus.describe(game,actor).name+"："+reply.reply
