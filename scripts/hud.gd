@@ -109,6 +109,7 @@ func _draw() -> void:
 	if destination:
 		var point := center+(Vector2(destination.position.x,destination.position.z)-map_origin)*map_scale
 		draw_arc(point,6,0,TAU,24,Color("e4be70"),1.5)
+	CityMapView.draw_home(self,center+(Vector2(game.home.entrance.position.x,game.home.entrance.position.z)-map_origin)*map_scale,"家")
 	var marker := center+(Vector2(p.position.x,p.position.z)-map_origin)*map_scale
 	marker=center+(marker-center).limit_length(71)
 	var points := PackedVector2Array()

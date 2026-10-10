@@ -107,7 +107,11 @@ func restore_impact(data: Dictionary) -> void:
 
 
 func update_body_exceptions() -> void:
-	for person in get_parent().game.population.residents:
+	var people: Array=[]
+	people.append_array(get_parent().game.population.residents)
+	for car in get_parent().game.driving.cars+[get_parent().game.transit.bus]:
+		if is_instance_valid(car.displaced): people.append(car.displaced)
+	for person in people:
 		if not person.available(): add_collision_exception_with(person)
 		elif person in get_collision_exceptions(): remove_collision_exception_with(person)
 
@@ -179,13 +183,15 @@ func drive(delta: float, throttle: float, turn: float, handbrake: bool) -> void:
 	for i in range(substeps):
 		var old_rotation := rotation.y
 		var next_rotation := old_rotation+turn_angle/substeps
-		if rotation_clear(next_rotation): rotation.y=next_rotation
-		else: blocked=true; speed=0; break
+		# A blocked turn must not veto translation away from an existing contact.
+		if not is_zero_approx(turn_angle):
+			if rotation_clear(next_rotation): rotation.y=next_rotation
+			else: blocked=true
 		var motion := -basis.z*travel/substeps
 		var collision := move_and_collide(motion)
 		if collision:
 			var actor := collision.get_collider()
-			if actor is CityResident and (not traffic or taken) and absf(old_speed)>1.5:
+			if (actor is CityResident or actor is VehicleDriver) and (not traffic or taken) and absf(old_speed)>1.5:
 				actor.vehicle_hit(-basis.z*signf(old_speed),absf(old_speed))
 				add_collision_exception_with(actor)
 				speed*=.9
@@ -208,7 +214,7 @@ func rotation_clear(yaw: float) -> bool:
 	for object in get_collision_exceptions(): exceptions.append(object.get_rid())
 	query.exclude=exceptions
 	for hit in get_world_3d().direct_space_state.intersect_shape(query,16):
-		if hit.collider is CityResident and (not traffic or taken) and absf(speed)>1.5:
+		if (hit.collider is CityResident or hit.collider is VehicleDriver) and (not traffic or taken) and absf(speed)>1.5:
 			hit.collider.vehicle_hit(-basis.z*signf(speed),absf(speed))
 			add_collision_exception_with(hit.collider)
 		else: return false
@@ -221,6 +227,8 @@ func set_taken(value: bool,at: Vector3=Vector3.ZERO,retreat_time: float=3.0) -> 
 	taken=value
 	if driver: driver.visible=not taken
 	if displaced:
+		for car in get_parent().game.driving.cars+[get_parent().game.transit.bus]:
+			car.remove_collision_exception_with(displaced)
 		displaced.queue_free();displaced=null
 	if taken and driver:
 		displaced=VehicleDriver.new();displaced.vehicle=self

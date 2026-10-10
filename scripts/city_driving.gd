@@ -210,11 +210,11 @@ func detach() -> void:
 func snapshot() -> Dictionary:
 	var vehicles := {}
 	for car in cars+([game.transit.bus] if game.transit.bus.taken else []):
-		vehicles[car.stable_id]={"position":SaveGame.vector(car.position),"yaw":car.rotation.y,"speed":car.speed,"steering":car.steering,"distance":car.route_distance,"taken":car.taken,"driver_position":SaveGame.vector(car.displaced.position) if car.displaced else [],"driver_retreat":car.displaced.retreat if car.displaced else 0.0,"impact":car.impact_state()}
-	return {"schema":3,"active":active.stable_id if active else "","guide_car":guide_car,"vehicles":vehicles}
+		vehicles[car.stable_id]={"position":SaveGame.vector(car.position),"yaw":car.rotation.y,"speed":car.speed,"steering":car.steering,"distance":car.route_distance,"taken":car.taken,"driver_position":SaveGame.vector(car.displaced.position) if car.displaced else [],"driver_retreat":car.displaced.retreat if car.displaced else 0.0,"impact":car.impact_state(),"driver_state":car.displaced.snapshot() if car.displaced else {}}
+	return {"schema":4,"active":active.stable_id if active else "","guide_car":guide_car,"vehicles":vehicles}
 
 func valid(data: Variant) -> bool:
-	if not data is Dictionary or data.get("schema")!=1 and data.get("schema")!=2 and data.get("schema")!=3 or not data.get("vehicles") is Dictionary: return false
+	if not data is Dictionary or data.get("schema")!=1 and data.get("schema")!=2 and data.get("schema")!=3 and data.get("schema")!=4 or not data.get("vehicles") is Dictionary: return false
 	var has_bus: bool=data.vehicles.has("bus_101")
 	if has_bus and data.schema<2: return false
 	var ids: Array=[""]
@@ -224,6 +224,10 @@ func valid(data: Variant) -> bool:
 		var entry: Variant=data.vehicles.get(car.stable_id)
 		if not entry is Dictionary or not SaveGame.valid_vector(entry.get("position")): return false
 		if data.schema>=3 and not CityCar.valid_impact(entry.get("impact")): return false
+		if data.schema>=4:
+			if entry.get("taken",false):
+				if not VehicleDriver.valid(entry.get("driver_state")): return false
+			elif entry.get("driver_state")!={}: return false
 		var damaged: bool=data.schema>=3 and entry.get("impact",{}).get("crashed",false)
 		var taken: Variant=entry.get("taken",false)
 		if not taken is bool or car.bus_mode and not taken or taken and not car.traffic and not car.bus_mode: return false
@@ -275,6 +279,7 @@ func restore(data: Dictionary) -> void:
 			car.speed=entry.speed
 			car.steering=entry.steering
 			car.route_distance=entry.distance
+		if car.displaced: car.displaced.restore(entry.get("driver_state",{}) if data.get("schema",1)>=4 else {})
 		car.blocked=false
 		car.animate_wheels(0,false)
 	active=car_for(data.get("active",""))

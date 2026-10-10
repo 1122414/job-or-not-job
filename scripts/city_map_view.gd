@@ -29,6 +29,14 @@ func _draw() -> void:
 	draw_circle(point(game.response.crew.position),3,Color("83c9bc"))
 	draw_rect(Rect2(point(CityPopulation.POINTS.bookshop_entry)-Vector2(4,4),Vector2(8,8)),Color("eee1bf"))
 	draw_string(ThemeDB.fallback_font,point(CityPopulation.POINTS.bookshop_entry)+Vector2(-8,-12),"书屋",HORIZONTAL_ALIGNMENT_LEFT,-1,16,Color("eee1bf"))
-	draw_rect(Rect2(point(game.home.entrance.position)-Vector2(4,4),Vector2(8,8)),Color("e6c785"))
-	draw_string(ThemeDB.fallback_font,point(game.home.entrance.position)+Vector2(-8,-12),"住处",HORIZONTAL_ALIGNMENT_LEFT,-1,16,Color("e6c785"))
-	draw_string(ThemeDB.fallback_font,Vector2(12,24),"N ↑    蓝：你    橙：101    绿：可用车",HORIZONTAL_ALIGNMENT_LEFT,-1,16,Color.WHITE)
+	draw_home(self,point(game.home.entrance.position),"我的家")
+	draw_string(ThemeDB.fallback_font,Vector2(12,24),"N ↑    蓝：你    橙：101    绿：可用车    金色房屋：家",HORIZONTAL_ALIGNMENT_LEFT,-1,16,Color.WHITE)
+
+static func draw_home(canvas: CanvasItem,at: Vector2,label: String) -> void:
+	var color := Color("ffe0a0")
+	canvas.draw_rect(Rect2(at-Vector2(7,2),Vector2(14,11)),Color("25343c"))
+	canvas.draw_rect(Rect2(at-Vector2(6,1),Vector2(12,9)),color,false,2)
+	canvas.draw_polyline(PackedVector2Array([at+Vector2(-8,0),at+Vector2(0,-7),at+Vector2(8,0)]),color,2,true)
+	canvas.draw_line(at+Vector2(0,3),at+Vector2(0,8),color,3)
+	canvas.draw_string_outline(ThemeDB.fallback_font,at+Vector2(10,5),label,HORIZONTAL_ALIGNMENT_LEFT,-1,14,3,Color("172128"))
+	canvas.draw_string(ThemeDB.fallback_font,at+Vector2(10,5),label,HORIZONTAL_ALIGNMENT_LEFT,-1,14,color)

@@ -23,6 +23,7 @@ func _ready() -> void:
 		Shapes.collider(self,Vector3(.6,1.8,.5),Vector3(0,.9,0))
 		for child in get_children():
 			if child is CollisionShape3D: body=child
+		body.shape=CapsuleShape3D.new();body.shape.radius=.25;body.shape.height=1.8
 		visual=HumanVisual.new(); visual.outfit="office"; visual.personality="lead"
 		add_child(visual); visual.rotation.y=PI
 	else:
@@ -45,10 +46,15 @@ func _physics_process(delta: float) -> void:
 	move_and_slide();position.y=40
 	visual.rotation.z=move_toward(visual.rotation.z,PI/2 if down>0 else 0,delta*5)
 	visual.position.y=move_toward(visual.position.y,.28 if down>0 else 0,delta*3)
-	body.rotation.z=PI/2 if down>0 else 0
-	body.position=Vector3(-.65,.3,0) if down>0 else Vector3(0,.9,0)
+	sync_body()
 	visual.blocking=fear>0 and recoil<=0 and down<=0
 	visual.pose(0,false,down>0,false,false,recoil>0 and down<=0,story.game.speaker==self)
+
+func sync_body() -> void:
+	if not body or not visual: return
+	body.rotation=Vector3(0,visual.rotation.y,visual.rotation.z)
+	body.position=visual.position+Vector3.UP.rotated(Vector3.FORWARD,-visual.rotation.z).rotated(Vector3.UP,visual.rotation.y)*.75
+	if down<=0: body.position=Vector3(0,.9,0)
 
 func hit(direction: Vector3,strength: float,action: int,_dangerous: bool=false) -> void:
 	if not available() or not story.campus() or last_hit==action: return
@@ -63,13 +69,13 @@ func hit(direction: Vector3,strength: float,action: int,_dangerous: bool=false) 
 	story.game.queue_save()
 
 func snapshot() -> Dictionary:
-	return {"hp":hp,"down":down,"affinity":affinity,"trust":trust,"fear":fear,"position":SaveGame.vector(position)}
+	return {"hp":hp,"down":down,"affinity":affinity,"trust":trust,"fear":fear,"position":SaveGame.vector(position),"yaw":wrapf(visual.rotation.y,-PI,PI) if visual else 0}
 
 static func valid(data: Variant) -> bool:
 	if not data is Dictionary: return false
 	for limits in [["hp",1,100],["down",0,12],["affinity",-100,100],["trust",-100,100],["fear",0,100]]:
 		if not CityPopulation.number(data.get(limits[0]),limits[1],limits[2],limits[0]!="down"): return false
-	if not SaveGame.valid_vector(data.get("position")): return false
+	if not SaveGame.valid_vector(data.get("position")) or not CityPopulation.number(data.get("yaw",0),-PI,PI): return false
 	var p := SaveGame.unvector(data.position)
 	return absf(p.x)<6 and p.z> -5 and p.z<9 and absf(p.y-40)<.01 and (data.hp!=1 or data.down>0)
 
@@ -77,3 +83,8 @@ func restore(data: Dictionary) -> void:
 	hp=int(data.get("hp",100));down=float(data.get("down",0))
 	affinity=int(data.get("affinity",0));trust=int(data.get("trust",0));fear=int(data.get("fear",0))
 	position=SaveGame.unvector(data.get("position",[0,40,-2.2]));velocity=Vector3.ZERO;hit_push=Vector3.ZERO;recoil=0;last_hit=-1
+
+	if visual:
+		visual.rotation=Vector3(0,float(data.get("yaw",PI)),PI/2 if down>0 else 0)
+		visual.position=Vector3(0,.28 if down>0 else 0,0)
+		sync_body()

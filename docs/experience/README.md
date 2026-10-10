@@ -84,3 +84,5 @@
 2026-10-10后台核心路线：复用[构建证据](patterns/build-evidence-identity.md)，最新包九项及四次独立恢复通过；外部夹具遗漏创建目录迁移时，退出0/断言0失败仍被日志扫描拒收。纠正后全部重跑，游戏运行输入未变。
 
 2026-10-10 NEXT07最新包复测：复用[构建证据](patterns/build-evidence-identity.md)及[后台窗口](patterns/background-window-state.md)，新旧包各3600样本/守卫通过；同一旧包跨日也变慢，记录归因边界，不据差值盲改画质。正常FPS/目标设备仍开放。
+
+2026-10-10 FB10-01/05/06：复用[乘客恢复](patterns/vehicle-passenger-restoration.md)及[身体支撑](patterns/body-support.md)，记录零转角重叠查询阻止反向脱离、司机独立类型遗漏、临时碰撞例外生命周期及导师朝向支撑反例。阶段证据见本轮六项修复验收。
