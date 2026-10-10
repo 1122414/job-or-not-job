@@ -1,0 +1,20 @@
+[
+  {
+    "test": "free_chat_test.gd",
+    "exit_code": 0,
+    "success": true,
+    "log": "/Users/geminchen/My-Item/job-or-not-job/build/free-chat-package-check/free_chat_test.gd.log"
+  },
+  {
+    "test": "free_chat_context_test.gd",
+    "exit_code": 0,
+    "success": true,
+    "log": "/Users/geminchen/My-Item/job-or-not-job/build/free-chat-package-check/free_chat_context_test.gd.log"
+  },
+  {
+    "test": "free_chat_recovery_test.gd",
+    "exit_code": 0,
+    "success": true,
+    "log": "/Users/geminchen/My-Item/job-or-not-job/build/free-chat-package-check/free_chat_recovery_test.gd.log"
+  }
+]

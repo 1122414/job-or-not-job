@@ -1,0 +1,10 @@
+{
+  "source_matches": true,
+  "pck_matches": true,
+  "engine_matches": true,
+  "zip_matches": true,
+  "zip_crc": null,
+  "codesign_exit": 0,
+  "build": "20261010T025231647522Z-8a4dfac9-03d01c5a",
+  "source_sha256": "03d01c5a0003b75dd12cc435745201e454f3b72a696abf7bbae6ed777233d49f"
+}

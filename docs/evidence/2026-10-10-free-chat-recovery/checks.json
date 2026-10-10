@@ -1,0 +1,30 @@
+{
+  "baseline": {
+    "status": "observed",
+    "failures": 4,
+    "cases": [
+      "history_json",
+      "token_budget",
+      "missing_metadata",
+      "bare_code_fence"
+    ]
+  },
+  "targeted": {
+    "failures": 0,
+    "result": "FREE_CHAT_RECOVERY_TEST failures=0"
+  },
+  "cloud": "not_executed_no_test_process_credential",
+  "full_suite": {
+    "exit": 0,
+    "test_count": 121,
+    "errors": 0,
+    "runtime_unchanged": true
+  },
+  "packaged_smoke": {
+    "success": true,
+    "build": "20261010T025231647522Z-8a4dfac9-03d01c5a",
+    "working_directory": "/tmp",
+    "persistence": false
+  },
+  "fix_commit": "42a292b"
+}

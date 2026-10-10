@@ -1,0 +1,20 @@
+[
+  {
+    "test": "free_chat_test.gd",
+    "source_sha256": "e0f0774525c886d8c5a0b272aaebb102ce4710d5b64423551489e78624921eec",
+    "external_sha256": "e0f0774525c886d8c5a0b272aaebb102ce4710d5b64423551489e78624921eec",
+    "adaptation": "only test inheritance path; game loads from packaged res://"
+  },
+  {
+    "test": "free_chat_context_test.gd",
+    "source_sha256": "b0afe097890373120eaa5be5999b356ba6eb155a5834fe598336645b736d4dc5",
+    "external_sha256": "70ec7bb5e21ba05a1b6f3ca283d4ad298e326c4be64f86407270f6e15ebf2f9e",
+    "adaptation": "only test inheritance path; game loads from packaged res://"
+  },
+  {
+    "test": "free_chat_recovery_test.gd",
+    "source_sha256": "d0e5d081bd4c08cc15e3ad66b6f4c7d6d50dc66b519bd43dcbb7cc4cde020137",
+    "external_sha256": "b650d54553fdcc58abd525bf3fb50f9254aa23ce8efdf856736a8388541fab13",
+    "adaptation": "only test inheritance path; game loads from packaged res://"
+  }
+]
