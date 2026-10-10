@@ -1,0 +1,19 @@
+{
+  "runtime_hash": "7264974be7337b9e2a95b3d8552f7ec5f42b45245a51ed453ff51f11dba6104e",
+  "runtime_dirty": false,
+  "pck_sha256": "15a5e6d097f229c92cd0cb9423a788f4a48d2bb20a4b6e7f51b487e8486b6d47",
+  "before_after_equal": true,
+  "tool_sha256": "f1947e0ad9b8440f658a6b66d66bb0de87dd183030ac27a0bb1728cf3bdbc6c0",
+  "tool_matches_prior": true,
+  "exit": 0,
+  "errors": false,
+  "samples": 3600,
+  "all_draw_completions_one": true,
+  "window_guard_per_sample": true,
+  "seconds": 54.42,
+  "other_process_not_modified": true,
+  "workspace_commit_at_check": "553a9267a2e8ef5a26b6e5781ab0cf5ef3d3e8f0",
+  "packaged_source_commit": "42438f3ec18f75ca6fb11d24b614cc16269c6eac",
+  "build_id": "20261010T040004868826Z-42438f3e-7264974b",
+  "preexisting_godot_processes_in_initial_inventory": 1
+}

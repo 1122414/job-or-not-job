@@ -1,0 +1,19 @@
+[
+  "/Users/geminchen/My-Item/job-or-not-job/build/baselines/20261010T040004868826Z-42438f3e-7264974b/今天不上班-0.5.0.app/Contents/MacOS/TodayOff",
+  "--disable-render-loop",
+  "--audio-driver",
+  "Dummy",
+  "--fixed-fps",
+  "60",
+  "--script",
+  "/Users/geminchen/My-Item/job-or-not-job/tests/performance.gd",
+  "--log-file",
+  "/Users/geminchen/My-Item/job-or-not-job/docs/evidence/2026-10-10-performance/engine.log",
+  "--",
+  "--background",
+  "--frames=600",
+  "--runs=3",
+  "--warmup=60",
+  "--identity=/Users/geminchen/My-Item/job-or-not-job/build/baselines/20261010T040004868826Z-42438f3e-7264974b/build-manifest.json",
+  "--output=/Users/geminchen/My-Item/job-or-not-job/docs/evidence/2026-10-10-performance/profile.json"
+]

@@ -1,0 +1,10 @@
+Godot Engine v4.7.1.stable.official.a13da4feb - https://godotengine.org
+Metal 4.0 - Forward+ - Using Device #0: Apple - Apple M5 Pro (Apple9)
+
+PROFILE_SAMPLE run=1 mode=normal offscreen_step_p95_ms=11.28 not_game_fps=true
+PROFILE_SAMPLE run=1 mode=chaos offscreen_step_p95_ms=12.341 not_game_fps=true
+PROFILE_SAMPLE run=2 mode=normal offscreen_step_p95_ms=9.898 not_game_fps=true
+PROFILE_SAMPLE run=2 mode=chaos offscreen_step_p95_ms=10.831 not_game_fps=true
+PROFILE_SAMPLE run=3 mode=normal offscreen_step_p95_ms=9.672 not_game_fps=true
+PROFILE_SAMPLE run=3 mode=chaos offscreen_step_p95_ms=12.926 not_game_fps=true
+PROFILE_COMPLETE output=/Users/geminchen/My-Item/job-or-not-job/docs/evidence/2026-10-10-performance/profile.json persistence=false headless=false

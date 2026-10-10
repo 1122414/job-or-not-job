@@ -1,0 +1,306 @@
+{
+  "rows": [
+    {
+      "version": "previous-day",
+      "run": 1,
+      "mode": "normal",
+      "p95_ms": 8.855,
+      "p99_ms": 9.607,
+      "max_ms": 11.057,
+      "render_cpu_p95_ms": 0.950999975204468,
+      "physics_snapshot_p95_ms": 3.07,
+      "spike_indices_above_16_67_ms": [],
+      "warmup_steps": 244,
+      "warmup_elapsed_ms": 2003.808
+    },
+    {
+      "version": "previous-day",
+      "run": 1,
+      "mode": "chaos",
+      "p95_ms": 9.958,
+      "p99_ms": 15.823,
+      "max_ms": 25.076,
+      "render_cpu_p95_ms": 1.19099998474121,
+      "physics_snapshot_p95_ms": 8.87,
+      "spike_indices_above_16_67_ms": [
+        0
+      ],
+      "warmup_steps": 243,
+      "warmup_elapsed_ms": 2006.358
+    },
+    {
+      "version": "previous-day",
+      "run": 2,
+      "mode": "normal",
+      "p95_ms": 8.83,
+      "p99_ms": 9.22,
+      "max_ms": 10.92,
+      "render_cpu_p95_ms": 0.959999978542328,
+      "physics_snapshot_p95_ms": 2.879,
+      "spike_indices_above_16_67_ms": [],
+      "warmup_steps": 237,
+      "warmup_elapsed_ms": 2005.834
+    },
+    {
+      "version": "previous-day",
+      "run": 2,
+      "mode": "chaos",
+      "p95_ms": 10.515,
+      "p99_ms": 15.523,
+      "max_ms": 22.136,
+      "render_cpu_p95_ms": 1.2610000371933,
+      "physics_snapshot_p95_ms": 8.566,
+      "spike_indices_above_16_67_ms": [
+        0
+      ],
+      "warmup_steps": 238,
+      "warmup_elapsed_ms": 2005.43
+    },
+    {
+      "version": "previous-day",
+      "run": 3,
+      "mode": "normal",
+      "p95_ms": 8.794,
+      "p99_ms": 9.295,
+      "max_ms": 10.999,
+      "render_cpu_p95_ms": 0.986999988555908,
+      "physics_snapshot_p95_ms": 3.085,
+      "spike_indices_above_16_67_ms": [],
+      "warmup_steps": 235,
+      "warmup_elapsed_ms": 2006.524
+    },
+    {
+      "version": "previous-day",
+      "run": 3,
+      "mode": "chaos",
+      "p95_ms": 10.17,
+      "p99_ms": 15.81,
+      "max_ms": 22.617,
+      "render_cpu_p95_ms": 1.26600003242493,
+      "physics_snapshot_p95_ms": 8.821,
+      "spike_indices_above_16_67_ms": [
+        0
+      ],
+      "warmup_steps": 234,
+      "warmup_elapsed_ms": 2001.402
+    },
+    {
+      "version": "latest",
+      "run": 1,
+      "mode": "normal",
+      "p95_ms": 11.28,
+      "p99_ms": 13.748,
+      "max_ms": 20.756,
+      "render_cpu_p95_ms": 1.30400002002716,
+      "physics_snapshot_p95_ms": 3.623,
+      "spike_indices_above_16_67_ms": [
+        163,
+        173
+      ],
+      "warmup_steps": 234,
+      "warmup_elapsed_ms": 2005.938
+    },
+    {
+      "version": "latest",
+      "run": 1,
+      "mode": "chaos",
+      "p95_ms": 12.341,
+      "p99_ms": 17.423,
+      "max_ms": 27.693,
+      "render_cpu_p95_ms": 1.56700003147125,
+      "physics_snapshot_p95_ms": 9.891,
+      "spike_indices_above_16_67_ms": [
+        0,
+        30,
+        75,
+        120,
+        135,
+        165,
+        180,
+        210,
+        487
+      ],
+      "warmup_steps": 213,
+      "warmup_elapsed_ms": 2004.169
+    },
+    {
+      "version": "latest",
+      "run": 2,
+      "mode": "normal",
+      "p95_ms": 9.898,
+      "p99_ms": 10.931,
+      "max_ms": 12.356,
+      "render_cpu_p95_ms": 1.15799999237061,
+      "physics_snapshot_p95_ms": 3.508,
+      "spike_indices_above_16_67_ms": [],
+      "warmup_steps": 216,
+      "warmup_elapsed_ms": 2009.492
+    },
+    {
+      "version": "latest",
+      "run": 2,
+      "mode": "chaos",
+      "p95_ms": 10.831,
+      "p99_ms": 15.906,
+      "max_ms": 22.737,
+      "render_cpu_p95_ms": 1.33599996566772,
+      "physics_snapshot_p95_ms": 8.772,
+      "spike_indices_above_16_67_ms": [
+        0,
+        180
+      ],
+      "warmup_steps": 231,
+      "warmup_elapsed_ms": 2008.52
+    },
+    {
+      "version": "latest",
+      "run": 3,
+      "mode": "normal",
+      "p95_ms": 9.672,
+      "p99_ms": 10.945,
+      "max_ms": 12.421,
+      "render_cpu_p95_ms": 1.14800000190735,
+      "physics_snapshot_p95_ms": 3.596,
+      "spike_indices_above_16_67_ms": [],
+      "warmup_steps": 231,
+      "warmup_elapsed_ms": 2008.979
+    },
+    {
+      "version": "latest",
+      "run": 3,
+      "mode": "chaos",
+      "p95_ms": 12.926,
+      "p99_ms": 18.052,
+      "max_ms": 25.651,
+      "render_cpu_p95_ms": 1.56200003623962,
+      "physics_snapshot_p95_ms": 9.462,
+      "spike_indices_above_16_67_ms": [
+        0,
+        14,
+        15,
+        30,
+        75,
+        123,
+        135,
+        165,
+        180,
+        210,
+        349,
+        350,
+        357,
+        512
+      ],
+      "warmup_steps": 209,
+      "warmup_elapsed_ms": 2003.588
+    },
+    {
+      "version": "same-day-old",
+      "run": 1,
+      "mode": "normal",
+      "p95_ms": 10.805,
+      "p99_ms": 13.706,
+      "max_ms": 17.146,
+      "render_cpu_p95_ms": 1.26300001144409,
+      "physics_snapshot_p95_ms": 3.735,
+      "spike_indices_above_16_67_ms": [
+        17
+      ],
+      "warmup_steps": 231,
+      "warmup_elapsed_ms": 2004.33
+    },
+    {
+      "version": "same-day-old",
+      "run": 1,
+      "mode": "chaos",
+      "p95_ms": 11.162,
+      "p99_ms": 16.777,
+      "max_ms": 27.395,
+      "render_cpu_p95_ms": 1.39900004863739,
+      "physics_snapshot_p95_ms": 9.178,
+      "spike_indices_above_16_67_ms": [
+        0,
+        75,
+        135,
+        165,
+        180,
+        210,
+        396
+      ],
+      "warmup_steps": 232,
+      "warmup_elapsed_ms": 2009.05
+    },
+    {
+      "version": "same-day-old",
+      "run": 2,
+      "mode": "normal",
+      "p95_ms": 9.641,
+      "p99_ms": 10.355,
+      "max_ms": 12.939,
+      "render_cpu_p95_ms": 1.15100002288818,
+      "physics_snapshot_p95_ms": 3.042,
+      "spike_indices_above_16_67_ms": [],
+      "warmup_steps": 216,
+      "warmup_elapsed_ms": 2003.192
+    },
+    {
+      "version": "same-day-old",
+      "run": 2,
+      "mode": "chaos",
+      "p95_ms": 11.608,
+      "p99_ms": 17.37,
+      "max_ms": 23.597,
+      "render_cpu_p95_ms": 1.48699998855591,
+      "physics_snapshot_p95_ms": 11.132,
+      "spike_indices_above_16_67_ms": [
+        0,
+        30,
+        75,
+        123,
+        165,
+        180,
+        210,
+        400
+      ],
+      "warmup_steps": 228,
+      "warmup_elapsed_ms": 2005.685
+    },
+    {
+      "version": "same-day-old",
+      "run": 3,
+      "mode": "normal",
+      "p95_ms": 10.645,
+      "p99_ms": 11.806,
+      "max_ms": 12.523,
+      "render_cpu_p95_ms": 1.24800002574921,
+      "physics_snapshot_p95_ms": 4.529,
+      "spike_indices_above_16_67_ms": [],
+      "warmup_steps": 187,
+      "warmup_elapsed_ms": 2009.391
+    },
+    {
+      "version": "same-day-old",
+      "run": 3,
+      "mode": "chaos",
+      "p95_ms": 12.029,
+      "p99_ms": 17.999,
+      "max_ms": 24.114,
+      "render_cpu_p95_ms": 1.51800000667572,
+      "physics_snapshot_p95_ms": 10.418,
+      "spike_indices_above_16_67_ms": [
+        0,
+        30,
+        75,
+        123,
+        135,
+        165,
+        180,
+        210,
+        548
+      ],
+      "warmup_steps": 216,
+      "warmup_elapsed_ms": 2006.186
+    }
+  ],
+  "causal_attribution": "not_established",
+  "note": "Sequential same-day control, not randomized/interleaved; one pre-existing Godot process preserved; warmup steps vary. Fixed-scene offscreen debug cost is not normal FPS."
+}

@@ -82,3 +82,5 @@
 2026-10-10 MOT01—03：复用并补充[载具与乘客恢复](patterns/vehicle-passenger-restoration.md)、[时间表现](patterns/time-dependent-presentation.md)、[存档扩展](patterns/save-content-expansion.md)。记录路线位置覆盖冲量、展示时钟与一次结算分离、JSON子结构版本数字类型反例；专项验证一次，物理/动画适用边界见各条目。
 
 2026-10-10后台核心路线：复用[构建证据](patterns/build-evidence-identity.md)，最新包九项及四次独立恢复通过；外部夹具遗漏创建目录迁移时，退出0/断言0失败仍被日志扫描拒收。纠正后全部重跑，游戏运行输入未变。
+
+2026-10-10 NEXT07最新包复测：复用[构建证据](patterns/build-evidence-identity.md)及[后台窗口](patterns/background-window-state.md)，新旧包各3600样本/守卫通过；同一旧包跨日也变慢，记录归因边界，不据差值盲改画质。正常FPS/目标设备仍开放。
