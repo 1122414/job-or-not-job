@@ -88,3 +88,5 @@
 2026-10-10 FB10-01/05/06：复用[乘客恢复](patterns/vehicle-passenger-restoration.md)及[身体支撑](patterns/body-support.md)，记录零转角重叠查询阻止反向脱离、司机独立类型遗漏、临时碰撞例外生命周期及导师朝向支撑反例。阶段证据见本轮六项修复验收。
 
 2026-10-10 FB10-02/03：复用[导航终点](patterns/navigation-endpoints.md)和[暂停页面输入](patterns/panel-input-ownership.md)，记录不可达招租点与新AI面板暂停吞键的实测反例；真实步行及本地HTTP/字符事件通过。旧档与实际玩家倒退6.91米补入[载具恢复](patterns/vehicle-passenger-restoration.md)。系统IME与真实模型质量仍未验收。
+
+2026-10-10六项全量回归追加：复用[车辆恢复](patterns/vehicle-passenger-restoration.md)定位连续读档过期接触的永久停驶，原四路救助与真实质量冲量通过；复用[内容入口资格](patterns/content-entry-eligibility.md)修正朋友支线测试漏走新租房步骤，保留真实步行与事件门槛。两项反例及修正验证一次。

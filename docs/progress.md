@@ -1453,3 +1453,10 @@ NEXT07复测记录同步：Obsidian进度与每日计划已追加efa919a；2171�
 ## 2026-10-10 六项反馈追加：读档过期碰撞
 
 全套回归暴露住宅路口在连续恢复后误撞已移走公交。修复CityCar冲量入口的过期接触范围校验；新增真实扫掠断言旧版1失败，修复后vehicle_escape与原四路city_response_routes全部通过。city_traffic、feedback_vehicle、city_driving、vehicle_motion均exit0/成功标记/无ERROR，真实质量冲量/连锁碰撞保持。前一个5fe8462包不含此补丁，需新包复验。全套其余检查继续；朋友支线测试遗漏新增租房步骤已补真实看房入口，正在复验，不绕过产品资格检查。
+
+
+## 2026-10-10 六项反馈最终后台验收
+
+代码阶段05f4fbb、5fe8462、1046293完成；127项累计通过（首轮救助车流和朋友支线测试入口失败，修正后重跑，剩余继续），导入/启动通过。最终实际包 `20261010T082439733570Z-1046293e-0e051360` 使用包内引擎与PCK从项目外执行verify_macos、vehicle_escape、rental_interview、resume_interview、vehicle_motion、city_response_routes六项，全部exit0/成功标记/无ERROR。运行输入干净、摘要0e051360，PCK摘要dc348e76，与清单一致。
+
+新游戏离校后J找房，三处现场核实后签约；旧档保留原进度。面试室选择导入简历或固定流程；AI只决定本轮通过，不改后续HC故事。TXT/MD/DOCX可导入，PDF需粘贴正文。旧窗口未重启、玩家档未写入，需保存退出后打开新包。真实云端、系统IME、自然20分钟游玩仍未验收；不以工程门槛替代体验。详见[问题与测试表](2026-10-10_六项试玩反馈修复验收.md)及[证据摘要](evidence/2026-10-10-six-feedback/verification.json)。

@@ -43,6 +43,8 @@ static func walk(tree: SceneTree,game: Node3D,destination: Vector3) -> bool:
 
 static func complete_interview(tree: SceneTree,game: Node3D,action: String,exercise_resume: bool=false) -> bool:
 	var firm := "b" if action=="interview_b" else "a"
+	if not game.interviews.sessions.has(firm) or game.panels.page!="":
+		push_warning("interview not scheduled before walking: "+action+" page="+game.panels.page);return false
 	if not await walk(tree,game,OfficeRooms.INTERVIEW_SEATS[firm]): push_warning("walk blocked: "+action+" "+str(game.player.position)); return false
 	var host: OfficeNPC=game.npc_for_role(InterviewFlow.HOSTS[action])
 	for i in range(1200):

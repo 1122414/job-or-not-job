@@ -18,3 +18,6 @@
 
 
 2026-10-09 NEXT02接入验证：新入口不复用Career.b_event作为参与资格，而由FriendHandover保存原人物、分享材料、选择、约定和实际发送。WorkProjects的员工电脑权限保持；三个分支都由原阿乐实际到终端发送，没有把拒绝或陪同记成玩家接单。共享的是WorkHandover的终端落点/站稳/手掌接触，不是员工身份和成果字段。真实新故事B面试拒绝后到场入口、三分支、安全/邀请边界、当前JSON/旧v30与三种实际完成档独立恢复通过一次。支持scripts/friend_handover.gd、tests/friend_handover_test.gd及当日friend-handover证据；完整回归仍在运行，自然发现率和选择情绪差异未验证。
+
+
+2026-10-10 FB10-02/03：租房成为新故事面试前置后，旧`friend_handover_test`仍在离校后直接选择B面试。产品正确打开暂停的租房页，旧自动玩家却继续走去面试椅，报成walk blocked。诊断先核对实际会话/页面与面试是否已经预约，不能据“无法移动”就改碰撞或删除前置。测试补三处实际步行核价和签约，再走B面试拒绝与朋友事件；新路线最终failures=0。`scene_driver.complete_interview`新增入口状态断言，让未来资格失败直接报明页面，保留实际步行/人物接触/完成状态门槛。验证一次。

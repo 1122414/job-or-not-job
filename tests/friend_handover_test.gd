@@ -104,6 +104,8 @@ func run() -> void:
 	world.story.start_new();world.story.refuse()
 	world.player.position=world.story.points[1].position+Vector3(0,0,-1.5)
 	world.story.open(world.story.points[1]);world.choose(0)
+	if not await Driver.settle_housing(self,world):
+		check(false,"friend route settles housing through the new physical entry");finish(world);return
 	for step in [["b_hr","interview_b"],["rest","rest_next"],["b_friend","friend_open"]]:
 		if not await perform(world,step[0],step[1]): check(false,"new story real entry "+str(step));finish(world);return
 	check(world.recruitment.applications.b.phase=="rejected" and world.friend_handover.data.phase=="review","actual B rejection reaches optional friend event")
