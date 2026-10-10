@@ -1,0 +1,20 @@
+[
+  {
+    "test": "city_controls_test.gd",
+    "exit": 0,
+    "errors": false,
+    "result": "CITY_CONTROLS_TEST failures=0"
+  },
+  {
+    "test": "city_day_cycle_test.gd",
+    "exit": 0,
+    "errors": false,
+    "result": "CITY_DAY_CYCLE_TEST failures=0 rest_cases=7 legacy_versions=20 malformed_cases=5"
+  },
+  {
+    "test": "city_traffic_test.gd",
+    "exit": 0,
+    "errors": false,
+    "result": "CITY_TRAFFIC_TEST failures=0 travelled_m=[482.519987184684, 726.356713358293, 610.185722421411] overlaps=0"
+  }
+]

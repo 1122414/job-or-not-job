@@ -1,0 +1,3 @@
+Godot Engine v4.7.1.stable.official.a13da4feb - https://godotengine.org
+
+VEHICLE_MOTION_TEST failures=0 metrics={"chain_displacement":2.30359649658203,"displacement":[4.86056518554688,4.84425354003906,4.83274841308594],"mass_displacements":[4.71862030029297,0.327301025390625]}

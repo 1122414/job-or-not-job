@@ -77,3 +77,6 @@
 2026-10-10 CHAT01—03：复用[异步自由对话边界](patterns/npc-free-chat-boundaries.md)，补充JSON历史协议、缺关系字段的台词保留、单次恢复及无正文诊断。旧版4断言失败，修复后定向HTTP通过一次；截图云端具体根因与真实成功率仍未确认。
 
 2026-10-10 INPUT01：复用[页面输入归属](patterns/panel-input-ownership.md)，确认WebSupport在_enter_tree禁用处理无效、桌面误跑网页失锁菜单，以及current_scene为空的旧夹具盲区。旧版2失败、修复后实际E事件定向通过；网页仅状态验证。
+
+
+2026-10-10 MOT01—03：复用并补充[载具与乘客恢复](patterns/vehicle-passenger-restoration.md)、[时间表现](patterns/time-dependent-presentation.md)、[存档扩展](patterns/save-content-expansion.md)。记录路线位置覆盖冲量、展示时钟与一次结算分离、JSON子结构版本数字类型反例；专项验证一次，物理/动画适用边界见各条目。

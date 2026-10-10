@@ -1,0 +1,392 @@
+[
+  {
+    "test": "city_transit_test.gd",
+    "exit": 0,
+    "errors": false,
+    "seconds": 12.42
+  },
+  {
+    "test": "city_urban_test.gd",
+    "exit": 0,
+    "errors": false,
+    "seconds": 11.37
+  },
+  {
+    "test": "company_batches_test.gd",
+    "exit": 0,
+    "errors": false,
+    "seconds": 0.35
+  },
+  {
+    "test": "company_spaces_test.gd",
+    "exit": 0,
+    "errors": false,
+    "seconds": 3.61
+  },
+  {
+    "test": "consequence_test.gd",
+    "exit": 0,
+    "errors": false,
+    "seconds": 0.29
+  },
+  {
+    "test": "daily_routine_test.gd",
+    "exit": 0,
+    "errors": false,
+    "seconds": 48.57
+  },
+  {
+    "test": "departure_response_test.gd",
+    "exit": 0,
+    "errors": false,
+    "seconds": 6.97
+  },
+  {
+    "test": "destruction_test.gd",
+    "exit": 0,
+    "errors": false,
+    "seconds": 4.05
+  },
+  {
+    "test": "dialogue_scene_test.gd",
+    "exit": 0,
+    "errors": false,
+    "seconds": 3.64
+  },
+  {
+    "test": "environment_assets_test.gd",
+    "exit": 0,
+    "errors": false,
+    "seconds": 3.44
+  },
+  {
+    "test": "feedback_blockers_test.gd",
+    "exit": 0,
+    "errors": false,
+    "seconds": 4.43
+  },
+  {
+    "test": "feedback_combat_test.gd",
+    "exit": 0,
+    "errors": false,
+    "seconds": 4.22
+  },
+  {
+    "test": "feedback_rescue_test.gd",
+    "exit": 0,
+    "errors": false,
+    "seconds": 17.52
+  },
+  {
+    "test": "feedback_vehicle_test.gd",
+    "exit": 0,
+    "errors": false,
+    "seconds": 8.07
+  },
+  {
+    "test": "free_chat_context_test.gd",
+    "exit": 0,
+    "errors": false,
+    "seconds": 3.76
+  },
+  {
+    "test": "free_chat_recovery_test.gd",
+    "exit": 0,
+    "errors": false,
+    "seconds": 4.13
+  },
+  {
+    "test": "free_chat_test.gd",
+    "exit": 0,
+    "errors": false,
+    "seconds": 4.32
+  },
+  {
+    "test": "friend_handover_test.gd",
+    "exit": 0,
+    "errors": false,
+    "seconds": 55.12
+  },
+  {
+    "test": "full_route_test.gd",
+    "exit": 0,
+    "errors": false,
+    "seconds": 68.08
+  },
+  {
+    "test": "gait_test.gd",
+    "exit": 0,
+    "errors": false,
+    "seconds": 1.36
+  },
+  {
+    "test": "guidance_test.gd",
+    "exit": 0,
+    "errors": false,
+    "seconds": 3.46
+  },
+  {
+    "test": "hand_contact_test.gd",
+    "exit": 0,
+    "errors": false,
+    "seconds": 4.62
+  },
+  {
+    "test": "hit_reaction_test.gd",
+    "exit": 0,
+    "errors": false,
+    "seconds": 3.67
+  },
+  {
+    "test": "intake_test.gd",
+    "exit": 0,
+    "errors": false,
+    "seconds": 3.45
+  },
+  {
+    "test": "interaction_menu_test.gd",
+    "exit": 0,
+    "errors": false,
+    "seconds": 4.05
+  },
+  {
+    "test": "interaction_test.gd",
+    "exit": 0,
+    "errors": false,
+    "seconds": 16.78
+  },
+  {
+    "test": "internship_arc_test.gd",
+    "exit": 0,
+    "errors": false,
+    "seconds": 3.66
+  },
+  {
+    "test": "interruption_test.gd",
+    "exit": 0,
+    "errors": false,
+    "seconds": 3.87
+  },
+  {
+    "test": "interview_call_test.gd",
+    "exit": 0,
+    "errors": false,
+    "seconds": 7.53
+  },
+  {
+    "test": "interview_content_test.gd",
+    "exit": 0,
+    "errors": false,
+    "seconds": 3.34
+  },
+  {
+    "test": "interview_performance_test.gd",
+    "exit": 0,
+    "errors": false,
+    "seconds": 4.9
+  },
+  {
+    "test": "interview_test.gd",
+    "exit": 0,
+    "errors": false,
+    "seconds": 16.56
+  },
+  {
+    "test": "inventory_test.gd",
+    "exit": 0,
+    "errors": false,
+    "seconds": 4.12
+  },
+  {
+    "test": "locomotion_blend_test.gd",
+    "exit": 0,
+    "errors": false,
+    "seconds": 1.15
+  },
+  {
+    "test": "locomotion_test.gd",
+    "exit": 0,
+    "errors": false,
+    "seconds": 3.81
+  },
+  {
+    "test": "mouse_capture_test.gd",
+    "exit": 0,
+    "errors": false,
+    "seconds": 3.37
+  },
+  {
+    "test": "negotiation_follow_test.gd",
+    "exit": 0,
+    "errors": false,
+    "seconds": 4.06
+  },
+  {
+    "test": "nonlethal_care_test.gd",
+    "exit": 0,
+    "errors": false,
+    "seconds": 5.75
+  },
+  {
+    "test": "npc_feedback_test.gd",
+    "exit": 0,
+    "errors": false,
+    "seconds": 5.18
+  },
+  {
+    "test": "npc_lifecycle_test.gd",
+    "exit": 0,
+    "errors": false,
+    "seconds": 10.72
+  },
+  {
+    "test": "office_life_test.gd",
+    "exit": 0,
+    "errors": false,
+    "seconds": 10.82
+  },
+  {
+    "test": "onboarding_test.gd",
+    "exit": 0,
+    "errors": false,
+    "seconds": 9.05
+  },
+  {
+    "test": "page_controls_test.gd",
+    "exit": 0,
+    "errors": false,
+    "seconds": 4.06
+  },
+  {
+    "test": "panels_test.gd",
+    "exit": 0,
+    "errors": false,
+    "seconds": 3.46
+  },
+  {
+    "test": "payroll_test.gd",
+    "exit": 0,
+    "errors": false,
+    "seconds": 0.18
+  },
+  {
+    "test": "presentation_test.gd",
+    "exit": 0,
+    "errors": false,
+    "seconds": 4.36
+  },
+  {
+    "test": "promises_test.gd",
+    "exit": 0,
+    "errors": false,
+    "seconds": 3.66
+  },
+  {
+    "test": "props_expansion_test.gd",
+    "exit": 0,
+    "errors": false,
+    "seconds": 3.65
+  },
+  {
+    "test": "recruitment_test.gd",
+    "exit": 0,
+    "errors": false,
+    "seconds": 3.31
+  },
+  {
+    "test": "relationships_test.gd",
+    "exit": 0,
+    "errors": false,
+    "seconds": 3.46
+  },
+  {
+    "test": "rest_transition_test.gd",
+    "exit": 0,
+    "errors": false,
+    "seconds": 3.74
+  },
+  {
+    "test": "rooms_test.gd",
+    "exit": 0,
+    "errors": false,
+    "seconds": 10.31
+  },
+  {
+    "test": "save_test.gd",
+    "exit": 0,
+    "errors": false,
+    "seconds": 3.67
+  },
+  {
+    "test": "schedule_test.gd",
+    "exit": 0,
+    "errors": false,
+    "seconds": 8.12
+  },
+  {
+    "test": "seating_test.gd",
+    "exit": 0,
+    "errors": false,
+    "seconds": 3.88
+  },
+  {
+    "test": "social_test.gd",
+    "exit": 0,
+    "errors": false,
+    "seconds": 3.24
+  },
+  {
+    "test": "staffing_test.gd",
+    "exit": 0,
+    "errors": false,
+    "seconds": 3.36
+  },
+  {
+    "test": "vehicle_motion_test.gd",
+    "exit": 0,
+    "errors": false,
+    "seconds": 7.36
+  },
+  {
+    "test": "version_import_test.gd",
+    "exit": 0,
+    "errors": false,
+    "seconds": 3.39
+  },
+  {
+    "test": "visual_test.gd",
+    "exit": 0,
+    "errors": false,
+    "seconds": 0.88
+  },
+  {
+    "test": "work_handover_save_test.gd",
+    "exit": 0,
+    "errors": false,
+    "seconds": 14.0
+  },
+  {
+    "test": "work_handover_test.gd",
+    "exit": 0,
+    "errors": false,
+    "seconds": 64.12
+  },
+  {
+    "test": "work_projects_test.gd",
+    "exit": 0,
+    "errors": false,
+    "seconds": 3.56
+  },
+  {
+    "test": "work_scene_test.gd",
+    "exit": 0,
+    "errors": false,
+    "seconds": 4.13
+  },
+  {
+    "test": "world_test.gd",
+    "exit": 0,
+    "errors": false,
+    "seconds": 6.74
+  }
+]

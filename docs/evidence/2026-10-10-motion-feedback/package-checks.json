@@ -1,0 +1,49 @@
+{
+  "build": "/Users/geminchen/My-Item/job-or-not-job/build/baselines/20261010T040004868826Z-42438f3e-7264974b",
+  "runtime_hash": "7264974be7337b9e2a95b3d8552f7ec5f42b45245a51ed453ff51f11dba6104e",
+  "tests": [
+    {
+      "test": "tests/vehicle_motion_test.gd",
+      "exit": 0,
+      "errors": false,
+      "log": "package-vehicle_motion_test.log"
+    },
+    {
+      "test": "tests/rest_transition_test.gd",
+      "exit": 0,
+      "errors": false,
+      "log": "package-rest_transition_test.log"
+    },
+    {
+      "test": "tests/interaction_menu_test.gd",
+      "exit": 0,
+      "errors": false,
+      "log": "package-interaction_menu_test.log"
+    },
+    {
+      "test": "tools/verify_macos.gd",
+      "exit": 0,
+      "errors": false,
+      "log": "package-verify_macos.log"
+    },
+    {
+      "test": "package background continuous rendering",
+      "exit": 0,
+      "errors": false
+    }
+  ],
+  "checks": {
+    "source_matches": true,
+    "pck_matches": true,
+    "signature": true,
+    "zip_crc": true,
+    "signed_engine_hash": true,
+    "archive_hash": true
+  },
+  "implementation_commit": "9f5f7a8",
+  "normal_camera_capture": {
+    "frames_reviewed": 7,
+    "result": "visible exit and boarding; closing door verified in witness sequence",
+    "existing_warning": "7 Texture RIDs at graphical exit"
+  }
+}

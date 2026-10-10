@@ -1,0 +1,19 @@
+{
+  "build": "/Users/geminchen/My-Item/job-or-not-job/build/baselines/20261010T040004868826Z-42438f3e-7264974b",
+  "source": "actual packaged SubViewport frames; sampled sequence, not FPS benchmark",
+  "videos": {
+    "takeover.mp4": {
+      "sha256": "3569c4cd6bbce9cbb3ddf89cc0d35ea4f0a0444d07e8ba417b5e25c96385a27a",
+      "bytes": 199099
+    },
+    "collision.mp4": {
+      "sha256": "156bbcd11074fa1be5d86b988d5c3deff6ed1aff6f10b244e903f3e3a2078898",
+      "bytes": 227807
+    },
+    "rest.mp4": {
+      "sha256": "7530847fe4d47001fe7cd0a667e15755509dd3999ded74f5567e2c2e355da8d6",
+      "bytes": 530260
+    }
+  },
+  "full_png_sequences": "build/motion-feedback/raw-frames"
+}

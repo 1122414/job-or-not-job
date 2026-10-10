@@ -1,0 +1,23 @@
+Godot Engine v4.7.1.stable.official.a13da4feb - https://godotengine.org
+
+PACKAGED_ROOM_LIGHTING resources=4 hashes_match=true production_excluded=true
+PACKAGED_CHARACTER_SKIN models=3 negative_weights=0 source_hashes_match=true imported_meshes_checked=true
+PACKAGED_BUS authored_parts=5 wheels=4 driver=true continuous_doors=true originals_excluded=true
+PACKAGED_CAR authored_parts=10 wheels=4 doors=2 drivers=3 night_lights=true sources_excluded=true
+PACKAGED_AUDIO clips=12 buses=4 pool=12 vehicles=6 sources=true originals_excluded=true silent_background=true
+PACKAGED_HOME actual_entrance=true rest=true furnishings=true sound_zone=true json_restore=true schema=31
+PACKAGED_FRONTAGES fronts=10 models=4 source_excluded=true compressed_mipmaps=true
+PACKAGED_ARCHITECTURE lots=3 window_bays=226 source_excluded=true compressed_mipmaps=true routes=true
+PACKAGED_NATURE trees=23 levels=3 source_excluded=true texture_imports=verified provenance=matched
+PACKAGED_STREETSCAPE pieces=15750 batches=636 lights=27
+PACKAGED_DAYLIGHT garden_lit=true twilight_distinct=true tonemap=ACES configured_renderer=forward_plus actual_renderer=forward_plus
+PACKAGED_COMMONS benches=6 schema=31 natural_seating=true json_restore=true
+PACKAGED_DAY_CYCLE morning=1980 private_plan=paused json_restore=true
+PACKAGED_EVENING autonomous_arrivals=3 office_crossing=true actual_encounter=true json_restore=true legacy_v19=true legacy_meeting_spots=true schema=31
+PACKAGED_OUTING actual_garden_walk=true distinct_memory=true schema=19 json_restore=true
+PACKAGED_HANDOVER actual_terminal_work=true actual_sender=true negotiated_choice_preserved=true json_restore=true schema=31
+PACKAGED_URBAN galleries=3 scenery_only=29 coastal_shader=true local_ground_restore=true
+PACKAGED_PLACES actual_glazing=2 public_routes=clear fixtures=batched lamps=4 signage=single_sided resident_old_position=restored
+PACKAGED_SHARE real_books=3 standing_reading=true page_turn=true restored=true
+PACKAGED_STORY_WALK schema=17 physical_album=true notes=["daily", "named", "album"]
+PACKAGED_SMOKE_OK build=20261010T040004868826Z-42438f3e-7264974b label=v0.5.0 · 42438f3e / 7264974b（含未提交修改） npcs=10 props=114 company_spaces=2 company_sources=2 environment_props=6 asset_sources=5 authored_clips=4 authored_characters=30 texture_imports=verified ui_mouse=verified city_stops=4 authored_bus=verified bus_ride_save=verified driving_save=verified traffic=3 public_residents=12 population_save=verified bookshop_walk_save=verified original_illustrations=3 public_response_transfer_save=verified persistence=false
