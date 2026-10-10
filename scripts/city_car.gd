@@ -56,6 +56,12 @@ func receive_impact(motion: Vector3,spin: float) -> void:
 func collide_vehicle(collision: KinematicCollision3D) -> bool:
 	var other := collision.get_collider() as CityCar
 	if other==null or other.boarding or boarding: return false
+	# A same-frame restore can leave a contact at the other body's previous location.
+	# Keep the normal sweep stop, but never turn that stale contact into crash state.
+	var size: Vector3=other.get_child(0).shape.size
+	var offset := collision.get_position()-other.global_position
+	var reach := Vector2(size.x,size.z).length()*.5+other.motion_velocity().length()*.1+.1
+	if Vector2(offset.x,offset.z).length()>reach: return false
 	var normal := collision.get_normal();normal.y=0;normal=normal.normalized()
 	var relative := motion_velocity()-other.motion_velocity()
 	var closing := -relative.dot(normal)

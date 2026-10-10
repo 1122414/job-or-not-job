@@ -75,5 +75,16 @@ func run() -> void:
 	var start: Vector3=car.displaced.position
 	for i in range(20): car.displaced._physics_process(1.0/60)
 	check(car.displaced.position.distance_to(start)>.2,"FB10-06 impact produces actual displacement")
+	var peer: CityCar=game.driving.car_for("car_office")
+	car.position=Vector3(0,0,1000);car.rotation.y=0;car.speed=6;car.crashed=false
+	car.impact_velocity=Vector3.ZERO;car.impact_spin=0
+	peer.position=Vector3(0,0,995);peer.rotation.y=0;peer.speed=0;peer.crashed=false
+	peer.impact_velocity=Vector3.ZERO;peer.impact_spin=0
+	await frames(2)
+	var stale_contact := KinematicCollision3D.new()
+	check(car.test_move(car.transform,Vector3.FORWARD*2,stale_contact) and stale_contact.get_collider()==peer,"FB10-01 restored-contact fixture is a real vehicle collision")
+	# A restore can move the other body before a query's previous physics contact clears.
+	peer.position=Vector3(30,0,995)
+	check(not car.collide_vehicle(stale_contact) and not car.crashed and not peer.crashed,"FB10-01 stale contact after relocating another vehicle must not create a permanent crash")
 	print("VEHICLE_ESCAPE_TEST failures=",failures)
 	game.queue_free();await process_frame;quit(failures)
