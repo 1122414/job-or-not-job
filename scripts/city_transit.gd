@@ -56,7 +56,8 @@ func vehicle_transform(offset: float) -> Transform3D:
 	return Transform3D(Basis(Vector3.UP,atan2(-direction.x,-direction.z)),curve.sample_baked(offset))
 
 func sync_vehicle() -> void:
-	if bus.taken:
+	if bus.taken or bus.crashed:
+		sync_passenger()
 		if game.passengers: game.passengers.sync_all()
 		return
 	bus.transform=vehicle_transform(distance)
@@ -76,7 +77,10 @@ func sync_passenger() -> void:
 
 func tick(delta: float) -> void:
 	if delta<=0: return
+	if bus.crashed and not bus.taken:
+		bus.step_impact(delta);sync_vehicle();return
 	if bus.taken:
+		if game.driving.active!=bus: bus.step_impact(delta)
 		sync_passenger()
 		if game.passengers: game.passengers.sync_all()
 		return
@@ -93,16 +97,29 @@ func tick(delta: float) -> void:
 	var remaining := fposmod(stop_offsets[next_stop]-distance,length)
 	var desired := minf(MAX_SPEED,sqrt(2*ACCELERATION*remaining))
 	if game.population: desired=minf(desired,game.population.speed_limit(distance,ACCELERATION,3.6))
+	# Brake for existing traffic before contact. A sudden intrusion inside the
+	# stopping distance still reaches the shared impact response below.
+	var ahead := maxf(3.0,speed*speed/(2*ACCELERATION)+2.0)
+	var probe := bus.transform
+	var obstacle_ahead := false
+	for i in range(1,ceili(ahead)+1):
+		var sample := vehicle_transform(fposmod(distance+minf(i,ahead),length))
+		if bus.test_move(probe,sample.origin-probe.origin):
+			obstacle_ahead=true
+			desired=minf(desired,sqrt(2*ACCELERATION*maxf(0,i-1.8)));break
+		probe=sample
 	speed=move_toward(speed,desired,ACCELERATION*delta)
+	blocked=obstacle_ahead and is_zero_approx(speed)
 	var advance := minf(remaining,speed*delta)
 	var proposed := fposmod(distance+advance,length)
 	var target := vehicle_transform(proposed)
 	# Swept physical collision checks both the current and next orientation on bends.
 	var motion := target.origin-bus.position
 	var turned := Transform3D(target.basis,bus.position)
-	if bus.test_move(bus.transform,motion) or bus.test_move(turned,motion):
+	var contact := KinematicCollision3D.new()
+	if bus.test_move(bus.transform,motion,contact) or bus.test_move(turned,motion,contact):
 		blocked=true
-		speed=0
+		if not bus.collide_vehicle(contact): speed=0
 		return
 	distance=proposed
 	if remaining-advance<0.015:
@@ -123,7 +140,7 @@ func at_platform(index: int) -> bool:
 	return game.player.dead<=0 and game.player.position.distance_to(CityLayout.STOPS[index].platform)<3.1
 
 func board(index: int) -> bool:
-	if bus.taken: return false
+	if bus.taken or bus.crashed: return false
 	if game.in_vehicle() or not at_platform(index) or current_stop!=index: return false
 	if not game.player.stand_up(): return false
 	game.player.store_held()
@@ -139,9 +156,9 @@ func board(index: int) -> bool:
 	return true
 
 func board_vehicle() -> bool:
-	if not bus.taken:
+	if not bus.taken and not bus.crashed:
 		return board(current_stop) if current_stop>=0 else false
-	if game.in_vehicle() or game.player.dead>0 or absf(bus.speed)>.35 or game.player.position.distance_to(bus.position)>4.5 or not game.can_see(game.player,bus): return false
+	if game.in_vehicle() or game.player.dead>0 or absf(bus.speed)>.35 or bus.impact_velocity.length()>.35 or game.player.position.distance_to(bus.position)>4.5 or not game.can_see(game.player,bus): return false
 	if not game.player.stand_up(): return false
 	game.player.store_held()
 	game.player.add_collision_exception_with(bus)
@@ -167,9 +184,10 @@ func manual_exit_clear(actor: CharacterBody3D,point: Vector3) -> bool:
 	return get_world_3d().direct_space_state.intersect_ray(ray).is_empty()
 
 func leave() -> bool:
-	if not riding or (current_stop<0 and not bus.taken): return false
+	if not riding or (current_stop<0 and not bus.taken and not bus.crashed): return false
 	var point: Vector3=CityLayout.STOPS[maxi(0,current_stop)].platform
-	if bus.taken:
+	if bus.taken or bus.crashed:
+		if bus.impact_velocity.length()>.35: return false
 		if absf(bus.speed)>.35: return false
 		var found := false
 		for candidate in manual_exits():
@@ -200,7 +218,7 @@ func request_stop() -> void:
 	game.queue_save()
 
 func wait_for_bus(index: int) -> bool:
-	if bus.taken:
+	if bus.taken or bus.crashed:
 		game.say("101已离开运营路线。可在实际车辆旁乘坐或接管，不能跳过等车召回。")
 		return false
 	if riding or not at_platform(index) or blocked: return false
@@ -248,10 +266,11 @@ func wait_for_bus(index: int) -> bool:
 	return true
 
 func snapshot() -> Dictionary:
-	return {"route":"101-v1","distance":distance,"speed":speed,"dwell":dwell,"current_stop":current_stop,"next_stop":next_stop,"riding":riding,"requested":requested,"visited":visited.duplicate(),"waypoint":waypoint,"manual":{"position":SaveGame.vector(bus.position),"yaw":bus.rotation.y} if bus.taken else {}}
+	return {"route":"101-v1","distance":distance,"speed":speed,"dwell":dwell,"current_stop":current_stop,"next_stop":next_stop,"riding":riding,"requested":requested,"visited":visited.duplicate(),"waypoint":waypoint,"manual":{"position":SaveGame.vector(bus.position),"yaw":bus.rotation.y} if bus.taken else {},"collision":{"position":SaveGame.vector(bus.position),"yaw":bus.rotation.y,"impact":bus.impact_state()} if bus.crashed and not bus.taken else {}}
 
 func stored_transform(data: Dictionary) -> Transform3D:
 	var manual: Dictionary=data.get("manual",{})
+	if manual.is_empty(): manual=data.get("collision",{})
 	return Transform3D(Basis(Vector3.UP,manual.yaw),SaveGame.unvector(manual.position)) if not manual.is_empty() else vehicle_transform(data.distance)
 
 func valid(data: Variant) -> bool:
@@ -268,8 +287,12 @@ func valid(data: Variant) -> bool:
 	for id in data.visited:
 		if not id in ids or data.visited.count(id)!=1: return false
 	if not data.get("waypoint") is String or not data.waypoint in ids+[""]: return false
+	var crash: Variant=data.get("collision",{})
+	if not crash is Dictionary: return false
 	var manual: Variant=data.get("manual",{})
 	if not manual is Dictionary: return false
+	if not crash.is_empty() and (not CityCar.valid_impact(crash.get("impact")) or not crash.impact.crashed or not manual.is_empty()): return false
+	if manual.is_empty(): manual=crash
 	if not manual.is_empty():
 		if not SaveGame.valid_vector(manual.get("position")) or not CityPopulation.number(manual.get("yaw"),-PI-.001,PI+.001): return false
 		var at := SaveGame.unvector(manual.position)
@@ -286,6 +309,7 @@ func valid(data: Variant) -> bool:
 func restore(data: Dictionary) -> void:
 	detach()
 	bus.taken=not data.get("manual",{}).is_empty()
+	bus.restore_impact(data.get("collision",{}).get("impact",{}))
 	distance=float(data.get("distance",0))
 	speed=float(data.get("speed",0))
 	dwell=float(data.get("dwell",DWELL))
@@ -300,7 +324,7 @@ func restore(data: Dictionary) -> void:
 		game.player.add_collision_exception_with(bus)
 		game.player.spring.add_excluded_object(bus.get_rid())
 	visual.snap_doors(current_stop>=0)
-	if bus.taken: bus.transform=stored_transform(data)
+	if bus.taken or bus.crashed: bus.transform=stored_transform(data)
 	sync_vehicle()
 
 func station_for(id: String) -> WorkStation:

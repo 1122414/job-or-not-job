@@ -59,6 +59,7 @@ var commons: CityCommons
 var passengers: CityPassengers
 var home: CityHome
 var meals: CityMeals
+var rest_transition: RestTransition
 var room_lighting: CityRoomLighting
 
 func _ready() -> void:
@@ -210,6 +211,7 @@ func build_ui() -> void:
 	panels.view.game=self
 	canvas.add_child(panels.view)
 	hud.process_mode=Node.PROCESS_MODE_ALWAYS
+	rest_transition=RestTransition.new();rest_transition.game=self;add_child(rest_transition)
 
 func _process(delta: float) -> void:
 	if navigation_dirty>=0:
@@ -286,11 +288,17 @@ func objective_text() -> String:
 			if stop.id==transit.waypoint: return "自由探索 · "+stop.title+"（M 更改目的地）"
 	return ObjectiveGuide.current(self).title
 
+func presentation_minute() -> float:
+	return rest_transition.display_minute if rest_transition and rest_transition.active else float(payroll.minute)
+
+func rest_until(target: int) -> void:
+	rest_transition.start(target)
+
 func update_daylight() -> void:
-	var daylight := CityDaylight.apply(sun,environment,payroll.minute)
+	var daylight := CityDaylight.apply(sun,environment,presentation_minute())
 	var streets: CityStreetscape=get_node_or_null("ConnectedDistrict/Streetscape")
 	if streets: streets.daylight(daylight)
-	var local_minute := payroll.minute % Payroll.DAY
+	var local_minute := int(presentation_minute()) % Payroll.DAY
 	if transit and transit.visual: transit.visual.set_night(local_minute<6*60 or local_minute>=18*60)
 	if driving:
 		for car in driving.cars: car.update_lights()
@@ -488,7 +496,7 @@ func choose(index: int) -> void:
 			say("等阿乐走到现场再一起交涉；他倒地时会恢复。")
 			return
 	if action in ["rest_evening","rest_day","rest_morning"]:
-		advance_time(rest_time(action)-payroll.minute)
+		rest_until(rest_time(action))
 		close_interaction()
 		say(payroll.time_text()+" · 可以继续自己的安排，应得工资照常累计。")
 		return

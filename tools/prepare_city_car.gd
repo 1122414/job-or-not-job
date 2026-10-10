@@ -33,7 +33,7 @@ func side_panel(side: int) -> void:
 				var normal := up.cross(along).normalized()*side
 				points.append([p,normal,Vector2(z,t)])
 			for index in ([0,1,2,0,2,3] if side>0 else [0,2,1,0,3,2]):
-				var p: Array=points[index];vertex(surface("body","paint"),p[0],p[1],p[2])
+				var p: Array=points[index];vertex(surface(("door_left" if side<0 else "door_right") if z0>=-.86 and z1<=.23 else "body","paint"),p[0],p[1],p[2])
 		# Wheel opening has real depth; it never covers the tire sidewall.
 		quad("body","liner",side_point(side,z0,0),side_point(side,z1,0),Vector3(side*.69,lower_edge(z1),z1),Vector3(side*.69,lower_edge(z0),z0),Vector3.DOWN)
 	for axle in AXLES:
@@ -78,9 +78,9 @@ func deck(z0: float,z1: float) -> void:
 				points.append(Vector3(u*(width_at(z)-.055),shoulder(z)+.045*(1-u*u),z))
 			quad("body","paint",points[0],points[1],points[2],points[3],Vector3.UP)
 
-func glazing(a: Vector3,b: Vector3,c: Vector3,d: Vector3,normal: Vector3) -> void:
-	quad("glass","glass",a,b,c,d,normal)
-	for edge in [[a,b],[b,c],[c,d],[d,a]]:tube("body","seal",edge[0],edge[1],.014,10)
+func glazing(a: Vector3,b: Vector3,c: Vector3,d: Vector3,normal: Vector3,group: String="") -> void:
+	quad("glass" if group=="" else group+"_glass","glass",a,b,c,d,normal)
+	for edge in [[a,b],[b,c],[c,d],[d,a]]:tube("body" if group=="" else group,"seal",edge[0],edge[1],.014,10)
 
 func car_seat(at: Vector3) -> void:
 	# Hip support follows the existing root (0.13 + seated hip 0.53),
@@ -152,7 +152,7 @@ func run() -> void:
 		pillar(b,c,.065);tube("body","paint",a,d,.018,12)
 		var bottom := Vector3(side*.79,1.00,.22);var top := Vector3(side*.665,1.55,.22)
 		rounded("body","seal",Vector3(.044,.57,.052),(bottom+top)*.5,.009,Basis(Vector3.BACK,side*.22))
-		glazing(a,b,top,bottom,Vector3.RIGHT*side);glazing(bottom,top,c,d,Vector3.RIGHT*side)
+		glazing(a,b,top,bottom,Vector3.RIGHT*side,"door_left" if side<0 else "door_right");glazing(bottom,top,c,d,Vector3.RIGHT*side)
 		# Door outlines remain visible below the real glass opening.
 		for z in [-.86,.22,1.08]:
 			var bottom_y := maxf(.39,lower_edge(z)+.025)
@@ -161,15 +161,17 @@ func run() -> void:
 				var t0 := (y0-lower_edge(z))/(shoulder(z)-lower_edge(z));var t1 := (y1-lower_edge(z))/(shoulder(z)-lower_edge(z))
 				tube("body","seal",side_point(side,z,t0)+Vector3.RIGHT*side*.003,side_point(side,z,t1)+Vector3.RIGHT*side*.003,.004,6)
 		for z in [.07,.91]:
-			rounded("body","seal",Vector3(.014,.045,.18),Vector3(side*.873,.875,z),.006)
-			rounded("body","metal",Vector3(.025,.021,.137),Vector3(side*.89,.882,z),.009)
+			rounded(("door_left" if side<0 else "door_right") if z<.2 else "body","seal",Vector3(.014,.045,.18),Vector3(side*.873,.875,z),.006)
+			rounded(("door_left" if side<0 else "door_right") if z<.2 else "body","metal",Vector3(.025,.021,.137),Vector3(side*.89,.882,z),.009)
 		rounded("body","paint",Vector3(.21,.11,.24),Vector3(side*.963,1.065,-.71),.052)
 		box("body","metal",Vector3(.145,.067,.01),Vector3(side*.97,1.07,-.58))
 		tube("body","seal",Vector3(side*.78,1.04,-.75),Vector3(side*.95,1.055,-.71),.023)
 		# Door cards, armrest and sill belong to the interior, not solid glass.
-		rounded("cabin","bolster",Vector3(.065,.81,1.68),Vector3(side*.817,.555,.12),.025)
-		rounded("cabin","fabric",Vector3(.07,.20,1.23),Vector3(side*.729,.76,.11),.026)
-		rounded("cabin","bolster",Vector3(.13,.07,.45),Vector3(side*.70,.77,.17),.024)
+		var door := "door_left" if side<0 else "door_right"
+		rounded(door,"bolster",Vector3(.065,.70,1.02),Vector3(side*.817,.58,-.30),.025)
+		rounded(door,"fabric",Vector3(.07,.20,.92),Vector3(side*.729,.76,-.30),.026)
+		rounded(door,"bolster",Vector3(.13,.07,.35),Vector3(side*.70,.77,-.1),.024)
+		rounded("cabin","bolster",Vector3(.065,.70,.78),Vector3(side*.817,.58,.64),.025)
 	glazing(Vector3(-.79,1,-.85),Vector3(-.665,1.55,-.43),Vector3(.665,1.55,-.43),Vector3(.79,1,-.85),Vector3.FORWARD)
 	glazing(Vector3(.79,1,1.08),Vector3(.665,1.55,.72),Vector3(-.665,1.55,.72),Vector3(-.79,1,1.08),Vector3.BACK)
 	for x in [-.47,.24]:

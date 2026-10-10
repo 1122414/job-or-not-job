@@ -92,7 +92,7 @@ func answer(point: CityHomePoint,action: String) -> void:
 	if point.stable_id=="home_bed" and action in ["home_morning","home_evening"]:
 		var target: int=game.rest_time("rest_morning" if action=="home_morning" else "rest_evening")
 		game.close_interaction()
-		game.advance_time(target-game.payroll.minute)
+		game.rest_until(target)
 		last_rest=game.payroll.minute
 		visited=true;sync_scene();game.queue_save()
 		game.say(game.payroll.time_text()+" · 休息过了，接下来由你安排。")

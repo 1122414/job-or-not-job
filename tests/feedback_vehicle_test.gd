@@ -34,6 +34,8 @@ func run() -> void:
 		check(not paused and game.panels.page=="","F05 接管按钮关闭页面并解除暂停")
 		if car.traffic or car.bus_mode:
 			check(car.taken and car.displaced!=null and not car.driver.visible,"F05 原司机离车且自动运营停止")
+		while car.boarding:
+			game.driving.step_entry(1.0/60);await physics_frame
 		for i in range(60): car.drive(1.0/60,1,0,false);game.driving.sync_driver();await physics_frame
 		check(car.speed>2 and car.position.z<63,"F05 接管车辆能真正移动")
 		if car.bus_mode or car.stable_id=="traffic_0": await shot(game,car)

@@ -10,6 +10,7 @@ func _ready() -> void:
 	process_mode=Node.PROCESS_MODE_ALWAYS
 
 func show_page(next: String) -> void:
+	if game.rest_transition and game.rest_transition.active: game.rest_transition.finish()
 	if game.driving: game.driving.suspend_controls()
 	page=next
 	if page=="": return_pages.clear()
@@ -45,6 +46,7 @@ func back() -> void:
 	show_page(destination)
 
 func _input(event: InputEvent) -> void:
+	if game.rest_transition and game.rest_transition.active: return
 	if event is InputEventJoypadButton and event.pressed and event.button_index==JOY_BUTTON_START:
 		if page=="": toggle("pause")
 		else: back()

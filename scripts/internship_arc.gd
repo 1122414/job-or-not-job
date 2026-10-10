@@ -80,7 +80,7 @@ func handle(action: String) -> bool:
 	if action=="story_milestone_wait":
 		var week := pending_week()
 		if not target is WorkStation or target.stable_id!="rest" or week==0 or ready(week): return true
-		game.advance_time(date(week)-game.payroll.minute)
+		game.rest_until(date(week))
 		game.close_interaction();game.say("第%d周节点到了。时间和应得工资已推进；工作成果和承诺需要当面确认。" % week)
 		game.queue_save();return true
 	if action in ["story_renewal","story_renewal_written","story_renewal_scope"]:

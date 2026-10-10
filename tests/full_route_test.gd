@@ -79,6 +79,7 @@ func perform(game: Node3D,id: String,action: String) -> bool:
 					if companion and companion.position.distance_to(target.position)<3.8: break
 					await physics_frame
 			game.choose(i)
+			while game.rest_transition.active: await process_frame
 			if action in ["no_hc","transfer","defend"]: game.choose(0)
 			if action.begins_with("report_"):
 				game.choose(0)

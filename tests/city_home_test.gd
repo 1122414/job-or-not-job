@@ -20,7 +20,9 @@ func home_use(id: String) -> bool:
 func choose_action(action: String) -> bool:
 	for i in range(game.conversation.get("choices",[]).size()):
 		if game.conversation.choices[i][1]==action:
-			key(KEY_1+i);return true
+			key(KEY_1+i)
+			if game.rest_transition.active: key(KEY_ESCAPE)
+			return true
 	check(false,"缺少真实选项 "+action+" "+str(game.conversation));return false
 
 func run() -> void:

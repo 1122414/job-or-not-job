@@ -1,9 +1,13 @@
 {
 	"collision": "unchanged 1.86 x 1.3 x 4.25 m",
 	"derived_files": {
-		"body.res": "ea8b7176de51bcbdb912780796df64592a974f1d2d50419bbc650f9a47686ee5",
-		"cabin.res": "59a93bf8f6b65f5d07568f72a958d9bc49ceb44f6b817fb0b6273cf6eec3048b",
-		"glass.res": "88892bfc7dfa0e5a292da89a72716137ef29439efae06c10735c1f0aab3e9585",
+		"body.res": "f3085c3cfa65e38abebc449b1537b08062b697bed0259c8ed71659436c88f240",
+		"cabin.res": "4b4c54070b1fa2dd48b725ee0a2d0d1b92dc55fd011b7107bbfefcdde1f1488f",
+		"door_left.res": "e32f4f1f2dddeb95f526ad62ff42e78aec3d6253b2cb85e14d9351bcbc5ff282",
+		"door_left_glass.res": "9bb5c103c6cfc89b39f5eff735d54bd251f5aea1c6dad9b96cc0e8b32e864a18",
+		"door_right.res": "5785dd4e1d4d3865ac082ef97ab6cf064699476001a1e3b3285becaa3bc33dca",
+		"door_right_glass.res": "7fd573e4172c5f95dc24d72fdd79bd3ca52860d0105902785d3573d4e31b849d",
+		"glass.res": "fb83f53d54eacd269bcf8b8f904fdc122f13b981460979d647770187a61b0cce",
 		"headlights.res": "58fad3603b3ce7efdc43a0ace2fbbdc6a89dc0e68cb69610ffbbb43a35ad3768",
 		"taillights.res": "f2c9e1b3835c062e367a5342c49fff1e232ff8d858eed3ca731ada8cac39bccb",
 		"wheel.res": "4497f0b46512c44dfe34b3e4b5bcb5e93a643e6bb86c4f6a4d82189e8b9cbb3a"
@@ -13,15 +17,31 @@
 	"geometry": {
 		"body": {
 			"surfaces": 6,
-			"triangles": 28700
+			"triangles": 24956
 		},
 		"cabin": {
 			"surfaces": 7,
-			"triangles": 17568
+			"triangles": 15216
+		},
+		"door_left": {
+			"surfaces": 5,
+			"triangles": 3636
+		},
+		"door_left_glass": {
+			"surfaces": 1,
+			"triangles": 2
+		},
+		"door_right": {
+			"surfaces": 5,
+			"triangles": 3636
+		},
+		"door_right_glass": {
+			"surfaces": 1,
+			"triangles": 2
 		},
 		"glass": {
 			"surfaces": 1,
-			"triangles": 12
+			"triangles": 8
 		},
 		"headlights": {
 			"surfaces": 1,
@@ -39,7 +59,7 @@
 	"origin": "Original project compact sedan; no third-party vehicle input",
 	"sources": {
 		"tools/prepare_city_bus.gd": "5c7029f9fb4d700842f646848b3cf09be502f1dbe1ab10a41a8a6c9413f88525",
-		"tools/prepare_city_car.gd": "01573ef5d91c57e7c7c1b64804b630c9ebfcfc864fd88aab7fc7096e9fa85f08"
+		"tools/prepare_city_car.gd": "3a5bb5e2a35b2994f9a74c907c6a1b2d500e96e2cc5883c57134f064d022c94d"
 	},
 	"wheel_radius_m": 0.34
 }

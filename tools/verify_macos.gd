@@ -61,12 +61,14 @@ func run() -> void:
 	game.transit.visual.snap_doors(game.transit.current_stop>=0)
 	print("PACKAGED_BUS authored_parts=5 wheels=4 driver=true continuous_doors=true originals_excluded=true")
 	var car_record: Dictionary=JSON.parse_string(FileAccess.get_file_as_string(CityCarVisual.ROOT+"production.json"))
-	if FileAccess.get_file_as_string(package_resources.path_join("CAR-PRODUCTION.json"))!=FileAccess.get_file_as_string(CityCarVisual.ROOT+"production.json") or car_record.get("derived_files",{}).size()!=6 or ResourceLoader.exists("res://tools/prepare_city_car.gd"):
+	if FileAccess.get_file_as_string(package_resources.path_join("CAR-PRODUCTION.json"))!=FileAccess.get_file_as_string(CityCarVisual.ROOT+"production.json") or car_record.get("derived_files",{}).size()!=10 or ResourceLoader.exists("res://tools/prepare_city_car.gd"):
 		push_error("Packaged car provenance or source exclusion failed");quit(1);return
 	for file in car_record.derived_files:
 		if FileAccess.get_sha256(CityCarVisual.ROOT+file)!=car_record.derived_files[file]:
 			push_error("Packaged car geometry differs from production record");quit(1);return
 	for vehicle in game.driving.cars:
+		if vehicle.visual!=null and vehicle.visual.doors.size()!=2:
+			push_error("Packaged car articulated doors missing");quit(1);return
 		if vehicle.visual==null or vehicle.wheels.size()!=4 or vehicle.front_wheels.size()!=2 or vehicle.visual.lamps.size()!=2:
 			push_error("Packaged authored car incomplete");quit(1);return
 		if vehicle.traffic:
@@ -81,7 +83,7 @@ func run() -> void:
 		if not vehicle.visual.lamps.all(func(lamp):return lamp.visible==vehicle.traffic):
 			push_error("Packaged night car lights inconsistent");quit(1);return
 	game.payroll.minute=car_minute;game.update_daylight()
-	print("PACKAGED_CAR authored_parts=6 wheels=4 drivers=3 night_lights=true sources_excluded=true")
+	print("PACKAGED_CAR authored_parts=10 wheels=4 doors=2 drivers=3 night_lights=true sources_excluded=true")
 	var audio_sources := OS.get_executable_path().get_base_dir().path_join("../Resources/AUDIO-SOURCES.json")
 	if FileAccess.get_file_as_string(audio_sources)!=FileAccess.get_file_as_string("res://assets/audio/city/provenance.json") or ResourceLoader.exists("res://production/audio/cc0-2026-09-30/engine.wav") or FileAccess.file_exists("res://production/audio/cc0-2026-09-30/shop.zip"):
 		push_error("Packaged audio provenance mismatch or originals leaked"); quit(1); return

@@ -245,6 +245,7 @@ static func restore(game: Node3D, data: Dictionary) -> bool:
 	if not valid(data,game): return false
 	# Runtime dictionaries must not mutate the caller's reusable save snapshot.
 	data=data.duplicate(true)
+	if game.rest_transition: game.rest_transition.finish()
 	game.driving.detach()
 	game.transit.detach()
 	game.restore_revision+=1

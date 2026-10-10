@@ -10,6 +10,7 @@ var driver: HumanVisual
 var headlights: MeshInstance3D
 var taillights: MeshInstance3D
 var lamps: Array[SpotLight3D]=[]
+var doors: Array[Node3D]=[]
 
 func part(id: String,parent: Node3D=self) -> MeshInstance3D:
 	var instance := MeshInstance3D.new();instance.name=id.to_pascal_case()
@@ -23,6 +24,17 @@ func _ready() -> void:
 		if source.resource_name=="paint":
 			var material: StandardMaterial3D=source.duplicate();material.albedo_color=car.paint
 			body.set_surface_override_material(i,material)
+	for side in [-1,1]:
+		var pivot := Node3D.new();add_child(pivot);doors.append(pivot)
+		pivot.position=Vector3(side*.84,0,-.854)
+		var id := "door_left" if side<0 else "door_right"
+		for suffix in ["","_glass"]:
+			var panel := part(id+suffix,pivot);panel.position=-pivot.position
+			for i in range(panel.mesh.get_surface_count()):
+				var source: StandardMaterial3D=panel.mesh.surface_get_material(i)
+				if source.resource_name=="paint":
+					var material: StandardMaterial3D=source.duplicate();material.albedo_color=car.paint
+					panel.set_surface_override_material(i,material)
 	part("glass").cast_shadow=GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
 	headlights=part("headlights");taillights=part("taillights")
 	for lens in [headlights,taillights]:
@@ -61,3 +73,8 @@ func set_lighting(night: bool,powered: bool,braking: bool) -> void:
 	headlights.material_override.emission_energy_multiplier=1.5 if night and powered else 0.0
 	taillights.material_override.emission_energy_multiplier=2.4 if powered and braking else .45 if night and powered else 0.0
 	taillights.material_override.albedo_color=Color("dd3730") if powered and braking else Color("942b26")
+
+func set_door(side: float,amount: float) -> void:
+	for index in range(doors.size()):
+		var sign_value := -1.0 if index==0 else 1.0
+		doors[index].rotation.y=sign_value*1.15*amount if side==sign_value else 0.0

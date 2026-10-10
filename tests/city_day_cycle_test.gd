@@ -18,6 +18,7 @@ func choose_action(action: String) -> bool:
 	for i in range(game.conversation.get("choices",[]).size()):
 		if game.conversation.choices[i][1]==action:
 			key(KEY_1+i)
+			if game.rest_transition.active: key(KEY_ESCAPE)
 			return true
 	check(false,"实际数字键选项缺失 "+action+" "+str(game.conversation))
 	return false

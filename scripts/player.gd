@@ -114,6 +114,10 @@ func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("cycle"): cycle_item()
 
 func _physics_process(delta: float) -> void:
+	if game.driving.active and game.driving.active.boarding:
+		pivot.rotation=Vector3(pitch,yaw,0)
+		spring.spring_length=lerpf(spring.spring_length,6.4,1-exp(-delta*5))
+		return
 	if hit_pause>0:
 		hit_pause=maxf(0,hit_pause-delta)
 		visual.animation.speed_scale=0
@@ -322,7 +326,7 @@ func pick(prop: OfficeProp) -> void:
 
 func sync_held() -> void:
 	if game.meals: game.meals.scene.apply(self)
-	if game.driving and game.driving.active: game.driving.active.pose_driver(visual)
+	if game.driving and game.driving.active and not game.driving.active.boarding: game.driving.active.pose_driver(visual)
 	if swing>0 and visual.current==strike_style and dead<=0 and strike_style!="kick":
 		var phase := visual.animation.current_animation_position
 		var extension := smoothstep(.04,.18,phase)*(1.0-smoothstep(.24,.42,phase))

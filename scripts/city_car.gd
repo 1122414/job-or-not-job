@@ -27,6 +27,84 @@ var driver: HumanVisual
 var steering_wheel: MeshInstance3D
 var visual: CityCarVisual
 var braking_now := false
+# Residual planar motion is independent of the engine and of the route controller.
+var impact_velocity := Vector3.ZERO
+var impact_spin := 0.0
+var crashed := false
+var boarding := false
+
+func mass_kg() -> float:
+	return 8000.0 if bus_mode else 1200.0
+
+func inertia() -> float:
+	return mass_kg()*(55.76 if bus_mode else 21.52)/12.0
+
+func motion_velocity() -> Vector3:
+	var forward_speed := speed
+	if bus_mode and not taken and not crashed: forward_speed=get_parent().game.transit.speed
+	return -basis.z*forward_speed+impact_velocity
+
+func receive_impact(motion: Vector3,spin: float) -> void:
+	impact_velocity=motion.limit_length(25);impact_velocity.y=0
+	impact_spin=clampf(spin,-1.8,1.8)
+	speed=0;crashed=true
+	if bus_mode and not taken:
+		var transit: CityTransit=get_parent().game.transit
+		transit.speed=0;transit.dwell=0;transit.current_stop=-1
+	get_parent().game.queue_save()
+
+func collide_vehicle(collision: KinematicCollision3D) -> bool:
+	var other := collision.get_collider() as CityCar
+	if other==null or other.boarding or boarding: return false
+	var normal := collision.get_normal();normal.y=0;normal=normal.normalized()
+	var relative := motion_velocity()-other.motion_velocity()
+	var closing := -relative.dot(normal)
+	if closing<.15: return false
+	var lever := collision.get_position()-global_position;lever.y=0
+	var other_lever := collision.get_position()-other.global_position;other_lever.y=0
+	var torque := lever.cross(normal).y
+	var other_torque := other_lever.cross(normal).y
+	var impulse := 1.25*closing/(1/mass_kg()+1/other.mass_kg()+torque*torque/inertia()+other_torque*other_torque/other.inertia())
+	var before := motion_velocity();var other_before := other.motion_velocity()
+	receive_impact(before+normal*impulse/mass_kg(),impact_spin+torque*impulse/inertia())
+	other.receive_impact(other_before-normal*impulse/other.mass_kg(),other.impact_spin-other_torque*impulse/other.inertia())
+	var city: Node3D=get_parent().game
+	if city.driving.active==self or city.driving.active==other:
+		if city.shake_enabled: city.player.camera.h_offset=minf(.16,closing*.012)
+	return true
+
+func step_impact(delta: float) -> void:
+	var dt := minf(delta,.1)
+	if boarding: return
+	if impact_velocity.length_squared()<.0001 and absf(impact_spin)<.001: return
+	update_body_exceptions()
+	var before := impact_velocity
+	impact_velocity=impact_velocity.move_toward(Vector3.ZERO,3.5*dt)
+	var collision := move_and_collide((before+impact_velocity)*.5*dt)
+	if collision and not collide_vehicle(collision):
+		impact_velocity=impact_velocity.slide(collision.get_normal())*.65
+		impact_spin*=.5
+	var angle := impact_spin*dt
+	for i in range(maxi(1,ceili(absf(angle)/.015))):
+		var next := rotation.y+angle/maxi(1,ceili(absf(angle)/.015))
+		if not rotation_clear(next): impact_spin=0;break
+		rotation.y=wrapf(next,-PI,PI)
+	impact_spin=move_toward(impact_spin,0,1.6*dt)
+	position.y=0
+
+func impact_state() -> Dictionary:
+	return {"crashed":crashed,"velocity":SaveGame.vector(impact_velocity),"spin":impact_spin}
+
+static func valid_impact(data: Variant) -> bool:
+	if not data is Dictionary or not data.get("crashed") is bool or not SaveGame.valid_vector(data.get("velocity")) or not CityPopulation.number(data.get("spin"),-1.8,1.8): return false
+	var motion := SaveGame.unvector(data.velocity)
+	return absf(motion.y)<.001 and motion.length()<=25.001 and (data.crashed or motion==Vector3.ZERO and data.spin==0)
+
+func restore_impact(data: Dictionary) -> void:
+	crashed=data.get("crashed",false)
+	impact_velocity=SaveGame.unvector(data.get("velocity",[0,0,0]))
+	impact_spin=float(data.get("spin",0));boarding=false
+
 
 func update_body_exceptions() -> void:
 	for person in get_parent().game.population.residents:
@@ -51,7 +129,7 @@ func _ready() -> void:
 
 func update_lights() -> void:
 	var city: Node3D=get_parent().game
-	var minute: int=city.payroll.minute%Payroll.DAY
+	var minute: int=int(city.presentation_minute())%Payroll.DAY
 	if bus_mode: bus_visual.set_night(minute<360 or minute>=1080)
 	else: visual.set_lighting(minute<360 or minute>=1080,traffic and not taken or city.driving.active==self,braking_now)
 
@@ -81,6 +159,8 @@ func pose_driver(human: HumanVisual) -> void:
 		human.contacts.fingers(side,.72)
 
 func drive(delta: float, throttle: float, turn: float, handbrake: bool) -> void:
+	if boarding: return
+	step_impact(delta)
 	update_body_exceptions()
 	# A planar bicycle controller for the current flat district. Sweeps cover travel;
 	# rotation is also swept in small steps so a rear corner cannot rotate through a wall.
@@ -112,7 +192,7 @@ func drive(delta: float, throttle: float, turn: float, handbrake: bool) -> void:
 				collision=move_and_collide(collision.get_remainder())
 				if not collision: continue
 			blocked=true
-			speed=0
+			if not collide_vehicle(collision): speed=0
 			break
 	rotation.y=wrapf(rotation.y,-PI,PI)
 	position.y=0.0
@@ -148,6 +228,8 @@ func set_taken(value: bool,at: Vector3=Vector3.ZERO,retreat_time: float=3.0) -> 
 		displaced.position=at;displaced.retreat=retreat_time
 
 func tick_traffic(delta: float, transit: CityTransit) -> void:
+	if crashed:
+		step_impact(delta);animate_wheels(delta,true);return
 	var dt := minf(delta,0.1)
 	var length := transit.curve.get_baked_length()
 	var desired := 7.0
@@ -169,8 +251,10 @@ func tick_traffic(delta: float, transit: CityTransit) -> void:
 	var next := transit.vehicle_transform(next_distance)
 	var motion := next.origin-position
 	steering=clampf(atan(-angle_difference(rotation.y,next.basis.get_euler().y)*WHEELBASE/maxf(advance,0.001)),-0.58,0.58)
-	blocked=test_move(transform,motion) or test_move(Transform3D(next.basis,position),motion)
-	if blocked: speed=0
+	var contact := KinematicCollision3D.new()
+	blocked=test_move(transform,motion,contact) or test_move(Transform3D(next.basis,position),motion,contact)
+	if blocked:
+		if not collide_vehicle(contact): speed=0
 	else:
 		route_distance=next_distance
 		transform=next

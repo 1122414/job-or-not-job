@@ -111,7 +111,7 @@ func handle(action: String) -> bool:
 		return true
 	if action=="rest_next":
 		var time := next_time()
-		if time>0: game.advance_time(time-game.payroll.minute)
+		if time>0: game.rest_until(time)
 		game.close_interaction(); return true
 	return false
 func options(npc: OfficeNPC,fallback: Dictionary) -> Dictionary:

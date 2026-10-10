@@ -405,7 +405,7 @@ func city_page() -> void:
 
 func transit_page() -> void:
 	var t: CityTransit=game.transit
-	if t.bus.taken:
+	if t.bus.taken or t.bus.crashed:
 		paragraph("101 已离开运营路线 · 停稳后可上下车或接管驾驶。",ACCENT)
 		if t.riding: action("bus-leave","就地下车",func(): t.leave())
 		else: action("bus-board","乘坐公交",func(): t.board_vehicle(),game.player.position.distance_to(t.bus.position)>4.5)
