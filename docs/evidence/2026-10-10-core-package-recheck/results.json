@@ -1,0 +1,196 @@
+[
+  {
+    "name": "autumn_prologue_test.gd",
+    "command": [
+      "/Users/geminchen/My-Item/job-or-not-job/build/baselines/20261010T040004868826Z-42438f3e-7264974b/今天不上班-0.5.0.app/Contents/MacOS/TodayOff",
+      "--headless",
+      "--fixed-fps",
+      "60",
+      "--script",
+      "/tmp/job-core-package-drivers/autumn_prologue_test.gd",
+      "--log-file",
+      "/Users/geminchen/My-Item/job-or-not-job/docs/evidence/2026-10-10-core-package-recheck/autumn_prologue_test.gd.log",
+      "--"
+    ],
+    "exit": 0,
+    "success_marker": "AUTUMN_PROLOGUE_TEST failures=0",
+    "marker_found": true,
+    "errors": false,
+    "seconds": 5.39,
+    "passed": true,
+    "log": "autumn_prologue_test.gd.log"
+  },
+  {
+    "name": "autumn_full_story_test.gd",
+    "command": [
+      "/Users/geminchen/My-Item/job-or-not-job/build/baselines/20261010T040004868826Z-42438f3e-7264974b/今天不上班-0.5.0.app/Contents/MacOS/TodayOff",
+      "--headless",
+      "--fixed-fps",
+      "60",
+      "--script",
+      "/tmp/job-core-package-drivers/autumn_full_story_test.gd",
+      "--log-file",
+      "/Users/geminchen/My-Item/job-or-not-job/docs/evidence/2026-10-10-core-package-recheck/autumn_full_story_test.gd.log",
+      "--",
+      "--story-save=/Users/geminchen/My-Item/job-or-not-job/build/core-package-recheck/ending.json"
+    ],
+    "exit": 0,
+    "success_marker": "AUTUMN_FULL_STORY_TEST failures=0",
+    "marker_found": true,
+    "errors": false,
+    "seconds": 82.9,
+    "passed": true,
+    "log": "autumn_full_story_test.gd.log"
+  },
+  {
+    "name": "friend_handover_test.gd",
+    "command": [
+      "/Users/geminchen/My-Item/job-or-not-job/build/baselines/20261010T040004868826Z-42438f3e-7264974b/今天不上班-0.5.0.app/Contents/MacOS/TodayOff",
+      "--headless",
+      "--fixed-fps",
+      "60",
+      "--script",
+      "/tmp/job-core-package-drivers/friend_handover_test.gd",
+      "--log-file",
+      "/Users/geminchen/My-Item/job-or-not-job/docs/evidence/2026-10-10-core-package-recheck/friend_handover_test.gd.log",
+      "--"
+    ],
+    "exit": 0,
+    "success_marker": "FRIEND_HANDOVER_TEST failures=0",
+    "marker_found": true,
+    "errors": false,
+    "seconds": 45.98,
+    "passed": true,
+    "log": "friend_handover_test.gd.log"
+  },
+  {
+    "name": "departure_response_test.gd",
+    "command": [
+      "/Users/geminchen/My-Item/job-or-not-job/build/baselines/20261010T040004868826Z-42438f3e-7264974b/今天不上班-0.5.0.app/Contents/MacOS/TodayOff",
+      "--headless",
+      "--fixed-fps",
+      "60",
+      "--script",
+      "/tmp/job-core-package-drivers/departure_response_test.gd",
+      "--log-file",
+      "/Users/geminchen/My-Item/job-or-not-job/docs/evidence/2026-10-10-core-package-recheck/departure_response_test.gd.log",
+      "--"
+    ],
+    "exit": 0,
+    "success_marker": "DEPARTURE_RESPONSE_TEST failures=0",
+    "marker_found": true,
+    "errors": false,
+    "seconds": 7.95,
+    "passed": true,
+    "log": "departure_response_test.gd.log"
+  },
+  {
+    "name": "free_chat_context_test.gd",
+    "command": [
+      "/Users/geminchen/My-Item/job-or-not-job/build/baselines/20261010T040004868826Z-42438f3e-7264974b/今天不上班-0.5.0.app/Contents/MacOS/TodayOff",
+      "--headless",
+      "--fixed-fps",
+      "60",
+      "--script",
+      "/tmp/job-core-package-drivers/free_chat_context_test.gd",
+      "--log-file",
+      "/Users/geminchen/My-Item/job-or-not-job/docs/evidence/2026-10-10-core-package-recheck/free_chat_context_test.gd.log",
+      "--"
+    ],
+    "exit": 0,
+    "success_marker": "FREE_CHAT_CONTEXT_TEST failures=0",
+    "marker_found": true,
+    "errors": false,
+    "seconds": 3.3,
+    "passed": true,
+    "log": "free_chat_context_test.gd.log"
+  },
+  {
+    "name": "independent-ending",
+    "command": [
+      "/Users/geminchen/My-Item/job-or-not-job/build/baselines/20261010T040004868826Z-42438f3e-7264974b/今天不上班-0.5.0.app/Contents/MacOS/TodayOff",
+      "--headless",
+      "--fixed-fps",
+      "60",
+      "--script",
+      "/Users/geminchen/My-Item/job-or-not-job/tools/verify_autumn_ending.gd",
+      "--log-file",
+      "/Users/geminchen/My-Item/job-or-not-job/docs/evidence/2026-10-10-core-package-recheck/independent-ending.log",
+      "--",
+      "--from=/Users/geminchen/My-Item/job-or-not-job/build/core-package-recheck/ending.json"
+    ],
+    "exit": 0,
+    "success_marker": "PACKAGED_ENDING_RESTORE_OK=true",
+    "marker_found": true,
+    "errors": false,
+    "seconds": 3.21,
+    "passed": true,
+    "log": "independent-ending.log"
+  },
+  {
+    "name": "independent-friend-checked",
+    "command": [
+      "/Users/geminchen/My-Item/job-or-not-job/build/baselines/20261010T040004868826Z-42438f3e-7264974b/今天不上班-0.5.0.app/Contents/MacOS/TodayOff",
+      "--headless",
+      "--fixed-fps",
+      "60",
+      "--script",
+      "/tmp/job-core-package-drivers/friend_handover_test.gd",
+      "--log-file",
+      "/Users/geminchen/My-Item/job-or-not-job/docs/evidence/2026-10-10-core-package-recheck/independent-friend-checked.log",
+      "--",
+      "--from-route=/Users/geminchen/My-Item/job-or-not-job/build/core-package-recheck/checked.json"
+    ],
+    "exit": 0,
+    "success_marker": "FRIEND_HANDOVER_RESTORE failures=0",
+    "marker_found": true,
+    "errors": false,
+    "seconds": 3.13,
+    "passed": true,
+    "log": "independent-friend-checked.log"
+  },
+  {
+    "name": "independent-friend-negotiated",
+    "command": [
+      "/Users/geminchen/My-Item/job-or-not-job/build/baselines/20261010T040004868826Z-42438f3e-7264974b/今天不上班-0.5.0.app/Contents/MacOS/TodayOff",
+      "--headless",
+      "--fixed-fps",
+      "60",
+      "--script",
+      "/tmp/job-core-package-drivers/friend_handover_test.gd",
+      "--log-file",
+      "/Users/geminchen/My-Item/job-or-not-job/docs/evidence/2026-10-10-core-package-recheck/independent-friend-negotiated.log",
+      "--",
+      "--from-route=/Users/geminchen/My-Item/job-or-not-job/build/core-package-recheck/negotiated.json"
+    ],
+    "exit": 0,
+    "success_marker": "FRIEND_HANDOVER_RESTORE failures=0",
+    "marker_found": true,
+    "errors": false,
+    "seconds": 4.15,
+    "passed": true,
+    "log": "independent-friend-negotiated.log"
+  },
+  {
+    "name": "independent-friend-declined",
+    "command": [
+      "/Users/geminchen/My-Item/job-or-not-job/build/baselines/20261010T040004868826Z-42438f3e-7264974b/今天不上班-0.5.0.app/Contents/MacOS/TodayOff",
+      "--headless",
+      "--fixed-fps",
+      "60",
+      "--script",
+      "/tmp/job-core-package-drivers/friend_handover_test.gd",
+      "--log-file",
+      "/Users/geminchen/My-Item/job-or-not-job/docs/evidence/2026-10-10-core-package-recheck/independent-friend-declined.log",
+      "--",
+      "--from-route=/Users/geminchen/My-Item/job-or-not-job/build/core-package-recheck/declined.json"
+    ],
+    "exit": 0,
+    "success_marker": "FRIEND_HANDOVER_RESTORE failures=0",
+    "marker_found": true,
+    "errors": false,
+    "seconds": 3.2,
+    "passed": true,
+    "log": "independent-friend-declined.log"
+  }
+]

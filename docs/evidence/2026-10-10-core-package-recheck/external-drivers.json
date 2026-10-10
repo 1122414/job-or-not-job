@@ -1,0 +1,52 @@
+{
+  "autumn_prologue_test.gd": {
+    "source_sha256": "74a802b72b84eaae6b2f1f649b702e97823f929d555ad903ea13c55c4a0bb70b",
+    "external_sha256": "74a802b72b84eaae6b2f1f649b702e97823f929d555ad903ea13c55c4a0bb70b",
+    "adaptations": "test imports and isolated friend output only"
+  },
+  "autumn_full_story_test.gd": {
+    "source_sha256": "24692bbb3b0a0a57681fa425651e6693a284d58a7b9bd2491e25c8850c15991b",
+    "external_sha256": "79bb3525e4536d378fc9fa9d0f11b768eab3d42432126a4b5b997dba32522fa9",
+    "adaptations": "test imports and isolated friend output only"
+  },
+  "autumn_search_driver.gd": {
+    "source_sha256": "6aa15a284edad5c38e45f58991a97a07afc17dbcf10d99ae4cef16ebd42c16b3",
+    "external_sha256": "6aa15a284edad5c38e45f58991a97a07afc17dbcf10d99ae4cef16ebd42c16b3",
+    "adaptations": "test imports and isolated friend output only"
+  },
+  "autumn_career_test.gd": {
+    "source_sha256": "62e1d8d4710fb69c1a8afde65af7fe5a1b8e5cbc842c0cce9201f765871b74f4",
+    "external_sha256": "1bb89a68b3a5117768b167d123a1fc70c6e32a663290d921b22d13d319a48ffe",
+    "adaptations": "test imports and isolated friend output only"
+  },
+  "full_route_test.gd": {
+    "source_sha256": "5ca4a75f8d403fa7fe6f26058053a99a29ef1bfaf3c7b83f15cf45d510042117",
+    "external_sha256": "7155b7f0ba834a93c96bfc4e399f5b4a99b2c288050636b1b6d5326125a3ca77",
+    "adaptations": "test imports and isolated friend output only"
+  },
+  "scene_driver.gd": {
+    "source_sha256": "f65c0276d73f304291d7abd388f30a4e5a9ed9c8bc8b2b85c994cb3f4bddc19b",
+    "external_sha256": "f65c0276d73f304291d7abd388f30a4e5a9ed9c8bc8b2b85c994cb3f4bddc19b",
+    "adaptations": "test imports and isolated friend output only"
+  },
+  "friend_handover_test.gd": {
+    "source_sha256": "f72e83b822595eb771c1e81825caa8a691d9812868ea94392f3c80e884cea9b9",
+    "external_sha256": "1df76ec341d3550b326fb59e5e45ea8c4554e2045b6f3d4c038f336249a871ba",
+    "adaptations": "test imports and isolated friend output only"
+  },
+  "departure_response_test.gd": {
+    "source_sha256": "253ac8f27e5640fd5b8ed06953972885cd0c062e2b1f4d46fb4a2d5a54bc1d27",
+    "external_sha256": "8bdcf9f9ad2d902f170ce3476540d2f1a68b6bc84c6791131dce9c2d226f0d17",
+    "adaptations": "test imports and isolated friend output only"
+  },
+  "free_chat_context_test.gd": {
+    "source_sha256": "b0afe097890373120eaa5be5999b356ba6eb155a5834fe598336645b736d4dc5",
+    "external_sha256": "7446eb1e5b13558ed97889aff207eb5fca470453432714b3f234f7df9d9965fb",
+    "adaptations": "test imports and isolated friend output only"
+  },
+  "free_chat_test.gd": {
+    "source_sha256": "e0f0774525c886d8c5a0b272aaebb102ce4710d5b64423551489e78624921eec",
+    "external_sha256": "e0f0774525c886d8c5a0b272aaebb102ce4710d5b64423551489e78624921eec",
+    "adaptations": "test imports and isolated friend output only"
+  }
+}

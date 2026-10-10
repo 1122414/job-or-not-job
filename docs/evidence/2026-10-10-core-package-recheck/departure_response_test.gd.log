@@ -1,0 +1,4 @@
+Godot Engine v4.7.1.stable.official.a13da4feb - https://godotengine.org
+
+MEETING positions (-3.731231, 0.0, -9.477327) / (-5.081455, 0.00094, -9.912681) player (-4.013989, -0.004785, -8.144639) state { "phase": "walking", "person": "a_group", "boss": "a_boss", "requested_at": 40860, "arranged_at": 40863, "testified_at": 0, "finished_at": 0, "reason": "" }
+DEPARTURE_RESPONSE_TEST failures=0

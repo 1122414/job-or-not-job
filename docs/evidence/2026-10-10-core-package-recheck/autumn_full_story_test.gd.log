@@ -1,0 +1,22 @@
+Godot Engine v4.7.1.stable.official.a13da4feb - https://godotengine.org
+
+AUTUMN_ROUTE_STEP ["a_hr", "interview_hr"]
+AUTUMN_ROUTE_STEP ["a_lead", "interview_lead"]
+AUTUMN_ROUTE_STEP ["a_boss", "interview_boss"]
+AUTUMN_ROUTE_STEP ["a_hr", "join_a"]
+AUTUMN_ROUTE_STEP ["a_hr", "tour_begin"]
+AUTUMN_ROUTE_STEP ["a_hr", "tour_greet"]
+AUTUMN_ROUTE_STEP ["a_hr", "tour_settle"]
+AUTUMN_ROUTE_STEP ["desk_a", "desk_open"]
+AUTUMN_ROUTE_STEP ["a_hr", "service_account"]
+AUTUMN_ROUTE_STEP ["a_lead", "brief"]
+AUTUMN_ROUTE_STEP ["archive", "data"]
+AUTUMN_ROUTE_STEP ["desk_a", "prepare"]
+AUTUMN_ROUTE_STEP ["a_friend", "shortcut"]
+AUTUMN_ROUTE_STEP ["demo", "submit"]
+AUTUMN_ROUTE_STEP ["a_lead", "no_hc"]
+AUTUMN_ROUTE_STEP ["a_group", "transfer"]
+AUTUMN_ROUTE_STEP ["desk_a2", "desk_open"]
+AUTUMN_ROUTE_STEP ["backup", "backup"]
+AUTUMN_ROUTE_STEP ["a_boss", "defend"]
+AUTUMN_FULL_STORY_TEST failures=0

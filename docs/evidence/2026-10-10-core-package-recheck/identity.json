@@ -1,0 +1,11 @@
+{
+  "runtime_hash": "7264974be7337b9e2a95b3d8552f7ec5f42b45245a51ed453ff51f11dba6104e",
+  "source_commit": "41a35849417731518dfa0467198d4be7c09b73b2",
+  "runtime_dirty": false,
+  "pck_sha256": "15a5e6d097f229c92cd0cb9423a788f4a48d2bb20a4b6e7f51b487e8486b6d47",
+  "before_after_equal": true,
+  "build": "/Users/geminchen/My-Item/job-or-not-job/build/baselines/20261010T040004868826Z-42438f3e-7264974b",
+  "tests_passed": 9,
+  "real_cloud_requests": 0,
+  "foreground_capture": false
+}
